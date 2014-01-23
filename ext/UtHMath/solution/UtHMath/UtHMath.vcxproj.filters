@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\Matrix4.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\Vector2.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\Vector3.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\Matrix.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -32,7 +32,7 @@
     <None Include="..\..\include\Vector3.inl">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="..\..\include\Matrix4.tpp">
+    <None Include="..\..\include\Matrix.tpp">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>

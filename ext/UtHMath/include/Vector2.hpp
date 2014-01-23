@@ -23,6 +23,8 @@
 /**/ #pragma once
 /***********************************************************************************************/
 
+#include <cmath>
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -223,14 +225,14 @@ namespace uth
 
     /// Include implementation file.
     ///
-    #include <GP\Math\Vector2.inl>
+    #include <Vector2.inl>
     
 
     /// Typedefs of most common data types.
     ///
-    typedef Vector2<int>    Vector2I;
-    typedef Vector2<float>  Vector2F;
-    typedef Vector2<double> Vector2D;
+    typedef Vector2<int>    vector2i;
+    typedef Vector2<float>  vector2f;
+    typedef Vector2<double> vector2d;
 
 
 } // namespace uth

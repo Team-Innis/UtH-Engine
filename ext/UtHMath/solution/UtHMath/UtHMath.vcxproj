@@ -61,12 +61,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\Matrix4.hpp" />
+    <ClInclude Include="..\..\include\Matrix.hpp" />
     <ClInclude Include="..\..\include\Vector2.hpp" />
     <ClInclude Include="..\..\include\Vector3.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\include\Matrix4.tpp" />
+    <None Include="..\..\include\Matrix.tpp" />
     <None Include="..\..\include\Vector2.inl" />
     <None Include="..\..\include\Vector3.inl" />
   </ItemGroup>

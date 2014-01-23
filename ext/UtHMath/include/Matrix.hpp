@@ -23,6 +23,8 @@
 /**/ #pragma once
 /***********************************************************************************************/
 
+#include <algorithm>
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -70,10 +72,19 @@ namespace uth
         /**/ Matrix& makeDiagonal();
 
 
+		/// Matrix multiplication.
+		///
+		/**/ template<typename OT, int OR, int OC>
+		/**/ Matrix<T, R, OC> multiply(const Matrix<OT, C, OC>& matrix2);
+
+		/// Scalar multiplication.
+		///
+		/**/ Matrix& multiply(const T scalar);
+
+
         /// Get the minor of the matrix.
         ///
-        template<typename RT, int RR, int RC>
-        /**/ Matrix<RT, RR, RC> getMinor(const int row, const int column);
+        /**/ Matrix<T, R - 1, C - 1> getMinor(const int row, const int column);
 
 
         /// Get the number of rows.
@@ -93,6 +104,13 @@ namespace uth
         /**/ Matrix& invert();
 
 
+		/// Get the inverse matrix.
+		///
+		/// Returns a copy. Doesn't modify internal values.
+		///
+		/**/ Matrix getInverse() const;
+
+
         /// Get the determinant.
         ///
         /// \return Reference to the matrix, allowing chaining functions.
@@ -102,7 +120,7 @@ namespace uth
 
         /// Get the given element.
         ///
-        /**/ const T& get(const int row, const int column);
+        /**/ T& get(const int row, const int column);
 
 
     private:
@@ -124,28 +142,45 @@ namespace uth
         ///
         /**/ Matrix operator =(const Matrix& other);
 
-
-        /// [] (access element)
-        ///
-        /**/ T* operator [](const int index);
+		T& operator [](const int index);
 
 
         /// () (access element)
         ///
         /// This operator is one-based instead of zero-based.
         ///
-        /**/ T& operator ()(const int row, const int column);
+        /**/ const T& operator ()(const int row, const int column) const;
 
 
         /// *= (multiplication)
         ///
-        /**/ Matrix& operator *=(const Matrix<T, R, C>& right);
+        /**/ Matrix& operator *=(const Matrix& right);
 
 
         /// * (multiplication)
         ///
         /**/ template<typename OT, int OR, int OC>
-        /**/ Matrix<T, R, C> operator *(const Matrix<OT, C, OC>& right);
+        /**/ Matrix<T, R, OC> operator *(const Matrix<OT, C, OC>& right);
+
+
+		/// *= (scalar multiplication)
+        ///
+        /**/ Matrix& operator *=(const T right);
+
+
+        /// * (scalar multiplication)
+        ///
+        /**/ Matrix operator *(const T right);
+
+
+		/// /= (division)
+		///
+		/**/ 
+
+
+		/// / (division)
+		///
+		/**/ 
 
 
         /// += (addition)
@@ -174,25 +209,24 @@ namespace uth
 
         /// == (equality)
         ///
-        /**/ template<typename OT, int OR, int OC>
-        /**/ bool operator ==(const Matrix<OT, OR, OC>& right);
+        /**/ bool operator ==(const Matrix& right);
 
 
         /// != (inequality)
         ///
-        /**/ template<typename OT, int OR, int OC>
-        /**/ bool operator !=(const Matrix<OT, OR, OC>& right);
+        /**/ bool operator !=(const Matrix& right);
 
 
     }; // class Matrix
 
-
+	/////////////////////////////////////////////////////////////////////////////////////////////////
+    /// Non-member functions & operators
     /////////////////////////////////////////////////////////////////////////////////////////////////
-    /// Non-member functions
-    /////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //multiply()
-    //...
+	/// * (scalar multiplication)
+	///
+	/**/ template<typename T, int R, int C>
+	/**/ Matrix<T, R, C> operator *(const T scalar, Matrix<T, R, C>& matrix);
 
     
     /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -201,7 +235,7 @@ namespace uth
 
     /// Include the implementation file.
     ///
-    #include <Matrix4.tpp>
+    #include <Matrix.tpp>
 
 
     /// Typedefs of the most common matrix types.

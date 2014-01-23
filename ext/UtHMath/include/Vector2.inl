@@ -125,7 +125,7 @@ inline Vector2<T>& Vector2<T>::normalize()
 template<typename T>
 inline const T Vector2<T>::getMagnitude() const
 {
-    return std::sqrt(x * x + y * y);
+    return sqrt(x * x + y * y);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
