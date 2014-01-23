@@ -62,6 +62,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\Matrix.hpp" />
+    <ClInclude Include="..\..\include\Quaternion.hpp" />
     <ClInclude Include="..\..\include\Vector2.hpp" />
     <ClInclude Include="..\..\include\Vector3.hpp" />
   </ItemGroup>
@@ -69,6 +70,9 @@
     <None Include="..\..\include\Matrix.tpp" />
     <None Include="..\..\include\Vector2.inl" />
     <None Include="..\..\include\Vector3.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Quaternion.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
