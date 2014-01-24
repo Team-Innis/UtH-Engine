@@ -15,32 +15,51 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\Vector2.hpp">
+    <ClInclude Include="..\..\include\umath\Math.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\Vector3.hpp">
+    <ClInclude Include="..\..\include\umath\Matrix.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\Matrix.hpp">
+    <ClInclude Include="..\..\include\umath\Matrix3.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\Quaternion.hpp">
+    <ClInclude Include="..\..\include\umath\Matrix4.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\umath\Rectangle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\umath\Vector.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\umath\Vector2.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\umath\Vector3.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\umath\Vector4.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\include\Vector2.inl">
+    <ClCompile Include="..\..\src\umath\Matrix3.cpp">
       <Filter>Source Files</Filter>
-    </None>
-    <None Include="..\..\include\Vector3.inl">
+    </ClCompile>
+    <ClCompile Include="..\..\src\umath\Matrix4.cpp">
       <Filter>Source Files</Filter>
-    </None>
-    <None Include="..\..\include\Matrix.tpp">
+    </ClCompile>
+    <ClCompile Include="..\..\src\umath\Rectangle.cpp">
       <Filter>Source Files</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\src\Quaternion.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\src\umath\Vector2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\umath\Vector3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\umath\Vector4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
