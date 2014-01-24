@@ -32,7 +32,7 @@ Matrix<T, R, C>::Matrix(const Matrix<T, R, C>& other)
     {
         for (int j = 0; j < C; j++)
         {
-            m_matrix[i][j] = other(i + 1, j + 1);
+            m_matrix[i][j] = other[i][j];
         }
     }
 }
@@ -134,7 +134,7 @@ Matrix<T, R - 1, C - 1> Matrix<T, R, C>::getMinor(const int row, const int colum
 	{
 		for (int j = 1; i <= (C - (column >= C)); j++)
 		{
-			result(i - (i > row), j - (j > column)) = m_matrix[i - 1][j - 1];
+            result.get(i - (i > row), j - (j > column)) = m_matrix[i - 1][j - 1];
 		}
 	}
 
@@ -170,7 +170,7 @@ Matrix<T, R, C>& Matrix<T, R, C>::invert()
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 template<typename T, int R, int C>
-Matrix<T, R, C> Matrix<T, R, C>::getInverse() const
+Matrix<T, R, C> Matrix<T, R, C>::getInverse()
 {
 	Matrix<T, R, C> result;
 
@@ -180,14 +180,14 @@ Matrix<T, R, C> Matrix<T, R, C>::getInverse() const
 
 	if (R == 1)
 	{
-		result(1, 1) = 1 / m_matrix[0][0];
+		result[0][0] = 1 / m_matrix[0][0];
 	}
 	else if (R == 2)
 	{
-		result(1, 1) = m_matrix[1][1];
-		result(1, 2) = -m_matrix[0][1];
-		result(2, 1) = -m_matrix[1][0];
-		result(2, 2) = m_matrix[0][0];
+		result[0][0] = m_matrix[1][1];
+		result[0][1] = -m_matrix[0][1];
+		result[1][0] = -m_matrix[1][0];
+		result[1][1] = m_matrix[0][0];
 
 		result = (1 / det) * result;
 	}
@@ -199,14 +199,14 @@ Matrix<T, R, C> Matrix<T, R, C>::getInverse() const
 
 		for (int c = 1; c <= C; c++)
 		{
-			for (int r = c; r <= R && temp(r, c) == 0; r++)
+			for (int r = c; r <= R && temp.get(r, c) == 0; r++)
 			{
 				if (r != c)
 				{
 					for (int s = 1; s <= C; s++)
 					{
-						std::swap(temp(c, s), temp(r, s));
-						std::swap(result(c, s), result(r, s));
+						std::swap(temp.get(c, s), temp.get(r, s));
+						std::swap(result.get(c, s), result.get(r, s));
 					}
 				}
 			}
@@ -215,25 +215,25 @@ Matrix<T, R, C> Matrix<T, R, C>::getInverse() const
 			{
 				if (r != c)
 				{
-					if (temp(r, c) != 0)
+					if (temp.get(r, c) != 0)
 					{
-						const T f = -temp(r, c) / temp(c, c);
+						const T f = -temp.get(r, c) / temp.get(c, c);
 
 						for (int s = 1; s <= C; s++)
 						{
-							temp(r, s) += f * temp(c, s);
-							result(r, s) += f * result(c, s);
+							temp.get(r, s) += f * temp.get(c, s);
+							result.get(r, s) += f * result.get(c, s);
 						}
 					}
 				}
 				else
 				{
-					const T f = temp(c, c);
+					const T f = temp.get(c, c);
 
 					for (int s = 1; s <= C; s++)
 					{
-						temp(r, s) /= f;
-						result(r, s) /= f;
+						temp.get(r, s) /= f;
+						result.get(r, s) /= f;
 					}
 				}
 			}
@@ -246,7 +246,7 @@ Matrix<T, R, C> Matrix<T, R, C>::getInverse() const
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 template<typename T, int R, int C>
-const T Matrix<T, R, C>::determinant() const
+T Matrix<T, R, C>::determinant()
 {
     if (R != C) return 0;
 
@@ -265,7 +265,7 @@ const T Matrix<T, R, C>::determinant() const
     {
         for (int i = 1; i <= C; i++)
         {
-            Matrix<T, R - 1, C - 1> temp = minor(1, i);
+            Matrix<T, R - 1, C - 1> temp(this->getMinor(1, i));
 
             det += ((i % 2) + (i % 2) - 1) * m_matrix[0][i - 1] * temp.determinant();
         }
@@ -293,7 +293,7 @@ Matrix<T, R, C> Matrix<T, R, C>::operator =(const Matrix<T, R, C>& other)
     {
         for (int j = 0; j < C; j++)
         {
-            m_matrix[i][j] = other(i + 1, j + 1);
+            m_matrix[i][j] = other[i][j];
         }
     }
 }
@@ -301,18 +301,17 @@ Matrix<T, R, C> Matrix<T, R, C>::operator =(const Matrix<T, R, C>& other)
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
 template<typename T, int R, int C>
-const T& Matrix<T, R, C>::operator ()(const int row, const int column) const
+MatrixVector<T, R>& Matrix<T, R, C>::operator [](const int index)
 {
-    if (row > R || column > C || row <= 0 || column <= 0) return m_matrix[0][0];
-
-    return m_matrix[row - 1][column - 1];
+    return m_matrix[index];
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
 template<typename T, int R, int C>
-T& Matrix<T, R, C>::operator [](const int index)
+const MatrixVector<T, R>& Matrix<T, R, C>::operator [](const int index) const
 {
-
+    return m_matrix[index];
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////

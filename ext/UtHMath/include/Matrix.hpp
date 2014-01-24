@@ -27,6 +27,26 @@
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
+template<typename VT, int E>
+class MatrixVector
+{
+public:
+
+	VT& operator [](const int index)
+	{
+		return m_elements[index];
+	}
+
+    const VT& operator [](const int index) const
+	{
+		return m_elements[index];
+	}
+
+private:
+
+	VT m_elements[E];
+};
+
 
 namespace uth
 {
@@ -108,14 +128,14 @@ namespace uth
 		///
 		/// Returns a copy. Doesn't modify internal values.
 		///
-		/**/ Matrix getInverse() const;
+		/**/ Matrix getInverse();
 
 
         /// Get the determinant.
         ///
         /// \return Reference to the matrix, allowing chaining functions.
         ///
-        /**/ const T determinant() const;
+        /**/ T determinant();
 
 
         /// Get the given element.
@@ -129,7 +149,7 @@ namespace uth
         /// Member data
         /////////////////////////////////////////////////////////////////////////////////////////////////
 
-        T m_matrix[R][C];     ///< An array containing the elements.
+        MatrixVector<T, R> m_matrix[C];     ///< An array containing the elements.
 
 
     public:
@@ -142,14 +162,15 @@ namespace uth
         ///
         /**/ Matrix operator =(const Matrix& other);
 
-		T& operator [](const int index);
+
+        /// [] (access-element)
+        ///
+		/**/ MatrixVector<T, R>& operator [](const int index);
 
 
-        /// () (access element)
+        /// [] (const access-element)
         ///
-        /// This operator is one-based instead of zero-based.
-        ///
-        /**/ const T& operator ()(const int row, const int column) const;
+		/**/ const MatrixVector<T, R>& operator [](const int index) const;
 
 
         /// *= (multiplication)
@@ -218,6 +239,13 @@ namespace uth
 
 
     }; // class Matrix
+
+
+    template<typename T>
+    class Matrix<T, 2, 2>
+    {
+
+    }
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
     /// Non-member functions & operators
