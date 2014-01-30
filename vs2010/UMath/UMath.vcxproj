@@ -10,28 +10,10 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\include\umath\Math.hpp" />
-    <ClInclude Include="..\..\include\umath\Matrix.hpp" />
-    <ClInclude Include="..\..\include\umath\Matrix3.hpp" />
-    <ClInclude Include="..\..\include\umath\Matrix4.hpp" />
-    <ClInclude Include="..\..\include\umath\Rectangle.hpp" />
-    <ClInclude Include="..\..\include\umath\Vector.hpp" />
-    <ClInclude Include="..\..\include\umath\Vector2.hpp" />
-    <ClInclude Include="..\..\include\umath\Vector3.hpp" />
-    <ClInclude Include="..\..\include\umath\Vector4.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\src\umath\Matrix3.cpp" />
-    <ClCompile Include="..\..\src\umath\Matrix4.cpp" />
-    <ClCompile Include="..\..\src\umath\Rectangle.cpp" />
-    <ClCompile Include="..\..\src\umath\Vector2.cpp" />
-    <ClCompile Include="..\..\src\umath\Vector3.cpp" />
-    <ClCompile Include="..\..\src\umath\Vector4.cpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D47010E0-4D44-43A5-93F7-21241CCA7D7D}</ProjectGuid>
-    <RootNamespace>UtHMath</RootNamespace>
+    <ProjectGuid>{D16755AB-9F02-42C3-849D-ACDD08E550CA}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>UMath</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -40,10 +22,10 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -55,31 +37,63 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>$(ProjectDir)$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)$(Configuration)\</IntDir>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Math\Matrix3.cpp" />
+    <ClCompile Include="..\..\src\Math\Matrix4.cpp" />
+    <ClCompile Include="..\..\src\Math\Rectangle.cpp" />
+    <ClCompile Include="..\..\src\Math\Vector2.cpp" />
+    <ClCompile Include="..\..\src\Math\Vector3.cpp" />
+    <ClCompile Include="..\..\src\Math\Vector4.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\UtH\Math\Math.hpp" />
+    <ClInclude Include="..\..\include\UtH\Math\Matrix.hpp" />
+    <ClInclude Include="..\..\include\UtH\Math\Matrix3.hpp" />
+    <ClInclude Include="..\..\include\UtH\Math\Matrix4.hpp" />
+    <ClInclude Include="..\..\include\UtH\Math\Rectangle.hpp" />
+    <ClInclude Include="..\..\include\UtH\Math\Vector.hpp" />
+    <ClInclude Include="..\..\include\UtH\Math\Vector2.hpp" />
+    <ClInclude Include="..\..\include\UtH\Math\Vector3.hpp" />
+    <ClInclude Include="..\..\include\UtH\Math\Vector4.hpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
