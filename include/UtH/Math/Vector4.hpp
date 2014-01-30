@@ -2,7 +2,7 @@
 #ifndef VECTOR4_H_UMATH
 #define VECTOR4_H_UMATH
 
-#include <umath\Vector3.hpp>
+#include <UtH\Math\Vector3.hpp>
 
 namespace umath
 {
