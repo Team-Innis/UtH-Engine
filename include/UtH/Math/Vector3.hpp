@@ -12,9 +12,18 @@ namespace umath
 		~vector3();
 
 		float getLenght();
-		//float getAngle();
-
-		float x,y,z;
+		
+		union
+		{
+			struct
+			{
+				float x,y,z;
+			};
+			struct
+			{
+				float r,g,b;
+			};
+		};
 			
 		const float& operator [](const unsigned int& index) const;
 		float& operator [](const unsigned int& index);

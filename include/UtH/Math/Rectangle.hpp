@@ -9,21 +9,33 @@ namespace umath
 	class rectangle
 	{
 	public:
-
 		rectangle();
 		rectangle(float Left, float Top, float Width, float Height);
 		rectangle(vector2 Position, float Width, float Height);
 		rectangle(vector2 Position, vector2 Size);
+
 		~rectangle();
 
-		vector2 position, size;
-
+		union
+		{
+			struct 
+			{
+				float left, top, width, height;
+			};
+			struct
+			{
+				vector2 position, size;
+			};
+			struct
+			{
+				float x, y;
+			};
+		};
 
 	private:
 		void Resize(vector2 Size);
-		
 
-		bool Intersects(rectangle rectangle);
+		bool Intersects(rectangle Rectangle);
 		bool Contains(vector2 Position);
 
 	};

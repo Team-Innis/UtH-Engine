@@ -19,21 +19,21 @@ namespace umath
 	{
 		return atan2(y,x);
 	}
-	float vector2::getAngle() const
+	float vector2::getDegrees() const
 	{
 		return getRadians()*180.0/PI;
 	}
 
-	void vector2::transform(const vector2 position)
+	void vector2::Transform(const vector2 position)
 	{
 		x += position.x;
 		y += position.y;
 	}
-	void vector2::rotateDegrees(const float degrees)
+	void vector2::RotateDegrees(const float degrees)
 	{
-		rotate(degrees/180*PI);
+		Rotate(degrees/180.0*PI);
 	}
-	void vector2::rotate(const float radians)
+	void vector2::Rotate(const float radians)
 	{
 		if (radians == 0)
 			return;
@@ -44,7 +44,7 @@ namespace umath
 		x = oldX*cosA-y*sinA;
 		y = oldX*sinA+y*cosA;
 	}
-	void vector2::scale(const vector2 scale)
+	void vector2::Scale(const vector2 scale)
 	{
 		x*=scale.x;
 		y*=scale.y;
