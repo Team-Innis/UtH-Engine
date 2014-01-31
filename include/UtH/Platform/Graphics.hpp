@@ -20,6 +20,8 @@ namespace uth
     public:
 
         // Window functions
+        // Create the window. If a windows has already been created, it's closed and a new one opened.
+        // This function assumes that glutInit() has already been called.
         bool createWindow(const WindowSettings& settings);
 
         void destroyWindow();
@@ -52,7 +54,7 @@ namespace uth
         int createShaderProgram();
 
         // Creates the shader object, compiles the source and then attaches it to the program object.
-        // Does not to the linking.
+        // Does not do the linking.
         bool createShader(const ShaderType type, const int shaderProgram, const char* shaderCode);
 
         bool linkShaderProgram(const int shaderProgram);
@@ -98,6 +100,12 @@ namespace uth
 
         /////////////////////////////////////////////////////////
         // Texture functions
+
+
+
+
+        /////////////////////////////////////////////////////////
+        // Other
 
 
 
