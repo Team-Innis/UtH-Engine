@@ -32,11 +32,12 @@ namespace umath
 			};
 		};
 
-	private:
-		void Resize(vector2 Size);
+		float getRight();
+		float getBottom();
 
 		bool Intersects(rectangle Rectangle);
 		bool Contains(vector2 Position);
+	private:
 
 	};
 }

@@ -22,4 +22,30 @@ namespace umath
 
 	rectangle::~rectangle()
 	{}
+	
+	float rectangle::getRight()
+	{
+		return left + width;
+	}
+	float rectangle::getBottom()
+	{
+		return top + height;
+	}
+	
+	bool rectangle::Intersects(rectangle Rectangle)
+	{
+		if (Rectangle.getRight() < left)
+			return false;
+		if (getRight() < Rectangle.left)
+			return false;
+		if (Rectangle.getBottom() < top)
+			return false;
+		if (getBottom() < Rectangle.top)
+			return false;
+		return true;
+	}
+	bool rectangle::Contains(vector2 Position)
+	{
+		return Intersects(rectangle(Position,0,0));
+	}
 }
