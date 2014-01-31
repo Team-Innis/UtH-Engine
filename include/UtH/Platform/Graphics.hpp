@@ -29,6 +29,7 @@ namespace uth
         void swapBuffers();
 
 
+        /////////////////////////////////////////////////////////
         // Shader functions
         enum ShaderType
         {
@@ -37,6 +38,14 @@ namespace uth
             GEOMETRY_SHADER,
 
             SHADER_LAST
+        };
+
+        enum DataType
+        {
+            FLOAT_TYPE,
+            INT_TYPE,
+
+            TYPE_LAST
         };
 
 
@@ -52,11 +61,43 @@ namespace uth
 
         void destroyShaderProgram(const int shaderProgram);
 
-        int getUniformLocation(const char* name);
+        int getUniformLocation(const int shaderProgram, const char* name);
 
-        int getAttributeLocation(const char* name);
+        int getAttributeLocation(const int shaderProgram, const char* name);
 
-        //bool setUniform(const umath::
+        void setUniform(const int location, const float x);
+
+        void setUniform(const int location, const float x, const float y);
+
+        void setUniform(const int location, const float x, const float y, const float z);
+
+        void setUniform(const int location, const float x, const float y, const float z, const float w);
+
+        void setUniform(const int location, const umath::vector2& vector);
+
+        void setUniform(const int location, const umath::vector3& vector);
+
+        void setUniform(const int location, const umath::vector4& vector);
+
+        void setUniform(const int location, const umath::matrix3& matrix);
+
+        void setUniform(const int location, const umath::matrix4& matrix);
+
+        void enableVertexAttribArray(const int location);
+
+        void disableVertexAttribArray(const int location);
+
+        void setVertexAttribPointer(const int location, const int size, const DataType type, const int stride, void* pointer);
+
+
+        /////////////////////////////////////////////////////////
+        // Buffer functions
+
+
+
+
+        /////////////////////////////////////////////////////////
+        // Texture functions
 
 
 
