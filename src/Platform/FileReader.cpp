@@ -46,11 +46,11 @@ bool FileReader::FileSeek(int offset, int origin)
 	return false;
 }
 
-bool FileReader::ReadBytes(unsigned int size, void* buffer)
+bool FileReader::ReadBytes(void* buffer, unsigned int count, unsigned int blockSize)
 {
 	if(file != NULL)
 	{
-		if(fread(buffer, 1, size, file) == size)
+		if(fread(buffer, blockSize, count, file) == count)
 			return true;		
 	}
 	return false;
@@ -62,7 +62,7 @@ void* FileReader::ReadBinary()
 	void* buffer;
 	buffer = malloc(size);
 
-	ReadBytes(size, buffer);
+	ReadBytes(buffer, size);
 	
 	return buffer;
 }
@@ -71,7 +71,7 @@ const char* FileReader::ReadText()
 {
 	int size = GetFileSize();
 	char* buffer = new char[size];
-	ReadBytes(size, buffer);
+	ReadBytes(buffer, size);
 
 	buffer[size] = 0; // Null terminate the string
 

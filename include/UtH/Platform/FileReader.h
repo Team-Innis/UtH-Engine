@@ -19,10 +19,10 @@ namespace uth
 		// see SEEK_SET, SEEK_CUR and SEEK_END
 		bool FileSeek(int offset, int origin = SEEK_CUR);
 
-		// Read a 'size' long block of data from file to buffer
+		// Read a 'count' ammount of 'blockSize' sized blocks of data from file to buffer
 		// Buffer is a pointer to the first element of an array
 		// Also sets the file pointer to the end of read block
-		bool ReadBytes(unsigned int size, void* buffer);
+		bool ReadBytes(void* buffer, unsigned int count, unsigned int blockSize = 1);
 
 		// Read whole file
 		void* ReadBinary();
