@@ -1,6 +1,8 @@
 // Headers
 #include <UtH\Platform\OpenGL.hpp>
 #include <string>
+#include <cstdlib> // itoa
+#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -42,8 +44,11 @@ namespace uth
                     break;
             }
 
-            errorS += static_cast<char>(line);
-            // cout...
+			char buf[10]; // Sure hope we wont go over 9 999 999 lines in one file
+			itoa(line, buf, 10);
+			errorS += " on line: ";
+			errorS += buf;
+			std::cout << fileS << ":\n" << errorS << std::endl;
         }
     }
 
