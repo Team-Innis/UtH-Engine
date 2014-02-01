@@ -4,9 +4,15 @@
 #include <UtH\Platform\OGLCheck.hpp>
 #include <iostream>
 
-#pragma comment(lib, "freeglutd.lib")
-#pragma comment(lib, "glew32d.lib")
-
+#ifdef _DEBUG
+#pragma comment(lib, "freeglut_staticd.lib")
+#pragma comment(lib, "glew32sd.lib")
+#else // Release
+// FIXME: Static 'Release' version of the GLEW lib breaks the build
+// consider using dynamic linking for release
+#pragma comment(lib, "freeglut_static.lib")
+#pragma comment(lib, "glew32sd.lib")
+#endif
 
 namespace uth
 {
