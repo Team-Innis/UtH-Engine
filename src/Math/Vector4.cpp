@@ -1,5 +1,5 @@
 #include <cmath>
-#include <umath\Math.hpp>
+#include <UtH\Math\Math.hpp>
 
 
 namespace umath
@@ -23,27 +23,6 @@ namespace umath
 	{	
 		return sqrt(pow(x,2) + pow(y,2) + pow(z,2) + pow(w,2));
 	}
-	/*float vector4::getAngle()
-	{
-		if (x == 0)
-		{
-			if (y > 0)
-				return 90;
-			return 270;
-		}
-		else
-		{
-			float angle = float(atan(y/x)*(180.0f/PI));
-
-			if (x < 0)
-				angle += 180;
-
-			else if (angle < 0)
-				angle += 360;
-
-			return angle;
-		}
-	}*/
 
 	// Public
 	// Operators

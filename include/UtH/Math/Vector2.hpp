@@ -19,27 +19,36 @@ namespace umath
 			/*
 			Returns the angle of the vector in degrees ranging from -180 to 180
 			*/
-			float getAngle() const;
+			float getDegrees() const;
 
 			/*
 			Transforms the current vector by given position vector.
 			*/
-			void transform(const vector2 position);
+			void Transform(const vector2 Position);
 			/*
 			Rotates the current vector by given amount of degrees.
 			*/
-			void rotateDegrees(const float degrees);
+			void RotateDegrees(const float Degrees);
 			/*
 			Rotates the current vector by given amount of radians.
 			*/
-			void rotate(const float radians);
+			void Rotate(const float Radians);
 			/*
 			Scales the current vector by given scale vector.
 			*/
-			void scale(const vector2 scale);
+			void Scale(const vector2 Scale);
 
-			float x,y;
-
+			union
+			{
+				struct
+				{
+					float x,y;
+				};
+				struct
+				{
+					float w,h;
+				};
+			};
 
 		private:
 

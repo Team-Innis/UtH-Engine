@@ -2,7 +2,7 @@
 #ifndef VECTOR4_H_UMATH
 #define VECTOR4_H_UMATH
 
-#include <umath\Vector3.hpp>
+#include <UtH\Math\Vector3.hpp>
 
 namespace umath
 {
@@ -15,9 +15,18 @@ namespace umath
 		~vector4();
 
 		float getLenght();
-		//float getAngle();
 
-		float x,y,z,w;
+		union
+		{
+			struct
+			{
+				float x,y,z,w;
+			};
+			struct
+			{
+				float r,g,b,a;
+			};
+		};
 
 		const float& operator [](const unsigned int& index) const;
 		float& operator [](const unsigned int& index);
