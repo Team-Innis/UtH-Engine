@@ -6,12 +6,12 @@ namespace umath
 	vector3::vector3()
 		: x(0), y(0),z(0)
 	{}
-	vector3::vector3(double X, double Y, double Z)
+	vector3::vector3(float X, float Y, float Z)
 		: x(X), y(Y), z(Z)
 	{}
 	vector3::~vector3(){}
 
-	double vector3::getLenght()
+	float vector3::getLenght()
 	{	
 		return sqrt(pow(x,2) + pow(y,2) + pow(z,2));
 	}
@@ -19,11 +19,11 @@ namespace umath
 	// Public
 	// Operators
 	
-	const double& vector3::operator [](const unsigned int& index) const
+	const float& vector3::operator [](const unsigned int& index) const
 	{
 		return (&x)[index];
 	}
-	double& vector3::operator [](const unsigned int& index)
+	float& vector3::operator [](const unsigned int& index)
 	{
 		return (&x)[index];
 	}
@@ -57,15 +57,15 @@ namespace umath
 		return LeftVal;
 	}
 
-	vector3 operator /(const vector3& LeftVal, const double& RightVal)
+	vector3 operator /(const vector3& LeftVal, const float& RightVal)
 	{
 		return vector3(LeftVal.x / RightVal,LeftVal.y / RightVal, LeftVal.z / RightVal);
 	}
-	const vector3& operator /=(vector3& LeftVal, const double& RightVal)
+	const vector3& operator /=(vector3& LeftVal, const float& RightVal)
 	{
-		LeftVal.x /= (double)RightVal;
-		LeftVal.y /= (double)RightVal;
-		LeftVal.z /= (double)RightVal;
+		LeftVal.x /= (float)RightVal;
+		LeftVal.y /= (float)RightVal;
+		LeftVal.z /= (float)RightVal;
 		return LeftVal;
 	}
 
@@ -80,16 +80,16 @@ namespace umath
 		return !(LeftVal == RightVal);
 	}
 
-	vector3 operator *(const vector3& LeftVal, const double& RightVal)
+	vector3 operator *(const vector3& LeftVal, const float& RightVal)
 	{
 		return vector3(LeftVal.x * RightVal,LeftVal.y * RightVal, LeftVal.z * RightVal);
 	}
-	vector3 operator *(const double& LeftVal, const vector3& RightVal)
+	vector3 operator *(const float& LeftVal, const vector3& RightVal)
 	{
 		return vector3(LeftVal * RightVal.x,LeftVal * RightVal.y, LeftVal * RightVal.z);
 	}
 
-	const vector3& operator *=(vector3& LeftVal,const double& RightVal)
+	const vector3& operator *=(vector3& LeftVal,const float& RightVal)
 	{
 		LeftVal.x *= RightVal;
 		LeftVal.y *= RightVal;

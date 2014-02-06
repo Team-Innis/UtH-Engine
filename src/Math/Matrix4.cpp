@@ -12,7 +12,7 @@ namespace umath
 		r3(vector4(0.f,0.f,1.f,0.f)),
 		r4(vector4(0.f,0.f,0.f,1.f))
 	{}
-	matrix4::matrix4(const double* fe)
+	matrix4::matrix4(const float* fe)
 		:
 		r1(fe[0],fe[1],fe[2],fe[3]),
 		r2(fe[4],fe[5],fe[6],fe[7]),
@@ -38,22 +38,22 @@ namespace umath
 		r4(Row4)
 	{}
 	matrix4::matrix4(
-		const double& c1r1,const double& c1r2,const double& c1r3,const double& c1r4,
-		const double& c2r1,const double& c2r2,const double& c2r3,const double& c2r4,
-		const double& c3r1,const double& c3r2,const double& c3r3,const double& c3r4,
-		const double& c4r1,const double& c4r2,const double& c4r3,const double& c4r4)
+		const float& r1c1,const float& r1c2,const float& r1c3,const float& r1c4,
+		const float& r2c1,const float& r2c2,const float& r2c3,const float& r2c4,
+		const float& r3c1,const float& r3c2,const float& r3c3,const float& r3c4,
+		const float& r4c1,const float& r4c2,const float& r4c3,const float& r4c4)
 		:
-		r1(c1r1,c1r2,c1r3,c1r4),
-		r2(c2r1,c2r2,c2r3,c2r4),
-		r3(c3r1,c3r2,c3r3,c3r4),
-		r4(c4r1,c4r2,c4r3,c4r4)
+		r1(r1c1,r1c2,r1c3,r1c4),
+		r2(r2c1,r2c2,r2c3,r2c4),
+		r3(r3c1,r3c2,r3c3,r3c4),
+		r4(r4c1,r4c2,r4c3,r4c4)
 	{}
 	matrix4::~matrix4()
 	{}
 	
-	double* matrix4::FirstElement() const
+	float* matrix4::FirstElement() const
 	{
-		return (double*)&r1.x;
+		return (float*)&r1.x;
 	}
 	
 	const vector4& matrix4::operator [](const unsigned int& index) const
@@ -67,7 +67,7 @@ namespace umath
 	
 	matrix4 operator *(const matrix4& RM, const matrix4& LM)
 	{
-		const double L[4][4] = 
+		const float L[4][4] = 
 		{
 			LM[0][0],
 			LM[0][1],
@@ -86,7 +86,7 @@ namespace umath
 			LM[3][2],
 			LM[3][3]
 		};
-		const double R[4][4] = 
+		const float R[4][4] = 
 		{
 			RM[0][0],
 			RM[0][1],
@@ -135,7 +135,7 @@ namespace umath
 	
 	vector4 operator *(const vector4& RV, const matrix4& LM)
 	{
-		const double L[4][4] = 
+		const float L[4][4] = 
 		{
 			LM[0][0],
 			LM[0][1],
@@ -154,7 +154,7 @@ namespace umath
 			LM[3][2],
 			LM[3][3]
 		};
-		const double R[4] = 
+		const float R[4] = 
 		{
 			RV[0],
 			RV[1],

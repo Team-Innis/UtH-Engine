@@ -13,18 +13,18 @@ namespace umath
 		Creates Identity Matrix
 		*/
 		matrix3();
-		matrix3(const double* FirstElement);
+		matrix3(const float* FirstElement);
 		matrix3(
 			const vector3& Row1,
 			const vector3& Row2,
 			const vector3& Row3);
 		matrix3(
-			const double& c1r1,const double& c1r2,const double& c1r3,
-			const double& c2r1,const double& c2r2,const double& c2r3,
-			const double& c3r1,const double& c3r2,const double& c3r3);
+			const float& r1c1,const float& r1c2,const float& r1c3,
+			const float& r2c1,const float& r2c2,const float& r2c3,
+			const float& r3c1,const float& r3c2,const float& r3c3);
 		~matrix3();
 
-		double* FirstElement();
+		float* FirstElement();
 
 		const vector3& operator [](const unsigned int& index) const;
 		vector3& operator [](const unsigned int& index);

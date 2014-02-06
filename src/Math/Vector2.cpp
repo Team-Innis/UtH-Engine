@@ -6,20 +6,20 @@ namespace umath
 	vector2::vector2()
 			: x(0), y(0)
 	{}
-	vector2::vector2(double X, double Y)
+	vector2::vector2(float X, float Y)
 		: x(X), y(Y)
 	{}
 	vector2::~vector2(){}
 
-	double vector2::getLenght() const
+	float vector2::getLenght() const
 	{	
 		return sqrt(pow(x,2) + pow(y,2));
 	}
-	double vector2::getRadians() const
+	float vector2::getRadians() const
 	{
 		return atan2(y,x);
 	}
-	double vector2::getDegrees() const
+	float vector2::getDegrees() const
 	{
 		return getRadians()*180.0/PI;
 	}
@@ -29,18 +29,18 @@ namespace umath
 		x += position.x;
 		y += position.y;
 	}
-	void vector2::RotateDegrees(const double degrees)
+	void vector2::RotateDegrees(const float degrees)
 	{
 		Rotate(degrees/180.0*PI);
 	}
-	void vector2::Rotate(const double radians)
+	void vector2::Rotate(const float radians)
 	{
 		if (radians == 0)
 			return;
 
-		const double cosA = cos(radians);
-		const double sinA = sin(radians);
-		const double oldX = x;
+		const float cosA = cos(radians);
+		const float sinA = sin(radians);
+		const float oldX = x;
 		x = oldX*cosA-y*sinA;
 		y = oldX*sinA+y*cosA;
 	}
@@ -77,11 +77,11 @@ namespace umath
 		return LeftVal;
 	}
 
-	vector2 operator /(const vector2& LeftVal, const double& RightVal)
+	vector2 operator /(const vector2& LeftVal, const float& RightVal)
 	{
 		return vector2(LeftVal.x / RightVal,LeftVal.y / RightVal);
 	}
-	const vector2& operator /=(vector2& LeftVal, const double& RightVal)
+	const vector2& operator /=(vector2& LeftVal, const float& RightVal)
 	{
 		LeftVal.x /= RightVal;
 		LeftVal.y /= RightVal;
@@ -99,16 +99,16 @@ namespace umath
 		return !(LeftVal==RightVal);
 	}
 
-	vector2 operator *(const vector2& LeftVal, const double& RightVal)
+	vector2 operator *(const vector2& LeftVal, const float& RightVal)
 	{
 		return vector2(LeftVal.x * RightVal,LeftVal.y * RightVal);
 	}
-	vector2 operator *(const double& LeftVal, const vector2& RightVal)
+	vector2 operator *(const float& LeftVal, const vector2& RightVal)
 	{
 		return vector2(LeftVal * RightVal.x,LeftVal * RightVal.y);
 	}
 
-	const vector2& operator *=(vector2& LeftVal,const double& RightVal)
+	const vector2& operator *=(vector2& LeftVal,const float& RightVal)
 	{
 		LeftVal.x *= RightVal;
 		LeftVal.y *= RightVal;
