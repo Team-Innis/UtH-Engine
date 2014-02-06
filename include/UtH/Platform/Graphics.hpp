@@ -100,9 +100,9 @@ namespace uth
 
         void bindTexture(TextureType type, const int  texture);
 
-        void setTextureImage1D(const int level, ImageFormat imageFormat, std::size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels);
+        void setTextureImage1D(const int level, ImageFormat imageFormat, size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels);
 
-        void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, std::size_t width, std::size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels);
+        void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, size_t width, size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels);
 
         void setTextureParameter(TextureType type, TextureParam param, const int value);
 
