@@ -5,7 +5,7 @@
 namespace umath
 {
 	rectangle::rectangle(){}
-	rectangle::rectangle(double Left, double Top, double Width, double Height)
+	rectangle::rectangle(float Left, float Top, float Width, float Height)
 		: left(Left),
 		  top(Top),
 		  width(Width),
@@ -13,7 +13,7 @@ namespace umath
 	{
 		assert(!(width<0||height<0));
 	}
-	rectangle::rectangle(vector2 Position, double Width, double Height)
+	rectangle::rectangle(vector2 Position, float Width, float Height)
 		: left(Position.x),
 		  top(Position.y),
 		  width(Width),
@@ -33,11 +33,11 @@ namespace umath
 	rectangle::~rectangle()
 	{}
 	
-	double rectangle::getRight() const
+	float rectangle::getRight() const
 	{
 		return left + width;
 	}
-	double rectangle::getBottom() const
+	float rectangle::getBottom() const
 	{
 		return top + height;
 	}

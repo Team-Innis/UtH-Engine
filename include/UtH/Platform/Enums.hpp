@@ -91,8 +91,7 @@ namespace uth
         TEXTURE_1D_ARRAY, 
         TEXTURE_2D_ARRAY, 
         TEXTURE_RECTANGLE, 
-        TEXTURE_CUBE_MAP, 
-        TEXTURE_BUFFER, 
+        TEXTURE_CUBE_MAP,
         TEXTURE_2D_MULTISAMPLE,
         TEXTURE_2D_MULTISAMPLE_ARRAY,
 

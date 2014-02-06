@@ -10,8 +10,8 @@ namespace umath
 	{
 	public:
 		rectangle();
-		rectangle(double Left, double Top, double Width, double Height);
-		rectangle(vector2 Position, double Width, double Height);
+		rectangle(float Left, float Top, float Width, float Height);
+		rectangle(vector2 Position, float Width, float Height);
 		rectangle(vector2 Position, vector2 Size);
 
 		~rectangle();
@@ -20,16 +20,16 @@ namespace umath
 		{
 			struct 
 			{
-				double left, top, width, height;
+				float left, top, width, height;
 			};
 			struct
 			{
-				double x, y;
+				float x, y;
 			};
 		};
 
-		double getRight() const;
-		double getBottom() const;
+		float getRight() const;
+		float getBottom() const;
 
 		bool Intersects(rectangle otherRectangle) const;
 		bool Contains(vector2 Position) const;

@@ -43,7 +43,7 @@ namespace uth
                                                          GL_STATIC_COPY,
                                                          GL_DYNAMIC_DRAW,
                                                          GL_DYNAMIC_READ,
-                                                         GL_DYNAMIC_SOPY};
+                                                         GL_DYNAMIC_COPY};
     static int pixelStoreParams[PIXELSTOREPARAM_LAST] = {GL_PACK_SWAP_BYTES,
                                                          GL_PACK_LSB_FIRST, 
                                                          GL_PACK_ROW_LENGTH, 
@@ -66,8 +66,7 @@ namespace uth
                                                          TEXTURE_1D_ARRAY, 
                                                          TEXTURE_2D_ARRAY, 
                                                          TEXTURE_RECTANGLE, 
-                                                         TEXTURE_CUBE_MAP, 
-                                                         TEXTURE_BUFFER, 
+                                                         TEXTURE_CUBE_MAP,
                                                          TEXTURE_2D_MULTISAMPLE,
                                                          TEXTURE_2D_MULTISAMPLE_ARRAY};
     static int imageFormats[IMAGEFORMAT_LAST] =         {GL_RGB,
@@ -310,7 +309,7 @@ namespace uth
 
     void setBufferData(BufferType type, const unsigned int size, const void* data, UsageType usageType)
     {
-        glBufferData(bufferTypes[type], size, data, usageTypes[usageType];
+        glBufferData(bufferTypes[type], size, data, usageTypes[usageType]);
     }
 
     void setBufferSubData(BufferType type, const unsigned int offset, const unsigned int size, const void* data)
@@ -342,12 +341,12 @@ namespace uth
         glBindTexture(textureTypes[type], texture);
     }
 
-    void setTextureImage1D(const int level, ImageFormat imageFormat, std::size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels)
+    void setTextureImage1D(const int level, ImageFormat imageFormat, size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels)
     {
         glTexImage1D(textureTypes[TEXTURE_1D], level, imageFormats[imageFormat], width, 0, imageFormats[pixelFormat], dataTypes[dataType], pixels);
     }
 
-    void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, std::size_t width, std::size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels)
+    void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, size_t width, size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels)
     {
         glTexImage2D(textureTypes[TEXTURE_2D], level, imageFormats[imageFormat], width, height, 0, imageFormats[pixelFormat], dataTypes[dataType], pixels);
     }
