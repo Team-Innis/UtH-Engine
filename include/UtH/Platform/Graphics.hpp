@@ -2,6 +2,7 @@
 
 #include <UtH\Platform\WindowSettings.hpp>
 #include <UtH\Platform\Singleton.hpp>
+#include <UtH\Platform\Enums.hpp>
 #include <UtH\Math\Math.hpp>
 
 
@@ -19,6 +20,7 @@ namespace uth
 
     public:
 
+        /////////////////////////////////////////////////////////
         // Window functions
         // Create the window. If a windows has already been created, it's closed and a new one opened.
         // This function assumes that glutInit() has already been called.
@@ -33,24 +35,6 @@ namespace uth
 
         /////////////////////////////////////////////////////////
         // Shader functions
-        enum ShaderType
-        {
-            VERTEX_SHADER,
-            FRAGMENT_SHADER,
-            GEOMETRY_SHADER,
-
-            SHADER_LAST
-        };
-
-        enum DataType
-        {
-            FLOAT_TYPE,
-            INT_TYPE,
-
-            TYPE_LAST
-        };
-
-
         int createShaderProgram();
 
         // Creates the shader object, compiles the source and then attaches it to the program object.
@@ -89,17 +73,44 @@ namespace uth
 
         void disableVertexAttribArray(const int location);
 
-        void setVertexAttribPointer(const int location, const int size, const DataType type, const int stride, void* pointer);
+        void setVertexAttribPointer(const int location, const int size, const DataType type, const int stride, const void* pointer);
 
 
         /////////////////////////////////////////////////////////
         // Buffer functions
+        void generateBuffers(const unsigned int amount, unsigned int* buffers);
+
+        void deleteBuffers(const unsigned int amount, unsigned int* buffers);
+
+        void bindBuffer(BufferType type, const unsigned int buffer);
+
+        void setBufferData(BufferType type, const unsigned int size, const void* data, UsageType usageType);
+
+        void setBufferSubData(BufferType type, const unsigned int offset, const unsigned int size, const void* data);
+
+
+        /////////////////////////////////////////////////////////
+        // Texture functions
+        
+        void setPixelStore(PixelStoreParam param, const int value);
+
+        void generateTextures(const unsigned int amount, unsigned int* data);
+
+        void setActiveTexUnit(TexUnit unit);
+
+        void bindTexture(TextureType type, const int  texture);
+
+        void setTextureImage1D(const int level, ImageFormat imageFormat, std::size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels);
+
+        void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, std::size_t width, std::size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels);
+
+        void setTextureParameter(TextureType type, TextureParam param, const int value);
 
 
 
 
         /////////////////////////////////////////////////////////
-        // Texture functions
+        // Drawing functions
 
 
 
