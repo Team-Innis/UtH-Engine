@@ -14,7 +14,7 @@ namespace umath
 		Creates Identity Matrix
 		*/
 		matrix4();
-		matrix4(const double* FirstElement);
+		matrix4(const float* FirstElement);
 		matrix4(const matrix3 mat3);
 		matrix4(
 			const vector4& Row1,
@@ -22,14 +22,14 @@ namespace umath
 			const vector4& Row3,
 			const vector4& Row4);
 		matrix4(
-			const double& r1s1,const double& r1s2,const double& r1s3,const double& r1s4,
-			const double& r2s1,const double& r2s2,const double& r2s3,const double& r2s4,
-			const double& r3s1,const double& r3s2,const double& r3s3,const double& r3s4,
-			const double& r4s1,const double& r4s2,const double& r4s3,const double& r4s4);
+			const float& r1c1,const float& r1c2,const float& r1c3,const float& r1c4,
+			const float& r2c1,const float& r2c2,const float& r2c3,const float& r2c4,
+			const float& r3c1,const float& r3c2,const float& r3c3,const float& r3c4,
+			const float& r4c1,const float& r4c2,const float& r4c3,const float& r4c4);
 		static const matrix4 Identity;
 		~matrix4();
 
-		double* FirstElement() const;
+		float* FirstElement() const;
 
 		const vector4& operator [](const unsigned int& index) const;
 		vector4& operator [](const unsigned int& index);

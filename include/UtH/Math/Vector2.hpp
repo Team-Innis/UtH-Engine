@@ -8,18 +8,18 @@ namespace umath
 		{
 		public:
 			vector2();
-			vector2(double X, double Y);
+			vector2(float X, float Y);
 			~vector2();
 
-			double getLenght() const;
+			float getLenght() const;
 			/*
 			Returns the angle of the vector in radians ranging from -PI to PI
 			*/
-			double getRadians() const;
+			float getRadians() const;
 			/*
 			Returns the angle of the vector in degrees ranging from -180 to 180
 			*/
-			double getDegrees() const;
+			float getDegrees() const;
 
 			/*
 			Transforms the current vector by given position vector.
@@ -28,11 +28,11 @@ namespace umath
 			/*
 			Rotates the current vector by given amount of degrees.
 			*/
-			void RotateDegrees(const double Degrees);
+			void RotateDegrees(const float Degrees);
 			/*
 			Rotates the current vector by given amount of radians.
 			*/
-			void Rotate(const double Radians);
+			void Rotate(const float Radians);
 			/*
 			Scales the current vector by given scale vector.
 			*/
@@ -42,11 +42,11 @@ namespace umath
 			{
 				struct
 				{
-					double x,y;
+					float x,y;
 				};
 				struct
 				{
-					double w,h;
+					float w,h;
 				};
 			};
 
@@ -62,16 +62,16 @@ namespace umath
 	const vector2& operator +=(vector2& LeftVal,const vector2& RightVal);
 	const vector2& operator -=(vector2& LeftVal,const vector2& RightVal);
 
-	vector2 operator /(const vector2& LeftVal,const double& RightVal);
-	const vector2& operator /=(vector2& LeftVal,const double& RightVal);
+	vector2 operator /(const vector2& LeftVal,const float& RightVal);
+	const vector2& operator /=(vector2& LeftVal,const float& RightVal);
 
 	bool operator ==(const vector2& LeftVal,const vector2& RightVal);
 	bool operator !=(const vector2& LeftVal,const vector2& RightVal);
 
-	vector2 operator *(const vector2& LeftVal, const double& RightVal);
-	vector2 operator *(const double& LeftVal, const vector2& RightVal);
+	vector2 operator *(const vector2& LeftVal, const float& RightVal);
+	vector2 operator *(const float& LeftVal, const vector2& RightVal);
 
-	const vector2& operator *=(vector2& LeftVal, const double& RightVal);
+	const vector2& operator *=(vector2& LeftVal, const float& RightVal);
 		/*std::ostream& operator <<(std::ostream& Ostr, const vector& RightVal);*/
 }
 #endif

@@ -10,26 +10,26 @@ namespace umath
 	{
 	public:
 		vector4();
-		vector4(const vector3 Vec3, const double W);
-		vector4(const double X, const double Y, const double Z, const double W);
+		vector4(const vector3 Vec3, const float W);
+		vector4(const float X, const float Y, const float Z, const float W);
 		~vector4();
 
-		double getLenght();
+		float getLenght();
 
 		union
 		{
 			struct
 			{
-				double x,y,z,w;
+				float x,y,z,w;
 			};
 			struct
 			{
-				double r,g,b,a;
+				float r,g,b,a;
 			};
 		};
 
-		const double& operator [](const unsigned int& index) const;
-		double& operator [](const unsigned int& index);
+		const float& operator [](const unsigned int& index) const;
+		float& operator [](const unsigned int& index);
 	private:
 	};
 	
@@ -42,16 +42,16 @@ namespace umath
 	const vector4& operator +=(vector4& LeftVal,const vector4& RightVal);
 	const vector4& operator -=(vector4& LeftVal,const vector4& RightVal);
 
-	vector4 operator /(const vector4& LeftVal,const double& RightVal);
-	const vector4& operator /=(vector4& LeftVal,const double& RightVal);
+	vector4 operator /(const vector4& LeftVal,const float& RightVal);
+	const vector4& operator /=(vector4& LeftVal,const float& RightVal);
 
 	bool operator ==(const vector4& LeftVal,const vector4& RightVal);
 	bool operator !=(const vector4& LeftVal,const vector4& RightVal);
 
-	vector4 operator *(const vector4& LeftVal, const double& RightVal);
-	vector4 operator *(const double& LeftVal, const vector4& RightVal);
+	vector4 operator *(const vector4& LeftVal, const float& RightVal);
+	vector4 operator *(const float& LeftVal, const vector4& RightVal);
 
-	const vector4& operator *=(vector4& LeftVal, const double& RightVal);
+	const vector4& operator *=(vector4& LeftVal, const float& RightVal);
 
 }
 #endif

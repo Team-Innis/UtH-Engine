@@ -8,25 +8,25 @@ namespace umath
 	{
 	public:
 		vector3();
-		vector3(double X, double Y, double Z);
+		vector3(float X, float Y, float Z);
 		~vector3();
 
-		double getLenght();
+		float getLenght();
 		
 		union
 		{
 			struct
 			{
-				double x,y,z;
+				float x,y,z;
 			};
 			struct
 			{
-				double r,g,b;
+				float r,g,b;
 			};
 		};
 			
-		const double& operator [](const unsigned int& index) const;
-		double& operator [](const unsigned int& index);
+		const float& operator [](const unsigned int& index) const;
+		float& operator [](const unsigned int& index);
 	private:
 
 	};
@@ -39,15 +39,15 @@ namespace umath
 	const vector3& operator +=(vector3& LeftVal,const vector3& RightVal);
 	const vector3& operator -=(vector3& LeftVal,const vector3& RightVal);
 
-	vector3 operator /(const vector3& LeftVal,const double& RightVal);
-	const vector3& operator /=(vector3& LeftVal,const double& RightVal);
+	vector3 operator /(const vector3& LeftVal,const float& RightVal);
+	const vector3& operator /=(vector3& LeftVal,const float& RightVal);
 
 	bool operator ==(const vector3& LeftVal,const vector3& RightVal);
 	bool operator !=(const vector3& LeftVal,const vector3& RightVal);
 
-	vector3 operator *(const vector3& LeftVal, const double& RightVal);
-	vector3 operator *(const double& LeftVal, const vector3& RightVal);
+	vector3 operator *(const vector3& LeftVal, const float& RightVal);
+	vector3 operator *(const float& LeftVal, const vector3& RightVal);
 
-	const vector3& operator *=(vector3& LeftVal, const double& RightVal);
+	const vector3& operator *=(vector3& LeftVal, const float& RightVal);
 }
 #endif
