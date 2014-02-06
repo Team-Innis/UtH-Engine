@@ -1,5 +1,5 @@
-#include <UtH\Math\Matrix3.hpp>
-#include <UtH\Math\Math.hpp>
+#include <UtH/Math/Matrix3.hpp>
+#include <UtH/Math/Math.hpp>
 
 namespace umath
 {
@@ -25,13 +25,13 @@ namespace umath
 		r3(Row3)
 	{}
 	matrix3::matrix3(
-		const float& c1r1,const float& c1r2,const float& c1r3,
-		const float& c2r1,const float& c2r2,const float& c2r3,
-		const float& c3r1,const float& c3r2,const float& c3r3)
+		const float& r1c1,const float& r1c2,const float& r1c3,
+		const float& r2c1,const float& r2c2,const float& r2c3,
+		const float& r3c1,const float& r3c2,const float& r3c3)
 		:
-		r1(c1r1,c1r2,c1r3),
-		r2(c2r1,c2r2,c2r3),
-		r3(c3r1,c3r2,c3r3)
+		r1(r1c1,r1c2,r1c3),
+		r2(r2c1,r2c2,r2c3),
+		r3(r3c1,r3c2,r3c3)
 	{}
 	matrix3::~matrix3()
 	{}

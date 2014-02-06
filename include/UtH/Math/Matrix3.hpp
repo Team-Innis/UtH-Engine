@@ -2,7 +2,7 @@
 #ifndef MATRIX3_H_UMATH
 #define MATRIX3_H_UMATH
 
-#include <UtH\Math\Vector3.hpp>
+#include <UtH/Math/Vector3.hpp>
 
 namespace umath
 {
@@ -19,9 +19,9 @@ namespace umath
 			const vector3& Row2,
 			const vector3& Row3);
 		matrix3(
-			const float& c1r1,const float& c1r2,const float& c1r3,
-			const float& c2r1,const float& c2r2,const float& c2r3,
-			const float& c3r1,const float& c3r2,const float& c3r3);
+			const float& r1c1,const float& r1c2,const float& r1c3,
+			const float& r2c1,const float& r2c2,const float& r2c3,
+			const float& r3c1,const float& r3c2,const float& r3c3);
 		~matrix3();
 
 		float* FirstElement();
