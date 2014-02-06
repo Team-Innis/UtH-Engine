@@ -1,5 +1,5 @@
-#include <UtH\Math\Matrix3.hpp>
-#include <UtH\Math\Math.hpp>
+#include <UtH/Math/Matrix3.hpp>
+#include <UtH/Math/Math.hpp>
 
 namespace umath
 {
@@ -9,7 +9,7 @@ namespace umath
 		r2(vector3(0.f,1.f,0.f)),
 		r3(vector3(0.f,0.f,1.f))
 	{}
-	matrix3::matrix3(const float* fe)
+	matrix3::matrix3(const double* fe)
 		:
 		r1(fe[0],fe[1],fe[2]),
 		r2(fe[3],fe[4],fe[5]),
@@ -25,9 +25,9 @@ namespace umath
 		r3(Row3)
 	{}
 	matrix3::matrix3(
-		const float& c1r1,const float& c1r2,const float& c1r3,
-		const float& c2r1,const float& c2r2,const float& c2r3,
-		const float& c3r1,const float& c3r2,const float& c3r3)
+		const double& c1r1,const double& c1r2,const double& c1r3,
+		const double& c2r1,const double& c2r2,const double& c2r3,
+		const double& c3r1,const double& c3r2,const double& c3r3)
 		:
 		r1(c1r1,c1r2,c1r3),
 		r2(c2r1,c2r2,c2r3),
@@ -36,9 +36,9 @@ namespace umath
 	matrix3::~matrix3()
 	{}
 	
-	float* matrix3::FirstElement()
+	double* matrix3::FirstElement()
 	{
-		return (float*)&r1.x;
+		return (double*)&r1.x;
 	}
 	
 	const vector3& matrix3::operator [](const unsigned int& index) const
@@ -52,7 +52,7 @@ namespace umath
 	
 	matrix3 operator *(const matrix3& LM, const matrix3& RM)
 	{
-		const float L[3][3] = 
+		const double L[3][3] = 
 		{
 			LM[0][0],
 			LM[0][1],
@@ -64,7 +64,7 @@ namespace umath
 			LM[2][1],
 			LM[2][2]
 		};
-		const float R[3][3] = 
+		const double R[3][3] = 
 		{
 			RM[0][0],
 			RM[0][1],
@@ -98,7 +98,7 @@ namespace umath
 	
 	vector3 operator *(const vector3& RV, const matrix3& LM)
 	{
-		const float L[3][3] = 
+		const double L[3][3] = 
 		{
 			LM[0][0],
 			LM[0][1],
@@ -110,7 +110,7 @@ namespace umath
 			LM[2][1],
 			LM[2][2]
 		};
-		const float R[4] = 
+		const double R[4] = 
 		{
 			RV[0],
 			RV[1],

@@ -2,7 +2,7 @@
 #ifndef RECTANGLE_H_UMATH
 #define RECTANGLE_H_UMATH
 
-#include <UtH\Math\Vector2.hpp>
+#include <UtH/Math/Vector2.hpp>
 
 namespace umath
 {
@@ -10,8 +10,8 @@ namespace umath
 	{
 	public:
 		rectangle();
-		rectangle(float Left, float Top, float Width, float Height);
-		rectangle(vector2 Position, float Width, float Height);
+		rectangle(double Left, double Top, double Width, double Height);
+		rectangle(vector2 Position, double Width, double Height);
 		rectangle(vector2 Position, vector2 Size);
 
 		~rectangle();
@@ -20,23 +20,20 @@ namespace umath
 		{
 			struct 
 			{
-				float left, top, width, height;
+				double left, top, width, height;
 			};
 			struct
 			{
-				vector2 position, size;
-			};
-			struct
-			{
-				float x, y;
+				double x, y;
 			};
 		};
 
-	private:
-		void Resize(vector2 Size);
+		double getRight() const;
+		double getBottom() const;
 
-		bool Intersects(rectangle Rectangle);
-		bool Contains(vector2 Position);
+		bool Intersects(rectangle otherRectangle) const;
+		bool Contains(vector2 Position) const;
+	private:
 
 	};
 }

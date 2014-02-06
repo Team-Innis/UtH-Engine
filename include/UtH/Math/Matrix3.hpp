@@ -2,7 +2,7 @@
 #ifndef MATRIX3_H_UMATH
 #define MATRIX3_H_UMATH
 
-#include <UtH\Math\Vector3.hpp>
+#include <UtH/Math/Vector3.hpp>
 
 namespace umath
 {
@@ -13,18 +13,18 @@ namespace umath
 		Creates Identity Matrix
 		*/
 		matrix3();
-		matrix3(const float* FirstElement);
+		matrix3(const double* FirstElement);
 		matrix3(
 			const vector3& Row1,
 			const vector3& Row2,
 			const vector3& Row3);
 		matrix3(
-			const float& c1r1,const float& c1r2,const float& c1r3,
-			const float& c2r1,const float& c2r2,const float& c2r3,
-			const float& c3r1,const float& c3r2,const float& c3r3);
+			const double& c1r1,const double& c1r2,const double& c1r3,
+			const double& c2r1,const double& c2r2,const double& c2r3,
+			const double& c3r1,const double& c3r2,const double& c3r3);
 		~matrix3();
 
-		float* FirstElement();
+		double* FirstElement();
 
 		const vector3& operator [](const unsigned int& index) const;
 		vector3& operator [](const unsigned int& index);

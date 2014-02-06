@@ -1,5 +1,5 @@
-#include <UtH\Math\Matrix4.hpp>
-#include <UtH\Math\Math.hpp>
+#include <UtH/Math/Matrix4.hpp>
+#include <UtH/Math/Math.hpp>
 
 namespace umath
 {
@@ -12,7 +12,7 @@ namespace umath
 		r3(vector4(0.f,0.f,1.f,0.f)),
 		r4(vector4(0.f,0.f,0.f,1.f))
 	{}
-	matrix4::matrix4(const float* fe)
+	matrix4::matrix4(const double* fe)
 		:
 		r1(fe[0],fe[1],fe[2],fe[3]),
 		r2(fe[4],fe[5],fe[6],fe[7]),
@@ -38,10 +38,10 @@ namespace umath
 		r4(Row4)
 	{}
 	matrix4::matrix4(
-		const float& c1r1,const float& c1r2,const float& c1r3,const float& c1r4,
-		const float& c2r1,const float& c2r2,const float& c2r3,const float& c2r4,
-		const float& c3r1,const float& c3r2,const float& c3r3,const float& c3r4,
-		const float& c4r1,const float& c4r2,const float& c4r3,const float& c4r4)
+		const double& c1r1,const double& c1r2,const double& c1r3,const double& c1r4,
+		const double& c2r1,const double& c2r2,const double& c2r3,const double& c2r4,
+		const double& c3r1,const double& c3r2,const double& c3r3,const double& c3r4,
+		const double& c4r1,const double& c4r2,const double& c4r3,const double& c4r4)
 		:
 		r1(c1r1,c1r2,c1r3,c1r4),
 		r2(c2r1,c2r2,c2r3,c2r4),
@@ -51,9 +51,9 @@ namespace umath
 	matrix4::~matrix4()
 	{}
 	
-	float* matrix4::FirstElement() const
+	double* matrix4::FirstElement() const
 	{
-		return (float*)&r1.x;
+		return (double*)&r1.x;
 	}
 	
 	const vector4& matrix4::operator [](const unsigned int& index) const
@@ -67,7 +67,7 @@ namespace umath
 	
 	matrix4 operator *(const matrix4& RM, const matrix4& LM)
 	{
-		const float L[4][4] = 
+		const double L[4][4] = 
 		{
 			LM[0][0],
 			LM[0][1],
@@ -86,7 +86,7 @@ namespace umath
 			LM[3][2],
 			LM[3][3]
 		};
-		const float R[4][4] = 
+		const double R[4][4] = 
 		{
 			RM[0][0],
 			RM[0][1],
@@ -135,7 +135,7 @@ namespace umath
 	
 	vector4 operator *(const vector4& RV, const matrix4& LM)
 	{
-		const float L[4][4] = 
+		const double L[4][4] = 
 		{
 			LM[0][0],
 			LM[0][1],
@@ -154,7 +154,7 @@ namespace umath
 			LM[3][2],
 			LM[3][3]
 		};
-		const float R[4] = 
+		const double R[4] = 
 		{
 			RV[0],
 			RV[1],

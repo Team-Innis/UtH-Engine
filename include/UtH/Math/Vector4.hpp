@@ -2,7 +2,7 @@
 #ifndef VECTOR4_H_UMATH
 #define VECTOR4_H_UMATH
 
-#include <UtH\Math\Vector3.hpp>
+#include <UtH/Math/Vector3.hpp>
 
 namespace umath
 {
@@ -10,26 +10,26 @@ namespace umath
 	{
 	public:
 		vector4();
-		vector4(const vector3 Vec3, const float W);
-		vector4(const float X, const float Y, const float Z, const float W);
+		vector4(const vector3 Vec3, const double W);
+		vector4(const double X, const double Y, const double Z, const double W);
 		~vector4();
 
-		float getLenght();
+		double getLenght();
 
 		union
 		{
 			struct
 			{
-				float x,y,z,w;
+				double x,y,z,w;
 			};
 			struct
 			{
-				float r,g,b,a;
+				double r,g,b,a;
 			};
 		};
 
-		const float& operator [](const unsigned int& index) const;
-		float& operator [](const unsigned int& index);
+		const double& operator [](const unsigned int& index) const;
+		double& operator [](const unsigned int& index);
 	private:
 	};
 	
@@ -42,16 +42,16 @@ namespace umath
 	const vector4& operator +=(vector4& LeftVal,const vector4& RightVal);
 	const vector4& operator -=(vector4& LeftVal,const vector4& RightVal);
 
-	vector4 operator /(const vector4& LeftVal,const float& RightVal);
-	const vector4& operator /=(vector4& LeftVal,const float& RightVal);
+	vector4 operator /(const vector4& LeftVal,const double& RightVal);
+	const vector4& operator /=(vector4& LeftVal,const double& RightVal);
 
 	bool operator ==(const vector4& LeftVal,const vector4& RightVal);
 	bool operator !=(const vector4& LeftVal,const vector4& RightVal);
 
-	vector4 operator *(const vector4& LeftVal, const float& RightVal);
-	vector4 operator *(const float& LeftVal, const vector4& RightVal);
+	vector4 operator *(const vector4& LeftVal, const double& RightVal);
+	vector4 operator *(const double& LeftVal, const vector4& RightVal);
 
-	const vector4& operator *=(vector4& LeftVal, const float& RightVal);
+	const vector4& operator *=(vector4& LeftVal, const double& RightVal);
 
 }
 #endif
