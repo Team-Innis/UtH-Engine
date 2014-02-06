@@ -39,6 +39,9 @@
     <ClInclude Include="..\..\include\UtH\Platform\OGLCheck.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Enums.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Platform\OGLCheck.cpp">
