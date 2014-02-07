@@ -21,10 +21,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\Audio\Audio.cpp" />
     <ClCompile Include="..\..\src\Audio\Sound.cpp" />
     <ClCompile Include="..\..\src\Audio\SoundManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\UtH\Audio\Audio.h" />
     <ClInclude Include="..\..\include\UtH\Audio\Sound.h" />
     <ClInclude Include="..\..\include\UtH\Audio\SoundManager.h" />
   </ItemGroup>

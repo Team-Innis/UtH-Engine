@@ -146,7 +146,7 @@ void Sound::Play(float offset)
 		alSourcePlay(source);
 	}
 }
-// Intented for sound effects.
+// Intented for soundeffects.
 // This function copies sound source and starts
 // to play new source.
 void Sound::PlayEffect()
