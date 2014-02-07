@@ -11,7 +11,7 @@
 #include <sys/time.h>
 #endif
 
-namespace Scioto
+namespace uth
 {
 	class Timer
 	{
@@ -22,19 +22,19 @@ namespace Scioto
 		*/
 		void Reset();
 		/**
-		Updates memtime, returns the difference
+		Updates memtime, returns the difference: "DeltaTime"
 		*/
-		const long double GetDeltaTime();
+		const long double UpdateDeltaTime();
 		/**
-		Updates memtime
+		Updates memtime, returns total running time
 		*/
 		const long double Update();
 		/**
-		Returns time elapsed since timer start
+		Returns total running time since timer start
 		*/
 		const long double GetCurTime();
 		/**
-		Returns time of last Update() event
+		Returns the total running time until last Update() event
 		*/
 		const long double GetMemTime() const;
 
@@ -43,21 +43,17 @@ namespace Scioto
 		long double m_memTime;
 		long double m_curTime;
 		
-#ifdef _WIN32
+#if defined(UTH_SYSTEM_WINDOWS)
 		LARGE_INTEGER m_frequency;
 		LARGE_INTEGER m_startCount;
 		LARGE_INTEGER m_curCount;
-#endif
 
-#ifdef __ANDROID__
+#elif defined(UTH_SYSTEM_ANDROID)
 		timeval m_startCount;
-		timeval m_curCount
-#endif
-	};
+		timeval m_curCount;
 
-	class Util
-	{
-	public:
+#endif
+
 	};
 }
 
