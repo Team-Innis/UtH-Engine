@@ -19,9 +19,6 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-  </ItemGroup>  
-  <ItemGroup>
-    <ClInclude Include="..\..\include\UtH\Core\Debug.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Core\Shader.cpp" />
