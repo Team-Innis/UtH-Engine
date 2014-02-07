@@ -23,14 +23,14 @@ void CheckGLError(const char* op)
 	}
 }
 
-
+// FIXME: load the openal libray somewhere to make this work
 void CheckALError(const char* op)
 {
-	for(ALCenum error = alGetError(); error != AL_NO_ERROR; error = alGetError())
-	{
+	//for(ALCenum error = alGetError(); error != AL_NO_ERROR; error = alGetError())
+	//{
 
-		printf("after %s() glError (0x%x)\n", op, error);
-	}
+	//	printf("after %s() glError (0x%x)\n", op, error);
+	//}
 }
 
 

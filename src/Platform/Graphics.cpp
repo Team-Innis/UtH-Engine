@@ -2,6 +2,7 @@
 #include <UtH\Platform\Configuration.hpp>
 #include <UtH\Platform\OpenGL.hpp>
 #include <UtH\Platform\OGLCheck.hpp>
+#include <UtH\Platform\Debug.hpp>
 #include <iostream>
 
 #ifdef _DEBUG
