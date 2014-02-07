@@ -12,7 +12,11 @@ namespace uth
 		Shader();
 		~Shader();
 
-		void LoadShader(ShaderType type, std::string path);
+		bool LoadShader(ShaderType type, std::string path);
+		bool LinkShader();
+		void Use();
+	private:
+		int program;
 	};
 }
 

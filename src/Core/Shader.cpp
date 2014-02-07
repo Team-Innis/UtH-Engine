@@ -5,18 +5,33 @@
 using namespace uth;
 
 Shader::Shader()
-{}
+{
+	program = uthGraphics.createShaderProgram();
+}
 
 Shader::~Shader()
 {}
 
 
 // Public
-Shader::LoadShader(ShaderType type, std::string path)
+bool Shader::LoadShader(ShaderType type, std::string path)
 {
 	FileReader fr(path.c_str());
 
-	Graphics.createShader(type, path);
+	const char* code = fr.ReadText();
+
+	return uthGraphics.createShader(type, program, code);
+}
+
+bool Shader::LinkShader()
+{
+	return uthGraphics.linkShaderProgram(program);
+}
+
+void Shader::Use()
+{
+	uthGraphics.bindProgram(program);
+}
 }
 
 // Private
