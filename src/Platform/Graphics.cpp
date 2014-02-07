@@ -407,22 +407,22 @@ namespace uth
     // Drawing functions
     void drawArrays(PrimitiveType type, const int first, const size_t count)
     {
-        glDrawArrays(primitiveTypes[type], first, count);
+        oglCheck(glDrawArrays(primitiveTypes[type], first, count));
     }
 
     void drawElements(PrimitiveType type, const size_t count, DataType dataType, const void* indices)
     {
-        glDrawElements(primitiveTypes[type], count, dataTypes[dataType], indices);
+        oglCheck(glDrawElements(primitiveTypes[type], count, dataTypes[dataType], indices));
     }
 
     void setPointSize(const float size)
     {
-        glPointSize(size);
+        oglCheck(glPointSize(size));
     }
 
     void setLineWidth(const float width)
     {
-        glLineWidth(width);
+        oglCheck(glLineWidth(width));
     }
 
 
@@ -440,14 +440,14 @@ namespace uth
         if (enable != enabled)
         {
             if (enable)
-                glEnable(GL_DEPTH_TEST);
+                oglCheck(glEnable(GL_DEPTH_TEST));
             else
-                glDisable(GL_DEPTH_TEST);
+                oglCheck(glDisable(GL_DEPTH_TEST));
 
             enabled = !enabled;
         }
 
-        glDepthFunc(depthFunctions[func]);
+        oglCheck(glDepthFunc(depthFunctions[func]));
     }
 
     void setBlendFunction(const bool enable, BlendFunction sfunc, BlendFunction dfunc)
@@ -457,14 +457,14 @@ namespace uth
         if (enable != enabled)
         {
             if (enable)
-                glEnable(GL_BLEND);
+                oglCheck(glEnable(GL_BLEND));
             else
-                glDisable(GL_BLEND);
+                oglCheck(glDisable(GL_BLEND));
 
             enabled = !enabled;
         }
 
-        glBlendFunc(blendFunctions[sfunc], blendFunctions[dfunc]);
+        oglCheck(glBlendFunc(blendFunctions[sfunc], blendFunctions[dfunc]));
     }
 
     void setFaceCulling(const bool enable, FaceCulling mode)
@@ -474,14 +474,14 @@ namespace uth
         if (enable != enabled)
         {
             if (enable)
-                glEnable(GL_CULL_FACE);
+                oglCheck(glEnable(GL_CULL_FACE));
             else
-                glDisable(GL_CULL_FACE);
+                oglCheck(glDisable(GL_CULL_FACE));
 
             enabled = !enabled;
         }
 
-        glCullFace(faceCullings[mode]);
+        oglCheck(glCullFace(faceCullings[mode]));
     }
 
 
