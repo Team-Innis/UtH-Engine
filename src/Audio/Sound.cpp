@@ -154,44 +154,45 @@ void Sound::Initialize(const char* fileName)
 	// Create buffer
 	alGenBuffers(1, &buffer);
 	CheckALError("alGenBuffers");
-	ResourceManager* manager = new ResourceManager();
-	manager->loadWAV(fileName);
+	//ResourceManager* manager = new ResourceManager();
+	ResourceManager::getInstance().loadWAV(fileName);
+
+	ResourceManager* RS = &ResourceManager::getInstance();
 	
-	if(manager->soundInfo.channels == 2)
+	if(RS->soundInfo.channels == 2)
 	{
-		if(manager->soundInfo.bitsPerSample == 16)
+		if(RS->soundInfo.bitsPerSample == 16)
 		{
 			alBufferData(buffer, AL_FORMAT_STEREO16, 
-				manager->soundInfo.soundBuffer, 
-				manager->soundInfo.frames * sizeof(short), 
-				manager->soundInfo.sampleRate);
+				RS->soundInfo.soundBuffer, 
+				RS->soundInfo.frames * sizeof(short), 
+				RS->soundInfo.sampleRate);
 		}
-		else if(manager->soundInfo.bitsPerSample == 8)
+		else if(RS->soundInfo.bitsPerSample == 8)
 		{
 			alBufferData(buffer, AL_FORMAT_STEREO8, 
-				manager->soundInfo.soundBuffer, 
-				manager->soundInfo.frames * sizeof(short), 
-				manager->soundInfo.sampleRate);
+				RS->soundInfo.soundBuffer, 
+				RS->soundInfo.frames * sizeof(short), 
+				RS->soundInfo.sampleRate);
 		}
 	}
-	else if(manager->soundInfo.channels == 1)
+	else if(RS->soundInfo.channels == 1)
 	{
-		if(manager->soundInfo.bitsPerSample == 16)
+		if(RS->soundInfo.bitsPerSample == 16)
 		{
 			alBufferData(buffer, AL_FORMAT_MONO16, 
-				manager->soundInfo.soundBuffer, 
-				manager->soundInfo.frames * sizeof(short), 
-				manager->soundInfo.sampleRate);
+				RS->soundInfo.soundBuffer, 
+				RS->soundInfo.frames * sizeof(short), 
+				RS->soundInfo.sampleRate);
 		}
-		else if(manager->soundInfo.bitsPerSample == 8)
+		else if(RS->soundInfo.bitsPerSample == 8)
 		{
 			alBufferData(buffer, AL_FORMAT_MONO8, 
-				manager->soundInfo.soundBuffer, 
-				manager->soundInfo.frames * sizeof(short), 
-				manager->soundInfo.sampleRate);
+				RS->soundInfo.soundBuffer, 
+				RS->soundInfo.frames * sizeof(short), 
+				RS->soundInfo.sampleRate);
 		}
 	}
-	delete manager;
 }
 
 void Sound::CreateSources(ALuint &source)

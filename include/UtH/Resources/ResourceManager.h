@@ -4,11 +4,17 @@
 
 #include <UtH\Platform\FileReader.h>
 #include <UtH\Core\Debug.hpp>
+#include <UtH\Platform\Singleton.hpp>
+
+#define uthRS uth::ResourceManager::getInstance()
 
 namespace uth
 {
-	class ResourceManager
+	class ResourceManager : public uth::Singleton<uth::ResourceManager>
 	{
+
+		friend class Singleton<uth::ResourceManager>;
+
 	public:
 		struct SoundInfo
 		{
@@ -18,15 +24,22 @@ namespace uth
 			int frames;
 			DWORD sampleRate;
 		} soundInfo;
-
-		ResourceManager();
-		~ResourceManager();
+		struct Header
+		{
+			BYTE* pixels;
+			BYTE type;
+			USHORT width;
+			USHORT height;
+			BYTE depth;
+			BYTE descriptor;
+		}header;
 
 		void loadWAV(const char* filePath);
 		void loadTGA(const char* filePath);
 
 	private:
-		ResourceManager(const ResourceManager&);
+		ResourceManager();
+		~ResourceManager();
 	};
 }
 #endif
