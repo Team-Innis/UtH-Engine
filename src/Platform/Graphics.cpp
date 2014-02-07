@@ -330,7 +330,7 @@ namespace uth
         oglCheck(glDisableVertexAttribArray(location));
     }
 
-    void Graphics::setVertexAttribPointer(const int location, const int size, const DataType type, const int stride, const void* pointer)
+    void Graphics::setVertexAttribPointer(const int location, const int size, DataType type, const int stride, const void* pointer)
     {
         oglCheck(glVertexAttribPointer(location, size, dataTypes[type], GL_FALSE, stride, pointer));
     }
@@ -387,12 +387,12 @@ namespace uth
         oglCheck(glBindTexture(textureTypes[type], texture));
     }
 
-    void setTextureImage1D(const int level, ImageFormat imageFormat, size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels)
+    void setTextureImage1D(const int level, ImageFormat imageFormat, const size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels)
     {
         oglCheck(glTexImage1D(textureTypes[TEXTURE_1D], level, imageFormats[imageFormat], width, 0, imageFormats[pixelFormat], dataTypes[dataType], pixels));
     }
 
-    void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, size_t width, size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels)
+    void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, const size_t width, const size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels)
     {
         oglCheck(glTexImage2D(textureTypes[TEXTURE_2D], level, imageFormats[imageFormat], width, height, 0, imageFormats[pixelFormat], dataTypes[dataType], pixels));
     }

@@ -77,7 +77,7 @@ namespace uth
 
         void disableVertexAttribArray(const int location);
 
-        void setVertexAttribPointer(const int location, const int size, const DataType type, const int stride, const void* pointer);
+        void setVertexAttribPointer(const int location, const int size, DataType type, const int stride, const void* pointer);
 
 
         /////////////////////////////////////////////////////////
@@ -102,7 +102,7 @@ namespace uth
 
         void setActiveTexUnit(TexUnit unit);
 
-        void bindTexture(TextureType type, const int  texture);
+        void bindTexture(TextureType type, const int texture);
 
         void setTextureImage1D(const int level, ImageFormat imageFormat, const size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels);
 
