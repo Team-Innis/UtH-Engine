@@ -155,11 +155,12 @@ namespace uth
             minorVer = settings.contextVersionMinor;
         
         glutInitContextVersion(settings.contextVersionMajor, settings.contextVersionMinor);
-
         m_windowHandle = glutCreateWindow("Generic Window Title");
 
-        glewInit();
-        
+		std::cout << "glew init might produces GL_INVALID_ENUM error. Just ignore it" << std::endl;
+		glewExperimental = GL_TRUE;
+        oglCheck(glewInit());
+
         return true;
     }
 
@@ -214,7 +215,6 @@ namespace uth
         if (!shaderCode) return false;
 
         unsigned int shader = glCreateShader(shaderTypes[type]);
-
         oglCheck(glShaderSource(shader, 1, &shaderCode, NULL));
         oglCheck(glCompileShader(shader));
 
