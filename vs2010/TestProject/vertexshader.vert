@@ -1,3 +1,4 @@
+attribute vec3 vPosition;
 attribute vec2 vTexCoord;
 
 uniform mat4 Translation;
