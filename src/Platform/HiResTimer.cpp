@@ -1,6 +1,6 @@
-#include "UtH/Platform/HighResTimer.hpp"
+#include "UtH/Platform/HiResTimer.hpp"
 
-namespace Scioto
+namespace uth
 {
 	
 Timer::Timer()
@@ -8,12 +8,12 @@ Timer::Timer()
     m_startTime = m_curTime = m_memTime = 0;
 
 	// Initialize
-
-#ifdef WIN32
+	
+#if defined(UTH_SYSTEM_WINDOWS)
     QueryPerformanceFrequency(&m_frequency);
     m_startCount.QuadPart = 0;
     m_curCount.QuadPart = 0;
-#else
+#elif defined(UTH_SYSTEM_ANDROID)
     m_startCount.tv_sec = m_startCount.tv_usec = 0;
     m_curCount.tv_sec = m_curCount.tv_usec = 0;
 #endif
@@ -24,17 +24,17 @@ Timer::Timer()
 
 void Timer::Reset()
 {
-#ifdef _WIN32
+#if defined(UTH_SYSTEM_WINDOWS)
 	m_memTime = 0;
     QueryPerformanceCounter(&m_startCount);
 	m_startTime = m_startCount.QuadPart * (1000000.0 / m_frequency.QuadPart);
-#else
+#elif defined(UTH_SYSTEM_ANDROID)
     gettimeofday(&m_startCount, NULL);
     startTimeInMicroSec = (startCount.tv_sec * 1000000.0) + startCount.tv_usec;
 #endif
 }
 
-const long double Timer::GetDeltaTime() // Does Update, calculates difference between this and last GetDeltaTime
+const long double Timer::UpdateDeltaTime() // Does Update, calculates difference between this and last GetDeltaTime
 {
 	long double oldTime = m_memTime;
 	return Update() - oldTime;
@@ -47,12 +47,10 @@ const long double Timer::Update() // Updates memTime to be current time
 
 const long double Timer::GetCurTime() // returns time elapsed since timer last restarted
 {
-#ifdef _WIN32
+#if defined(UTH_SYSTEM_WINDOWS)
     QueryPerformanceCounter(&m_curCount);
     m_curTime = m_curCount.QuadPart * (1000000.0 / m_frequency.QuadPart);
-#endif
-
-#ifdef __ANDROID__
+#elif defined(UTH_SYSTEM_ANDROID)
 	gettimeofday(&m_endCount, NULL);
     m_curTime = ((endCount.tv_sec * 1000000.0) + endCount.tv_usec);
 #endif
@@ -64,9 +62,4 @@ const long double Timer::GetMemTime() const // returns time from last Update or 
 	return m_memTime;
 }
 
-#ifdef _WIN32
-#endif
-
-#ifdef __ANDROID__
-#endif
 }
