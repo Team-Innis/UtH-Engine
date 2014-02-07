@@ -18,10 +18,13 @@
 #include <errno.h>
 #include <android_native_app_glue.h>
 
+//Struct containing EGL stugg and android app
 struct AndroidEngine
 {
 	android_app* app;
 
+
+	//Below this to Graphics-classs?
 	EGLDisplay display;
 	EGLSurface surface;
 	EGLContext context;
@@ -30,6 +33,7 @@ struct AndroidEngine
 	umath::vector2 resolution;
 };
 
+//To Graphics init or Renderer class
 int displayInit(AndroidEngine* androidengine)
 {
 	const EGLint attribs[] =
@@ -48,7 +52,7 @@ int displayInit(AndroidEngine* androidengine)
 		EGL_NONE
 	};
 
-	EGLint dummy, format, numConfigs;
+	EGLint format, numConfigs;
 
 	androidengine->display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 	eglInitialize(androidengine->display,0,0);
@@ -98,6 +102,7 @@ void displayDestroy(AndroidEngine* androidengine)
 	androidengine->surface = EGL_NO_SURFACE;
 }
 
+//After input manager 
 int handle_input(android_app* app, AInputEvent* event)
 {
 	AndroidEngine* androidengine = (AndroidEngine*)app->userData;
@@ -105,6 +110,8 @@ int handle_input(android_app* app, AInputEvent* event)
 	return 0;
 }
 
+
+//This is sort of state manager. Checks is Activity on top or not and does it have saved state
 void handle_cmd(android_app* app, int cmd)
 {
 	AndroidEngine* androidengine = (AndroidEngine*)app->userData;
