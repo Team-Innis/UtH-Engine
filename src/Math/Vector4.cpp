@@ -1,5 +1,5 @@
 #include <cmath>
-#include <UtH\Math\Math.hpp>
+#include <UtH/Math/Math.hpp>
 
 
 namespace umath

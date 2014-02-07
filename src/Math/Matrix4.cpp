@@ -1,5 +1,5 @@
-#include <UtH\Math\Matrix4.hpp>
-#include <UtH\Math\Math.hpp>
+#include <UtH/Math/Matrix4.hpp>
+#include <UtH/Math/Math.hpp>
 
 namespace umath
 {
@@ -38,15 +38,15 @@ namespace umath
 		r4(Row4)
 	{}
 	matrix4::matrix4(
-		const float& c1r1,const float& c1r2,const float& c1r3,const float& c1r4,
-		const float& c2r1,const float& c2r2,const float& c2r3,const float& c2r4,
-		const float& c3r1,const float& c3r2,const float& c3r3,const float& c3r4,
-		const float& c4r1,const float& c4r2,const float& c4r3,const float& c4r4)
+		const float& r1c1,const float& r1c2,const float& r1c3,const float& r1c4,
+		const float& r2c1,const float& r2c2,const float& r2c3,const float& r2c4,
+		const float& r3c1,const float& r3c2,const float& r3c3,const float& r3c4,
+		const float& r4c1,const float& r4c2,const float& r4c3,const float& r4c4)
 		:
-		r1(c1r1,c1r2,c1r3,c1r4),
-		r2(c2r1,c2r2,c2r3,c2r4),
-		r3(c3r1,c3r2,c3r3,c3r4),
-		r4(c4r1,c4r2,c4r3,c4r4)
+		r1(r1c1,r1c2,r1c3,r1c4),
+		r2(r2c1,r2c2,r2c3,r2c4),
+		r3(r3c1,r3c2,r3c3,r3c4),
+		r4(r4c1,r4c2,r4c3,r4c4)
 	{}
 	matrix4::~matrix4()
 	{}

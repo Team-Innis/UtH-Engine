@@ -19,9 +19,15 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-  </ItemGroup>
+  </ItemGroup>  
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Core\Debug.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Core\Shader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\UtH\Core\Shader.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3A3F643B-9F93-4C53-AFC9-DD057C6A026D}</ProjectGuid>
