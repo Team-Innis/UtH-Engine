@@ -32,6 +32,8 @@ namespace uth
 
         void swapBuffers();
 
+        void setViewport(const int x, const int y, const size_t width, const size_t height);
+
 
         /////////////////////////////////////////////////////////
         // Shader functions
@@ -44,6 +46,8 @@ namespace uth
         bool linkShaderProgram(const int shaderProgram);
 
         void bindProgram(const int shaderProgram);
+
+        void unbindProgram();
 
         void destroyShaderProgram(const int shaderProgram);
 
@@ -100,23 +104,33 @@ namespace uth
 
         void bindTexture(TextureType type, const int  texture);
 
-        void setTextureImage1D(const int level, ImageFormat imageFormat, size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels);
+        void setTextureImage1D(const int level, ImageFormat imageFormat, const size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels);
 
-        void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, size_t width, size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels);
+        void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, const size_t width, const size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels);
 
         void setTextureParameter(TextureType type, TextureParam param, const int value);
 
 
-
-
         /////////////////////////////////////////////////////////
         // Drawing functions
+        void drawArrays(PrimitiveType type, const int first, const size_t count);
 
+        void drawElements(PrimitiveType type, const size_t count, DataType dataType, const void* indices);
 
+        void setPointSize(const float size);
+
+        void setLineWidth(const float width);
 
 
         /////////////////////////////////////////////////////////
         // Other
+        void flush();
+
+        void setDepthFunction(const bool enable, DepthFunction func = LESS);
+
+        void setBlendFunction(const bool enable, BlendFunction sfunc = ONE, BlendFunction dfunc = ZERO);
+
+        void setFaceCulling(const bool enable, FaceCulling mode = BACK);
 
 
 
