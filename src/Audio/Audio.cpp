@@ -1,5 +1,5 @@
 #include <UtH\Audio\Audio.h>
-#include <UtH\Core\Debug.hpp>
+#include <UtH\Platform\Debug.hpp>
 
 using namespace uth;
 
