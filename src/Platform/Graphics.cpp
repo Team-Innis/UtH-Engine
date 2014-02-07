@@ -2,7 +2,6 @@
 #include <UtH\Platform\Configuration.hpp>
 #include <UtH\Platform\OpenGL.hpp>
 #include <UtH\Platform\OGLCheck.hpp>
-#include <UtH\Platform\Debug.hpp>
 #include <iostream>
 
 #ifdef _DEBUG
@@ -218,6 +217,16 @@ namespace uth
 
         oglCheck(glShaderSource(shader, 1, &shaderCode, NULL));
         oglCheck(glCompileShader(shader));
+
+		int infoLenght;
+		oglCheck(glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLenght));
+		if(infoLenght > 1)
+		{
+			char* buf = new char[infoLenght];
+			oglCheck(glGetShaderInfoLog(shader, infoLenght, NULL, buf));
+			std::cout << buf << std::endl;
+			delete buf;
+		}
 
         int success;
 		oglCheck(glGetShaderiv(shader, GL_COMPILE_STATUS, &success));
