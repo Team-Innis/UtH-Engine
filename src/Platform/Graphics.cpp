@@ -157,6 +157,8 @@ namespace uth
         glutInitContextVersion(settings.contextVersionMajor, settings.contextVersionMinor);
 
         m_windowHandle = glutCreateWindow("Generic Window Title");
+
+        glewInit();
         
         return true;
     }
@@ -496,8 +498,6 @@ namespace uth
         int myargc = 1;
         myargv[0] = strdup("UtH Engine");
         glutInit(&myargc, myargv);
-
-        glewInit();
     }
 
     Graphics::~Graphics()
