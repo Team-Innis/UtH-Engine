@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Engine\Scene.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\SceneManager.h" />
     <ClInclude Include="..\..\include\UtH\Engine\SceneManager.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

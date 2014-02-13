@@ -1,41 +1,62 @@
-#include "UtH\Engine\Scene.hpp"
-#include "UtH\Engine\Scene.hpp"//menu
-#include "UtH\Engine\Scene.hpp"//game
-#include "UtH\Engine\Scene.hpp"//credits
+#include "UtH/Engine/SceneManager.hpp"
+#include <UtH/Platform/Debug.hpp>
 
-class SceneManager //:: singleton
+namespace uth
 {
-	SceneManager()
+	SceneManager::SceneManager()
+		: m_pendingSceneSwitch(true)
 	{
-		setActiveScene(-1);
-	}
-	enum SceneName
-	{
-		DEFAULT = -1,
-		MENU = 0,
-		GAME = 1,
-		CREDITS
-	};
 
-	void setActiveScene(int SceneNRO)
-	{
-		switch (SceneNRO)
-		{
-		case 0:
-			curScene = new /*Game*/Scene();
-			break;
-		case 1:
-			curScene = new /*Menu*/Scene();
-			break;
-		case 2:
-			curScene = new /*Credits*/Scene();
-			break;
-		default:
-			curScene = new /*Menu*/Scene();
-			break;
-		}
-		sceneID = (SceneName)SceneNRO;
 	}
-	Scene* curScene;
-	SceneName sceneID;
-};
+	SceneManager::~SceneManager()
+	{
+		delete curScene;
+	}
+	
+	void SceneManager::SwapToScene(SceneName SceneID)
+	{
+		if (!(DEFAULT <= SceneID && SceneID < COUNT))
+		{
+			WriteLog("Error when scene %d switching to %d, number out of range, switching to default scene\n",m_sceneID, m_nextScene);
+			m_sceneID = DEFAULT;
+			return;
+		}
+
+		m_sceneID = SceneID;
+	}
+	void SceneManager::SwapToScene(int SceneNumber)
+	{
+		SwapToScene((SceneName)SceneNumber);
+	}
+
+	bool SceneManager::Update(double dt)
+	{
+		if (m_pendingSceneSwitch)
+			m_switchScene();
+
+		if (!curScene->Update(dt))
+		{
+			WriteLog("Error in scene %d Update() func\n",m_sceneID);
+			return false;
+		}
+		return true;
+	}
+	bool SceneManager::Draw()
+	{
+		if (!curScene->Draw())
+		{
+			WriteLog("Error in scene %d Draw() func\n",m_sceneID);
+			return false;
+		}
+		return true;
+	}
+
+	void SceneManager::m_switchScene()
+	{
+		delete curScene;
+		curScene->DeInit();
+		makeActiveScene(m_nextScene);
+		curScene->Init();
+		m_sceneID = m_nextScene;
+	}
+}
