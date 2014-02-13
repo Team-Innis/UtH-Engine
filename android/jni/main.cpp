@@ -19,6 +19,7 @@
 #include <android_native_app_glue.h>
 
 #include "UtH/Platform/OpenGL.hpp"
+#include "UtH/Platform/Debug.hpp"
 
 #ifndef MATH_H_UMATH
 namespace umath
@@ -80,7 +81,7 @@ int displayInit(AndroidEngine* androidengine)
 
 	if(eglMakeCurrent(androidengine->display, androidengine->surface, androidengine->surface, androidengine->context) == false)
 	{
-		//WriteLog("eglMakeCurrent failed");
+		WriteLog("eglMakeCurrent failed");
 		return -1;
 	}
 
