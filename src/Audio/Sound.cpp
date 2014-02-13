@@ -154,43 +154,41 @@ void Sound::Initialize(const char* fileName)
 	// Create buffer
 	alGenBuffers(1, &buffer);
 	CheckALError("alGenBuffers");
-	//ResourceManager* manager = new ResourceManager();
-	ResourceManager::getInstance().loadWAV(fileName);
 
-	ResourceManager* RS = &ResourceManager::getInstance();
-	
-	if(RS->soundInfo.channels == 2)
+	uthRS.loadWAV(fileName);
+
+	if(uthRS.soundInfo.channels == 2)
 	{
-		if(RS->soundInfo.bitsPerSample == 16)
+		if(uthRS.soundInfo.bitsPerSample == 16)
 		{
 			alBufferData(buffer, AL_FORMAT_STEREO16, 
-				RS->soundInfo.soundBuffer, 
-				RS->soundInfo.frames * sizeof(short), 
-				RS->soundInfo.sampleRate);
+				uthRS.soundInfo.soundBuffer, 
+				uthRS.soundInfo.frames * sizeof(short), 
+				uthRS.soundInfo.sampleRate);
 		}
-		else if(RS->soundInfo.bitsPerSample == 8)
+		else if(uthRS.soundInfo.bitsPerSample == 8)
 		{
 			alBufferData(buffer, AL_FORMAT_STEREO8, 
-				RS->soundInfo.soundBuffer, 
-				RS->soundInfo.frames * sizeof(short), 
-				RS->soundInfo.sampleRate);
+				uthRS.soundInfo.soundBuffer, 
+				uthRS.soundInfo.frames * sizeof(short), 
+				uthRS.soundInfo.sampleRate);
 		}
 	}
-	else if(RS->soundInfo.channels == 1)
+	else if(uthRS.soundInfo.channels == 1)
 	{
-		if(RS->soundInfo.bitsPerSample == 16)
+		if(uthRS.soundInfo.bitsPerSample == 16)
 		{
 			alBufferData(buffer, AL_FORMAT_MONO16, 
-				RS->soundInfo.soundBuffer, 
-				RS->soundInfo.frames * sizeof(short), 
-				RS->soundInfo.sampleRate);
+				uthRS.soundInfo.soundBuffer, 
+				uthRS.soundInfo.frames * sizeof(short), 
+				uthRS.soundInfo.sampleRate);
 		}
-		else if(RS->soundInfo.bitsPerSample == 8)
+		else if(uthRS.soundInfo.bitsPerSample == 8)
 		{
 			alBufferData(buffer, AL_FORMAT_MONO8, 
-				RS->soundInfo.soundBuffer, 
-				RS->soundInfo.frames * sizeof(short), 
-				RS->soundInfo.sampleRate);
+				uthRS.soundInfo.soundBuffer, 
+				uthRS.soundInfo.frames * sizeof(short), 
+				uthRS.soundInfo.sampleRate);
 		}
 	}
 }

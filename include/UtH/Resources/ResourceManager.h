@@ -6,6 +6,9 @@
 #include <UtH\Core\Debug.hpp>
 #include <UtH\Platform\Singleton.hpp>
 
+#include <map>
+#include <utility>
+
 #define uthRS uth::ResourceManager::getInstance()
 
 namespace uth
@@ -23,7 +26,7 @@ namespace uth
 			short channels;
 			int frames;
 			DWORD sampleRate;
-		} soundInfo;
+		};
 		struct Header
 		{
 			BYTE* pixels;
@@ -32,7 +35,10 @@ namespace uth
 			USHORT height;
 			BYTE depth;
 			BYTE descriptor;
-		}header;
+		};
+
+		SoundInfo soundInfo;
+		Header header;
 
 		void loadWAV(const char* filePath);
 		void loadTGA(const char* filePath);
@@ -40,6 +46,10 @@ namespace uth
 	private:
 		ResourceManager();
 		~ResourceManager();
+
+		std::map<const char*, SoundInfo> s_Info;
+		std::map<const char*, Header> _header;
+		
 	};
 }
 #endif
