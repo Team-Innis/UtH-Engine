@@ -1,105 +1,8 @@
 #include <UtH\Audio\Sound.h>
 #include <UtH\Core\Debug.hpp>
+#include <UtH\Resources\ResourceManager.h>
 
 using namespace uth;
-
-#pragma region loadwaw
-struct SoundInfo
-{
-	short *soundBuffer;
-	short bitsPerSample;
-	short channels;
-	int frames;
-	DWORD sampleRate;
-} soundInfo;
-
-void loadWAV(const char* filePath)
-{
-	FileReader* FR = new FileReader(filePath);
-
-	BYTE id[4]; // four bytes to hold 'RIFF'
-	short *sound_buffer;
-	DWORD size;
-	short format_tag, channels, block_align, bits_per_sample;
-	DWORD format_lenght, sample_rate, avg_bytes_sec;
-	DWORD data_size, i = 0;
-
-	if(true)
-	{
-		FR->ReadBytes(id, 4);
-		if((char)id[0] == 'R' && (char)id[1] == 'I' && (char)id[2] == 'F' && (char)id[3] == 'F')
-		{
-			//FR->FileSeek(4, 0);
-			//FR->ReadBytes(&size, 1);
-			FR->FileSeek(8, 0);
-			FR->ReadBytes(id, 4);
-			if((char)id[0] == 'W' && (char)id[1] == 'A' && (char)id[2] == 'V' && (char)id[3] == 'E')
-			{
-				//FR->FileSeek(12, 0);
-				//FR->ReadBytes(id, 4);
-				//WriteLog((char*)id);
-				FR->FileSeek(16, 0);
-				FR->ReadBytes(&format_lenght, 4);
-				i+=format_lenght;
-				WriteLog("Block lenght: %lu\n", format_lenght);
-				FR->FileSeek(20, 0);
-				FR->ReadBytes(&format_tag, 2);
-				WriteLog("Format tag: %d\n", format_tag);
-				if(format_tag != 1)
-				{
-					WriteLog("Only PCM format supported!\n");
-					return;
-				}
-				FR->FileSeek(22, 0);
-				FR->ReadBytes(&channels, 2);
-				WriteLog("Channels: %d\n", channels);
-				FR->FileSeek(24, 0);
-				FR->ReadBytes(&sample_rate, 4);
-				WriteLog("Sample rate: %lu\n");
-				FR->FileSeek(28, 0);
-				FR->ReadBytes(&avg_bytes_sec, 4);
-				WriteLog("Avg bytes sec: %lu\n", avg_bytes_sec);
-				FR->FileSeek(32, 0);
-				FR->ReadBytes(&block_align, 2);
-				WriteLog("Block align: %d\n", block_align);
-				FR->FileSeek(34, 0);
-				FR->ReadBytes(&bits_per_sample, 2);
-				WriteLog("Bits per sample: %d\n", bits_per_sample);
-				//FR->FileSeek(20 + i, 0);
-				//FR->ReadBytes(id, 4);
-				//WriteLog((char*)id);
-				FR->FileSeek(24 + i, 0);
-				FR->ReadBytes(&format_lenght, 4);
-				i+=format_lenght;
-				WriteLog("Block lenght: %lu\n", format_lenght);
-				FR->FileSeek(28 + i, 0);
-				FR->ReadBytes(id, 4);
-				WriteLog((char*)id);
-				//FR->FileSeek(32 + i, 0);
-				FR->ReadBytes(&data_size, 4);
-				WriteLog("\nData size %lu\n", data_size);
-				sound_buffer = (short *)malloc(sizeof(short) * data_size);
-				//FR->FileSeek(36 + i, 0);
-				FR->ReadBytes(sound_buffer, data_size);
-				WriteLog("Sound buffer: %u\n", sound_buffer);
-			}
-			else
-				WriteLog("Not a WAVE file!\n");
-		}
-		else
-			WriteLog("Not a RIFF file!\n");
-	}
-
-	int frames = data_size / block_align;
-	WriteLog("Frames: %d\n", frames);
-
-	soundInfo.channels = channels;
-	soundInfo.frames = frames;
-	soundInfo.sampleRate = sample_rate;
-	soundInfo.soundBuffer = sound_buffer;
-	soundInfo.bitsPerSample = bits_per_sample;
-}
-#pragma endregion TODO: MOVE TO RESOURCE MANAGER
 
 Sound::Sound()
 {
@@ -252,23 +155,42 @@ void Sound::Initialize(const char* fileName)
 	alGenBuffers(1, &buffer);
 	CheckALError("alGenBuffers");
 
-	loadWAV(fileName);
-	
-	if(soundInfo.channels == 2)
-	{
-		if(soundInfo.bitsPerSample == 16)
-			alBufferData(buffer, AL_FORMAT_STEREO16, soundInfo.soundBuffer, soundInfo.frames * sizeof(short), soundInfo.sampleRate);
-		else if(soundInfo.bitsPerSample == 8)
-			alBufferData(buffer, AL_FORMAT_STEREO8, soundInfo.soundBuffer, soundInfo.frames * sizeof(short), soundInfo.sampleRate);
-	}
-	else if(soundInfo.channels == 1)
-	{
-		if(soundInfo.bitsPerSample == 16)
-			alBufferData(buffer, AL_FORMAT_MONO16, soundInfo.soundBuffer, soundInfo.frames * sizeof(short), soundInfo.sampleRate);
-		else if(soundInfo.bitsPerSample == 8)
-			alBufferData(buffer, AL_FORMAT_MONO8, soundInfo.soundBuffer, soundInfo.frames * sizeof(short), soundInfo.sampleRate);
-	}
+	uthRS.loadWAV(fileName);
 
+	if(uthRS.soundInfo.channels == 2)
+	{
+		if(uthRS.soundInfo.bitsPerSample == 16)
+		{
+			alBufferData(buffer, AL_FORMAT_STEREO16, 
+				uthRS.soundInfo.soundBuffer, 
+				uthRS.soundInfo.frames * sizeof(short), 
+				uthRS.soundInfo.sampleRate);
+		}
+		else if(uthRS.soundInfo.bitsPerSample == 8)
+		{
+			alBufferData(buffer, AL_FORMAT_STEREO8, 
+				uthRS.soundInfo.soundBuffer, 
+				uthRS.soundInfo.frames * sizeof(short), 
+				uthRS.soundInfo.sampleRate);
+		}
+	}
+	else if(uthRS.soundInfo.channels == 1)
+	{
+		if(uthRS.soundInfo.bitsPerSample == 16)
+		{
+			alBufferData(buffer, AL_FORMAT_MONO16, 
+				uthRS.soundInfo.soundBuffer, 
+				uthRS.soundInfo.frames * sizeof(short), 
+				uthRS.soundInfo.sampleRate);
+		}
+		else if(uthRS.soundInfo.bitsPerSample == 8)
+		{
+			alBufferData(buffer, AL_FORMAT_MONO8, 
+				uthRS.soundInfo.soundBuffer, 
+				uthRS.soundInfo.frames * sizeof(short), 
+				uthRS.soundInfo.sampleRate);
+		}
+	}
 }
 
 void Sound::CreateSources(ALuint &source)

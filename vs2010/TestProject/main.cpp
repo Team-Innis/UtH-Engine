@@ -3,14 +3,13 @@
 #include <iostream>
 #include <Windows.h>
 
-
+#include <UtH\Resources\ResourceManager.h>
 
 int main()
 {
     uth::WindowSettings settings;
 
     uthGraphics.createWindow(settings);
-
 
     while(!(GetAsyncKeyState(VK_ESCAPE) & 0x8000))
     {
