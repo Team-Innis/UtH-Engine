@@ -21,6 +21,7 @@ LOCAL_SRC_FILES := main.cpp
 LOCAL_LDLIBS    := -llog -landroid -lEGL -lGLESv2
 LOCAL_STATIC_LIBRARIES := android_native_app_glue
 LOCAL_SHARED_LIBRARIES := 
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../include/
 
 include $(BUILD_SHARED_LIBRARY)
 

@@ -18,9 +18,9 @@
 #include <errno.h>
 #include <android_native_app_glue.h>
 
-#include <EGL/egl.h>
-#include <GLES2/gl2.h>
+#include "UtH/Platform/OpenGL.hpp"
 
+#ifndef MATH_H_UMATH
 namespace umath
 {
 	struct vector2
@@ -28,6 +28,7 @@ namespace umath
 		int x,y;
 	};
 }
+#endif
 
 
 //Struct containing EGL stugg and android app

@@ -20,10 +20,8 @@
 
 #elif defined(UTH_SYSTEM_ANDROID)
 
-    #include <GLES/gl.h>
-    #include <GLES/glu.h>
-    #include <GL\freeglut.h>
-    #include <GL\glut.h>
+	#include <EGL/egl.h>
+	#include <GLES2/gl2.h>
 
 #elif defined(UTH_SYSTEM_IOS)
 
