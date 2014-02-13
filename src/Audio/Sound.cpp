@@ -1,5 +1,4 @@
 #include <UtH\Audio\Sound.h>
-#include <UtH\Core\Debug.hpp>
 #include <UtH\Resources\ResourceManager.h>
 
 using namespace uth;
@@ -163,14 +162,14 @@ void Sound::Initialize(const char* fileName)
 		{
 			alBufferData(buffer, AL_FORMAT_STEREO16, 
 				uthRS.soundInfo.soundBuffer, 
-				uthRS.soundInfo.frames * sizeof(short), 
+				uthRS.soundInfo.frames * sizeof(int), 
 				uthRS.soundInfo.sampleRate);
 		}
 		else if(uthRS.soundInfo.bitsPerSample == 8)
 		{
 			alBufferData(buffer, AL_FORMAT_STEREO8, 
 				uthRS.soundInfo.soundBuffer, 
-				uthRS.soundInfo.frames * sizeof(short), 
+				uthRS.soundInfo.frames * sizeof(int), 
 				uthRS.soundInfo.sampleRate);
 		}
 	}
@@ -180,17 +179,25 @@ void Sound::Initialize(const char* fileName)
 		{
 			alBufferData(buffer, AL_FORMAT_MONO16, 
 				uthRS.soundInfo.soundBuffer, 
-				uthRS.soundInfo.frames * sizeof(short), 
+				uthRS.soundInfo.frames * sizeof(int), 
 				uthRS.soundInfo.sampleRate);
 		}
 		else if(uthRS.soundInfo.bitsPerSample == 8)
 		{
 			alBufferData(buffer, AL_FORMAT_MONO8, 
 				uthRS.soundInfo.soundBuffer, 
-				uthRS.soundInfo.frames * sizeof(short), 
+				uthRS.soundInfo.frames * sizeof(int), 
 				uthRS.soundInfo.sampleRate);
 		}
 	}
+
+	CheckALError("alBufferData");
+
+	alSourcei(source, AL_BUFFER, buffer);
+	CheckALError("alSourcei");
+
+	duration = (float)uthRS.soundInfo.frames / (float)uthRS.soundInfo.sampleRate;
+	WriteLog("duration: %f\n", duration);
 }
 
 void Sound::CreateSources(ALuint &source)
