@@ -14,17 +14,22 @@ Shader::~Shader()
 
 
 // Public
-bool Shader::LoadShader(ShaderType type, const std::string path)
+bool Shader::LoadShader(const std::string vertexShaderPath, const std::string fragmentShaderPath)
 {
-	FileReader fr(path.c_str());
+	FileReader fr;
 
-	const char* code = fr.ReadText();
+	// Vertex Shader
+	fr.OpenFile(vertexShaderPath.c_str());
+	const char* vertex = fr.ReadText();
+	if(!uthGraphics.createShader(ShaderType::VERTEX_SHADER, program, vertex))
+		return false;
 
-	return uthGraphics.createShader(type, program, code);
-}
+	// Fragment Shader
+	fr.OpenFile(fragmentShaderPath.c_str());
+	const char* fragment = fr.ReadText();
+	if(!uthGraphics.createShader(ShaderType::FRAGMENT_SHADER, program, fragment))
+		return false;
 
-bool Shader::LinkShader()
-{
 	return uthGraphics.linkShaderProgram(program);
 }
 

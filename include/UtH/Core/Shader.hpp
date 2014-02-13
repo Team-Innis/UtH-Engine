@@ -1,8 +1,8 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include <UtH/Platform/Enums.hpp>
 #include <UtH/Math/Math.hpp>
+#include <UtH/Platform/Enums.hpp>
 #include <string>
 
 namespace uth
@@ -13,8 +13,7 @@ namespace uth
 		Shader();
 		~Shader();
 
-		bool LoadShader(ShaderType type, const std::string path);
-		bool LinkShader();
+		bool LoadShader(const std::string vertexShaderPath, const std::string fragmentShaderPath);
 		void Use();
 
 		bool setAttributeData(const std::string name, const int size, DataType type, const int offset, const void* data); 

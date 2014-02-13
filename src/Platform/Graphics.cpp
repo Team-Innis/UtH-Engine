@@ -248,6 +248,16 @@ namespace uth
     {
         oglCheck(glLinkProgram(shaderProgram));
 
+		int infoLenght;
+		oglCheck(glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLenght));
+		if(infoLenght > 1)
+		{
+			char* buf = new char[infoLenght];
+			oglCheck(glGetProgramInfoLog(shaderProgram, infoLenght, NULL, buf));
+			std::cout << buf << std::endl;
+			delete buf;
+		}
+
         int success;
 		oglCheck(glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success));
 
