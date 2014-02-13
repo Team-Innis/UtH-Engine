@@ -14,7 +14,7 @@ Shader::~Shader()
 
 
 // Public
-bool Shader::LoadShader(ShaderType type, std::string path)
+bool Shader::LoadShader(ShaderType type, const std::string path)
 {
 	FileReader fr(path.c_str());
 
@@ -36,50 +36,77 @@ void Shader::Use()
 
 //////////////////////////////////////////////////////////////
 // Uniform set functions
-void Shader::SetUniform(const std::string name, const float x)
+bool Shader::SetUniform(const std::string name, const float x)
 {
 	int location = uthGraphics.getUniformLocation(program, name.c_str());
+	if(location == -1)
+		return false;
 	uthGraphics.setUniform(location, x);
+	return true;
 }
-void Shader::SetUniform(const std::string name, const float x, const float y)
+bool Shader::SetUniform(const std::string name, const float x, const float y)
 {
 	int location = uthGraphics.getUniformLocation(program, name.c_str());
+	if(location == -1)
+		return false;
 	uthGraphics.setUniform(location, x, y);
+	return true;
 }
-void Shader::SetUniform(const std::string name, const float x, const float y, const float z)
+bool Shader::SetUniform(const std::string name, const float x, const float y, const float z)
 {
 	int location = uthGraphics.getUniformLocation(program, name.c_str());
+	if(location == -1)
+		return false;
 	uthGraphics.setUniform(location, x, y, z);
+	return true;
 }
-void Shader::SetUniform(const std::string name, const float x, const float y, const float z, const float w)
+bool Shader::SetUniform(const std::string name, const float x, const float y, const float z, const float w)
 {
 	int location = uthGraphics.getUniformLocation(program, name.c_str());
+	if(location == -1)
+		return false;
 	uthGraphics.setUniform(location, x, y, z, w);
+	return true;
 }
-void Shader::SetUniform(const std::string name, const umath::vector2& vector)
+bool Shader::SetUniform(const std::string name, const umath::vector2& vector)
 {
 	int location = uthGraphics.getUniformLocation(program, name.c_str());
+	if(location == -1)
+		return false;
 	uthGraphics.setUniform(location, vector);
+	return true;
 }
-void Shader::SetUniform(const std::string name, const umath::vector3& vector)
+bool Shader::SetUniform(const std::string name, const umath::vector3& vector)
 {
 	int location = uthGraphics.getUniformLocation(program, name.c_str());
+	if(location == -1)
+		return false;
 	uthGraphics.setUniform(location, vector);
+	return true;
 }
-void Shader::SetUniform(const std::string name, const umath::vector4& vector)
+bool Shader::SetUniform(const std::string name, const umath::vector4& vector)
 {
 	int location = uthGraphics.getUniformLocation(program, name.c_str());
+	if(location == -1)
+		return false;
 	uthGraphics.setUniform(location, vector);
+	return true;
 }
-void Shader::SetUniform(const std::string name, const umath::matrix3& matrix)
+bool Shader::SetUniform(const std::string name, const umath::matrix3& matrix)
 {
 	int location = uthGraphics.getUniformLocation(program, name.c_str());
+	if(location == -1)
+		return false;
 	uthGraphics.setUniform(location, matrix);
+	return true;
 }
-void Shader::SetUniform(const std::string name, const umath::matrix4& matrix)
+bool Shader::SetUniform(const std::string name, const umath::matrix4& matrix)
 {
 	int location = uthGraphics.getUniformLocation(program, name.c_str());
+	if(location == -1)
+		return false;
 	uthGraphics.setUniform(location, matrix);
+	return true;
 }
 
 // Private
