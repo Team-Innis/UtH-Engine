@@ -14,8 +14,8 @@ namespace uth
 		~VertexBuffer();
 
 		void addVertex(const umath::vector3 vertex, const umath::vector2 uv);
-		void addVertices(const std::vector<float>& vertices, const std::vector<float>& uvs);
-		void addIndex(const unsigned int index);
+		//void addVertices(const std::vector<float>& vertices, const std::vector<float>& uvs);
+		void addIndex(const unsigned short index);
 		//void addIndices(const std::vector<unsigned int>& indices);
 
 		void setVertices(Shader* shader) const;
@@ -27,7 +27,7 @@ namespace uth
 
 		int vertexCount;
 		std::vector<float> data;
-		std::vector<unsigned int> indices;
+		std::vector<unsigned short> indices;
 	};
 }
 #endif

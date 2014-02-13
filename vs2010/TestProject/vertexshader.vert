@@ -12,9 +12,9 @@ void main()
 {
 	texCoord = attrUV;
 
-	mat4 model = unifTranslation * unifRotation * unifScale;
+	//mat4 model = unifTranslation * unifRotation * unifScale;
 
-	vec4 pos = unifProjection * model * vec4(attrPosition, 1.0);
+	//vec4 pos = unifProjection * model * vec4(attrPosition, 1.0);
 	
-	gl_Position = pos;
+	gl_Position = vec4(attrPosition, 1.0);
 }
