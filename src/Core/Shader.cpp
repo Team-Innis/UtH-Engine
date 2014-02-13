@@ -33,6 +33,18 @@ void Shader::Use()
 	uthGraphics.bindProgram(program);
 }
 
+bool Shader::setAttributeData(const std::string name, const int size, DataType type, const int offset, const void* data)
+{
+	int location = uthGraphics.getAttributeLocation(program, name.c_str());
+	if(location == -1)
+		return false;
+
+	uthGraphics.enableVertexAttribArray(location);
+	uthGraphics.setVertexAttribPointer(location, size, type, offset, data);
+	uthGraphics.disableVertexAttribArray(location);
+	return true;
+}
+
 
 //////////////////////////////////////////////////////////////
 // Uniform set functions

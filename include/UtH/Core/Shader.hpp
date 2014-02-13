@@ -17,6 +17,8 @@ namespace uth
 		bool LinkShader();
 		void Use();
 
+		bool setAttributeData(const std::string name, const int size, DataType type, const int offset, const void* data); 
+
 
 
 		//////////////////////////////////////////////////////////////
