@@ -56,11 +56,13 @@ void CheckGLError(const char* op)
 
 void CheckALError(const char* op)
 {
+	
 	for(ALCenum error = alGetError(); error != AL_NO_ERROR; error = alGetError())
 	{
-
 		WriteLog("after %s() glError (0x%x)\n", op, error);
 	}
+	
+	WriteLog("after %s() glError (0x%x)\n", op);
 }
 
 void Win32Assert(int expression)
