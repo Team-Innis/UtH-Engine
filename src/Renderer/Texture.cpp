@@ -1,6 +1,6 @@
 #include <UtH\Renderer\Texture.hpp>
 #include <UtH\Platform\Graphics.hpp>
-#include <UtH\Platform\FileReader.h>
+#include <UtH\Resources\ResourceManager.h>
 #include <cstdlib>
 
 
@@ -23,37 +23,10 @@ namespace uth
 
     bool Texture::loadFromFile(const char* path, const bool smooth, const bool repeated)
     {
-        unsigned char* pixels;
-	
-		FileReader FR(path);
-	
-		unsigned char* buffer = (unsigned char*)malloc(sizeof(unsigned char)*4);
+        uthRS.loadTGA(path);
 
-		if (!FR.FileSeek(12, 0)) return false;
-		FR.ReadBytes(buffer, 4);
-		int sizeX= buffer[0]+buffer[1]*256;
-		int sizeY= buffer[2]+buffer[3]*256;
-		free(buffer);
-	
-		buffer = (unsigned char*)malloc(sizeof(unsigned char) * 1);
-		FR.FileSeek(16, 0);
-		FR.ReadBytes(buffer, 1);
-		int bpp = buffer[0];
-		free(buffer);
-	
-		int datasize = sizeX * sizeY * bpp / 8;
-		pixels = (unsigned char*)malloc(sizeof(unsigned char) * datasize);
-		unsigned char* t_buffer = (unsigned char*)malloc(sizeof(unsigned char) * datasize);
-	
-		FR.FileSeek(18, 0);
-		FR.ReadBytes(t_buffer, datasize);	
-		for(int i = 0; i < datasize; i += 4)
-		{
-			pixels[i + 0] = t_buffer[i + 2];
-			pixels[i + 1] = t_buffer[i + 1];
-			pixels[i + 2] = t_buffer[i + 0];
-			pixels[i + 3] = t_buffer[i + 3];
-		}
+        m_size.w = uthRS.header.width;
+        m_size.h = uthRS.header.height;
 
         uthGraphics.setPixelStore(UNPACK_ALIGNMENT, 1);
         uthGraphics.generateTextures(1, &m_textureID);
@@ -61,8 +34,7 @@ namespace uth
 
         bind();
 
-        uthGraphics.setTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT, sizeX, sizeY, RGBA_FORMAT,
-                     UNSIGNED_BYTE_TYPE, pixels);
+        uthGraphics.setTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT, m_size.w, m_size.h, RGBA_FORMAT, UNSIGNED_BYTE_TYPE, uthRS.header.pixels);
 
         setSmooth(smooth);
         setRepeated(repeated);
