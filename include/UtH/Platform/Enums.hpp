@@ -127,4 +127,64 @@ namespace uth
     
         TEXTUREPARAM_LAST
     };
+
+    enum PrimitiveType
+    {
+        POINTS, 
+        LINE_STRIP, 
+        LINE_LOOP, 
+        LINES, 
+        LINE_STRIP_ADJACENCY, 
+        LINES_ADJACENCY, 
+        TRIANGLE_STRIP, 
+        TRIANGLE_FAN, 
+        TRIANGLES, 
+        TRIANGLE_STRIP_ADJACENCY,
+        TRIANGLES_ADJACENCY,
+
+        PRIMITIVETYPE_LAST
+    };
+
+    enum DepthFunction
+    {
+        NEVER, 
+        LESS, 
+        EQUAL, 
+        LEQUAL, 
+        GREATER, 
+        NOTEQUAL, 
+        GEQUAL, 
+        ALWAYS,
+
+        DEPTHFUNCTION_LAST
+    };
+
+    enum BlendFunction
+    {
+        ZERO, 
+        ONE, 
+        SRC_COLOR, 
+        ONE_MINUS_SRC_COLOR, 
+        DST_COLOR, 
+        ONE_MINUS_DST_COLOR, 
+        SRC_ALPHA, 
+        ONE_MINUS_SRC_ALPHA, 
+        DST_ALPHA, 
+        ONE_MINUS_DST_ALPHA, 
+        CONSTANT_COLOR, 
+        ONE_MINUS_CONSTANT_COLOR, 
+        CONSTANT_ALPHA, 
+        ONE_MINUS_CONSTANT_ALPHA,
+
+        BLENDFUNCTION_LAST
+    };
+
+    enum FaceCulling
+    {
+         FRONT, 
+         BACK, 
+         FRONT_AND_BACK,
+
+         FACECULLING_LAST
+    };
 }
