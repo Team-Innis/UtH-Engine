@@ -60,15 +60,19 @@ namespace uth
                                                          GL_UNPACK_SKIP_ROWS, 
                                                          GL_UNPACK_SKIP_IMAGES, 
                                                          GL_UNPACK_ALIGNMENT};
-    static int textureTypes[TEXTURETYPE_LAST] =         {TEXTURE_1D, 
-                                                         TEXTURE_2D, 
-                                                         TEXTURE_3D, 
-                                                         TEXTURE_1D_ARRAY, 
-                                                         TEXTURE_2D_ARRAY, 
-                                                         TEXTURE_RECTANGLE, 
-                                                         TEXTURE_CUBE_MAP,
-                                                         TEXTURE_2D_MULTISAMPLE,
-                                                         TEXTURE_2D_MULTISAMPLE_ARRAY};
+    static int textureTypes[TEXTURETYPE_LAST] =         {GL_TEXTURE_1D, 
+                                                         GL_TEXTURE_2D, 
+                                                         GL_TEXTURE_3D, 
+                                                         GL_TEXTURE_1D_ARRAY, 
+                                                         GL_TEXTURE_2D_ARRAY, 
+                                                         GL_TEXTURE_RECTANGLE, 
+                                                         GL_TEXTURE_CUBE_MAP,
+                                                         GL_TEXTURE_2D_MULTISAMPLE,
+                                                         GL_TEXTURE_2D_MULTISAMPLE_ARRAY};
+    static int textureFilters[TEXTUREFILTER_LAST] =     {GL_NEAREST,
+                                                         GL_LINEAR,
+                                                         GL_REPEAT,
+                                                         GL_CLAMP_TO_EDGE};
     static int imageFormats[IMAGEFORMAT_LAST] =         {GL_RGB,
                                                          GL_RGBA};
     static int textureParams[TEXTUREPARAM_LAST] =       {GL_TEXTURE_BASE_LEVEL, 
@@ -409,9 +413,9 @@ namespace uth
         oglCheck(glTexImage2D(textureTypes[TEXTURE_2D], level, imageFormats[imageFormat], width, height, 0, imageFormats[pixelFormat], dataTypes[dataType], pixels));
     }
 
-    void setTextureParameter(TextureType type, TextureParam param, const int value)
+    void setTextureParameter(TextureType type, TextureParam param, TextureFilter filter)
     {
-        oglCheck(glTexParameteri(textureTypes[type], textureParams[param], value));
+        oglCheck(glTexParameteri(textureTypes[type], textureParams[param], textureFilters[filter]));
     }
 
 

@@ -95,7 +95,6 @@ namespace uth
 
         /////////////////////////////////////////////////////////
         // Texture functions
-        
         void setPixelStore(PixelStoreParam param, const int value);
 
         void generateTextures(const unsigned int amount, unsigned int* data);
@@ -108,7 +107,7 @@ namespace uth
 
         void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, const size_t width, const size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels);
 
-        void setTextureParameter(TextureType type, TextureParam param, const int value);
+        void setTextureParameter(TextureType type, TextureParam param, TextureFilter filter);
 
 
         /////////////////////////////////////////////////////////

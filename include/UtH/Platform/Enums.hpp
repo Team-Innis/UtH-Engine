@@ -98,6 +98,16 @@ namespace uth
         TEXTURETYPE_LAST
     };
 
+    enum TextureFilter
+    {
+        NEAREST,
+        LINEAR,
+        REPEAT,
+        CLAMP_TO_EDGE,
+
+        TEXTUREFILTER_LAST
+    };
+
     enum ImageFormat
     {
         RGB_FORMAT,

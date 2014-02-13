@@ -22,9 +22,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Renderer\Camera.cpp" />
+    <ClCompile Include="..\..\src\Renderer\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Renderer\Camera.hpp" />
+    <ClInclude Include="..\..\include\UtH\Renderer\Texture.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1D73B616-7E2F-48D5-920E-EC7868BE9664}</ProjectGuid>
