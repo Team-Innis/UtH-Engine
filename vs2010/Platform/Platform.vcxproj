@@ -12,9 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Platform\Configuration.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Debug.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Enums.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\FileReader.h" />
     <ClInclude Include="..\..\include\UtH\Platform\Graphics.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\HiResTimer.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\OGLCheck.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\OpenGL.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Singleton.hpp" />
@@ -24,6 +26,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\Platform\FileReader.cpp" />
     <ClCompile Include="..\..\src\Platform\Graphics.cpp" />
+    <ClCompile Include="..\..\src\Platform\HiResTimer.cpp" />
     <ClCompile Include="..\..\src\Platform\OGLCheck.cpp" />
   </ItemGroup>
   <ItemGroup>
