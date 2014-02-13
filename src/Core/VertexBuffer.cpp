@@ -48,11 +48,11 @@ void VertexBuffer::addIndex(const unsigned short index)
 void VertexBuffer::setVertices(Shader* shader) const
 {
 	uthGraphics.bindBuffer(BufferType::ARRAY_BUFFER, buffer);
-	uthGraphics.setBufferData(BufferType::ARRAY_BUFFER, data.size(), &data.front(),
+	uthGraphics.setBufferData(BufferType::ARRAY_BUFFER, data.size()*sizeof(float), &data.front(),
 		UsageType::STATIC_DRAW);
 
-	const int posOffset = 5*sizeof(float);
-	const int uvOffset = 5*sizeof(float);
+	const int posOffset = 2*sizeof(float);
+	const int uvOffset = 3*sizeof(float);
 	const int uvStart = 3*sizeof(float);
 
 	// Attribute name, number of components, datatype, bytes between elements,
