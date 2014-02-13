@@ -350,27 +350,27 @@ namespace uth
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     // Buffers
 
-    void generateBuffers(const unsigned int amount, unsigned int* buffers)
+    void Graphics::generateBuffers(const unsigned int amount, unsigned int* buffers)
     {
         oglCheck(glGenBuffers(amount, buffers));
     }
 
-    void deleteBuffers(const unsigned int amount, unsigned int* buffers)
+    void Graphics::deleteBuffers(const unsigned int amount, unsigned int* buffers)
     {
         oglCheck(glDeleteBuffers(amount, buffers));
     }
 
-    void bindBuffer(BufferType type, const unsigned int buffer)
+    void Graphics::bindBuffer(BufferType type, const unsigned int buffer)
     {
         oglCheck(glBindBuffer(bufferTypes[type], buffer));
     }
 
-    void setBufferData(BufferType type, const unsigned int size, const void* data, UsageType usageType)
+    void Graphics::setBufferData(BufferType type, const unsigned int size, const void* data, UsageType usageType)
     {
         oglCheck(glBufferData(bufferTypes[type], size, data, usageTypes[usageType]));
     }
 
-    void setBufferSubData(BufferType type, const unsigned int offset, const unsigned int size, const void* data)
+    void Graphics::setBufferSubData(BufferType type, const unsigned int offset, const unsigned int size, const void* data)
     {
         oglCheck(glBufferSubData(bufferTypes[type], offset, size, data));
     }
@@ -379,37 +379,37 @@ namespace uth
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     // Texture functions
         
-    void setPixelStore(PixelStoreParam param, const int value)
+    void Graphics::setPixelStore(PixelStoreParam param, const int value)
     {
         oglCheck(glPixelStorei(pixelStoreParams[param], value));
     }
 
-    void generateTextures(const unsigned int amount, unsigned int* data)
+    void Graphics::generateTextures(const unsigned int amount, unsigned int* data)
     {
         oglCheck(glGenTextures(amount, data));
     }
 
-    void setActiveTexUnit(TexUnit unit)
+    void Graphics::setActiveTexUnit(TexUnit unit)
     {
         oglCheck(glActiveTexture(unit));
     }
 
-    void bindTexture(TextureType type, const int texture)
+    void Graphics::bindTexture(TextureType type, const int texture)
     {
         oglCheck(glBindTexture(textureTypes[type], texture));
     }
 
-    void setTextureImage1D(const int level, ImageFormat imageFormat, const size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels)
+    void Graphics::setTextureImage1D(const int level, ImageFormat imageFormat, const size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels)
     {
         oglCheck(glTexImage1D(textureTypes[TEXTURE_1D], level, imageFormats[imageFormat], width, 0, imageFormats[pixelFormat], dataTypes[dataType], pixels));
     }
 
-    void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, const size_t width, const size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels)
+    void Graphics::setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, const size_t width, const size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels)
     {
         oglCheck(glTexImage2D(textureTypes[TEXTURE_2D], level, imageFormats[imageFormat], width, height, 0, imageFormats[pixelFormat], dataTypes[dataType], pixels));
     }
 
-    void setTextureParameter(TextureType type, TextureParam param, const int value)
+    void Graphics::setTextureParameter(TextureType type, TextureParam param, const int value)
     {
         oglCheck(glTexParameteri(textureTypes[type], textureParams[param], value));
     }
@@ -417,22 +417,22 @@ namespace uth
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     // Drawing functions
-    void drawArrays(PrimitiveType type, const int first, const size_t count)
+    void Graphics::drawArrays(PrimitiveType type, const int first, const size_t count)
     {
         oglCheck(glDrawArrays(primitiveTypes[type], first, count));
     }
 
-    void drawElements(PrimitiveType type, const size_t count, DataType dataType, const void* indices)
+    void Graphics::drawElements(PrimitiveType type, const size_t count, DataType dataType, const void* indices)
     {
         oglCheck(glDrawElements(primitiveTypes[type], count, dataTypes[dataType], indices));
     }
 
-    void setPointSize(const float size)
+    void Graphics::setPointSize(const float size)
     {
         oglCheck(glPointSize(size));
     }
 
-    void setLineWidth(const float width)
+    void Graphics::setLineWidth(const float width)
     {
         oglCheck(glLineWidth(width));
     }
@@ -440,12 +440,12 @@ namespace uth
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     // Other
-    void flush()
+    void Graphics::flush()
     {
         oglCheck(glFlush());
     }
 
-    void setDepthFunction(const bool enable, DepthFunction func)
+    void Graphics::setDepthFunction(const bool enable, DepthFunction func)
     {
         static bool enabled = false;
 
@@ -462,7 +462,7 @@ namespace uth
         oglCheck(glDepthFunc(depthFunctions[func]));
     }
 
-    void setBlendFunction(const bool enable, BlendFunction sfunc, BlendFunction dfunc)
+    void Graphics::setBlendFunction(const bool enable, BlendFunction sfunc, BlendFunction dfunc)
     {
         static bool enabled = false;
 
@@ -479,7 +479,7 @@ namespace uth
         oglCheck(glBlendFunc(blendFunctions[sfunc], blendFunctions[dfunc]));
     }
 
-    void setFaceCulling(const bool enable, FaceCulling mode)
+    void Graphics::setFaceCulling(const bool enable, FaceCulling mode)
     {
         static bool enabled = false;
 
