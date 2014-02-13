@@ -196,7 +196,7 @@ namespace uth
         oglCheck(glutSwapBuffers());
     }
 
-    void setViewport(const int x, const int y, const size_t width, const size_t height)
+    void Graphics::setViewport(const int x, const int y, const size_t width, const size_t height)
     {
         oglCheck(glViewport(x, y, width, height));
     }
