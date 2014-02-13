@@ -267,7 +267,7 @@ namespace uth
             oglCheck(glUseProgram(shaderProgram));
     }
 
-    void unbindProgram()
+    void Graphics::unbindProgram()
     {
         oglCheck(glUseProgram(0));
     }
