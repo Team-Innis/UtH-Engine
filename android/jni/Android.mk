@@ -16,11 +16,11 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE    := native-activity libopenal
-LOCAL_SRC_FILES := main.c
-LOCAL_LDLIBS    := -llog -landroid -lEGL -lGLESv2 -lOpenSLES ../extlibs/libopenal.so
+LOCAL_MODULE    := main
+LOCAL_SRC_FILES := main.cpp
+LOCAL_LDLIBS    := -llog -landroid -lEGL -lGLESv2
 LOCAL_STATIC_LIBRARIES := android_native_app_glue
-LOCAL_SHARED_LIBRARIES := libopenal
+LOCAL_SHARED_LIBRARIES := 
 
 include $(BUILD_SHARED_LIBRARY)
 

@@ -18,6 +18,18 @@
 #include <errno.h>
 #include <android_native_app_glue.h>
 
+#include <EGL/egl.h>
+#include <GLES2/gl2.h>
+
+namespace umath
+{
+	struct vector2
+	{
+		int x,y;
+	};
+}
+
+
 //Struct containing EGL stugg and android app
 struct AndroidEngine
 {
@@ -38,7 +50,7 @@ int displayInit(AndroidEngine* androidengine)
 {
 	const EGLint attribs[] =
 	{
-		EGL_RENDERABLE_TYPE, EGL_OPENGLES2_BIT,
+		EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
 		EGL_RED_SIZE, 8,
 		EGL_GREEN_SIZE, 8,
 		EGL_BLUE_SIZE, 8,
@@ -48,7 +60,7 @@ int displayInit(AndroidEngine* androidengine)
 
 	EGLint attribList[] =
 	{
-		EGL_CONTEXT_CLIENT_VERSION, 2
+		EGL_CONTEXT_CLIENT_VERSION, 2,
 		EGL_NONE
 	};
 
@@ -60,21 +72,21 @@ int displayInit(AndroidEngine* androidengine)
 	eglChooseConfig(androidengine->display, attribs, &androidengine->config, 1, &numConfigs);
 	eglGetConfigAttrib(androidengine->display, androidengine->config, EGL_NATIVE_VISUAL_ID, &format);
 
-	ANativeWindow_setBuffersGeomety(androidengine->app->window, 0, 0, format);
+	ANativeWindow_setBuffersGeometry(androidengine->app->window, 0, 0, format);
 
 	androidengine->surface = eglCreateWindowSurface(androidengine->display, androidengine->surface, androidengine->app->window, NULL);
-	androidengine->context = eglCreateContext(androidengine->display, config, NULL, attribList);
+	androidengine->context = eglCreateContext(androidengine->display, androidengine->config, NULL, attribList);
 
-	if(eglMakeCurrent(androidengine->display, androidengine->surface, androidengine->surface, androidengine->context) == FALSE)
+	if(eglMakeCurrent(androidengine->display, androidengine->surface, androidengine->surface, androidengine->context) == false)
 	{
-		WriteLog("eglMakeCurrent failed");
+		//WriteLog("eglMakeCurrent failed");
 		return -1;
 	}
 
-	eglQuerySurface(androidengine->display, androidengine->surface, EGL_WIDTH, androidengine->resolution.x);
-	eglQuerySurface(androidengine->display, androidengine->surface, EGL_HEIGHT, androidengine->resolution.y);
+	eglQuerySurface(androidengine->display, androidengine->surface, EGL_WIDTH, &androidengine->resolution.x);
+	eglQuerySurface(androidengine->display, androidengine->surface, EGL_HEIGHT, &androidengine->resolution.y);
 
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
+	glHint(GL_GENERATE_MIPMAP_HINT, GL_FASTEST);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	glViewport(0,0,androidengine->resolution.x,androidengine->resolution.y);
@@ -89,16 +101,16 @@ void displayDestroy(AndroidEngine* androidengine)
 		eglMakeCurrent(androidengine->display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
 		if(androidengine->display != EGL_NO_DISPLAY)
 		{
-			eglDestroyContext(engine->display, engine->context);
+			eglDestroyContext(androidengine->display, androidengine->context);
 		}
-		if (engine->surface != EGL_NO_SURFACE)
+		if (androidengine->surface != EGL_NO_SURFACE)
 		{
-			eglDestroySurface(engine->display, engine->surface);
+			eglDestroySurface(androidengine->display, androidengine->surface);
 		}
-		eglTerminate(engine->display);
+		eglTerminate(androidengine->display);
 	}
 	androidengine->display = EGL_NO_DISPLAY;
-	andoridengine->context = EGL_NO_CONTEXT;
+	androidengine->context = EGL_NO_CONTEXT;
 	androidengine->surface = EGL_NO_SURFACE;
 }
 
@@ -110,6 +122,10 @@ int handle_input(android_app* app, AInputEvent* event)
 	return 0;
 }
 
+void draw_frame(AndroidEngine* androidengine)
+{
+
+}
 
 //This is sort of state manager. Checks is Activity on top or not and does it have saved state
 void handle_cmd(android_app* app, int cmd)
@@ -123,12 +139,12 @@ void handle_cmd(android_app* app, int cmd)
 	case APP_CMD_INIT_WINDOW:
 		if (androidengine->app->window != NULL)
 		{
-			init_display(androidengine);
+			displayInit(androidengine);
 			draw_frame(androidengine);
 		}
 		break;
 	case APP_CMD_TERM_WINDOW:
-		terminate_display(androidengine);
+		displayDestroy(androidengine);
 		break;
 	case APP_CMD_LOST_FOCUS:
 		draw_frame(androidengine);
@@ -138,9 +154,10 @@ void handle_cmd(android_app* app, int cmd)
 
 void android_main(android_app* state)
 {
+	AndroidEngine androidengine;
+
 	app_dummy();
 
-	AndroidEngine* androidengine;
 	memset(&androidengine, 0, sizeof(AndroidEngine));
 
 	state->userData = &androidengine;
@@ -164,12 +181,12 @@ void android_main(android_app* state)
 			}
 			if (state->destroyRequested != 0)
 			{
-				terminate_display(&androidengine);
+				displayDestroy(&androidengine);
 				return;
 			}
 		}
 
-		if(androidengine->display == NULL)
+		if(androidengine.display == NULL)
 		{
 			;//Do nothing
 		}
