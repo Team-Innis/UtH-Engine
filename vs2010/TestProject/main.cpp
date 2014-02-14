@@ -15,9 +15,7 @@ int main(int* argc, char** argv)
     uthGraphics.createWindow(settings);
 
 	uth::Shader shader;
-	shader.LoadShader(uth::VERTEX_SHADER, "vertexshader.vert");
-	shader.LoadShader(uth::FRAGMENT_SHADER, "fragmentshader.frag");
-	shader.LinkShader();
+	shader.LoadShader("vertexshader.vert", "fragmentshader.frag");
 	shader.Use();
 
 	uth::VertexBuffer buf;
