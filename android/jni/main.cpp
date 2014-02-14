@@ -18,18 +18,10 @@
 #include <errno.h>
 #include <android_native_app_glue.h>
 
-#include "UtH/Platform/OpenGL.hpp"
-#include "UtH/Platform/Debug.hpp"
+#include <UtH/Platform/OpenGL.hpp>
+#include <UtH/Platform/Debug.hpp>
 
-#ifndef MATH_H_UMATH
-namespace umath
-{
-	struct vector2
-	{
-		int x,y;
-	};
-}
-#endif
+#include <UtH/Math/Math.hpp>
 
 
 //Struct containing EGL stugg and android app
@@ -85,8 +77,14 @@ int displayInit(AndroidEngine* androidengine)
 		return -1;
 	}
 
-	eglQuerySurface(androidengine->display, androidengine->surface, EGL_WIDTH, &androidengine->resolution.x);
-	eglQuerySurface(androidengine->display, androidengine->surface, EGL_HEIGHT, &androidengine->resolution.y);
+	EGLint tempX;
+	EGLint tempY;
+
+	eglQuerySurface(androidengine->display, androidengine->surface, EGL_WIDTH, &tempX);
+	eglQuerySurface(androidengine->display, androidengine->surface, EGL_HEIGHT, &tempY);
+
+	androidengine->resolution.x = tempX;
+	androidengine->resolution.y = tempY;
 
 	glHint(GL_GENERATE_MIPMAP_HINT, GL_FASTEST);
 	glEnable(GL_CULL_FACE);

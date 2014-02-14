@@ -14,14 +14,22 @@
 #
 LOCAL_PATH := $(call my-dir)
 
+include $(LOCAL_PATH)/Platform.mk
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := libopenal
+LOCAL_SRC_FILES := ../libs/libopenal.so
+include $(PREBUILT_SHARED_LIBRARY)
+
 include $(CLEAR_VARS)
 
 LOCAL_MODULE    := main
 LOCAL_SRC_FILES := main.cpp
-LOCAL_LDLIBS    := -llog -landroid -lEGL -lGLESv2
-LOCAL_STATIC_LIBRARIES := android_native_app_glue
-LOCAL_SHARED_LIBRARIES := 
+LOCAL_LDLIBS    := -llog -landroid -lEGL -lGLESv2 -lOpenSLES
+LOCAL_STATIC_LIBRARIES := android_native_app_glue engine
+LOCAL_SHARED_LIBRARIES := libopenal
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../include/
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/openal/include/
 
 include $(BUILD_SHARED_LIBRARY)
 
