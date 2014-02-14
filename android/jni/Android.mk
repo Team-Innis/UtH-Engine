@@ -27,7 +27,7 @@ LOCAL_MODULE    := main
 LOCAL_SRC_FILES := main.cpp
 LOCAL_LDLIBS    := -llog -landroid -lEGL -lGLESv2 -lOpenSLES
 LOCAL_STATIC_LIBRARIES := android_native_app_glue engine
-LOCAL_SHARED_LIBRARIES := libopenal
+LOCAL_SHARED_LIBRARIES := 
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/openal/include/
 
