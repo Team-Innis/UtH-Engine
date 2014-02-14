@@ -46,7 +46,7 @@ bool Shader::setAttributeData(const std::string name, const int size, DataType t
 
 	uthGraphics.enableVertexAttribArray(location);
 	uthGraphics.setVertexAttribPointer(location, size, type, offset, data);
-	uthGraphics.disableVertexAttribArray(location);
+	//uthGraphics.disableVertexAttribArray(location);
 	return true;
 }
 

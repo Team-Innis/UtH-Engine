@@ -21,8 +21,8 @@ int main(int* argc, char** argv)
 	uth::VertexBuffer buf;
 	buf.addVertex(umath::vector3(-0.5, -0.5, 0), umath::vector2(0.1f, 0.2f));
 	buf.addVertex(umath::vector3(0.5, -0.5, 0), umath::vector2(0.3f, 0.4f));
-	buf.addVertex(umath::vector3(0.5, 0.5, 0), umath::vector2(0.5f, 0.6f));
-	buf.addVertex(umath::vector3(-0.5, 0.5, 0), umath::vector2(0.7f, 0.8f));
+	buf.addVertex(umath::vector3(-0.5, 0.5, 0), umath::vector2(0.5f, 0.6f));
+	buf.addVertex(umath::vector3(0.5, 0.5, 0), umath::vector2(0.7f, 0.8f));
 	buf.addIndex(0);
 	buf.addIndex(1);
 	buf.addIndex(2);
