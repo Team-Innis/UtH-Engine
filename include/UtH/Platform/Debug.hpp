@@ -21,7 +21,7 @@
 	#ifndef LOGE
 		#define LOGE(...)	__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 	#endif
-	void WriteLog(const char* text, ...)
+	static void WriteLog(const char* text, ...)
 	{
 		va_list v;
 		va_start(v, text);
@@ -29,7 +29,7 @@
 		va_end(v);
 	}
 #elif defined(UTH_SYSTEM_WINDOWS)
-	void WriteLog(const char* text, ...)
+	static void WriteLog(const char* text, ...)
 	{
 		va_list v;
 		va_start(v, text);
@@ -38,14 +38,14 @@
 	}
 #endif
 
-void PrintGLString(const char* name, GLenum s)
+static void PrintGLString(const char* name, GLenum s)
 {
 	const char *v = (const char *) glGetString(s);
 
 	WriteLog("GL %s = %s\n", name, v);
 }
 
-void CheckGLError(const char* op)
+static void CheckGLError(const char* op)
 {
 	for (GLint error = glGetError(); error; error
 		= glGetError()) {
@@ -54,7 +54,7 @@ void CheckGLError(const char* op)
 	}
 }
 
-void CheckALError(const char* op)
+static void CheckALError(const char* op)
 {
 	for(ALCenum error = alGetError(); error != AL_NO_ERROR; error = alGetError())
 	{
@@ -63,7 +63,7 @@ void CheckALError(const char* op)
 	}
 }
 
-void Win32Assert(int expression)
+static void Win32Assert(int expression)
 {
 	assert(expression);
 }
