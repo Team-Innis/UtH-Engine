@@ -1,10 +1,8 @@
-#include "UtH/Engine/SceneManager.hpp"
 #ifndef SCENEMANAGER_H_UTH
 #define SCENEMANAGER_H_UTH
+//#include "UtH/Engine/SceneManager.hpp"
 
-uth::Scene* curScene;
-
-enum SceneName
+inline enum uth::SceneManager::SceneName
 {
 	DEFAULT = -1,
 	MENU = 0,
@@ -13,9 +11,8 @@ enum SceneName
 	COUNT // Keep this last, it tells how many scenes there are
 };
 
-bool setActiveScene(int SceneID)
+inline void uth::SceneManager::makeActiveScene(SceneName SceneID)
 {
-		
 	switch (SceneID)
 	{
 	case MENU:

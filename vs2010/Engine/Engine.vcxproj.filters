@@ -29,8 +29,10 @@
     <ClInclude Include="..\..\include\UtH\Engine\SceneManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Engine\SceneManager.h">
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\include\UtH\Engine\SceneManager.inl">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </None>
   </ItemGroup>
 </Project>

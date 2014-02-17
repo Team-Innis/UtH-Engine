@@ -12,11 +12,9 @@ namespace uth
 		friend class Singleton<SceneManager>;
 		SceneManager();
 		~SceneManager();
-		bool makeActiveScene(int SceneID);
-
 	public:
-		
-#include "UtH/Engine/SceneManager.h"
+		inline enum SceneName;
+		//inline bool setActiveScene(int SceneID);
 		void SwapToScene(SceneName SceneID);
 		void SwapToScene(int SceneNumber);
 
@@ -26,8 +24,9 @@ namespace uth
 	private:
 
 		void m_switchScene();
+		inline void makeActiveScene(SceneName SceneID);
 
-		//Scene* curScene;
+		Scene* curScene;
 		SceneName m_sceneID;
 		SceneName m_nextScene;
 		bool m_pendingSceneSwitch;
@@ -36,4 +35,5 @@ namespace uth
 	};
 
 }
+#include "UtH/Engine/SceneManager.inl"
 #endif

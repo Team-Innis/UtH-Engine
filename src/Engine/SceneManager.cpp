@@ -1,15 +1,18 @@
-#include "UtH/Engine/SceneManager.hpp"
 #include <UtH/Platform/Debug.hpp>
+#include <cassert>
+#include "UtH/Engine/SceneManager.hpp"
 
 namespace uth
 {
 	SceneManager::SceneManager()
-		: m_pendingSceneSwitch(true)
+		: m_pendingSceneSwitch(true),
+		  m_nextScene(DEFAULT)
 	{
-
+		
 	}
 	SceneManager::~SceneManager()
 	{
+		curScene->DeInit();
 		delete curScene;
 	}
 	
@@ -36,7 +39,7 @@ namespace uth
 
 		if (!curScene->Update(dt))
 		{
-			WriteLog("Error in scene %d Update() func\n",m_sceneID);
+			WriteLog("Scene %d Update() func returns false\n",m_sceneID);
 			return false;
 		}
 		return true;
@@ -45,7 +48,7 @@ namespace uth
 	{
 		if (!curScene->Draw())
 		{
-			WriteLog("Error in scene %d Draw() func\n",m_sceneID);
+			WriteLog("Scene %d Draw() func returns false\n",m_sceneID);
 			return false;
 		}
 		return true;
@@ -53,10 +56,19 @@ namespace uth
 
 	void SceneManager::m_switchScene()
 	{
+		if (!curScene->DeInit())
+			WriteLog("Scene %d DeInit() func returns false\n",m_sceneID);
 		delete curScene;
-		curScene->DeInit();
+
 		makeActiveScene(m_nextScene);
-		curScene->Init();
-		m_sceneID = m_nextScene;
+
+		if (curScene->Init())
+			m_sceneID = m_nextScene;
+		else
+		{
+			WriteLog("Scene %d Init() func returns false\n",m_sceneID);
+			m_nextScene = DEFAULT;
+			m_switchScene();
+		}
 	}
 }

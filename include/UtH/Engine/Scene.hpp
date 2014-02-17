@@ -6,18 +6,17 @@ namespace uth
 {
 	class Scene
 	{
+	private:
 		friend class SceneManager;
 		Scene();
 		~Scene();
 
 	public:
 		virtual bool Init();
-		virtual bool Update(double dt);
-		virtual bool Draw();
 		virtual bool DeInit();
 
-	private:
-		bool m_initialized;
+		virtual bool Update(double dt);
+		virtual bool Draw();
 	};
 }
 
