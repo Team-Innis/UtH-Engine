@@ -17,6 +17,7 @@ void ResourceManager::loadWAV(const char* filePath)
 
 	if(!s_Info.empty())
 	{
+		WriteLog("Dublicate found\n");
 		std::map<const char*, SoundInfo>::iterator it;
 		for(it = s_Info.begin(); it != s_Info.end(); it++)
 		{
@@ -26,7 +27,7 @@ void ResourceManager::loadWAV(const char* filePath)
 
 				soundInfo.bitsPerSample =	(*it).second.bitsPerSample;
 				soundInfo.channels =		(*it).second.channels;
-				soundInfo.channels =		(*it).second.frames;
+				soundInfo.frames =			(*it).second.frames;
 				soundInfo.sampleRate =		(*it).second.sampleRate;
 				soundInfo.soundBuffer =		(*it).second.soundBuffer;
 				break;
@@ -140,12 +141,12 @@ void ResourceManager::loadTGA(const char* filePath)
 			{
 				newTextureFile = false;
 
-				header.depth = (*it).second.depth;
+				header.depth =		(*it).second.depth;
 				header.descriptor = (*it).second.descriptor;
-				header.height = (*it).second.height;
-				header.pixels = (*it).second.pixels;
-				header.type = (*it).second.type;
-				header.width = (*it).second.width;
+				header.height =		(*it).second.height;
+				header.pixels =		(*it).second.pixels;
+				header.type =		(*it).second.type;
+				header.width =		(*it).second.width;
 				break;
 			}
 		}
