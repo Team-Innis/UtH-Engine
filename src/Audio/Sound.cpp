@@ -1,5 +1,6 @@
-#include <UtH\Audio\Sound.h>
-#include <UtH\Platform\Debug.hpp>
+#include <UtH/Audio/Sound.h>
+#include <UtH/Platform/Typedefs.hpp>
+#include <UtH/Platform/Debug.hpp>
 
 using namespace uth;
 
