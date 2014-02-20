@@ -55,6 +55,8 @@ namespace uth
 
         int getAttributeLocation(const int shaderProgram, const char* name);
 
+        void setUniform(const int location, const int x);
+
         void setUniform(const int location, const float x);
 
         void setUniform(const int location, const float x, const float y);

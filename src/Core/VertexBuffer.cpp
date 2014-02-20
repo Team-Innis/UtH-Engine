@@ -58,7 +58,7 @@ void VertexBuffer::setVertices(Shader* shader) const
 	// Attribute name, number of components, datatype, bytes between elements,
 	// offset of first element in buffer
 	shader->setAttributeData("attrPosition", 3, DataType::FLOAT_TYPE, posOffset, 0);
-	shader->setAttributeData("attrUV", 2, DataType::FLOAT_TYPE, uvOffset, &uvStart);
+	shader->setAttributeData("attrUV", 2, DataType::FLOAT_TYPE, uvOffset, (void*)uvStart);
 	// TODO: remove once done testing
 	uthGraphics.drawElements(PrimitiveType::TRIANGLES, indices.size(), 
 		DataType::UNSIGNED_SHORT_TYPE, &indices.front());

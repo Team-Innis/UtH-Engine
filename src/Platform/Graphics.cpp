@@ -91,6 +91,14 @@ namespace uth
                                                          GL_TEXTURE_WRAP_S, 
                                                          GL_TEXTURE_WRAP_T,
                                                          GL_TEXTURE_WRAP_R};
+	static int textureUnits[TEXUNIT_LAST] =				{GL_TEXTURE0,
+														 GL_TEXTURE1,
+														 GL_TEXTURE2,
+														 GL_TEXTURE3,
+														 GL_TEXTURE4,
+														 GL_TEXTURE5,
+														 GL_TEXTURE6,
+														 GL_TEXTURE7};
     static int primitiveTypes[PRIMITIVETYPE_LAST] =     {GL_POINTS, 
                                                          GL_LINE_STRIP, 
                                                          GL_LINE_LOOP, 
@@ -164,6 +172,8 @@ namespace uth
 		std::cout << "glew init might produces GL_INVALID_ENUM error. Just ignore it" << std::endl;
 		glewExperimental = GL_TRUE;
         oglCheck(glewInit());
+
+		glEnable(GL_TEXTURE_2D);
 
         return true;
     }
@@ -301,6 +311,11 @@ namespace uth
         return glGetAttribLocation(shaderProgram, name);
     }
 
+	void Graphics::setUniform(const int location, const int x)
+    {
+        oglCheck(glUniform1i(location, x));
+    }
+
     void Graphics::setUniform(const int location, const float x)
     {
         oglCheck(glUniform1f(location, x));
@@ -405,7 +420,7 @@ namespace uth
 
     void Graphics::setActiveTexUnit(TexUnit unit)
     {
-        oglCheck(glActiveTexture(unit));
+		oglCheck(glActiveTexture(textureUnits[unit]));
     }
 
     void Graphics::bindTexture(TextureType type, const int texture)

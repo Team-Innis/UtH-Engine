@@ -53,6 +53,14 @@ bool Shader::setAttributeData(const std::string name, const int size, DataType t
 
 //////////////////////////////////////////////////////////////
 // Uniform set functions
+bool Shader::SetUniform(const std::string name, const int x)
+{
+	int location = uthGraphics.getUniformLocation(program, name.c_str());
+	if(location == -1)
+		return false;
+	uthGraphics.setUniform(location, x);
+	return true;
+}
 bool Shader::SetUniform(const std::string name, const float x)
 {
 	int location = uthGraphics.getUniformLocation(program, name.c_str());

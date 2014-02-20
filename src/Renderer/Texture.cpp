@@ -34,16 +34,20 @@ namespace uth
 
         bind();
 
+		//setSmooth(smooth);
+  //      setRepeated(repeated);
+
         uthGraphics.setTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT, m_size.w, m_size.h, RGBA_FORMAT, UNSIGNED_BYTE_TYPE, uthRS.header.pixels);
-
-        setSmooth(smooth);
+		
+		setSmooth(smooth);
         setRepeated(repeated);
-
-        return true;
+		
+		return true;
     }
 
     void Texture::bind()
     {
+        uthGraphics.setActiveTexUnit(TEXTURE_0);
         uthGraphics.bindTexture(TEXTURE_2D, m_textureID);
     }
 
@@ -56,12 +60,12 @@ namespace uth
     {
         if (isValid()) return false;
 
-        if (m_smooth != value)
+        //if (m_smooth != value)
         {
             bind();
 
-            uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_MAG_FILTER, m_smooth ? LINEAR : NEAREST);
-		    uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_MIN_FILTER, m_smooth ? LINEAR : NEAREST);
+            uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_MAG_FILTER, value ? LINEAR : NEAREST);
+		    uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_MIN_FILTER, value ? LINEAR : NEAREST);
 
             m_smooth = value;
         }
@@ -73,12 +77,12 @@ namespace uth
     {
         if (!isValid()) return false;
 
-        if (m_smooth != value)
+        //if (m_smooth != value)
         {
             bind();
 
-            uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_WRAP_S, m_repeated ? REPEAT : CLAMP_TO_EDGE);
-            uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_WRAP_T, m_repeated ? REPEAT : CLAMP_TO_EDGE);
+            uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_WRAP_S, value ? REPEAT : CLAMP_TO_EDGE);
+            uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_WRAP_T, value ? REPEAT : CLAMP_TO_EDGE);
 
             m_repeated = value;
         }
