@@ -18,8 +18,22 @@ $(SRC_PATH)Math/Vector3.cpp \
 $(SRC_PATH)Math/Vector4.cpp \
 $(SRC_PATH)Math/Rectangle.cpp
 
+#Audio
+LOCAL_SRC_FILES += \
+$(SRC_PATH)Audio/Audio.cpp \
+$(SRC_PATH)Audio/Sound.cpp \
+$(SRC_PATH)Audio/SoundManager.cpp
+
 #Platform
 LOCAL_SRC_FILES += \
-#$(SRC_PATH)Platform/myfile.cpp
+$(SRC_PATH)Platform/FileReader.cpp \
+$(SRC_PATH)Platform/Graphics.cpp \
+$(SRC_PATH)Platform/HiResTimer.cpp \
+$(SRC_PATH)Platform/OGLCheck.cpp
+
+#Core
+LOCAL_SRC_FILES += \
+$(SRC_PATH)Core/Shader.cpp \
+$(SRC_PATH)Core/VertexBuffer.cpp
 
 include $(BUILD_STATIC_LIBRARY)

@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.android.uth">
 
-    <application>
+    <application android:hasCode="false">
 
-        <activity android:name="GameActivity"
+        <activity android:name="android.app.NativeActivity"
                 android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             	android:launchMode="singleTask"
 				android:screenOrientation="landscape"
