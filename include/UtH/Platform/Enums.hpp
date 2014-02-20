@@ -19,7 +19,6 @@ namespace uth
         INT_TYPE,
         UNSIGNED_INT_TYPE,
         FLOAT_TYPE,
-        DOUBLE_TYPE,
 
         DATATYPE_LAST
     };
@@ -27,14 +26,8 @@ namespace uth
     enum BufferType
     {
         ARRAY_BUFFER,
-        COPY_READ_BUFFER,
-        COPY_WRITE_BUFFER,
         ELEMENT_ARRAY_BUFFER,
-        PIXEL_PACK_BUFFER,
-        PIXEL_UNPACK_BUFFER,
-        TEXTURE_BUFFER,
         TRANSFORM_FEEDBACK_BUFFER,
-        UNIFORM_BUFFER,
 
         BUFFERTYPE_LAST
     };
@@ -42,14 +35,8 @@ namespace uth
     enum UsageType
     {
         STREAM_DRAW,
-        STREAM_READ,
-        STREAM_COPY,
         STATIC_DRAW,
-        STATIC_READ,
-        STATIC_COPY,
         DYNAMIC_DRAW,
-        DYNAMIC_READ,
-        DYNAMIC_SOPY,
 
         USAGETYPE_LAST
     };
