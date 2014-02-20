@@ -1,6 +1,3 @@
-#ifndef SCENEMANAGER_H_UTH
-#define SCENEMANAGER_H_UTH
-//#include "UtH/Engine/SceneManager.hpp"
 
 inline enum uth::SceneManager::SceneName
 {
@@ -29,5 +26,3 @@ inline void uth::SceneManager::makeActiveScene(SceneName SceneID)
 		break;
 	}
 }
-
-#endif

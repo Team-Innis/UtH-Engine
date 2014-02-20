@@ -5,6 +5,15 @@
 #include "..\extlibs\freeglut\include\GL\freeglut.h"
 #include <iostream>
 #include <Windows.h>
+#include <UtH\Engine\UtHEngine.h>
+
+//int main(int* argc, char** argv)
+//{
+//	uth::
+//}
+
+
+
 
 
 
