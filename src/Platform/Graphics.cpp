@@ -154,6 +154,8 @@ namespace uth
             std::exit(EXIT_FAILURE);
         }
 
+        glfwMakeContextCurrent(m_windowHandle);
+
         glfwSetWindowPos(m_windowHandle, m_windowSettings.position.x, m_windowSettings.position.y);
         glfwSwapInterval(m_windowSettings.useVsync ? 1 : 0);
 
