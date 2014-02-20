@@ -28,17 +28,15 @@
 struct AndroidEngine
 {
 	android_app* app;
-
-
-	//Below this to Graphics-classs?
 	EGLDisplay display;
 	EGLSurface surface;
 	EGLContext context;
 	EGLConfig config;
 
-	umath::vector2 resolution;
+	umath::vector2 resolution; ///WIndowSettings.resolution
 };
 
+///MOVE TO CREATE WINDOW
 //To Graphics init or Renderer class
 int displayInit(AndroidEngine* androidengine)
 {
@@ -94,6 +92,7 @@ int displayInit(AndroidEngine* androidengine)
 	return 0;
 }
 
+///MOVE TO WINDOW DESTROY
 void displayDestroy(AndroidEngine* androidengine)
 {
 	if(androidengine->display != EGL_NO_DISPLAY)
@@ -115,7 +114,7 @@ void displayDestroy(AndroidEngine* androidengine)
 }
 
 //After input manager 
-int handle_input(android_app* app, AInputEvent* event)
+int handle_input(android_app* app, AInputEvent* event)			
 {
 	AndroidEngine* androidengine = (AndroidEngine*)app->userData;
 	//Input should be places here
@@ -124,11 +123,11 @@ int handle_input(android_app* app, AInputEvent* event)
 
 void draw_frame(AndroidEngine* androidengine)
 {
-
+	//Engine->Update()
 }
 
 //This is sort of state manager. Checks is Activity on top or not and does it have saved state
-void handle_cmd(android_app* app, int cmd)
+void handle_cmd(android_app* app, int cmd)														///EVENT MANAGER
 {
 	AndroidEngine* androidengine = (AndroidEngine*)app->userData;
 
