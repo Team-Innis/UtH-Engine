@@ -14,6 +14,7 @@ int main(int* argc, char** argv)
 	settings.contextVersionMinor = 1;
 
     uthGraphics.createWindow(settings);
+	uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 
 	uth::Shader shader;
 	shader.LoadShader("vertexshader.vert", "fragmentshader.frag");
