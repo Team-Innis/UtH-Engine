@@ -179,8 +179,8 @@ namespace uth
     {
 #if defined(UTH_SYSTEM_WINDOWS)
         glfwSwapBuffers(m_windowHandle);
-#else if(UTH_SYSTEM_ANDROID)
-		glxSwapBuffers()
+#elif defined(UTH_SYSTEM_ANDROID)
+		//eglSwapBuffers();
 #endif
     }
 

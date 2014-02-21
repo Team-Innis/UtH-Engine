@@ -24,6 +24,15 @@ $(SRC_PATH)Audio/Audio.cpp \
 $(SRC_PATH)Audio/Sound.cpp \
 $(SRC_PATH)Audio/SoundManager.cpp
 
+#Renderer
+LOCAL_SRC_FILES += \
+$(SRC_PATH)Renderer/Camera.cpp \
+$(SRC_PATH)Renderer/Texture.cpp
+
+#Resources
+LOCAL_SRC_FILES += \
+$(SRC_PATH)Resources/ResourceManager.cpp
+
 #Platform
 LOCAL_SRC_FILES += \
 $(SRC_PATH)Platform/FileReader.cpp \
