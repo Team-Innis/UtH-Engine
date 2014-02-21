@@ -22,6 +22,7 @@ namespace uth
 
 		//////////////////////////////////////////////////////////////
 		// Uniform set functions
+		bool SetUniform(const std::string name, const int x);
 		bool SetUniform(const std::string name, const float x);
         bool SetUniform(const std::string name, const float x, const float y);
         bool SetUniform(const std::string name, const float x, const float y, const float z);
