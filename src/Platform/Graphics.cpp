@@ -11,8 +11,8 @@
 #else // Release
 // FIXME: Static 'Release' version of the GLEW lib breaks the build
 // consider using dynamic linking for release
-#pragma comment(lib, "glfw3.lib")
-#pragma comment(lib, "glew32sd.lib")
+//#pragma comment(lib, "glfw3.lib")
+//#pragma comment(lib, "glew32sd.lib")
 #endif
 
 namespace uth
@@ -173,6 +173,7 @@ namespace uth
     void Graphics::destroyWindow()
     {
         glfwDestroyWindow(m_windowHandle);
+        m_windowHandle = NULL;
     }
 
 
@@ -525,7 +526,9 @@ namespace uth
 
     Graphics::~Graphics()
     {
-        destroyWindow();
+        if (!m_windowHandle)
+            destroyWindow();
+
         glfwTerminate();
     }
 }

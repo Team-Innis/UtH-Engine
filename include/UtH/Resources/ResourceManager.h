@@ -3,7 +3,7 @@
 #define RESOURCEMANAGER_H_UTH
 
 #include <UtH\Platform\FileReader.h>
-#include <UtH\Core\Debug.hpp>
+#include <UtH\Platform\Debug.hpp>
 #include <UtH\Platform\Singleton.hpp>
 #include <UtH\Platform\Typedefs.hpp>
 

@@ -6,6 +6,7 @@
 
 #include <assert.h>
 #include <iostream>
+#include <cstdarg>
 
 #include <AL\al.h>
 #include <AL\alc.h>

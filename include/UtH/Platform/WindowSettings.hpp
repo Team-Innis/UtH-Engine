@@ -12,8 +12,8 @@ namespace uth
               useBlending(true),
               useVsync(false),
 
-              contextVersionMajor(3),
-              contextVersionMinor(3),
+              contextVersionMajor(0),
+              contextVersionMinor(0),
 
               position(100, 100),
               size(800, 600),
