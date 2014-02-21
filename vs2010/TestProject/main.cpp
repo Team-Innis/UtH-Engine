@@ -5,6 +5,7 @@
 #include <Windows.h>
 #include <UtH\Core\VertexBuffer.hpp>
 #include <UtH\Renderer\Texture.hpp>
+#include <UtH\Platform\Window.hpp>
 
 int main()
 {
@@ -15,7 +16,9 @@ int main()
 	settings.contextVersionMinor = 1;
     settings.fullScreen = false;
 
-    uthGraphics.createWindow(settings);
+    uthGraphics.getInstance();
+
+    uth::Window wndw(settings);
 	uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 
 	uth::Shader shader;
@@ -47,7 +50,7 @@ int main()
     {
         int number = (GetAsyncKeyState(VK_SPACE) & 0x8000) ? 1 : 0;
 
-        uthGraphics.clear(number, number, number);
+        wndw.clear(number, number, number);
 
 		if(GetAsyncKeyState(VK_RETURN))
 			tex2.bind();
@@ -57,11 +60,11 @@ int main()
      	shader.SetUniform("unifSampler", -2);
 		buf.setVertices(&shader);
 
-        uthGraphics.swapBuffers();
+        wndw.swapBuffers();
     }
 	
 
-    uthGraphics.destroyWindow();
+    wndw.destroy();
 
 	return 0;
 }

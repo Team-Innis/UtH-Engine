@@ -1,3 +1,5 @@
+#pragma once
+
 #include <UtH\Math\Vector2.hpp>
 #include <string>
 

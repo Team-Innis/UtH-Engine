@@ -9,7 +9,6 @@
 #define uthGraphics uth::Graphics::getInstance()
 
 
-class GLFWwindow;
 
 namespace uth
 {
@@ -21,24 +20,7 @@ namespace uth
 
 
     public:
-
-        /////////////////////////////////////////////////////////
-        // Window functions
-        // Create the window. If a windows has already been created, it's closed and a new one opened.
-        // This function assumes that glutInit() has already been called.
-        bool createWindow(const WindowSettings& settings);
-
-        void destroyWindow();
-
-        void clear(const float r, const float g, const float b, const float a = 1.f);
-
-        void swapBuffers();
-
-        void setViewport(const int x, const int y, const unsigned int width, const unsigned int height);
-
-        const WindowSettings& getWindowSettings() const;
-
-
+        
         /////////////////////////////////////////////////////////
         // Shader functions
         int createShaderProgram();
@@ -144,11 +126,6 @@ namespace uth
         Graphics();
 
         ~Graphics();
-
-
-
-        GLFWwindow* m_windowHandle;
-        WindowSettings m_windowSettings;
 
     };
 }
