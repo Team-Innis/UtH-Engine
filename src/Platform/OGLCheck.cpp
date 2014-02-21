@@ -44,7 +44,7 @@ namespace uth
                     break;
             }
 
-			char buf[10]; // Sure hope we wont go over 9 999 999 lines in one file
+			char buf[10]; // Sure hope we wont go over 9 999 999 999 lines in one file
 			itoa(line, buf, 10);
 			errorS += " on line ";
 			errorS += buf;

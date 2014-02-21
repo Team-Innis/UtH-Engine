@@ -20,6 +20,7 @@
     <ClInclude Include="..\..\include\UtH\Platform\OGLCheck.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\OpenGL.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Singleton.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Typedefs.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Uncopyable.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\WindowSettings.hpp" />
   </ItemGroup>
