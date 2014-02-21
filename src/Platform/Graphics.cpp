@@ -179,6 +179,8 @@ namespace uth
     {
 #if defined(UTH_SYSTEM_WINDOWS)
         glfwSwapBuffers(m_windowHandle);
+#else if(UTH_SYSTEM_ANDROID)
+		glxSwapBuffers()
 #endif
     }
 
@@ -513,10 +515,10 @@ namespace uth
 
     Graphics::~Graphics()
     {
+#if defined(UTH_SYSTEM_WINDOWS)
         if (!m_windowHandle)
             destroyWindow();
 
-#if defined(UTH_SYSTEM_WINDOWS)
         glfwTerminate();
 #endif
     }
