@@ -72,10 +72,6 @@ void android_main(android_app* state)
     uth::Window wndw(androidengine.settings);
 	uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 
-	//state->userData = &androidengine;
-	//state->onAppCmd = handle_cmd;
-	//state->onInputEvent = handle_input;
-
 	androidengine.app = state;
 
 	while(1)

@@ -13,9 +13,15 @@
   <ItemGroup>
     <None Include="..\..\android\jni\Android.mk" />
     <None Include="..\..\android\jni\Application.mk" />
+    <None Include="..\..\android\jni\Platform.mk" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\android\jni\main.cpp" />
+    <ClCompile Include="..\..\src\Platform\Android\AndroidWindowImpl.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\UtH\Platform\Android\AndroidEngine.hpp" />
+    <ClInclude Include="..\..\src\Platform\Android\AndroidWindowImpl.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4C267BE7-7BF8-4967-A71F-ABA1199D48BA}</ProjectGuid>
