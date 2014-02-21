@@ -51,7 +51,7 @@ int main()
 		else
 			tex.bind();
 
-     	shader.SetUniform("unifSampler", 0);
+     	shader.SetUniform("unifSampler", -2);
 		buf.setVertices(&shader);
 
         uthGraphics.swapBuffers();
