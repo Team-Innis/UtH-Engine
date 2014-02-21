@@ -4,9 +4,11 @@
 
 #include <vector>
 #include <UtH\Platform\Singleton.hpp>
+#include <UtH\Engine\Scene.hpp>
 
 #define theHood uth::UtHEngine::getInstance()
 #define Hood uth::UtHEngine::getInstance()
+#define ö Hood.AutoMainLoop()
 
 namespace uth
 {
