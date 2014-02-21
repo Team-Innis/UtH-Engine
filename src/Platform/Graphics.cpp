@@ -8,6 +8,7 @@
 #ifdef _DEBUG
 #pragma comment(lib, "glfw3d.lib")
 #pragma comment(lib, "glew32sd.lib")
+#pragma comment(lib, "OpenGL32.lib")
 #else // Release
 // FIXME: Static 'Release' version of the GLEW lib breaks the build
 // consider using dynamic linking for release

@@ -6,7 +6,7 @@
 #include <UtH\Core\VertexBuffer.hpp>
 #include <UtH\Renderer\Texture.hpp>
 
-
+int main()
 {
     uth::WindowSettings settings;
 	settings.contextVersionMajor = 2;
@@ -19,7 +19,7 @@
 	shader.LoadShader("vertexshader.vert", "fragmentshader.frag");
 	shader.Use();
 
-	/*uth::VertexBuffer buf;
+	uth::VertexBuffer buf;
 	buf.addVertex(umath::vector3(-0.5, -0.5, 0), umath::vector2(0.0f, 0.0f)); // vasen alakulma
 	buf.addVertex(umath::vector3(0.5, -0.5, 0), umath::vector2(1.0f, 0.0f)); // oikea alakulma
 	buf.addVertex(umath::vector3(-0.5, 0.5, 0), umath::vector2(0.0f, 1.0f)); // vasen yläkulma
