@@ -1,4 +1,4 @@
-#include <UtH\Platform\WindowSettings.hpp>
+#include <UtH/Platform/WindowSettings.hpp>
 
 
 

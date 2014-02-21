@@ -1,6 +1,6 @@
-#include <UtH\Platform\Window.hpp>
-#include <UtH\Platform\OpenGL.hpp>
-#include <UtH\Platform\OGLCheck.hpp>
+#include <UtH/Platform/Window.hpp>
+#include <UtH/Platform/OpenGL.hpp>
+#include <UtH/Platform/OGLCheck.hpp>
 
 
 #if defined(UTH_SYSTEM_WINDOWS)
@@ -8,9 +8,9 @@
 #include <Platform\Win32\Win32WindowImpl.hpp>
 typedef uth::Win32WindowImpl WindowImpl;
 
-#elif defined(uth_SYSTEM_ANDROID)
+#elif defined(UTH_SYSTEM_ANDROID)
 
-#include <Platform\Android\WindowImpl.hpp>
+#include <../src/Platform/Android/AndroidWindowImpl.hpp>
 typedef uth::AndroidWindowImpl WindowImpl;
 
 #endif

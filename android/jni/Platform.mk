@@ -38,7 +38,9 @@ LOCAL_SRC_FILES += \
 $(SRC_PATH)Platform/FileReader.cpp \
 $(SRC_PATH)Platform/Graphics.cpp \
 $(SRC_PATH)Platform/HiResTimer.cpp \
-$(SRC_PATH)Platform/OGLCheck.cpp
+$(SRC_PATH)Platform/OGLCheck.cpp \
+$(SRC_PATH)Platform/Window.cpp \
+$(SRC_PATH)Platform/Android/AndroidWindowImpl.cpp 
 
 #Core
 LOCAL_SRC_FILES += \
