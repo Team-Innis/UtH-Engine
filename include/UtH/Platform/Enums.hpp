@@ -79,6 +79,13 @@ namespace uth
     enum TexUnit
     {
         TEXTURE_0,
+        TEXTURE_1,
+        TEXTURE_2,
+        TEXTURE_3,
+        TEXTURE_4,
+        TEXTURE_5,
+        TEXTURE_6,
+        TEXTURE_7,
 
         TEXUNIT_LAST
     };
@@ -96,6 +103,16 @@ namespace uth
         TEXTURE_2D_MULTISAMPLE_ARRAY,
 
         TEXTURETYPE_LAST
+    };
+
+    enum TextureFilter
+    {
+        NEAREST,
+        LINEAR,
+        REPEAT,
+        CLAMP_TO_EDGE,
+
+        TEXTUREFILTER_LAST
     };
 
     enum ImageFormat
