@@ -58,17 +58,14 @@ namespace uth
 
     bool Texture::setSmooth(const bool value)
     {
-        if (isValid()) return false;
+        if (!isValid()) return false;
 
-        //if (m_smooth != value)
-        {
-            bind();
+        bind();
 
-            uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_MAG_FILTER, value ? LINEAR : NEAREST);
-		    uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_MIN_FILTER, value ? LINEAR : NEAREST);
+        uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_MAG_FILTER, value ? LINEAR : NEAREST);
+		uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_MIN_FILTER, value ? LINEAR : NEAREST);
 
-            m_smooth = value;
-        }
+        m_smooth = value;
 
         return true;
     }
@@ -77,15 +74,12 @@ namespace uth
     {
         if (!isValid()) return false;
 
-        //if (m_smooth != value)
-        {
-            bind();
+        bind();
 
-            uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_WRAP_S, value ? REPEAT : CLAMP_TO_EDGE);
-            uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_WRAP_T, value ? REPEAT : CLAMP_TO_EDGE);
+        uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_WRAP_S, value ? REPEAT : CLAMP_TO_EDGE);
+        uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_WRAP_T, value ? REPEAT : CLAMP_TO_EDGE);
 
-            m_repeated = value;
-        }
+        m_repeated = value;
 
         return true;
     }
