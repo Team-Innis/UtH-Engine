@@ -32,10 +32,12 @@ int main(int* argc, char** argv)
 	buf.addIndex(3);
 	buf.addIndex(2);
 
-	uth::Texture tex;
+	uth::Texture tex, tex2;
 	tex.loadFromFile("test.tga");
 	tex.bind();
 	shader.SetUniform("unifSampler", 0);
+
+	tex2.loadFromFile("test2.tga");
 
 	buf.setVertices(&shader);
 
@@ -44,7 +46,12 @@ int main(int* argc, char** argv)
         int number = (GetAsyncKeyState(VK_SPACE) & 0x8000) ? 1 : 0;
 
         uthGraphics.clear(number, number, number);
-		tex.bind();
+
+		if(GetAsyncKeyState(VK_RETURN))
+			tex2.bind();
+		else
+			tex.bind();
+
      	shader.SetUniform("unifSampler", 0);
 		buf.setVertices(&shader);
 
