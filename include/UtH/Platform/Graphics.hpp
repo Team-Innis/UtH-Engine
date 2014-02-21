@@ -9,6 +9,8 @@
 #define uthGraphics uth::Graphics::getInstance()
 
 
+class GLFWwindow;
+
 namespace uth
 {
 
@@ -32,6 +34,8 @@ namespace uth
 
         void swapBuffers();
 
+        void setViewport(const int x, const int y, const unsigned int width, const unsigned int height);
+
 
         /////////////////////////////////////////////////////////
         // Shader functions
@@ -45,11 +49,15 @@ namespace uth
 
         void bindProgram(const int shaderProgram);
 
+        void unbindProgram();
+
         void destroyShaderProgram(const int shaderProgram);
 
         int getUniformLocation(const int shaderProgram, const char* name);
 
         int getAttributeLocation(const int shaderProgram, const char* name);
+
+        void setUniform(const int location, const int x);
 
         void setUniform(const int location, const float x);
 
@@ -73,7 +81,7 @@ namespace uth
 
         void disableVertexAttribArray(const int location);
 
-        void setVertexAttribPointer(const int location, const int size, const DataType type, const int stride, const void* pointer);
+        void setVertexAttribPointer(const int location, const int size, DataType type, const int stride, const void* pointer);
 
 
         /////////////////////////////////////////////////////////
@@ -91,32 +99,41 @@ namespace uth
 
         /////////////////////////////////////////////////////////
         // Texture functions
-        
         void setPixelStore(PixelStoreParam param, const int value);
 
         void generateTextures(const unsigned int amount, unsigned int* data);
 
         void setActiveTexUnit(TexUnit unit);
 
-        void bindTexture(TextureType type, const int  texture);
+        void bindTexture(TextureType type, const int texture);
 
-        void setTextureImage1D(const int level, ImageFormat imageFormat, size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels);
+        void setTextureImage1D(const int level, ImageFormat imageFormat, const unsigned int width, ImageFormat pixelFormat, DataType dataType, const void* pixels);
 
-        void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, size_t width, size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels);
+        void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, const unsigned int width, const unsigned int height, ImageFormat pixelFormat, DataType dataType, const void* pixels);
 
-        void setTextureParameter(TextureType type, TextureParam param, const int value);
-
-
+        void setTextureParameter(TextureType type, TextureParam param, TextureFilter filter);
 
 
         /////////////////////////////////////////////////////////
         // Drawing functions
+        void drawArrays(PrimitiveType type, const int first, const unsigned int count);
 
+        void drawElements(PrimitiveType type, const unsigned int count, DataType dataType, const void* indices);
 
+        void setPointSize(const float size);
+
+        void setLineWidth(const float width);
 
 
         /////////////////////////////////////////////////////////
         // Other
+        void flush();
+
+        void setDepthFunction(const bool enable, DepthFunction func = LESS);
+
+        void setBlendFunction(const bool enable, BlendFunction sfunc = ONE, BlendFunction dfunc = ZERO);
+
+        void setFaceCulling(const bool enable, FaceCulling mode = BACK);
 
 
 
@@ -128,7 +145,7 @@ namespace uth
 
 
 
-        int m_windowHandle;
+        GLFWwindow* m_windowHandle;
         WindowSettings m_windowSettings;
 
     };

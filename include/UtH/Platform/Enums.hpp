@@ -19,7 +19,6 @@ namespace uth
         INT_TYPE,
         UNSIGNED_INT_TYPE,
         FLOAT_TYPE,
-        DOUBLE_TYPE,
 
         DATATYPE_LAST
     };
@@ -27,14 +26,8 @@ namespace uth
     enum BufferType
     {
         ARRAY_BUFFER,
-        COPY_READ_BUFFER,
-        COPY_WRITE_BUFFER,
         ELEMENT_ARRAY_BUFFER,
-        PIXEL_PACK_BUFFER,
-        PIXEL_UNPACK_BUFFER,
-        TEXTURE_BUFFER,
         TRANSFORM_FEEDBACK_BUFFER,
-        UNIFORM_BUFFER,
 
         BUFFERTYPE_LAST
     };
@@ -42,14 +35,8 @@ namespace uth
     enum UsageType
     {
         STREAM_DRAW,
-        STREAM_READ,
-        STREAM_COPY,
         STATIC_DRAW,
-        STATIC_READ,
-        STATIC_COPY,
         DYNAMIC_DRAW,
-        DYNAMIC_READ,
-        DYNAMIC_SOPY,
 
         USAGETYPE_LAST
     };
@@ -79,6 +66,13 @@ namespace uth
     enum TexUnit
     {
         TEXTURE_0,
+        TEXTURE_1,
+        TEXTURE_2,
+        TEXTURE_3,
+        TEXTURE_4,
+        TEXTURE_5,
+        TEXTURE_6,
+        TEXTURE_7,
 
         TEXUNIT_LAST
     };
@@ -96,6 +90,16 @@ namespace uth
         TEXTURE_2D_MULTISAMPLE_ARRAY,
 
         TEXTURETYPE_LAST
+    };
+
+    enum TextureFilter
+    {
+        NEAREST,
+        LINEAR,
+        REPEAT,
+        CLAMP_TO_EDGE,
+
+        TEXTUREFILTER_LAST
     };
 
     enum ImageFormat
@@ -126,5 +130,65 @@ namespace uth
         TEXTURE_WRAP_R,
     
         TEXTUREPARAM_LAST
+    };
+
+    enum PrimitiveType
+    {
+        POINTS, 
+        LINE_STRIP, 
+        LINE_LOOP, 
+        LINES, 
+        LINE_STRIP_ADJACENCY, 
+        LINES_ADJACENCY, 
+        TRIANGLE_STRIP, 
+        TRIANGLE_FAN, 
+        TRIANGLES, 
+        TRIANGLE_STRIP_ADJACENCY,
+        TRIANGLES_ADJACENCY,
+
+        PRIMITIVETYPE_LAST
+    };
+
+    enum DepthFunction
+    {
+        NEVER, 
+        LESS, 
+        EQUAL, 
+        LEQUAL, 
+        GREATER, 
+        NOTEQUAL, 
+        GEQUAL, 
+        ALWAYS,
+
+        DEPTHFUNCTION_LAST
+    };
+
+    enum BlendFunction
+    {
+        ZERO, 
+        ONE, 
+        SRC_COLOR, 
+        ONE_MINUS_SRC_COLOR, 
+        DST_COLOR, 
+        ONE_MINUS_DST_COLOR, 
+        SRC_ALPHA, 
+        ONE_MINUS_SRC_ALPHA, 
+        DST_ALPHA, 
+        ONE_MINUS_DST_ALPHA, 
+        CONSTANT_COLOR, 
+        ONE_MINUS_CONSTANT_COLOR, 
+        CONSTANT_ALPHA, 
+        ONE_MINUS_CONSTANT_ALPHA,
+
+        BLENDFUNCTION_LAST
+    };
+
+    enum FaceCulling
+    {
+         FRONT, 
+         BACK, 
+         FRONT_AND_BACK,
+
+         FACECULLING_LAST
     };
 }

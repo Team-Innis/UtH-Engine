@@ -3,15 +3,15 @@
 #include <UtH\Platform\OpenGL.hpp>
 #include <UtH\Platform\OGLCheck.hpp>
 #include <iostream>
+#include <algorithm>
 
 #ifdef _DEBUG
-#pragma comment(lib, "freeglut_staticd.lib")
-#pragma comment(lib, "glew32sd.lib")
+
 #else // Release
 // FIXME: Static 'Release' version of the GLEW lib breaks the build
 // consider using dynamic linking for release
-#pragma comment(lib, "freeglut_static.lib")
-#pragma comment(lib, "glew32sd.lib")
+//#pragma comment(lib, "glfw3.lib")
+//#pragma comment(lib, "glew32sd.lib")
 #endif
 
 namespace uth
@@ -24,26 +24,13 @@ namespace uth
                                                          GL_UNSIGNED_SHORT,
                                                          GL_INT,
                                                          GL_UNSIGNED_INT,
-                                                         GL_FLOAT,
-                                                         GL_DOUBLE};
+                                                         GL_FLOAT};
     static int bufferTypes[BUFFERTYPE_LAST] =           {GL_ARRAY_BUFFER,
-                                                         GL_READ_BUFFER,
-                                                         GL_COPY_WRITE_BUFFER,
                                                          GL_ELEMENT_ARRAY_BUFFER,
-                                                         GL_PIXEL_PACK_BUFFER,
-                                                         GL_PIXEL_UNPACK_BUFFER,
-                                                         GL_TEXTURE_BUFFER,
-                                                         GL_TRANSFORM_FEEDBACK_BUFFER,
-                                                         GL_UNIFORM_BUFFER};
+                                                         GL_TRANSFORM_FEEDBACK_BUFFER};
     static int usageTypes[USAGETYPE_LAST] =             {GL_STREAM_DRAW,
-                                                         GL_STREAM_READ,
-                                                         GL_STREAM_COPY,
                                                          GL_STATIC_DRAW,
-                                                         GL_STATIC_READ,
-                                                         GL_STATIC_COPY,
-                                                         GL_DYNAMIC_DRAW,
-                                                         GL_DYNAMIC_READ,
-                                                         GL_DYNAMIC_COPY};
+                                                         GL_DYNAMIC_DRAW};
     static int pixelStoreParams[PIXELSTOREPARAM_LAST] = {GL_PACK_SWAP_BYTES,
                                                          GL_PACK_LSB_FIRST, 
                                                          GL_PACK_ROW_LENGTH, 
@@ -60,15 +47,19 @@ namespace uth
                                                          GL_UNPACK_SKIP_ROWS, 
                                                          GL_UNPACK_SKIP_IMAGES, 
                                                          GL_UNPACK_ALIGNMENT};
-    static int textureTypes[TEXTURETYPE_LAST] =         {TEXTURE_1D, 
-                                                         TEXTURE_2D, 
-                                                         TEXTURE_3D, 
-                                                         TEXTURE_1D_ARRAY, 
-                                                         TEXTURE_2D_ARRAY, 
-                                                         TEXTURE_RECTANGLE, 
-                                                         TEXTURE_CUBE_MAP,
-                                                         TEXTURE_2D_MULTISAMPLE,
-                                                         TEXTURE_2D_MULTISAMPLE_ARRAY};
+    static int textureTypes[TEXTURETYPE_LAST] =         {GL_TEXTURE_1D, 
+                                                         GL_TEXTURE_2D, 
+                                                         GL_TEXTURE_3D, 
+                                                         GL_TEXTURE_1D_ARRAY, 
+                                                         GL_TEXTURE_2D_ARRAY, 
+                                                         GL_TEXTURE_RECTANGLE, 
+                                                         GL_TEXTURE_CUBE_MAP,
+                                                         GL_TEXTURE_2D_MULTISAMPLE,
+                                                         GL_TEXTURE_2D_MULTISAMPLE_ARRAY};
+    static int textureFilters[TEXTUREFILTER_LAST] =     {GL_NEAREST,
+                                                         GL_LINEAR,
+                                                         GL_REPEAT,
+                                                         GL_CLAMP_TO_EDGE};
     static int imageFormats[IMAGEFORMAT_LAST] =         {GL_RGB,
                                                          GL_RGBA};
     static int textureParams[TEXTUREPARAM_LAST] =       {GL_TEXTURE_BASE_LEVEL, 
@@ -87,6 +78,50 @@ namespace uth
                                                          GL_TEXTURE_WRAP_S, 
                                                          GL_TEXTURE_WRAP_T,
                                                          GL_TEXTURE_WRAP_R};
+	static int textureUnits[TEXUNIT_LAST] =				{GL_TEXTURE0,
+														 GL_TEXTURE1,
+														 GL_TEXTURE2,
+														 GL_TEXTURE3,
+														 GL_TEXTURE4,
+														 GL_TEXTURE5,
+														 GL_TEXTURE6,
+														 GL_TEXTURE7};
+    static int primitiveTypes[PRIMITIVETYPE_LAST] =     {GL_POINTS, 
+                                                         GL_LINE_STRIP, 
+                                                         GL_LINE_LOOP, 
+                                                         GL_LINES, 
+                                                         GL_LINE_STRIP_ADJACENCY, 
+                                                         GL_LINES_ADJACENCY, 
+                                                         GL_TRIANGLE_STRIP, 
+                                                         GL_TRIANGLE_FAN, 
+                                                         GL_TRIANGLES, 
+                                                         GL_TRIANGLE_STRIP_ADJACENCY,
+                                                         GL_TRIANGLES_ADJACENCY};
+    static int depthFunctions[DEPTHFUNCTION_LAST] =     {GL_NEVER, 
+                                                         GL_LESS, 
+                                                         GL_EQUAL, 
+                                                         GL_LEQUAL,
+                                                         GL_GREATER, 
+                                                         GL_NOTEQUAL, 
+                                                         GL_GEQUAL, 
+                                                         GL_ALWAYS};
+    static int blendFunctions[BLENDFUNCTION_LAST] =     {GL_ZERO, 
+                                                         GL_ONE, 
+                                                         GL_SRC_COLOR, 
+                                                         GL_ONE_MINUS_SRC_COLOR, 
+                                                         GL_DST_COLOR, 
+                                                         GL_ONE_MINUS_DST_COLOR, 
+                                                         GL_SRC_ALPHA, 
+                                                         GL_ONE_MINUS_SRC_ALPHA, 
+                                                         GL_DST_ALPHA, 
+                                                         GL_ONE_MINUS_DST_ALPHA, 
+                                                         GL_CONSTANT_COLOR, 
+                                                         GL_ONE_MINUS_CONSTANT_COLOR, 
+                                                         GL_CONSTANT_ALPHA, 
+                                                         GL_ONE_MINUS_CONSTANT_ALPHA};
+    static int faceCullings[FACECULLING_LAST] =         {GL_FRONT, 
+                                                         GL_BACK, 
+                                                         GL_FRONT_AND_BACK};
 
     
 
@@ -96,39 +131,62 @@ namespace uth
         if (m_windowHandle) destroyWindow();
         
         m_windowSettings = settings;
-
-        // Context settings
-        glutInitContextFlags(GLUT_FORWARD_COMPATIBLE);
-        glutInitContextProfile(GLUT_CORE_PROFILE);
-
-        // Extra settings
-        glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
-
-        // Position & size
-        glutInitWindowPosition(settings.position.x, settings.position.y);
-        glutInitWindowSize(settings.size.x, settings.size.y);
-
-        // Display settings
-        glutInitDisplayMode(settings.useBlending ? GLUT_RGBA : GLUT_RGB |
-                            settings.useDepthBuffer ? GLUT_DEPTH : 0x0 |
-                            settings.useStencilBuffer ? GLUT_STENCIL : 0x0 |
-                            settings.useDoubleBuffering ? GLUT_DOUBLE : GLUT_SINGLE);
-
-
-        int majorVer = settings.contextVersionMajor,
-            minorVer = settings.contextVersionMinor;
         
-        glutInitContextVersion(settings.contextVersionMajor, settings.contextVersionMinor);
 
-        m_windowHandle = glutCreateWindow("Generic Window Title");
+        glfwWindowHint(GLFW_ALPHA_BITS, m_windowSettings.useBlending ? 8 : 0);
+        glfwWindowHint(GLFW_DEPTH_BITS, m_windowSettings.useDepthBuffer ? 16 : 0);
+        glfwWindowHint(GLFW_STENCIL_BITS, m_windowSettings.useStencilBuffer ? 8 : 0);
         
+        #ifdef UTH_SYSTEM_OPENGLES
+            glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+        #else
+            glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
+        #endif
+
+        int majorVer = m_windowSettings.contextVersionMajor == 0 ? 4 : m_windowSettings.contextVersionMajor,
+            minorVer = m_windowSettings.contextVersionMajor == 0 ? 4 : m_windowSettings.contextVersionMinor;
+
+        do
+        {
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, majorVer);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minorVer);
+
+            m_windowHandle = glfwCreateWindow(m_windowSettings.size.w, m_windowSettings.size.h, m_windowSettings.title.c_str(), NULL, NULL);
+
+            if (--minorVer < 0)
+            {
+                --majorVer;
+                minorVer = 9;
+            }
+
+        } while (!m_windowHandle && majorVer > 0);
+
+
+        if (!m_windowHandle)
+        {
+            std::cout << "Failed to create an OpenGL context! Exiting..." <<std::endl;
+            std::exit(EXIT_FAILURE);
+        }
+
+        glfwMakeContextCurrent(m_windowHandle);
+
+        glfwSetWindowPos(m_windowHandle, m_windowSettings.position.x, m_windowSettings.position.y);
+        glfwSwapInterval(m_windowSettings.useVsync ? 1 : 0);
+
+		std::cout << "glew init might produces GL_INVALID_ENUM error. Just ignore it" << std::endl;
+		glewExperimental = GL_TRUE;
+        oglCheck(glewInit());
+
+		glEnable(GL_TEXTURE_2D);
+
         return true;
     }
 
 
     void Graphics::destroyWindow()
     {
-        oglCheck(glutDestroyWindow(m_windowHandle));
+        glfwDestroyWindow(m_windowHandle);
+        m_windowHandle = NULL;
     }
 
 
@@ -154,7 +212,12 @@ namespace uth
 
     void Graphics::swapBuffers()
     {
-        oglCheck(glutSwapBuffers());
+        glfwSwapBuffers(m_windowHandle);
+    }
+
+    void Graphics::setViewport(const int x, const int y, const unsigned int width, const unsigned int height)
+    {
+        oglCheck(glViewport(x, y, width, height));
     }
 
 
@@ -171,9 +234,18 @@ namespace uth
         if (!shaderCode) return false;
 
         unsigned int shader = glCreateShader(shaderTypes[type]);
-
         oglCheck(glShaderSource(shader, 1, &shaderCode, NULL));
         oglCheck(glCompileShader(shader));
+
+		int infoLenght;
+		oglCheck(glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLenght));
+		if(infoLenght > 1)
+		{
+			char* buf = new char[infoLenght];
+			oglCheck(glGetShaderInfoLog(shader, infoLenght, NULL, buf));
+			std::cout << buf << std::endl;
+			delete buf;
+		}
 
         int success;
 		oglCheck(glGetShaderiv(shader, GL_COMPILE_STATUS, &success));
@@ -195,6 +267,16 @@ namespace uth
     {
         oglCheck(glLinkProgram(shaderProgram));
 
+		int infoLenght;
+		oglCheck(glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLenght));
+		if(infoLenght > 1)
+		{
+			char* buf = new char[infoLenght];
+			oglCheck(glGetProgramInfoLog(shaderProgram, infoLenght, NULL, buf));
+			std::cout << buf << std::endl;
+			delete buf;
+		}
+
         int success;
 		oglCheck(glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success));
 
@@ -214,6 +296,11 @@ namespace uth
             oglCheck(glUseProgram(shaderProgram));
     }
 
+    void Graphics::unbindProgram()
+    {
+        oglCheck(glUseProgram(0));
+    }
+
     void Graphics::destroyShaderProgram(const int shaderProgram)
     {
         oglCheck(glDeleteProgram(shaderProgram));
@@ -227,6 +314,11 @@ namespace uth
     int Graphics::getAttributeLocation(const int shaderProgram, const char* name)
     {
         return glGetAttribLocation(shaderProgram, name);
+    }
+
+	void Graphics::setUniform(const int location, const int x)
+    {
+        oglCheck(glUniform1i(location, x));
     }
 
     void Graphics::setUniform(const int location, const float x)
@@ -284,7 +376,7 @@ namespace uth
         oglCheck(glDisableVertexAttribArray(location));
     }
 
-    void Graphics::setVertexAttribPointer(const int location, const int size, const DataType type, const int stride, const void* pointer)
+    void Graphics::setVertexAttribPointer(const int location, const int size, DataType type, const int stride, const void* pointer)
     {
         oglCheck(glVertexAttribPointer(location, size, dataTypes[type], GL_FALSE, stride, pointer));
     }
@@ -292,68 +384,150 @@ namespace uth
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     // Buffers
 
-    void generateBuffers(const unsigned int amount, unsigned int* buffers)
+    void Graphics::generateBuffers(const unsigned int amount, unsigned int* buffers)
     {
-        glGenBuffers(amount, buffers);
+        oglCheck(glGenBuffers(amount, buffers));
     }
 
-    void deleteBuffers(const unsigned int amount, unsigned int* buffers)
+    void Graphics::deleteBuffers(const unsigned int amount, unsigned int* buffers)
     {
-        glDeleteBuffers(amount, buffers);
+        oglCheck(glDeleteBuffers(amount, buffers));
     }
 
-    void bindBuffer(BufferType type, const unsigned int buffer)
+    void Graphics::bindBuffer(BufferType type, const unsigned int buffer)
     {
-        glBindBuffer(bufferTypes[type], buffer);
+        oglCheck(glBindBuffer(bufferTypes[type], buffer));
     }
 
-    void setBufferData(BufferType type, const unsigned int size, const void* data, UsageType usageType)
+    void Graphics::setBufferData(BufferType type, const unsigned int size, const void* data, UsageType usageType)
     {
-        glBufferData(bufferTypes[type], size, data, usageTypes[usageType]);
+        oglCheck(glBufferData(bufferTypes[type], size, data, usageTypes[usageType]));
     }
 
-    void setBufferSubData(BufferType type, const unsigned int offset, const unsigned int size, const void* data)
+    void Graphics::setBufferSubData(BufferType type, const unsigned int offset, const unsigned int size, const void* data)
     {
-        glBufferSubData(bufferTypes[type], offset, size, data);
+        oglCheck(glBufferSubData(bufferTypes[type], offset, size, data));
     }
 
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     // Texture functions
         
-    void setPixelStore(PixelStoreParam param, const int value)
+    void Graphics::setPixelStore(PixelStoreParam param, const int value)
     {
-        glPixelStorei(pixelStoreParams[param], value);
+        oglCheck(glPixelStorei(pixelStoreParams[param], value));
     }
 
-    void generateTextures(const unsigned int amount, unsigned int* data)
+    void Graphics::generateTextures(const unsigned int amount, unsigned int* data)
     {
-        glGenTextures(amount, data);
+        oglCheck(glGenTextures(amount, data));
     }
 
-    void setActiveTexUnit(TexUnit unit)
+    void Graphics::setActiveTexUnit(TexUnit unit)
     {
-        glActiveTexture(unit);
+		oglCheck(glActiveTexture(textureUnits[unit]));
     }
 
-    void bindTexture(TextureType type, const int texture)
+    void Graphics::bindTexture(TextureType type, const int texture)
     {
-        glBindTexture(textureTypes[type], texture);
+        oglCheck(glBindTexture(textureTypes[type], texture));
     }
 
-    void setTextureImage1D(const int level, ImageFormat imageFormat, size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels)
+    void Graphics::setTextureImage1D(const int level, ImageFormat imageFormat, const unsigned int width, ImageFormat pixelFormat, DataType dataType, const void* pixels)
     {
-        glTexImage1D(textureTypes[TEXTURE_1D], level, imageFormats[imageFormat], width, 0, imageFormats[pixelFormat], dataTypes[dataType], pixels);
+        oglCheck(glTexImage1D(textureTypes[TEXTURE_1D], level, imageFormats[imageFormat], width, 0, imageFormats[pixelFormat], dataTypes[dataType], pixels));
     }
 
-    void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, size_t width, size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels)
+    void Graphics::setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, const unsigned int width, const unsigned int height, ImageFormat pixelFormat, DataType dataType, const void* pixels)
     {
-        glTexImage2D(textureTypes[TEXTURE_2D], level, imageFormats[imageFormat], width, height, 0, imageFormats[pixelFormat], dataTypes[dataType], pixels);
+        oglCheck(glTexImage2D(textureTypes[TEXTURE_2D], level, imageFormats[imageFormat], width, height, 0, imageFormats[pixelFormat], dataTypes[dataType], pixels));
     }
 
-    void setTextureParameter(TextureType type, TextureParam param, const int value)
+    void Graphics::setTextureParameter(TextureType type, TextureParam param, TextureFilter filter)
     {
-        glTexParameteri(textureTypes[type], textureParams[param], value);
+        oglCheck(glTexParameteri(textureTypes[type], textureParams[param], textureFilters[filter]));
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Drawing functions
+    void Graphics::drawArrays(PrimitiveType type, const int first, const unsigned int count)
+    {
+        oglCheck(glDrawArrays(primitiveTypes[type], first, count));
+    }
+
+    void Graphics::drawElements(PrimitiveType type, const unsigned int count, DataType dataType, const void* indices)
+    {
+        oglCheck(glDrawElements(primitiveTypes[type], count, dataTypes[dataType], indices));
+    }
+
+    void Graphics::setPointSize(const float size)
+    {
+        oglCheck(glPointSize(size));
+    }
+
+    void Graphics::setLineWidth(const float width)
+    {
+        oglCheck(glLineWidth(width));
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Other
+    void Graphics::flush()
+    {
+        oglCheck(glFlush());
+    }
+
+    void Graphics::setDepthFunction(const bool enable, DepthFunction func)
+    {
+        static bool enabled = false;
+
+        if (enable != enabled)
+        {
+            if (enable)
+                oglCheck(glEnable(GL_DEPTH_TEST));
+            else
+                oglCheck(glDisable(GL_DEPTH_TEST));
+
+            enabled = !enabled;
+        }
+
+        oglCheck(glDepthFunc(depthFunctions[func]));
+    }
+
+    void Graphics::setBlendFunction(const bool enable, BlendFunction sfunc, BlendFunction dfunc)
+    {
+        static bool enabled = false;
+
+        if (enable != enabled)
+        {
+            if (enable)
+                oglCheck(glEnable(GL_BLEND));
+            else
+                oglCheck(glDisable(GL_BLEND));
+
+            enabled = !enabled;
+        }
+
+        oglCheck(glBlendFunc(blendFunctions[sfunc], blendFunctions[dfunc]));
+    }
+
+    void Graphics::setFaceCulling(const bool enable, FaceCulling mode)
+    {
+        static bool enabled = false;
+
+        if (enable != enabled)
+        {
+            if (enable)
+                oglCheck(glEnable(GL_CULL_FACE));
+            else
+                oglCheck(glDisable(GL_CULL_FACE));
+
+            enabled = !enabled;
+        }
+
+        oglCheck(glCullFace(faceCullings[mode]));
     }
 
 
@@ -364,16 +538,15 @@ namespace uth
         : m_windowHandle(0),
           m_windowSettings()
     {
-        char* myargv[1];
-        int myargc = 1;
-        myargv[0] = strdup("UtH Engine");
-        glutInit(&myargc, myargv);
-
-        glewInit();
+        if (!glfwInit())
+            std::exit(EXIT_FAILURE);
     }
 
     Graphics::~Graphics()
     {
-        destroyWindow();
+        if (!m_windowHandle)
+            destroyWindow();
+
+        glfwTerminate();
     }
 }

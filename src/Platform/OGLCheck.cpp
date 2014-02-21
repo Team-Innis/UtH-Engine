@@ -10,7 +10,7 @@
 namespace uth
 {
 
-    void checkGlError(const char* file, const unsigned int line)
+    void checkGlError(const char* file, const unsigned int line, const char* func)
     {
         GLenum errCode = glGetError();
 
@@ -44,11 +44,11 @@ namespace uth
                     break;
             }
 
-			char buf[10]; // Sure hope we wont go over 9 999 999 lines in one file
+			char buf[10]; // Sure hope we wont go over 9 999 999 999 lines in one file
 			itoa(line, buf, 10);
-			errorS += " on line: ";
+			errorS += " on line ";
 			errorS += buf;
-			std::cout << fileS << ":\n" << errorS << std::endl;
+			std::cout << file <<"\n" << errorS << " in " << func << std::endl;
         }
     }
 
