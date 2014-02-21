@@ -4,11 +4,41 @@
 #include <iostream>
 
 
+
+namespace
+{
+    static unsigned int windowRefs = 0;
+    static bool initialized = false;
+
+    void manageWindowRefs()
+    {
+        if (windowRefs == 0)
+        {
+            glfwTerminate();
+            initialized = false;
+        }    
+    }
+
+    void ensureGLFWInit()
+    {
+        if (!initialized)
+        {
+            if (!glfwInit())
+                std::exit(EXIT_FAILURE);
+
+            initialized = true;
+        }
+    }
+}
+
+
 namespace uth
 {
 
     void* Win32WindowImpl::create(const WindowSettings& settings)
     {
+        ensureGLFWInit();
+
         GLFWwindow* wndwHandle;
 
         glfwWindowHint(GLFW_ALPHA_BITS, settings.useBlending ? 8 : 0);
@@ -41,6 +71,7 @@ namespace uth
             std::exit(EXIT_FAILURE);
         }
 
+        ++windowRefs;
         glfwMakeContextCurrent(wndwHandle);
 
         glfwSetWindowPos(wndwHandle, settings.position.x, settings.position.y);
@@ -62,6 +93,9 @@ namespace uth
         glfwDestroyWindow(static_cast<GLFWwindow*>(handle));
 
         handle = NULL;
+
+        --windowRefs;
+        manageWindowRefs();
         
         return handle;
     }
@@ -85,6 +119,8 @@ namespace uth
 
     void Win32WindowImpl::swapBuffers(void* handle)
     {
+        if (!handle) return;
+
         glfwSwapBuffers(static_cast<GLFWwindow*>(handle));
     }
 }

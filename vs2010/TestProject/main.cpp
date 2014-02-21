@@ -16,8 +16,6 @@ int main()
 	settings.contextVersionMinor = 1;
     settings.fullScreen = false;
 
-    uthGraphics.getInstance();
-
     uth::Window wndw(settings);
 	uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 

@@ -393,16 +393,11 @@ namespace uth
 
     Graphics::Graphics()
     {
-#if defined(UTH_SYSTEM_WINDOWS)
-        if (!glfwInit())
-            std::exit(EXIT_FAILURE);
-#endif
+
     }
 
     Graphics::~Graphics()
     {
-#if defined(UTH_SYSTEM_WINDOWS)
-        glfwTerminate();
-#endif
+
     }
 }

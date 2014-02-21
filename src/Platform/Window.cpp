@@ -17,8 +17,6 @@ typedef uth::AndroidWindowImpl WindowImpl;
 
 
 
-
-
 namespace uth
 {
     Window::Window()

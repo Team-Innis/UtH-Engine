@@ -1,11 +1,11 @@
 #include <UtH\Platform\WindowSettings.hpp>
-
+#include <UtH\Platform\Uncopyable.hpp>
 
 
 
 namespace uth
 {
-    class Window
+    class Window : private Uncopyable
     {
     public:
 
