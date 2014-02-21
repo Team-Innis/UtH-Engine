@@ -5,14 +5,6 @@
 #include <iostream>
 #include <algorithm>
 
-#ifdef _DEBUG
-
-#else // Release
-// FIXME: Static 'Release' version of the GLEW lib breaks the build
-// consider using dynamic linking for release
-//#pragma comment(lib, "glfw3.lib")
-//#pragma comment(lib, "glew32sd.lib")
-#endif
 
 namespace uth
 {
@@ -84,111 +76,6 @@ namespace uth
     static int faceCullings[FACECULLING_LAST] =         {GL_FRONT, 
                                                          GL_BACK, 
                                                          GL_FRONT_AND_BACK};
-
-    
-
-    // Window functions
-    bool Graphics::createWindow(const WindowSettings& settings)
-    {
-#if defined(UTH_SYSTEM_WINDOWS)
-        if (m_windowHandle) destroyWindow();
-        
-        m_windowSettings = settings;
-        
-
-        glfwWindowHint(GLFW_ALPHA_BITS, m_windowSettings.useBlending ? 8 : 0);
-        glfwWindowHint(GLFW_DEPTH_BITS, m_windowSettings.useDepthBuffer ? 16 : 0);
-        glfwWindowHint(GLFW_STENCIL_BITS, m_windowSettings.useStencilBuffer ? 8 : 0);
-        
-        #ifdef UTH_SYSTEM_OPENGLES
-            glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
-        #else
-            glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
-        #endif
-
-        int majorVer = m_windowSettings.contextVersionMajor == 0 ? 4 : m_windowSettings.contextVersionMajor,
-            minorVer = m_windowSettings.contextVersionMajor == 0 ? 4 : m_windowSettings.contextVersionMinor;
-
-        do
-        {
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, majorVer);
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minorVer);
-
-            m_windowHandle = glfwCreateWindow(m_windowSettings.size.w, m_windowSettings.size.h, m_windowSettings.title.c_str(), NULL, NULL);
-
-            if (--minorVer < 0)
-            {
-                --majorVer;
-                minorVer = 9;
-            }
-
-        } while (!m_windowHandle && majorVer > 0);
-
-
-        if (!m_windowHandle)
-        {
-            std::cout << "Failed to create an OpenGL context! Exiting..." <<std::endl;
-            std::exit(EXIT_FAILURE);
-        }
-
-        glfwMakeContextCurrent(m_windowHandle);
-
-        glfwSetWindowPos(m_windowHandle, m_windowSettings.position.x, m_windowSettings.position.y);
-        glfwSwapInterval(m_windowSettings.useVsync ? 1 : 0);
-
-		std::cout << "glew init might produces GL_INVALID_ENUM error. Just ignore it" << std::endl;
-		glewExperimental = GL_TRUE;
-        oglCheck(glewInit());
-
-		glEnable(GL_TEXTURE_2D);
-#endif
-        return true;
-    }
-
-
-    void Graphics::destroyWindow()
-    {
-#if defined(UTH_SYSTEM_WINDOWS)
-        glfwDestroyWindow(m_windowHandle);
-        m_windowHandle = NULL;
-#endif
-    }
-
-
-    void Graphics::clear(const float r, const float g, const float b, const float a)
-    {
-        oglCheck(glClear(GL_COLOR_BUFFER_BIT |
-                         GL_DEPTH_BUFFER_BIT |
-                         GL_STENCIL_BUFFER_BIT));
-		oglCheck(glClearColor(r, g, b, a));
-
-        if (!m_windowSettings.useDepthBuffer) return;
-
-		#ifdef UTH_SYSTEM_OPENGLES
-			oglCheck(glClearDepthf(1)); 
-		#else
-			oglCheck(glClearDepth(1)); 
-		#endif
-
-        if (!m_windowSettings.useStencilBuffer) return;
-
-        oglCheck(glClearStencil(1));
-    }
-
-    void Graphics::swapBuffers()
-    {
-#if defined(UTH_SYSTEM_WINDOWS)
-        glfwSwapBuffers(m_windowHandle);
-#elif defined(UTH_SYSTEM_ANDROID)
-		//eglSwapBuffers();
-#endif
-    }
-
-    void Graphics::setViewport(const int x, const int y, const unsigned int width, const unsigned int height)
-    {
-        oglCheck(glViewport(x, y, width, height));
-    }
-
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     // Shaders
@@ -504,8 +391,6 @@ namespace uth
     // Private
 
     Graphics::Graphics()
-        : m_windowHandle(0),
-          m_windowSettings()
     {
 #if defined(UTH_SYSTEM_WINDOWS)
         if (!glfwInit())
@@ -516,9 +401,6 @@ namespace uth
     Graphics::~Graphics()
     {
 #if defined(UTH_SYSTEM_WINDOWS)
-        if (!m_windowHandle)
-            destroyWindow();
-
         glfwTerminate();
 #endif
     }
