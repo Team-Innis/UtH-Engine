@@ -71,7 +71,7 @@
     <ClInclude Include="..\..\include\UtH\Engine\UtHEngine.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\include\UtH\Engine\SceneManager.inl" />
+    <None Include="..\..\include\UtH\Engine\Scenes.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{07326890-84B7-46AD-9CA3-2ACBD1EE3B26}</ProjectGuid>

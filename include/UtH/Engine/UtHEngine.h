@@ -1,19 +1,24 @@
+#pragma once
 #ifndef THEHOOD
 #define THEHOOD
 
 #include <vector>
 #include <UtH\Platform\Singleton.hpp>
 
+#define theHood uth::UtHEngine::getInstance()
+#define Hood uth::UtHEngine::getInstance()
 
 namespace uth
 {
 	class UtHEngine : public Singleton<UtHEngine>
 	{
-	public:
 		UtHEngine();
 		~UtHEngine();
+		friend class Singleton<UtHEngine>;
+	public:
+		int AutoMainLoop();
 		bool CreateGameWindow();
-		void Update();
+		bool Update();
 		void Draw();
 
 	private:

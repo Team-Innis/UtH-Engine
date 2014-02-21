@@ -6,9 +6,12 @@
 #include <UtH\Core\VertexBuffer.hpp>
 #include <UtH\Renderer\Texture.hpp>
 
+#include <UtH\Engine\UtHEngine.h>
 
 int main(int* argc, char** argv)
 {
+	return Hood.AutoMainLoop();
+
     uth::WindowSettings settings;
 	settings.contextVersionMajor = 2;
 	settings.contextVersionMinor = 1;

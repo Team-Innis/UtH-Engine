@@ -4,6 +4,8 @@
 
 #include <UtH/Platform/Singleton.hpp>
 
+#define UtHSceneM uth::SceneManager::getInstance()
+
 namespace uth
 {
 
@@ -13,7 +15,15 @@ namespace uth
 		SceneManager();
 		~SceneManager();
 	public:
-		inline enum SceneName;
+		//inline enum SceneName;
+		enum SceneName
+		{
+			DEFAULT = -1,
+			MENU = 0,
+			GAME = 1,
+			CREDITS,
+			COUNT // Keep this last, it tells how many scenes there are
+		};
 		//inline bool setActiveScene(int SceneID);
 		void SwapToScene(SceneName SceneID);
 		void SwapToScene(int SceneNumber);
@@ -21,10 +31,16 @@ namespace uth
 		bool Update(double dt);
 		bool Draw();
 
-	private:
 
+		void setNewSceneFunc(Scene* (*makeActiveScene)(SceneName SceneID, Scene* CurScene));
+		
+
+	//private:
+		void endScene();
+		void startScene();
 		void m_switchScene();
-		inline void makeActiveScene(SceneName SceneID);
+		Scene* (*makeActiveScene)(SceneName SceneID, Scene* CurScene);
+		//void defaultNewSceneFunc(SceneName SceneID, Scene* CurScene);
 
 		Scene* curScene;
 		SceneName m_sceneID;
@@ -35,5 +51,5 @@ namespace uth
 	};
 
 }
-#include "UtH/Engine/SceneManager.inl"
+//#include "UtH/Engine/Scenes.inl"
 #endif

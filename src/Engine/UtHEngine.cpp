@@ -1,28 +1,39 @@
 #include "UtH\Engine\UtHEngine.h"
 
+#include <UtH\Engine\SceneManager.hpp>
+
 using namespace uth;
 
-UtHEngine::UtHEngine()
+int UtHEngine::AutoMainLoop()
 {
+	while (!(GetAsyncKeyState(VK_ESCAPE) & 0x8000))
+	{
+		Update();
+		Draw();
+	}
 
+	return 0;
 }
+
+UtHEngine::UtHEngine()
+{}
 
 UtHEngine::~UtHEngine()
-{
-
-}
-
+{}
 
 bool UtHEngine::CreateGameWindow()
 {
-	return false;
+	return true;
 }
-void UtHEngine::Update()
+bool UtHEngine::Update()
 {
+	UtHSceneM.Update(0.1);
 	//window->throwExeption
+	return true;
 }
 void UtHEngine::Draw()
 {
+	UtHSceneM.Draw();
 	//window->clear();
 	//ObjectManager->Draw();
 	//SwapBuffers();

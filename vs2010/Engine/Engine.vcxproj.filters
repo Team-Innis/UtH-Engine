@@ -18,10 +18,10 @@
     <ClCompile Include="..\..\src\Engine\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Engine\SceneManager.cpp">
+    <ClCompile Include="..\..\src\Engine\UtHEngine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Engine\UtHEngine.cpp">
+    <ClCompile Include="..\..\src\Engine\SceneManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -37,7 +37,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\include\UtH\Engine\SceneManager.inl">
+    <None Include="..\..\include\UtH\Engine\Scenes.inl">
       <Filter>Header Files</Filter>
     </None>
   </ItemGroup>

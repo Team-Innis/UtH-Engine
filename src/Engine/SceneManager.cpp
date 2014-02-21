@@ -4,11 +4,34 @@
 
 namespace uth
 {
+	
+	Scene* defaultNewSceneFunc(SceneManager::SceneName SceneID, Scene* CurScene)
+	{
+		switch (SceneID)
+		{
+		case SceneManager::MENU:
+			CurScene = new /*Menu*/Scene();
+			break;
+		case SceneManager::GAME:
+			CurScene = new /*Game*/Scene();
+			break;
+		case SceneManager::CREDITS:
+			CurScene = new /*Credits*/Scene();
+			break;
+		default:
+			CurScene = new /*Menu*/Scene();
+			break;
+		}
+		return CurScene;
+	}
+
+
 	SceneManager::SceneManager()
 		: m_pendingSceneSwitch(true),
 		  m_nextScene(DEFAULT)
 	{
-		
+		setNewSceneFunc(defaultNewSceneFunc);
+		m_switchScene();
 	}
 	SceneManager::~SceneManager()
 	{
@@ -53,15 +76,21 @@ namespace uth
 		}
 		return true;
 	}
+	
+	void SceneManager::setNewSceneFunc(Scene* (*newSceneFunc)(SceneName SceneID, Scene* CurScene))
+	{
+		makeActiveScene = newSceneFunc;
+	}
 
-	void SceneManager::m_switchScene()
+	// private
+	void SceneManager::endScene()
 	{
 		if (!curScene->DeInit())
 			WriteLog("Scene %d DeInit() func returns false\n",m_sceneID);
 		delete curScene;
-
-		makeActiveScene(m_nextScene);
-
+	}
+	void SceneManager::startScene()
+	{
 		if (curScene->Init())
 			m_sceneID = m_nextScene;
 		else
@@ -71,4 +100,14 @@ namespace uth
 			m_switchScene();
 		}
 	}
+
+	void SceneManager::m_switchScene()
+	{
+		if (curScene != nullptr)
+			endScene();
+		curScene = makeActiveScene(m_nextScene,curScene);
+		startScene();
+		m_pendingSceneSwitch = false;
+	}
+	
 }
