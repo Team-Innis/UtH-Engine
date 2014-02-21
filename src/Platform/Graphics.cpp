@@ -120,7 +120,7 @@ namespace uth
         if (m_windowHandle) destroyWindow();
         
         m_windowSettings = settings;
-
+        
 
         glfwWindowHint(GLFW_ALPHA_BITS, m_windowSettings.useBlending ? 8 : 0);
         glfwWindowHint(GLFW_DEPTH_BITS, m_windowSettings.useDepthBuffer ? 16 : 0);
@@ -143,7 +143,10 @@ namespace uth
             m_windowHandle = glfwCreateWindow(m_windowSettings.size.w, m_windowSettings.size.h, m_windowSettings.title.c_str(), NULL, NULL);
 
             if (--minorVer < 0)
+            {
                 --majorVer;
+                minorVer = 9;
+            }
 
         } while (!m_windowHandle && majorVer > 0);
 
