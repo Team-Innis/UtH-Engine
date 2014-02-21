@@ -11,11 +11,12 @@ namespace uth
               useStencilBuffer(false),
               useBlending(true),
               useVsync(false),
+              fullScreen(false),
 
               contextVersionMajor(0),
               contextVersionMinor(0),
 
-              position(100, 100),
+              position(0, 0),
               size(800, 600),
 
               title("Generic window title")
@@ -25,7 +26,8 @@ namespace uth
         bool useDepthBuffer,
              useStencilBuffer,
              useBlending,
-             useVsync;
+             useVsync,
+             fullScreen;
 
         int contextVersionMajor,
             contextVersionMinor;

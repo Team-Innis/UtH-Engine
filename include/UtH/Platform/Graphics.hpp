@@ -36,6 +36,8 @@ namespace uth
 
         void setViewport(const int x, const int y, const unsigned int width, const unsigned int height);
 
+        const WindowSettings& getWindowSettings() const;
+
 
         /////////////////////////////////////////////////////////
         // Shader functions

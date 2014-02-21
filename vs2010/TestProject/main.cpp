@@ -9,8 +9,11 @@
 int main()
 {
     uth::WindowSettings settings;
-	settings.contextVersionMajor = 2;
+    settings.size = umath::vector2(1600, 900);
+    settings.position = umath::vector2(8, 30);
+	settings.contextVersionMajor = 3;
 	settings.contextVersionMinor = 1;
+    settings.fullScreen = false;
 
     uthGraphics.createWindow(settings);
 	uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);

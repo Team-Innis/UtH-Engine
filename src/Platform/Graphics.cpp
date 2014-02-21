@@ -5,14 +5,6 @@
 #include <iostream>
 #include <algorithm>
 
-#ifdef _DEBUG
-
-#else // Release
-// FIXME: Static 'Release' version of the GLEW lib breaks the build
-// consider using dynamic linking for release
-//#pragma comment(lib, "glfw3.lib")
-//#pragma comment(lib, "glew32sd.lib")
-#endif
 
 namespace uth
 {
@@ -151,7 +143,10 @@ namespace uth
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, majorVer);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minorVer);
 
-            m_windowHandle = glfwCreateWindow(m_windowSettings.size.w, m_windowSettings.size.h, m_windowSettings.title.c_str(), NULL, NULL);
+            m_windowHandle = glfwCreateWindow(m_windowSettings.size.w, m_windowSettings.size.h, m_windowSettings.title.c_str(), m_windowSettings.fullScreen ? glfwGetPrimaryMonitor() : NULL, NULL);
+
+            m_windowSettings.contextVersionMajor = majorVer;
+            m_windowSettings.contextVersionMinor = minorVer;
 
             if (--minorVer < 0)
             {
@@ -218,6 +213,11 @@ namespace uth
     void Graphics::setViewport(const int x, const int y, const unsigned int width, const unsigned int height)
     {
         oglCheck(glViewport(x, y, width, height));
+    }
+
+    const WindowSettings& Graphics::getWindowSettings() const
+    {
+        return m_windowSettings;
     }
 
 
