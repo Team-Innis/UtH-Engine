@@ -61,13 +61,19 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\Engine\Component.cpp" />
+    <ClCompile Include="..\..\src\Engine\GameObject.cpp" />
     <ClCompile Include="..\..\src\Engine\Scene.cpp" />
     <ClCompile Include="..\..\src\Engine\SceneManager.cpp" />
+    <ClCompile Include="..\..\src\Engine\Sprite.cpp" />
     <ClCompile Include="..\..\src\Engine\UtHEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\UtH\Engine\Component.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\GameObject.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Scene.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\SceneManager.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\Sprite.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\UtHEngine.h" />
   </ItemGroup>
   <ItemGroup>
