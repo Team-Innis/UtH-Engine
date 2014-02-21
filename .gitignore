@@ -153,3 +153,7 @@ $RECYCLE.BIN/
 #Codelite
 .codelite/
 *.workspace
+
+
+#Android
+android/libs/
