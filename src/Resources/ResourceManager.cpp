@@ -17,6 +17,7 @@ void ResourceManager::loadWAV(const char* filePath)
 
 	if(!s_Info.empty())
 	{
+		WriteLog("Dublicate found\n");
 		std::map<const char*, SoundInfo>::iterator it;
 		for(it = s_Info.begin(); it != s_Info.end(); it++)
 		{
@@ -26,14 +27,14 @@ void ResourceManager::loadWAV(const char* filePath)
 
 				soundInfo.bitsPerSample =	(*it).second.bitsPerSample;
 				soundInfo.channels =		(*it).second.channels;
-				soundInfo.channels =		(*it).second.frames;
+				soundInfo.frames =			(*it).second.frames;
 				soundInfo.sampleRate =		(*it).second.sampleRate;
 				soundInfo.soundBuffer =		(*it).second.soundBuffer;
 				break;
 			}
 		}	
 	}
-	else if(newSoundFile)
+	if(newSoundFile)
 	{
 		FileReader* FR = new FileReader(filePath);
 
@@ -44,24 +45,24 @@ void ResourceManager::loadWAV(const char* filePath)
 		DWORD format_lenght, sample_rate, avg_bytes_sec;
 		DWORD data_size, i = 0;
 
-	
 		FR->ReadBytes(id, 4);
 		if((char)id[0] == 'R' && (char)id[1] == 'I' && (char)id[2] == 'F' && (char)id[3] == 'F')
 		{
 			//FR->FileSeek(4, 0);
-			//FR->ReadBytes(&size, 1);
-			FR->FileSeek(8, 0);
+			FR->ReadBytes(&size, 4);
+			WriteLog("Size: %u\n", size);
+			//FR->FileSeek(8, 0);
 			FR->ReadBytes(id, 4);
 			if((char)id[0] == 'W' && (char)id[1] == 'A' && (char)id[2] == 'V' && (char)id[3] == 'E')
 			{
 				//FR->FileSeek(12, 0);
-				//FR->ReadBytes(id, 4);
-				//WriteLog((char*)id);
-				FR->FileSeek(16, 0);
+				FR->ReadBytes(id, 4);
+				WriteLog((char*)id);
+				//FR->FileSeek(16, 0);
 				FR->ReadBytes(&format_lenght, 4);
-				i+=format_lenght;
-				WriteLog("Block lenght: %lu\n", format_lenght);
-				FR->FileSeek(20, 0);
+				i += format_lenght;
+				WriteLog("\nBlock lenght: %lu\n", format_lenght);
+				//FR->FileSeek(20, 0);
 				FR->ReadBytes(&format_tag, 2);
 				WriteLog("Format tag: %d\n", format_tag);
 				if(format_tag != 1)
@@ -69,31 +70,35 @@ void ResourceManager::loadWAV(const char* filePath)
 					WriteLog("Only PCM format supported!\n");
 					return;
 				}
-				FR->FileSeek(22, 0);
+				//FR->FileSeek(22, 0);
 				FR->ReadBytes(&channels, 2);
 				WriteLog("Channels: %d\n", channels);
-				FR->FileSeek(24, 0);
+				//FR->FileSeek(24, 0);
 				FR->ReadBytes(&sample_rate, 4);
 				WriteLog("Sample rate: %lu\n");
-				FR->FileSeek(28, 0);
+				//FR->FileSeek(28, 0);
 				FR->ReadBytes(&avg_bytes_sec, 4);
 				WriteLog("Avg bytes sec: %lu\n", avg_bytes_sec);
-				FR->FileSeek(32, 0);
+				//FR->FileSeek(32, 0);
 				FR->ReadBytes(&block_align, 2);
 				WriteLog("Block align: %d\n", block_align);
-				FR->FileSeek(34, 0);
+				//FR->FileSeek(34, 0);
 				FR->ReadBytes(&bits_per_sample, 2);
 				WriteLog("Bits per sample: %d\n", bits_per_sample);
 				//FR->FileSeek(20 + i, 0);
-				//FR->ReadBytes(id, 4);
-				//WriteLog((char*)id);
-				FR->FileSeek(24 + i, 0);
-				FR->ReadBytes(&format_lenght, 4);
-				i+=format_lenght;
-				WriteLog("Block lenght: %lu\n", format_lenght);
-				FR->FileSeek(28 + i, 0);
+
 				FR->ReadBytes(id, 4);
 				WriteLog((char*)id);
+				if((char)id[0] != 'd' && (char)id[1] != 'a' && (char)id[2] != 't' && (char)id[3] != 'a')
+				{
+					FR->FileSeek(24 + i, 0);
+					FR->ReadBytes(&format_lenght, 4);
+					i += format_lenght;
+					WriteLog("\nBlock lenght: %lu\n", format_lenght);
+					FR->FileSeek(28 + i, 0);
+					FR->ReadBytes(id, 4);
+					WriteLog((char*)id);
+				}
 				//FR->FileSeek(32 + i, 0);
 				FR->ReadBytes(&data_size, 4);
 				WriteLog("\nData size %lu\n", data_size);
@@ -136,18 +141,18 @@ void ResourceManager::loadTGA(const char* filePath)
 			{
 				newTextureFile = false;
 
-				header.depth = (*it).second.depth;
+				header.depth =		(*it).second.depth;
 				header.descriptor = (*it).second.descriptor;
-				header.height = (*it).second.height;
-				header.pixels = (*it).second.pixels;
-				header.type = (*it).second.type;
-				header.width = (*it).second.width;
+				header.height =		(*it).second.height;
+				header.pixels =		(*it).second.pixels;
+				header.type =		(*it).second.type;
+				header.width =		(*it).second.width;
 				break;
 			}
 		}
 	}
 
-	else if(newTextureFile)
+	if(newTextureFile)
 	{
 		FileReader* FR = new FileReader(filePath);
 		BYTE* buffer = (BYTE*)malloc(sizeof(BYTE)*1);
