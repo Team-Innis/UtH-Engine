@@ -1,14 +1,16 @@
 #include <UtH\Audio\Audio.h>
-#include <UtH\Platform\Debug.hpp>
 
 using namespace uth;
 
 Audio::Audio()
 {
+	_manager = new SoundManager();
 }
 
 Audio::~Audio()
 {
+	delete _sound;
+	delete _manager;
 }
 
 // Public

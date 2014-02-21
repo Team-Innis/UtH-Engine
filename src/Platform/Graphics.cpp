@@ -6,13 +6,12 @@
 #include <algorithm>
 
 #ifdef _DEBUG
-#pragma comment(lib, "glfw3d.lib")
-#pragma comment(lib, "glew32sd.lib")
+
 #else // Release
 // FIXME: Static 'Release' version of the GLEW lib breaks the build
 // consider using dynamic linking for release
-#pragma comment(lib, "glfw3.lib")
-#pragma comment(lib, "glew32sd.lib")
+//#pragma comment(lib, "glfw3.lib")
+//#pragma comment(lib, "glew32sd.lib")
 #endif
 
 namespace uth
@@ -48,15 +47,19 @@ namespace uth
                                                          GL_UNPACK_SKIP_ROWS, 
                                                          GL_UNPACK_SKIP_IMAGES, 
                                                          GL_UNPACK_ALIGNMENT};
-    static int textureTypes[TEXTURETYPE_LAST] =         {TEXTURE_1D, 
-                                                         TEXTURE_2D, 
-                                                         TEXTURE_3D, 
-                                                         TEXTURE_1D_ARRAY, 
-                                                         TEXTURE_2D_ARRAY, 
-                                                         TEXTURE_RECTANGLE, 
-                                                         TEXTURE_CUBE_MAP,
-                                                         TEXTURE_2D_MULTISAMPLE,
-                                                         TEXTURE_2D_MULTISAMPLE_ARRAY};
+    static int textureTypes[TEXTURETYPE_LAST] =         {GL_TEXTURE_1D, 
+                                                         GL_TEXTURE_2D, 
+                                                         GL_TEXTURE_3D, 
+                                                         GL_TEXTURE_1D_ARRAY, 
+                                                         GL_TEXTURE_2D_ARRAY, 
+                                                         GL_TEXTURE_RECTANGLE, 
+                                                         GL_TEXTURE_CUBE_MAP,
+                                                         GL_TEXTURE_2D_MULTISAMPLE,
+                                                         GL_TEXTURE_2D_MULTISAMPLE_ARRAY};
+    static int textureFilters[TEXTUREFILTER_LAST] =     {GL_NEAREST,
+                                                         GL_LINEAR,
+                                                         GL_REPEAT,
+                                                         GL_CLAMP_TO_EDGE};
     static int imageFormats[IMAGEFORMAT_LAST] =         {GL_RGB,
                                                          GL_RGBA};
     static int textureParams[TEXTUREPARAM_LAST] =       {GL_TEXTURE_BASE_LEVEL, 
@@ -75,6 +78,14 @@ namespace uth
                                                          GL_TEXTURE_WRAP_S, 
                                                          GL_TEXTURE_WRAP_T,
                                                          GL_TEXTURE_WRAP_R};
+	static int textureUnits[TEXUNIT_LAST] =				{GL_TEXTURE0,
+														 GL_TEXTURE1,
+														 GL_TEXTURE2,
+														 GL_TEXTURE3,
+														 GL_TEXTURE4,
+														 GL_TEXTURE5,
+														 GL_TEXTURE6,
+														 GL_TEXTURE7};
     static int primitiveTypes[PRIMITIVETYPE_LAST] =     {GL_POINTS, 
                                                          GL_LINE_STRIP, 
                                                          GL_LINE_LOOP, 
@@ -166,6 +177,8 @@ namespace uth
 		glewExperimental = GL_TRUE;
         oglCheck(glewInit());
 
+		glEnable(GL_TEXTURE_2D);
+
         return true;
     }
 
@@ -173,6 +186,7 @@ namespace uth
     void Graphics::destroyWindow()
     {
         glfwDestroyWindow(m_windowHandle);
+        m_windowHandle = NULL;
     }
 
 
@@ -253,6 +267,16 @@ namespace uth
     {
         oglCheck(glLinkProgram(shaderProgram));
 
+		int infoLenght;
+		oglCheck(glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLenght));
+		if(infoLenght > 1)
+		{
+			char* buf = new char[infoLenght];
+			oglCheck(glGetProgramInfoLog(shaderProgram, infoLenght, NULL, buf));
+			std::cout << buf << std::endl;
+			delete buf;
+		}
+
         int success;
 		oglCheck(glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success));
 
@@ -290,6 +314,11 @@ namespace uth
     int Graphics::getAttributeLocation(const int shaderProgram, const char* name)
     {
         return glGetAttribLocation(shaderProgram, name);
+    }
+
+	void Graphics::setUniform(const int location, const int x)
+    {
+        oglCheck(glUniform1i(location, x));
     }
 
     void Graphics::setUniform(const int location, const float x)
@@ -396,7 +425,7 @@ namespace uth
 
     void Graphics::setActiveTexUnit(TexUnit unit)
     {
-        oglCheck(glActiveTexture(unit));
+		oglCheck(glActiveTexture(textureUnits[unit]));
     }
 
     void Graphics::bindTexture(TextureType type, const int texture)
@@ -414,9 +443,9 @@ namespace uth
         oglCheck(glTexImage2D(textureTypes[TEXTURE_2D], level, imageFormats[imageFormat], width, height, 0, imageFormats[pixelFormat], dataTypes[dataType], pixels));
     }
 
-    void Graphics::setTextureParameter(TextureType type, TextureParam param, const int value)
+    void Graphics::setTextureParameter(TextureType type, TextureParam param, TextureFilter filter)
     {
-        oglCheck(glTexParameteri(textureTypes[type], textureParams[param], value));
+        oglCheck(glTexParameteri(textureTypes[type], textureParams[param], textureFilters[filter]));
     }
 
 
@@ -515,7 +544,9 @@ namespace uth
 
     Graphics::~Graphics()
     {
-        destroyWindow();
+        if (!m_windowHandle)
+            destroyWindow();
+
         glfwTerminate();
     }
 }
