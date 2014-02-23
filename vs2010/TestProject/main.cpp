@@ -8,9 +8,12 @@
 
 #include <UtH\Engine\UtHEngine.h>
 
+#include <UtH\Engine\GameObject.hpp>
+#include <UtH\Engine\Sprite.hpp>
+
 int main(int* argc, char** argv)
 {
-	return Hood.AutoMainLoop();
+	//return Hood.AutoMainLoop();
 
     uth::WindowSettings settings;
 	settings.contextVersionMajor = 2;
@@ -22,33 +25,19 @@ int main(int* argc, char** argv)
 	shader.LoadShader("vertexshader.vert", "fragmentshader.frag");
 	shader.Use();
 
-	uth::VertexBuffer buf;
-	buf.addVertex(umath::vector3(-0.5, -0.5, 0), umath::vector2(0.0f, 0.0f)); // vasen alakulma
-	buf.addVertex(umath::vector3(0.5, -0.5, 0), umath::vector2(1.0f, 0.0f)); // oikea alakulma
-	buf.addVertex(umath::vector3(-0.5, 0.5, 0), umath::vector2(0.0f, 1.0f)); // vasen yläkulma
-	buf.addVertex(umath::vector3(0.5, 0.5, 0), umath::vector2(1.0f, 1.0f)); // oikea yläkulma
-	buf.addIndex(0);
-	buf.addIndex(1);
-	buf.addIndex(2);
-	buf.addIndex(1);
-	buf.addIndex(3);
-	buf.addIndex(2);
+	uth::GameObject gameObject;
+	gameObject.AddComponent(new uth::Sprite("test.tga"));
 
-	uth::Texture tex;
-	tex.loadFromFile("test.tga");
-	tex.bind();
-	shader.SetUniform("unifSampler", 0);
-
-	buf.setVertices(&shader);
+	gameObject.transform.SetSize(0.5f, 0.5f);
+	gameObject.transform.SetPosition(-0.5f, -0.5f);
+	gameObject.transform.parent->transform.Rotate(45);
 
     while(!(GetAsyncKeyState(VK_ESCAPE) & 0x8000))
     {
         int number = (GetAsyncKeyState(VK_SPACE) & 0x8000) ? 1 : 0;
 
         uthGraphics.clear(number, number, number);
-		tex.bind();
-     	shader.SetUniform("unifSampler", 0);
-		buf.setVertices(&shader);
+		gameObject.Draw(&shader);
 
         uthGraphics.swapBuffers();
     }

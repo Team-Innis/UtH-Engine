@@ -34,7 +34,6 @@ bool Scene::Init()
 	tex->loadFromFile("test.tga");
 	tex->bind();
 	shader->SetUniform("unifSampler", 0);
-	buf->setVertices(shader);
 	return true;
 }
 bool Scene::DeInit()
@@ -53,7 +52,7 @@ bool Scene::Draw()
     uthGraphics.clear(number, number, number);
 	tex->bind();
     shader->SetUniform("unifSampler", 0);
-	buf->setVertices(shader);
+	buf->draw(shader);
 
     uthGraphics.swapBuffers();
 	return true;
