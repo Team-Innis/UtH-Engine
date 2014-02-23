@@ -7,6 +7,7 @@
 
 #include <UtH/Engine/Component.hpp>
 #include <UtH/Math/Math.hpp>
+#include <UtH/Engine/Transform.hpp>
 
 namespace uth
 {
@@ -17,37 +18,19 @@ namespace uth
 		~GameObject();
 
 		void AddComponent(Component* component);
+		Component* GetComponent(const std::string name);
 		void RemoveComponent(Component* component);
 		void RemoveComponent(std::string name);
 
-		void Move(umath::vector2 offset);
-		void Move(int offsetX, int offsetY);
-
-		void SetPosition(umath::vector2 position);
-		void SetPosition(int posX, int posY);
-		const umath::vector2 GetPosition() const;
-
-		void Resize(umath::vector2 size);
-		void Resize(int width, int height);
-		const umath::vector2 GetSize() const;
-		
-		void SetRotation(float angle);
-		float GetRotation();
-		void Rotate(float angle);
-
-		void Draw();
+		void Draw(Shader* shader);
 		void Update(float dt);
 
+		// Transform is a special component that every gameobject has
+		Transform transform;
+
 	private:
-		void updateTransform();
-
 		std::vector<Component*> updateComponents;
-		std::vector<Component*> drawComponents;
-
-		umath::rectangle m_dimensions;
-		float m_angle;
-
-		umath::matrix4 m_modelTransform;
+		std::vector<Component*> drawComponents;		
 	};
 }
 #endif
