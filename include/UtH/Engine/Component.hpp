@@ -3,14 +3,17 @@
 #define COMPONENT_H_UTH
 
 #include <string>
+#include <UtH/Core/Shader.hpp>
 
 namespace uth
 {
+	class GameObject;
+
 	class Component
 	{
 	public:
 
-		Component(std::string name); // Should be unique(per gameobject)
+		Component(const std::string name); // Should be unique(per gameobject)
 		virtual ~Component();
 
 		void SetActive(bool active);
@@ -22,11 +25,14 @@ namespace uth
 		void SetDynamic(bool dynamic);
 		bool GetDynamic();
 
-		void SetName(std::string name);
-		std::string GetName();
+		void SetName(const std::string name);
+		const std::string GetName() const;
 
-		virtual void Draw();
-		virtual void Update(float dt);
+		virtual void Draw(Shader* shader){};
+		virtual void Update(float dt){};
+
+		GameObject* parent;
+
 	protected:
 		Component();
 

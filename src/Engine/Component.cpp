@@ -51,12 +51,12 @@ bool Component::GetDynamic()
 	return m_dynamic;
 }
 
-void Component::SetName(std::string name)
+void Component::SetName(const std::string name)
 {
 	m_name = name;
 }
 
-std::string Component::GetName()
+const std::string Component::GetName() const
 {
 	return m_name;
 }
