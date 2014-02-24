@@ -18,7 +18,6 @@ namespace uth
 
         if (errCode != GL_NO_ERROR)
         {
-            std::string fileS(file);
             std::string errorS = "unknown error";
 
             switch(errCode)

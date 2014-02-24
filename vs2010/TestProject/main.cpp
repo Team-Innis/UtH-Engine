@@ -55,7 +55,6 @@ int main()
 		else
 			tex.bind();
 
-     	shader.SetUniform("unifSampler", -2);
 		buf.setVertices(&shader);
 
         wndw.swapBuffers();
