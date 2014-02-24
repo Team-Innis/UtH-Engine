@@ -19,7 +19,7 @@ void ResourceManager::loadWAV(const char* filePath)
 	{
 		WriteLog("Dublicate found\n");
 		std::map<const char*, SoundInfo>::iterator it;
-		for(it = s_Info.begin(); it != s_Info.end(); it++)
+		for(it = s_Info.begin(); it != s_Info.end(); ++it)
 		{
 			if(it->first == filePath)
 			{
@@ -135,7 +135,7 @@ void ResourceManager::loadTGA(const char* filePath)
 	if(!_header.empty())
 	{
 		std::map<const char*, Header>::iterator it;
-		for(it = _header.begin(); it != _header.end(); it++)
+		for(it = _header.begin(); it != _header.end(); ++it)
 		{
 			if(it->first == filePath)
 			{
