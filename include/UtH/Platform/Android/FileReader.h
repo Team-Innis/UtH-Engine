@@ -33,9 +33,11 @@ namespace uth
 		void* ReadBinary();
 		const char* ReadText();
 
+		static AAssetManager* m_manager;
 	private:
 		//FILE* file;
-		AAsset* asset;
+		AAsset* m_asset;
+		unsigned int m_length;
 	};
 }
 

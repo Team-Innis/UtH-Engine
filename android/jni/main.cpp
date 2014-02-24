@@ -23,6 +23,7 @@
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/WindowSettings.hpp>
 #include <UtH/Platform/Graphics.hpp>
+#include <UtH/Platform/FileReader.h>
 
 //After input manager 
 //int handle_input(android_app* app, AInputEvent* event)			
@@ -60,6 +61,8 @@
 void android_main(android_app* state)
 {
 	app_dummy();
+
+	uth::FileReader::m_manager = state->activity->assetManager;
 
 	uth::AndroidEngine& androidengine = uth::AndroidEngine::getInstance();
     uthGraphics.getInstance();
