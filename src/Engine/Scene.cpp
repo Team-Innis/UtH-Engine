@@ -44,7 +44,7 @@ bool Scene::DeInit()
 
 bool Scene::Update(double dt)
 {
-	number = (GetAsyncKeyState(VK_SPACE) & 0x8000) ? 1 : 0;
+	//number = (GetAsyncKeyState(VK_SPACE) & 0x8000) ? 1 : 0;
 	return true;
 }
 bool Scene::Draw()

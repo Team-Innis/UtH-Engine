@@ -24,6 +24,9 @@
 #include <UtH/Platform/WindowSettings.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Platform/FileReader.h>
+#include <UtH/Engine/GameObject.hpp>
+#include <UtH/Engine/Sprite.hpp>
+#include <UtH/Platform/Debug.hpp>
 
 //After input manager 
 //int handle_input(android_app* app, AInputEvent* event)			
@@ -57,15 +60,37 @@
 //		break;
 //	}
 //}
+uth::Shader shader;
+uth::GameObject gameObject;
+
+void init()
+{
+	shader.LoadShader("vertexshader.vert", "fragmentshader.frag");
+	shader.Use();
+
+	gameObject.AddComponent(new uth::Sprite("test.tga"));
+
+	gameObject.transform.SetSize(0.5f, 0.5f);
+	gameObject.transform.SetPosition(-0.5f, -0.5f);
+	gameObject.transform.parent->transform.Rotate(45);
+}
+
+void update()
+{
+	gameObject.Draw(&shader);
+}
 
 void android_main(android_app* state)
 {
 	app_dummy();
-
+	WriteLog("APPDUMMY");
 	uth::FileReader::m_manager = state->activity->assetManager;
+	WriteLog("FILEMANAGER");
 
 	uth::AndroidEngine& androidengine = uth::AndroidEngine::getInstance();
+	WriteLog("ANDROIDENGINE");
     uthGraphics.getInstance();
+	WriteLog("GRAPHICS");
 
     androidengine.settings.position = umath::vector2(0, 0);
 	androidengine.settings.contextVersionMajor = 2;
@@ -73,9 +98,13 @@ void android_main(android_app* state)
     androidengine.settings.fullScreen = true;
 	
     uth::Window wndw(androidengine.settings);
+	WriteLog("WINDOW");
 	uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 
 	androidengine.app = state;
+
+	init();
+	WriteLog("INIT");
 
 	while(1)
 	{
@@ -104,6 +133,8 @@ void android_main(android_app* state)
 		else
 		{
 			wndw.clear(0.0f, 0.0f, 0.0f);
+			update();
+	WriteLog("UPDATE");
 			//engine->Update();
 		}
 	}

@@ -6,11 +6,11 @@ using namespace uth;
 
 int UtHEngine::AutoMainLoop()
 {
-	while (!(GetAsyncKeyState(VK_ESCAPE) & 0x8000))
+	/*while (!(GetAsyncKeyState(VK_ESCAPE) & 0x8000))
 	{
 		Update();
 		Draw();
-	}
+	}*/
 
 	return 0;
 }
