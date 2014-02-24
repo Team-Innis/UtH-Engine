@@ -16,8 +16,6 @@ int main()
 	settings.contextVersionMinor = 1;
     settings.fullScreen = false;
 
-    uthGraphics.getInstance();
-
     uth::Window wndw(settings);
 	uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 
@@ -56,8 +54,6 @@ int main()
 			tex2.bind();
 		else
 			tex.bind();
-
-     	shader.SetUniform("unifSampler", 0);
 		buf.setVertices(&shader);
 
         wndw.swapBuffers();

@@ -2,6 +2,7 @@
 #include <UtH\Platform\Configuration.hpp>
 #include <UtH\Platform\OpenGL.hpp>
 #include <UtH\Platform\OGLCheck.hpp>
+#include <UtH\Platform\Debug.hpp>
 #include <iostream>
 #include <algorithm>
 
@@ -99,8 +100,8 @@ namespace uth
 		{
 			char* buf = new char[infoLenght];
 			oglCheck(glGetShaderInfoLog(shader, infoLenght, NULL, buf));
-			std::cout << buf << std::endl;
-			delete buf;
+			WriteLog("%s", buf);
+			delete[] buf;
 		}
 
         int success;
@@ -129,8 +130,8 @@ namespace uth
 		{
 			char* buf = new char[infoLenght];
 			oglCheck(glGetProgramInfoLog(shaderProgram, infoLenght, NULL, buf));
-			std::cout << buf << std::endl;
-			delete buf;
+			WriteLog("%s", buf);
+			delete[] buf;
 		}
 
         int success;
@@ -392,16 +393,11 @@ namespace uth
 
     Graphics::Graphics()
     {
-#if defined(UTH_SYSTEM_WINDOWS)
-        if (!glfwInit())
-            std::exit(EXIT_FAILURE);
-#endif
+
     }
 
     Graphics::~Graphics()
     {
-#if defined(UTH_SYSTEM_WINDOWS)
-        glfwTerminate();
-#endif
+
     }
 }
