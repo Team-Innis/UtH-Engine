@@ -123,4 +123,9 @@ namespace uth
 
         glfwSwapBuffers(static_cast<GLFWwindow*>(handle));
     }
+	
+	void Win32WindowImpl::processMessages()
+	{
+		glfwPollEvents();
+	}
 }
