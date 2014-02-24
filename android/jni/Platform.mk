@@ -35,7 +35,7 @@ $(SRC_PATH)Resources/ResourceManager.cpp
 
 #Platform
 LOCAL_SRC_FILES += \
-$(SRC_PATH)Platform/FileReader.cpp \
+$(SRC_PATH)Platform/Android/FileReader.cpp \
 $(SRC_PATH)Platform/Graphics.cpp \
 $(SRC_PATH)Platform/HiResTimer.cpp \
 $(SRC_PATH)Platform/OGLCheck.cpp \
