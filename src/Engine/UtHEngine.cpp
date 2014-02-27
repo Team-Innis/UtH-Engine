@@ -7,7 +7,7 @@
 
 using namespace uth;
 
-int UtHEngine::AutoMainLoop()
+int UtHEngine::MainLoop()
 {
     uth::WindowSettings settings;
     settings.size = umath::vector2(1600, 900);
