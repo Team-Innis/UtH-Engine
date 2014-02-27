@@ -24,16 +24,37 @@ $(SRC_PATH)Audio/Audio.cpp \
 $(SRC_PATH)Audio/Sound.cpp \
 $(SRC_PATH)Audio/SoundManager.cpp
 
+#Renderer
+LOCAL_SRC_FILES += \
+$(SRC_PATH)Renderer/Camera.cpp \
+$(SRC_PATH)Renderer/Texture.cpp
+
+#Resources
+LOCAL_SRC_FILES += \
+$(SRC_PATH)Resources/ResourceManager.cpp
+
 #Platform
 LOCAL_SRC_FILES += \
-$(SRC_PATH)Platform/FileReader.cpp \
+$(SRC_PATH)Platform/Android/FileReader.cpp \
 $(SRC_PATH)Platform/Graphics.cpp \
 $(SRC_PATH)Platform/HiResTimer.cpp \
-$(SRC_PATH)Platform/OGLCheck.cpp
+$(SRC_PATH)Platform/OGLCheck.cpp \
+$(SRC_PATH)Platform/Window.cpp \
+$(SRC_PATH)Platform/Android/AndroidWindowImpl.cpp 
 
 #Core
 LOCAL_SRC_FILES += \
 $(SRC_PATH)Core/Shader.cpp \
 $(SRC_PATH)Core/VertexBuffer.cpp
+
+#Engine
+LOCAL_SRC_FILES += \
+$(SRC_PATH)Engine/Component.cpp \
+$(SRC_PATH)Engine/GameObject.cpp \
+$(SRC_PATH)Engine/Scene.cpp \
+$(SRC_PATH)Engine/SceneManager.cpp \
+$(SRC_PATH)Engine/Sprite.cpp \
+$(SRC_PATH)Engine/UtHEngine.cpp \
+$(SRC_PATH)Engine/Transform.cpp
 
 include $(BUILD_STATIC_LIBRARY)

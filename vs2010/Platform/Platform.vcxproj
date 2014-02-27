@@ -22,15 +22,16 @@
     <ClInclude Include="..\..\include\UtH\Platform\Singleton.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Typedefs.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Uncopyable.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\FileReader.h" />
     <ClInclude Include="..\..\include\UtH\Platform\Window.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\WindowSettings.hpp" />
     <ClInclude Include="..\..\src\Platform\Win32\Win32WindowImpl.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\Platform\FileReader.cpp" />
     <ClCompile Include="..\..\src\Platform\Graphics.cpp" />
     <ClCompile Include="..\..\src\Platform\HiResTimer.cpp" />
     <ClCompile Include="..\..\src\Platform\OGLCheck.cpp" />
+    <ClCompile Include="..\..\src\Platform\Win32\FileReader.cpp" />
     <ClCompile Include="..\..\src\Platform\Win32\Win32WindowImpl.cpp" />
     <ClCompile Include="..\..\src\Platform\Window.cpp" />
   </ItemGroup>

@@ -21,9 +21,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\UtH\Platform\FileReader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\UtH\Platform\Graphics.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -63,12 +60,15 @@
     <ClInclude Include="..\..\src\Platform\Win32\Win32WindowImpl.hpp">
       <Filter>Header Files\Win32</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\FileReader.h">
+      <Filter>Header Files\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\FileReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Platform\OGLCheck.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Platform\FileReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Graphics.cpp">
@@ -81,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Win32\Win32WindowImpl.cpp">
+      <Filter>Source Files\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Win32\FileReader.cpp">
       <Filter>Source Files\Win32</Filter>
     </ClCompile>
   </ItemGroup>

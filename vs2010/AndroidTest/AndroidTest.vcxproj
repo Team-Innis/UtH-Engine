@@ -13,9 +13,17 @@
   <ItemGroup>
     <None Include="..\..\android\jni\Android.mk" />
     <None Include="..\..\android\jni\Application.mk" />
+    <None Include="..\..\android\jni\Platform.mk" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\android\jni\main.cpp" />
+    <ClCompile Include="..\..\src\Platform\Android\AndroidWindowImpl.cpp" />
+    <ClCompile Include="..\..\src\Platform\Android\FileReader.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\include\UtH\Platform\Android\AndroidEngine.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Android\FileReader.h" />
+    <ClInclude Include="..\..\src\Platform\Android\AndroidWindowImpl.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4C267BE7-7BF8-4967-A71F-ABA1199D48BA}</ProjectGuid>
@@ -42,9 +50,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <IncludePath>$(SolutionDir)../include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+    <IncludePath>$(SolutionDir)../include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>

@@ -14,156 +14,97 @@
  * limitations under the License.
  *
  */
-#include <jni.h>
-#include <errno.h>
-#include <android_native_app_glue.h>
-
 #include <UtH/Platform/OpenGL.hpp>
 #include <UtH/Platform/Debug.hpp>
 
 #include <UtH/Math/Math.hpp>
 
-
-//Struct containing EGL stugg and android app
-struct AndroidEngine
-{
-	android_app* app;
-	EGLDisplay display;
-	EGLSurface surface;
-	EGLContext context;
-	EGLConfig config;
-
-	umath::vector2 resolution; ///WIndowSettings.resolution
-};
-
-///MOVE TO CREATE WINDOW
-//To Graphics init or Renderer class
-int displayInit(AndroidEngine* androidengine)
-{
-	const EGLint attribs[] =
-	{
-		EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
-		EGL_RED_SIZE, 8,
-		EGL_GREEN_SIZE, 8,
-		EGL_BLUE_SIZE, 8,
-		EGL_ALPHA_SIZE, 8,
-		EGL_NONE
-	};
-
-	EGLint attribList[] =
-	{
-		EGL_CONTEXT_CLIENT_VERSION, 2,
-		EGL_NONE
-	};
-
-	EGLint format, numConfigs;
-
-	androidengine->display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-	eglInitialize(androidengine->display,0,0);
-
-	eglChooseConfig(androidengine->display, attribs, &androidengine->config, 1, &numConfigs);
-	eglGetConfigAttrib(androidengine->display, androidengine->config, EGL_NATIVE_VISUAL_ID, &format);
-
-	ANativeWindow_setBuffersGeometry(androidengine->app->window, 0, 0, format);
-
-	androidengine->surface = eglCreateWindowSurface(androidengine->display, androidengine->surface, androidengine->app->window, NULL);
-	androidengine->context = eglCreateContext(androidengine->display, androidengine->config, NULL, attribList);
-
-	if(eglMakeCurrent(androidengine->display, androidengine->surface, androidengine->surface, androidengine->context) == false)
-	{
-		WriteLog("eglMakeCurrent failed");
-		return -1;
-	}
-
-	EGLint tempX;
-	EGLint tempY;
-
-	eglQuerySurface(androidengine->display, androidengine->surface, EGL_WIDTH, &tempX);
-	eglQuerySurface(androidengine->display, androidengine->surface, EGL_HEIGHT, &tempY);
-
-	androidengine->resolution.x = tempX;
-	androidengine->resolution.y = tempY;
-
-	glHint(GL_GENERATE_MIPMAP_HINT, GL_FASTEST);
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_DEPTH_TEST);
-	glViewport(0,0,androidengine->resolution.x,androidengine->resolution.y);
-
-	return 0;
-}
-
-///MOVE TO WINDOW DESTROY
-void displayDestroy(AndroidEngine* androidengine)
-{
-	if(androidengine->display != EGL_NO_DISPLAY)
-	{
-		eglMakeCurrent(androidengine->display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
-		if(androidengine->display != EGL_NO_DISPLAY)
-		{
-			eglDestroyContext(androidengine->display, androidengine->context);
-		}
-		if (androidengine->surface != EGL_NO_SURFACE)
-		{
-			eglDestroySurface(androidengine->display, androidengine->surface);
-		}
-		eglTerminate(androidengine->display);
-	}
-	androidengine->display = EGL_NO_DISPLAY;
-	androidengine->context = EGL_NO_CONTEXT;
-	androidengine->surface = EGL_NO_SURFACE;
-}
+#include <UtH/Platform/Android/AndroidEngine.hpp>
+#include <UtH/Platform/Window.hpp>
+#include <UtH/Platform/WindowSettings.hpp>
+#include <UtH/Platform/Graphics.hpp>
+#include <UtH/Platform/FileReader.h>
+#include <UtH/Engine/GameObject.hpp>
+#include <UtH/Engine/Sprite.hpp>
+#include <UtH/Platform/Debug.hpp>
 
 //After input manager 
-int handle_input(android_app* app, AInputEvent* event)			
-{
-	AndroidEngine* androidengine = (AndroidEngine*)app->userData;
-	//Input should be places here
-	return 0;
-}
-
-void draw_frame(AndroidEngine* androidengine)
-{
-	//Engine->Update()
-}
+//int handle_input(android_app* app, AInputEvent* event)			
+//{
+//	//AndroidEngine* androidengine = (AndroidEngine*)app->userData;
+//	//Input should be places here
+//	return 0;
+//}
 
 //This is sort of state manager. Checks is Activity on top or not and does it have saved state
-void handle_cmd(android_app* app, int cmd)														///EVENT MANAGER
-{
-	AndroidEngine* androidengine = (AndroidEngine*)app->userData;
+//void handle_cmd(android_app* app, int cmd)														///EVENT MANAGER
+//{
+//	//AndroidEngine* androidengine = (AndroidEngine*)app->userData;
+//
+//	switch (cmd)
+//	{
+//	case APP_CMD_SAVE_STATE:
+//		break;
+//	case APP_CMD_INIT_WINDOW:
+//		if (androidengine->app->window != NULL)
+//		{
+//			displayInit(androidengine);
+//			draw_frame(androidengine);
+//		}
+//		break;
+//	case APP_CMD_TERM_WINDOW:
+//		displayDestroy(androidengine);
+//		break;
+//	case APP_CMD_LOST_FOCUS:
+//		draw_frame(androidengine);
+//		break;
+//	}
+//}
+uth::Shader shader;
+uth::GameObject gameObject;
 
-	switch (cmd)
-	{
-	case APP_CMD_SAVE_STATE:
-		break;
-	case APP_CMD_INIT_WINDOW:
-		if (androidengine->app->window != NULL)
-		{
-			displayInit(androidengine);
-			draw_frame(androidengine);
-		}
-		break;
-	case APP_CMD_TERM_WINDOW:
-		displayDestroy(androidengine);
-		break;
-	case APP_CMD_LOST_FOCUS:
-		draw_frame(androidengine);
-		break;
-	}
+void init()
+{
+	shader.LoadShader("vertexshader.vert", "fragmentshader.frag");
+	shader.Use();
+
+	gameObject.AddComponent(new uth::Sprite("test.tga"));
+
+	gameObject.transform.SetSize(0.5f, 0.5f);
+	gameObject.transform.SetPosition(-0.5f, -0.5f);
+	gameObject.transform.parent->transform.Rotate(45);
+}
+
+void update()
+{
+	gameObject.Draw(&shader);
 }
 
 void android_main(android_app* state)
 {
-	AndroidEngine androidengine;
-
 	app_dummy();
+	WriteLog("APPDUMMY");
+	uth::FileReader::m_manager = state->activity->assetManager;
+	WriteLog("FILEMANAGER");
 
-	memset(&androidengine, 0, sizeof(AndroidEngine));
+	uth::AndroidEngine& androidengine = uth::AndroidEngine::getInstance();
+	WriteLog("ANDROIDENGINE");
+    uthGraphics.getInstance();
+	WriteLog("GRAPHICS");
 
-	state->userData = &androidengine;
-	state->onAppCmd = handle_cmd;
-	state->onInputEvent = handle_input;
+    androidengine.settings.position = umath::vector2(0, 0);
+	androidengine.settings.contextVersionMajor = 2;
+	androidengine.settings.contextVersionMinor = 1;
+    androidengine.settings.fullScreen = true;
+	
+    uth::Window wndw(androidengine.settings);
+	WriteLog("WINDOW");
+	uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 
 	androidengine.app = state;
+
+	init();
+	WriteLog("INIT");
 
 	while(1)
 	{
@@ -180,7 +121,7 @@ void android_main(android_app* state)
 			}
 			if (state->destroyRequested != 0)
 			{
-				displayDestroy(&androidengine);
+				wndw.destroy();
 				return;
 			}
 		}
@@ -191,6 +132,9 @@ void android_main(android_app* state)
 		}
 		else
 		{
+			wndw.clear(0.0f, 0.0f, 0.0f);
+			update();
+	WriteLog("UPDATE");
 			//engine->Update();
 		}
 	}

@@ -17,10 +17,28 @@
   <ItemGroup>
     <None Include="..\..\android\jni\Android.mk" />
     <None Include="..\..\android\jni\Application.mk" />
+    <None Include="..\..\android\jni\Platform.mk" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\android\jni\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Android\AndroidWindowImpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Android\FileReader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Platform\Android\AndroidWindowImpl.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Android\AndroidEngine.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Android\FileReader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
