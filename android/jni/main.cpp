@@ -28,44 +28,50 @@
 #include <UtH/Engine/Sprite.hpp>
 #include <UtH/Platform/Debug.hpp>
 
-//This is sort of state manager. Checks is Activity on top or not and does it have saved state
-//void handle_cmd(android_app* app, int cmd)														///EVENT MANAGER
-//{
-//	//AndroidEngine* androidengine = (AndroidEngine*)app->userData;
-//
-//	switch (cmd)
-//	{
-//	case APP_CMD_SAVE_STATE:
-//		break;
-//	case APP_CMD_INIT_WINDOW:
-//		if (androidengine->app->window != NULL)
-//		{
-//			displayInit(androidengine);
-//			draw_frame(androidengine);
-//		}
-//		break;
-//	case APP_CMD_TERM_WINDOW:
-//		displayDestroy(androidengine);
-//		break;
-//	case APP_CMD_LOST_FOCUS:
-//		draw_frame(androidengine);
-//		break;
-//	}
-//}
-
 uth::Shader shader;
 uth::GameObject gameObject;
 
 void init()
 {
-	shader.LoadShader("vertexshader.vert", "fragmentshader.frag");
-	shader.Use();
+	if(shader.LoadShader("vertexshader.vert", "fragmentshader.frag"))
+	{
+		shader.Use();
+		WriteLog("Shaders maybe loaded");
+	}
+	else
+		WriteLog("Shaders not loaded");
 
 	gameObject.AddComponent(new uth::Sprite("test.tga"));
 
 	gameObject.transform.SetSize(0.5f, 0.5f);
 	gameObject.transform.SetPosition(-0.5f, -0.5f);
 	gameObject.transform.parent->transform.Rotate(45);
+}
+
+//This is sort of state manager. Checks is Activity on top or not and does it have saved state
+void handle_cmd(android_app* app, int cmd)														///EVENT MANAGER
+{
+	//AndroidEngine* androidengine = (AndroidEngine*)app->userData;
+
+	switch (cmd)
+	{
+	case APP_CMD_SAVE_STATE:
+		break;
+	case APP_CMD_INIT_WINDOW:
+		((uth::Window*)app->userData)->create(uth::AndroidEngine::getInstance().settings);
+		init();
+
+		//displayInit(androidengine);
+		//draw_frame(androidengine);
+		break;
+	case APP_CMD_TERM_WINDOW:
+		//displayDestroy(androidengine);
+		((uth::Window*)app->userData)->destroy();
+		break;
+	case APP_CMD_LOST_FOCUS:
+		//draw_frame(androidengine);
+		break;
+	}
 }
 
 void update()
@@ -75,29 +81,28 @@ void update()
 
 void android_main(android_app* state)
 {
-	WriteLog("ENTRY");
 	app_dummy();
-	WriteLog("APPDUMMY");
 	uth::FileReader::m_manager = state->activity->assetManager;
-	WriteLog("FILEMANAGER");
 
 	uth::AndroidEngine& androidengine = uth::AndroidEngine::getInstance();
-	WriteLog("ANDROIDENGINE");
-    uthGraphics.getInstance();
-	WriteLog("GRAPHICS");
 
-    androidengine.settings.position = umath::vector2(0, 0);
-	androidengine.settings.contextVersionMajor = 2;
-	androidengine.settings.contextVersionMinor = 1;
-    androidengine.settings.fullScreen = true;
-	
-    uth::Window wndw(androidengine.settings);
-	WriteLog("WINDOW");
-	uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
+	//memset(&androidengine, 0, sizeof(androidengine));
+	//state->userData = &androidengine;
+	state->onAppCmd = handle_cmd;
 
 	androidengine.app = state;
 
-	init();
+    androidengine.settings.position = umath::vector2(0, 0);
+	androidengine.settings.contextVersionMajor = 2;
+	androidengine.settings.contextVersionMinor = 0;
+    androidengine.settings.fullScreen = true;
+	
+    uth::Window wndw;
+	state->userData = &wndw;
+	//WriteLog("WINDOW");
+	//uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
+
+
 	WriteLog("INIT");
 
 	while(1)
@@ -126,9 +131,9 @@ void android_main(android_app* state)
 		}
 		else
 		{
-			wndw.clear(0.0f, 0.0f, 0.0f);
+			wndw.clear(0.0f, 1.0f, 0.0f);
 			update();
-	WriteLog("UPDATE");
+			//WriteLog("UPDATE");
 			//engine->Update();
 		}
 	}

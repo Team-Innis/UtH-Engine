@@ -15,10 +15,12 @@ namespace uth
         const EGLint attribs[] =
 		{
 			EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
-			EGL_RED_SIZE, 8,
-			EGL_GREEN_SIZE, 8,
 			EGL_BLUE_SIZE, 8,
+			EGL_GREEN_SIZE, 8,
+			EGL_RED_SIZE, 8,
 			EGL_ALPHA_SIZE, 8,
+			EGL_DEPTH_SIZE, 8,
+			EGL_STENCIL_SIZE, 8,
 			EGL_NONE
 		};
 
@@ -31,18 +33,45 @@ namespace uth
 		EGLint format, numConfigs;
 
 		androidengine.display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-		eglInitialize(androidengine.display,0,0);
+		WriteLog("eglGetDisplay %d", (int)androidengine.display);
+		CheckEGLError();
 
-		eglChooseConfig(androidengine.display, attribs, &androidengine.config, 1, &numConfigs);
-		eglGetConfigAttrib(androidengine.display, androidengine.config, EGL_NATIVE_VISUAL_ID, &format);
-
-		ANativeWindow_setBuffersGeometry(androidengine.app->window, 0, 0, format);
-
-		androidengine.surface = eglCreateWindowSurface(androidengine.display, androidengine.surface, androidengine.app->window, NULL);
-		androidengine.context = eglCreateContext(androidengine.display, androidengine.config, NULL, attribList);
-
-		if(eglMakeCurrent(androidengine.display, androidengine.surface, androidengine.surface, androidengine.context) == false)
+		if(androidengine.display == EGL_NO_DISPLAY)
 		{
+			WriteLog("display nodisplay");
+		}
+
+
+		eglInitialize(androidengine.display,0,0);
+			WriteLog("eglInitialize succeeded");
+		CheckEGLError();
+		
+		//eglChooseConfig(androidengine.display, attribs, NULL, 1, &numConfigs);
+		//WriteLog("Configs: %d", (int)numConfigs);
+		
+		eglChooseConfig(androidengine.display, attribs, &androidengine.config, 1, &numConfigs);
+		CheckEGLError();
+			WriteLog("eglChooseConfig succeeded");
+		eglGetConfigAttrib(androidengine.display, androidengine.config, EGL_NATIVE_VISUAL_ID, &format);
+		CheckEGLError();
+			WriteLog("eglGetConfigAttrib succeeded");
+
+		
+
+		//ANativeWindow_setBuffersGeometry(androidengine.app->window, 0, 0, 0);
+		//CheckEGLError();
+		//	WriteLog("ANativeWindow_setBuffersGeometry succeeded");
+
+		androidengine.surface = eglCreateWindowSurface(androidengine.display, androidengine.config, androidengine.app->window, NULL);
+		CheckEGLError();
+			WriteLog("eglCreateWindowSurface succeeded");
+		androidengine.context = eglCreateContext(androidengine.display, androidengine.config, EGL_NO_CONTEXT, attribList);
+		CheckEGLError();
+			WriteLog("eglCreateContext succeeded");
+
+		if(eglMakeCurrent(androidengine.display, androidengine.surface, androidengine.surface, androidengine.context) == EGL_FALSE)
+		{
+			CheckEGLError();
 			WriteLog("eglMakeCurrent failed");
 			return (void*)NULL;
 		}
@@ -51,7 +80,9 @@ namespace uth
 		EGLint tempY;
 
 		eglQuerySurface(androidengine.display, androidengine.surface, EGL_WIDTH, &tempX);
+		CheckEGLError();
 		eglQuerySurface(androidengine.display, androidengine.surface, EGL_HEIGHT, &tempY);
+		CheckEGLError();
 
 		androidengine.settings.size.x = tempX;
 		androidengine.settings.size.y = tempY;
@@ -61,7 +92,7 @@ namespace uth
 		glEnable(GL_DEPTH_TEST);
 		glViewport(0,0,androidengine.settings.size.x,androidengine.settings.size.y);
 
-		return (void*)NULL;
+		return nullptr;
     }
 
 
