@@ -1,4 +1,6 @@
 #pragma once
+#ifndef OPENGL_H_UTH
+#define OPENGL_H_UTH
 
 #include <UtH\Platform\Configuration.hpp>
 
@@ -29,5 +31,7 @@
 
     #include <OpenGLES/ES2/gl.h>
     #include <OpenGLES/ES2/glu.h>
+
+#endif
 
 #endif
