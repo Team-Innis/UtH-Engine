@@ -1,4 +1,6 @@
 #pragma once
+#ifndef WINDOWSETTINGS_H_UTH
+#define WINDOWSETTINGS_H_UTH
 
 #include <UtH\Math\Vector2.hpp>
 #include <string>
@@ -40,3 +42,5 @@ namespace uth
         std::string title;
     };
 }
+
+#endif

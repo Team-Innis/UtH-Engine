@@ -1,3 +1,7 @@
+#pragma once
+#ifndef CONFIGURATION_H_UTH
+#define CONFIGURATION_H_UTH
+
 // OS macros
 
 // Windows
@@ -36,5 +40,7 @@
 #else
 
     #error Unknown OS
+
+#endif
 
 #endif

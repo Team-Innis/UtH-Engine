@@ -1,4 +1,6 @@
 #pragma once
+#ifndef GRAPHICS_H_UTH
+#define GRAPHICS_H_UTH
 
 #include <UtH\Platform\WindowSettings.hpp>
 #include <UtH\Platform\Singleton.hpp>
@@ -129,3 +131,5 @@ namespace uth
 
     };
 }
+
+#endif
