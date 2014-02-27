@@ -3,15 +3,15 @@
 #include <UtH\Platform\OpenGL.hpp>
 #include <UtH\Platform\OGLCheck.hpp>
 #include <iostream>
+#include <algorithm>
 
 #ifdef _DEBUG
-#pragma comment(lib, "freeglut_staticd.lib")
-#pragma comment(lib, "glew32sd.lib")
+
 #else // Release
 // FIXME: Static 'Release' version of the GLEW lib breaks the build
 // consider using dynamic linking for release
-#pragma comment(lib, "freeglut_static.lib")
-#pragma comment(lib, "glew32sd.lib")
+//#pragma comment(lib, "glfw3.lib")
+//#pragma comment(lib, "glew32sd.lib")
 #endif
 
 namespace uth
@@ -24,26 +24,13 @@ namespace uth
                                                          GL_UNSIGNED_SHORT,
                                                          GL_INT,
                                                          GL_UNSIGNED_INT,
-                                                         GL_FLOAT,
-                                                         GL_DOUBLE};
+                                                         GL_FLOAT};
     static int bufferTypes[BUFFERTYPE_LAST] =           {GL_ARRAY_BUFFER,
-                                                         GL_READ_BUFFER,
-                                                         GL_COPY_WRITE_BUFFER,
                                                          GL_ELEMENT_ARRAY_BUFFER,
-                                                         GL_PIXEL_PACK_BUFFER,
-                                                         GL_PIXEL_UNPACK_BUFFER,
-                                                         GL_TEXTURE_BUFFER,
-                                                         GL_TRANSFORM_FEEDBACK_BUFFER,
-                                                         GL_UNIFORM_BUFFER};
+                                                         GL_TRANSFORM_FEEDBACK_BUFFER};
     static int usageTypes[USAGETYPE_LAST] =             {GL_STREAM_DRAW,
-                                                         GL_STREAM_READ,
-                                                         GL_STREAM_COPY,
                                                          GL_STATIC_DRAW,
-                                                         GL_STATIC_READ,
-                                                         GL_STATIC_COPY,
-                                                         GL_DYNAMIC_DRAW,
-                                                         GL_DYNAMIC_READ,
-                                                         GL_DYNAMIC_COPY};
+                                                         GL_DYNAMIC_DRAW};
     static int pixelStoreParams[PIXELSTOREPARAM_LAST] = {GL_PACK_SWAP_BYTES,
                                                          GL_PACK_LSB_FIRST, 
                                                          GL_PACK_ROW_LENGTH, 
@@ -144,30 +131,47 @@ namespace uth
         if (m_windowHandle) destroyWindow();
         
         m_windowSettings = settings;
-
-        // Context settings
-        glutInitContextFlags(GLUT_FORWARD_COMPATIBLE);
-        glutInitContextProfile(GLUT_CORE_PROFILE);
-
-        // Extra settings
-        glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
-
-        // Position & size
-        glutInitWindowPosition(settings.position.x, settings.position.y);
-        glutInitWindowSize(settings.size.x, settings.size.y);
-
-        // Display settings
-        glutInitDisplayMode(settings.useBlending ? GLUT_RGBA : GLUT_RGB |
-                            settings.useDepthBuffer ? GLUT_DEPTH : 0x0 |
-                            settings.useStencilBuffer ? GLUT_STENCIL : 0x0 |
-                            settings.useDoubleBuffering ? GLUT_DOUBLE : GLUT_SINGLE);
-
-
-        int majorVer = settings.contextVersionMajor,
-            minorVer = settings.contextVersionMinor;
         
-        glutInitContextVersion(settings.contextVersionMajor, settings.contextVersionMinor);
-        m_windowHandle = glutCreateWindow("Generic Window Title");
+
+        glfwWindowHint(GLFW_ALPHA_BITS, m_windowSettings.useBlending ? 8 : 0);
+        glfwWindowHint(GLFW_DEPTH_BITS, m_windowSettings.useDepthBuffer ? 16 : 0);
+        glfwWindowHint(GLFW_STENCIL_BITS, m_windowSettings.useStencilBuffer ? 8 : 0);
+        
+        #ifdef UTH_SYSTEM_OPENGLES
+            glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+        #else
+            glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
+        #endif
+
+        int majorVer = m_windowSettings.contextVersionMajor == 0 ? 4 : m_windowSettings.contextVersionMajor,
+            minorVer = m_windowSettings.contextVersionMajor == 0 ? 4 : m_windowSettings.contextVersionMinor;
+
+        do
+        {
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, majorVer);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minorVer);
+
+            m_windowHandle = glfwCreateWindow(m_windowSettings.size.w, m_windowSettings.size.h, m_windowSettings.title.c_str(), NULL, NULL);
+
+            if (--minorVer < 0)
+            {
+                --majorVer;
+                minorVer = 9;
+            }
+
+        } while (!m_windowHandle && majorVer > 0);
+
+
+        if (!m_windowHandle)
+        {
+            std::cout << "Failed to create an OpenGL context! Exiting..." <<std::endl;
+            std::exit(EXIT_FAILURE);
+        }
+
+        glfwMakeContextCurrent(m_windowHandle);
+
+        glfwSetWindowPos(m_windowHandle, m_windowSettings.position.x, m_windowSettings.position.y);
+        glfwSwapInterval(m_windowSettings.useVsync ? 1 : 0);
 
 		std::cout << "glew init might produces GL_INVALID_ENUM error. Just ignore it" << std::endl;
 		glewExperimental = GL_TRUE;
@@ -181,7 +185,8 @@ namespace uth
 
     void Graphics::destroyWindow()
     {
-        oglCheck(glutDestroyWindow(m_windowHandle));
+        glfwDestroyWindow(m_windowHandle);
+        m_windowHandle = NULL;
     }
 
 
@@ -207,10 +212,10 @@ namespace uth
 
     void Graphics::swapBuffers()
     {
-        oglCheck(glutSwapBuffers());
+        glfwSwapBuffers(m_windowHandle);
     }
 
-    void Graphics::setViewport(const int x, const int y, const size_t width, const size_t height)
+    void Graphics::setViewport(const int x, const int y, const unsigned int width, const unsigned int height)
     {
         oglCheck(glViewport(x, y, width, height));
     }
@@ -428,12 +433,12 @@ namespace uth
         oglCheck(glBindTexture(textureTypes[type], texture));
     }
 
-    void Graphics::setTextureImage1D(const int level, ImageFormat imageFormat, const size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels)
+    void Graphics::setTextureImage1D(const int level, ImageFormat imageFormat, const unsigned int width, ImageFormat pixelFormat, DataType dataType, const void* pixels)
     {
         oglCheck(glTexImage1D(textureTypes[TEXTURE_1D], level, imageFormats[imageFormat], width, 0, imageFormats[pixelFormat], dataTypes[dataType], pixels));
     }
 
-    void Graphics::setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, const size_t width, const size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels)
+    void Graphics::setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, const unsigned int width, const unsigned int height, ImageFormat pixelFormat, DataType dataType, const void* pixels)
     {
         oglCheck(glTexImage2D(textureTypes[TEXTURE_2D], level, imageFormats[imageFormat], width, height, 0, imageFormats[pixelFormat], dataTypes[dataType], pixels));
     }
@@ -446,12 +451,12 @@ namespace uth
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     // Drawing functions
-    void Graphics::drawArrays(PrimitiveType type, const int first, const size_t count)
+    void Graphics::drawArrays(PrimitiveType type, const int first, const unsigned int count)
     {
         oglCheck(glDrawArrays(primitiveTypes[type], first, count));
     }
 
-    void Graphics::drawElements(PrimitiveType type, const size_t count, DataType dataType, const void* indices)
+    void Graphics::drawElements(PrimitiveType type, const unsigned int count, DataType dataType, const void* indices)
     {
         oglCheck(glDrawElements(primitiveTypes[type], count, dataTypes[dataType], indices));
     }
@@ -533,14 +538,15 @@ namespace uth
         : m_windowHandle(0),
           m_windowSettings()
     {
-        char* myargv[1];
-        int myargc = 1;
-        myargv[0] = strdup("UtH Engine");
-        glutInit(&myargc, myargv);
+        if (!glfwInit())
+            std::exit(EXIT_FAILURE);
     }
 
     Graphics::~Graphics()
     {
-        destroyWindow();
+        if (!m_windowHandle)
+            destroyWindow();
+
+        glfwTerminate();
     }
 }

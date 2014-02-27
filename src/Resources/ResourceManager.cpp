@@ -34,7 +34,7 @@ void ResourceManager::loadWAV(const char* filePath)
 			}
 		}	
 	}
-	else if(newSoundFile)
+	if(newSoundFile)
 	{
 		FileReader* FR = new FileReader(filePath);
 
@@ -152,7 +152,7 @@ void ResourceManager::loadTGA(const char* filePath)
 		}
 	}
 
-	else if(newTextureFile)
+	if(newTextureFile)
 	{
 		FileReader* FR = new FileReader(filePath);
 		BYTE* buffer = (BYTE*)malloc(sizeof(BYTE)*1);

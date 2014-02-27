@@ -1,4 +1,5 @@
 #include <UtH\Audio\Sound.h>
+#include <UtH\Platform\Debug.hpp>
 #include <UtH\Resources\ResourceManager.h>
 
 using namespace uth;

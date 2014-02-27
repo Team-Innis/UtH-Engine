@@ -9,6 +9,8 @@
 #define uthGraphics uth::Graphics::getInstance()
 
 
+class GLFWwindow;
+
 namespace uth
 {
 
@@ -32,7 +34,7 @@ namespace uth
 
         void swapBuffers();
 
-        void setViewport(const int x, const int y, const size_t width, const size_t height);
+        void setViewport(const int x, const int y, const unsigned int width, const unsigned int height);
 
 
         /////////////////////////////////////////////////////////
@@ -105,18 +107,18 @@ namespace uth
 
         void bindTexture(TextureType type, const int texture);
 
-        void setTextureImage1D(const int level, ImageFormat imageFormat, const size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels);
+        void setTextureImage1D(const int level, ImageFormat imageFormat, const unsigned int width, ImageFormat pixelFormat, DataType dataType, const void* pixels);
 
-        void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, const size_t width, const size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels);
+        void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, const unsigned int width, const unsigned int height, ImageFormat pixelFormat, DataType dataType, const void* pixels);
 
         void setTextureParameter(TextureType type, TextureParam param, TextureFilter filter);
 
 
         /////////////////////////////////////////////////////////
         // Drawing functions
-        void drawArrays(PrimitiveType type, const int first, const size_t count);
+        void drawArrays(PrimitiveType type, const int first, const unsigned int count);
 
-        void drawElements(PrimitiveType type, const size_t count, DataType dataType, const void* indices);
+        void drawElements(PrimitiveType type, const unsigned int count, DataType dataType, const void* indices);
 
         void setPointSize(const float size);
 
@@ -143,7 +145,7 @@ namespace uth
 
 
 
-        int m_windowHandle;
+        GLFWwindow* m_windowHandle;
         WindowSettings m_windowSettings;
 
     };

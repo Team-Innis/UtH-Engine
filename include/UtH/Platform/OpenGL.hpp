@@ -1,3 +1,5 @@
+#pragma once
+
 #include <UtH\Platform\Configuration.hpp>
 
 
@@ -5,8 +7,7 @@
 #if defined(UTH_SYSTEM_WINDOWS)
 
     #include <GL\glew.h>
-    #include <GL\freeglut.h>
-    #include <GL\glut.h>
+    #include <GLFW\glfw3.h>
 
 #elif defined(UTH_SYSTEM_LINUX)
 
