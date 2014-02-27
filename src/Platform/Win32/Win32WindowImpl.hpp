@@ -22,7 +22,8 @@ namespace uth
 
         static void swapBuffers(void* handle);
 
-		static void processMessages();
+		// return true while window should remain open
+		static bool processMessages(void* handle);
 
     };
 }

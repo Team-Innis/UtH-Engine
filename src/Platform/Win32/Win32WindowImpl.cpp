@@ -124,8 +124,12 @@ namespace uth
         glfwSwapBuffers(static_cast<GLFWwindow*>(handle));
     }
 	
-	void Win32WindowImpl::processMessages()
+	bool Win32WindowImpl::processMessages(void* handle)
 	{
+		if (!handle) return false;
+
 		glfwPollEvents();
+
+		return glfwWindowShouldClose(static_cast<GLFWwindow*>(handle));
 	}
 }

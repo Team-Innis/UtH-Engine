@@ -14,7 +14,7 @@
 
 int main()
 {
-	//return Hood.AutoMainLoop();
+	return Hood.AutoMainLoop();
 
     uth::WindowSettings settings;
     settings.size = umath::vector2(1600, 900);

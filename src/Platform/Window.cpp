@@ -78,8 +78,8 @@ namespace uth
         return m_windowSettings;
     }
 	
-	void Window::processMessages()
+	bool Window::processMessages()
 	{
-		WindowImpl::processMessages();
+		return WindowImpl::processMessages(m_windowHandle);
 	}
 }
