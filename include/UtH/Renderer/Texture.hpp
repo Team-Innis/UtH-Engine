@@ -1,4 +1,6 @@
 #pragma once
+#ifndef TEXTURE_H_UTH
+#define TEXTURE_H_UTH
 
 #include <UtH\Platform\Uncopyable.hpp>
 #include <UtH\Math\Vector2.hpp>
@@ -17,23 +19,23 @@ namespace uth
 
 
         /// Only supports uncompressed .tga for now.
-        bool loadFromFile(const char* path, const bool smooth = false, const bool repeated = false);
+        bool LoadFromFile(const char* path, const bool smooth = false, const bool repeated = false);
 
-        void bind();
+        void Bind();
 
-        const unsigned int getTextureID() const;
+        const unsigned int GetTextureID() const;
 
-        bool setSmooth(const bool value);
+        bool SetSmooth(const bool value);
 
-        bool setRepeated(const bool value);
+        bool SetRepeated(const bool value);
 
-        const umath::vector2& getSize() const;
+        const umath::vector2& GetSize() const;
 
-        const bool isValid() const;
+        const bool IsValid() const;
 
-        const bool isSmooth() const;
+        const bool IsSmooth() const;
 
-        const bool isRepeated() const;
+        const bool IsRepeated() const;
 
 
 
@@ -46,3 +48,5 @@ namespace uth
 
     };
 }
+
+#endif

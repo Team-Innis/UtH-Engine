@@ -1,4 +1,6 @@
 #pragma once
+#ifndef CAMERA_H_UTH
+#define CAMERA_H_UTH
 
 #include <UtH\Math\Vector2.hpp>
 #include <UtH\Math\Matrix4.hpp>
@@ -19,35 +21,35 @@ namespace uth
 
 
         /// Position is the CENTER position of the camera.
-        Camera& setPosition(const umath::vector2& position);
+        Camera& SetPosition(const umath::vector2& position);
 
-        Camera& setPosition(const float x, const float y);
+        Camera& SetPosition(const float x, const float y);
 
-        Camera& setSize(const umath::vector2& size);
+        Camera& SetSize(const umath::vector2& size);
 
-        Camera& setSize(const float x, const float y);
+        Camera& SetSize(const float x, const float y);
 
-        Camera& setRotation(const float degrees);
+        Camera& SetRotation(const float degrees);
 
-        Camera& setZoom(const float factor);
+        Camera& SetZoom(const float factor);
 
-        Camera& setViewport(const umath::rectangle& rect);
+        Camera& SetViewport(const umath::rectangle& rect);
 
-        Camera& scroll(const umath::vector2& offset);
+        Camera& Scroll(const umath::vector2& offset);
 
-        Camera& scroll(const float x, const float y);
+        Camera& Scroll(const float x, const float y);
 
-        Camera& rotate(const float offset);
+        Camera& Rotate(const float offset);
 
-        const umath::vector2& getPosition() const;
+        const umath::vector2& GetPosition() const;
 
-        const umath::vector2& getSize() const;
+        const umath::vector2& GetSize() const;
 
-        const float getRotation() const;
+        const float GetRotation() const;
 
-        const umath::rectangle& getViewport() const;
+        const umath::rectangle& GetViewport() const;
 
-        const umath::matrix4& getTransform() const;
+        const umath::matrix4& GetTransform() const;
 
 
 
@@ -63,3 +65,5 @@ namespace uth
 
     };
 }
+
+#endif

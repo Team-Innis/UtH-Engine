@@ -34,7 +34,7 @@ namespace uth
     }
 
 
-    Camera& Camera::setPosition(const umath::vector2& position)
+    Camera& Camera::SetPosition(const umath::vector2& position)
     {
         m_position = position;
 
@@ -43,7 +43,7 @@ namespace uth
         return *this;
     }
 
-    Camera& Camera::setPosition(const float x, const float y)
+    Camera& Camera::SetPosition(const float x, const float y)
     {
         m_position = umath::vector2(x, y);
 
@@ -52,7 +52,7 @@ namespace uth
         return *this;
     }
 
-    Camera& Camera::setSize(const umath::vector2& size)
+    Camera& Camera::SetSize(const umath::vector2& size)
     {
         m_size = size;
 
@@ -61,7 +61,7 @@ namespace uth
         return *this;
     }
 
-    Camera& Camera::setSize(const float x, const float y)
+    Camera& Camera::SetSize(const float x, const float y)
     {
         m_size = umath::vector2(x, y);
 
@@ -70,7 +70,7 @@ namespace uth
         return *this;
     }
 
-    Camera& Camera::setRotation(const float degrees)
+    Camera& Camera::SetRotation(const float degrees)
     {
         m_rotation = degrees;
 
@@ -79,7 +79,7 @@ namespace uth
         return *this;
     }
 
-    Camera& Camera::setZoom(const float factor)
+    Camera& Camera::SetZoom(const float factor)
     {
         m_zoom = factor;
 
@@ -88,14 +88,14 @@ namespace uth
         return *this;
     }
 
-    Camera& Camera::setViewport(const umath::rectangle& rect)
+    Camera& Camera::SetViewport(const umath::rectangle& rect)
     {
         m_viewport = rect;
 
         return *this;
     }
 
-    Camera& Camera::scroll(const umath::vector2& offset)
+    Camera& Camera::Scroll(const umath::vector2& offset)
     {
         m_position += offset;
 
@@ -104,7 +104,7 @@ namespace uth
         return *this;
     }
 
-    Camera& Camera::scroll(const float x, const float y)
+    Camera& Camera::Scroll(const float x, const float y)
     {
         m_position += umath::vector2(x, y);
 
@@ -113,7 +113,7 @@ namespace uth
         return *this;
     }
 
-    Camera& Camera::rotate(const float offset)
+    Camera& Camera::Rotate(const float offset)
     {
         m_rotation += offset;
 
@@ -122,27 +122,27 @@ namespace uth
         return *this;
     }
 
-    const umath::vector2& Camera::getPosition() const
+    const umath::vector2& Camera::GetPosition() const
     {
         return m_position;
     }
 
-    const umath::vector2& Camera::getSize() const
+    const umath::vector2& Camera::GetSize() const
     {
         return m_size;
     }
 
-    const float Camera::getRotation() const
+    const float Camera::GetRotation() const
     {
         return m_rotation;
     }
 
-    const umath::rectangle& Camera::getViewport() const
+    const umath::rectangle& Camera::GetViewport() const
     {
         return m_viewport;
     }
 
-    const umath::matrix4& Camera::getTransform() const
+    const umath::matrix4& Camera::GetTransform() const
     {
         if (m_transformNeedsUpdate)
         {
