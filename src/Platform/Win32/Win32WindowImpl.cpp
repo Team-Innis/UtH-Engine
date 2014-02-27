@@ -1,6 +1,6 @@
 #include "Win32WindowImpl.hpp"
-#include <UtH\Platform\OpenGL.hpp>
-#include <UtH\Platform\OGLCheck.hpp>
+#include <UtH/Platform/OpenGL.hpp>
+#include <UtH/Platform/OGLCheck.hpp>
 #include <iostream>
 
 
