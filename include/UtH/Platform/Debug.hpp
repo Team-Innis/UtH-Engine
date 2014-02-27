@@ -2,13 +2,14 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-#include <UtH\Platform\OpenGL.hpp>
+#include <UtH/Platform/OpenGL.hpp>
 
 #include <assert.h>
 #include <iostream>
+#include <cstdarg>
 
-#include <AL\al.h>
-#include <AL\alc.h>
+#include <AL/al.h>
+#include <AL/alc.h>
 
 #if defined(UTH_SYSTEM_ANDROID)
 	#include <android/log.h>

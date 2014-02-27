@@ -9,6 +9,7 @@
 #define uthGraphics uth::Graphics::getInstance()
 
 
+
 namespace uth
 {
 
@@ -19,22 +20,7 @@ namespace uth
 
 
     public:
-
-        /////////////////////////////////////////////////////////
-        // Window functions
-        // Create the window. If a windows has already been created, it's closed and a new one opened.
-        // This function assumes that glutInit() has already been called.
-        bool createWindow(const WindowSettings& settings);
-
-        void destroyWindow();
-
-        void clear(const float r, const float g, const float b, const float a = 1.f);
-
-        void swapBuffers();
-
-        void setViewport(const int x, const int y, const size_t width, const size_t height);
-
-
+        
         /////////////////////////////////////////////////////////
         // Shader functions
         int createShaderProgram();
@@ -105,18 +91,18 @@ namespace uth
 
         void bindTexture(TextureType type, const int texture);
 
-        void setTextureImage1D(const int level, ImageFormat imageFormat, const size_t width, ImageFormat pixelFormat, DataType dataType, const void* pixels);
+        void setTextureImage1D(const int level, ImageFormat imageFormat, const unsigned int width, ImageFormat pixelFormat, DataType dataType, const void* pixels);
 
-        void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, const size_t width, const size_t height, ImageFormat pixelFormat, DataType dataType, const void* pixels);
+        void setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, const unsigned int width, const unsigned int height, ImageFormat pixelFormat, DataType dataType, const void* pixels);
 
         void setTextureParameter(TextureType type, TextureParam param, TextureFilter filter);
 
 
         /////////////////////////////////////////////////////////
         // Drawing functions
-        void drawArrays(PrimitiveType type, const int first, const size_t count);
+        void drawArrays(PrimitiveType type, const int first, const unsigned int count);
 
-        void drawElements(PrimitiveType type, const size_t count, DataType dataType, const void* indices);
+        void drawElements(PrimitiveType type, const unsigned int count, DataType dataType, const void* indices);
 
         void setPointSize(const float size);
 
@@ -140,11 +126,6 @@ namespace uth
         Graphics();
 
         ~Graphics();
-
-
-
-        int m_windowHandle;
-        WindowSettings m_windowSettings;
 
     };
 }

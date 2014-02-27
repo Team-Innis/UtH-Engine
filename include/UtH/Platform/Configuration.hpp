@@ -4,7 +4,13 @@
 #if defined(_WIN32) || defined(__WIN32__)
 
     #define UTH_SYSTEM_WINDOWS
-    #define UTH_SYSTEM_OPENGL  
+    #define UTH_SYSTEM_OPENGL 
+
+// Android
+#elif defined(__ANDROID__) || defined(ANDROID)
+
+    #define UTH_SYSTEM_ANDROID
+    #define UTH_SYSTEM_OPENGLES 
 
 // Linux
 #elif defined(linux) || defined(__linux)
@@ -26,12 +32,6 @@
         #define UTH_SYSTEM_OPENGL 
 
     #endif
-
-// Android
-#elif defined(__ANDROID__) || defined(ANRDOID)
-
-    #define UTH_SYSTEM_ANDROID
-    #define UTH_SYSTEM_OPENGLES 
 
 #else
 

@@ -153,3 +153,10 @@ $RECYCLE.BIN/
 #Codelite
 .codelite/
 *.workspace
+
+#Android
+android/libs/
+
+#Assets
+android/assets/
+vs2010/TestProject/assets/

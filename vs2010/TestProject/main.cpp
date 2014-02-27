@@ -1,25 +1,32 @@
+#include <iostream>
+#include <Windows.h>
+
 #include <UtH\Math\Math.hpp>
 #include <UtH\Platform\Graphics.hpp>
 #include <UtH\Core\Shader.hpp>
-#include <iostream>
-#include <Windows.h>
 #include <UtH\Core\VertexBuffer.hpp>
 #include <UtH\Renderer\Texture.hpp>
-
-#include <UtH\Engine\UtHEngine.h>
-
+#include <UtH\Platform\Window.hpp>
 #include <UtH\Engine\GameObject.hpp>
 #include <UtH\Engine\Sprite.hpp>
+#include <UtH\Engine\UtHEngine.h>
 
-int main(int* argc, char** argv)
+
+int main()
 {
 	//return Hood.AutoMainLoop();
 
     uth::WindowSettings settings;
-	settings.contextVersionMajor = 2;
+    settings.size = umath::vector2(1600, 900);
+    settings.position = umath::vector2(8, 30);
+	settings.contextVersionMajor = 3;
 	settings.contextVersionMinor = 1;
+    settings.fullScreen = false;
 
-    uthGraphics.createWindow(settings);
+
+    uth::Window wndw(settings);
+	uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
+
 
 	uth::Shader shader;
 	shader.LoadShader("vertexshader.vert", "fragmentshader.frag");
@@ -36,14 +43,14 @@ int main(int* argc, char** argv)
     {
         int number = (GetAsyncKeyState(VK_SPACE) & 0x8000) ? 1 : 0;
 
-        uthGraphics.clear(number, number, number);
+        wndw.clear(number, number, number);
 		gameObject.Draw(&shader);
 
-        uthGraphics.swapBuffers();
+        wndw.swapBuffers();
     }
 	
 
-    uthGraphics.destroyWindow();
+    wndw.destroy();
 
 	return 0;
 }
