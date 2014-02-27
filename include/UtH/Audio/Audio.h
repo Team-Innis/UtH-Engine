@@ -5,6 +5,7 @@
 #define AUDIO_H
 
 #include <UtH\Audio\Sound.h>
+#include <UtH\Audio\SoundManager.h>
 
 namespace uth
 {
@@ -34,6 +35,7 @@ namespace uth
 
 	private:
 		Sound* _sound;
+		SoundManager* _manager;
 	};
 }
 

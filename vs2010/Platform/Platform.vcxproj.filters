@@ -45,7 +45,10 @@
     <ClInclude Include="..\..\include\UtH\Platform\HiResTimer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Debug.hpp">
+    <ClInclude Include="..\..\include\UtH\Platform\Typedefs.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Typedefs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
