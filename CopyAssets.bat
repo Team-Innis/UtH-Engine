@@ -1,4 +1,6 @@
 @echo off
 
-robocopy assets vs2010/TestProject/assets
-robocopy assets android/assets
+robocopy /NJS /NJH assets vs2010/TestProject/assets
+robocopy /NJS /NJH assets android/assets
+
+pause
