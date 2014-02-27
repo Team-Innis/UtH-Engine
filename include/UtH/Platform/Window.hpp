@@ -31,7 +31,8 @@ namespace uth
 
         const WindowSettings& getWindowSettings() const;
 
-		void processMessages();
+		// return true while window should remain open
+		bool processMessages();
 
 
 

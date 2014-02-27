@@ -1,4 +1,8 @@
-#include <UtH\Platform\WindowSettings.hpp>
+#pragma once
+#ifndef WIN32WINDOWIMPL_H_UTH
+#define WIN32WINDOWIMPL_H_UTH
+
+#include <UtH/Platform/WindowSettings.hpp>
 
 
 namespace uth
@@ -18,7 +22,10 @@ namespace uth
 
         static void swapBuffers(void* handle);
 
-		static void processMessages();
+		// return true while window should remain open
+		static bool processMessages(void* handle);
 
     };
 }
+
+#endif

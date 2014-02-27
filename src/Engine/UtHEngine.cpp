@@ -23,7 +23,8 @@ int UtHEngine::AutoMainLoop()
 		if(!Update())
 			m_running = false;
 		Draw();
-		m_wndw->processMessages();
+		if(m_wndw->processMessages())
+			m_running = false;
 	}
 
     m_wndw->destroy();
