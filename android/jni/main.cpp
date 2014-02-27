@@ -28,14 +28,6 @@
 #include <UtH/Engine/Sprite.hpp>
 #include <UtH/Platform/Debug.hpp>
 
-//After input manager 
-//int handle_input(android_app* app, AInputEvent* event)			
-//{
-//	//AndroidEngine* androidengine = (AndroidEngine*)app->userData;
-//	//Input should be places here
-//	return 0;
-//}
-
 //This is sort of state manager. Checks is Activity on top or not and does it have saved state
 //void handle_cmd(android_app* app, int cmd)														///EVENT MANAGER
 //{
@@ -60,6 +52,7 @@
 //		break;
 //	}
 //}
+
 uth::Shader shader;
 uth::GameObject gameObject;
 
@@ -82,6 +75,7 @@ void update()
 
 void android_main(android_app* state)
 {
+	WriteLog("ENTRY");
 	app_dummy();
 	WriteLog("APPDUMMY");
 	uth::FileReader::m_manager = state->activity->assetManager;
