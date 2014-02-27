@@ -30,7 +30,7 @@ void Timer::Reset()
 	m_startTime = m_startCount.QuadPart * (1000000.0 / m_frequency.QuadPart);
 #elif defined(UTH_SYSTEM_ANDROID)
     gettimeofday(&m_startCount, NULL);
-    startTimeInMicroSec = (startCount.tv_sec * 1000000.0) + startCount.tv_usec;
+    m_startTime = (m_startCount.tv_sec * 1000000.0) + m_startCount.tv_usec;
 #endif
 }
 
@@ -51,8 +51,8 @@ const long double Timer::GetCurTime() // returns time elapsed since timer last r
     QueryPerformanceCounter(&m_curCount);
     m_curTime = m_curCount.QuadPart * (1000000.0 / m_frequency.QuadPart);
 #elif defined(UTH_SYSTEM_ANDROID)
-	gettimeofday(&m_endCount, NULL);
-    m_curTime = ((endCount.tv_sec * 1000000.0) + endCount.tv_usec);
+	gettimeofday(&m_curCount, NULL);
+    m_curTime = ((m_curCount.tv_sec * 1000000.0) + m_curCount.tv_usec);
 #endif
 	return (m_curTime - m_startTime) * 0.000001;
 }

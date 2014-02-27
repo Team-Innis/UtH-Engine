@@ -22,13 +22,18 @@
     <ClInclude Include="..\..\include\UtH\Platform\Singleton.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Typedefs.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Uncopyable.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\FileReader.h" />
+    <ClInclude Include="..\..\include\UtH\Platform\Window.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\WindowSettings.hpp" />
+    <ClInclude Include="..\..\src\Platform\Win32\Win32WindowImpl.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\Platform\FileReader.cpp" />
     <ClCompile Include="..\..\src\Platform\Graphics.cpp" />
     <ClCompile Include="..\..\src\Platform\HiResTimer.cpp" />
     <ClCompile Include="..\..\src\Platform\OGLCheck.cpp" />
+    <ClCompile Include="..\..\src\Platform\Win32\FileReader.cpp" />
+    <ClCompile Include="..\..\src\Platform\Win32\Win32WindowImpl.cpp" />
+    <ClCompile Include="..\..\src\Platform\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UMath\UMath.vcxproj">
@@ -86,7 +91,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>GLEW_STATIC;FREEGLUT_STATIC;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\extlibs\glfw\include;$(SolutionDir)..\extlibs\glew\include;$(SolutionDir)..\extlibs\openal\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\extlibs\glfw\include;$(SolutionDir)..\src;$(SolutionDir)..\extlibs\glew\include;$(SolutionDir)..\extlibs\openal\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -102,7 +107,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>GLEW_STATIC;FREEGLUT_STATIC;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\extlibs\glfw\include;$(SolutionDir)..\extlibs\glew\include;$(SolutionDir)..\extlibs\openal\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\extlibs\glfw\include;$(SolutionDir)..\src;$(SolutionDir)..\extlibs\glew\include;$(SolutionDir)..\extlibs\openal\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

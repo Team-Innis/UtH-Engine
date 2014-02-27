@@ -33,7 +33,7 @@
     <ClCompile Include="..\..\src\Engine\GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\UtH\Engine\Transform.cpp">
+    <ClCompile Include="..\..\src\Engine\Transform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

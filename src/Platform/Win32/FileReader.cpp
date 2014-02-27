@@ -1,6 +1,7 @@
 #include <UtH/Platform/FileReader.h>
 #include <cassert>
 #include <cstdlib>
+#include <string>
 
 using namespace uth;
 
@@ -23,7 +24,9 @@ FileReader::~FileReader()
 
 void FileReader::OpenFile(const char* path)
 {
-	file = fopen(path, "rb");
+	std::string temp_path = "assets/";
+	temp_path += path;
+	file = fopen(temp_path.c_str(), "rb");
 	assert(file != NULL);
 }
 

@@ -1,8 +1,10 @@
 // Headers
 #include <UtH\Platform\OpenGL.hpp>
+#include <UtH\Platform\Debug.hpp>
 #include <string>
-#include <cstdlib> // itoa
+//#include <cstdlib> // itoa
 #include <iostream>
+#include <sstream>
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -16,7 +18,6 @@ namespace uth
 
         if (errCode != GL_NO_ERROR)
         {
-            std::string fileS(file);
             std::string errorS = "unknown error";
 
             switch(errCode)
@@ -30,25 +31,28 @@ namespace uth
                 case GL_INVALID_OPERATION:
                     errorS = "GL_INVALID_OPERATION";
                     break;
-                case GL_STACK_OVERFLOW:
-                    errorS = "GL_STACK_OVERFLOW";
-                    break;
-                case GL_STACK_UNDERFLOW:
-                    errorS = "GL_STACK_UNDERFLOW";
-                    break;
                 case GL_OUT_OF_MEMORY:
                     errorS = "GL_OUT_OF_MEMORY";
                     break;
                 case GL_INVALID_FRAMEBUFFER_OPERATION:
                     errorS = "GL_INVALID_FRAMEBUFFER_OPERATION";
                     break;
+				default:
+					std::stringstream ss;
+					ss << errCode;
+					errorS = ss.str();
+					break;
             }
 
-			char buf[10]; // Sure hope we wont go over 9 999 999 999 lines in one file
-			itoa(line, buf, 10);
+			//char buf[10]; // Sure hope we wont go over 9 999 999 999 lines in one file
+			//itoa(line, buf, 10);
 			errorS += " on line ";
-			errorS += buf;
-			std::cout << file <<"\n" << errorS << " in " << func << std::endl;
+			std::stringstream ss;
+			ss << line;
+			errorS += ss.str();
+			//std::cout << file <<"\n" << errorS << " in " << func << std::endl;
+			WriteLog("%s \n %s in %s \n",file, errorS.c_str(), func);
+
         }
     }
 

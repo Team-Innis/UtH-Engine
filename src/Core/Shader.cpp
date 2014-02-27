@@ -21,13 +21,13 @@ bool Shader::LoadShader(const std::string vertexShaderPath, const std::string fr
 	// Vertex Shader
 	fr.OpenFile(vertexShaderPath.c_str());
 	const char* vertex = fr.ReadText();
-	if(!uthGraphics.createShader(ShaderType::VERTEX_SHADER, program, vertex))
+	if(!uthGraphics.createShader(VERTEX_SHADER, program, vertex))
 		return false;
 
 	// Fragment Shader
 	fr.OpenFile(fragmentShaderPath.c_str());
 	const char* fragment = fr.ReadText();
-	if(!uthGraphics.createShader(ShaderType::FRAGMENT_SHADER, program, fragment))
+	if(!uthGraphics.createShader(FRAGMENT_SHADER, program, fragment))
 		return false;
 
 	return uthGraphics.linkShaderProgram(program);
