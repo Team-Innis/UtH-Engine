@@ -27,16 +27,19 @@
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Engine/Sprite.hpp>
 #include <UtH/Platform/Debug.hpp>
+#include <UtH/Platform/HiResTimer.hpp>
 
-uth::Shader shader;
+uth::Shader* shader;
 uth::GameObject gameObject;
+uth::Window wndw;
 
 void init()
 {
-	if(shader.LoadShader("vertexshader.vert", "fragmentshader.frag"))
+	shader = new uth::Shader();
+	if(shader->LoadShader("vertexshader.vert", "fragmentshader.frag"))
 	{
-		shader.Use();
-		WriteLog("Shaders maybe loaded");
+		shader->Use();
+		WriteLog("Shaders loaded");
 	}
 	else
 		WriteLog("Shaders not loaded");
@@ -58,8 +61,11 @@ void handle_cmd(android_app* app, int cmd)														///EVENT MANAGER
 	case APP_CMD_SAVE_STATE:
 		break;
 	case APP_CMD_INIT_WINDOW:
-		((uth::Window*)app->userData)->create(uth::AndroidEngine::getInstance().settings);
+		//((uth::Window*)app->userData)->create(uth::AndroidEngine::getInstance().settings);
+		wndw.create(uth::AndroidEngine::getInstance().settings);
+	WriteLog("windowINIT");
 		init();
+	WriteLog("INIT");
 
 		//displayInit(androidengine);
 		//draw_frame(androidengine);
@@ -76,7 +82,7 @@ void handle_cmd(android_app* app, int cmd)														///EVENT MANAGER
 
 void update()
 {
-	gameObject.Draw(&shader);
+	gameObject.Draw(shader);
 }
 
 void android_main(android_app* state)
@@ -97,13 +103,12 @@ void android_main(android_app* state)
 	androidengine.settings.contextVersionMinor = 0;
     androidengine.settings.fullScreen = true;
 	
-    uth::Window wndw;
-	state->userData = &wndw;
+	//state->userData = &wndw;
 	//WriteLog("WINDOW");
 	//uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 
-
-	WriteLog("INIT");
+	float totalTime = 0;
+	uth::Timer time;
 
 	while(1)
 	{
@@ -131,10 +136,11 @@ void android_main(android_app* state)
 		}
 		else
 		{
-			wndw.clear(0.0f, 1.0f, 0.0f);
-			update();
+			wndw.clear(0.0f, 0.0f, 0.5f);			
+			//update();
 			//WriteLog("UPDATE");
-			//engine->Update();
+			//engine->Update(time.GetDT());
+			wndw.swapBuffers();
 		}
 	}
 }

@@ -110,7 +110,7 @@ namespace uth
 		if (!success)
 		{
             glDeleteShader(shader);
-
+			WriteLog("Shader compilation failed");
             return false;
         }
 
@@ -126,7 +126,7 @@ namespace uth
 
 		int infoLenght;
 		oglCheck(glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLenght));
-		if(infoLenght > 1)
+		if(infoLenght > 0)
 		{
 			char* buf = new char[infoLenght];
 			oglCheck(glGetProgramInfoLog(shaderProgram, infoLenght, NULL, buf));
@@ -140,7 +140,7 @@ namespace uth
 		if (!success)
 		{
             destroyShaderProgram(shaderProgram);
-
+			WriteLog("Shader link failed");
 			return false;
 		}
 

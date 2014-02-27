@@ -92,6 +92,10 @@ namespace uth
 		glEnable(GL_DEPTH_TEST);
 		glViewport(0,0,androidengine.settings.size.x,androidengine.settings.size.y);
 
+		WriteLog("+++++++++++++++++++++++++++++++++++++++");
+		WriteLog((const char*)glGetString(GL_VERSION));
+		WriteLog("+++++++++++++++++++++++++++++++++++++++");
+
 		return nullptr;
     }
 
@@ -136,5 +140,6 @@ namespace uth
     void AndroidWindowImpl::swapBuffers(void* handle)
     {
         //glxSwapBuffers();
+		eglSwapBuffers(uth::AndroidEngine::getInstance().display, uth::AndroidEngine::getInstance().surface);
     }
 }
