@@ -21,7 +21,7 @@ Sprite::Sprite(const std::string filePath, const std::string name)
 	generetateBuffer();
 
 	Texture* tex = new Texture();
-	tex->loadFromFile(filePath.c_str());
+	tex->LoadFromFile(filePath.c_str());
 	SetTexture(tex);
 }
 
@@ -32,7 +32,7 @@ Sprite::~Sprite()
 
 void Sprite::Draw(Shader *shader)
 {
-	texture->bind();
+	texture->Bind();
 	shader->SetUniform("unifSampler", 0);
 	vertexBuffer->draw(shader);
 }
@@ -48,7 +48,7 @@ const umath::vector2 Sprite::GetSize() const
 void Sprite::SetTexture(Texture* texture)
 {
 	this->texture = texture;
-	m_size = texture->getSize();
+	m_size = texture->GetSize();
 }
 
 // Private

@@ -32,15 +32,15 @@ namespace uth
         uthGraphics.generateTextures(1, &m_textureID);
         uthGraphics.setActiveTexUnit(TEXTURE_0);
 
-        bind();
+        Bind();
 
 		//setSmooth(smooth);
   //      setRepeated(repeated);
 
         uthGraphics.setTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT, m_size.w, m_size.h, RGBA_FORMAT, UNSIGNED_BYTE_TYPE, uthRS.header.pixels);
 		
-		setSmooth(smooth);
-        setRepeated(repeated);
+		SetSmooth(smooth);
+        SetRepeated(repeated);
 		
 		return true;
     }
@@ -58,9 +58,9 @@ namespace uth
 
     bool Texture::SetSmooth(const bool value)
     {
-        if (!isValid()) return false;
+        if (!IsValid()) return false;
 
-        bind();
+        Bind();
 
         uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_MAG_FILTER, value ? LINEAR : NEAREST);
 		uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_MIN_FILTER, value ? LINEAR : NEAREST);
@@ -72,9 +72,9 @@ namespace uth
 
     bool Texture::SetRepeated(const bool value)
     {
-        if (!isValid()) return false;
+        if (!IsValid()) return false;
 
-        bind();
+        Bind();
 
         uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_WRAP_S, value ? REPEAT : CLAMP_TO_EDGE);
         uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_WRAP_T, value ? REPEAT : CLAMP_TO_EDGE);

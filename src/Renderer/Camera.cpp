@@ -93,7 +93,7 @@ namespace uth
 
     Camera& Camera::Scroll(const umath::vector2& offset)
     {
-        m_position += offset;
+        transform.Move(offset);
 
         m_transformNeedsUpdate = true;
 
@@ -102,7 +102,7 @@ namespace uth
 
     Camera& Camera::Scroll(const float x, const float y)
     {
-        m_position += umath::vector2(x, y);
+        transform.Move(x, y);
 
         m_transformNeedsUpdate = true;
 
@@ -111,7 +111,7 @@ namespace uth
 
     Camera& Camera::Rotate(const float offset)
     {
-        m_rotation += offset;
+        transform.Rotate(offset);
 
         m_transformNeedsUpdate = true;
 
