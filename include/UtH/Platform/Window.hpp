@@ -26,6 +26,8 @@ namespace uth
 
         const WindowSettings& getWindowSettings() const;
 
+		void processMessages();
+
 
 
 

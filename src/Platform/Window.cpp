@@ -77,4 +77,9 @@ namespace uth
     {
         return m_windowSettings;
     }
+	
+	void Window::processMessages()
+	{
+		WindowImpl::processMessages();
+	}
 }
