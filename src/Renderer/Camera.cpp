@@ -5,24 +5,20 @@
 namespace uth
 {
     Camera::Camera()
-        : m_position(),
-          m_size(),
-          m_rotation(0.f),
+        : m_size(),
           m_zoom(0.f),
           m_viewport(),
-          m_transform(),
+          m_viewMatrix(),
           m_transformNeedsUpdate(true)
     {
 
     }
 
     Camera::Camera(const umath::vector2& position, const umath::vector2& size)
-        : m_position(position),
-          m_size(size),
-          m_rotation(0.f),
+        : m_size(size),
           m_zoom(0.f),
           m_viewport(),
-          m_transform(),
+          m_viewMatrix(),
           m_transformNeedsUpdate(true)
     {
 
@@ -36,7 +32,7 @@ namespace uth
 
     Camera& Camera::SetPosition(const umath::vector2& position)
     {
-        m_position = position;
+        transform.SetPosition(position);
 
         m_transformNeedsUpdate = true;
 
@@ -45,7 +41,7 @@ namespace uth
 
     Camera& Camera::SetPosition(const float x, const float y)
     {
-        m_position = umath::vector2(x, y);
+        transform.SetPosition(x, y);
 
         m_transformNeedsUpdate = true;
 
@@ -72,7 +68,7 @@ namespace uth
 
     Camera& Camera::SetRotation(const float degrees)
     {
-        m_rotation = degrees;
+        transform.SetRotation(degrees);
 
         m_transformNeedsUpdate = true;
 
@@ -124,7 +120,7 @@ namespace uth
 
     const umath::vector2& Camera::GetPosition() const
     {
-        return m_position;
+        return transform.GetPosition();
     }
 
     const umath::vector2& Camera::GetSize() const
@@ -132,9 +128,9 @@ namespace uth
         return m_size;
     }
 
-    const float Camera::GetRotation() const
+    float Camera::GetRotation() const
     {
-        return m_rotation;
+        return transform.GetRotation();
     }
 
     const umath::rectangle& Camera::GetViewport() const
@@ -142,29 +138,32 @@ namespace uth
         return m_viewport;
     }
 
-    const umath::matrix4& Camera::GetTransform() const
+    const umath::matrix4& Camera::GetViewTransform() const
     {
         if (m_transformNeedsUpdate)
         {
-            float angle  = m_rotation * 3.141592654f / 180.f;
+            float rotation = transform.angle;
+            umath::vector2 position = transform.position;
+
+            float angle  = rotation * 3.141592654f / 180.f;
             float cosine = static_cast<float>(std::cos(angle));
             float sine   = static_cast<float>(std::sin(angle));
-            float tx     = -m_position.x * cosine - m_position.y * sine + m_position.x;
-            float ty     =  m_position.x * sine - m_position.y * cosine + m_position.y;
+            float tx     = -position.x * cosine - position.y * sine + position.x;
+            float ty     =  position.x * sine - position.y * cosine + position.y;
 
             float a =  2.f / m_size.x;
             float b = -2.f / m_size.y;
-            float c = -a * m_position.x;
-            float d = -b * m_position.y;
+            float c = -a * position.x;
+            float d = -b * position.y;
 
-            m_transform = umath::matrix4( a * cosine, a * sine, 0.f, a * tx + c,
-                                         -b * sine, b * cosine, 0.f, b * ty + d,
-                                          0.f, 0.f, 1.f, 0.f,
-                                          0.f, 0.f, 0.f, 1.f);
+            m_viewMatrix = umath::matrix4( a * cosine, a * sine,   0.f, a * tx + c,
+                                          -b * sine,   b * cosine, 0.f, b * ty + d,
+                                           0.f,        0.f,        1.f, 0.f,
+                                           0.f,        0.f,        0.f, 1.f);
 
             m_transformNeedsUpdate = false;
         }
 
-        return m_transform;
+        return m_viewMatrix;
     }
 }

@@ -23,7 +23,7 @@ namespace uth
 		const umath::vector2 GetSize() const;
 
 		void SetRotation(float angle);
-		float GetRotation();
+		float GetRotation() const;
 		void Rotate(float angle);
 
 		umath::matrix4& GetTransform();
@@ -36,6 +36,7 @@ namespace uth
 		void updateTransform();
 
 		umath::matrix4 m_modelTransform;
+        bool m_transformNeedsUpdate;
 
 	};
 }
