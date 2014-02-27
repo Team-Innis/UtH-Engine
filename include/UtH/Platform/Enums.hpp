@@ -1,4 +1,6 @@
 #pragma once
+#ifndef ENUMS_H_UTH
+#define ENUMS_H_UTH
 
 namespace uth
 {
@@ -155,3 +157,5 @@ namespace uth
          FACECULLING_LAST
     };
 }
+
+#endif
