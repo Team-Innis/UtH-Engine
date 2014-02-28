@@ -99,4 +99,9 @@ namespace uth
     {
         return m_texture.IsRepeated();
     }
+
+    const umath::rectangle& TextureAtlas::getTextureCoords(const char* name) const
+    {
+        return m_textureRects.at(name);
+    }
 }
