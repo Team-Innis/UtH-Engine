@@ -138,7 +138,7 @@ namespace uth
         return m_viewport;
     }
 
-    const umath::matrix4& Camera::GetViewTransform() const
+    const umath::matrix4& Camera::GetProjectionTransform() const
     {
         if (m_transformNeedsUpdate)
         {

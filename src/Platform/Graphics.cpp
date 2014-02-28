@@ -280,6 +280,11 @@ namespace uth
         oglCheck(glGenTextures(amount, data));
     }
 
+    void Graphics::deleteTextures(const unsigned int amount, unsigned int* data)
+    {
+        oglCheck(glDeleteTextures(amount, data));
+    }
+
     void Graphics::setActiveTexUnit(TexUnit unit)
     {
 		oglCheck(glActiveTexture(textureUnits[unit]));

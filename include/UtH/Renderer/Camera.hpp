@@ -50,7 +50,7 @@ namespace uth
 
         const umath::rectangle& GetViewport() const;
 
-        const umath::matrix4& GetViewTransform() const;
+        const umath::matrix4& GetProjectionTransform() const;
 
 
 

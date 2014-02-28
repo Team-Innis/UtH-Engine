@@ -4,6 +4,7 @@
 
 #include <UtH\Engine\Sprite.hpp>
 #include <UtH\Engine\GameObject.hpp>
+#include <UtH\Renderer\TextureAtlas.hpp>
 
 
 namespace uth
@@ -26,6 +27,9 @@ namespace uth
 
 
     private:
+
+        TextureAtlas m_atlas;
+
 
     };
 }
