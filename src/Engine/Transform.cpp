@@ -59,7 +59,7 @@ void Transform::SetRotation(float angle)
 	this->angle = angle;
 }
 
-const float& Transform::GetRotation() const
+const float Transform::GetRotation() const
 {
 	return angle;
 }
@@ -68,6 +68,16 @@ const float& Transform::GetRotation() const
 void Transform::Rotate(float angle)
 {
 	this->angle += angle;
+}
+
+void Transform::SetDepth(float depth)
+{
+	this->depth = depth;
+}
+
+const float Transform::GetDepth() const
+{
+	return depth;
 }
 
 const umath::matrix4& Transform::GetTransform()
@@ -95,10 +105,10 @@ void Transform::updateTransform()
 						 0,      0,      1.0f, 0,
 						 0,      0,      0,    1.0f);
 
-	umath::matrix4 translation(1.0f,       0,          0,    0,
-							   0,          1.0f,       0,    0,
-							   0,          0,          1.0f, 1.0f,
-							   position.x, position.y, 1.0f, 1.0f);
+	umath::matrix4 translation(1.0f,       0,          0,     0,
+							   0,          1.0f,       0,     0,
+							   0,          0,          1.0f,  1.0f,
+							   position.x, position.y, depth, 1.0f);
 
 	m_modelTransform = scale * rotation * translation;
 }
