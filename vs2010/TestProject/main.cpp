@@ -10,11 +10,12 @@
 #include <UtH\Engine\GameObject.hpp>
 #include <UtH\Engine\Sprite.hpp>
 #include <UtH\Engine\UtHEngine.h>
+#include <UtH\Audio\Audio.h>
 
 
 int main()
 {
-	return Hood.AutoMainLoop();
+	//return Hood.AutoMainLoop();
 
     uth::WindowSettings settings;
     settings.size = umath::vector2(1600, 900);
@@ -27,6 +28,7 @@ int main()
     uth::Window wndw(settings);
 	uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 
+	uth::FileReader::isCompressed = true;
 
 	uth::Shader shader;
 	shader.LoadShader("vertexshader.vert", "fragmentshader.frag");
