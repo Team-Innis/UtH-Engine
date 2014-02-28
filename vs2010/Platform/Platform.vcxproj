@@ -17,21 +17,32 @@
     <ClInclude Include="..\..\include\UtH\Platform\FileReader.h" />
     <ClInclude Include="..\..\include\UtH\Platform\Graphics.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\HiResTimer.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Input.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\InputEnums.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\OGLCheck.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\OpenGL.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Singleton.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Typedefs.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Uncopyable.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Win32\FileReader.h" />
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\CommonInput.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\KeyboardInput.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\MouseInput.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\TouchInput.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\Win32WindowImpl.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Window.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\WindowSettings.hpp" />
-    <ClInclude Include="..\..\src\Platform\Win32\Win32WindowImpl.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Platform\Graphics.cpp" />
     <ClCompile Include="..\..\src\Platform\HiResTimer.cpp" />
+    <ClCompile Include="..\..\src\Platform\Input.cpp" />
     <ClCompile Include="..\..\src\Platform\OGLCheck.cpp" />
     <ClCompile Include="..\..\src\Platform\Win32\FileReader.cpp" />
+    <ClCompile Include="..\..\src\Platform\Win32\CommonInput.cpp" />
+    <ClCompile Include="..\..\src\Platform\Win32\KeyboardInput.cpp" />
+    <ClCompile Include="..\..\src\Platform\Win32\MouseInput.cpp" />
+    <ClCompile Include="..\..\src\Platform\Win32\TouchInput.cpp" />
     <ClCompile Include="..\..\src\Platform\Win32\Win32WindowImpl.cpp" />
     <ClCompile Include="..\..\src\Platform\Window.cpp" />
   </ItemGroup>
