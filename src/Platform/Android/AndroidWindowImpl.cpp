@@ -119,7 +119,11 @@ namespace uth
 		uthAndroidEngine.display = EGL_NO_DISPLAY;
 		uthAndroidEngine.context = EGL_NO_CONTEXT;
 		uthAndroidEngine.surface = EGL_NO_SURFACE;
+
+		uthAndroidEngine.initialized = false;
 		
+		WriteLog("Window Destroyed");
+
 		return (void*)NULL;
     }
 
@@ -149,6 +153,7 @@ namespace uth
 		switch (uthAndroidEngine.message)
 		{
 		case APP_CMD_SAVE_STATE:
+			WriteLog("SaveStated");
 			break;
 		case APP_CMD_INIT_WINDOW:
 			//((uth::Window*)app->userData)->create(uth::AndroidEngine::getInstance().settings);
@@ -168,6 +173,7 @@ namespace uth
 			break;
 		case APP_CMD_LOST_FOCUS:
 			//draw_frame(androidengine);
+			WriteLog("LostFocus");
 			break;
 		}
 

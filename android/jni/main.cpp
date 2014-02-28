@@ -110,7 +110,7 @@ void android_main(android_app* state)
 			}
 		}
 
-		if(uthAndroidEngine.initialized)
+		if(uthAndroidEngine.initialized && uthAndroidEngine.display != NULL)
 		{
 			theHood.Update();
 			theHood.Draw();
