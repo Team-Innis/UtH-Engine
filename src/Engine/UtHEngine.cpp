@@ -59,3 +59,8 @@ void UtHEngine::Draw()
 	UtHSceneM.Draw();
     m_wndw->swapBuffers();
 }
+
+void UtHEngine::SetWindow(uth::Window * window)
+{
+	m_wndw = window;
+}

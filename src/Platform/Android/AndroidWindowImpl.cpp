@@ -3,6 +3,8 @@
 #include <UtH/Platform/OGLCheck.hpp>
 #include <UtH/Platform/Android/AndroidEngine.hpp>
 #include <UtH/Platform/Debug.hpp>
+#include <UtH/Platform/Window.hpp>
+#include <UtH/Engine/UtHEngine.h>
 
 
 namespace uth
@@ -10,7 +12,6 @@ namespace uth
 
     void* AndroidWindowImpl::create(const WindowSettings& settings)
     {
-		uth::AndroidEngine& androidengine = uth::AndroidEngine::getInstance();
 
         const EGLint attribs[] =
 		{
@@ -32,27 +33,27 @@ namespace uth
 
 		EGLint format, numConfigs;
 
-		androidengine.display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
-		WriteLog("eglGetDisplay %d", (int)androidengine.display);
+		uthAndroidEngine.display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+		WriteLog("eglGetDisplay %d", (int)uthAndroidEngine.display);
 		CheckEGLError();
 
-		if(androidengine.display == EGL_NO_DISPLAY)
+		if(uthAndroidEngine.display == EGL_NO_DISPLAY)
 		{
 			WriteLog("display nodisplay");
 		}
 
 
-		eglInitialize(androidengine.display,0,0);
+		eglInitialize(uthAndroidEngine.display,0,0);
 			WriteLog("eglInitialize succeeded");
 		CheckEGLError();
 		
 		//eglChooseConfig(androidengine.display, attribs, NULL, 1, &numConfigs);
 		//WriteLog("Configs: %d", (int)numConfigs);
 		
-		eglChooseConfig(androidengine.display, attribs, &androidengine.config, 1, &numConfigs);
+		eglChooseConfig(uthAndroidEngine.display, attribs, &uthAndroidEngine.config, 1, &numConfigs);
 		CheckEGLError();
 			WriteLog("eglChooseConfig succeeded");
-		eglGetConfigAttrib(androidengine.display, androidengine.config, EGL_NATIVE_VISUAL_ID, &format);
+		eglGetConfigAttrib(uthAndroidEngine.display, uthAndroidEngine.config, EGL_NATIVE_VISUAL_ID, &format);
 		CheckEGLError();
 			WriteLog("eglGetConfigAttrib succeeded");
 
@@ -62,14 +63,14 @@ namespace uth
 		//CheckEGLError();
 		//	WriteLog("ANativeWindow_setBuffersGeometry succeeded");
 
-		androidengine.surface = eglCreateWindowSurface(androidengine.display, androidengine.config, androidengine.app->window, NULL);
+		uthAndroidEngine.surface = eglCreateWindowSurface(uthAndroidEngine.display, uthAndroidEngine.config, uthAndroidEngine.app->window, NULL);
 		CheckEGLError();
 			WriteLog("eglCreateWindowSurface succeeded");
-		androidengine.context = eglCreateContext(androidengine.display, androidengine.config, EGL_NO_CONTEXT, attribList);
+		uthAndroidEngine.context = eglCreateContext(uthAndroidEngine.display, uthAndroidEngine.config, EGL_NO_CONTEXT, attribList);
 		CheckEGLError();
 			WriteLog("eglCreateContext succeeded");
 
-		if(eglMakeCurrent(androidengine.display, androidengine.surface, androidengine.surface, androidengine.context) == EGL_FALSE)
+		if(eglMakeCurrent(uthAndroidEngine.display, uthAndroidEngine.surface, uthAndroidEngine.surface, uthAndroidEngine.context) == EGL_FALSE)
 		{
 			CheckEGLError();
 			WriteLog("eglMakeCurrent failed");
@@ -79,13 +80,13 @@ namespace uth
 		EGLint tempX;
 		EGLint tempY;
 
-		eglQuerySurface(androidengine.display, androidengine.surface, EGL_WIDTH, &tempX);
+		eglQuerySurface(uthAndroidEngine.display, uthAndroidEngine.surface, EGL_WIDTH, &tempX);
 		CheckEGLError();
-		eglQuerySurface(androidengine.display, androidengine.surface, EGL_HEIGHT, &tempY);
+		eglQuerySurface(uthAndroidEngine.display, uthAndroidEngine.surface, EGL_HEIGHT, &tempY);
 		CheckEGLError();
 
-		androidengine.settings.size.x = tempX;
-		androidengine.settings.size.y = tempY;
+		uthAndroidEngine.settings.size.x = tempX;
+		uthAndroidEngine.settings.size.y = tempY;
 
 		//glHint(GL_GENERATE_MIPMAP_HINT, GL_FASTEST);
 		//glEnable(GL_CULL_FACE);
@@ -101,24 +102,23 @@ namespace uth
 
     void* AndroidWindowImpl::destroy(void* handle)
     {
-		uth::AndroidEngine& androidengine = uth::AndroidEngine::getInstance();
 
-        if(androidengine.display != EGL_NO_DISPLAY)
+        if(uthAndroidEngine.display != EGL_NO_DISPLAY)
 		{
-			eglMakeCurrent(androidengine.display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
-			if(androidengine.display != EGL_NO_DISPLAY)
+			eglMakeCurrent(uthAndroidEngine.display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
+			if(uthAndroidEngine.display != EGL_NO_DISPLAY)
 			{
-				eglDestroyContext(androidengine.display, androidengine.context);
+				eglDestroyContext(uthAndroidEngine.display, uthAndroidEngine.context);
 			}
-			if (androidengine.surface != EGL_NO_SURFACE)
+			if (uthAndroidEngine.surface != EGL_NO_SURFACE)
 			{
-				eglDestroySurface(androidengine.display, androidengine.surface);
+				eglDestroySurface(uthAndroidEngine.display, uthAndroidEngine.surface);
 			}
-			eglTerminate(androidengine.display);
+			eglTerminate(uthAndroidEngine.display);
 		}
-		androidengine.display = EGL_NO_DISPLAY;
-		androidengine.context = EGL_NO_CONTEXT;
-		androidengine.surface = EGL_NO_SURFACE;
+		uthAndroidEngine.display = EGL_NO_DISPLAY;
+		uthAndroidEngine.context = EGL_NO_CONTEXT;
+		uthAndroidEngine.surface = EGL_NO_SURFACE;
 		
 		return (void*)NULL;
     }
@@ -141,4 +141,36 @@ namespace uth
         //glxSwapBuffers();
 		eglSwapBuffers(uth::AndroidEngine::getInstance().display, uth::AndroidEngine::getInstance().surface);
     }
+
+	bool AndroidWindowImpl::processMessages(void* handle)
+	{
+		android_app* app = uthAndroidEngine.app;
+
+		switch (uthAndroidEngine.message)
+		{
+		case APP_CMD_SAVE_STATE:
+			break;
+		case APP_CMD_INIT_WINDOW:
+			//((uth::Window*)app->userData)->create(uth::AndroidEngine::getInstance().settings);
+			create(uth::AndroidEngine::getInstance().settings);
+			WriteLog("windowINIT");
+			((uth::Window*)app->userData)->setViewport(0.0f,0.0f,
+				uthAndroidEngine.settings.size.x,
+				uthAndroidEngine.settings.size.y);
+			uthAndroidEngine.initialized = true;
+			theHood.SetWindow(((uth::Window*)app->userData));//////////////////////////////////////////////Platform and Engine mixes
+			//displayInit(androidengine);
+			//draw_frame(androidengine);
+			break;
+		case APP_CMD_TERM_WINDOW:
+			//displayDestroy(androidengine);
+			((uth::Window*)app->userData)->destroy();
+			break;
+		case APP_CMD_LOST_FOCUS:
+			//draw_frame(androidengine);
+			break;
+		}
+
+		return true;
+	}
 }

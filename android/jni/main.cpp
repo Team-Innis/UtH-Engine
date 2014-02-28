@@ -28,10 +28,10 @@
 #include <UtH/Engine/Sprite.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/HiResTimer.hpp>
+#include <UtH/Engine/UtHEngine.h>
 
 uth::Shader* shader;
 uth::GameObject gameObject;
-uth::Window wndw;
 
 void init()
 {
@@ -53,36 +53,10 @@ void init()
 	gameObject.transform.parent->transform.Rotate(45);
 }
 
-//This is sort of state manager. Checks is Activity on top or not and does it have saved state
-void handle_cmd(android_app* app, int cmd)														///EVENT MANAGER
+void handle_cmd(android_app* app, int cmd)
 {
-	//AndroidEngine* androidengine = (AndroidEngine*)app->userData;
-
-	switch (cmd)
-	{
-	case APP_CMD_SAVE_STATE:
-		break;
-	case APP_CMD_INIT_WINDOW:
-		//((uth::Window*)app->userData)->create(uth::AndroidEngine::getInstance().settings);
-		wndw.create(uth::AndroidEngine::getInstance().settings);
-		WriteLog("windowINIT");
-		wndw.setViewport(0.0f,0.0f,
-		uth::AndroidEngine::getInstance().settings.size.x,
-		uth::AndroidEngine::getInstance().settings.size.y);
-		init();
-		WriteLog("INIT");
-
-		//displayInit(androidengine);
-		//draw_frame(androidengine);
-		break;
-	case APP_CMD_TERM_WINDOW:
-		//displayDestroy(androidengine);
-		((uth::Window*)app->userData)->destroy();
-		break;
-	case APP_CMD_LOST_FOCUS:
-		//draw_frame(androidengine);
-		break;
-	}
+	uthAndroidEngine.message = cmd;
+	((uth::Window*)app->userData)->processMessages();
 }
 
 void update()
@@ -94,27 +68,27 @@ void update()
 void android_main(android_app* state)
 {
 	app_dummy();
+
+	uthAndroidEngine.initialized = false;
+
+	uth::Window wndw;
 	uth::FileReader::m_manager = state->activity->assetManager;
 
-	uth::AndroidEngine& androidengine = uth::AndroidEngine::getInstance();
 
 	//memset(&androidengine, 0, sizeof(androidengine));
 	//state->userData = &androidengine;
 	state->onAppCmd = handle_cmd;
 
-	androidengine.app = state;
+	uthAndroidEngine.app = state;
 
-    androidengine.settings.position = umath::vector2(0, 0);
-	androidengine.settings.contextVersionMajor = 2;
-	androidengine.settings.contextVersionMinor = 0;
-    androidengine.settings.fullScreen = true;
+    uthAndroidEngine.settings.position = umath::vector2(0, 0);
+	uthAndroidEngine.settings.contextVersionMajor = 2;
+	uthAndroidEngine.settings.contextVersionMinor = 0;
+    uthAndroidEngine.settings.fullScreen = true;
 	
-	//state->userData = &wndw;
+	state->userData = &wndw;
 	//WriteLog("WINDOW");
 	//uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
-
-	float totalTime = 0;
-	uth::Timer time;
 
 	while(1)
 	{
@@ -136,17 +110,10 @@ void android_main(android_app* state)
 			}
 		}
 
-		if(androidengine.display == NULL)
+		if(uthAndroidEngine.initialized)
 		{
-			;//Do nothing
-		}
-		else
-		{
-			wndw.clear(0.0f, 0.0f, 0.5f);			
-			update();
-			//WriteLog("UPDATE");
-			//engine->Update(time.GetDT());
-			wndw.swapBuffers();
+			theHood.Update();
+			theHood.Draw();
 		}
 	}
 }
