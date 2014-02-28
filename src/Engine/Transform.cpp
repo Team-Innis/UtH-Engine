@@ -6,7 +6,9 @@ Transform::Transform(const std::string name)
 	: Component(name),
 	  position(0, 0),
 	  size(1, 1),
-	  angle(0)
+	  angle(0),
+	  depth(0),
+	  transformNeedsUpdate(false)
 { }
 
 Transform::~Transform()
@@ -17,6 +19,7 @@ Transform::~Transform()
 void Transform::Move(umath::vector2 offset)
 {
 	position += offset;
+	transformNeedsUpdate = true;
 }
 
 void Transform::Move(float offsetX, float offsetY)
@@ -27,6 +30,7 @@ void Transform::Move(float offsetX, float offsetY)
 void Transform::SetPosition(umath::vector2 position)
 {
 	this->position = position;
+	transformNeedsUpdate = true;
 }
 
 void Transform::SetPosition(float posX, float posY)
@@ -42,6 +46,7 @@ const umath::vector2& Transform::GetPosition() const
 void Transform::SetSize(umath::vector2 size)
 {
 	this->size = size;
+	transformNeedsUpdate = true;
 }
 
 void Transform::SetSize(float width, float height)
@@ -57,6 +62,7 @@ const umath::vector2& Transform::GetSize() const
 void Transform::SetRotation(float angle)
 {
 	this->angle = angle;
+	transformNeedsUpdate = true;
 }
 
 const float Transform::GetRotation() const
@@ -68,11 +74,13 @@ const float Transform::GetRotation() const
 void Transform::Rotate(float angle)
 {
 	this->angle += angle;
+	transformNeedsUpdate = true;
 }
 
 void Transform::SetDepth(float depth)
 {
 	this->depth = depth;
+	transformNeedsUpdate = true;
 }
 
 const float Transform::GetDepth() const
@@ -91,24 +99,27 @@ const umath::matrix4& Transform::GetTransform()
 
 void Transform::updateTransform()
 {
-	float ang = -angle * PI / 180.f;
-	float cosine = std::cos(ang);
-	float sine = std::sin(ang);
+	if(transformNeedsUpdate)
+	{
+		float ang = -angle * PI / 180.f;
+		float cosine = std::cos(ang);
+		float sine = std::sin(ang);
 
-	umath::matrix4 rotation(cosine, -sine,  0,    0,
-							sine,   cosine, 0,    0,
-							0,      0,      1.0f, 0,
-							0,      0,      0,    1.0f);
+		umath::matrix4 rotation(cosine, -sine,  0,    0,
+								sine,   cosine, 0,    0,
+								0,      0,      1.0f, 0,
+								0,      0,      0,    1.0f);
 
-	umath::matrix4 scale(size.x, 0,      0,    0,
-						 0,      size.y, 0,    0,
-						 0,      0,      1.0f, 0,
-						 0,      0,      0,    1.0f);
+		umath::matrix4 scale(size.x, 0,      0,    0,
+							 0,      size.y, 0,    0,
+							 0,      0,      1.0f, 0,
+							 0,      0,      0,    1.0f);
 
-	umath::matrix4 translation(1.0f,       0,          0,     0,
-							   0,          1.0f,       0,     0,
-							   0,          0,          1.0f,  1.0f,
-							   position.x, position.y, depth, 1.0f);
+		umath::matrix4 translation(1.0f,       0,          0,     0,
+								   0,          1.0f,       0,     0,
+								   0,          0,          1.0f,  1.0f,
+								   position.x, position.y, depth, 1.0f);
 
-	m_modelTransform = scale * rotation * translation;
+		m_modelTransform = scale * rotation * translation;
+	}
 }

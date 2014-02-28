@@ -41,6 +41,8 @@ namespace uth
 	private:
 		void updateTransform();
 
+		bool transformNeedsUpdate;
+
 		umath::matrix4 m_modelTransform;
 
 	};
