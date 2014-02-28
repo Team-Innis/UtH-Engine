@@ -18,7 +18,7 @@ namespace uth
 		void addIndex(const unsigned short index);
 		//void addIndices(const std::vector<unsigned int>& indices);
 
-		void setVertices(Shader* shader) const;
+		void draw(Shader* shader) const;
 
 	private:
 		void init();

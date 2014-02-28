@@ -1,4 +1,9 @@
+#pragma once
+#ifndef WINDOWSETTINGS_H_UTH
+#define WINDOWSETTINGS_H_UTH
+
 #include <UtH\Math\Vector2.hpp>
+#include <string>
 
 
 namespace uth
@@ -8,21 +13,25 @@ namespace uth
         WindowSettings()
             : useDepthBuffer(false),
               useStencilBuffer(false),
-              useDoubleBuffering(true),
               useBlending(true),
+              useVsync(false),
+              fullScreen(false),
 
-              contextVersionMajor(3),
-              contextVersionMinor(3),
+              contextVersionMajor(0),
+              contextVersionMinor(0),
 
-              position(100, 100),
-              size(800, 600)
+              position(0, 0),
+              size(800, 600),
+
+              title("Generic window title")
         {}
 
 
         bool useDepthBuffer,
              useStencilBuffer,
-             useDoubleBuffering,
-             useBlending;
+             useBlending,
+             useVsync,
+             fullScreen;
 
         int contextVersionMajor,
             contextVersionMinor;
@@ -30,6 +39,8 @@ namespace uth
         umath::vector2 position;
         umath::vector2 size;
 
-        // Title...
+        std::string title;
     };
 }
+
+#endif

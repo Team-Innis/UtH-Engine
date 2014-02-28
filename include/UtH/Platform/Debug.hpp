@@ -2,13 +2,14 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
-#include <UtH\Platform\OpenGL.hpp>
+#include <UtH/Platform/OpenGL.hpp>
 
 #include <assert.h>
 #include <iostream>
+#include <cstdarg>
 
-#include <AL\al.h>
-#include <AL\alc.h>
+#include <AL/al.h>
+#include <AL/alc.h>
 
 #if defined(UTH_SYSTEM_ANDROID)
 	#include <android/log.h>
@@ -21,7 +22,7 @@
 	#ifndef LOGE
 		#define LOGE(...)	__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 	#endif
-	void WriteLog(const char* text, ...)
+	static void WriteLog(const char* text, ...)
 	{
 		va_list v;
 		va_start(v, text);
@@ -29,7 +30,7 @@
 		va_end(v);
 	}
 #elif defined(UTH_SYSTEM_WINDOWS)
-	void WriteLog(const char* text, ...)
+	static void WriteLog(const char* text, ...)
 	{
 		va_list v;
 		va_start(v, text);
@@ -38,14 +39,14 @@
 	}
 #endif
 
-void PrintGLString(const char* name, GLenum s)
+static void PrintGLString(const char* name, GLenum s)
 {
 	const char *v = (const char *) glGetString(s);
 
 	WriteLog("GL %s = %s\n", name, v);
 }
 
-void CheckGLError(const char* op)
+static void CheckGLError(const char* op)
 {
 	for (GLint error = glGetError(); error; error
 		= glGetError()) {
@@ -54,16 +55,18 @@ void CheckGLError(const char* op)
 	}
 }
 
-void CheckALError(const char* op)
+static void CheckALError(const char* op)
 {
+	
 	for(ALCenum error = alGetError(); error != AL_NO_ERROR; error = alGetError())
 	{
-
 		WriteLog("after %s() glError (0x%x)\n", op, error);
 	}
+	
+	WriteLog("after %s() glError (0x%x)\n", op);
 }
 
-void Win32Assert(int expression)
+static void Win32Assert(int expression)
 {
 	assert(expression);
 }

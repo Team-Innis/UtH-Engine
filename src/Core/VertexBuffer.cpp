@@ -45,25 +45,25 @@ void VertexBuffer::addIndex(const unsigned short index)
 //	// TODO
 //}
 
-void VertexBuffer::setVertices(Shader* shader) const
+void VertexBuffer::draw(Shader* shader) const
 {
-	uthGraphics.bindBuffer(BufferType::ARRAY_BUFFER, buffer);
-	uthGraphics.setBufferData(BufferType::ARRAY_BUFFER, data.size()*sizeof(float), &data.front(),
-		UsageType::DYNAMIC_DRAW);
+	uthGraphics.bindBuffer(ARRAY_BUFFER, buffer);
+	uthGraphics.setBufferData(ARRAY_BUFFER, data.size()*sizeof(float), &data.front(),
+		DYNAMIC_DRAW);
 
 	const int posOffset = 5*sizeof(float);
 	const int uvOffset = 5*sizeof(float);
 	const int uvStart = 3*sizeof(float);
 
-	// Attribute name, number of components, datatype, bytes between elements,
+	// Attribute name, number of components, datatype, bytes between first elements,
 	// offset of first element in buffer
-	shader->setAttributeData("attrPosition", 3, DataType::FLOAT_TYPE, posOffset, 0);
-	shader->setAttributeData("attrUV", 2, DataType::FLOAT_TYPE, uvOffset, &uvStart);
-	// TODO: remove once done testing
-	uthGraphics.drawElements(PrimitiveType::TRIANGLES, indices.size(), 
-		DataType::UNSIGNED_SHORT_TYPE, &indices.front());
+	shader->setAttributeData("attrPosition", 3, FLOAT_TYPE, posOffset, 0);
+	shader->setAttributeData("attrUV", 2, FLOAT_TYPE, uvOffset, (void*)uvStart);
 
-	uthGraphics.bindBuffer(BufferType::ARRAY_BUFFER, 0);	
+	uthGraphics.drawElements(TRIANGLES, indices.size(), 
+		UNSIGNED_SHORT_TYPE, &indices.front());
+
+	uthGraphics.bindBuffer(ARRAY_BUFFER, 0);	
 }
 
 // Private

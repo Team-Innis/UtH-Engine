@@ -1,3 +1,7 @@
+#pragma once
+#ifndef OPENGL_H_UTH
+#define OPENGL_H_UTH
+
 #include <UtH\Platform\Configuration.hpp>
 
 
@@ -5,8 +9,7 @@
 #if defined(UTH_SYSTEM_WINDOWS)
 
     #include <GL\glew.h>
-    #include <GL\freeglut.h>
-    #include <GL\glut.h>
+    #include <GLFW\glfw3.h>
 
 #elif defined(UTH_SYSTEM_LINUX)
 
@@ -20,14 +23,15 @@
 
 #elif defined(UTH_SYSTEM_ANDROID)
 
-    #include <GLES/gl.h>
-    #include <GLES/glu.h>
-    #include <GL\freeglut.h>
-    #include <GL\glut.h>
+	#include <EGL/egl.h>
+	#include <GLES2/gl2.h>
+	#include <GLES2/gl2ext.h>
 
 #elif defined(UTH_SYSTEM_IOS)
 
     #include <OpenGLES/ES2/gl.h>
     #include <OpenGLES/ES2/glu.h>
+
+#endif
 
 #endif
