@@ -91,21 +91,27 @@ namespace uth
         if (!shaderCode) return false;
 
         unsigned int shader = glCreateShader(shaderTypes[type]);
-        oglCheck(glShaderSource(shader, 1, &shaderCode, NULL));
-        oglCheck(glCompileShader(shader));
+        glShaderSource(shader, 1, &shaderCode, NULL);
+		CheckGLError("glShaderSource");
+
+        glCompileShader(shader);
+		CheckGLError("glGetShaderiv");
 
 		int infoLenght;
-		oglCheck(glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLenght));
+		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLenght);
+		CheckGLError("glGetShaderiv");
 		if(infoLenght > 1)
 		{
 			char* buf = new char[infoLenght];
-			oglCheck(glGetShaderInfoLog(shader, infoLenght, NULL, buf));
+			glGetShaderInfoLog(shader, infoLenght, NULL, buf);
+			CheckGLError("glGetShaderInfoLog");
 			WriteLog("%s", buf);
 			delete[] buf;
 		}
 
         int success;
-		oglCheck(glGetShaderiv(shader, GL_COMPILE_STATUS, &success));
+		glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+		CheckGLError("glDeleteShader");
 
 		if (!success)
 		{
@@ -114,18 +120,23 @@ namespace uth
             return false;
         }
 
-        oglCheck(glAttachShader(shaderProgram, shader));
-        oglCheck(glDeleteShader(shader));
+        glAttachShader(shaderProgram, shader);
+		CheckGLError("glDeleteShader");
+        glDeleteShader(shader);
+		CheckGLError("glDeleteShader");
 
         return true;
     }
 
     bool Graphics::linkShaderProgram(const int shaderProgram)
     {
-        oglCheck(glLinkProgram(shaderProgram));
+        glLinkProgram(shaderProgram);
+		CheckGLError("glLinkProgram");
+		WriteLog("ShaderProgram: %d", shaderProgram);
 
 		int infoLenght;
-		oglCheck(glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLenght));
+		glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLenght);
+		CheckGLError("glGetProgramiv INFO");
 		if(infoLenght > 0)
 		{
 			char* buf = new char[infoLenght];
@@ -135,7 +146,8 @@ namespace uth
 		}
 
         int success;
-		oglCheck(glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success));
+		glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+		CheckGLError("glGetProgramiv LINK");
 
 		if (!success)
 		{

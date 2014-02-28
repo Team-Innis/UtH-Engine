@@ -48,6 +48,8 @@ void init()
 
 	gameObject.transform.SetSize(0.5f, 0.5f);
 	gameObject.transform.SetPosition(-0.5f, -0.5f);
+	WriteLog("GameObject Position: %f, %f", gameObject.transform.GetPosition().x,gameObject.transform.GetPosition().y);
+
 	gameObject.transform.parent->transform.Rotate(45);
 }
 
@@ -63,9 +65,12 @@ void handle_cmd(android_app* app, int cmd)														///EVENT MANAGER
 	case APP_CMD_INIT_WINDOW:
 		//((uth::Window*)app->userData)->create(uth::AndroidEngine::getInstance().settings);
 		wndw.create(uth::AndroidEngine::getInstance().settings);
-	WriteLog("windowINIT");
+		WriteLog("windowINIT");
+		wndw.setViewport(0.0f,0.0f,
+		uth::AndroidEngine::getInstance().settings.size.x,
+		uth::AndroidEngine::getInstance().settings.size.y);
 		init();
-	WriteLog("INIT");
+		WriteLog("INIT");
 
 		//displayInit(androidengine);
 		//draw_frame(androidengine);
@@ -83,6 +88,7 @@ void handle_cmd(android_app* app, int cmd)														///EVENT MANAGER
 void update()
 {
 	gameObject.Draw(shader);
+	
 }
 
 void android_main(android_app* state)
@@ -137,7 +143,7 @@ void android_main(android_app* state)
 		else
 		{
 			wndw.clear(0.0f, 0.0f, 0.5f);			
-			//update();
+			update();
 			//WriteLog("UPDATE");
 			//engine->Update(time.GetDT());
 			wndw.swapBuffers();

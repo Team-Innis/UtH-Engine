@@ -87,10 +87,9 @@ namespace uth
 		androidengine.settings.size.x = tempX;
 		androidengine.settings.size.y = tempY;
 
-		glHint(GL_GENERATE_MIPMAP_HINT, GL_FASTEST);
-		glEnable(GL_CULL_FACE);
-		glEnable(GL_DEPTH_TEST);
-		glViewport(0,0,androidengine.settings.size.x,androidengine.settings.size.y);
+		//glHint(GL_GENERATE_MIPMAP_HINT, GL_FASTEST);
+		//glEnable(GL_CULL_FACE);
+		//glEnable(GL_DEPTH_TEST);
 
 		WriteLog("+++++++++++++++++++++++++++++++++++++++");
 		WriteLog((const char*)glGetString(GL_VERSION));
