@@ -15,6 +15,15 @@ namespace uth
 
     }
 
+    Texture::Texture(const char* path)
+        : m_textureID(0),
+          m_size(),
+          m_smooth(false),
+          m_repeated(false)
+    {
+        LoadFromFile(path);
+    }
+
     Texture::~Texture()
     {
 
@@ -51,7 +60,7 @@ namespace uth
         uthGraphics.bindTexture(TEXTURE_2D, m_textureID);
     }
 
-    const unsigned int Texture::GetTextureID() const
+    unsigned int Texture::GetTextureID() const
     {
         return m_textureID;
     }
@@ -89,17 +98,17 @@ namespace uth
         return m_size;
     }
 
-    const bool Texture::IsValid() const
+    bool Texture::IsValid() const
     {
         return m_textureID > 0;
     }
         
-    const bool Texture::IsSmooth() const
+    bool Texture::IsSmooth() const
     {
         return m_smooth;
     }
 
-    const bool Texture::IsRepeated() const
+    bool Texture::IsRepeated() const
     {
         return m_repeated;
     }

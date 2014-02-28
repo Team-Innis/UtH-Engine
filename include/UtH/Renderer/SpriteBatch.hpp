@@ -3,6 +3,7 @@
 #define SPRITEBATCH_H_UTH
 
 #include <UtH\Engine\Sprite.hpp>
+#include <UtH\Engine\GameObject.hpp>
 
 
 namespace uth
@@ -22,12 +23,6 @@ namespace uth
 
 
 
-
-
-
-
-
-        SpriteBatch& operator <<(const Sprite& sprite); 
 
 
     private:
