@@ -28,14 +28,14 @@ namespace uth
         m_size.w = uthRS.header.width;
         m_size.h = uthRS.header.height;
 
+        if (m_size.w == 0 || m_size.h == 0)
+            return false;
+
         uthGraphics.setPixelStore(UNPACK_ALIGNMENT, 1);
         uthGraphics.generateTextures(1, &m_textureID);
         uthGraphics.setActiveTexUnit(TEXTURE_0);
 
         Bind();
-
-		//setSmooth(smooth);
-  //      setRepeated(repeated);
 
         uthGraphics.setTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT, m_size.w, m_size.h, RGBA_FORMAT, UNSIGNED_BYTE_TYPE, uthRS.header.pixels);
 		

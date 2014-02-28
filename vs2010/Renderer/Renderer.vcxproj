@@ -22,10 +22,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Renderer\Camera.cpp" />
+    <ClCompile Include="..\..\src\Renderer\SpriteBatch.cpp" />
     <ClCompile Include="..\..\src\Renderer\Texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Renderer\Camera.hpp" />
+    <ClInclude Include="..\..\include\UtH\Renderer\SpriteBatch.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\Texture.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
