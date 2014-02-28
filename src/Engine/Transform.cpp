@@ -61,7 +61,7 @@ void Transform::SetRotation(float angle)
 }
 
 
-const float& Transform::GetRotation() const
+const float Transform::GetRotation() const
 {
 	return angle;
 }
