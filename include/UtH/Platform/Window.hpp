@@ -1,5 +1,10 @@
-#include <UtH/Platform/WindowSettings.hpp>
-#include <UtH/Platform/Uncopyable.hpp>
+#pragma once
+#ifndef WINDOW_H_UTH
+#define WINDOW_H_UTH
+
+#include <UtH\Platform\WindowSettings.hpp>
+#include <UtH\Platform\Uncopyable.hpp>
+
 
 
 namespace uth
@@ -26,6 +31,9 @@ namespace uth
 
         const WindowSettings& getWindowSettings() const;
 
+		// return true while window should remain open
+		bool processMessages();
+
 
 
 
@@ -36,3 +44,5 @@ namespace uth
 
     };
 }
+
+#endif

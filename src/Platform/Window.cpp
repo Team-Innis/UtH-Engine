@@ -5,7 +5,7 @@
 
 #if defined(UTH_SYSTEM_WINDOWS)
 
-#include <Platform\Win32\Win32WindowImpl.hpp>
+#include <Platform/Win32/Win32WindowImpl.hpp>
 typedef uth::Win32WindowImpl WindowImpl;
 
 #elif defined(UTH_SYSTEM_ANDROID)
@@ -77,4 +77,9 @@ namespace uth
     {
         return m_windowSettings;
     }
+	
+	bool Window::processMessages()
+	{
+		return WindowImpl::processMessages(m_windowHandle);
+	}
 }
