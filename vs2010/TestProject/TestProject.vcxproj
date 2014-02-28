@@ -62,6 +62,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\openal\lib\Win32;$(SolutionDir)..\extlibs\glfw\lib\Win32;$(SolutionDir)..\extlibs\glew\lib\Win32;$(SolutionDir)..\extlibs\tinyxml2\lib\Win32</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3d.lib;glew32sd.lib;OpenGL32.lib;libOpenAL32.dll.a;tinyxml2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>$(ProjectDir)RunCopyAssets.bat</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -82,6 +85,9 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\openal\lib\Win32;$(SolutionDir)..\extlibs\glfw\lib\Win32;$(SolutionDir)..\extlibs\glew\lib\Win32;$(SolutionDir)..\extlibs\tinyxml2\lib\Win32</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;libOpenAL32.dll.a;tinyxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>$(ProjectDir)RunCopyAssets.bat</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine\Engine.vcxproj">

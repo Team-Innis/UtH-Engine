@@ -2,6 +2,9 @@
 #ifndef SCENE_H_UTH
 #define SCENE_H_UTH
 
+#include <UtH\Core\Shader.hpp>
+#include <UtH\Engine\GameObject.hpp>
+
 namespace uth
 {
 	class Scene
@@ -12,18 +15,11 @@ namespace uth
 		~Scene();
 
 	public:
-		virtual bool Init();
-		virtual bool DeInit();
+		virtual bool Init() = 0;
+		virtual bool DeInit() = 0;
 
-		virtual bool Update(double dt);
-		virtual bool Draw();
-
-		/*uth::WindowSettings* settings;
-		uth::Shader* shader;
-		uth::VertexBuffer* buf;
-		uth::Texture* tex;*/
-
-		int number;
+		virtual bool Update(double dt) = 0;
+		virtual bool Draw() = 0;
 	};
 }
 

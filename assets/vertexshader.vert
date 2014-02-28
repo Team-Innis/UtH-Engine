@@ -4,11 +4,15 @@ attribute vec2 attrUV;
 uniform mat4 unifModel;
 uniform mat4 unifProjection;
 
+uniform vec4 unifColor;
+
 varying vec2 texCoord;
+varying vec4 color;
 
 void main() 
 {
 	texCoord = attrUV;
+	color = unifColor;
 
 	//mat4 model = unifTranslation * unifRotation * unifScale;
 
