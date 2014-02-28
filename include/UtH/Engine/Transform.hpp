@@ -26,7 +26,7 @@ namespace uth
 		const float& GetRotation() const;
 		void Rotate(float angle);
 
-		const umath::matrix4& GetTransform() const;
+		const umath::matrix4& GetTransform();
 
 		umath::vector2 position;
 		umath::vector2 size;
