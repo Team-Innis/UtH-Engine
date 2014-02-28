@@ -5,6 +5,7 @@
 #define FILEREADER_H
 
 #include <stdio.h>
+#include <physfs\physfs.h>
 
 namespace uth
 {
@@ -31,8 +32,12 @@ namespace uth
 		void* ReadBinary();
 		const char* ReadText();
 
+		static bool isCompressed;
 	private:
 		FILE* file;
+		PHYSFS_file* cFile;
+
+		
 	};
 }
 
