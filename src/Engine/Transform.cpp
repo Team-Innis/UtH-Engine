@@ -35,7 +35,7 @@ void Transform::SetPosition(float posX, float posY)
 	SetPosition(umath::vector2(posX, posY));
 }
 
-const umath::vector2 Transform::GetPosition() const
+const umath::vector2& Transform::GetPosition() const
 {
 	return position;
 }
@@ -50,7 +50,7 @@ void Transform::SetSize(float width, float height)
 	SetSize(umath::vector2(width, height));
 }
 
-const umath::vector2 Transform::GetSize() const
+const umath::vector2& Transform::GetSize() const
 {
 	return size;
 }
@@ -60,7 +60,8 @@ void Transform::SetRotation(float angle)
 	this->angle = angle;
 }
 
-float Transform::GetRotation() const
+
+const float& Transform::GetRotation() const
 {
 	return angle;
 }
@@ -71,7 +72,7 @@ void Transform::Rotate(float angle)
 	this->angle += angle;
 }
 
-umath::matrix4& Transform::GetTransform()
+const umath::matrix4& Transform::GetTransform()
 {
 	updateTransform();
 
