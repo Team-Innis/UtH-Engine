@@ -3,8 +3,11 @@
 #define INPUT_H_UTH
 
 #include <UtH/Platform/Singleton.hpp>
+#include <UtH/Platform/Window.hpp>
+
 #include <UtH/Engine/UtHEngine.h>
-#include <GLFW/glfw3.h>
+
+#include <UtH/Platform/Win32/MouseInput.hpp>
 
 
 
@@ -30,14 +33,17 @@ namespace uth
 	{
 		Input();
 		~Input();
-		friend class Singleton;
+		friend class Singleton<Input>;
 	public:
 		MouseInput Mouse;
 		TouchInput Touch;
 		KeyboardInput Keyboard;
 		CommonInput Common;
-	private:
+
 		void Update();
+		void SetWindow(void *windowHandle);
+	private:
+		void *m_windowHandle;
 		friend class UtHEngine;
 	};
 }

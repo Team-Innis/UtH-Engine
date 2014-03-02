@@ -9,8 +9,10 @@ namespace uth
 	class KeyboardInput
 	{
 	public:
-		KeyboardInput();
-		~KeyboardInput();
+		KeyboardInput()
+		{}
+		~KeyboardInput()
+		{}
 	};
 }
 

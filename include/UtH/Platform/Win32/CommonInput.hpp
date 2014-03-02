@@ -9,8 +9,10 @@ namespace uth
 	class CommonInput
 	{
 	public:
-		CommonInput();
-		~CommonInput();
+		CommonInput()
+		{}
+		~CommonInput()
+		{}
 	};
 }
 

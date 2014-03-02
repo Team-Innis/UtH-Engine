@@ -3,30 +3,41 @@
 #define MOUSEINPUT_H_UTH
 
 #include <UtH/Platform/InputEnums.hpp>
+#include <UtH/Platform/Window.hpp>
+
 #include <UtH/Math/Vector2.hpp>
+
 #include <vector>
 
 namespace uth
 {
+	extern class Input;
 	class MouseInput
 	{
 	public:
 		MouseInput();
 		~MouseInput();
 
-		//bool IsButtonDown(Mouse::MButton Button);
-		//umath::vector2 RelativeMousePosition();
-		//umath::vector2 MousePosition();
+		bool IsButtonDown(Mouse::MButton Button);
+		bool IsButtonPressed(Mouse::MButton Button);
+		bool IsButtonReleased(Mouse::MButton Button);
+
+		umath::vector2 MousePosition();
+		umath::vector2 MouseMovement();
 		//int MouseWheel();
 
 
 	private:
-		umath::vector2 m_mousePos;
-		umath::vector2 m_lastMousePos;
-		std::vector<bool> m_buttonStates;
-		std::vector<bool> m_lastbuttonStates;
-		int m_mouseWheel;
-		int m_lastMouseWheel;
+		void Update(void* windowHandle);
+
+		umath::vector2 m_pos;
+		umath::vector2 m_Lpos;
+		std::vector<bool> m_buttons;
+		std::vector<bool> m_Lbuttons;
+		umath::vector2 m_scroll;
+		umath::vector2 m_Lscroll;
+
+		friend class Input;
 	};
 }
 

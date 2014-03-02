@@ -9,8 +9,10 @@ namespace uth
 	class TouchInput
 	{
 	public:
-		TouchInput();
-		~TouchInput();
+		TouchInput()
+		{}
+		~TouchInput()
+		{}
 	};
 }
 
