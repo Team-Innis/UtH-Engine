@@ -63,8 +63,9 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     target_link_libraries(platform ${PROJECT_SOURCE_DIR}/extlibs/glew/lib/linux/libGLEW.a)
 
     # GLFW
-    add_subdirectory(extlibs/glfw)
-    target_link_libraries(platform glfw ${GLFW_LIBRARIES})
+    find_package(PkgConfig REQUIRED)
+    pkg_search_module(GLFW REQUIRED glfw3)
+    target_link_libraries(platform ${GLFW_STATIC_LIBRARIES})
 endif()
 
 target_link_libraries(engine math platform core resources audio renderer)
