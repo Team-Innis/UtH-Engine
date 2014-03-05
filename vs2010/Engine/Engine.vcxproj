@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Engine\Component.cpp" />
+    <ClCompile Include="..\..\src\Engine\DefaultScene.cpp" />
     <ClCompile Include="..\..\src\Engine\GameObject.cpp" />
     <ClCompile Include="..\..\src\Engine\Scene.cpp" />
     <ClCompile Include="..\..\src\Engine\SceneManager.cpp" />
@@ -71,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Engine\Component.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\DefaultScene.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\GameObject.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Scene.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\SceneManager.hpp" />

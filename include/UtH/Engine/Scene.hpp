@@ -15,16 +15,11 @@ namespace uth
 		~Scene();
 
 	public:
-		virtual bool Init();
-		virtual bool DeInit();
+		virtual bool Init() = 0;
+		virtual bool DeInit() = 0;
 
-		virtual bool Update(double dt);
-		virtual bool Draw();
-
-		Shader shader;
-		GameObject gameObject;
-
-		int number;
+		virtual bool Update(double dt) = 0;
+		virtual bool Draw() = 0;
 	};
 }
 

@@ -19,7 +19,7 @@ namespace uth
 		~UtHEngine();
 		friend class Singleton<UtHEngine>;
 	public:
-		int AutoMainLoop();
+		int MainLoop();
 		bool CreateGameWindow(uth::WindowSettings &settings);
 		bool Update();
 		bool Update(double dt);

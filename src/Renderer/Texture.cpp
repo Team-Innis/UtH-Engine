@@ -15,52 +15,61 @@ namespace uth
 
     }
 
+    Texture::Texture(const char* path)
+        : m_textureID(0),
+          m_size(),
+          m_smooth(false),
+          m_repeated(false)
+    {
+        LoadFromFile(path);
+    }
+
     Texture::~Texture()
     {
 
     }
 
 
-    bool Texture::loadFromFile(const char* path, const bool smooth, const bool repeated)
+    bool Texture::LoadFromFile(const char* path, const bool smooth, const bool repeated)
     {
         uthRS.loadTGA(path);
 
         m_size.w = uthRS.header.width;
         m_size.h = uthRS.header.height;
 
+        if (m_size.w == 0 || m_size.h == 0)
+            return false;
+
         uthGraphics.setPixelStore(UNPACK_ALIGNMENT, 1);
         uthGraphics.generateTextures(1, &m_textureID);
         uthGraphics.setActiveTexUnit(TEXTURE_0);
 
-        bind();
-
-		//setSmooth(smooth);
-  //      setRepeated(repeated);
+        Bind();
 
         uthGraphics.setTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT, m_size.w, m_size.h, RGBA_FORMAT, UNSIGNED_BYTE_TYPE, uthRS.header.pixels);
 		
-		setSmooth(smooth);
-        setRepeated(repeated);
+		SetSmooth(smooth);
+        SetRepeated(repeated);
 		
 		return true;
     }
 
-    void Texture::bind()
+    void Texture::Bind()
     {
         uthGraphics.setActiveTexUnit(TEXTURE_0);
         uthGraphics.bindTexture(TEXTURE_2D, m_textureID);
     }
 
-    const unsigned int Texture::getTextureID() const
+    unsigned int Texture::GetTextureID() const
     {
         return m_textureID;
     }
 
-    bool Texture::setSmooth(const bool value)
+    bool Texture::SetSmooth(const bool value)
     {
-        if (!isValid()) return false;
+        if (!IsValid()) return false;
 
-        bind();
+        Bind();
 
         uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_MAG_FILTER, value ? LINEAR : NEAREST);
 		uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_MIN_FILTER, value ? LINEAR : NEAREST);
@@ -70,11 +79,11 @@ namespace uth
         return true;
     }
 
-    bool Texture::setRepeated(const bool value)
+    bool Texture::SetRepeated(const bool value)
     {
-        if (!isValid()) return false;
+        if (!IsValid()) return false;
 
-        bind();
+        Bind();
 
         uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_WRAP_S, value ? REPEAT : CLAMP_TO_EDGE);
         uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_WRAP_T, value ? REPEAT : CLAMP_TO_EDGE);
@@ -84,22 +93,22 @@ namespace uth
         return true;
     }
 
-    const umath::vector2& Texture::getSize() const
+    const umath::vector2& Texture::GetSize() const
     {
         return m_size;
     }
 
-    const bool Texture::isValid() const
+    bool Texture::IsValid() const
     {
         return m_textureID > 0;
     }
         
-    const bool Texture::isSmooth() const
+    bool Texture::IsSmooth() const
     {
         return m_smooth;
     }
 
-    const bool Texture::isRepeated() const
+    bool Texture::IsRepeated() const
     {
         return m_repeated;
     }

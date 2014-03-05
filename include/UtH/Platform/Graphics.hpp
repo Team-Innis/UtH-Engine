@@ -89,6 +89,8 @@ namespace uth
 
         void generateTextures(const unsigned int amount, unsigned int* data);
 
+        void deleteTextures(const unsigned int amount, unsigned int* data);
+
         void setActiveTexUnit(TexUnit unit);
 
         void bindTexture(TextureType type, const int texture);

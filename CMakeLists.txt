@@ -50,7 +50,8 @@ src/Engine/Sprite.cpp
 src/Engine/SceneManager.cpp
 src/Engine/Scene.cpp
 src/Engine/GameObject.cpp
-src/Engine/Component.cpp)
+src/Engine/Component.cpp
+src/Engine/DefaultScene.cpp)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     # OpenAL

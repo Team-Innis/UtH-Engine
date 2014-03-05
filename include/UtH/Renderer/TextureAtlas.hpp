@@ -1,26 +1,25 @@
 #pragma once
-#ifndef TEXTURE_H_UTH
-#define TEXTURE_H_UTH
+#ifndef TEXTUREATLAS_H_UTH
+#define TEXTUREATLAS_H_UTH
 
-#include <UtH/Platform/Uncopyable.hpp>
-#include <UtH/Math/Vector2.hpp>
-
+#include <UtH\Renderer\Texture.hpp>
+#include <UtH\Math\Rectangle.hpp>
+#include <map>
 
 
 namespace uth
 {
-    class Texture : private uth::Uncopyable
+    class TextureAtlas : private Uncopyable
     {
     public:
 
-        Texture();
+        TextureAtlas();
 
-        Texture(const char* path);
+        TextureAtlas(const char* path);
 
-        ~Texture();
+        ~TextureAtlas();
 
 
-        /// Only supports uncompressed .tga for now.
         bool LoadFromFile(const char* path, const bool smooth = false, const bool repeated = false);
 
         void Bind();
@@ -39,15 +38,13 @@ namespace uth
 
         bool IsRepeated() const;
 
-
+        const umath::rectangle& getTextureCoords(const char* name) const;
 
 
     private:
 
-        unsigned int m_textureID;
-        umath::vector2 m_size;
-        bool m_smooth, m_repeated;
-
+        Texture m_texture;
+        std::map<std::string, umath::rectangle> m_textureRects;
     };
 }
 
