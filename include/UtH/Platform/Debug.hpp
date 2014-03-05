@@ -7,6 +7,7 @@
 #include <assert.h>
 #include <iostream>
 #include <cstdarg>
+#include <cstdio>
 
 #include <AL/al.h>
 #include <AL/alc.h>
@@ -29,7 +30,7 @@
 		__android_log_vprint(ANDROID_LOG_INFO, LOG_TAG, text, v);
 		va_end(v);
 	}
-#elif defined(UTH_SYSTEM_WINDOWS)
+#elif defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX)
 	static void WriteLog(const char* text, ...)
 	{
 		va_list v;

@@ -1,4 +1,5 @@
 #include <UtH/Engine/Transform.hpp>
+#include <cmath>
 
 using namespace uth;
 

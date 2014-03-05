@@ -2,8 +2,8 @@
 #ifndef SCENE_H_UTH
 #define SCENE_H_UTH
 
-#include <UtH\Core\Shader.hpp>
-#include <UtH\Engine\GameObject.hpp>
+#include <UtH/Core/Shader.hpp>
+#include <UtH/Engine/GameObject.hpp>
 
 namespace uth
 {

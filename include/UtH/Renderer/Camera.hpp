@@ -1,8 +1,8 @@
 #pragma once
 
-#include <UtH\Math\Vector2.hpp>
-#include <UtH\Math\Matrix4.hpp>
-#include <UtH\Math\Rectangle.hpp>
+#include <UtH/Math/Vector2.hpp>
+#include <UtH/Math/Matrix4.hpp>
+#include <UtH/Math/Rectangle.hpp>
 
 
 namespace uth

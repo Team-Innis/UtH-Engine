@@ -1,7 +1,7 @@
 #pragma once
 
-#include <UtH\Platform\Uncopyable.hpp>
-#include <UtH\Math\Vector2.hpp>
+#include <UtH/Platform/Uncopyable.hpp>
+#include <UtH/Math/Vector2.hpp>
 
 
 

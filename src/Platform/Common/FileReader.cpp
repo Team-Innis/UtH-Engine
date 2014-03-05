@@ -16,7 +16,7 @@ FileReader::FileReader(const char* path)
 
 FileReader::~FileReader()
 {
-	fclose(file);
+	std::fclose(file);
 }
 
 
@@ -26,15 +26,15 @@ void FileReader::OpenFile(const char* path)
 {
 	std::string temp_path = "assets/";
 	temp_path += path;
-	file = fopen(temp_path.c_str(), "rb");
+	file = std::fopen(temp_path.c_str(), "rb");
 	assert(file != NULL);
 }
 
 int FileReader::GetFileSize()
 {
-	fseek(file, 0, SEEK_END);
-	int size = ftell(file);
-	fseek(file, 0, SEEK_SET);
+	std::fseek(file, 0, SEEK_END);
+	int size = std::ftell(file);
+	std::fseek(file, 0, SEEK_SET);
 
 	return size;
 }
@@ -43,7 +43,7 @@ bool FileReader::FileSeek(int offset, int origin)
 {
 	if(file != NULL)
 	{
-		if(fseek(file, offset, origin) == 0) // Returns 0 on succesful read
+		if(std::fseek(file, offset, origin) == 0) // Returns 0 on succesful read
 			return true;
 	}
 	return false;
@@ -53,7 +53,7 @@ bool FileReader::ReadBytes(void* buffer, unsigned int count, unsigned int blockS
 {
 	if(file != NULL)
 	{
-		if(fread(buffer, blockSize, count, file) == count)
+		if(std::fread(buffer, blockSize, count, file) == count)
 			return true;		
 	}
 	return false;

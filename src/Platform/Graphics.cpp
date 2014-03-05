@@ -1,8 +1,8 @@
-#include <UtH\Platform\Graphics.hpp>
-#include <UtH\Platform\Configuration.hpp>
-#include <UtH\Platform\OpenGL.hpp>
-#include <UtH\Platform\OGLCheck.hpp>
-#include <UtH\Platform\Debug.hpp>
+#include <UtH/Platform/Graphics.hpp>
+#include <UtH/Platform/Configuration.hpp>
+#include <UtH/Platform/OpenGL.hpp>
+#include <UtH/Platform/OGLCheck.hpp>
+#include <UtH/Platform/Debug.hpp>
 #include <iostream>
 #include <algorithm>
 

@@ -2,8 +2,8 @@
 #ifndef WINDOW_H_UTH
 #define WINDOW_H_UTH
 
-#include <UtH\Platform\WindowSettings.hpp>
-#include <UtH\Platform\Uncopyable.hpp>
+#include <UtH/Platform/WindowSettings.hpp>
+#include <UtH/Platform/Uncopyable.hpp>
 
 
 
