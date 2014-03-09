@@ -22,6 +22,9 @@
     <Filter Include="Source Files\Common">
       <UniqueIdentifier>{7e473aa5-cda1-49c9-9bea-10264237f40c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Common">
+      <UniqueIdentifier>{2e6e0ede-7ed0-4f5b-82da-3506cca66d64}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Platform\Graphics.hpp">
@@ -63,11 +66,11 @@
     <ClInclude Include="..\..\src\Platform\Win32\Win32WindowImpl.hpp">
       <Filter>Header Files\Win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\FileReader.h">
-      <Filter>Header Files\Win32</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\UtH\Platform\FileReader.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Common\FileReader.h">
+      <Filter>Header Files\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

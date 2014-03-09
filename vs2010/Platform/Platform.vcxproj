@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\UtH\Platform\Common\FileReader.h" />
     <ClInclude Include="..\..\include\UtH\Platform\Configuration.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Debug.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Enums.hpp" />
@@ -22,7 +23,6 @@
     <ClInclude Include="..\..\include\UtH\Platform\Singleton.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Typedefs.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Uncopyable.hpp" />
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\FileReader.h" />
     <ClInclude Include="..\..\include\UtH\Platform\Window.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\WindowSettings.hpp" />
     <ClInclude Include="..\..\src\Platform\Win32\Win32WindowImpl.hpp" />
