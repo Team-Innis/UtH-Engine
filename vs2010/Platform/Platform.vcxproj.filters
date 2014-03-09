@@ -19,6 +19,9 @@
     <Filter Include="Source Files\Win32">
       <UniqueIdentifier>{79b13ad5-7fec-4c72-bbd9-91ca52e2f274}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Common">
+      <UniqueIdentifier>{7e473aa5-cda1-49c9-9bea-10264237f40c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Platform\Graphics.hpp">
@@ -83,8 +86,8 @@
     <ClCompile Include="..\..\src\Platform\Win32\Win32WindowImpl.cpp">
       <Filter>Source Files\Win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Platform\Win32\FileReader.cpp">
-      <Filter>Source Files\Win32</Filter>
+    <ClCompile Include="..\..\src\Platform\Common\FileReader.cpp">
+      <Filter>Source Files\Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
