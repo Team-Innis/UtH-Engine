@@ -53,7 +53,7 @@ void FileReader::OpenFile(const char* path)
 	{
 		std::string temp_path = "assets/";
 		temp_path += path;
-		file = fopen(temp_path.c_str(), "rb");
+		file = std::fopen(temp_path.c_str(), "rb");
 		assert(file != NULL);
 	}
 }
@@ -94,7 +94,7 @@ bool FileReader::FileSeek(int offset, int origin)
 	{
 		if(file != NULL)
 		{
-			if(fseek(file, offset, origin) == 0) // Returns 0 on succesful read
+			if(std::fseek(file, offset, origin) == 0) // Returns 0 on succesful read
 				return true;
 		}
 	}
@@ -115,7 +115,7 @@ bool FileReader::ReadBytes(void* buffer, unsigned int count, unsigned int blockS
 	{
 		if(file != NULL)
 		{
-			if(fread(buffer, blockSize, count, file) == count)
+			if(std::fread(buffer, blockSize, count, file) == count)
 				return true;		
 		}
 	}

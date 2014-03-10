@@ -7,6 +7,7 @@
 #include <assert.h>
 #include <iostream>
 #include <cstdarg>
+#include <cstdio>
 
 #include <AL/al.h>
 #include <AL/alc.h>
@@ -38,7 +39,7 @@
 			WriteLog("EGL Function Failed: %d", error);
 		}
 	}
-#elif defined(UTH_SYSTEM_WINDOWS)
+#elif defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX)
 	static void WriteLog(const char* text, ...)
 	{
 		va_list v;

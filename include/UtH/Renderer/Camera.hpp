@@ -2,10 +2,11 @@
 #ifndef CAMERA_H_UTH
 #define CAMERA_H_UTH
 
-#include <UtH\Math\Vector2.hpp>
-#include <UtH\Math\Matrix4.hpp>
-#include <UtH\Math\Rectangle.hpp>
-#include <UtH\Engine\GameObject.hpp>
+
+#include <UtH/Math/Vector2.hpp>
+#include <UtH/Math/Matrix4.hpp>
+#include <UtH/Math/Rectangle.hpp>
+#include <UtH/Engine/GameObject.hpp>
 
 
 namespace uth
@@ -50,7 +51,7 @@ namespace uth
 
         const umath::rectangle& GetViewport() const;
 
-        const umath::matrix4& GetViewTransform() const;
+        const umath::matrix4& GetProjectionTransform() const;
 
 
 

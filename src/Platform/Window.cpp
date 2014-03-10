@@ -8,6 +8,11 @@
 #include <UtH/Platform/Win32/Win32WindowImpl.hpp>
 typedef uth::Win32WindowImpl WindowImpl;
 
+#elif defined(UTH_SYSTEM_LINUX)
+
+#include <UtH/Platform/Linux/LinuxWindowImpl.hpp>
+typedef uth::LinuxWindowImpl WindowImpl;
+
 #elif defined(UTH_SYSTEM_ANDROID)
 
 #include <../src/Platform/Android/AndroidWindowImpl.hpp>

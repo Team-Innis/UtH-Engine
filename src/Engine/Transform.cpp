@@ -1,4 +1,5 @@
 #include <UtH/Engine/Transform.hpp>
+#include <cmath>
 
 using namespace uth;
 
@@ -6,8 +7,10 @@ Transform::Transform(const std::string name)
 	: Component(name),
 	  position(0, 0),
 	  size(1, 1),
-	  angle(0),
-      m_transformNeedsUpdate(true)
+	  angle(0),     
+	  depth(0),
+	  m_transformNeedsUpdate(false)
+
 { }
 
 Transform::~Transform()
@@ -18,6 +21,7 @@ Transform::~Transform()
 void Transform::Move(umath::vector2 offset)
 {
 	position += offset;
+	m_transformNeedsUpdate = true;
 }
 
 void Transform::Move(float offsetX, float offsetY)
@@ -28,6 +32,7 @@ void Transform::Move(float offsetX, float offsetY)
 void Transform::SetPosition(umath::vector2 position)
 {
 	this->position = position;
+	m_transformNeedsUpdate = true;
 }
 
 void Transform::SetPosition(float posX, float posY)
@@ -43,6 +48,7 @@ const umath::vector2& Transform::GetPosition() const
 void Transform::SetSize(umath::vector2 size)
 {
 	this->size = size;
+	m_transformNeedsUpdate = true;
 }
 
 void Transform::SetSize(float width, float height)
@@ -58,8 +64,8 @@ const umath::vector2& Transform::GetSize() const
 void Transform::SetRotation(float angle)
 {
 	this->angle = angle;
+	m_transformNeedsUpdate = true;
 }
-
 
 const float Transform::GetRotation() const
 {
@@ -70,6 +76,18 @@ const float Transform::GetRotation() const
 void Transform::Rotate(float angle)
 {
 	this->angle += angle;
+	m_transformNeedsUpdate = true;
+}
+
+void Transform::SetDepth(float depth)
+{
+	this->depth = depth;
+	m_transformNeedsUpdate = true;
+}
+
+const float Transform::GetDepth() const
+{
+	return depth;
 }
 
 const umath::matrix4& Transform::GetTransform()
@@ -94,18 +112,17 @@ void Transform::updateTransform()
 							sine,   cosine, 0,    0,
 							0,      0,      1.0f, 0,
 							0,      0,      0,    1.0f);
-
+				
 	umath::matrix4 scale(size.x, 0,      0,    0,
 						 0,      size.y, 0,    0,
 						 0,      0,      1.0f, 0,
 						 0,      0,      0,    1.0f);
 
-	umath::matrix4 translation(1.0f,       0,          0,    0,
-							   0,          1.0f,       0,    0,
-							   0,          0,          1.0f, 0,
-							   position.x, position.y, 0,    1.0f);
+	umath::matrix4 translation(1.0f,       0,          0,     0,
+							   0,          1.0f,       0,     0,
+							   0,          0,          1.0f,  0,
+							   position.x, position.y, depth, 1.0f);
 
 	m_modelTransform = scale * rotation * translation;
-
-    m_transformNeedsUpdate = false;
+	m_transformNeedsUpdate = false;
 }

@@ -1,7 +1,8 @@
-#include <UtH/Platform/Win32/Win32WindowImpl.hpp>
+#include <UtH/Platform/Linux/LinuxWindowImpl.hpp>
 #include <UtH/Platform/OpenGL.hpp>
 #include <UtH/Platform/OGLCheck.hpp>
 #include <iostream>
+#include <cstdlib>
 
 
 
@@ -35,7 +36,7 @@ namespace
 namespace uth
 {
 
-    void* Win32WindowImpl::create(const WindowSettings& settings)
+    void* LinuxWindowImpl::create(const WindowSettings& settings)
     {
         ensureGLFWInit();
 
@@ -80,13 +81,20 @@ namespace uth
 		std::cout << "glew init might produces GL_INVALID_ENUM error. Just ignore it" << std::endl;
 		glewExperimental = GL_TRUE;
         oglCheck(glewInit());
+        
+        if(majorVer >= 3)
+        {
+            GLuint vertexArray;
+            glGenVertexArrays(1, &vertexArray);
+            glBindVertexArray(vertexArray);
+        }
 
 
         return static_cast<void*>(wndwHandle);
     }
 
 
-    void* Win32WindowImpl::destroy(void* handle)
+    void* LinuxWindowImpl::destroy(void* handle)
     {
         if (!handle) return handle;
 
@@ -96,12 +104,12 @@ namespace uth
 
         --windowRefs;
         manageWindowRefs();
-        
+
         return handle;
     }
 
 
-    void Win32WindowImpl::clear(const bool clearDepth, const bool clearStencil, const float r, const float g, const float b, const float a)
+    void LinuxWindowImpl::clear(const bool clearDepth, const bool clearStencil, const float r, const float g, const float b, const float a)
     {
         oglCheck(glClear(GL_COLOR_BUFFER_BIT |
                          GL_DEPTH_BUFFER_BIT |
@@ -117,14 +125,14 @@ namespace uth
         oglCheck(glClearStencil(1));
     }
 
-    void Win32WindowImpl::swapBuffers(void* handle)
+    void LinuxWindowImpl::swapBuffers(void* handle)
     {
         if (!handle) return;
 
         glfwSwapBuffers(static_cast<GLFWwindow*>(handle));
     }
 	
-	bool Win32WindowImpl::processMessages(void* handle)
+	bool LinuxWindowImpl::processMessages(void* handle)
 	{
 		if (!handle) return false;
 
