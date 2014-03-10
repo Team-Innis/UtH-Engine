@@ -7,7 +7,7 @@
 
 using namespace uth;
 
-int UtHEngine::AutoMainLoop()
+int UtHEngine::MainLoop()
 {
     uth::WindowSettings settings;
     settings.size = umath::vector2(1600, 900);
@@ -58,4 +58,9 @@ void UtHEngine::Draw()
     m_wndw->clear(0.f, 0.f, 1.f);
 	UtHSceneM.Draw();
     m_wndw->swapBuffers();
+}
+
+void UtHEngine::SetWindow(uth::Window * window)
+{
+	m_wndw = window;
 }

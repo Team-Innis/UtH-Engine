@@ -1,6 +1,0 @@
-Android required files for building app with ndk and sdk
-This includes:
-- Manifest
-- androidmain.cpp
-- Makefiles(Android.mk & Applicaiton.mk)
-BUT NOT ANYTHING ELSE!

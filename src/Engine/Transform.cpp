@@ -6,7 +6,8 @@ Transform::Transform(const std::string name)
 	: Component(name),
 	  position(0, 0),
 	  size(1, 1),
-	  angle(0)
+	  angle(0),
+      m_transformNeedsUpdate(true)
 { }
 
 Transform::~Transform()
@@ -34,7 +35,7 @@ void Transform::SetPosition(float posX, float posY)
 	SetPosition(umath::vector2(posX, posY));
 }
 
-const umath::vector2 Transform::GetPosition() const
+const umath::vector2& Transform::GetPosition() const
 {
 	return position;
 }
@@ -49,7 +50,7 @@ void Transform::SetSize(float width, float height)
 	SetSize(umath::vector2(width, height));
 }
 
-const umath::vector2 Transform::GetSize() const
+const umath::vector2& Transform::GetSize() const
 {
 	return size;
 }
@@ -59,7 +60,8 @@ void Transform::SetRotation(float angle)
 	this->angle = angle;
 }
 
-float Transform::GetRotation()
+
+const float Transform::GetRotation() const
 {
 	return angle;
 }
@@ -70,7 +72,7 @@ void Transform::Rotate(float angle)
 	this->angle += angle;
 }
 
-umath::matrix4& Transform::GetTransform()
+const umath::matrix4& Transform::GetTransform()
 {
 	updateTransform();
 
@@ -81,6 +83,9 @@ umath::matrix4& Transform::GetTransform()
 
 void Transform::updateTransform()
 {
+    if (!m_transformNeedsUpdate)
+        return;
+
 	float ang = -angle * PI / 180.f;
 	float cosine = std::cos(ang);
 	float sine = std::sin(ang);
@@ -97,8 +102,10 @@ void Transform::updateTransform()
 
 	umath::matrix4 translation(1.0f,       0,          0,    0,
 							   0,          1.0f,       0,    0,
-							   0,          0,          1.0f, 1.0f,
-							   position.x, position.y, 1.0f, 1.0f);
+							   0,          0,          1.0f, 0,
+							   position.x, position.y, 0,    1.0f);
 
 	m_modelTransform = scale * rotation * translation;
+
+    m_transformNeedsUpdate = false;
 }

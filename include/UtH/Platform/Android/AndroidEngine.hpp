@@ -9,6 +9,8 @@
 #include <errno.h>
 #include <android_native_app_glue.h>
 
+#define uthAndroidEngine uth::AndroidEngine::getInstance()
+
 namespace uth
 {
 //Struct containing EGL stugg and android app
@@ -25,7 +27,10 @@ public:
 	EGLContext context;
 	EGLConfig config;
 
+	int message;
+
 	uth::WindowSettings settings;
+	bool initialized;
 };
 }
 

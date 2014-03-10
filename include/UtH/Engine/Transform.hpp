@@ -16,17 +16,17 @@ namespace uth
 
 		void SetPosition(umath::vector2 position);
 		void SetPosition(float posX, float posY);
-		const umath::vector2 GetPosition() const;
+		const umath::vector2& GetPosition() const;
 
 		void SetSize(umath::vector2 size);
 		void SetSize(float width, float height);
-		const umath::vector2 GetSize() const;
+		const umath::vector2& GetSize() const;
 
 		void SetRotation(float angle);
-		float GetRotation();
+		const float GetRotation() const;
 		void Rotate(float angle);
 
-		umath::matrix4& GetTransform();
+		const umath::matrix4& GetTransform();
 
 		umath::vector2 position;
 		umath::vector2 size;
@@ -36,6 +36,7 @@ namespace uth
 		void updateTransform();
 
 		umath::matrix4 m_modelTransform;
+        bool m_transformNeedsUpdate;
 
 	};
 }
