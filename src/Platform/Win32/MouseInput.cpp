@@ -41,13 +41,13 @@ namespace uth
 		m_pos.x = x;
 		m_pos.y = y;
 
-		WriteLog("\n%f , %f", x,y);
+		//WriteLog("\n%f , %f", x,y);
 
 		for (int i = 0; i < Mouse::COUNT; i++)
 		{
 			m_Lbuttons.at(i) = m_buttons.at(i);
 			m_buttons.at(i) = (bool)glfwGetMouseButton(window, i);
-			WriteLog("	%d", glfwGetMouseButton(window, i));
+			//WriteLog("	%d", glfwGetMouseButton(window, i));
 		}
 	}
 }

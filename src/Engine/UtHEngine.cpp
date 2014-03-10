@@ -4,6 +4,7 @@
 
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Platform/Window.hpp> 
+#include <UtH/Platform/Input.hpp>
 
 using namespace uth;
 
@@ -41,8 +42,9 @@ UtHEngine::~UtHEngine()
 
 bool UtHEngine::CreateGameWindow(uth::WindowSettings &settings)
 {
-	m_wndw = new Window(settings);
+	Window* window = new Window(settings);
 	uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
+	SetWindow(window);
 	return true;
 }
 bool UtHEngine::Update()
@@ -51,6 +53,7 @@ bool UtHEngine::Update()
 }
 bool UtHEngine::Update(double dt)
 {
+	UTHInput.Update();
 	return UtHSceneM.Update(dt);
 }
 void UtHEngine::Draw()
@@ -63,4 +66,5 @@ void UtHEngine::Draw()
 void UtHEngine::SetWindow(uth::Window * window)
 {
 	m_wndw = window;
+	UTHInput.SetWindow(window->m_windowHandle);
 }
