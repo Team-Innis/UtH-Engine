@@ -2,12 +2,12 @@
 #ifndef UTILS_H_UTH
 #define UTILS_H_UTH
 
-#include <UtH\Platform\Configuration.hpp>
+#include <UtH/Platform/Configuration.hpp>
 
 #if defined(UTH_SYSTEM_WINDOWS)
 #include <windows.h>
 
-#elif defined(UTH_SYSTEM_ANDROID)
+#elif defined(UTH_SYSTEM_ANDROID) || defined(UTH_)
 #include <sys/time.h>
 #endif
 

@@ -1,4 +1,5 @@
-#include <UtH\Resources\ResourceManager.h>
+#include <UtH/Resources/ResourceManager.h>
+#include <cstdlib> // malloc etc...
 
 using namespace uth;
 

@@ -25,6 +25,8 @@ namespace uth
 		bool Update(double dt);
 		void Draw();
 
+		void SetWindow(uth::Window * window);
+
 	private:
 		bool m_running;
 		uth::Window* m_wndw;

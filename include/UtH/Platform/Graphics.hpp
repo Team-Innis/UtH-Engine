@@ -2,10 +2,10 @@
 #ifndef GRAPHICS_H_UTH
 #define GRAPHICS_H_UTH
 
-#include <UtH\Platform\WindowSettings.hpp>
-#include <UtH\Platform\Singleton.hpp>
-#include <UtH\Platform\Enums.hpp>
-#include <UtH\Math\Math.hpp>
+#include <UtH/Platform/WindowSettings.hpp>
+#include <UtH/Platform/Singleton.hpp>
+#include <UtH/Platform/Enums.hpp>
+#include <UtH/Math/Math.hpp>
 
 
 #define uthGraphics uth::Graphics::getInstance()
@@ -88,6 +88,8 @@ namespace uth
         void setPixelStore(PixelStoreParam param, const int value);
 
         void generateTextures(const unsigned int amount, unsigned int* data);
+
+        void deleteTextures(const unsigned int amount, unsigned int* data);
 
         void setActiveTexUnit(TexUnit unit);
 

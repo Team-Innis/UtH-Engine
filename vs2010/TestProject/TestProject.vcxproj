@@ -54,13 +54,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\freeglut\include\;$(SolutionDir)..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\freeglut\include\;$(SolutionDir)..\include\;$(SolutionDir)..\extlibs\physfs\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\openal\lib\Win32;$(SolutionDir)..\extlibs\glfw\lib\Win32;$(SolutionDir)..\extlibs\glew\lib\Win32;C:\Users\tti12sjoonat\Documents\GitHub\UtH-Engine\Build\Win32\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3d.lib;glew32sd.lib;OpenGL32.lib;libOpenAL32.dll.a;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\physfs\lib\Win32;$(SolutionDir)..\extlibs\openal\lib\Win32;$(SolutionDir)..\extlibs\glfw\lib\Win32;$(SolutionDir)..\extlibs\glew\lib\Win32;$(SolutionDir)..\extlibs\tinyxml2\lib\Win32</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;libOpenAL32.dll.a;physfs.lib;tinyxml2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>$(ProjectDir)RunCopyAssets.bat</Command>
@@ -75,15 +75,15 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\freeglut\include\;$(SolutionDir)..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\freeglut\include\;$(SolutionDir)..\include\;$(SolutionDir)..\extlibs\physfs\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\openal\lib\Win32;$(SolutionDir)..\extlibs\glfw\lib\Win32;$(SolutionDir)..\extlibs\glew\lib\Win32;C:\Users\tti12sjoonat\Documents\GitHub\UtH-Engine\Build\Win32\Debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;libOpenAL32.dll.a;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\physfs\lib\Win32;$(SolutionDir)..\extlibs\openal\lib\Win32;$(SolutionDir)..\extlibs\glfw\lib\Win32;$(SolutionDir)..\extlibs\glew\lib\Win32;$(SolutionDir)..\extlibs\tinyxml2\lib\Win32</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;libOpenAL32.dll.a;physfs.lib;tinyxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>$(ProjectDir)RunCopyAssets.bat</Command>
