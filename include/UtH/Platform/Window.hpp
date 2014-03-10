@@ -36,10 +36,10 @@ namespace uth
 
 
 
+        void* m_windowHandle;
 
     private:
 
-        void* m_windowHandle;
         WindowSettings m_windowSettings;
 
     };

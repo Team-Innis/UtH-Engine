@@ -2,7 +2,7 @@
 #ifndef INPUTENUMS_H_UTH
 #define INPUTENUMS_H_UTH
 
-#include <GLFW/glfw3.h>
+//#include <GLFW/glfw3.h>
 
 namespace uth
 {

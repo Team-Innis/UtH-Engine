@@ -11,7 +11,7 @@
 
 namespace uth
 {
-	extern class Input;
+	//extern class Input;
 	class MouseInput
 	{
 	public:
@@ -27,8 +27,8 @@ namespace uth
 		//int MouseWheel();
 
 
-	private:
 		void Update(void* windowHandle);
+	private:
 
 		umath::vector2 m_pos;
 		umath::vector2 m_Lpos;
@@ -37,7 +37,7 @@ namespace uth
 		umath::vector2 m_scroll;
 		umath::vector2 m_Lscroll;
 
-		friend class Input;
+		//friend class Input;
 	};
 }
 

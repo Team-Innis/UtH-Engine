@@ -1,4 +1,5 @@
 #include <UtH/Platform/Win32/KeyboardInput.hpp>
+#include <GLFW/glfw3.h>
 
 enum Key
 {

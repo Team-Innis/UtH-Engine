@@ -1,4 +1,6 @@
 #include <UtH/Platform/Win32/MouseInput.hpp>
+#include <UtH/Platform/Debug.hpp>
+#include <GLFW/glfw3.h>
 
 namespace uth
 {
@@ -39,15 +41,13 @@ namespace uth
 		m_pos.x = x;
 		m_pos.y = y;
 
+		WriteLog("\n%f , %f", x,y);
+
 		for (int i = 0; i < Mouse::COUNT; i++)
 		{
-			if (m_buttons.at(i))
-			{
-				int j = 0;
-				j++;
-			}
 			m_Lbuttons.at(i) = m_buttons.at(i);
 			m_buttons.at(i) = (bool)glfwGetMouseButton(window, i);
+			WriteLog("	%d", glfwGetMouseButton(window, i));
 		}
 	}
 }
