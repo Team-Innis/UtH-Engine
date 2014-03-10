@@ -30,7 +30,7 @@ Sprite::~Sprite()
 
 void Sprite::Draw(Shader *shader)
 {
-	m_texture->bind();
+	m_texture->Bind();
 	shader->SetUniform("unifSampler", 0);
 	shader->SetUniform("unifColor", m_color);
 	m_vertexBuffer->draw(shader);
@@ -44,7 +44,7 @@ void Sprite::Update(float dt)
 void Sprite::SetTexture(Texture* texture)
 {
 	m_texture = texture;
-	m_size = texture->getSize();
+	m_size = texture->GetSize();
 }
 
 Texture* Sprite::GetTexture() const
