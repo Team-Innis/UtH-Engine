@@ -2,6 +2,9 @@
 #ifndef SCENE_H_UTH
 #define SCENE_H_UTH
 
+#include <UtH\Core\Shader.hpp>
+#include <UtH\Engine\GameObject.hpp>
+
 namespace uth
 {
 	class Scene
@@ -18,10 +21,8 @@ namespace uth
 		virtual bool Update(double dt);
 		virtual bool Draw();
 
-		/*uth::WindowSettings* settings;
-		uth::Shader* shader;
-		uth::VertexBuffer* buf;
-		uth::Texture* tex;*/
+		Shader shader;
+		GameObject gameObject;
 
 		int number;
 	};
