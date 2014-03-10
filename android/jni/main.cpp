@@ -27,84 +27,68 @@
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Engine/Sprite.hpp>
 #include <UtH/Platform/Debug.hpp>
+#include <UtH/Platform/HiResTimer.hpp>
+#include <UtH/Engine/UtHEngine.h>
 
-//After input manager 
-//int handle_input(android_app* app, AInputEvent* event)			
-//{
-//	//AndroidEngine* androidengine = (AndroidEngine*)app->userData;
-//	//Input should be places here
-//	return 0;
-//}
-
-//This is sort of state manager. Checks is Activity on top or not and does it have saved state
-//void handle_cmd(android_app* app, int cmd)														///EVENT MANAGER
-//{
-//	//AndroidEngine* androidengine = (AndroidEngine*)app->userData;
-//
-//	switch (cmd)
-//	{
-//	case APP_CMD_SAVE_STATE:
-//		break;
-//	case APP_CMD_INIT_WINDOW:
-//		if (androidengine->app->window != NULL)
-//		{
-//			displayInit(androidengine);
-//			draw_frame(androidengine);
-//		}
-//		break;
-//	case APP_CMD_TERM_WINDOW:
-//		displayDestroy(androidengine);
-//		break;
-//	case APP_CMD_LOST_FOCUS:
-//		draw_frame(androidengine);
-//		break;
-//	}
-//}
-uth::Shader shader;
+uth::Shader* shader;
 uth::GameObject gameObject;
 
 void init()
 {
-	shader.LoadShader("vertexshader.vert", "fragmentshader.frag");
-	shader.Use();
+	shader = new uth::Shader();
+	if(shader->LoadShader("vertexshader.vert", "fragmentshader.frag"))
+	{
+		shader->Use();
+		WriteLog("Shaders loaded");
+	}
+	else
+		WriteLog("Shaders not loaded");
 
 	gameObject.AddComponent(new uth::Sprite("test.tga"));
 
 	gameObject.transform.SetSize(0.5f, 0.5f);
 	gameObject.transform.SetPosition(-0.5f, -0.5f);
+	WriteLog("GameObject Position: %f, %f", gameObject.transform.GetPosition().x,gameObject.transform.GetPosition().y);
+
 	gameObject.transform.parent->transform.Rotate(45);
+}
+
+void handle_cmd(android_app* app, int cmd)
+{
+	uthAndroidEngine.message = cmd;
+	((uth::Window*)app->userData)->processMessages();
 }
 
 void update()
 {
-	gameObject.Draw(&shader);
+	gameObject.Draw(shader);
+	
 }
 
 void android_main(android_app* state)
 {
 	app_dummy();
-	WriteLog("APPDUMMY");
+
+	uthAndroidEngine.initialized = false;
+
+	uth::Window wndw;
 	uth::FileReader::m_manager = state->activity->assetManager;
-	WriteLog("FILEMANAGER");
 
-	uth::AndroidEngine& androidengine = uth::AndroidEngine::getInstance();
-	WriteLog("ANDROIDENGINE");
-    uthGraphics.getInstance();
-	WriteLog("GRAPHICS");
 
-    androidengine.settings.position = umath::vector2(0, 0);
-	androidengine.settings.contextVersionMajor = 2;
-	androidengine.settings.contextVersionMinor = 1;
-    androidengine.settings.fullScreen = true;
+	//memset(&androidengine, 0, sizeof(androidengine));
+	//state->userData = &androidengine;
+	state->onAppCmd = handle_cmd;
+
+	uthAndroidEngine.app = state;
+
+    uthAndroidEngine.settings.position = umath::vector2(0, 0);
+	uthAndroidEngine.settings.contextVersionMajor = 2;
+	uthAndroidEngine.settings.contextVersionMinor = 0;
+    uthAndroidEngine.settings.fullScreen = true;
 	
-    uth::Window wndw(androidengine.settings);
-	WriteLog("WINDOW");
-	uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
-
-	androidengine.app = state;
-
-	init();
-	WriteLog("INIT");
+	state->userData = &wndw;
+	//WriteLog("WINDOW");
+	//uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 
 	while(1)
 	{
@@ -126,16 +110,10 @@ void android_main(android_app* state)
 			}
 		}
 
-		if(androidengine.display == NULL)
+		if(uthAndroidEngine.initialized && uthAndroidEngine.display != NULL)
 		{
-			;//Do nothing
-		}
-		else
-		{
-			wndw.clear(0.0f, 0.0f, 0.0f);
-			update();
-	WriteLog("UPDATE");
-			//engine->Update();
+			theHood.Update();
+			theHood.Draw();
 		}
 	}
 }

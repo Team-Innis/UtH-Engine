@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef VERTEXBUFFER_H
 #define VERTEXBUFFER_H
 
@@ -14,20 +16,25 @@ namespace uth
 		~VertexBuffer();
 
 		void addVertex(const umath::vector3 vertex, const umath::vector2 uv);
-		//void addVertices(const std::vector<float>& vertices, const std::vector<float>& uvs);
+		// Add vector of vertices and uvs to the end of current vectors, doesn't modify data
+		void addVertices(const std::vector<umath::vector3>& vertices,
+						 const std::vector<umath::vector2>& uvs);
+
 		void addIndex(const unsigned short index);
-		//void addIndices(const std::vector<unsigned int>& indices);
+		// Add vector of indexes at the end of current index vector, doesn't modify data
+		void addIndices(const std::vector<unsigned short>& indices);
 
 		void draw(Shader* shader) const;
 
 	private:
 		void init();
+		void setData() const;
 
-		unsigned int buffer;
+		unsigned int m_arrayBuffer;
+		unsigned int m_elementBuffer;
 
-		int vertexCount;
-		std::vector<float> data;
-		std::vector<unsigned short> indices;
+		std::vector<float> m_vertexData;
+		std::vector<unsigned short> m_indices;
 	};
 }
 #endif

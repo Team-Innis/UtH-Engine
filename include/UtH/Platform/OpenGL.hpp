@@ -2,7 +2,7 @@
 #ifndef OPENGL_H_UTH
 #define OPENGL_H_UTH
 
-#include <UtH\Platform\Configuration.hpp>
+#include <UtH/Platform/Configuration.hpp>
 
 
 
@@ -13,8 +13,8 @@
 
 #elif defined(UTH_SYSTEM_LINUX)
 
-    #include <GL\GL.h>
-    #include <GL\GLU.h>
+    #include <GL/glew.h>
+    #include <GLFW/glfw3.h>
 
 #elif defined(UTH_SYSTEM_MACOS)
 
