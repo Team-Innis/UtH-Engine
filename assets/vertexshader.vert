@@ -1,3 +1,4 @@
+#version 100
 attribute vec3 attrPosition;
 attribute vec2 attrUV;
 

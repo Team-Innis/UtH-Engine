@@ -5,6 +5,7 @@
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Engine/UtHEngine.h>
+#include <UtH/Platform/Graphics.hpp>
 
 
 namespace uth
@@ -91,6 +92,7 @@ namespace uth
 		//glHint(GL_GENERATE_MIPMAP_HINT, GL_FASTEST);
 		//glEnable(GL_CULL_FACE);
 		//glEnable(GL_DEPTH_TEST);
+		uthGraphics.setBlendFunction(true, SRC_ALPHA, ONE_MINUS_SRC_ALPHA);
 
 		WriteLog("+++++++++++++++++++++++++++++++++++++++");
 		WriteLog((const char*)glGetString(GL_VERSION));
