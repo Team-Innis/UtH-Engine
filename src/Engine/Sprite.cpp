@@ -90,10 +90,10 @@ void Sprite::generetateBuffer()
 
 	m_vertexBuffer = new VertexBuffer();
 
-	m_vertexBuffer->addVertex(umath::vector3(-1.0, -1.0, 0), umath::vector2(0.0f, 0.0f)); // vasen alakulma
-	m_vertexBuffer->addVertex(umath::vector3(1.0, -1.0, 0), umath::vector2(1.0f, 0.0f)); // oikea alakulma
-	m_vertexBuffer->addVertex(umath::vector3(-1.0, 1.0, 0), umath::vector2(0.0f, 1.0f)); // vasen yläkulma
-	m_vertexBuffer->addVertex(umath::vector3(1.0, 1.0, 0), umath::vector2(1.0f, 1.0f)); // oikea yläkulma
+	m_vertexBuffer->addVertex(umath::vector3(-m_size.x/2, -m_size.y/2, 0), umath::vector2(1.0f, 1.0f)); // vasen alakulma
+	m_vertexBuffer->addVertex(umath::vector3(m_size.x/2, -m_size.y/2, 0), umath::vector2(0.0f, 1.0f)); // oikea alakulma
+	m_vertexBuffer->addVertex(umath::vector3(-m_size.x/2, m_size.y/2, 0), umath::vector2(1.0f, 0.0f)); // vasen yläkulma
+	m_vertexBuffer->addVertex(umath::vector3(m_size.x/2, m_size.y/2, 0), umath::vector2(0.0f, 0.0f)); // oikea yläkulma
 	m_vertexBuffer->addIndex(0);
 	m_vertexBuffer->addIndex(1);
 	m_vertexBuffer->addIndex(2);

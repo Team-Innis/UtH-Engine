@@ -14,7 +14,7 @@ int UtHEngine::MainLoop()
     settings.size = umath::vector2(1600, 900);
     settings.position = umath::vector2(8, 30);
 	settings.contextVersionMajor = 3;
-	settings.contextVersionMinor = 1;
+	settings.contextVersionMinor = 3;
     settings.fullScreen = false;
 
 	CreateGameWindow(settings);
