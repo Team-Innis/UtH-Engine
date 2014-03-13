@@ -40,7 +40,8 @@ $(SRC_PATH)Platform/Graphics.cpp \
 $(SRC_PATH)Platform/HiResTimer.cpp \
 $(SRC_PATH)Platform/OGLCheck.cpp \
 $(SRC_PATH)Platform/Window.cpp \
-$(SRC_PATH)Platform/Android/AndroidWindowImpl.cpp 
+$(SRC_PATH)Platform/Android/AndroidWindowImpl.cpp \
+$(SRC_PATH)Platform/Input.cpp
 
 #Core
 LOCAL_SRC_FILES += \

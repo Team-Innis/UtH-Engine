@@ -12,5 +12,5 @@ void Input::SetWindow(void *windowHandle)
 }
 void Input::Update()
 {
-	Mouse.Update(m_windowHandle);
+	//Mouse.Update(m_windowHandle);
 }

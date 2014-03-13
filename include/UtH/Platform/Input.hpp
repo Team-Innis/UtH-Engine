@@ -35,10 +35,10 @@ namespace uth
 		~Input();
 		friend class Singleton<Input>;
 	public:
-		MouseInput Mouse;
-		TouchInput Touch;
-		KeyboardInput Keyboard;
-		CommonInput Common;
+		//MouseInput Mouse;
+		//TouchInput Touch;
+		//KeyboardInput Keyboard;
+		//CommonInput Common;
 
 		void Update();
 		void SetWindow(void *windowHandle);
