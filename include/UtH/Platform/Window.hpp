@@ -12,7 +12,6 @@ namespace uth
     class Window : private Uncopyable
     {
     public:
-
         Window();
 
         Window(const WindowSettings& settings);

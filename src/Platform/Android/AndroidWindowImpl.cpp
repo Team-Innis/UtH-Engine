@@ -165,7 +165,7 @@ namespace uth
 				uthAndroidEngine.settings.size.x,
 				uthAndroidEngine.settings.size.y);
 			uthAndroidEngine.initialized = true;
-			theHood.SetWindow(((uth::Window*)app->userData));//////////////////////////////////////////////Platform and Engine mixes
+			uthAndroidEngine.winEveHand(app->userData);
 			//displayInit(androidengine);
 			//draw_frame(androidengine);
 			break;
