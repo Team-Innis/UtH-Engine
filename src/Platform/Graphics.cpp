@@ -102,12 +102,23 @@ namespace uth
 		CheckGLError("glGetShaderiv");
 		if(infoLenght > 1)
 		{
+			switch (type)
+			{
+			case VERTEX_SHADER: 
+				WriteLog("\nVertex ");
+				break;
+			case FRAGMENT_SHADER: 
+				WriteLog("\nFragment ");
+				break;
+			}
+			WriteLog("Shader Log:\n");
 			char* buf = new char[infoLenght];
 			glGetShaderInfoLog(shader, infoLenght, NULL, buf);
 			CheckGLError("glGetShaderInfoLog");
 			WriteLog("%s", buf);
 			delete[] buf;
 		}
+
 
         int success;
 		glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
@@ -132,13 +143,14 @@ namespace uth
     {
         glLinkProgram(shaderProgram);
 		CheckGLError("glLinkProgram");
-		WriteLog("ShaderProgram: %d", shaderProgram);
+		WriteLog("\nShaderProgram: %d", shaderProgram);
 
 		int infoLenght;
 		glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLenght);
 		CheckGLError("glGetProgramiv INFO");
 		if(infoLenght > 0)
 		{
+			WriteLog("\nShader Program Log:\n");
 			char* buf = new char[infoLenght];
 			oglCheck(glGetProgramInfoLog(shaderProgram, infoLenght, NULL, buf));
 			WriteLog("%s", buf);

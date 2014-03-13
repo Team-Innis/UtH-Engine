@@ -45,8 +45,8 @@ namespace uth
 			m_sceneID = -1;
 			return;
 		}
-
-		m_sceneID = SceneID;
+		m_pendingSceneSwitch = true;
+		m_nextScene = SceneID;
 	}
 
 	bool SceneManager::Update(double dt)
