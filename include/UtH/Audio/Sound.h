@@ -3,12 +3,12 @@
 #define SOUND_H
 
 #include <string>
-#include <AL\al.h>
-#include <AL\alc.h>
+#include <AL/al.h>
+#include <AL/alc.h>
 
 #include <vector>
-#include <UtH\Platform\FileReader.h>
-#include <UtH\Math\Vector3.hpp>
+#include <UtH/Platform/FileReader.h>
+#include <UtH/Math/Vector3.hpp>
 
 namespace uth
 {

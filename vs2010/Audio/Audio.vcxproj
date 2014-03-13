@@ -76,7 +76,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\glfw\include\;$(SolutionDir)..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\physfs\include;$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\glfw\include\;$(SolutionDir)..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -92,7 +92,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\glfw\include\;$(SolutionDir)..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\physfs\include;$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\glfw\include\;$(SolutionDir)..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

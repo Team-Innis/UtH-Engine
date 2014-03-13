@@ -4,8 +4,8 @@
 #ifndef AUDIO_H
 #define AUDIO_H
 
-#include <UtH\Audio\Sound.h>
-#include <UtH\Audio\SoundManager.h>
+#include <UtH/Audio/Sound.h>
+#include <UtH/Audio/SoundManager.h>
 
 namespace uth
 {

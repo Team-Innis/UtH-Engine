@@ -1,8 +1,8 @@
-#include <UtH\Platform\Graphics.hpp>
-#include <UtH\Platform\Configuration.hpp>
-#include <UtH\Platform\OpenGL.hpp>
-#include <UtH\Platform\OGLCheck.hpp>
-#include <UtH\Platform\Debug.hpp>
+#include <UtH/Platform/Graphics.hpp>
+#include <UtH/Platform/Configuration.hpp>
+#include <UtH/Platform/OpenGL.hpp>
+#include <UtH/Platform/OGLCheck.hpp>
+#include <UtH/Platform/Debug.hpp>
 #include <iostream>
 #include <algorithm>
 
@@ -290,6 +290,11 @@ namespace uth
     void Graphics::generateTextures(const unsigned int amount, unsigned int* data)
     {
         oglCheck(glGenTextures(amount, data));
+    }
+
+    void Graphics::deleteTextures(const unsigned int amount, unsigned int* data)
+    {
+        oglCheck(glDeleteTextures(amount, data));
     }
 
     void Graphics::setActiveTexUnit(TexUnit unit)

@@ -1,4 +1,4 @@
-#include "Win32WindowImpl.hpp"
+#include <UtH/Platform/Win32/Win32WindowImpl.hpp>
 #include <UtH/Platform/OpenGL.hpp>
 #include <UtH/Platform/OGLCheck.hpp>
 #include <iostream>

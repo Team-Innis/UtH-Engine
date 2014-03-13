@@ -3,7 +3,7 @@
 #define SPRITE_H_UTH
 
 #include <UtH/Renderer/Texture.hpp>
-#include <UtH/Math/Vector2.hpp>
+#include <UtH/Math/Vector.hpp>
 #include <UtH/Engine/Component.hpp>
 #include <UtH/Core/VertexBuffer.hpp>
 
@@ -26,17 +26,28 @@ namespace uth
 		void Update(float dt);
 
 		void SetTexture(Texture* texture);
+		Texture* GetTexture() const;
+
 		// Size of texture in pixels
 		const umath::vector2 GetSize() const;
 
+		// Just a simple multiplier for the texture color
+		void SetColor(const umath::vector4 color);
+		void SetColor(float r, float g, float b, float a);
+		const umath::vector4 GetColor() const;
+
 	private:
+		void defaults();
+
 		void generetateBuffer();
 
-		VertexBuffer* vertexBuffer;
+		VertexBuffer* m_vertexBuffer;
 
-		Texture* texture;
+		Texture* m_texture;
 
 		umath::vector2 m_size;
+
+		umath::vector4 m_color;
 	};
 }
 

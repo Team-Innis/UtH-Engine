@@ -2,7 +2,7 @@
 #ifndef DEFAULTSCENE_H_UTH
 #define DEFAULTSCENE_H_UTH
 
-#include "UtH/Engine/Scene.hpp"
+#include <UtH/Engine/Scene.hpp>
 
 namespace uth
 {
