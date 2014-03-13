@@ -30,10 +30,11 @@ namespace uth
 		void init();
 		void setData() const;
 
+        std::vector<Vertex> m_vertexData;
+
 		unsigned int m_arrayBuffer;
 		unsigned int m_elementBuffer;
 
-		std::vector<float> m_vertexData;
 		std::vector<unsigned short> m_indices;
 	};
 }

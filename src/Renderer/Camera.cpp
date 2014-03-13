@@ -145,22 +145,22 @@ namespace uth
     {
         if (m_transformNeedsUpdate)
         {
-            float rotation = transform.angle;
-            umath::vector2 position = transform.position;
+            const float rotation = transform.angle;
+            const umath::vector2 position = transform.position;
 
-            float angle  = rotation * 3.141592654f / 180.f;
-            float cosine = static_cast<float>(std::cos(angle));
-            float sine   = static_cast<float>(std::sin(angle));
-            float tx     = -position.x * cosine - position.y * sine + position.x;
-            float ty     =  position.x * sine - position.y * cosine + position.y;
+            const float angle  = rotation * 3.141592654f / 180.f;
+            const float cosine = static_cast<float>(std::cos(angle));
+            const float sine   = static_cast<float>(std::sin(angle));
+            const float tx     = -position.x * cosine - position.y * sine + position.x;
+            const float ty     =  position.x * sine - position.y * cosine + position.y;
 
-			float sizeX = m_size.x / m_zoom;
-			float sizeY = m_size.y / m_zoom;
+			const float sizeX = m_size.x / m_zoom;
+			const float sizeY = m_size.y / m_zoom;
 
-            float a =  2.f / sizeX;
-            float b = -2.f / sizeY;
-            float c = -a * position.x;
-            float d = -b * position.y;
+            const float a =  2.f / sizeX;
+            const float b = -2.f / sizeY;
+            const float c = -a * position.x;
+            const float d = -b * position.y;
 
             m_viewMatrix = umath::matrix4( a * cosine, a * sine,   0.f, a * tx + c,
                                           -b * sine,   b * cosine, 0.f, b * ty + d,
