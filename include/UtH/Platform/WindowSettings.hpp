@@ -2,7 +2,7 @@
 #ifndef WINDOWSETTINGS_H_UTH
 #define WINDOWSETTINGS_H_UTH
 
-#include <UtH\Math\Vector2.hpp>
+#include <UtH/Math/Vector2.hpp>
 #include <string>
 
 

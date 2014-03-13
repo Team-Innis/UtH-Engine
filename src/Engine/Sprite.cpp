@@ -6,10 +6,9 @@ using namespace uth;
 Sprite::Sprite(Texture* texture, const std::string name)
 	: Component(name)
 {
-	SetDrawable(true);
-	generetateBuffer();
-
 	SetTexture(texture);
+
+	defaults();
 }
 
 // Public
@@ -17,54 +16,88 @@ Sprite::Sprite(Texture* texture, const std::string name)
 Sprite::Sprite(const std::string filePath, const std::string name)
 	: Component(name)
 {
-	SetDrawable(true);
-	generetateBuffer();
-
 	Texture* tex = new Texture();
-	tex->loadFromFile(filePath.c_str());
+	tex->LoadFromFile(filePath.c_str());
 	SetTexture(tex);
+
+	defaults();
 }
 
 Sprite::~Sprite()
 {
-	delete vertexBuffer;
+	delete m_vertexBuffer;
 }
 
 void Sprite::Draw(Shader *shader)
 {
-	texture->bind();
+	m_texture->Bind();
 	shader->SetUniform("unifSampler", 0);
-	vertexBuffer->draw(shader);
+	shader->SetUniform("unifColor", m_color);
+	m_vertexBuffer->draw(shader);
 }
 
 void Sprite::Update(float dt)
-{ }
+{
+	// No update needed for sprites
+}
+
+void Sprite::SetTexture(Texture* texture)
+{
+	m_texture = texture;
+	m_size = texture->GetSize();
+}
+
+Texture* Sprite::GetTexture() const
+{
+	return m_texture;
+}
 
 const umath::vector2 Sprite::GetSize() const
 {
 	return m_size;
 }
 
-void Sprite::SetTexture(Texture* texture)
+void Sprite::SetColor(const umath::vector4 color)
 {
-	this->texture = texture;
-	m_size = texture->getSize();
+	m_color = color;
 }
 
+void Sprite::SetColor(float r, float g, float b, float a)
+{
+	SetColor(umath::vector4(r,g,b,a));
+}
+
+
+const umath::vector4 Sprite::GetColor() const
+{
+	return m_color;
+}
+
+
 // Private
+void Sprite::defaults()
+{
+	SetDrawable(true);
+	generetateBuffer();
+
+	m_color = umath::vector4(1.f, 1.f, 1.f, 1.f);
+}
+
 
 void Sprite::generetateBuffer()
 {
-	vertexBuffer = new VertexBuffer();
+	// TODO: use the size of the texture as the vertex positions
 
-	vertexBuffer->addVertex(umath::vector3(-1.0, -1.0, 0), umath::vector2(0.0f, 0.0f)); // vasen alakulma
-	vertexBuffer->addVertex(umath::vector3(1.0, -1.0, 0), umath::vector2(1.0f, 0.0f)); // oikea alakulma
-	vertexBuffer->addVertex(umath::vector3(-1.0, 1.0, 0), umath::vector2(0.0f, 1.0f)); // vasen yläkulma
-	vertexBuffer->addVertex(umath::vector3(1.0, 1.0, 0), umath::vector2(1.0f, 1.0f)); // oikea yläkulma
-	vertexBuffer->addIndex(0);
-	vertexBuffer->addIndex(1);
-	vertexBuffer->addIndex(2);
-	vertexBuffer->addIndex(1);
-	vertexBuffer->addIndex(3);
-	vertexBuffer->addIndex(2);
+	m_vertexBuffer = new VertexBuffer();
+
+	m_vertexBuffer->addVertex(umath::vector3(-m_size.x/2, -m_size.y/2, 0), umath::vector2(1.0f, 1.0f)); // vasen alakulma
+	m_vertexBuffer->addVertex(umath::vector3(m_size.x/2, -m_size.y/2, 0), umath::vector2(0.0f, 1.0f)); // oikea alakulma
+	m_vertexBuffer->addVertex(umath::vector3(-m_size.x/2, m_size.y/2, 0), umath::vector2(1.0f, 0.0f)); // vasen yläkulma
+	m_vertexBuffer->addVertex(umath::vector3(m_size.x/2, m_size.y/2, 0), umath::vector2(0.0f, 0.0f)); // oikea yläkulma
+	m_vertexBuffer->addIndex(0);
+	m_vertexBuffer->addIndex(1);
+	m_vertexBuffer->addIndex(2);
+	m_vertexBuffer->addIndex(1);
+	m_vertexBuffer->addIndex(3);
+	m_vertexBuffer->addIndex(2);
 }

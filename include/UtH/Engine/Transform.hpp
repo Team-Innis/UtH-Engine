@@ -2,6 +2,8 @@
 #define TRANSFORM_H
 
 #include <UtH/Engine/Component.hpp>
+#include <UtH/Math/Vector.hpp>
+#include <UtH/Math/Matrix4.hpp>
 
 namespace uth
 {
@@ -16,27 +18,33 @@ namespace uth
 
 		void SetPosition(umath::vector2 position);
 		void SetPosition(float posX, float posY);
-		const umath::vector2 GetPosition() const;
+		const umath::vector2& GetPosition() const;
 
 		void SetSize(umath::vector2 size);
 		void SetSize(float width, float height);
-		const umath::vector2 GetSize() const;
+		const umath::vector2& GetSize() const;
 
 		void SetRotation(float angle);
-		float GetRotation();
+		const float GetRotation() const;
 		void Rotate(float angle);
 
-		umath::matrix4& GetTransform();
+		void SetDepth(float depth);
+		const float GetDepth() const;
+
+		const umath::matrix4& GetTransform();
 
 		umath::vector2 position;
 		umath::vector2 size;
 		float angle;
+		float depth;
 
 	private:
 		void updateTransform();
 
-		umath::matrix4 m_modelTransform;
+		bool transformNeedsUpdate;
 
+		umath::matrix4 m_modelTransform;
+        bool m_transformNeedsUpdate;
 	};
 }
 

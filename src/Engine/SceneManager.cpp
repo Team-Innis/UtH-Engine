@@ -2,36 +2,34 @@
 #include <cassert>
 #include "UtH/Engine/SceneManager.hpp"
 
+#include <UtH/Engine/DefaultScene.hpp>
+
 namespace uth
 {
-	
-	Scene* defaultNewSceneFunc(SceneManager::SceneName SceneID, Scene* CurScene)
+	void defaultNewSceneFunc(int SceneID, Scene* &CurScene)
 	{
 		switch (SceneID)
 		{
-		case SceneManager::MENU:
-			CurScene = new /*Menu*/Scene();
+		case 0:
+			CurScene = new /*Menu*/DefaultScene();
 			break;
-		case SceneManager::GAME:
-			CurScene = new /*Game*/Scene();
+		case 1:
+			CurScene = new /*Game*/DefaultScene();
 			break;
-		case SceneManager::CREDITS:
-			CurScene = new /*Credits*/Scene();
+		case 2:
+			CurScene = new /*Credits*/DefaultScene();
 			break;
 		default:
-			CurScene = new /*Menu*/Scene();
+			CurScene = new /*Menu*/DefaultScene();
 			break;
 		}
-		return CurScene;
 	}
-
 
 	SceneManager::SceneManager()
 		: m_pendingSceneSwitch(true),
-		  m_nextScene(DEFAULT)
+		  m_nextScene(UTHDefaultScene)
 	{
-		setNewSceneFunc(defaultNewSceneFunc);
-		m_switchScene();
+		registerNewSceneFunc(defaultNewSceneFunc, 3);
 	}
 	SceneManager::~SceneManager()
 	{
@@ -39,20 +37,16 @@ namespace uth
 		delete curScene;
 	}
 	
-	void SceneManager::SwapToScene(SceneName SceneID)
+	void SceneManager::GoToScene(int SceneID)
 	{
-		if (!(DEFAULT <= SceneID && SceneID < COUNT))
+		if (!(UTHDefaultScene <= SceneID && SceneID < sceneCount))
 		{
 			WriteLog("Error when scene %d switching to %d, number out of range, switching to default scene\n",m_sceneID, m_nextScene);
-			m_sceneID = DEFAULT;
+			m_sceneID = -1;
 			return;
 		}
 
 		m_sceneID = SceneID;
-	}
-	void SceneManager::SwapToScene(int SceneNumber)
-	{
-		SwapToScene((SceneName)SceneNumber);
 	}
 
 	bool SceneManager::Update(double dt)
@@ -77,9 +71,10 @@ namespace uth
 		return true;
 	}
 	
-	void SceneManager::setNewSceneFunc(Scene* (*newSceneFunc)(SceneName SceneID, Scene* CurScene))
+	void SceneManager::registerNewSceneFunc(void (*newSceneFunc)(int SceneID, Scene* &CurScene), int SceneCount)
 	{
 		makeActiveScene = newSceneFunc;
+		sceneCount = SceneCount;
 	}
 
 	// private
@@ -96,7 +91,7 @@ namespace uth
 		else
 		{
 			WriteLog("Scene %d Init() func returns false\n",m_sceneID);
-			m_nextScene = DEFAULT;
+			m_nextScene = -1;
 			m_switchScene();
 		}
 	}
@@ -105,7 +100,7 @@ namespace uth
 	{
 		if (curScene != nullptr)
 			endScene();
-		curScene = makeActiveScene(m_nextScene,curScene);
+		makeActiveScene(m_nextScene,curScene);
 		startScene();
 		m_pendingSceneSwitch = false;
 	}

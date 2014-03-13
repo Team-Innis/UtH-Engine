@@ -2,8 +2,8 @@
 #ifndef SOUNDMANAGER_H
 #define SOUNDMANAGER_H
 
-#include <AL\al.h>
-#include <AL\alc.h>
+#include <AL/al.h>
+#include <AL/alc.h>
 
 namespace uth
 {

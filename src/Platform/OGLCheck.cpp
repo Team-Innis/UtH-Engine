@@ -1,6 +1,6 @@
 // Headers
-#include <UtH\Platform\OpenGL.hpp>
-#include <UtH\Platform\Debug.hpp>
+#include <UtH/Platform/OpenGL.hpp>
+#include <UtH/Platform/Debug.hpp>
 #include <string>
 //#include <cstdlib> // itoa
 #include <iostream>

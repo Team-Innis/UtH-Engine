@@ -39,7 +39,7 @@ Component* GameObject::GetComponent(const std::string name)
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void GameObject::RemoveComponent(Component* component)
@@ -48,6 +48,7 @@ void GameObject::RemoveComponent(Component* component)
 	{
 		if(updateComponents.at(i) == component)
 		{
+			delete updateComponents.at(i);
 			updateComponents.erase(updateComponents.begin() + i);
 		}
 	}
@@ -56,6 +57,7 @@ void GameObject::RemoveComponent(Component* component)
 	{
 		if(drawComponents.at(i) == component)
 		{
+			delete drawComponents.at(i);
 			drawComponents.erase(drawComponents.begin() + i);
 		}
 	}

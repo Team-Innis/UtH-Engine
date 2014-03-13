@@ -18,5 +18,7 @@ namespace uth
 
         static void swapBuffers(void* handle);
 
+		static bool processMessages(void* handle);
+
     };
 }

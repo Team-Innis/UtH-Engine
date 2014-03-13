@@ -1,12 +1,14 @@
 #include <UtH/Core/Shader.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/Debug.hpp>
 
 using namespace uth;
 
 Shader::Shader()
 {
 	program = uthGraphics.createShaderProgram();
+	WriteLog("ShaderProgram created: %d", program);
 }
 
 Shader::~Shader()
@@ -22,13 +24,19 @@ bool Shader::LoadShader(const std::string vertexShaderPath, const std::string fr
 	fr.OpenFile(vertexShaderPath.c_str());
 	const char* vertex = fr.ReadText();
 	if(!uthGraphics.createShader(VERTEX_SHADER, program, vertex))
+	{
+		WriteLog("Vertex shader failed");
 		return false;
+	}
 
 	// Fragment Shader
 	fr.OpenFile(fragmentShaderPath.c_str());
 	const char* fragment = fr.ReadText();
 	if(!uthGraphics.createShader(FRAGMENT_SHADER, program, fragment))
+	{
+		WriteLog("Fragment shader failed");
 		return false;
+	}
 
 	return uthGraphics.linkShaderProgram(program);
 }

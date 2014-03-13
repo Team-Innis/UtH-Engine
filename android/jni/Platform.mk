@@ -51,6 +51,7 @@ $(SRC_PATH)Core/VertexBuffer.cpp
 LOCAL_SRC_FILES += \
 $(SRC_PATH)Engine/Component.cpp \
 $(SRC_PATH)Engine/GameObject.cpp \
+$(SRC_PATH)Engine/DefaultScene.cpp \
 $(SRC_PATH)Engine/Scene.cpp \
 $(SRC_PATH)Engine/SceneManager.cpp \
 $(SRC_PATH)Engine/Sprite.cpp \

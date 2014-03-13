@@ -1,4 +1,4 @@
-#include "Win32WindowImpl.hpp"
+#include <UtH/Platform/Win32/Win32WindowImpl.hpp>
 #include <UtH/Platform/OpenGL.hpp>
 #include <UtH/Platform/OGLCheck.hpp>
 #include <iostream>
@@ -80,6 +80,13 @@ namespace uth
 		std::cout << "glew init might produces GL_INVALID_ENUM error. Just ignore it" << std::endl;
 		glewExperimental = GL_TRUE;
         oglCheck(glewInit());
+
+		if(majorVer >= 3)
+        {
+            GLuint vertexArray;
+            glGenVertexArrays(1, &vertexArray);
+            glBindVertexArray(vertexArray);
+        }
 
 
         return static_cast<void*>(wndwHandle);

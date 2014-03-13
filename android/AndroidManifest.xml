@@ -1,25 +1,28 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.android.uth">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    		package="com.android.uth"
+    		android:versionCode="1"
+    		android:versionName="1.0"
+    		>
 
-    <application android:hasCode="false">
+  <uses-feature android:glEsVersion="0x00020000"/>
+  <uses-sdk android:minSdkVersion="10" android:targetSdkVersion="19"/>
 
-        <activity android:name="android.app.NativeActivity"
-                android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            	android:launchMode="singleTask"
-				android:screenOrientation="landscape"
-            	android:configChanges="orientation|keyboardHidden">
+  <application android:hasCode="true">
 
-			 <meta-data android:name="android.app.lib_name" android:value="main" />
+    <activity android:name="com.android.uth.GameActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+          android:launchMode="singleTask"
+    android:screenOrientation="landscape"
+          android:configChanges="orientation|keyboardHidden">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+      <meta-data android:name="android.app.lib_name" android:value="uthengine" />
 
-        </activity>
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
 
-    </application>
+    </activity>
 
-    <uses-feature android:glEsVersion="0x00020000"/>
-    <uses-sdk android:minSdkVersion="10"/>
-
+  </application>
 </manifest>
