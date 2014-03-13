@@ -18,6 +18,8 @@
     <None Include="..\..\android\jni\Android.mk" />
     <None Include="..\..\android\jni\Application.mk" />
     <None Include="..\..\android\jni\Platform.mk" />
+    <None Include="..\..\android\src\com\android\uth\GameActivity.java" />
+    <None Include="..\..\android\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\android\jni\main.cpp">

@@ -19,6 +19,7 @@ namespace uth
 
 		void AddComponent(Component* component);
 		Component* GetComponent(const std::string name);
+		// Will actually delete the component
 		void RemoveComponent(Component* component);
 		void RemoveComponent(std::string name);
 
