@@ -41,7 +41,7 @@ namespace uth
 
 		void generetateBuffer();
 
-		VertexBuffer* m_vertexBuffer;
+		VertexBuffer m_vertexBuffer;
 
 		Texture* m_texture;
 

@@ -3,6 +3,7 @@
 #define DEFAULTSCENE_H_UTH
 
 #include <UtH/Engine/Scene.hpp>
+#include <UtH/Renderer/Camera.hpp>
 
 namespace uth
 {
@@ -21,6 +22,7 @@ namespace uth
 		virtual bool Draw();
 
 		Shader shader;
+		Camera camera;
 		GameObject gameObject;
 
 		int number;

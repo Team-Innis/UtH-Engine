@@ -65,6 +65,11 @@ void update()
 	
 }
 
+void windowEventHandler(void* handle)
+{
+	theHood.SetWindow((uth::Window*)handle);
+}
+
 void android_main(android_app* state)
 {
 	app_dummy();
@@ -89,6 +94,8 @@ void android_main(android_app* state)
 	state->userData = &wndw;
 	//WriteLog("WINDOW");
 	//uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
+
+	uthAndroidEngine.winEveHand = windowEventHandler;
 
 	while(1)
 	{

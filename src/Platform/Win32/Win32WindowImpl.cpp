@@ -81,6 +81,13 @@ namespace uth
 		glewExperimental = GL_TRUE;
         oglCheck(glewInit());
 
+		if(majorVer >= 3)
+        {
+            GLuint vertexArray;
+            glGenVertexArrays(1, &vertexArray);
+            glBindVertexArray(vertexArray);
+        }
+
 
         return static_cast<void*>(wndwHandle);
     }
