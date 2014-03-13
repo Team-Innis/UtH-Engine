@@ -2,8 +2,8 @@
 #ifndef TEXTURE_H_UTH
 #define TEXTURE_H_UTH
 
-#include <UtH\Platform\Uncopyable.hpp>
-#include <UtH\Math\Vector2.hpp>
+#include <UtH/Platform/Uncopyable.hpp>
+#include <UtH/Math/Vector2.hpp>
 
 
 

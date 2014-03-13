@@ -44,8 +44,7 @@ namespace uth
 		bool transformNeedsUpdate;
 
 		umath::matrix4 m_modelTransform;
-        	bool m_transformNeedsUpdate;
-
+        bool m_transformNeedsUpdate;
 	};
 }
 

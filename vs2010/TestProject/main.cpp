@@ -2,10 +2,6 @@
 #include <UtH/Engine/SceneManager.hpp>
 
 #include <UtH/Engine/DefaultScene.hpp>
-//#include "MenuScene.h"
-//#include "GameScene.h"
-//#include "CreditsScene.h"
-
 // Enumeration of scenes, giving name for each scene number
 enum SceneName
 {
