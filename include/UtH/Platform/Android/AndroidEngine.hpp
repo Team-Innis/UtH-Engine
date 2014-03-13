@@ -4,6 +4,7 @@
 
 #include <UtH/Platform/Singleton.hpp>
 #include <UtH/Platform/WindowSettings.hpp>
+#include <UtH/Platform/Window.hpp>
 
 #include <jni.h>
 #include <errno.h>
@@ -21,6 +22,8 @@ private:
 	AndroidEngine(){}
 	~AndroidEngine(){}
 public:
+	bool initialized;
+
 	android_app* app;
 	EGLDisplay display;
 	EGLSurface surface;
@@ -30,7 +33,11 @@ public:
 	int message;
 
 	uth::WindowSettings settings;
-	bool initialized;
+
+	Window* window;
+	
+	typedef void (*WindowEventHandler)(void* handle);
+	WindowEventHandler winEveHand;
 };
 }
 
