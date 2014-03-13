@@ -15,9 +15,12 @@ void main()
 	texCoord = attrUV;
 	color = unifColor;
 
-	//mat4 model = unifTranslation * unifRotation * unifScale;
+	//gl_Position = vec4(attrPosition, 1.0);
 
-	//vec4 pos = unifProjection * model * vec4(attrPosition, 1.0);
+	//gl_Position *= unifModel;
+	//gl_Position *= unifProjection;
+
+	vec4 pos =  vec4(attrPosition, 1.0) * unifModel * unifProjection;
 	
-	gl_Position = unifModel * vec4(attrPosition, 1.0);
+	gl_Position = pos;
 }
