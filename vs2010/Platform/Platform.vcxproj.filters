@@ -65,7 +65,7 @@
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Platform\FileReader.h">
       <Filter>Header Files</Filter>
-    </ClInclude>    
+    </ClInclude>
     <ClInclude Include="..\..\include\UtH\Platform\Common\FileReader.h">
       <Filter>Header Files\Common</Filter>
     </ClInclude>
@@ -108,7 +108,7 @@
       <Filter>Source Files\Win32</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Common\FileReader.cpp">
-      <Filter>Source Files\Win32</Filter>    
+      <Filter>Source Files\Win32</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Common\FileReader.cpp">
       <Filter>Source Files\Common</Filter>
@@ -126,6 +126,7 @@
       <Filter>Source Files\Win32</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Win32\TouchInput.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -12,10 +12,10 @@
 
 
 #if defined(UTH_SYSTEM_ANDROID)
-	//#include <UtH/Platform/Android/InputCommon.hpp>
-	//#include <UtH/Platform/Android/InputKeyboard.hpp>
-	//#include <UtH/Platform/Android/InputMouse.hpp>
-	//#include <UtH/Platform/Android/InputTouch.hpp>
+	#include <UtH/Platform/Android/InputCommon.hpp>
+	#include <UtH/Platform/Android/InputKeyboard.hpp>
+	#include <UtH/Platform/Android/InputMouse.hpp>
+	#include <UtH/Platform/Android/InputTouch.hpp>
 #elif defined(UTH_SYSTEM_WINDOWS)
 	#include <UtH/Platform/Win32/CommonInput.hpp>
 	#include <UtH/Platform/Win32/KeyboardInput.hpp>
@@ -35,10 +35,10 @@ namespace uth
 		~Input();
 		friend class Singleton<Input>;
 	public:
-		//MouseInput Mouse;
-		//TouchInput Touch;
-		//KeyboardInput Keyboard;
-		//CommonInput Common;
+		MouseInput Mouse;
+		TouchInput Touch;
+		KeyboardInput Keyboard;
+		CommonInput Common;
 
 		void Update();
 		void SetWindow(void *windowHandle);
