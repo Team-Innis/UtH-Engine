@@ -20,31 +20,14 @@ VertexBuffer::~VertexBuffer()
 
 // Public
 
-void VertexBuffer::addVertex(const umath::vector3 vertex, const umath::vector2 uv)
+void VertexBuffer::addVertex(const Vertex& vertex)
 {
-	m_vertexData.push_back(vertex.x);
-	m_vertexData.push_back(vertex.y);
-	m_vertexData.push_back(vertex.z);
-
-	m_vertexData.push_back(uv.x);
-	m_vertexData.push_back(uv.y);
+	m_vertexData.push_back(vertex);
 }
 
-void VertexBuffer::addVertices(const std::vector<umath::vector3>& vertices,
-	const std::vector<umath::vector2>& uvs)
+void VertexBuffer::addVertices(const std::vector<Vertex>& vertices)
 {
-	assert(vertices.size() == uvs.size());
-
-	// Just to be double sure
-	for(int i = 0; i < vertices.size() && i < uvs.size(); ++i)
-	{
-		m_vertexData.push_back(vertices.at(i).x);
-		m_vertexData.push_back(vertices.at(i).y);
-		m_vertexData.push_back(vertices.at(i).z);
-
-		m_vertexData.push_back(uvs.at(i).x);
-		m_vertexData.push_back(uvs.at(i).y);
-	}
+	m_vertexData.insert(m_vertexData.end(), vertices.begin(), vertices.end());
 }
 
 void VertexBuffer::addIndex(const unsigned short index)
@@ -91,7 +74,7 @@ void VertexBuffer::setData() const
 	UsageType drawMode = STATIC_DRAW;
 
 	uthGraphics.bindBuffer(ARRAY_BUFFER, m_arrayBuffer);
-	uthGraphics.setBufferData(ARRAY_BUFFER, m_vertexData.size()*sizeof(float),
+	uthGraphics.setBufferData(ARRAY_BUFFER, m_vertexData.size()*sizeof(Vertex),
 		&m_vertexData.front(), drawMode);
 
 	uthGraphics.bindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
