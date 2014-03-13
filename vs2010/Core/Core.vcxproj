@@ -26,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Core\Shader.hpp" />
+    <ClInclude Include="..\..\include\UtH\Core\Vertex.hpp" />
     <ClInclude Include="..\..\include\UtH\Core\VertexBuffer.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
