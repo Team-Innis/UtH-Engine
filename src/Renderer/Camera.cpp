@@ -1,12 +1,13 @@
 #include <UtH/Renderer/Camera.hpp>
 #include <cmath>
+#include <cassert>
 
 
 namespace uth
 {
     Camera::Camera()
         : m_size(),
-          m_zoom(0.f),
+          m_zoom(1.f),
           m_viewport(),
           m_viewMatrix(),
           m_transformNeedsUpdate(true)
@@ -16,7 +17,7 @@ namespace uth
 
     Camera::Camera(const umath::vector2& position, const umath::vector2& size)
         : m_size(size),
-          m_zoom(0.f),
+          m_zoom(1.f),
           m_viewport(),
           m_viewMatrix(),
           m_transformNeedsUpdate(true)
@@ -77,6 +78,8 @@ namespace uth
 
     Camera& Camera::SetZoom(const float factor)
     {
+		assert(m_zoom > 0.f);
+
         m_zoom = factor;
 
         m_transformNeedsUpdate = true;
@@ -151,8 +154,11 @@ namespace uth
             float tx     = -position.x * cosine - position.y * sine + position.x;
             float ty     =  position.x * sine - position.y * cosine + position.y;
 
-            float a =  2.f / m_size.x;
-            float b = -2.f / m_size.y;
+			float sizeX = m_size.x / m_zoom;
+			float sizeY = m_size.y / m_zoom;
+
+            float a =  2.f / sizeX;
+            float b = -2.f / sizeY;
             float c = -a * position.x;
             float d = -b * position.y;
 
