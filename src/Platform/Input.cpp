@@ -8,9 +8,10 @@ Input::~Input()
 {}
 void Input::SetWindow(void *windowHandle)
 {
-	m_windowHandle = windowHandle;
+	InputBase::setWindowHandle(windowHandle);
+	Mouse.Initiate();
 }
 void Input::Update()
 {
-	//Mouse.Update(m_windowHandle);
+	Mouse.Update();
 }
