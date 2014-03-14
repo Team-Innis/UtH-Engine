@@ -1,5 +1,6 @@
 #include "UtH/Engine/DefaultScene.hpp"
 #include <UtH/Engine/Sprite.hpp>
+#include <UtH/Engine/Text.hpp>
 
 using namespace uth;
 
@@ -27,6 +28,13 @@ bool DefaultScene::Init()
 	//gameObject.transform.parent->transform.Rotate(0);
 	//gameObject.transform.SetSize(100, 100);
 
+	auto text = new Text("kenpixel.ttf");
+	text->SetText(L"Testi 123", 30);
+	text->SetText(L"Testi 321", 30);
+
+	textObject.AddComponent(text);
+	textObject.transform.Move(100, 0);
+
 	return true;
 }
 bool DefaultScene::DeInit()
@@ -41,5 +49,6 @@ bool DefaultScene::Update(double dt)
 bool DefaultScene::Draw()
 {
 	gameObject.Draw(&shader, &camera);
+	textObject.Draw(&shader, &camera);
 	return true;
 }
