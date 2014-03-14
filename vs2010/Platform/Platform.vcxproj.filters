@@ -65,7 +65,7 @@
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Platform\FileReader.h">
       <Filter>Header Files</Filter>
-    </ClInclude>    
+    </ClInclude>
     <ClInclude Include="..\..\include\UtH\Platform\Common\FileReader.h">
       <Filter>Header Files\Common</Filter>
     </ClInclude>
@@ -78,16 +78,19 @@
     <ClInclude Include="..\..\include\UtH\Platform\InputEnums.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\CommonInput.hpp">
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputCommon.hpp">
       <Filter>Header Files\Win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\KeyboardInput.hpp">
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputKeyboard.hpp">
       <Filter>Header Files\Win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\MouseInput.hpp">
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputMouse.hpp">
       <Filter>Header Files\Win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\TouchInput.hpp">
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputTouch.hpp">
+      <Filter>Header Files\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputBase.hpp">
       <Filter>Header Files\Win32</Filter>
     </ClInclude>
   </ItemGroup>
@@ -108,24 +111,28 @@
       <Filter>Source Files\Win32</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Common\FileReader.cpp">
-      <Filter>Source Files\Win32</Filter>    
-    </ClCompile>
-    <ClCompile Include="..\..\src\Platform\Common\FileReader.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Platform\Win32\CommonInput.cpp">
+    <ClCompile Include="..\..\src\Platform\Win32\InputCommon.cpp">
       <Filter>Source Files\Win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Platform\Win32\KeyboardInput.cpp">
+    <ClCompile Include="..\..\src\Platform\Win32\InputKeyboard.cpp">
       <Filter>Source Files\Win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Platform\Win32\MouseInput.cpp">
+    <ClCompile Include="..\..\src\Platform\Win32\InputMouse.cpp">
       <Filter>Source Files\Win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Platform\Win32\TouchInput.cpp">
+    <ClCompile Include="..\..\src\Platform\Win32\InputTouch.cpp">
+      <Filter>Source Files\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Win32\InputBase.cpp">
+      <Filter>Source Files\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Common\FileReader.cpp">
+      <Filter>Source Files\Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
