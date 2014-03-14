@@ -1,8 +1,8 @@
-/***********************************************************************************************/
-/**/ #pragma once
-/***********************************************************************************************/
+#pragma once
+#ifndef SINGLETON_H_UTH
+#define SINGLETON_H_UTH
 
-#include <UtH\Platform\Uncopyable.hpp>
+#include <UtH/Platform/Uncopyable.hpp>
 
 namespace uth
 {
@@ -38,3 +38,5 @@ namespace uth
     }; // class Singleton
 
 } // namespace uth
+
+#endif
