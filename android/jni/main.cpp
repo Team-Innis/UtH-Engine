@@ -29,6 +29,7 @@
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/HiResTimer.hpp>
 #include <UtH/Engine/UtHEngine.h>
+#include <UtH/Platform/Input.hpp>
 
 uth::Shader* shader;
 uth::GameObject gameObject;
@@ -83,6 +84,7 @@ void android_main(android_app* state)
 	//memset(&androidengine, 0, sizeof(androidengine));
 	//state->userData = &androidengine;
 	state->onAppCmd = handle_cmd;
+	state->onInputEvent = uth::TouchInput::ProcessMessages;
 
 	uthAndroidEngine.app = state;
 

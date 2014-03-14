@@ -3,10 +3,11 @@
 #define KEYBOARDINPUT_H_UTH
 
 #include <UtH/Platform/InputEnums.hpp>
+#include <UtH/Platform/Common/InputBase.hpp>
 
 namespace uth
 {
-	class KeyboardInput
+	class KeyboardInput : public InputBase
 	{
 	public:
 		KeyboardInput()

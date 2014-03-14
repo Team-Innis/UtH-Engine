@@ -2,7 +2,7 @@
 #ifndef INPUTMOUSE_H_UTH
 #define INPUTMOUSE_H_UTH
 
-#include <UtH/Platform/Win32/InputBase.hpp>
+#include <UtH/Platform/Common/InputBase.hpp>
 #include <UtH/Platform/Window.hpp>
 
 #include <UtH/Math/Vector2.hpp>

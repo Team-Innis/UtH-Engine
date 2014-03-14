@@ -20,7 +20,7 @@
 	#error No input for such platform
 #endif
 
-#define UTHInput uth::Input::getInstance()
+#define uthInput uth::Input::getInstance()
 
 namespace uth
 {

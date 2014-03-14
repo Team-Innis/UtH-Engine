@@ -53,7 +53,7 @@ bool UtHEngine::Update()
 }
 bool UtHEngine::Update(double dt)
 {
-	UTHInput.Update();
+	uthInput.Update();
 	return UtHSceneM.Update(dt);
 }
 void UtHEngine::Draw()
@@ -66,5 +66,5 @@ void UtHEngine::Draw()
 void UtHEngine::SetWindow(uth::Window * window)
 {
 	m_wndw = window;
-	UTHInput.SetWindow(window->m_windowHandle);
+	uthInput.SetWindow(window->m_windowHandle);
 }

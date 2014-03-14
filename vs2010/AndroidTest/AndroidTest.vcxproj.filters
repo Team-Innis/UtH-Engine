@@ -34,6 +34,9 @@
     <ClCompile Include="..\..\src\Platform\Android\FileReader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Android\InputTouch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Platform\Android\AndroidWindowImpl.hpp">
@@ -49,9 +52,6 @@
       <Filter>Header Files\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputMouse.hpp">
-      <Filter>Header Files\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Android\InputCommon.hpp">
       <Filter>Header Files\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputTouch.hpp">

@@ -78,9 +78,6 @@
     <ClInclude Include="..\..\include\UtH\Platform\InputEnums.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputCommon.hpp">
-      <Filter>Header Files\Win32</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\UtH\Platform\Win32\InputKeyboard.hpp">
       <Filter>Header Files\Win32</Filter>
     </ClInclude>
@@ -90,8 +87,11 @@
     <ClInclude Include="..\..\include\UtH\Platform\Win32\InputTouch.hpp">
       <Filter>Header Files\Win32</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputBase.hpp">
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputCommon.hpp">
       <Filter>Header Files\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Common\InputBase.hpp">
+      <Filter>Header Files\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -125,10 +125,10 @@
     <ClCompile Include="..\..\src\Platform\Win32\InputTouch.cpp">
       <Filter>Source Files\Win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Platform\Win32\InputBase.cpp">
-      <Filter>Source Files\Win32</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Platform\Common\FileReader.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Common\InputBase.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
   </ItemGroup>

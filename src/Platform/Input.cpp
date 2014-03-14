@@ -14,4 +14,5 @@ void Input::SetWindow(void *windowHandle)
 void Input::Update()
 {
 	Mouse.Update();
+	Touch.Update();
 }

@@ -2,7 +2,7 @@
 #ifndef INPUTCOMMON_H_UTH
 #define INPUTCOMMON_H_UTH
 
-#include <UtH/Platform/Win32/InputBase.hpp>
+#include <UtH/Platform/Common/InputBase.hpp>
 
 namespace uth
 {

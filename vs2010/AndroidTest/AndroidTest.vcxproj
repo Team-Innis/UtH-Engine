@@ -21,6 +21,7 @@
     <ClCompile Include="..\..\android\jni\main.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\AndroidWindowImpl.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\FileReader.cpp" />
+    <ClCompile Include="..\..\src\Platform\Android\InputTouch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Platform\Android\AndroidEngine.hpp" />

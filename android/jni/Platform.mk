@@ -41,7 +41,9 @@ $(SRC_PATH)Platform/HiResTimer.cpp \
 $(SRC_PATH)Platform/OGLCheck.cpp \
 $(SRC_PATH)Platform/Window.cpp \
 $(SRC_PATH)Platform/Android/AndroidWindowImpl.cpp \
-$(SRC_PATH)Platform/Input.cpp
+$(SRC_PATH)Platform/Input.cpp \
+$(SRC_PATH)Platform/Common/InputBase.cpp \
+$(SRC_PATH)Platform/Android/InputTouch.cpp
 
 #Core
 LOCAL_SRC_FILES += \

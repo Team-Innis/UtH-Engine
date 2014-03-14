@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Platform\Common\FileReader.h" />
+    <ClInclude Include="..\..\include\UtH\Platform\Common\InputBase.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Configuration.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Debug.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Enums.hpp" />
@@ -25,7 +26,6 @@
     <ClInclude Include="..\..\include\UtH\Platform\Singleton.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Typedefs.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Uncopyable.hpp" />
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputBase.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Win32\InputCommon.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Win32\InputKeyboard.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Win32\InputMouse.hpp" />
@@ -36,11 +36,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Platform\Common\FileReader.cpp" />
+    <ClCompile Include="..\..\src\Platform\Common\InputBase.cpp" />
     <ClCompile Include="..\..\src\Platform\Graphics.cpp" />
     <ClCompile Include="..\..\src\Platform\HiResTimer.cpp" />
     <ClCompile Include="..\..\src\Platform\Input.cpp" />
     <ClCompile Include="..\..\src\Platform\OGLCheck.cpp" />
-    <ClCompile Include="..\..\src\Platform\Win32\InputBase.cpp" />
     <ClCompile Include="..\..\src\Platform\Win32\InputCommon.cpp" />
     <ClCompile Include="..\..\src\Platform\Win32\InputKeyboard.cpp" />
     <ClCompile Include="..\..\src\Platform\Win32\InputMouse.cpp" />

@@ -4,29 +4,51 @@
 
 #include <UtH/Platform/InputEnums.hpp>
 #include <UtH/Math/Vector2.hpp>
+#include <UtH/Platform/Common/InputBase.hpp>
+
+#include <android/input.h>
 
 namespace uth
 {
-	namespace
+	class TouchInput : public InputBase
 	{
-	class Touches
-	{
-	public:
-		umath::vector2 Position() const { return m_pos;}
 	private:
-		umath::vector2 m_position;
-		bool m_touched;
-	};
-	}
-	class TouchInput
-	{
-	public:
-		Touches ID[8];
+		class TouchUnit
+		{
+			friend class TouchInput;
+			bool m_touched;
+			umath::vector2 m_position;
 
-		TouchInput()
-		{}
-		~TouchInput()
-		{}
+			TouchUnit()
+			{
+				m_touched = false;
+				m_position = umath::vector2();
+			}
+		};
+	public:
+		static TouchUnit ID;
+
+		/// Do not use this in scenes
+		static int ProcessMessages(struct android_app* app, AInputEvent* eventMSG)
+		{
+			if (AInputEvent_getType(eventMSG) == AINPUT_EVENT_TYPE_MOTION)
+			{
+				//if(event == down)
+				ID.m_position.x = AMotionEvent_getX(eventMSG, 0);
+				ID.m_position.y = AMotionEvent_getY(eventMSG, 0);
+				ID.m_touched = true;
+				//if(event == up)
+				//reset position & touched = false
+				return 1;
+			}
+			return 0;
+		}
+		umath::vector2 GetLastPos() const;
+
+		void Update();
+
+		TouchInput();
+		~TouchInput();
 	};
 }
 
