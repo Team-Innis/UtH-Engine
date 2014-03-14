@@ -36,7 +36,19 @@ void VertexBuffer::addIndex(const unsigned short index)
 
 void VertexBuffer::addIndices(const std::vector<unsigned short>& indices)
 {
-	m_indices.insert(m_indices.end(), indices.begin(), indices.end());
+	std::vector<unsigned short> input = indices;
+
+	if (m_indices.size() > 0)
+	{
+		short lastIndex = m_indices.at(m_indices.size() - 1) + 1;
+
+		for (auto it = input.begin(); it != input.end(); ++it)
+		{
+			(*it) += lastIndex;
+		}
+	}
+
+	m_indices.insert(m_indices.end(), input.begin(), input.end());
 }
 
 void VertexBuffer::clear()

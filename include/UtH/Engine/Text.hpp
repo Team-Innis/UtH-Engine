@@ -6,6 +6,7 @@
 #include <UtH/Math/Vector.hpp>
 #include <UtH/Core/VertexBuffer.hpp>
 
+// Forward declaration so we dont need to include the ugly C headers
 struct texture_atlas_t;
 
 namespace uth
@@ -13,13 +14,15 @@ namespace uth
 	class Text : public Component
 	{
 	public:
-		Text(const std::string& fontPath, const std::string& name = "Text");
+		Text(const std::string& fontPath, const float fontSize, const std::string& name = "Text");
 		~Text();
 
-		void SetText(const std::wstring& text, const float size, 
-			/*umath::vector2& position,*/ umath::vector4& color = umath::vector4(1, 1, 1, 1));
-
-		std::wstring& GetText();
+		// Sets the text
+		void SetText(const std::wstring& text, umath::vector4& color = umath::vector4(1, 1, 1, 1));
+		// Adds to the current text
+		void AddText(const std::wstring& text, umath::vector4& color = umath::vector4(1, 1, 1, 1));
+		// Return current text
+		const std::wstring& GetText() const;
 
 		void Update(float dt);
 		void Draw(Shader* shader, Camera* camera);
@@ -32,8 +35,10 @@ namespace uth
 		VertexBuffer m_vertexBuffer;
 
 		std::string m_path;
+		const float m_fontSize;
 
 		std::wstring m_text;
+		umath::vector2 m_lastPos;
 
 		texture_atlas_t* m_atlas;
 	};

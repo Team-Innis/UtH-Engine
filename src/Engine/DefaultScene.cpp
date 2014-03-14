@@ -38,15 +38,13 @@ bool DefaultScene::Init()
 	//gameObject.transform.SetSize(2, 2);
 	//gameObject.transform.SetActive(true);
 
-	auto text = new Text("arial.ttf", 30);
-	//text->SetText(L"Testi 123", 30);
-	text->AddText(L"Testi\n321a", umath::vector4(1, 0, 0, 1));
-	text->AddText(L" Hurdur");
-	text->AddText(L"\nDurs");
-	text->AddText(L"S");
+	auto text = new Text("arial.ttf", 16);
+	text->AddText(L" !\"#$%&'()*+,-./0123456789:;<=>?"
+				  L"@ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÅ[\\]^_"
+				  L"`abcdefghijklmnopqrstuvwxyzöäå{|}~");
 
 	textObject.AddComponent(text);
-	textObject.transform.Move(200, 0);
+	textObject.transform.Move(-400, 200);
 	AddGameObjectToLayer(0, &textObject);
 
 	return true;
