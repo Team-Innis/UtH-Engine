@@ -31,7 +31,6 @@ void Sprite::Draw(Shader *shader, Camera* camera)
 {
 	m_texture->Bind();
 	shader->SetUniform("unifSampler", 0);
-	shader->SetUniform("unifColor", m_color);
 	m_vertexBuffer.draw(shader);
 }
 
@@ -81,24 +80,21 @@ void Sprite::defaults()
 	SetDrawable(true);
 
     m_size = m_texture->GetSize();
-	generetateBuffer();
-
 	m_color = umath::vector4(1.f, 1.f, 1.f, 1.f);
+
+	generetateBuffer();
 }
+
 
 
 void Sprite::generetateBuffer()
 {
-	// vasen alakulma
 	m_vertexBuffer.addVertex(Vertex(umath::vector3(-m_size.x/2, -m_size.y/2, 0),
 		umath::vector2(1.0f, 1.0f), m_color));
-	// oikea alakulma
 	m_vertexBuffer.addVertex(Vertex(umath::vector3(m_size.x/2, -m_size.y/2, 0),
 		umath::vector2(0.0f, 1.0f), m_color));
-	// vasen yläkulma
 	m_vertexBuffer.addVertex(Vertex(umath::vector3(-m_size.x/2, m_size.y/2, 0),
 		umath::vector2(1.0f, 0.0f), m_color));
-	// oikea yläkulma
 	m_vertexBuffer.addVertex(Vertex(umath::vector3(m_size.x/2, m_size.y/2, 0),
 		umath::vector2(0.0f, 0.0f), m_color));
 

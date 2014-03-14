@@ -33,29 +33,20 @@ bool DefaultScene::Init()
 	AddGameObjectToLayer(0, &gameObject);
 	//AddGameObjectToLayer("testi", &gameObject2);
 
-	gameObject.transform.SetPosition(100,100);
-	gameObject.transform.parent->transform.Rotate(30);
-	gameObject.transform.SetSize(2, 2);
-	gameObject.transform.SetActive(false);
+	//gameObject.transform.SetPosition(0,0);
+	//gameObject.transform.parent->transform.Rotate(30);
+	//gameObject.transform.SetSize(2, 2);
+	//gameObject.transform.SetActive(true);
 
-	//RemoveGameObjectFromLayer(0, &gameObject2);
-	//RemoveGameObjectFromLayer("testi", &gameObject);
-
-	//layers.at(0)->SetObjectsActive(false);
-	layers.at(0)->transform.Move(200,100);
-
-	//SetLayerActive("testi", false);
-
-	//layers.at(0)->transform.SetActive(false);
-	layers.at(0)->UpdateTransform();
-	WriteLog("\n\nLayerActive: %d",layers.at(0)->transform.GetActive());
-
-	auto text = new Text("kenpixel.ttf");
-	text->SetText(L"Testi 123", 30);
-	text->SetText(L"Testi 321", 30);
+	auto text = new Text("arial.ttf", 30);
+	//text->SetText(L"Testi 123", 30);
+	text->AddText(L"Testi\n321a", umath::vector4(1, 0, 0, 1));
+	text->AddText(L" Hurdur");
+	text->AddText(L"\nDurs");
+	text->AddText(L"S");
 
 	textObject.AddComponent(text);
-	textObject.transform.Move(100, 0);
+	textObject.transform.Move(200, 0);
 	AddGameObjectToLayer(0, &textObject);
 
 	return true;
@@ -77,7 +68,7 @@ bool DefaultScene::Draw()
 	//gameObject2.Draw(&shader);
 	
 	for(int i = 0; i < layers.size(); i++)
-		layers.at(i)->Draw(&shader);
+		layers.at(i)->Draw(&shader, &camera);
 
 
 	return true;
