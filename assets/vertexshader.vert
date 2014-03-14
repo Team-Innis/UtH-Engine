@@ -1,11 +1,10 @@
 #version 100
 attribute vec3 attrPosition;
 attribute vec2 attrUV;
+attribute vec4 attrColor;
 
 uniform mat4 unifModel;
 uniform mat4 unifProjection;
-
-uniform vec4 unifColor;
 
 varying vec2 texCoord;
 varying vec4 color;
@@ -13,7 +12,7 @@ varying vec4 color;
 void main() 
 {
 	texCoord = attrUV;
-	color = unifColor;
+	color = attrColor;
 
 	//gl_Position = vec4(attrPosition, 1.0);
 

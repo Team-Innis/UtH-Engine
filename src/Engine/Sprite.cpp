@@ -59,6 +59,8 @@ const umath::vector2 Sprite::GetSize() const
 void Sprite::SetColor(const umath::vector4 color)
 {
 	m_color = color;
+	m_vertexBuffer.clear();
+	generetateBuffer();
 }
 
 void Sprite::SetColor(float r, float g, float b, float a)
@@ -87,10 +89,20 @@ void Sprite::defaults()
 
 void Sprite::generetateBuffer()
 {
-	m_vertexBuffer.addVertex(Vertex(umath::vector3(-m_size.x/2, -m_size.y/2, 0), umath::vector2(1.0f, 1.0f))); // vasen alakulma
-	m_vertexBuffer.addVertex(Vertex(umath::vector3(m_size.x/2, -m_size.y/2, 0), umath::vector2(0.0f, 1.0f))); // oikea alakulma
-	m_vertexBuffer.addVertex(Vertex(umath::vector3(-m_size.x/2, m_size.y/2, 0), umath::vector2(1.0f, 0.0f))); // vasen yläkulma
-	m_vertexBuffer.addVertex(Vertex(umath::vector3(m_size.x/2, m_size.y/2, 0), umath::vector2(0.0f, 0.0f))); // oikea yläkulma
+	// vasen alakulma
+	m_vertexBuffer.addVertex(Vertex(umath::vector3(-m_size.x/2, -m_size.y/2, 0),
+		umath::vector2(1.0f, 1.0f), m_color));
+	// oikea alakulma
+	m_vertexBuffer.addVertex(Vertex(umath::vector3(m_size.x/2, -m_size.y/2, 0),
+		umath::vector2(0.0f, 1.0f), m_color));
+	// vasen yläkulma
+	m_vertexBuffer.addVertex(Vertex(umath::vector3(-m_size.x/2, m_size.y/2, 0),
+		umath::vector2(1.0f, 0.0f), m_color));
+	// oikea yläkulma
+	m_vertexBuffer.addVertex(Vertex(umath::vector3(m_size.x/2, m_size.y/2, 0),
+		umath::vector2(0.0f, 0.0f), m_color));
+
+
 	m_vertexBuffer.addIndex(0);
 	m_vertexBuffer.addIndex(1);
 	m_vertexBuffer.addIndex(2);

@@ -24,6 +24,8 @@ namespace uth
 		// Add vector of indexes at the end of current index vector, doesn't modify data
 		void addIndices(const std::vector<unsigned short>& indices);
 
+		void clear();
+
 		void draw(Shader* shader) const;
 
 	private:
