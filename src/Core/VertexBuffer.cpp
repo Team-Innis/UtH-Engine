@@ -40,6 +40,26 @@ void VertexBuffer::addIndices(const std::vector<unsigned short>& indices)
 	m_indices.insert(m_indices.end(), indices.begin(), indices.end());
 }
 
+const std::vector<Vertex>& VertexBuffer::getVertices() const
+{
+    return m_vertexData;
+}
+
+const std::vector<unsigned short>& VertexBuffer::getIndices() const
+{
+    return m_indices;
+}
+
+unsigned int VertexBuffer::getArrayBufferID() const
+{
+    return m_arrayBuffer;
+}
+
+unsigned int VertexBuffer::getElementBufferID() const
+{
+    return m_elementBuffer;
+}
+
 void VertexBuffer::draw(Shader* shader) const
 {
 	setData();

@@ -1,5 +1,5 @@
-#include <UtH\Renderer\TextureAtlas.hpp>
-#include <UtH\Platform\FileReader.h>
+#include <UtH/Renderer/TextureAtlas.hpp>
+#include <UtH/Platform/FileReader.h>
 #include <string>
 #include <tinyxml2.h>
 

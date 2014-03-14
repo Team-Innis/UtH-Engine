@@ -4,6 +4,7 @@
 
 #include <UtH/Engine/Scene.hpp>
 #include <UtH/Renderer/Camera.hpp>
+#include <UtH/Renderer/SpriteBatch.hpp>
 
 namespace uth
 {
@@ -21,9 +22,14 @@ namespace uth
 		virtual bool Update(double dt);
 		virtual bool Draw();
 
-		Shader shader;
+		Shader shader,
+            bShader;
 		Camera camera;
-		GameObject gameObject;
+        std::vector<GameObject*> objects;
+        GameObject obj;
+        SpriteBatch batch;
+
+        TextureAtlas atlas;
 
 		int number;
 	};

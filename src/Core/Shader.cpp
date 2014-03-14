@@ -58,6 +58,19 @@ bool Shader::setAttributeData(const std::string name, const int size, DataType t
 	return true;
 }
 
+bool Shader::setAttributeData(const int location, const int size, DataType type, const int offset, const void* data)
+{
+    uthGraphics.enableVertexAttribArray(location);
+	uthGraphics.setVertexAttribPointer(location, size, type, offset, data);
+
+    return true;
+}
+
+int Shader::getShaderID() const
+{
+    return program;
+}
+
 
 //////////////////////////////////////////////////////////////
 // Uniform set functions

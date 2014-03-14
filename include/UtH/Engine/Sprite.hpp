@@ -11,6 +11,9 @@ namespace uth
 {
 	class Sprite : public Component
 	{
+
+        friend class SpriteBatch;
+
 	public:
 		Sprite(Texture* texture, const std::string name = "Sprite");
 		//Sprite(Texture* texture, umath::vector2 size);
@@ -30,6 +33,7 @@ namespace uth
 
 		// Size of texture in pixels
 		const umath::vector2 GetSize() const;
+        void setSize(const umath::vector2& size);
 
 		// Just a simple multiplier for the texture color
 		void SetColor(const umath::vector4 color);

@@ -29,7 +29,9 @@ Sprite::~Sprite()
 
 void Sprite::Draw(Shader *shader)
 {
-	m_texture->Bind();
+    if (m_texture)
+	    m_texture->Bind();
+
 	shader->SetUniform("unifSampler", 0);
 	shader->SetUniform("unifColor", m_color);
 	m_vertexBuffer.draw(shader);
@@ -43,7 +45,9 @@ void Sprite::Update(float dt)
 void Sprite::SetTexture(Texture* texture)
 {
 	m_texture = texture;
-	m_size = texture->GetSize();
+
+    if (m_texture)
+	    m_size = texture->GetSize();
 }
 
 Texture* Sprite::GetTexture() const
@@ -54,6 +58,11 @@ Texture* Sprite::GetTexture() const
 const umath::vector2 Sprite::GetSize() const
 {
 	return m_size;
+}
+
+void Sprite::setSize(const umath::vector2& size)
+{
+    m_size = size;
 }
 
 void Sprite::SetColor(const umath::vector4 color)
@@ -78,7 +87,9 @@ void Sprite::defaults()
 {
 	SetDrawable(true);
 
-    m_size = m_texture->GetSize();
+    if (m_texture)
+        m_size = m_texture->GetSize();
+
 	generetateBuffer();
 
 	m_color = umath::vector4(1.f, 1.f, 1.f, 1.f);
