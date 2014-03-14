@@ -5,6 +5,7 @@
 #include <UtH/Platform/InputEnums.hpp>
 #include <UtH/Math/Vector2.hpp>
 #include <UtH/Platform/Common/InputBase.hpp>
+#include <UtH/Platform/Debug.hpp>
 
 #include <android/input.h>
 
@@ -33,12 +34,29 @@ namespace uth
 		{
 			if (AInputEvent_getType(eventMSG) == AINPUT_EVENT_TYPE_MOTION)
 			{
-				//if(event == down)
-				ID.m_position.x = AMotionEvent_getX(eventMSG, 0);
-				ID.m_position.y = AMotionEvent_getY(eventMSG, 0);
-				ID.m_touched = true;
-				//if(event == up)
-				//reset position & touched = false
+				if(AMotionEvent_getAction(eventMSG) == AMOTION_EVENT_ACTION_DOWN)
+				{
+					ID.m_position.x = AMotionEvent_getX(eventMSG, 0);
+					ID.m_position.y = AMotionEvent_getY(eventMSG, 0);
+					ID.m_touched = true;
+					WriteLog("Touched %f %f", ID.m_position.x, ID.m_position.y);
+				}
+				else if(AMotionEvent_getAction(eventMSG) == AMOTION_EVENT_ACTION_MOVE)
+				{
+					ID.m_position.x = AMotionEvent_getX(eventMSG, 0);
+					ID.m_position.y = AMotionEvent_getY(eventMSG, 0);
+					ID.m_touched = true;
+					WriteLog("Touched %f %f", ID.m_position.x, ID.m_position.y);
+				}
+				else if(AMotionEvent_getAction(eventMSG) == AMOTION_EVENT_ACTION_UP ||
+					AMotionEvent_getAction(eventMSG) == AMOTION_EVENT_ACTION_CANCEL ||
+					AMotionEvent_getAction(eventMSG) == AMOTION_EVENT_ACTION_OUTSIDE)
+				{
+					ID.m_position.x = 0;
+					ID.m_position.y = 0;
+					ID.m_touched = false;
+					WriteLog("Touch Ended");
+				}
 				return 1;
 			}
 			return 0;

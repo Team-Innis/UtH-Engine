@@ -36,13 +36,6 @@ bool DefaultScene::DeInit()
 
 bool DefaultScene::Update(double dt)
 {
-	umath::vector2 temp = uthInput.Touch.GetLastPos();
-
-	if(temp.x != 0.0f || temp.y != 0.0f)
-	{
-		WriteLog("Touched %f %f",temp.x, temp.y);
-	}
-
 	return true;
 }
 bool DefaultScene::Draw()

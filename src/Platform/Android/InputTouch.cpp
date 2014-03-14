@@ -1,5 +1,4 @@
 #include <UtH/Platform/Android/InputTouch.hpp>
-#include <UtH/Platform/Debug.hpp>
 
 using namespace uth;
 
@@ -12,14 +11,7 @@ umath::vector2 TouchInput::GetLastPos() const
 
 void TouchInput::Update()
 {
-	if(ID.m_touched)
-	{
-		ID.m_touched = false;
-	}
-	else
-	{
-		ID.m_position = umath::vector2();
-	}
+
 }
 
 TouchInput::TouchInput()
