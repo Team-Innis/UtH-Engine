@@ -31,6 +31,7 @@ namespace uth
 		void SetDepth(float depth);
 		const float GetDepth() const;
 
+		void SetTransform(umath::matrix4 modelTransform);
 		const umath::matrix4& GetTransform();
 
 		umath::vector2 position;

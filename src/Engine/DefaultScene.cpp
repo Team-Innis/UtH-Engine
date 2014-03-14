@@ -1,6 +1,8 @@
 #include "UtH/Engine/DefaultScene.hpp"
 #include <UtH/Engine/Sprite.hpp>
 
+#include <UtH\Platform\Debug.hpp>
+
 using namespace uth;
 
 DefaultScene::DefaultScene()
@@ -20,10 +22,32 @@ bool DefaultScene::Init()
 	//camera.SetRotation(180);
 
 	gameObject.AddComponent(new uth::Sprite("test.tga"));
+	gameObject2.AddComponent(new uth::Sprite("test.tga"));
 	//gameObject.transform.SetSize(0.5f, 0.5f);
-	//gameObject.transform.SetPosition(-0.5f, -0.5f);
-	//gameObject.transform.parent->transform.Rotate(0);
-	//gameObject.transform.SetSize(100, 100);
+	gameObject.transform.SetActive(false);
+	//WriteLog("\nactive: %d", gameObject.transform.GetActive());
+
+	CreateLayer("testi");
+	AddGameObjectToLayer(0, &gameObject);
+	AddGameObjectToLayer("testi", &gameObject2);
+
+	gameObject.transform.SetPosition(100,100);
+	gameObject.transform.parent->transform.Rotate(30);
+	gameObject.transform.SetSize(2, 2);
+
+	//layers.at(0)->m_objects.at(0)->transform.SetSize(1,1);
+
+	//RemoveGameObjectFromLayer(0, &gameObject2);
+	//RemoveGameObjectFromLayer("testi", &gameObject);
+
+	layers.at(0)->SetObjectsActive(false);
+	//layers.at(0)->transform.Move(100,100);
+
+	SetLayerActive("testi", false);
+
+	layers.at(0)->transform.SetActive(true);
+	layers.at(0)->UpdateTransform();
+	WriteLog("\n\nLayerActive: %d",layers.at(0)->transform.GetActive());
 
 	return true;
 }
@@ -39,6 +63,13 @@ bool DefaultScene::Update(double dt)
 bool DefaultScene::Draw()
 {
 	shader.SetUniform("unifProjection", camera.GetProjectionTransform());
-	gameObject.Draw(&shader);
+	
+	//gameObject.Draw(&shader);
+	//gameObject2.Draw(&shader);
+	
+	for(int i = 0; i < layers.size(); i++)
+		layers.at(i)->Draw(&shader);
+
+
 	return true;
 }
