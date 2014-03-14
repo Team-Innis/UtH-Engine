@@ -8,6 +8,7 @@
 namespace uth
 {
 	class GameObject;
+	class Camera;
 
 	class Component
 	{
@@ -28,7 +29,7 @@ namespace uth
 		void SetName(const std::string name);
 		const std::string GetName() const;
 
-		virtual void Draw(Shader* shader){};
+		virtual void Draw(Shader* shader, Camera* camera){};
 		virtual void Update(float dt){};
 
 		GameObject* parent;

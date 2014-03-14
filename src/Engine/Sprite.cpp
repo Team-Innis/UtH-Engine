@@ -27,7 +27,7 @@ Sprite::~Sprite()
 {
 }
 
-void Sprite::Draw(Shader *shader)
+void Sprite::Draw(Shader *shader, Camera* camera)
 {
 	m_texture->Bind();
 	shader->SetUniform("unifSampler", 0);

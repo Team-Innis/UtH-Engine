@@ -20,6 +20,8 @@ bool DefaultScene::Init()
 	//camera.SetRotation(180);
 
 	gameObject.AddComponent(new uth::Sprite("test.tga"));
+	//auto sprite = (Sprite*)gameObject.GetComponent("Sprite");
+	//sprite->SetColor(1, 0, 1, 1);
 	//gameObject.transform.SetSize(0.5f, 0.5f);
 	//gameObject.transform.SetPosition(-0.5f, -0.5f);
 	//gameObject.transform.parent->transform.Rotate(0);
@@ -38,7 +40,6 @@ bool DefaultScene::Update(double dt)
 }
 bool DefaultScene::Draw()
 {
-	shader.SetUniform("unifProjection", camera.GetProjectionTransform());
-	gameObject.Draw(&shader);
+	gameObject.Draw(&shader, &camera);
 	return true;
 }
