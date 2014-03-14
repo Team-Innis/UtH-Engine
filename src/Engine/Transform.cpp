@@ -90,6 +90,11 @@ const float Transform::GetDepth() const
 	return depth;
 }
 
+void Transform::SetTransform(umath::matrix4 modelTransform)
+{
+	m_modelTransform = modelTransform;
+}
+
 const umath::matrix4& Transform::GetTransform()
 {
 	updateTransform();
@@ -118,10 +123,15 @@ void Transform::updateTransform()
 						 0,      0,      1.0f, 0,
 						 0,      0,      0,    1.0f);
 
-	umath::matrix4 translation(1.0f,       0,          0,     0,
+	/*umath::matrix4 translation(1.0f,       0,          0,     0,
 							   0,          1.0f,       0,     0,
 							   0,          0,          1.0f,  0,
-							   position.x, position.y, depth, 1.0f);
+							   position.x, position.y, depth, 1.0f);*/
+
+	umath::matrix4 translation(1.0f,       0,          0,     position.x,
+							   0,          1.0f,       0,     position.y,
+							   0,          0,          1.0f,  0,
+							   0,		   0,		   0,	  1.0f);
 
 	m_modelTransform = scale * rotation * translation;
 	m_transformNeedsUpdate = false;

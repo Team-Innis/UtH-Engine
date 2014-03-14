@@ -143,14 +143,13 @@ namespace uth
     {
         glLinkProgram(shaderProgram);
 		CheckGLError("glLinkProgram");
-		WriteLog("\nShaderProgram: %d", shaderProgram);
 
 		int infoLenght;
 		glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLenght);
 		CheckGLError("glGetProgramiv INFO");
-		if(infoLenght > 0)
+		if(infoLenght > 1)
 		{
-			WriteLog("\nShader Program Log:\n");
+			WriteLog("\nShader Program (%d) Log:\n", shaderProgram);
 			char* buf = new char[infoLenght];
 			oglCheck(glGetProgramInfoLog(shaderProgram, infoLenght, NULL, buf));
 			WriteLog("%s", buf);
