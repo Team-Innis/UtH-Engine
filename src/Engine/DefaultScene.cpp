@@ -24,7 +24,7 @@ bool DefaultScene::Init()
 	gameObject.AddComponent(new uth::Sprite("test.tga"));
 	gameObject2.AddComponent(new uth::Sprite("test.tga"));
 	//gameObject.transform.SetSize(0.5f, 0.5f);
-	gameObject.transform.SetActive(false);
+	//gameObject.GetComponent("Sprite")->SetActive(false);
 	//WriteLog("\nactive: %d", gameObject.transform.GetActive());
 
 	CreateLayer("testi");
@@ -34,18 +34,17 @@ bool DefaultScene::Init()
 	gameObject.transform.SetPosition(100,100);
 	gameObject.transform.parent->transform.Rotate(30);
 	gameObject.transform.SetSize(2, 2);
-
-	//layers.at(0)->m_objects.at(0)->transform.SetSize(1,1);
+	gameObject.transform.SetActive(false);
 
 	//RemoveGameObjectFromLayer(0, &gameObject2);
 	//RemoveGameObjectFromLayer("testi", &gameObject);
 
-	layers.at(0)->SetObjectsActive(false);
-	//layers.at(0)->transform.Move(100,100);
+	//layers.at(0)->SetObjectsActive(false);
+	layers.at(0)->transform.Move(200,100);
 
-	SetLayerActive("testi", false);
+	//SetLayerActive("testi", false);
 
-	layers.at(0)->transform.SetActive(true);
+	//layers.at(0)->transform.SetActive(false);
 	layers.at(0)->UpdateTransform();
 	WriteLog("\n\nLayerActive: %d",layers.at(0)->transform.GetActive());
 

@@ -74,7 +74,10 @@ bool Layer::RemoveGameObject(GameObject* gameObject)
 void Layer::Draw(Shader* shader)
 {
 	for(int i = 0; i < m_objects.size(); i++)
-		m_objects[i]->Draw(shader);
+	{
+		if(m_objects.at(i)->transform.GetActive())
+			m_objects.at(i)->Draw(shader);
+	}
 }
 
 void Layer::SetObjectsActive(bool value)
@@ -82,7 +85,7 @@ void Layer::SetObjectsActive(bool value)
 	for(int i = 0; i < m_objects.size(); i++)
 	{
 		m_objects.at(i)->transform.SetActive(value);
-		m_objects.at(i)->transform.SetDrawable(value);
+		//m_objects.at(i)->transform.SetDrawable(value);
 	}
 }
 
