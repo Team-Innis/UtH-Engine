@@ -90,7 +90,7 @@ namespace umath
 			L[0][2] * R[2][0] + L[1][2] * R[2][1] + L[2][2] * R[2][2]
 			);
 	}
-	const matrix3 operator *=(matrix3& LeftVal, const matrix3& RightVal)
+	const matrix3& operator *=(matrix3& LeftVal, const matrix3& RightVal)
 	{
 		LeftVal = LeftVal * RightVal;
 		return LeftVal;
@@ -123,7 +123,7 @@ namespace umath
 			L[2][0] * R[0] + L[2][1] * R[1] + L[2][2] * R[2]
 			);
 	}
-	const vector3 operator *=(vector3& LeftVal, const matrix3& RightVal)
+	const vector3& operator *=(vector3& LeftVal, const matrix3& RightVal)
 	{
 		LeftVal = LeftVal * RightVal;
 		return LeftVal;

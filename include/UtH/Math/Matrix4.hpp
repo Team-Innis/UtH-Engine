@@ -40,10 +40,10 @@ namespace umath
 	};
 	
 	matrix4 operator *(const matrix4& LeftVal, const matrix4& RightVal);
-	const matrix4 operator *=(matrix4& LeftVal, const matrix4& RightVal);
+	const matrix4& operator *=(matrix4& LeftVal, const matrix4& RightVal);
 
 	vector4 operator *(const vector4& LeftVal, const matrix4& RightVal);
-	const vector4 operator *=(vector4& LeftVal, const matrix4& RightVal);
+	const vector4& operator *=(vector4& LeftVal, const matrix4& RightVal);
 	
 }
 
