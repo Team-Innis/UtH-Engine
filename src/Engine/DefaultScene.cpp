@@ -38,7 +38,7 @@ bool DefaultScene::Init()
 	//gameObject.transform.SetSize(2, 2);
 	//gameObject.transform.SetActive(true);
 
-	auto text = new Text("arial.ttf", 16);
+	auto text = new Text("kenpixel.ttf", 16);
 	text->AddText(L" !\"#$%&'()*+,-./0123456789:;<=>?"
 				  L"@ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÅ[\\]^_"
 				  L"`abcdefghijklmnopqrstuvwxyzöäå{|}~");
