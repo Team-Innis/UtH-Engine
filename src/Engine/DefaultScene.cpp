@@ -8,7 +8,7 @@
 
 using namespace uth;
 
-const unsigned int sprites = 3000;
+const unsigned int sprites = 30000;
 
 DefaultScene::DefaultScene()
 {}
@@ -32,10 +32,10 @@ bool DefaultScene::Init()
 	//gameObject.transform.SetPosition(-0.5f, -0.5f);
 	//gameObject.transform.parent->transform.Rotate(0);
 	//gameObject.transform.SetSize(100, 100);
-    WriteLog("markA");
+    WriteLog("Going to load Batchshader\n");
     bShader.LoadShader("Shaders/batchvertexshader.vert", "Shaders/batchfragmentshader.frag");
     
-    WriteLog("mark");
+    WriteLog("Batchshader loaded\n");
     bShader.Use();
 
     batch.SetTextureAtlas(&atlas);
