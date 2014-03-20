@@ -31,7 +31,12 @@ FileReader::~FileReader()
 		PHYSFS_deinit();
 	}
 	else
-		fclose(file);
+    {
+		WriteLog("\nclosing file");
+      //  if (file == NULL)
+		    //fclose(file);
+		WriteLog("\nfile closed");
+    }
 }
 
 

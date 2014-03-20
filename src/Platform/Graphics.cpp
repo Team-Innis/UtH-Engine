@@ -166,7 +166,7 @@ namespace uth
 			WriteLog("Shader link failed");
 			return false;
 		}
-
+        
 		return true;
     }
 

@@ -8,8 +8,8 @@
 
 #if defined(UTH_SYSTEM_WINDOWS)
 
-    #include <GL\glew.h>
-    #include <GLFW\glfw3.h>
+    #include <GL/glew.h>
+    #include <GLFW/glfw3.h>
 
 #elif defined(UTH_SYSTEM_LINUX)
 

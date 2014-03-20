@@ -59,12 +59,6 @@ void VertexBuffer::addIndices(const std::vector<unsigned short>& indices)
 	m_indices.insert(m_indices.end(), input.begin(), input.end());
 }
 
-void VertexBuffer::clear()
-{
-	m_vertexData.clear();
-	m_indices.clear();	
-}
-
 const std::vector<Vertex>& VertexBuffer::getVertices() const
 {
     return m_vertexData;

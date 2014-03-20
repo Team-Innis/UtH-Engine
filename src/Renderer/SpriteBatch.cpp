@@ -1,6 +1,7 @@
 #include <UtH/Renderer/SpriteBatch.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Platform/OpenGL.hpp>
+#include <UtH\Platform\Debug.hpp>
 
 
 namespace uth
@@ -16,6 +17,7 @@ namespace uth
 
     void SpriteBatch::AddSprite(GameObject* object, const umath::vector2& spriteSize, const std::string& atlasName)
     {
+        //WriteLog("mark");
         int mod = m_objects.size() * 4;
 
         m_objects.push_back(object);

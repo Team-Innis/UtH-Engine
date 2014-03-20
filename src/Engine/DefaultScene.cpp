@@ -8,7 +8,7 @@
 
 using namespace uth;
 
-const unsigned int sprites = 10000;
+const unsigned int sprites = 3000;
 
 DefaultScene::DefaultScene()
 {}
@@ -17,7 +17,7 @@ DefaultScene::~DefaultScene()
 
 bool DefaultScene::Init()
 {
-	shader.LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
+    shader.LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
 	shader.Use();
 
     atlas.LoadFromFile("atlastest.tga");
@@ -32,14 +32,18 @@ bool DefaultScene::Init()
 	//gameObject.transform.SetPosition(-0.5f, -0.5f);
 	//gameObject.transform.parent->transform.Rotate(0);
 	//gameObject.transform.SetSize(100, 100);
-
+    WriteLog("markA");
     bShader.LoadShader("Shaders/batchvertexshader.vert", "Shaders/batchfragmentshader.frag");
+    
+    WriteLog("mark");
     bShader.Use();
 
     batch.SetTextureAtlas(&atlas);
 
     for (int i = 0; i < sprites; ++i)
     {
+        WriteLog("%d ",i);
+        std::cout << std::endl;
         objects.push_back(new GameObject());
 
         objects.back()->transform.SetPosition(100 + (10 * i), 100 + (10 * i));
@@ -82,7 +86,9 @@ bool DefaultScene::Draw()
     Timer timer;
     shader.Use();
     for (int i = 0; i < sprites; ++i)
-        obj.Draw(&shader);
+    {
+        obj.Draw(&shader, &camera);
+    }
     WriteLog("%f    ",1/timer.UpdateDeltaTime());
     bShader.Use();
     batch.Draw(&bShader);
