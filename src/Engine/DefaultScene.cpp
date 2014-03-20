@@ -37,8 +37,8 @@ bool DefaultScene::Init()
     {
         objects.push_back(new GameObject());
 
-        objects.back()->transform.SetPosition(100 + (10 * i), 100 + (10 * i));
-        objects.back()->transform.SetRotation(180.f);
+        objects.back()->transform.SetPosition(100 + (100 * i), 100 + (100 * i));
+        //objects.back()->transform.SetRotation(180.f);
 
         batch.AddSprite(objects.back(), umath::vector2(129.f, 71.f), "cloud3.png");
     }
@@ -55,9 +55,13 @@ bool DefaultScene::DeInit()
 bool DefaultScene::Update(double dt)
 {
     //camera.Rotate(10.f * dt);
-    obj.transform.Rotate(10.f * dt);
-    obj.transform.Move(10.f * dt, 10.f * dt);
+    //obj.transform.Rotate(10.f * dt);
+    //obj.transform.Move(10.f * dt, 10.f * dt);
 
+    for (int i = 0; i < 10; ++i)
+    {
+        objects[i]->transform.Move(5.f * dt, 5.f * dt);
+    }
 
 
 	return true;
@@ -72,6 +76,6 @@ bool DefaultScene::Draw()
     bShader.Use();
     batch.Draw(&bShader);
     shader.Use();
-    obj.Draw(&shader);
+    //obj.Draw(&shader);
 	return true;
 }

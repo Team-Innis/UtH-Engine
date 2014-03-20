@@ -1,6 +1,6 @@
 #include <UtH/Renderer/SpriteBatch.hpp>
 #include <UtH/Platform/Graphics.hpp>
-#include <UtH\Platform\OpenGL.hpp>
+#include <UtH/Platform/OpenGL.hpp>
 
 
 namespace uth
@@ -22,10 +22,10 @@ namespace uth
         umath::rectangle tex = m_atlas->getTextureCoords(atlasName.c_str());
 
 
-        m_spriteBuffer.addVertex(Vertex(umath::vector3(-spriteSize.x/2, -spriteSize.y/2, 0), umath::vector2(tex.left, tex.getBottom()))); // vasen alakulma
-        m_spriteBuffer.addVertex(Vertex(umath::vector3(spriteSize.x/2, -spriteSize.y/2, 0), umath::vector2(tex.getRight(), tex.getBottom()))); // oikea alakulma
-        m_spriteBuffer.addVertex(Vertex(umath::vector3(-spriteSize.x/2, spriteSize.y/2, 0), umath::vector2(tex.left, tex.top))); // vasen yläkulma
-        m_spriteBuffer.addVertex(Vertex(umath::vector3(spriteSize.x/2, spriteSize.y/2, 0), umath::vector2(tex.getRight(), tex.top))); // oikea yläkulma
+        m_vertexData.push_back(Vertex(umath::vector3(-spriteSize.x/2, -spriteSize.y/2, 0), umath::vector2(tex.left, 1.f - (tex.getBottom() + tex.height / 2.f)))); // vasen alakulma
+        m_vertexData.push_back(Vertex(umath::vector3(spriteSize.x/2, -spriteSize.y/2, 0), umath::vector2(tex.getRight(), 1.f - (tex.getBottom() + tex.height / 2.f)))); // oikea alakulma
+        m_vertexData.push_back(Vertex(umath::vector3(-spriteSize.x/2, spriteSize.y/2, 0), umath::vector2(tex.left, 1.f -tex.top))); // vasen yläkulma
+        m_vertexData.push_back(Vertex(umath::vector3(spriteSize.x/2, spriteSize.y/2, 0), umath::vector2(tex.getRight(), 1.f - tex.top))); // oikea yläkulma
 	    m_spriteBuffer.addIndex(0 + mod);
 	    m_spriteBuffer.addIndex(1 + mod);
 	    m_spriteBuffer.addIndex(2 + mod);
@@ -41,27 +41,31 @@ namespace uth
 
     void SpriteBatch::Draw(Shader* shader)
     {
+        for (int i = 0; i < m_vertexData.size() / 4; ++i)
+        {
+            const umath::matrix4& m = m_objects[i]->transform.GetTransform();
+            umath::matrix3 t_m;
+            t_m[0][0] = m[0][0];
+            t_m[0][1] = m[0][1];
+            t_m[1][0] = m[1][0];
+            t_m[1][1] = m[1][1];
+            t_m[0][2] = m[0][3];
+            t_m[1][2] = m[1][3];
+
+            m_vertexData[0 + (i * 4)].position *= t_m;
+            m_vertexData[1 + (i * 4)].position *= t_m;
+            m_vertexData[2 + (i * 4)].position *= t_m;
+            m_vertexData[3 + (i * 4)].position *= t_m;
+        }
+
+        m_spriteBuffer.clear(true, false);
+        m_spriteBuffer.addVertices(m_vertexData);
+        
         m_spriteBuffer.setData();
 
-        updateMatrixData();
-
         m_atlas->Bind();
-        //shader->SetUniform("unifSampler", 0);
+        shader->SetUniform("unifSampler", 0);
         shader->SetUniform("unifColor", 1, 1, 1, 1);
-
-        uthGraphics.bindBuffer(ARRAY_BUFFER, m_matrixBuffer.getArrayBufferID());
-        uthGraphics.setBufferData(ARRAY_BUFFER, m_matrixData.size() * sizeof(umath::matrix4), &m_matrixData, STATIC_DRAW);
-
-        int matLoc = uthGraphics.getAttributeLocation(shader->getShaderID(), "attrMat");
-
-        uthGraphics.enableVertexAttribArray(matLoc);
-        uthGraphics.enableVertexAttribArray(matLoc + 1);
-        uthGraphics.enableVertexAttribArray(matLoc + 2);
-        uthGraphics.enableVertexAttribArray(matLoc + 3);
-        uthGraphics.setVertexAttribPointer(matLoc, 4, FLOAT_TYPE, sizeof(umath::matrix4), (void*)0);
-        uthGraphics.setVertexAttribPointer(matLoc + 1, 4, FLOAT_TYPE, sizeof(umath::matrix4), (void*)(4 * sizeof(float)));
-        uthGraphics.setVertexAttribPointer(matLoc + 2, 4, FLOAT_TYPE, sizeof(umath::matrix4), (void*)(8 * sizeof(float)));
-        uthGraphics.setVertexAttribPointer(matLoc + 3, 4, FLOAT_TYPE, sizeof(umath::matrix4), (void*)(12 * sizeof(float)));
 
 
         uthGraphics.bindBuffer(ARRAY_BUFFER, m_spriteBuffer.getArrayBufferID());
@@ -70,18 +74,6 @@ namespace uth
 
         uthGraphics.bindBuffer(ELEMENT_ARRAY_BUFFER, m_spriteBuffer.getElementBufferID());
         uthGraphics.drawElements(TRIANGLES, m_spriteBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
-    }
-
-    void SpriteBatch::updateMatrixData()
-    {
-        m_matrixData.clear();
-        m_matrixData.reserve(m_objects.size() * 4);
-
-        for (unsigned int i = 0; i < m_objects.size(); ++i)
-        {
-            for (int i = 0; i < 4; ++i)
-                m_matrixData.push_back(m_objects[i]->transform.GetTransform());
-        }
     }
     
 }

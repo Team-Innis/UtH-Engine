@@ -20,6 +20,7 @@ namespace uth
 
 		~VertexBuffer();
 
+        void clear(const bool vertices = true, const bool indices = true);
 		void addVertex(const Vertex& vertex);
 		// Add vector of vertices and uvs to the end of current vectors, doesn't modify existing data
 		void addVertices(const std::vector<Vertex>& vertices);

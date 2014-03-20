@@ -25,13 +25,10 @@ namespace uth
 
     private:
 
-        void updateMatrixData();
-
         std::vector<GameObject*> m_objects;
         TextureAtlas* m_atlas;
 
-        std::vector<umath::matrix4> m_matrixData;
-        VertexBuffer m_matrixBuffer;
+        std::vector<Vertex> m_vertexData;
         VertexBuffer m_spriteBuffer;
 
     };

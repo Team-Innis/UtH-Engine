@@ -20,6 +20,14 @@ VertexBuffer::~VertexBuffer()
 
 // Public
 
+void VertexBuffer::clear(const bool vertices, const bool indices)
+{
+    if (vertices)
+        m_vertexData.clear();
+    if (indices)
+        m_indices.clear();
+}
+
 void VertexBuffer::addVertex(const Vertex& vertex)
 {
 	m_vertexData.push_back(vertex);
