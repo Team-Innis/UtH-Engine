@@ -71,12 +71,12 @@ bool Layer::RemoveGameObject(GameObject* gameObject)
 	return false;
 }
 
-void Layer::Draw(Shader* shader)
+void Layer::Draw(Shader* shader, Camera* camera)
 {
 	for(int i = 0; i < m_objects.size(); i++)
 	{
 		if(m_objects.at(i)->transform.GetActive())
-			m_objects.at(i)->Draw(shader);
+			m_objects.at(i)->Draw(shader, camera);
 	}
 }
 

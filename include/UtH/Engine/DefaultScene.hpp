@@ -22,7 +22,7 @@ namespace uth
 	protected:
 		Shader shader;
 		Camera camera;
-		GameObject gameObject;
+		GameObject gameObject, textObject;
 		GameObject gameObject2;
 
 		int number;

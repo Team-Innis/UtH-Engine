@@ -25,7 +25,7 @@ namespace uth
 		bool AddGameObject(GameObject* gameObject);
 		bool RemoveGameObject(GameObject* gameObject);
 
-		void Draw(uth::Shader* shader);
+		void Draw(Shader* shader, Camera* camera);
 
 		void SetObjectsActive(bool value);
 

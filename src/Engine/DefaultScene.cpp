@@ -1,5 +1,6 @@
 #include "UtH/Engine/DefaultScene.hpp"
 #include <UtH/Engine/Sprite.hpp>
+#include <UtH/Engine/Text.hpp>
 
 #include <UtH\Platform\Debug.hpp>
 
@@ -22,31 +23,29 @@ bool DefaultScene::Init()
 	//camera.SetRotation(180);
 
 	gameObject.AddComponent(new uth::Sprite("test.tga"));
-	gameObject2.AddComponent(new uth::Sprite("test.tga"));
+	//auto sprite = (Sprite*)gameObject.GetComponent("Sprite");
+	//sprite->SetColor(1, 0, 1, 1);
 	//gameObject.transform.SetSize(0.5f, 0.5f);
 	//gameObject.GetComponent("Sprite")->SetActive(false);
 	//WriteLog("\nactive: %d", gameObject.transform.GetActive());
 
 	CreateLayer("testi");
 	AddGameObjectToLayer(0, &gameObject);
-	AddGameObjectToLayer("testi", &gameObject2);
+	//AddGameObjectToLayer("testi", &gameObject2);
 
-	gameObject.transform.SetPosition(100,100);
-	gameObject.transform.parent->transform.Rotate(30);
-	gameObject.transform.SetSize(2, 2);
-	gameObject.transform.SetActive(false);
+	//gameObject.transform.SetPosition(0,0);
+	//gameObject.transform.parent->transform.Rotate(30);
+	//gameObject.transform.SetSize(2, 2);
+	//gameObject.transform.SetActive(true);
 
-	//RemoveGameObjectFromLayer(0, &gameObject2);
-	//RemoveGameObjectFromLayer("testi", &gameObject);
+	auto text = new Text("kenpixel.ttf", 16);
+	text->AddText(L" !\"#$%&'()*+,-./0123456789:;<=>?"
+				  L"@ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÅ[\\]^_"
+				  L"`abcdefghijklmnopqrstuvwxyzöäå{|}~");
 
-	//layers.at(0)->SetObjectsActive(false);
-	layers.at(0)->transform.Move(200,100);
-
-	//SetLayerActive("testi", false);
-
-	//layers.at(0)->transform.SetActive(false);
-	layers.at(0)->UpdateTransform();
-	WriteLog("\n\nLayerActive: %d",layers.at(0)->transform.GetActive());
+	textObject.AddComponent(text);
+	textObject.transform.Move(-400, 200);
+	AddGameObjectToLayer(0, &textObject);
 
 	return true;
 }
@@ -61,13 +60,13 @@ bool DefaultScene::Update(double dt)
 }
 bool DefaultScene::Draw()
 {
-	shader.SetUniform("unifProjection", camera.GetProjectionTransform());
-	
+	//gameObject.Draw(&shader, &camera);
+	//textObject.Draw(&shader, &camera);
 	//gameObject.Draw(&shader);
 	//gameObject2.Draw(&shader);
 	
 	for(int i = 0; i < layers.size(); i++)
-		layers.at(i)->Draw(&shader);
+		layers.at(i)->Draw(&shader, &camera);
 
 
 	return true;
