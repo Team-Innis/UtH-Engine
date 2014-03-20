@@ -13,5 +13,5 @@ void main()
 	texCoord = attrUV;
 	color = unifColor;
 	
-	gl_Position = vec4(attrPosition, 1.0) * unifProjection;
+	gl_Position = vec4(attrPosition.xy, 0.0, 1.0) * unifProjection;
 }

@@ -22,10 +22,10 @@ namespace uth
         umath::rectangle tex = m_atlas->getTextureCoords(atlasName.c_str());
 
 
-        m_vertexData.push_back(Vertex(umath::vector3(-spriteSize.x/2, -spriteSize.y/2, 0), umath::vector2(tex.left, 1.f - tex.top))); // vasen alakulma
-        m_vertexData.push_back(Vertex(umath::vector3(spriteSize.x/2, -spriteSize.y/2, 0), umath::vector2(tex.getRight(), 1.f - tex.top))); // oikea alakulma
-        m_vertexData.push_back(Vertex(umath::vector3(-spriteSize.x/2, spriteSize.y/2, 0), umath::vector2(tex.left, 1.f - (tex.top + tex.height)))); // vasen yläkulma
-        m_vertexData.push_back(Vertex(umath::vector3(spriteSize.x/2, spriteSize.y/2, 0), umath::vector2(tex.getRight(), 1.f - (tex.top + tex.height)))); // oikea yläkulma
+        m_vertexData.push_back(Vertex(umath::vector3(-spriteSize.x/2, -spriteSize.y/2, 1), umath::vector2(tex.left, 1.f - tex.top))); // vasen alakulma
+        m_vertexData.push_back(Vertex(umath::vector3(spriteSize.x/2, -spriteSize.y/2, 1), umath::vector2(tex.getRight(), 1.f - tex.top))); // oikea alakulma
+        m_vertexData.push_back(Vertex(umath::vector3(-spriteSize.x/2, spriteSize.y/2, 1), umath::vector2(tex.left, 1.f - (tex.top + tex.height)))); // vasen yläkulma
+        m_vertexData.push_back(Vertex(umath::vector3(spriteSize.x/2, spriteSize.y/2, 1), umath::vector2(tex.getRight(), 1.f - (tex.top + tex.height)))); // oikea yläkulma
 	    m_spriteBuffer.addIndex(0 + mod);
 	    m_spriteBuffer.addIndex(1 + mod);
 	    m_spriteBuffer.addIndex(2 + mod);
@@ -41,6 +41,12 @@ namespace uth
 
     void SpriteBatch::Draw(Shader* shader)
     {
+        //m_vertexData.clear();
+        //m_vertexData = m_spriteBuffer.getVertices();
+
+        m_spriteBuffer.clear(true, false);
+        m_spriteBuffer.addVertices(m_vertexData);
+
         for (int i = 0; i < m_vertexData.size() / 4; ++i)
         {
             const umath::matrix4& m = m_objects[i]->transform.GetTransform();
@@ -52,14 +58,12 @@ namespace uth
             t_m[0][2] = m[0][3];
             t_m[1][2] = m[1][3];
 
-            m_vertexData[0 + (i * 4)].position *= t_m;
-            m_vertexData[1 + (i * 4)].position *= t_m;
-            m_vertexData[2 + (i * 4)].position *= t_m;
-            m_vertexData[3 + (i * 4)].position *= t_m;
+            m_spriteBuffer.m_vertexData[0 + (i * 4)].position *= t_m;
+            m_spriteBuffer.m_vertexData[1 + (i * 4)].position *= t_m;
+            m_spriteBuffer.m_vertexData[2 + (i * 4)].position *= t_m;
+            m_spriteBuffer.m_vertexData[3 + (i * 4)].position *= t_m;
         }
 
-        m_spriteBuffer.clear(true, false);
-        m_spriteBuffer.addVertices(m_vertexData);
         
         m_spriteBuffer.setData();
 

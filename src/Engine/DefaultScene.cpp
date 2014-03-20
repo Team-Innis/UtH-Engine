@@ -3,7 +3,12 @@
 #include <UtH/Renderer/SpriteBatch.hpp>
 #include <UtH\Platform\Input.hpp>
 
+#include <UtH/Platform/HiResTimer.hpp>
+#include <UtH/Platform/Debug.hpp>
+
 using namespace uth;
+
+const unsigned int sprites = 10000;
 
 DefaultScene::DefaultScene()
 {}
@@ -33,17 +38,15 @@ bool DefaultScene::Init()
 
     batch.SetTextureAtlas(&atlas);
 
-    for (int i = 0; i < 10; ++i)
+    for (int i = 0; i < sprites; ++i)
     {
         objects.push_back(new GameObject());
 
-        objects.back()->transform.SetPosition(100 + (100 * i), 100 + (100 * i));
+        objects.back()->transform.SetPosition(100 + (10 * i), 100 + (10 * i));
         //objects.back()->transform.SetRotation(180.f);
 
         batch.AddSprite(objects.back(), umath::vector2(129.f, 71.f), "cloud3.png");
     }
-
-   
 
 	return true;
 }
@@ -58,10 +61,13 @@ bool DefaultScene::Update(double dt)
     //obj.transform.Rotate(10.f * dt);
     //obj.transform.Move(10.f * dt, 10.f * dt);
 
-    for (int i = 0; i < 10; ++i)
-    {
-        objects[i]->transform.Move(5.f * dt, 5.f * dt);
-    }
+    //for (int i = 0; i < sprites; ++i)
+    //{
+    //    objects[i]->transform.SetPosition(UTHInput.Mouse.MousePosition());
+    //}
+
+
+
 
 
 	return true;
@@ -73,9 +79,14 @@ bool DefaultScene::Draw()
     bShader.Use();
     bShader.SetUniform("unifProjection", camera.GetProjectionTransform());
 	//gameObject.Draw(&shader);
+    Timer timer;
+    shader.Use();
+    for (int i = 0; i < sprites; ++i)
+        obj.Draw(&shader);
+    WriteLog("%f    ",1/timer.UpdateDeltaTime());
     bShader.Use();
     batch.Draw(&bShader);
-    shader.Use();
-    //obj.Draw(&shader);
+    WriteLog("%f\n",1/timer.UpdateDeltaTime());
+
 	return true;
 }
