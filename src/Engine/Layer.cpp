@@ -73,6 +73,8 @@ bool Layer::RemoveGameObject(GameObject* gameObject)
 
 void Layer::Draw(Shader* shader, Camera* camera)
 {
+	UpdateTransform();
+
 	for(int i = 0; i < m_objects.size(); i++)
 	{
 		if(m_objects.at(i)->transform.GetActive())
@@ -91,9 +93,14 @@ void Layer::SetObjectsActive(bool value)
 
 void Layer::UpdateTransform()
 {
+	
 	for(int i = 0; i < m_objects.size(); i++)
 	{
+		m_objects.at(i)->transform.AddTransform(transform.GetTransform());
+		/*
 		m_objects.at(i)->transform.SetTransform(transform.GetTransform() *
 			m_objects.at(i)->transform.GetTransform());
+			*/
 	}
+	
 }

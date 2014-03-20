@@ -38,14 +38,20 @@ bool DefaultScene::Init()
 	//gameObject.transform.SetSize(2, 2);
 	//gameObject.transform.SetActive(true);
 
-	auto text = new Text("kenpixel.ttf", 16);
-	text->AddText(L" !\"#$%&'()*+,-./0123456789:;<=>?"
-				  L"@ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÅ[\\]^_"
-				  L"`abcdefghijklmnopqrstuvwxyzöäå{|}~");
+	auto text = new Text("8bitoperator.ttf", 32);
+	text->AddText(L"!\"#$%&'()*+,-./0123456789:;<=     >?"
+				  L"\n@ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÅ[\\]^_"
+				  L"\n`abcdefghijklmnopqrstuvwxyzöäå{|}~");
+
+	text->AddText(L"\nPrkl!");
 
 	textObject.AddComponent(text);
 	textObject.transform.Move(-400, 200);
 	AddGameObjectToLayer(0, &textObject);
+
+	//layers.at(0)->transform.Rotate(90);
+	layers.at(0)->transform.Rotate(10);
+
 
 	return true;
 }
@@ -56,6 +62,7 @@ bool DefaultScene::DeInit()
 
 bool DefaultScene::Update(double dt)
 {
+	layers.at(0)->transform.Rotate(0.1f);
 	return true;
 }
 bool DefaultScene::Draw()

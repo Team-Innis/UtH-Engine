@@ -5,7 +5,8 @@ using namespace uth;
 Component::Component()
 	: m_active(false),
 	  m_draw(false),
-	  m_dynamic(false)
+	  m_dynamic(false),
+	  parent(nullptr)
 {
 }
 
@@ -13,7 +14,8 @@ Component::Component(std::string name)
 	: m_name(name),
 	  m_active(true),
 	  m_draw(false),
-	  m_dynamic(false)
+	  m_dynamic(false),
+	  parent(nullptr)
 {
 }
 

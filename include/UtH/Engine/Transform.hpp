@@ -31,7 +31,9 @@ namespace uth
 		void SetDepth(float depth);
 		const float GetDepth() const;
 
-		void SetTransform(umath::matrix4 modelTransform);
+		void SetTransform(const umath::matrix4& modelTransform);
+		// Adds to the current transform(multiplies). Mostly needed for layer transformation
+		void AddTransform(const umath::matrix4& modelTransform);
 		const umath::matrix4& GetTransform();
 
 		umath::vector2 position;

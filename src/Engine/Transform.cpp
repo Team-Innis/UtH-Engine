@@ -9,7 +9,7 @@ Transform::Transform(const std::string name)
 	  size(1, 1),
 	  angle(0),     
 	  depth(0),
-	  m_transformNeedsUpdate(false)
+	  m_transformNeedsUpdate(true)
 
 { }
 
@@ -90,9 +90,17 @@ const float Transform::GetDepth() const
 	return depth;
 }
 
-void Transform::SetTransform(umath::matrix4 modelTransform)
+void Transform::SetTransform(const umath::matrix4& modelTransform)
 {
 	m_modelTransform = modelTransform;
+}
+
+void Transform::AddTransform(const umath::matrix4& modelTransform)
+{
+	m_transformNeedsUpdate = true;
+	updateTransform();
+
+	m_modelTransform = modelTransform * m_modelTransform;
 }
 
 const umath::matrix4& Transform::GetTransform()

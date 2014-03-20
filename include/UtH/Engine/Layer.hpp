@@ -31,10 +31,9 @@ namespace uth
 
 		Transform transform;
 
+	private:
 		void UpdateTransform();
 
-
-	private:
 		std::vector<GameObject*> m_objects;
 
 		const char* layerName;
