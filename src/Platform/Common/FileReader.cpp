@@ -32,10 +32,8 @@ FileReader::~FileReader()
 	}
 	else
     {
-		WriteLog("\nclosing file");
-      //  if (file == NULL)
-		    //fclose(file);
-		WriteLog("\nfile closed");
+        if (file != NULL)
+		    fclose(file);
     }
 }
 
