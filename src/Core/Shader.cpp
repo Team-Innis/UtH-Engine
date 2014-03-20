@@ -8,7 +8,7 @@ using namespace uth;
 Shader::Shader()
 {
 	program = uthGraphics.createShaderProgram();
-	WriteLog("\nShaderProgram created: %d", program);
+	//WriteLog("\nShaderProgram created: %d", program);
 }
 
 Shader::~Shader()

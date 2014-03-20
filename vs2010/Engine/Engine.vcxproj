@@ -64,9 +64,11 @@
     <ClCompile Include="..\..\src\Engine\Component.cpp" />
     <ClCompile Include="..\..\src\Engine\DefaultScene.cpp" />
     <ClCompile Include="..\..\src\Engine\GameObject.cpp" />
+    <ClCompile Include="..\..\src\Engine\Layer.cpp" />
     <ClCompile Include="..\..\src\Engine\Scene.cpp" />
     <ClCompile Include="..\..\src\Engine\SceneManager.cpp" />
     <ClCompile Include="..\..\src\Engine\Sprite.cpp" />
+    <ClCompile Include="..\..\src\Engine\Text.cpp" />
     <ClCompile Include="..\..\src\Engine\Transform.cpp" />
     <ClCompile Include="..\..\src\Engine\UtHEngine.cpp" />
   </ItemGroup>
@@ -74,9 +76,11 @@
     <ClInclude Include="..\..\include\UtH\Engine\Component.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\DefaultScene.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\GameObject.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\Layer.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Scene.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\SceneManager.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Sprite.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\Text.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Transform.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\UtHEngine.h" />
   </ItemGroup>
@@ -129,7 +133,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\glfw\include\;$(SolutionDir)..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\freetype\include\;$(SolutionDir)..\extlibs\freetype-gl\include\;$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\glfw\include\;$(SolutionDir)..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -145,7 +149,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\glfw\include\;$(SolutionDir)..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\freetype\include\;$(SolutionDir)..\extlibs\freetype-gl\include\;$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\glfw\include\;$(SolutionDir)..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

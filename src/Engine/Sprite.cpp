@@ -27,19 +27,13 @@ Sprite::~Sprite()
 {
 }
 
-void Sprite::Draw(Shader *shader)
+void Sprite::Draw(Shader *shader, Camera* camera)
 {
     if (m_texture)
 	    m_texture->Bind();
 
 	shader->SetUniform("unifSampler", 0);
-	shader->SetUniform("unifColor", m_color);
 	m_vertexBuffer.draw(shader);
-}
-
-void Sprite::Update(float dt)
-{
-	// No update needed for sprites
 }
 
 void Sprite::SetTexture(Texture* texture)
@@ -68,6 +62,8 @@ void Sprite::setSize(const umath::vector2& size)
 void Sprite::SetColor(const umath::vector4 color)
 {
 	m_color = color;
+	m_vertexBuffer.clear();
+	generetateBuffer();
 }
 
 void Sprite::SetColor(float r, float g, float b, float a)
@@ -85,23 +81,28 @@ const umath::vector4 Sprite::GetColor() const
 // Private
 void Sprite::defaults()
 {
-	SetDrawable(true);
-
     if (m_texture)
         m_size = m_texture->GetSize();
 
-	generetateBuffer();
-
 	m_color = umath::vector4(1.f, 1.f, 1.f, 1.f);
+
+	generetateBuffer();
 }
+
 
 
 void Sprite::generetateBuffer()
 {
-	m_vertexBuffer.addVertex(Vertex(umath::vector3(-m_size.x/2, -m_size.y/2, 0), umath::vector2(1.0f, 1.0f))); // vasen alakulma
-	m_vertexBuffer.addVertex(Vertex(umath::vector3(m_size.x/2, -m_size.y/2, 0), umath::vector2(0.0f, 1.0f))); // oikea alakulma
-	m_vertexBuffer.addVertex(Vertex(umath::vector3(-m_size.x/2, m_size.y/2, 0), umath::vector2(1.0f, 0.0f))); // vasen yläkulma
-	m_vertexBuffer.addVertex(Vertex(umath::vector3(m_size.x/2, m_size.y/2, 0), umath::vector2(0.0f, 0.0f))); // oikea yläkulma
+	m_vertexBuffer.addVertex(Vertex(umath::vector3(-m_size.x/2, -m_size.y/2, 0),
+		umath::vector2(1.0f, 1.0f), m_color));
+	m_vertexBuffer.addVertex(Vertex(umath::vector3(m_size.x/2, -m_size.y/2, 0),
+		umath::vector2(0.0f, 1.0f), m_color));
+	m_vertexBuffer.addVertex(Vertex(umath::vector3(-m_size.x/2, m_size.y/2, 0),
+		umath::vector2(1.0f, 0.0f), m_color));
+	m_vertexBuffer.addVertex(Vertex(umath::vector3(m_size.x/2, m_size.y/2, 0),
+		umath::vector2(0.0f, 0.0f), m_color));
+
+
 	m_vertexBuffer.addIndex(0);
 	m_vertexBuffer.addIndex(1);
 	m_vertexBuffer.addIndex(2);

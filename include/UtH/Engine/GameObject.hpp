@@ -11,6 +11,8 @@
 
 namespace uth
 {
+	class Camera;
+
 	class GameObject
 	{
 	public:
@@ -23,15 +25,14 @@ namespace uth
 		void RemoveComponent(Component* component);
 		void RemoveComponent(std::string name);
 
-		void Draw(Shader* shader);
+		void Draw(Shader* shader, Camera* camera);
 		void Update(float dt);
 
 		// Transform is a special component that every gameobject has
 		Transform transform;
 
 	private:
-		std::vector<Component*> updateComponents;
-		std::vector<Component*> drawComponents;		
+		std::vector<Component*> components;
 	};
 }
 #endif
