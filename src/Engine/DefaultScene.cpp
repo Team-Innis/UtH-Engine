@@ -62,7 +62,7 @@ bool DefaultScene::DeInit()
 
 bool DefaultScene::Update(double dt)
 {
-	layers.at(0)->transform.Rotate(0.1f);
+	layers.at(0)->transform.Rotate(0.01f);
 	return true;
 }
 bool DefaultScene::Draw()

@@ -23,7 +23,6 @@ namespace uth
 		~Sprite();
 
 		void Draw(Shader* shader, Camera* camera);
-		void Update(float dt);
 
 		void SetTexture(Texture* texture);
 		Texture* GetTexture() const;

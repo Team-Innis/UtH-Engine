@@ -34,11 +34,6 @@ void Sprite::Draw(Shader *shader, Camera* camera)
 	m_vertexBuffer.draw(shader);
 }
 
-void Sprite::Update(float dt)
-{
-	// No update needed for sprites
-}
-
 void Sprite::SetTexture(Texture* texture)
 {
 	m_texture = texture;
@@ -77,8 +72,6 @@ const umath::vector4 Sprite::GetColor() const
 // Private
 void Sprite::defaults()
 {
-	SetDrawable(true);
-
     m_size = m_texture->GetSize();
 	m_color = umath::vector4(1.f, 1.f, 1.f, 1.f);
 

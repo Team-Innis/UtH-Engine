@@ -32,8 +32,7 @@ namespace uth
 		Transform transform;
 
 	private:
-		std::vector<Component*> updateComponents;
-		std::vector<Component*> drawComponents;		
+		std::vector<Component*> components;
 	};
 }
 #endif

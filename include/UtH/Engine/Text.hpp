@@ -24,7 +24,6 @@ namespace uth
 		// Return current text
 		const std::wstring& GetText() const;
 
-		void Update(float dt);
 		void Draw(Shader* shader, Camera* camera);
 
 	private:

@@ -12,7 +12,6 @@ Text::Text(const std::string& fontPath, const float fontSize, const std::string&
 	: Component(name),
 	  m_fontSize(fontSize)
 {
-	SetDrawable(true);
 	m_path = "assets/" + fontPath;
 
 	m_textShader.LoadShader("shaders/text.vert", "shaders/text.frag");
@@ -105,11 +104,6 @@ void Text::AddText(const std::wstring& text, /*const float size, umath::vector2&
 const std::wstring& Text::GetText() const
 {
 	return m_text;
-}
-
-void Text::Update(float dt)
-{
-	// No need for update
 }
 
 void Text::Draw(Shader* shader, Camera* camera)
