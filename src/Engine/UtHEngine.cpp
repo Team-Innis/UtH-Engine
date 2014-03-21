@@ -16,6 +16,7 @@ int UtHEngine::MainLoop()
 	settings.contextVersionMajor = 3;
 	settings.contextVersionMinor = 3;
     settings.fullScreen = false;
+	settings.useVsync = true;
 
 	CreateGameWindow(settings);
 
@@ -67,4 +68,9 @@ void UtHEngine::SetWindow(uth::Window * window)
 {
 	m_wndw = window;
 	UTHInput.SetWindow(window->m_windowHandle);
+}
+
+const umath::vector2& UtHEngine::GetWindowSize()
+{
+	return m_wndw->getWindowSettings().size;
 }

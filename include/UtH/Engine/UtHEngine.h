@@ -27,6 +27,8 @@ namespace uth
 
 		void SetWindow(uth::Window * window);
 
+		const umath::vector2& GetWindowSize();
+
 	private:
 		bool m_running;
 		uth::Window* m_wndw;
