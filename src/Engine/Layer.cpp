@@ -71,11 +71,19 @@ bool Layer::RemoveGameObject(GameObject* gameObject)
 	return false;
 }
 
-void Layer::Draw(Shader* shader, Camera* camera)
+void Layer::Update(float dt)
 {
 	UpdateTransform();
 
-	for(int i = 0; i < m_objects.size(); i++)
+	for(size_t i = 0; i < m_objects.size(); ++i)
+	{
+		m_objects.at(i)->Update(dt);
+	}
+}
+
+void Layer::Draw(Shader* shader, Camera* camera)
+{
+	for(size_t i = 0; i < m_objects.size(); ++i)
 	{
 		if(m_objects.at(i)->transform.GetActive())
 			m_objects.at(i)->Draw(shader, camera);
