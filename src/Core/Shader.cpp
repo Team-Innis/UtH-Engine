@@ -18,11 +18,11 @@ Shader::~Shader()
 // Public
 bool Shader::LoadShader(const std::string vertexShaderPath, const std::string fragmentShaderPath)
 {
-	FileReader fr;
+	FileReader fr1, fr2;
 
 	// Vertex Shader
-	fr.OpenFile(vertexShaderPath.c_str());
-	const char* vertex = fr.ReadText();
+	fr1.OpenFile(vertexShaderPath.c_str());
+	const char* vertex = fr1.ReadText();
 	if(!uthGraphics.createShader(VERTEX_SHADER, program, vertex))
 	{
 		WriteLog("Vertex shader failed");
@@ -30,13 +30,14 @@ bool Shader::LoadShader(const std::string vertexShaderPath, const std::string fr
 	}
 
 	// Fragment Shader
-	fr.OpenFile(fragmentShaderPath.c_str());
-	const char* fragment = fr.ReadText();
+	fr2.OpenFile(fragmentShaderPath.c_str());
+	const char* fragment = fr2.ReadText();
 	if(!uthGraphics.createShader(FRAGMENT_SHADER, program, fragment))
 	{
 		WriteLog("Fragment shader failed");
 		return false;
 	}
+	WriteLog("Returning from batch shader");
 
 	return uthGraphics.linkShaderProgram(program);
 }
