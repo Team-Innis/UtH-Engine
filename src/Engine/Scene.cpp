@@ -6,8 +6,10 @@
 using namespace uth;
 
 Scene::Scene()
-	: layersCount(0)
-{}
+	: layersCount(0),
+	  world(b2Vec2(0.0f, GRAVITY))
+{ }
+
 Scene::~Scene()
 {
 	for(int i = 0; i < layers.size(); i++)

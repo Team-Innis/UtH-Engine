@@ -23,9 +23,11 @@ namespace uth
 		Shader shader;
 		Camera camera;
 		GameObject gameObject, textObject;
-		GameObject gameObject2;
+		GameObject gameObject2, gameObject3;
 
 		int number;
+
+		b2Body* groundBody;
 	};
 }
 

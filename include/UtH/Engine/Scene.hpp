@@ -5,11 +5,14 @@
 #include <UtH/Core/Shader.hpp>
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Engine/Layer.hpp>
+#include <Box2D/Box2D.h>
 
 #include <vector>
 
 namespace uth
 {
+	const float GRAVITY = -10.f;
+
 	class Scene
 	{
 	public:
@@ -39,6 +42,8 @@ namespace uth
 		int layersCount;
 
 		GameObject layer;
+
+		b2World world;
 	};
 }
 
