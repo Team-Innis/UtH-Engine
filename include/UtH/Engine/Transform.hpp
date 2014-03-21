@@ -13,16 +13,20 @@ namespace uth
 		Transform(const std::string name = "Transform");
 		~Transform();
 
-		void Move(umath::vector2 offset);
+		void Move(const umath::vector2& offset);
 		void Move(float offsetX, float offsetY);
 
-		void SetPosition(umath::vector2 position);
+		void SetPosition(const umath::vector2& position);
 		void SetPosition(float posX, float posY);
 		const umath::vector2& GetPosition() const;
 
-		void SetSize(umath::vector2 size);
+		void SetSize(const umath::vector2& size);
 		void SetSize(float width, float height);
 		const umath::vector2& GetSize() const;
+
+		void SetScale(const umath::vector2& scale);
+		void SetSclae(float xScale, float yScale);
+		const umath::vector2& GetScale() const;
 
 		void SetRotation(float angle);
 		const float GetRotation() const;
@@ -38,6 +42,7 @@ namespace uth
 
 		umath::vector2 position;
 		umath::vector2 size;
+		umath::vector2 scale;
 		float angle;
 		float depth;
 
