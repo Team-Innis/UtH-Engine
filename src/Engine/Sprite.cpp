@@ -23,14 +23,31 @@ Sprite::Sprite(const std::string filePath, const std::string name)
 	defaults();
 }
 
+Sprite::Sprite(const umath::vector4& fillColor, const umath::vector2& size, const std::string name)
+	: Component(name)
+{
+	m_size = size;
+	m_useTexture = false;
+	SetColor(fillColor);
+}
+
+
 Sprite::~Sprite()
 {
 }
 
 void Sprite::Draw(Shader *shader, Camera* camera)
 {
-	m_texture->Bind();
-	shader->SetUniform("unifSampler", 0);
+	if(m_useTexture)
+	{
+		m_texture->Bind();
+		shader->SetUniform("useTexture", 1.f);
+		shader->SetUniform("unifSampler", 0);
+	}
+	else
+	{
+		shader->SetUniform("useTexture", 0.f);
+	}
 	m_vertexBuffer.draw(shader);
 }
 
@@ -45,12 +62,12 @@ Texture* Sprite::GetTexture() const
 	return m_texture;
 }
 
-const umath::vector2 Sprite::GetSize() const
+const umath::vector2& Sprite::GetSize() const
 {
 	return m_size;
 }
 
-void Sprite::SetColor(const umath::vector4 color)
+void Sprite::SetColor(const umath::vector4& color)
 {
 	m_color = color;
 	m_vertexBuffer.clear();
@@ -63,7 +80,7 @@ void Sprite::SetColor(float r, float g, float b, float a)
 }
 
 
-const umath::vector4 Sprite::GetColor() const
+const umath::vector4& Sprite::GetColor() const
 {
 	return m_color;
 }
@@ -72,6 +89,7 @@ const umath::vector4 Sprite::GetColor() const
 // Private
 void Sprite::defaults()
 {
+	m_useTexture = true;
     m_size = m_texture->GetSize();
 	m_color = umath::vector4(1.f, 1.f, 1.f, 1.f);
 

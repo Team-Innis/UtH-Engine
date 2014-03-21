@@ -5,10 +5,12 @@ uniform sampler2D unifSampler;
 
 varying vec2 texCoord;
 varying vec4 color;
+varying float enableTexture;
 
 void main() 
 {
-	gl_FragColor = texture2D(unifSampler,texCoord) * color;
-
-	//gl_FragColor = vec4(texCoord, 0.0, 1.0);
+	if(enableTexture > 0.0)
+		gl_FragColor = texture2D(unifSampler,texCoord) * color;
+	else
+		gl_FragColor = color;
 }

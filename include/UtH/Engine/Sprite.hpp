@@ -20,6 +20,9 @@ namespace uth
 		//Sprite(std::string filePath, umath::vector2 size);
 		//Sprite(std::string filePath, int width, int height);
 
+		Sprite(const umath::vector4& fillColor, const umath::vector2& size,
+			const std::string name = "Sprite");
+
 		~Sprite();
 
 		void Draw(Shader* shader, Camera* camera);
@@ -28,12 +31,12 @@ namespace uth
 		Texture* GetTexture() const;
 
 		// Size of texture in pixels
-		const umath::vector2 GetSize() const;
+		const umath::vector2& GetSize() const;
 
 		// Just a simple multiplier for the texture color
-		void SetColor(const umath::vector4 color);
+		void SetColor(const umath::vector4& color);
 		void SetColor(float r, float g, float b, float a);
-		const umath::vector4 GetColor() const;
+		const umath::vector4& GetColor() const;
 
 	private:
 		void defaults();
@@ -42,6 +45,7 @@ namespace uth
 
 		VertexBuffer m_vertexBuffer;
 
+		bool m_useTexture;
 		Texture* m_texture;
 
 		umath::vector2 m_size;

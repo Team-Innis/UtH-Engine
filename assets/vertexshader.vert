@@ -5,14 +5,18 @@ attribute vec4 attrColor;
 
 uniform mat4 unifModel;
 uniform mat4 unifProjection;
+uniform float useTexture;
 
 varying vec2 texCoord;
 varying vec4 color;
+varying float enableTexture;
+
 
 void main() 
 {
 	texCoord = attrUV;
 	color = attrColor;
+	enableTexture = useTexture;
 
 	//gl_Position = vec4(attrPosition, 1.0);
 
