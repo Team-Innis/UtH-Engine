@@ -3,6 +3,8 @@
 #define DEFAULTSCENE_H_UTH
 
 #include <UtH/Engine/Scene.hpp>
+#include <UtH/Renderer/Camera.hpp>
+#include <UtH/Renderer/SpriteBatch.hpp>
 
 namespace uth
 {
@@ -20,8 +22,14 @@ namespace uth
 		virtual bool Update(double dt);
 		virtual bool Draw();
 
-		Shader shader;
-		GameObject gameObject;
+		Shader shader,
+            bShader;
+		Camera camera;
+        std::vector<GameObject*> objects;
+        GameObject obj;
+        SpriteBatch batch;
+
+        TextureAtlas atlas;
 
 		int number;
 	};

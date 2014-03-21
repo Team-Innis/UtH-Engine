@@ -156,40 +156,40 @@ void Sound::Initialize(const char* fileName)
 	alGenBuffers(1, &buffer);
 	CheckALError("alGenBuffers");
 
-	uthRS.loadWAV(fileName);
+	const SoundBuffer& buf = uthRS.LoadWAV(fileName);
 
-	if(uthRS.soundInfo.channels == 2)
+    if(buf.GetSoundInfo().channels == 2)
 	{
-		if(uthRS.soundInfo.bitsPerSample == 16)
+		if(buf.GetSoundInfo().bitsPerSample == 16)
 		{
 			alBufferData(buffer, AL_FORMAT_STEREO16, 
-				uthRS.soundInfo.soundBuffer, 
-				uthRS.soundInfo.frames * sizeof(int), 
-				uthRS.soundInfo.sampleRate);
+				buf.GetSoundInfo().soundBuffer, 
+				buf.GetSoundInfo().frames * sizeof(int), 
+				buf.GetSoundInfo().sampleRate);
 		}
-		else if(uthRS.soundInfo.bitsPerSample == 8)
+		else if(buf.GetSoundInfo().bitsPerSample == 8)
 		{
 			alBufferData(buffer, AL_FORMAT_STEREO8, 
-				uthRS.soundInfo.soundBuffer, 
-				uthRS.soundInfo.frames * sizeof(int), 
-				uthRS.soundInfo.sampleRate);
+				buf.GetSoundInfo().soundBuffer, 
+				buf.GetSoundInfo().frames * sizeof(int), 
+				buf.GetSoundInfo().sampleRate);
 		}
 	}
-	else if(uthRS.soundInfo.channels == 1)
+	else if(buf.GetSoundInfo().channels == 1)
 	{
-		if(uthRS.soundInfo.bitsPerSample == 16)
+		if(buf.GetSoundInfo().bitsPerSample == 16)
 		{
 			alBufferData(buffer, AL_FORMAT_MONO16, 
-				uthRS.soundInfo.soundBuffer, 
-				uthRS.soundInfo.frames * sizeof(int), 
-				uthRS.soundInfo.sampleRate);
+				buf.GetSoundInfo().soundBuffer, 
+				buf.GetSoundInfo().frames * sizeof(int), 
+				buf.GetSoundInfo().sampleRate);
 		}
-		else if(uthRS.soundInfo.bitsPerSample == 8)
+		else if(buf.GetSoundInfo().bitsPerSample == 8)
 		{
 			alBufferData(buffer, AL_FORMAT_MONO8, 
-				uthRS.soundInfo.soundBuffer, 
-				uthRS.soundInfo.frames * sizeof(int), 
-				uthRS.soundInfo.sampleRate);
+				buf.GetSoundInfo().soundBuffer, 
+				buf.GetSoundInfo().frames * sizeof(int), 
+				buf.GetSoundInfo().sampleRate);
 		}
 	}
 
@@ -198,7 +198,7 @@ void Sound::Initialize(const char* fileName)
 	alSourcei(source, AL_BUFFER, buffer);
 	CheckALError("alSourcei");
 
-	duration = (float)uthRS.soundInfo.frames / (float)uthRS.soundInfo.sampleRate;
+	duration = static_cast<float>(buf.GetSoundInfo().frames) / static_cast<float>(buf.GetSoundInfo().sampleRate);
 	WriteLog("duration: %f\n", duration);
 }
 

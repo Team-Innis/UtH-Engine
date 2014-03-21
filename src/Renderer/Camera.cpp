@@ -1,12 +1,13 @@
 #include <UtH/Renderer/Camera.hpp>
 #include <cmath>
+#include <cassert>
 
 
 namespace uth
 {
     Camera::Camera()
         : m_size(),
-          m_zoom(0.f),
+          m_zoom(1.f),
           m_viewport(),
           m_viewMatrix(),
           m_transformNeedsUpdate(true)
@@ -16,7 +17,7 @@ namespace uth
 
     Camera::Camera(const umath::vector2& position, const umath::vector2& size)
         : m_size(size),
-          m_zoom(0.f),
+          m_zoom(1.f),
           m_viewport(),
           m_viewMatrix(),
           m_transformNeedsUpdate(true)
@@ -77,6 +78,8 @@ namespace uth
 
     Camera& Camera::SetZoom(const float factor)
     {
+		assert(m_zoom > 0.f);
+
         m_zoom = factor;
 
         m_transformNeedsUpdate = true;
@@ -142,19 +145,22 @@ namespace uth
     {
         if (m_transformNeedsUpdate)
         {
-            float rotation = transform.angle;
-            umath::vector2 position = transform.position;
+            const float rotation = transform.angle;
+            const umath::vector2 position = transform.position;
 
-            float angle  = rotation * 3.141592654f / 180.f;
-            float cosine = static_cast<float>(std::cos(angle));
-            float sine   = static_cast<float>(std::sin(angle));
-            float tx     = -position.x * cosine - position.y * sine + position.x;
-            float ty     =  position.x * sine - position.y * cosine + position.y;
+            const float angle  = rotation * 3.141592654f / 180.f;
+            const float cosine = static_cast<float>(std::cos(angle));
+            const float sine   = static_cast<float>(std::sin(angle));
+            const float tx     = -position.x * cosine - position.y * sine + position.x;
+            const float ty     =  position.x * sine - position.y * cosine + position.y;
 
-            float a =  2.f / m_size.x;
-            float b = -2.f / m_size.y;
-            float c = -a * position.x;
-            float d = -b * position.y;
+			const float sizeX = m_size.x / m_zoom;
+			const float sizeY = m_size.y / m_zoom;
+
+            const float a =  2.f / sizeX;
+            const float b = -2.f / sizeY;
+            const float c = -a * position.x;
+            const float d = -b * position.y;
 
             m_viewMatrix = umath::matrix4( a * cosine, a * sine,   0.f, a * tx + c,
                                           -b * sine,   b * cosine, 0.f, b * ty + d,

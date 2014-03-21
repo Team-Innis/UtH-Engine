@@ -8,6 +8,7 @@
 namespace uth
 {
 	class GameObject;
+	class Camera;
 
 	class Component
 	{
@@ -19,16 +20,10 @@ namespace uth
 		void SetActive(bool active);
 		bool GetActive();
 
-		void SetDrawable(bool drawable);
-		bool GetDrawable();
-
-		void SetDynamic(bool dynamic);
-		bool GetDynamic();
-
 		void SetName(const std::string name);
 		const std::string GetName() const;
 
-		virtual void Draw(Shader* shader){};
+		virtual void Draw(Shader* shader, Camera* camera){};
 		virtual void Update(float dt){};
 
 		GameObject* parent;
@@ -39,10 +34,7 @@ namespace uth
 	private:
 		std::string m_name;
 
-		bool m_active;
-		bool m_draw;
-		bool m_dynamic; // false = static
-		
+		bool m_active;		
 	};
 }
 #endif

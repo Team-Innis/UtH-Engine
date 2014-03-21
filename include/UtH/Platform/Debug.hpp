@@ -30,6 +30,15 @@
 		__android_log_vprint(ANDROID_LOG_INFO, LOG_TAG, text, v);
 		va_end(v);
 	}
+
+	static void CheckEGLError()
+	{
+		EGLint error = eglGetError();
+		if(error != EGL_SUCCESS)
+		{
+			WriteLog("EGL Function Failed: %d", error);
+		}
+	}
 #elif defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX)
 	static void WriteLog(const char* text, ...)
 	{

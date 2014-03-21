@@ -160,3 +160,10 @@ android/libs/
 #Assets
 android/assets/
 vs2010/TestProject/assets/
+
+# Eclipse crap
+.classpath
+.project
+.settings/
+gen/
+project.properties

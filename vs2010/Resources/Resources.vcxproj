@@ -21,10 +21,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\UtH\Resources\Image.hpp" />
     <ClInclude Include="..\..\include\UtH\Resources\ResourceManager.h" />
+    <ClInclude Include="..\..\include\UtH\Resources\SoundBuffer.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\Resources\Image.cpp" />
     <ClCompile Include="..\..\src\Resources\ResourceManager.cpp" />
+    <ClCompile Include="..\..\src\Resources\SoundBuffer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{471D0772-92B6-4239-8903-A3A1574DF99F}</ProjectGuid>
@@ -72,7 +76,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)../extlibs/glfw/include;$(SolutionDir)../extlibs/glew/include;$(SolutionDir)../extlibs/openal/include;$(SolutionDir)../include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\physfs\include;$(SolutionDir)../extlibs/glfw/include;$(SolutionDir)../extlibs/glew/include;$(SolutionDir)../extlibs/openal/include;$(SolutionDir)../include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -88,7 +92,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)../extlibs/glfw/include;$(SolutionDir)../extlibs/glew/include;$(SolutionDir)../extlibs/openal/include;$(SolutionDir)../include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\physfs\include;$(SolutionDir)../extlibs/glfw/include;$(SolutionDir)../extlibs/glew/include;$(SolutionDir)../extlibs/openal/include;$(SolutionDir)../include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

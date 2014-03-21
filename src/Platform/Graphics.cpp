@@ -91,43 +91,65 @@ namespace uth
         if (!shaderCode) return false;
 
         unsigned int shader = glCreateShader(shaderTypes[type]);
-        oglCheck(glShaderSource(shader, 1, &shaderCode, NULL));
-        oglCheck(glCompileShader(shader));
+        glShaderSource(shader, 1, &shaderCode, NULL);
+		CheckGLError("glShaderSource");
+
+        glCompileShader(shader);
+		CheckGLError("glGetShaderiv");
 
 		int infoLenght;
-		oglCheck(glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLenght));
+		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLenght);
+		CheckGLError("glGetShaderiv");
 		if(infoLenght > 1)
 		{
+			switch (type)
+			{
+			case VERTEX_SHADER: 
+				WriteLog("\nVertex ");
+				break;
+			case FRAGMENT_SHADER: 
+				WriteLog("\nFragment ");
+				break;
+			}
+			WriteLog("Shader Log:\n");
 			char* buf = new char[infoLenght];
-			oglCheck(glGetShaderInfoLog(shader, infoLenght, NULL, buf));
+			glGetShaderInfoLog(shader, infoLenght, NULL, buf);
+			CheckGLError("glGetShaderInfoLog");
 			WriteLog("%s", buf);
 			delete[] buf;
 		}
 
+
         int success;
-		oglCheck(glGetShaderiv(shader, GL_COMPILE_STATUS, &success));
+		glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+		CheckGLError("glDeleteShader");
 
 		if (!success)
 		{
             glDeleteShader(shader);
-
+			WriteLog("Shader compilation failed");
             return false;
         }
 
-        oglCheck(glAttachShader(shaderProgram, shader));
-        oglCheck(glDeleteShader(shader));
+        glAttachShader(shaderProgram, shader);
+		CheckGLError("glDeleteShader");
+        glDeleteShader(shader);
+		CheckGLError("glDeleteShader");
 
         return true;
     }
 
     bool Graphics::linkShaderProgram(const int shaderProgram)
     {
-        oglCheck(glLinkProgram(shaderProgram));
+        glLinkProgram(shaderProgram);
+		CheckGLError("glLinkProgram");
 
 		int infoLenght;
-		oglCheck(glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLenght));
+		glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLenght);
+		CheckGLError("glGetProgramiv INFO");
 		if(infoLenght > 1)
 		{
+			WriteLog("\nShader Program (%d) Log:\n", shaderProgram);
 			char* buf = new char[infoLenght];
 			oglCheck(glGetProgramInfoLog(shaderProgram, infoLenght, NULL, buf));
 			WriteLog("%s", buf);
@@ -135,15 +157,16 @@ namespace uth
 		}
 
         int success;
-		oglCheck(glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success));
+		glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
+		CheckGLError("glGetProgramiv LINK");
 
 		if (!success)
 		{
             destroyShaderProgram(shaderProgram);
-
+			WriteLog("Shader link failed");
 			return false;
 		}
-
+        
 		return true;
     }
 

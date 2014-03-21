@@ -1,12 +1,14 @@
 #include <UtH/Core/Shader.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/Debug.hpp>
 
 using namespace uth;
 
 Shader::Shader()
 {
 	program = uthGraphics.createShaderProgram();
+	//WriteLog("\nShaderProgram created: %d", program);
 }
 
 Shader::~Shader()
@@ -16,19 +18,26 @@ Shader::~Shader()
 // Public
 bool Shader::LoadShader(const std::string vertexShaderPath, const std::string fragmentShaderPath)
 {
-	FileReader fr;
+	FileReader fr1, fr2;
 
 	// Vertex Shader
-	fr.OpenFile(vertexShaderPath.c_str());
-	const char* vertex = fr.ReadText();
+	fr1.OpenFile(vertexShaderPath.c_str());
+	const char* vertex = fr1.ReadText();
 	if(!uthGraphics.createShader(VERTEX_SHADER, program, vertex))
+	{
+		WriteLog("Vertex shader failed");
 		return false;
+	}
 
 	// Fragment Shader
-	fr.OpenFile(fragmentShaderPath.c_str());
-	const char* fragment = fr.ReadText();
+	fr2.OpenFile(fragmentShaderPath.c_str());
+	const char* fragment = fr2.ReadText();
 	if(!uthGraphics.createShader(FRAGMENT_SHADER, program, fragment))
+	{
+		WriteLog("Fragment shader failed");
 		return false;
+	}
+	WriteLog("Returning from batch shader");
 
 	return uthGraphics.linkShaderProgram(program);
 }
@@ -48,6 +57,19 @@ bool Shader::setAttributeData(const std::string name, const int size, DataType t
 	uthGraphics.setVertexAttribPointer(location, size, type, offset, data);
 	//uthGraphics.disableVertexAttribArray(location);
 	return true;
+}
+
+bool Shader::setAttributeData(const int location, const int size, DataType type, const int offset, const void* data)
+{
+    uthGraphics.enableVertexAttribArray(location);
+	uthGraphics.setVertexAttribPointer(location, size, type, offset, data);
+
+    return true;
+}
+
+int Shader::getShaderID() const
+{
+    return program;
 }
 
 
