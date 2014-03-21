@@ -35,7 +35,7 @@ namespace uth
 		KeyboardInput Keyboard;
 		CommonInput Common;
 
-		void Update();
+		void Update(float deltaTime);
 		void SetWindow(void *windowHandle);
 	private:
 		void *m_windowHandle;

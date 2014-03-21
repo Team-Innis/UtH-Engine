@@ -53,7 +53,7 @@ bool UtHEngine::Update()
 }
 bool UtHEngine::Update(double dt)
 {
-	uthInput.Update();
+	uthInput.Update(dt);
 	return UtHSceneM.Update(dt);
 }
 void UtHEngine::Draw()

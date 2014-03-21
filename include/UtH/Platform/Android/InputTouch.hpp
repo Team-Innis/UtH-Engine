@@ -2,9 +2,9 @@
 #ifndef TOUCHINPUT_H_UTH
 #define TOUCHINPUT_H_UTH
 
-#include <UtH/Platform/InputEnums.hpp>
 #include <UtH/Math/Vector2.hpp>
 #include <UtH/Platform/Common/InputBase.hpp>
+#include <UtH/Platform/InputEnums.hpp>
 #include <UtH/Platform/Debug.hpp>
 
 #include <android/input.h>
@@ -26,7 +26,20 @@ namespace uth
 				m_position = umath::vector2();
 			}
 		};
+
+		float m_touchTime;
 	public:
+		enum class TouchMotion
+		{
+			NONE = 0,
+			PINCH_IN,
+			PINCH_OUT,
+			TAP,
+			DRAG
+		};
+
+		TouchMotion motion;
+
 		static TouchUnit ID;
 
 		/// Do not use this in scenes
@@ -39,23 +52,21 @@ namespace uth
 					ID.m_position.x = AMotionEvent_getX(eventMSG, 0);
 					ID.m_position.y = AMotionEvent_getY(eventMSG, 0);
 					ID.m_touched = true;
-					WriteLog("Touched %f %f", ID.m_position.x, ID.m_position.y);
+					WriteLog("Touch");
 				}
 				else if(AMotionEvent_getAction(eventMSG) == AMOTION_EVENT_ACTION_MOVE)
 				{
 					ID.m_position.x = AMotionEvent_getX(eventMSG, 0);
 					ID.m_position.y = AMotionEvent_getY(eventMSG, 0);
 					ID.m_touched = true;
-					WriteLog("Touched %f %f", ID.m_position.x, ID.m_position.y);
 				}
 				else if(AMotionEvent_getAction(eventMSG) == AMOTION_EVENT_ACTION_UP ||
 					AMotionEvent_getAction(eventMSG) == AMOTION_EVENT_ACTION_CANCEL ||
 					AMotionEvent_getAction(eventMSG) == AMOTION_EVENT_ACTION_OUTSIDE)
 				{
-					ID.m_position.x = 0;
-					ID.m_position.y = 0;
+					ID.m_position.x = -1;
+					ID.m_position.y = -1;
 					ID.m_touched = false;
-					WriteLog("Touch Ended");
 				}
 				return 1;
 			}
@@ -63,7 +74,7 @@ namespace uth
 		}
 		umath::vector2 GetLastPos() const;
 
-		void Update();
+		void Update(float deltaTime);
 
 		TouchInput();
 		~TouchInput();
