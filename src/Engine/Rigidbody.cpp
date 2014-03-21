@@ -25,7 +25,7 @@ void Rigidbody::Update(float dt)
 	{
 		b2Vec2 pos = m_body->GetPosition();
 
-		float angDegrees = m_body->GetAngle() * 180.f / PI;
+		float angDegrees = -m_body->GetAngle() * 180.f / PI;
 		parent->transform.SetRotation(angDegrees);
 
 		umath::vector2 tpos(pos.x, pos.y);
@@ -58,7 +58,7 @@ void Rigidbody::init()
 	size /= PIXELS_PER_METER;
 
 	b2PolygonShape dynamicBox;
-	dynamicBox.SetAsBox(size.x, size.y);
+	dynamicBox.SetAsBox(size.x/2, size.y/2);
 
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &dynamicBox;

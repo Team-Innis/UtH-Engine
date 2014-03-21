@@ -11,7 +11,7 @@
 
 namespace uth
 {
-	const float GRAVITY = -10.f;
+	const float GRAVITY = 10.f;
 
 	class Scene
 	{

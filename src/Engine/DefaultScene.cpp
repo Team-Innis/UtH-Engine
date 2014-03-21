@@ -19,11 +19,11 @@ bool DefaultScene::Init()
 	shader.Use();
 
 	b2BodyDef groundBodyDef;
-	groundBodyDef.position.Set(0.0f, -10.0f);
+	groundBodyDef.position.Set(0.0f, 5.0f);
 	groundBody = world.CreateBody(&groundBodyDef);
 
 	b2PolygonShape groundBox;
-	groundBox.SetAsBox(50.0f, 10.0f);
+	groundBox.SetAsBox(50.0f, 1.0f);
 
 	groundBody->CreateFixture(&groundBox, 0.0f);
 
@@ -36,13 +36,14 @@ bool DefaultScene::Init()
 
 	gameObject.AddComponent(new Sprite("test.tga"));
 	gameObject.AddComponent(new Rigidbody(&world));
+	gameObject.transform.Move(-100, -400);
 	gameObject2.AddComponent(new Sprite(umath::vector4(1, 0, 1, 1), umath::vector2(100, 100)));
 	gameObject2.AddComponent(new Rigidbody(&world));
 	gameObject2.transform.Move(0, -200);
 
 	gameObject3.AddComponent(new Sprite(umath::vector4(1, 1, 1, 1),
-		umath::vector2(50 * PIXELS_PER_METER, 10 * PIXELS_PER_METER)));
-	gameObject3.transform.SetPosition(0, -groundBody->GetPosition().y * PIXELS_PER_METER);
+		umath::vector2(2000, 2*PIXELS_PER_METER)));
+	gameObject3.transform.SetPosition(0, groundBody->GetPosition().y * PIXELS_PER_METER);
 	//gameObject.transform.Move(100, 100);
 	//auto sprite = (Sprite*)gameObject.GetComponent("Sprite");
 	//sprite->SetColor(1, 0, 1, 1);
@@ -93,7 +94,7 @@ bool DefaultScene::Update(double dt)
 	//gameObject.transform.Move(0, 1.f * dt);
 
 	static float timeStep = 1.f/60.f;
-	//world.Step(timeStep, 8, 3);
+	world.Step(timeStep, 8, 3);
 
 	return true;
 }
