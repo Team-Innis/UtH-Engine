@@ -2,7 +2,7 @@
 #ifndef VERTEX_H_UTH
 #define VERTEX_H_UTH
 
-#include <UtH\Math\Vector.hpp>
+#include <UtH/Math/Vector.hpp>
 
 namespace uth
 {

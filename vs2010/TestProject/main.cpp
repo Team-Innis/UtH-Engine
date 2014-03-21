@@ -1,6 +1,6 @@
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Engine/SceneManager.hpp>
-#include <UtH\Platform\Debug.hpp>
+#include <UtH/Platform/Debug.hpp>
 
 #include <UtH/Engine/DefaultScene.hpp>
 // Enumeration of scenes, giving name for each scene number
