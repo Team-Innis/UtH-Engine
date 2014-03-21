@@ -16,6 +16,7 @@ int UtHEngine::MainLoop()
 	settings.contextVersionMajor = 2;
 	settings.contextVersionMinor = 0;
     settings.fullScreen = false;
+    settings.antialiasingSamples = 8;
 
 	CreateGameWindow(settings);
 

@@ -32,12 +32,11 @@ namespace uth
 
     bool Texture::LoadFromFile(const char* path, const bool smooth, const bool repeated)
     {
-        uthRS.loadTGA(path);
+        const Image& img = uthRS.LoadTGA(path);
 
-        m_size.w = uthRS.header.width;
-        m_size.h = uthRS.header.height;
+        m_size = img.GetSize();
 
-        if (m_size.w == 0 || m_size.h == 0)
+        if (m_size.x == 0 || m_size.y == 0)
             return false;
 
         uthGraphics.setPixelStore(UNPACK_ALIGNMENT, 1);
@@ -46,7 +45,7 @@ namespace uth
 
         Bind();
 
-        uthGraphics.setTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT, m_size.w, m_size.h, RGBA_FORMAT, UNSIGNED_BYTE_TYPE, uthRS.header.pixels);
+        uthGraphics.setTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT, m_size.w, m_size.h, RGBA_FORMAT, UNSIGNED_BYTE_TYPE, img.m_pixels);
 		
 		SetSmooth(smooth);
         SetRepeated(repeated);

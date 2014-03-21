@@ -45,6 +45,7 @@ namespace uth
         glfwWindowHint(GLFW_DEPTH_BITS, settings.useDepthBuffer ? 16 : 0);
         glfwWindowHint(GLFW_STENCIL_BITS, settings.useStencilBuffer ? 8 : 0);
         glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
+        glfwWindowHint(GLFW_SAMPLES, settings.antialiasingSamples);
 
         int majorVer = settings.contextVersionMajor == 0 ? 4 : settings.contextVersionMajor,
             minorVer = settings.contextVersionMajor == 0 ? 4 : settings.contextVersionMinor;

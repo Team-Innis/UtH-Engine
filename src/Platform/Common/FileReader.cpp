@@ -59,7 +59,11 @@ void FileReader::OpenFile(const char* path)
 		std::string temp_path = "assets/";
 		temp_path += path;
 		file = std::fopen(temp_path.c_str(), "rb");
-		assert(file != NULL);
+        if (file == NULL)
+        {
+            WriteLog("FileLoading failed");
+		    assert(file != NULL);
+        }
 	}
 }
 
@@ -68,11 +72,13 @@ int FileReader::GetFileSize()
 	int size;
 	if(PHYSFS_isInit())
 	{
+        WriteLog("PHYSFS_isInit in use");
 		size = PHYSFS_fileLength(cFile);
 		return size;
 	}
 	else
 	{
+        WriteLog("normal filereading in use");
 		fseek(file, 0, SEEK_END);
 		size = ftell(file);
 		fseek(file, 0, SEEK_SET);

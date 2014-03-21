@@ -6,16 +6,24 @@
 
 namespace uth
 {
+    void SpriteBatch::reserve(const unsigned int amount)
+    {
+        m_objects.reserve(amount);
+        m_vertexData.reserve(amount);
+        m_spriteBuffer.m_vertexData.reserve(amount);
+        m_spriteBuffer.m_indices.reserve(amount);
+    }
+
 
     SpriteBatch::SpriteBatch()
         : m_atlas(nullptr)
     {
-
+        reserve(975);
     }
 
 
 
-    void SpriteBatch::AddSprite(GameObject* object, const umath::vector2& spriteSize, const std::string& atlasName)
+    void SpriteBatch::AddSprite(GameObject* object, const std::string& atlasName)
     {
         //WriteLog("mark");
         int mod = m_objects.size() * 4;
@@ -24,10 +32,13 @@ namespace uth
         umath::rectangle tex = m_atlas->getTextureCoords(atlasName.c_str());
 
 
-        m_vertexData.push_back(Vertex(umath::vector3(-spriteSize.x/2, -spriteSize.y/2, 1), umath::vector2(tex.left, 1.f - tex.top))); // vasen alakulma
-        m_vertexData.push_back(Vertex(umath::vector3(spriteSize.x/2, -spriteSize.y/2, 1), umath::vector2(tex.getRight(), 1.f - tex.top))); // oikea alakulma
-        m_vertexData.push_back(Vertex(umath::vector3(-spriteSize.x/2, spriteSize.y/2, 1), umath::vector2(tex.left, 1.f - (tex.top + tex.height)))); // vasen yläkulma
-        m_vertexData.push_back(Vertex(umath::vector3(spriteSize.x/2, spriteSize.y/2, 1), umath::vector2(tex.getRight(), 1.f - (tex.top + tex.height)))); // oikea yläkulma
+        float width = (m_atlas->GetSize().x * tex.width),
+              height = (m_atlas->GetSize().y * tex.height);
+
+        m_vertexData.push_back(Vertex(umath::vector3(-width / 2.f, -height / 2.f, 1.f), umath::vector2(tex.left, 1.f - tex.top))); // vasen alakulma
+        m_vertexData.push_back(Vertex(umath::vector3(width / 2.f, -height / 2.f, 1.f), umath::vector2(tex.getRight(), 1.f - tex.top))); // oikea alakulma
+        m_vertexData.push_back(Vertex(umath::vector3(-width / 2.f, height / 2.f, 1.f), umath::vector2(tex.left, 1.f - (tex.top + tex.height)))); // vasen yläkulma
+        m_vertexData.push_back(Vertex(umath::vector3(width / 2.f, height / 2.f, 1.f), umath::vector2(tex.getRight(), 1.f - (tex.top + tex.height)))); // oikea yläkulma
 	    m_spriteBuffer.addIndex(0 + mod);
 	    m_spriteBuffer.addIndex(1 + mod);
 	    m_spriteBuffer.addIndex(2 + mod);

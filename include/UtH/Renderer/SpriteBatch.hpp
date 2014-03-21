@@ -13,10 +13,12 @@ namespace uth
     {
     public:
 
+        void reserve(const unsigned int amount);
+
         SpriteBatch();
 
 
-        void AddSprite(GameObject* object, const umath::vector2& spriteSize, const std::string& atlasName);
+        void AddSprite(GameObject* object, const std::string& atlasName);
 
         void SetTextureAtlas(TextureAtlas* atlas);
 

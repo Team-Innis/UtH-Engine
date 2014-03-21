@@ -5,9 +5,10 @@
 #include <UtH/Platform/FileReader.h>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/Singleton.hpp>
-#include <UtH/Platform/Typedefs.hpp>
+#include <UtH/Resources/Image.hpp>
+#include <UtH/Resources/SoundBuffer.hpp>
 
-#include <map>
+#include <unordered_map>
 #include <utility>
 
 #define uthRS uth::ResourceManager::getInstance()
@@ -20,37 +21,18 @@ namespace uth
 		friend class Singleton<uth::ResourceManager>;
 
 	public:
-		struct SoundInfo
-		{
-			short *soundBuffer;
-			short bitsPerSample;
-			short channels;
-			int frames;
-			DWORD sampleRate;
-		};
-		struct Header
-		{
-			BYTE* pixels;
-			BYTE type;
-			USHORT width;
-			USHORT height;
-			BYTE depth;
-			BYTE descriptor;
-		};
 
-		SoundInfo soundInfo;
-		Header header;
-
-		void loadWAV(const char* filePath);
-		void loadTGA(const char* filePath);
+		const SoundBuffer& LoadWAV(const std::string &filePath);
+		const Image& LoadTGA(const std::string &filePath);
 
 	private:
 		ResourceManager();
 		~ResourceManager();
 
-		std::map<const char*, SoundInfo> s_Info;
-		std::map<const char*, Header> _header;
+		std::unordered_map<std::string, SoundBuffer*> m_soundBuffers;
+		std::unordered_map<std::string, Image*> m_images;
 		
 	};
 }
+
 #endif

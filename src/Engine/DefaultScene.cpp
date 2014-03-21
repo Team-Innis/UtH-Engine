@@ -8,7 +8,7 @@
 
 using namespace uth;
 
-const unsigned int sprites = 30000;
+const unsigned int sprites = 2000;
 
 DefaultScene::DefaultScene()
 {}
@@ -43,13 +43,13 @@ bool DefaultScene::Init()
     for (int i = 0; i < sprites; ++i)
     {
         WriteLog("%d ",i);
-        std::cout << std::endl;
+        //std::cout << std::endl;
         objects.push_back(new GameObject());
 
-        objects.back()->transform.SetPosition(100 + (10 * i), 100 + (10 * i));
+        objects.back()->transform.SetPosition(100, 100);
         //objects.back()->transform.SetRotation(180.f);
 
-        batch.AddSprite(objects.back(), umath::vector2(129.f, 71.f), "cloud3.png");
+        batch.AddSprite(objects.back(), "cloud3.png");
     }
 
 	return true;
