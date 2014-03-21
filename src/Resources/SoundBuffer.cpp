@@ -8,7 +8,7 @@ namespace uth
 {
     SoundBuffer::SoundBuffer()
     {
-    
+
     }
 
     SoundBuffer::SoundBuffer(const std::string& filePath)
@@ -100,11 +100,12 @@ namespace uth
 		}
 		else
 			WriteLog("Not a RIFF file!\n");
-	
+
 
 		m_soundInfo.frames = data_size / block_align;
 		WriteLog("Frames: %d\n", m_soundInfo.frames);
 
+        return true;
     }
 
 

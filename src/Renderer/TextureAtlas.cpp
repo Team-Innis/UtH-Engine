@@ -58,6 +58,7 @@ namespace uth
 
             m_textureRects.insert(std::make_pair(name, rect));
         }
+        return true;
     }
 
     void TextureAtlas::Bind()
