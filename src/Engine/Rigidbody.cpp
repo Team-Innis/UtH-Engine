@@ -11,7 +11,9 @@ Rigidbody::Rigidbody(b2World* world, const std::string name)
 { }
 
 Rigidbody::~Rigidbody()
-{ }
+{
+	m_world->DestroyBody(m_body);
+}
 
 
 // Public

@@ -10,6 +10,7 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
+	RemoveComponents();
 }
 
 void GameObject::AddComponent(Component* component)
@@ -53,6 +54,16 @@ void GameObject::RemoveComponent(std::string name)
 			components.erase(components.begin() + i);
 		}
 	}
+}
+
+void GameObject::RemoveComponents()
+{
+	for(int i = 0; i < components.size(); ++i)
+	{
+
+			delete components.at(i);
+	}
+	components.clear();
 }
 
 void GameObject::Draw(Shader* shader, Camera* camera)

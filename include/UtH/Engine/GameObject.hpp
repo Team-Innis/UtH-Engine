@@ -24,6 +24,7 @@ namespace uth
 		// Will actually delete the component
 		void RemoveComponent(Component* component);
 		void RemoveComponent(std::string name);
+		void RemoveComponents();
 
 		void Draw(Shader* shader, Camera* camera);
 		void Update(float dt);

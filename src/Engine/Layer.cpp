@@ -28,6 +28,7 @@ Layer::Layer(const char* layerName, const int layerId)
 
 Layer::~Layer()
 {
+	m_objects.clear();
 }
 
 void Layer::SetLayerName(const char* layerName)

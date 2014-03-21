@@ -36,6 +36,7 @@ Sprite::Sprite(const umath::vector4& fillColor, const umath::vector2& size, cons
 
 Sprite::~Sprite()
 {
+	m_texture = nullptr;
 }
 
 void Sprite::Update(float dt)
@@ -45,6 +46,9 @@ void Sprite::Update(float dt)
 
 void Sprite::Draw(Shader *shader, Camera* camera)
 {
+	if(!m_isSizeSet)
+		return;
+
 	if(m_useTexture)
 	{
 		m_texture->Bind();
