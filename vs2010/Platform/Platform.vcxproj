@@ -46,16 +46,6 @@
     <ClCompile Include="..\..\src\Platform\Win32\Win32WindowImpl.cpp" />
     <ClCompile Include="..\..\src\Platform\Window.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UMath\UMath.vcxproj">
-      <Project>{d16755ab-9f02-42c3-849d-acdd08e550ca}</Project>
-      <Private>true</Private>
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{18249A2B-04BC-4CC3-88DF-CD8C3E945692}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

@@ -11,16 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Resources\Resources.vcxproj">
-      <Project>{471d0772-92b6-4239-8903-a3a1574df99f}</Project>
-      <Private>true</Private>
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\..\src\Renderer\Camera.cpp" />
     <ClCompile Include="..\..\src\Renderer\SpriteBatch.cpp" />
     <ClCompile Include="..\..\src\Renderer\Texture.cpp" />

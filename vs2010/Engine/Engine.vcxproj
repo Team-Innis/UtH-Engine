@@ -53,11 +53,6 @@
     </ProjectReference>
     <ProjectReference Include="..\UMath\UMath.vcxproj">
       <Project>{d16755ab-9f02-42c3-849d-acdd08e550ca}</Project>
-      <Private>true</Private>
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
