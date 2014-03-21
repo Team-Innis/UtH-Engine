@@ -1,5 +1,6 @@
 #include <UtH/Resources/Image.hpp>
 #include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/Debug.hpp>
 #include <cassert>
 
 
@@ -39,8 +40,9 @@ namespace uth
 		buffer = new BYTE[4];
 		FR.FileSeek(12, 0);
 		FR.ReadBytes(buffer, 4);
-		m_size.x = buffer[0] + buffer[1] * 256;
-		m_size.y = buffer[2] + buffer[3] * 256;
+		m_size.x = (float)(buffer[0] + buffer[1] * 256);
+		m_size.y = (float)(buffer[2] + buffer[3] * 256);
+        WriteLog("Buffer x: %f, Buffer y: %f\n", m_size.x, m_size.y);
 		delete[] buffer;
 
 		//bpp

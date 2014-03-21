@@ -35,7 +35,7 @@ const Image& ResourceManager::LoadTGA(const std::string &filePath)
     if (itr != m_images.end())
         return *itr->second;
 
-    Image* temp = new Image;
+    Image* temp = new Image();
     assert(temp->LoadFromFile(filePath));
 
     m_images[filePath] = temp;
