@@ -84,7 +84,7 @@ void android_main(android_app* state)
 	//memset(&androidengine, 0, sizeof(androidengine));
 	//state->userData = &androidengine;
 	state->onAppCmd = handle_cmd;
-	state->onInputEvent = uth::TouchInput::ProcessMessages;
+	state->onInputEvent = uth::TouchInput::DroidMessage;
 
 	uthAndroidEngine.app = state;
 

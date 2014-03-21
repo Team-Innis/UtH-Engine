@@ -11,73 +11,58 @@
 
 namespace uth
 {
-	class TouchInput : public InputBase
+	enum class TouchMotion
+	{
+		NONE = 0,
+		TAP,
+		DRAG,
+		PINCH_IN,
+		PINCH_OUT
+	};
+
+	class TouchInput
 	{
 	private:
 		class TouchUnit
 		{
-			friend class TouchInput;
-			bool m_touched;
-			umath::vector2 m_position;
-
-			TouchUnit()
-			{
-				m_touched = false;
-				m_position = umath::vector2();
-			}
-		};
-
-		float m_touchTime;
+		private:
+			umath::vector2 m_startPos;
+			umath::vector2 m_curPos;
+			umath::vector2 m_endPos;
+		public:
+			TouchMotion Motion;
+			umath::vector2 GetPosition() const;
+			TouchUnit();
+		};	
 	public:
-		enum class TouchMotion
+		static TouchUnit ID[8];
+		static int DroidMessage(struct android_app* app, AInputEvent* droidInputEvent)
 		{
-			NONE = 0,
-			PINCH_IN,
-			PINCH_OUT,
-			TAP,
-			DRAG
-		};
-
-		TouchMotion motion;
-
-		static TouchUnit ID;
-
-		/// Do not use this in scenes
-		static int ProcessMessages(struct android_app* app, AInputEvent* eventMSG)
-		{
-			if (AInputEvent_getType(eventMSG) == AINPUT_EVENT_TYPE_MOTION)
+			if (AInputEvent_getType(droidInputEvent) == AINPUT_EVENT_TYPE_MOTION)
 			{
-				if(AMotionEvent_getAction(eventMSG) == AMOTION_EVENT_ACTION_DOWN)
+				if(AMotionEvent_getAction(droidInputEvent) == AMOTION_EVENT_ACTION_DOWN)
 				{
-					ID.m_position.x = AMotionEvent_getX(eventMSG, 0);
-					ID.m_position.y = AMotionEvent_getY(eventMSG, 0);
-					ID.m_touched = true;
-					WriteLog("Touch");
+					//When Screen is touched
+					//m_startPos =GetPosition
 				}
-				else if(AMotionEvent_getAction(eventMSG) == AMOTION_EVENT_ACTION_MOVE)
+				else if(AMotionEvent_getAction(droidInputEvent) == AMOTION_EVENT_ACTION_MOVE)
 				{
-					ID.m_position.x = AMotionEvent_getX(eventMSG, 0);
-					ID.m_position.y = AMotionEvent_getY(eventMSG, 0);
-					ID.m_touched = true;
+					//When Touch position changes
 				}
-				else if(AMotionEvent_getAction(eventMSG) == AMOTION_EVENT_ACTION_UP ||
-					AMotionEvent_getAction(eventMSG) == AMOTION_EVENT_ACTION_CANCEL ||
-					AMotionEvent_getAction(eventMSG) == AMOTION_EVENT_ACTION_OUTSIDE)
+				else if(AMotionEvent_getAction(droidInputEvent) == AMOTION_EVENT_ACTION_UP ||
+					AMotionEvent_getAction(droidInputEvent) == AMOTION_EVENT_ACTION_CANCEL ||
+					AMotionEvent_getAction(droidInputEvent) == AMOTION_EVENT_ACTION_OUTSIDE)
 				{
-					ID.m_position.x = -1;
-					ID.m_position.y = -1;
-					ID.m_touched = false;
+					//If touch ends by taking finger away from screen or by some other event
+					//m_endPos = m_curPos;
+					//m_curPos = umath::vector2();
 				}
 				return 1;
 			}
 			return 0;
 		}
-		umath::vector2 GetLastPos() const;
-
+	
 		void Update(float deltaTime);
-
-		TouchInput();
-		~TouchInput();
 	};
 }
 

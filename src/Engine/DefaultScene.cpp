@@ -29,9 +29,9 @@ bool DefaultScene::DeInit()
 
 bool DefaultScene::Update(double dt)
 {
-	gameObject.transform.Move(dt,0);
 	return true;
 }
+
 bool DefaultScene::Draw()
 {
 	shader.SetUniform("unifProjection", camera.GetProjectionTransform());
