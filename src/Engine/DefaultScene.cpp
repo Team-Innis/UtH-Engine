@@ -1,7 +1,8 @@
 #include "UtH/Engine/DefaultScene.hpp"
 #include <UtH/Engine/Sprite.hpp>
 #include <UtH/Renderer/SpriteBatch.hpp>
-#include <UtH\Platform\Input.hpp>
+#include <UtH/Platform/Input.hpp>
+#include <UtH/Engine/Text.hpp>
 
 #include <UtH/Platform/HiResTimer.hpp>
 #include <UtH/Platform/Debug.hpp>

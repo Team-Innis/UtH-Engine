@@ -2,7 +2,7 @@
 #include <cassert>
 #include <cstdlib>
 #include <string>
-#include <UtH\Platform\Debug.hpp>
+#include <UtH/Platform/Debug.hpp>
 
 using namespace uth;
 

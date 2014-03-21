@@ -3,9 +3,9 @@
 #define IMAGE_H_UTH
 
 
-#include <UtH\Math\Vector2.hpp>
-#include <UtH\Math\Vector4.hpp>
-#include <UtH\Platform\Typedefs.hpp>
+#include <UtH/Math/Vector2.hpp>
+#include <UtH/Math/Vector4.hpp>
+#include <UtH/Platform/Typedefs.hpp>
 #include <string>
 
 

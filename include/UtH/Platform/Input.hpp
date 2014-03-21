@@ -16,6 +16,11 @@
 	#include <UtH/Platform/Win32/InputKeyboard.hpp>
 	#include <UtH/Platform/Win32/InputMouse.hpp>
 	#include <UtH/Platform/Win32/InputTouch.hpp>
+#elif defined(UTH_SYSTEM_LINUX)
+    #include <UtH/Platform/Win32/InputCommon.hpp>
+    #include <UtH/Platform/Win32/InputKeyboard.hpp>
+    #include <UtH/Platform/Win32/InputMouse.hpp>
+    #include <UtH/Platform/Win32/InputTouch.hpp>
 #else
 	#error No input for such platform
 #endif

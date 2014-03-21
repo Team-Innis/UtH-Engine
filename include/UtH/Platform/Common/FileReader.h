@@ -5,7 +5,7 @@
 #define FILEREADER_H
 
 #include <stdio.h>
-#include <physfs\physfs.h>
+#include <physfs/physfs.h>
 
 namespace uth
 {

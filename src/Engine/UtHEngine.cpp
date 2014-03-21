@@ -1,9 +1,9 @@
-#include "UtH/Engine/UtHEngine.h"
+#include <UtH/Engine/UtHEngine.h>
 
 #include <UtH/Engine/SceneManager.hpp>
 
 #include <UtH/Platform/Graphics.hpp>
-#include <UtH/Platform/Window.hpp> 
+#include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/Input.hpp>
 
 using namespace uth;
