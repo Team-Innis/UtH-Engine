@@ -35,10 +35,10 @@ namespace umath
 	};
 
 	matrix3 operator *(const matrix3& LeftVal, const matrix3& RightVal);
-	const matrix3 operator *=(matrix3& LeftVal, const matrix3& RightVal);
+	const matrix3& operator *=(matrix3& LeftVal, const matrix3& RightVal);
 	
 	vector3 operator *(const vector3& LeftVal, const matrix3& RightVal);
-	const vector3 operator *=(vector3& LeftVal, const matrix3& RightVal);
+	const vector3& operator *=(vector3& LeftVal, const matrix3& RightVal);
 }
 
 #endif

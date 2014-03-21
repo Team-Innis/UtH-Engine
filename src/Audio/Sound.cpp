@@ -1,5 +1,7 @@
-#include <UtH\Audio\Sound.h>
-#include <UtH\Resources\ResourceManager.h>
+#include <UtH/Audio/Sound.h>
+#include <UtH/Platform/Typedefs.hpp>
+#include <UtH/Platform/Debug.hpp>
+#include <UtH/Resources/ResourceManager.h>
 
 using namespace uth;
 

@@ -1,5 +1,6 @@
 #pragma once
-
+#ifndef UNCOPYABLE_H_UTH
+#define UNCOPYABLE_H_UTH
 
 namespace uth
 {
@@ -21,3 +22,5 @@ namespace uth
 
     };
 }
+
+#endif

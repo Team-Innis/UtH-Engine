@@ -1,4 +1,5 @@
-#include <UtH\Resources\ResourceManager.h>
+#include <UtH/Resources/ResourceManager.h>
+#include <cstdlib> // malloc etc...
 
 using namespace uth;
 
@@ -68,6 +69,7 @@ void ResourceManager::loadWAV(const char* filePath)
 				if(format_tag != 1)
 				{
 					WriteLog("Only PCM format supported!\n");
+		            delete FR;
 					return;
 				}
 				//FR->FileSeek(22, 0);
