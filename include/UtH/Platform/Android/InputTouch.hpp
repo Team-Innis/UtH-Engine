@@ -35,16 +35,19 @@ namespace uth
 			umath::vector2 m_startPos;
 			umath::vector2 m_curPos;
 			float m_downTime;
+			TouchMotion m_motion;
 		public:
-			TouchMotion Motion;
+			const TouchMotion Motion() const;
 			const int GetStartIndex() const;
 			const umath::vector2 GetStartPosition() const;
 			const umath::vector2 GetPosition() const;
 			const umath::vector2 GetEndPosition() const;
 		};	
 		static const int m_maxInputs = 10;
-	public:
+		TouchMotion m_motion;
 		static TouchUnit ID[m_maxInputs];
+	public:
+		const TouchMotion Motion() const;
 		static int DroidMessage(android_app* app, AInputEvent* droidInputEvent);
 
 		void Update(float deltaTime);

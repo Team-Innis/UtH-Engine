@@ -24,7 +24,7 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 
 			ID[index].m_startPos.x = AMotionEvent_getX(droidInputEvent, index);
 			ID[index].m_startPos.y = AMotionEvent_getY(droidInputEvent, index);
-			ID[index].Motion = TouchMotion::STATIONARY;
+			ID[index].m_motion = TouchMotion::STATIONARY;
 			ID[index].m_startIndex = index;
 			}
 		case AMOTION_EVENT_ACTION_MOVE:
@@ -36,7 +36,7 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 			{
 				ID[index].m_curPos.x = AMotionEvent_getX(droidInputEvent, index);
 				ID[index].m_curPos.y = AMotionEvent_getY(droidInputEvent, index);
-				ID[index].Motion = TouchMotion::DRAG;
+				ID[index].m_motion = TouchMotion::DRAG;
 			}
 			}
 			break;
@@ -59,7 +59,7 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 				ID[i].m_startIndex = ID[i+1].m_startIndex;
 				ID[i].m_startPos = ID[i+1].m_startPos;
 				ID[i].m_downTime = ID[i+1].m_downTime;
-				ID[i].Motion = ID[i+1].Motion;
+				ID[i].m_motion = ID[i+1].Motion();
 			}
 			}
 			break;
@@ -75,7 +75,7 @@ void TouchInput::Update(float deltaTime)
 {
 	for(int i = 0 ; i < m_maxInputs; i++)
 	{
-		if(ID[i].Motion != TouchMotion::NONE)
+		if(ID[i].Motion() != TouchMotion::NONE)
 			ID[i].m_downTime += deltaTime;
 	}
 }
@@ -86,4 +86,34 @@ const TouchInput::TouchUnit& TouchInput::operator[](unsigned int id) const
 		return ID[id];
 	WriteLog("TouchInput index out of range");
 	return ID[m_maxInputs-1];
+}
+
+const int TouchInput::TouchUnit::GetStartIndex() const
+{
+	return m_startIndex;
+}
+
+const umath::vector2 TouchInput::TouchUnit::GetStartPosition() const
+{
+	return m_startPos;
+}
+
+const umath::vector2 TouchInput::TouchUnit::GetPosition() const
+{
+	return m_curPos;
+}
+
+const umath::vector2 TouchInput::TouchUnit::GetEndPosition() const
+{
+	return m_curPos;
+}
+
+const TouchMotion TouchInput::TouchUnit::Motion() const
+{
+	return m_motion;
+}
+
+const TouchMotion TouchInput::Motion() const
+{
+	return m_motion;
 }
