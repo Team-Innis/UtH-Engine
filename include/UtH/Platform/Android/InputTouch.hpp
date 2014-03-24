@@ -9,60 +9,47 @@
 
 #include <android/input.h>
 
+struct android_app;
+
 namespace uth
 {
 	enum class TouchMotion
 	{
 		NONE = 0,
+		STATIONARY,
 		TAP,
 		DRAG,
 		PINCH_IN,
-		PINCH_OUT
+		PINCH_OUT,
+		MULTIPLE
 	};
 
-	class TouchInput
+	class TouchInput : public InputBase
 	{
 	private:
 		class TouchUnit
 		{
+			friend class TouchInput;
 		private:
+			int m_startIndex;
 			umath::vector2 m_startPos;
 			umath::vector2 m_curPos;
-			umath::vector2 m_endPos;
+			float m_downTime;
 		public:
 			TouchMotion Motion;
-			umath::vector2 GetPosition() const;
-			TouchUnit();
+			const int GetStartIndex() const;
+			const umath::vector2 GetStartPosition() const;
+			const umath::vector2 GetPosition() const;
+			const umath::vector2 GetEndPosition() const;
 		};	
+		static const int m_maxInputs = 10;
 	public:
-		static TouchUnit ID[8];
-		static int DroidMessage(struct android_app* app, AInputEvent* droidInputEvent)
-		{
-			if (AInputEvent_getType(droidInputEvent) == AINPUT_EVENT_TYPE_MOTION)
-			{
-				if(AMotionEvent_getAction(droidInputEvent) == AMOTION_EVENT_ACTION_DOWN)
-				{
-					//When Screen is touched
-					//m_startPos =GetPosition
-				}
-				else if(AMotionEvent_getAction(droidInputEvent) == AMOTION_EVENT_ACTION_MOVE)
-				{
-					//When Touch position changes
-				}
-				else if(AMotionEvent_getAction(droidInputEvent) == AMOTION_EVENT_ACTION_UP ||
-					AMotionEvent_getAction(droidInputEvent) == AMOTION_EVENT_ACTION_CANCEL ||
-					AMotionEvent_getAction(droidInputEvent) == AMOTION_EVENT_ACTION_OUTSIDE)
-				{
-					//If touch ends by taking finger away from screen or by some other event
-					//m_endPos = m_curPos;
-					//m_curPos = umath::vector2();
-				}
-				return 1;
-			}
-			return 0;
-		}
-	
+		static TouchUnit ID[m_maxInputs];
+		static int DroidMessage(android_app* app, AInputEvent* droidInputEvent);
+
 		void Update(float deltaTime);
+
+		const TouchUnit& operator[](unsigned int id) const;
 	};
 }
 
