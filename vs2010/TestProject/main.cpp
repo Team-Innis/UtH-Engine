@@ -35,7 +35,17 @@ void NewSceneFunc(int SceneID, uth::Scene* &CurScene)
 int main()
 {
 	UtHSceneM.registerNewSceneFunc(NewSceneFunc,COUNT);
-	return Hood.MainLoop();
+
+	uthEngine.Init();
+
+	while(uthEngine.Running())
+	{
+		uthEngine.Update(uthEngine.Timer().GetMemTime());
+
+		uthEngine.Draw();
+	}
+
+	return 0;
 	//Hood.MainLoop(/*new StartScene*/);
 	//UtHSceneM.GoToScene(/*new GameScene*/1);
 }
