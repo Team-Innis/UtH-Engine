@@ -41,7 +41,7 @@ Sprite::~Sprite()
 
 void Sprite::Update(float dt)
 {
-	generetateBuffer();
+	generateBuffer();
 }
 
 void Sprite::Draw(Shader *shader, Camera* camera)
@@ -110,7 +110,7 @@ void Sprite::defaults()
 
 
 
-void Sprite::generetateBuffer()
+void Sprite::generateBuffer()
 {
 	if(!m_bufferNeedsUpdate)
 		return;
@@ -125,13 +125,13 @@ void Sprite::generetateBuffer()
 	//	umath::vector2(0.0f, 0.0f), m_color));
 
 	m_vertexBuffer.addVertex(Vertex(umath::vector3(-0.5f, -0.5f, 0),
-		umath::vector2(1.0f, 1.0f), m_color));
-	m_vertexBuffer.addVertex(Vertex(umath::vector3(0.5f, -0.5f, 0),
 		umath::vector2(0.0f, 1.0f), m_color));
+	m_vertexBuffer.addVertex(Vertex(umath::vector3(0.5f, -0.5f, 0),
+		umath::vector2(1.0f, 1.0f), m_color));
 	m_vertexBuffer.addVertex(Vertex(umath::vector3(-0.5f, 0.5f, 0),
-		umath::vector2(1.0f, 0.0f), m_color));
-	m_vertexBuffer.addVertex(Vertex(umath::vector3(0.5f, 0.5f, 0),
 		umath::vector2(0.0f, 0.0f), m_color));
+	m_vertexBuffer.addVertex(Vertex(umath::vector3(0.5f, 0.5f, 0),
+		umath::vector2(1.0f, 0.0f), m_color));
 
 
 	m_vertexBuffer.addIndex(0);
