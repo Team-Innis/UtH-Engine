@@ -115,3 +115,8 @@ void Rigidbody::init()
 	}
 	m_isInitialized = true;
 }
+
+b2Vec2 Rigidbody::umathToBox2D(const umath::vector2& vec)
+{
+	return b2Vec2(vec.x, vec.y);
+}

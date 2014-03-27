@@ -32,6 +32,8 @@ namespace uth
 		void defaults();
 		void init();
 
+		b2Vec2 umathToBox2D(const umath::vector2& vec);
+
 		bool m_isInitialized;
 
 		Rigidbody();
