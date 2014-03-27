@@ -4,15 +4,28 @@
 
 using namespace uth;
 
-Rigidbody::Rigidbody(b2World* world, const std::string name)
+Rigidbody::Rigidbody(b2World* world, const COLLIDER_TYPE collider, const std::string name)
 	: Component(name),
 	  m_world(world),
-	  m_isInitialized(false)
-{ }
+	  m_collider(collider)
+{
+	defaults();
+}
+
+Rigidbody::Rigidbody(b2World* world, const COLLIDER_TYPE collider, const umath::vector2& size, const std::string name)
+	: Component(name),
+	  m_world(world),
+	  m_collider(collider),
+	  m_size(size)
+{
+	defaults();
+}
+
 
 Rigidbody::~Rigidbody()
 {
-	m_world->DestroyBody(m_body);
+	if(m_body != nullptr)
+		m_world->DestroyBody(m_body);
 }
 
 
@@ -46,6 +59,12 @@ bool Rigidbody::isInitialized() const
 
 // Private
 
+void Rigidbody::defaults()
+{
+	m_isInitialized = false;
+	m_body = nullptr;
+}
+
 void Rigidbody::init()
 {
 	b2BodyDef bodyDef;
@@ -55,19 +74,44 @@ void Rigidbody::init()
 	bodyDef.position.Set(pos.x, pos.y);
 
 	m_body = m_world->CreateBody(&bodyDef);
+	
+	if(!m_size.getLenght() > 0)
+		m_size = parent->transform.size;
 
-	umath::vector2 size = parent->transform.size;
-	size /= PIXELS_PER_METER;
 
-	b2PolygonShape dynamicBox;
-	dynamicBox.SetAsBox(size.x/2, size.y/2);
+	m_size /= PIXELS_PER_METER;
 
-	b2FixtureDef fixtureDef;
-	fixtureDef.shape = &dynamicBox;
-	fixtureDef.density = 1.0f;
-	fixtureDef.friction = 0.3f;
+	switch(m_collider)
+	{
+	case COLLIDER_BOX:
+		{
+		b2PolygonShape dynamicBox;
+		dynamicBox.SetAsBox(m_size.x/2, m_size.y/2);
 
-	m_body->CreateFixture(&fixtureDef);
+		b2FixtureDef fixtureDef;
+		fixtureDef.userData = "Laatikko";
+		fixtureDef.shape = &dynamicBox;
+		fixtureDef.density = 1.0f;
+		fixtureDef.friction = 0.3f;
+		m_body->CreateFixture(&fixtureDef);
+		}
+		break;
+	case COLLIDER_BALL:
+		{
+		b2CircleShape circleShape;
+		circleShape.m_radius = m_size.x/2;
 
+		b2FixtureDef fixtureDef;
+		fixtureDef.userData = "Pallo";
+		fixtureDef.shape = &circleShape;
+		fixtureDef.density = 1.0f;
+		fixtureDef.friction = 0.3f;
+		m_body->CreateFixture(&fixtureDef);
+		}
+		break;
+	default:
+		WriteLog("Collider type undefined\nThis is probably bad\n");
+		break;
+	}
 	m_isInitialized = true;
 }
