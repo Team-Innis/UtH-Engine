@@ -42,7 +42,7 @@ namespace uth
 	private:
 		void defaults();
 
-		void generetateBuffer();
+		void generateBuffer();
 
 		VertexBuffer m_vertexBuffer;
 

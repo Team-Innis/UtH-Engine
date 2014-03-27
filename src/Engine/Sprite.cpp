@@ -41,7 +41,7 @@ Sprite::~Sprite()
 
 void Sprite::Update(float dt)
 {
-	generetateBuffer();
+	generateBuffer();
 }
 
 void Sprite::Draw(Shader *shader, Camera* camera)
@@ -110,7 +110,7 @@ void Sprite::defaults()
 
 
 
-void Sprite::generetateBuffer()
+void Sprite::generateBuffer()
 {
 	if(!m_bufferNeedsUpdate)
 		return;
