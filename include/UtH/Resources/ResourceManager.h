@@ -8,6 +8,7 @@
 #include <UtH/Platform/Typedefs.hpp>
 
 #include <map>
+#include <string>
 #include <utility>
 
 #define uthRS uth::ResourceManager::getInstance()
@@ -41,15 +42,15 @@ namespace uth
 		SoundInfo soundInfo;
 		Header header;
 
-		void loadWAV(const char* filePath);
-		void loadTGA(const char* filePath);
+		void loadWAV(const std::string& filePath);
+		void loadTGA(const std::string& filePath);
 
 	private:
 		ResourceManager();
 		~ResourceManager();
 
-		std::map<const char*, SoundInfo> s_Info;
-		std::map<const char*, Header> _header;
+		std::map<std::string, SoundInfo> s_Info;
+		std::map<std::string, Header> _header;
 		
 	};
 }

@@ -12,15 +12,14 @@ ResourceManager::~ResourceManager()
 }
 
 
-void ResourceManager::loadWAV(const char* filePath)
+void ResourceManager::loadWAV(const std::string& filePath)
 {
 	bool newSoundFile = true;
 
 	if(!s_Info.empty())
 	{
 		WriteLog("Dublicate found\n");
-		std::map<const char*, SoundInfo>::iterator it;
-		for(it = s_Info.begin(); it != s_Info.end(); ++it)
+		for(auto it = s_Info.begin(); it != s_Info.end(); ++it)
 		{
 			if(it->first == filePath)
 			{
@@ -37,7 +36,7 @@ void ResourceManager::loadWAV(const char* filePath)
 	}
 	if(newSoundFile)
 	{
-		FileReader* FR = new FileReader(filePath);
+		FileReader* FR = new FileReader(filePath.c_str());
 
 		BYTE id[4]; // four bytes to hold 'RIFF'
 		short *sound_buffer;
@@ -129,14 +128,14 @@ void ResourceManager::loadWAV(const char* filePath)
 	}
 }
 
-void ResourceManager::loadTGA(const char* filePath)
+void ResourceManager::loadTGA(const std::string& filePath)
 {
 	bool newTextureFile = true;
 
 	if(!_header.empty())
 	{
-		std::map<const char*, Header>::iterator it;
-		for(it = _header.begin(); it != _header.end(); ++it)
+		//std::map<const char*, Header>::iterator it;
+		for(auto it = _header.begin(); it != _header.end(); ++it)
 		{
 			if(it->first == filePath)
 			{
@@ -155,7 +154,7 @@ void ResourceManager::loadTGA(const char* filePath)
 
 	if(newTextureFile)
 	{
-		FileReader* FR = new FileReader(filePath);
+		FileReader* FR = new FileReader(filePath.c_str());
 		BYTE* buffer = (BYTE*)malloc(sizeof(BYTE)*1);
 
 		//header
