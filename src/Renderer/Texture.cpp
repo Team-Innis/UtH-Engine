@@ -15,13 +15,13 @@ namespace uth
 
     }
 
-    Texture::Texture(const char* path)
+    Texture::Texture(const std::string& filePath)
         : m_textureID(0),
           m_size(),
           m_smooth(false),
           m_repeated(false)
     {
-        LoadFromFile(path);
+        LoadFromFile(filePath);
     }
 
     Texture::~Texture()
@@ -30,9 +30,9 @@ namespace uth
     }
 
 
-    bool Texture::LoadFromFile(const char* path, const bool smooth, const bool repeated)
+    bool Texture::LoadFromFile(const std::string& filePath, const bool smooth, const bool repeated)
     {
-        const Image& img = uthRS.LoadTGA(path);
+        const Image& img = uthRS.LoadTGA(filePath);
 
         m_size = img.GetSize();
 
@@ -53,7 +53,7 @@ namespace uth
 		return true;
     }
 
-    void Texture::Bind()
+    void Texture::Bind() const
     {
         uthGraphics.setActiveTexUnit(TEXTURE_0);
         uthGraphics.bindTexture(TEXTURE_2D, m_textureID);

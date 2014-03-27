@@ -12,7 +12,7 @@ ResourceManager::~ResourceManager()
 }
 
 
-const SoundBuffer& ResourceManager::LoadWAV(const std::string &filePath)
+SoundBuffer& ResourceManager::LoadWAV(const std::string& filePath)
 {
     auto itr = m_soundBuffers.find(filePath);
 
@@ -22,13 +22,13 @@ const SoundBuffer& ResourceManager::LoadWAV(const std::string &filePath)
     SoundBuffer* temp = new SoundBuffer;
     assert(temp->LoadFromFile(filePath));
 
-    m_soundBuffers[filePath] = temp;
+    m_soundBuffers[filePath] = std::unique_ptr<SoundBuffer>(temp);
 
     return *temp;
 
 }
 
-const Image& ResourceManager::LoadTGA(const std::string &filePath)
+Image& ResourceManager::LoadTGA(const std::string& filePath)
 {
 	auto itr = m_images.find(filePath);
 
@@ -39,7 +39,72 @@ const Image& ResourceManager::LoadTGA(const std::string &filePath)
     bool result = temp->LoadFromFile(filePath);
 	assert(result);
 
-    m_images[filePath] = temp;
+    m_images[filePath] = std::unique_ptr<Image>(temp);
 
     return *temp;
+}
+
+Texture& ResourceManager::LoadTexture(const std::string& filePath)
+{
+    auto itr = m_textures.find(filePath);
+
+    if (itr != m_textures.end())
+        return *itr->second;
+
+    Texture* temp = new Texture();
+    bool result = temp->LoadFromFile(filePath);
+	assert(result);
+
+    m_textures[filePath] = std::unique_ptr<Texture>(temp);
+
+    return *temp;
+}
+
+void ResourceManager::Clear(const unsigned int flags)
+{
+    if ((flags & uth::ResourceManager::SoundBuffers) != 0)
+        m_soundBuffers.clear();
+    if ((flags & uth::ResourceManager::Images) != 0)
+        m_images.clear();
+    if ((flags & uth::ResourceManager::Textures) != 0)
+        m_textures.clear();
+}
+
+bool ResourceManager::DeleteSoundBuffer(const std::string& filePath)
+{
+    auto itr = m_soundBuffers.find(filePath);
+
+    if (itr != m_soundBuffers.end())
+    {
+        m_soundBuffers.erase(itr);
+        return true;
+    }
+
+    return false;
+}
+
+bool ResourceManager::DeleteImage(const std::string& filePath)
+{
+    auto itr = m_images.find(filePath);
+
+    if (itr != m_images.end())
+    {
+        m_images.erase(itr);
+        return true;
+    }
+
+    return false;
+}
+
+bool ResourceManager::DeleteTexture(const std::string& filePath)
+{
+    auto itr = m_textures.find(filePath);
+
+    if (itr != m_textures.end())
+    {
+        m_textures.erase(itr);
+        return true;
+    }
+
+    return false;
 }
