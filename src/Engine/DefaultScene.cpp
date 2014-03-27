@@ -101,9 +101,15 @@ bool DefaultScene::Update(double dt)
 	for(size_t i = 0; i < layers.size(); i++)
 		layers.at(i)->Update(dt);
 
-	//gameObject.transform.Move(0, 1.f * dt);
+	if(timer.GetCurTime() > 1.0f)
+	{
+		auto rigidBody = (Rigidbody*)gameObjects.at(0)->GetComponent("Rigidbody");
+		rigidBody->ApplyImpulse(umath::vector2(50, 0), umath::vector2(-64, 64));
+		timer.Reset();
+		WriteLog("Impulse!\n");
+	}
 
-	static float timeStep = 1.f/60.f;
+	const float timeStep = 1.f/60.f;
 	world.Step(timeStep, 8, 3);
 
 	if(UTHInput.Mouse.IsButtonPressed(Mouse::MS1))
