@@ -36,7 +36,7 @@ void Rigidbody::Update(float dt)
 	if(!m_isInitialized && parent->transform.GetSize().getLenght() > sqrt(2.0))
 		init();
 
-	if(isInitialized())
+	if(IsInitialized())
 	{
 		b2Vec2 pos = m_body->GetPosition();
 
@@ -51,11 +51,60 @@ void Rigidbody::Update(float dt)
 	}
 }
 
-bool Rigidbody::isInitialized() const
+
+bool Rigidbody::IsInitialized() const
 {
 	return m_isInitialized;
 }
 
+void Rigidbody::SetActive(bool value)
+{
+	m_body->SetActive(value);
+	m_active = value;
+}
+
+const bool Rigidbody::IsAwake() const
+{
+	return m_body->IsAwake();
+}
+
+void Rigidbody::SetBullet(bool value)
+{
+	m_body->SetBullet(value);
+}
+
+const bool Rigidbody::IsBullet() const
+{
+	return m_body->IsBullet();
+}
+
+void Rigidbody::ApplyForce(const umath::vector2& force)
+{
+	m_body->ApplyForceToCenter(umathToBox2D(force), true);
+}
+
+void Rigidbody::ApplyForce(const umath::vector2& force, const umath::vector2& point)
+{
+	b2Vec2 p = umathToBox2D(point / PIXELS_PER_METER) + m_body->GetPosition();
+	m_body->ApplyForce(umathToBox2D(force), p, true);
+}
+
+void Rigidbody::ApplyImpulse(const umath::vector2& impulse)
+{
+	m_body->ApplyLinearImpulse(umathToBox2D(impulse), m_body->GetPosition(), true);
+}
+
+
+void Rigidbody::ApplyImpulse(const umath::vector2& impulse, const umath::vector2& point)
+{
+	b2Vec2 p = umathToBox2D(point / PIXELS_PER_METER) + m_body->GetPosition();
+	m_body->ApplyLinearImpulse(umathToBox2D(impulse), p, true);
+}
+
+void Rigidbody::ApplyTorque(const float torque)
+{
+	m_body->ApplyTorque(-torque, true);
+}
 
 // Private
 
