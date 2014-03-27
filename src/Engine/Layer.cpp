@@ -60,7 +60,7 @@ bool Layer::AddGameObject(GameObject* gameObject)
 bool Layer::RemoveGameObject(GameObject* gameObject)
 {
 	std::vector<GameObject*>::iterator it;
-	for(it = m_objects.begin(); it != m_objects.end(); it++)
+	for(it = m_objects.begin(); it != m_objects.end(); ++it)
 	{
 		if((*it) == gameObject)
 		{
@@ -93,7 +93,7 @@ void Layer::Draw(Shader* shader, Camera* camera)
 
 void Layer::SetObjectsActive(bool value)
 {
-	for(int i = 0; i < m_objects.size(); i++)
+	for(size_t i = 0; i < m_objects.size(); ++i)
 	{
 		m_objects.at(i)->transform.SetActive(value);
 		//m_objects.at(i)->transform.SetDrawable(value);
@@ -103,7 +103,7 @@ void Layer::SetObjectsActive(bool value)
 void Layer::UpdateTransform()
 {
 	
-	for(int i = 0; i < m_objects.size(); i++)
+	for(size_t i = 0; i < m_objects.size(); ++i)
 	{
 		m_objects.at(i)->transform.AddTransform(transform.GetTransform());
 		/*

@@ -39,7 +39,7 @@ namespace uth
 
 		const char* layerName;
 		const int layerId;
-		int objectCount;
+		unsigned int objectCount;
 	};
 }
 #endif

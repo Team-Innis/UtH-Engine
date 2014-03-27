@@ -20,10 +20,10 @@ namespace uth
 		~GameObject();
 
 		void AddComponent(Component* component);
-		Component* GetComponent(const std::string name);
+		Component* GetComponent(const std::string& name);
 		// Will actually delete the component
 		void RemoveComponent(Component* component);
-		void RemoveComponent(std::string name);
+		void RemoveComponent(const std::string& name);
 		void RemoveComponents();
 
 		void Draw(Shader* shader, Camera* camera);

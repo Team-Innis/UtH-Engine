@@ -4,7 +4,7 @@
 
 using namespace uth;
 
-Rigidbody::Rigidbody(b2World* world, const COLLIDER_TYPE collider, const std::string name)
+Rigidbody::Rigidbody(b2World* world, const COLLIDER_TYPE collider, const std::string& name)
 	: Component(name),
 	  m_world(world),
 	  m_collider(collider)
@@ -12,7 +12,7 @@ Rigidbody::Rigidbody(b2World* world, const COLLIDER_TYPE collider, const std::st
 	defaults();
 }
 
-Rigidbody::Rigidbody(b2World* world, const COLLIDER_TYPE collider, const umath::vector2& size, const std::string name)
+Rigidbody::Rigidbody(b2World* world, const COLLIDER_TYPE collider, const umath::vector2& size, const std::string& name)
 	: Component(name),
 	  m_world(world),
 	  m_collider(collider),
@@ -124,7 +124,7 @@ void Rigidbody::init()
 
 	m_body = m_world->CreateBody(&bodyDef);
 	
-	if(!m_size.getLenght() > 0)
+	if(!(m_size.getLenght() > 0))
 		m_size = parent->transform.size;
 
 

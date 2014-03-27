@@ -23,7 +23,7 @@ namespace uth
 		virtual bool Init() = 0;
 		virtual bool DeInit() = 0;
 
-		virtual bool Update(double dt) = 0;
+		virtual bool Update(float dt) = 0;
 		virtual bool Draw() = 0;	
 
 	protected:
@@ -39,7 +39,7 @@ namespace uth
 		bool RemoveGameObjectFromLayer(int LayerId, GameObject* gameObject);
 
 		std::vector<Layer*> layers;
-		int layersCount;
+		unsigned int layersCount;
 
 		GameObject layer;
 

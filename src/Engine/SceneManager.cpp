@@ -49,7 +49,7 @@ namespace uth
 		m_nextScene = SceneID;
 	}
 
-	bool SceneManager::Update(double dt)
+	bool SceneManager::Update(float dt)
 	{
 		if (m_pendingSceneSwitch)
 			m_switchScene();

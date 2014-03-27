@@ -22,7 +22,7 @@ namespace uth
           m_viewMatrix(),
           m_transformNeedsUpdate(true)
     {
-
+		transform.SetPosition(position);
     }
 
     Camera::~Camera()

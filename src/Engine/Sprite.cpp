@@ -4,7 +4,7 @@
 
 using namespace uth;
 
-Sprite::Sprite(Texture* texture, const std::string name)
+Sprite::Sprite(Texture* texture, const std::string& name)
 	: Component(name)
 {
 	SetTexture(texture);
@@ -14,7 +14,7 @@ Sprite::Sprite(Texture* texture, const std::string name)
 
 // Public
 
-Sprite::Sprite(const std::string filePath, const std::string name)
+Sprite::Sprite(const std::string& filePath, const std::string& name)
 	: Component(name)
 {
 	Texture* tex = new Texture();
@@ -24,7 +24,7 @@ Sprite::Sprite(const std::string filePath, const std::string name)
 	defaults();
 }
 
-Sprite::Sprite(const umath::vector4& fillColor, const umath::vector2& size, const std::string name)
+Sprite::Sprite(const umath::vector4& fillColor, const umath::vector2& size, const std::string& name)
 	: Component(name)
 {
 	m_size = size;

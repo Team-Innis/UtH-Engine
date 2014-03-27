@@ -14,13 +14,13 @@ namespace uth
 	{
 	public:
 
-		Component(const std::string name); // Should be unique(per gameobject)
+		Component(const std::string& name); // Should be unique(per gameobject)
 		virtual ~Component();
 
 		virtual void SetActive(bool active);
 		const bool IsActive() const;
 
-		void SetName(const std::string name);
+		void SetName(const std::string& name);
 		const std::string GetName() const;
 
 		// Default to doing nothing

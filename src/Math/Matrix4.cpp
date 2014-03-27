@@ -19,7 +19,7 @@ namespace umath
 		r3(fe[8],fe[9],fe[10],fe[11]),
 		r4(fe[12],fe[13],fe[14],fe[15])
 	{}
-	matrix4::matrix4(const matrix3 mat3)
+	matrix4::matrix4(const matrix3& mat3)
 		:
 		r1(mat3[0],0.f),
 		r2(mat3[1],0.f),

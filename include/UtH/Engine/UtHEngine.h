@@ -16,6 +16,8 @@ namespace uth
 	{
 		friend class Singleton<UTHEngine>;
 	private:
+		UTHEngine();
+
 		uth::WindowSettings m_wsettings;
 		uth::Window* m_wndw;
 		uth::Timer m_timer;

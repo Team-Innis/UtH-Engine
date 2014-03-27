@@ -54,7 +54,7 @@ namespace uth
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, majorVer);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minorVer);
 
-            wndwHandle = glfwCreateWindow(settings.size.w, settings.size.h, settings.title.c_str(), settings.fullScreen ? glfwGetPrimaryMonitor() : NULL, NULL);
+            wndwHandle = glfwCreateWindow((int)settings.size.w, (int)settings.size.h, settings.title.c_str(), settings.fullScreen ? glfwGetPrimaryMonitor() : NULL, NULL);
 
             if (--minorVer < 0)
             {
@@ -74,7 +74,7 @@ namespace uth
         ++windowRefs;
         glfwMakeContextCurrent(wndwHandle);
 
-        glfwSetWindowPos(wndwHandle, settings.position.x, settings.position.y);
+        glfwSetWindowPos(wndwHandle, (int)settings.position.x, (int)settings.position.y);
         glfwSwapInterval(settings.useVsync ? 1 : 0);
 
 		std::cout << "glew init might produces GL_INVALID_ENUM error. Just ignore it" << std::endl;
@@ -137,6 +137,6 @@ namespace uth
 
 		glfwPollEvents();
 
-		return glfwWindowShouldClose(static_cast<GLFWwindow*>(handle));
+		return glfwWindowShouldClose(static_cast<GLFWwindow*>(handle)) != 0;
 	}
 }

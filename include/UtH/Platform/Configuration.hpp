@@ -17,7 +17,7 @@
     #define UTH_SYSTEM_OPENGLES 
 
 // Linux
-#elif defined(linux) || defined(__linux)
+#elif defined(__linux__) || defined(linux) || defined(__linux)
 
     #define UTH_SYSTEM_LINUX
     #define UTH_SYSTEM_OPENGL 

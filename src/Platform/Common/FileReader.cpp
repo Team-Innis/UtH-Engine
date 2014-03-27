@@ -63,7 +63,7 @@ int FileReader::GetFileSize()
 	int size;
 	if(PHYSFS_isInit())
 	{
-		size = PHYSFS_fileLength(cFile);
+		size = static_cast<int>(PHYSFS_fileLength(cFile));
 		return size;
 	}
 	else
@@ -83,7 +83,7 @@ bool FileReader::FileSeek(int offset, int origin)
 		{
 			if(origin == 1)
 			{
-				origin = PHYSFS_tell(cFile);
+				origin = static_cast<int>(PHYSFS_tell(cFile));
 				offset += origin;
 			}
 			if(PHYSFS_seek(cFile, offset) == 1)

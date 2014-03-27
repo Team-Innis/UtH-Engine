@@ -21,10 +21,10 @@ namespace uth
 	public:
 		// Create a rigidbody with a default box collider
 		Rigidbody(b2World* world, const COLLIDER_TYPE collider = COLLIDER_BOX,
-			const std::string name = "Rigidbody");
+			const std::string& name = "Rigidbody");
 		// Create a rigidibody with a bit more control
 		Rigidbody(b2World* world, const COLLIDER_TYPE collider, 
-			const umath::vector2& size, const std::string name = "Rigidbody");
+			const umath::vector2& size, const std::string& name = "Rigidbody");
 
 		~Rigidbody();
 
