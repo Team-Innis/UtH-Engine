@@ -31,7 +31,7 @@ namespace uth
             Textures = 1 << 2,
 
 
-            All = 1 << 10
+            All = SoundBuffers | Images | Textures
         };
 
 
