@@ -15,7 +15,7 @@ namespace umath
 		*/
 		matrix4();
 		matrix4(const float* FirstElement);
-		matrix4(const matrix3 mat3);
+		matrix4(const matrix3& mat3);
 		matrix4(
 			const vector4& Row1,
 			const vector4& Row2,

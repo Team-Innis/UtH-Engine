@@ -20,9 +20,9 @@ void GameObject::AddComponent(Component* component)
 	component->parent = this;
 }
 
-Component* GameObject::GetComponent(const std::string name)
+Component* GameObject::GetComponent(const std::string& name)
 {
-	for (int i = 0; i < components.size(); ++i)
+	for (size_t i = 0; i < components.size(); ++i)
 	{
 		if (components.at(i)->GetName() == name)
 		{
@@ -35,7 +35,7 @@ Component* GameObject::GetComponent(const std::string name)
 
 void GameObject::RemoveComponent(Component* component)
 {
-	for(int i = 0; i < components.size(); ++i)
+	for(size_t i = 0; i < components.size(); ++i)
 	{
 		if(components.at(i) == component)
 		{
@@ -45,9 +45,9 @@ void GameObject::RemoveComponent(Component* component)
 	}
 }
 
-void GameObject::RemoveComponent(std::string name)
+void GameObject::RemoveComponent(const std::string& name)
 {
-	for(int i = 0; i < components.size(); ++i)
+	for(size_t i = 0; i < components.size(); ++i)
 	{
 		if(components.at(i)->GetName() == name)
 		{
@@ -59,11 +59,9 @@ void GameObject::RemoveComponent(std::string name)
 
 void GameObject::RemoveComponents()
 {
-	for(int i = 0; i < components.size(); ++i)
-	{
-
+	for(size_t i = 0; i < components.size(); ++i)
 			delete components.at(i);
-	}
+
 	components.clear();
 }
 

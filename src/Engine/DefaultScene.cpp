@@ -63,7 +63,7 @@ bool DefaultScene::Init()
 	auto text = new Text("8bitoperator.ttf", 32);
 	text->AddText(L"!\"#$%&'()*+,-./0123456789:;<=     >?"
 				  L"\n@ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÅ[\\]^_"
-				  L"\n`abcdefghijklmnopqrstuvwxyzöäå{|}~");
+				  L"\n`abcdefghijklmnopqrstuvwxyzöäå{|}~", umath::vector4(0, 0, 0, 1));
 	text->AddText(L"\nPrkl!");
 	go->AddComponent(text);
 	go->transform.Move(-400, 200);
@@ -96,7 +96,7 @@ bool DefaultScene::DeInit()
 	return true;
 }
 
-bool DefaultScene::Update(double dt)
+bool DefaultScene::Update(float dt)
 {
 	//layers.at(0)->transform.Rotate(0.01f);
 
@@ -105,7 +105,7 @@ bool DefaultScene::Update(double dt)
 
 	if(timer.GetCurTime() > 1.0f)
 	{
-		auto rigidBody = (Rigidbody*)gameObjects.at(0)->GetComponent("Rigidbody");
+		auto rigidBody = static_cast<Rigidbody*>(gameObjects.at(0)->GetComponent("Rigidbody"));
 		rigidBody->ApplyImpulse(umath::vector2(50, 0), umath::vector2(-64, 64));
 		timer.Reset();
 		WriteLog("Impulse!\n");

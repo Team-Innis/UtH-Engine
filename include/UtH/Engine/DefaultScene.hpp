@@ -19,7 +19,7 @@ namespace uth
 		virtual bool Init();
 		virtual bool DeInit();
 
-		virtual bool Update(double dt);
+		virtual bool Update(float dt);
 		virtual bool Draw();
 	protected:
 		Shader* shader;

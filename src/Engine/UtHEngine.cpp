@@ -8,6 +8,9 @@
 
 using namespace uth;
 
+UTHEngine::UTHEngine() 
+{ }
+
 bool UTHEngine::Init()
 {
     m_wsettings.size = umath::vector2(1280, 720);
@@ -29,7 +32,7 @@ bool UTHEngine::Init(const uth::WindowSettings &wsettings)
 void UTHEngine::Update(double deltaTime)
 {
 	UTHInput.Update();
-	UtHSceneM.Update(deltaTime);
+	UtHSceneM.Update(static_cast<float>(deltaTime));
 	
 	if(m_wndw->processMessages())
 	{

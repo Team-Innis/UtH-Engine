@@ -46,7 +46,9 @@ namespace uth
 
         Bind();
 
-        uthGraphics.setTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT, m_size.w, m_size.h, RGBA_FORMAT, UNSIGNED_BYTE_TYPE, uthRS.header.pixels);
+        uthGraphics.setTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT,
+			static_cast<unsigned int>(m_size.w), static_cast<unsigned int>(m_size.h),
+			RGBA_FORMAT, UNSIGNED_BYTE_TYPE, uthRS.header.pixels);
 		
 		SetSmooth(smooth);
         SetRepeated(repeated);

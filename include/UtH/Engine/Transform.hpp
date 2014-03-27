@@ -10,7 +10,7 @@ namespace uth
 	class Transform : public Component
 	{
 	public:
-		Transform(const std::string name = "Transform");
+		Transform(const std::string& name = "Transform");
 		~Transform();
 
 		void Move(const umath::vector2& offset);

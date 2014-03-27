@@ -38,15 +38,15 @@ namespace uth
 		m_Lpos = m_pos;
 		double x,y;
 		glfwGetCursorPos(window,&x,&y);
-		m_pos.x = x;
-		m_pos.y = y;
+		m_pos.x = static_cast<float>(x);
+		m_pos.y = static_cast<float>(y);
 
 		//WriteLog("\n%f , %f", x,y);
 
 		for (int i = 0; i < Mouse::COUNT; i++)
 		{
 			m_Lbuttons.at(i) = m_buttons.at(i);
-			m_buttons.at(i) = (bool)glfwGetMouseButton(window, i);
+			m_buttons.at(i) = glfwGetMouseButton(window, i) == GLFW_PRESS;
 			//WriteLog("	%d", glfwGetMouseButton(window, i));
 		}
 	}

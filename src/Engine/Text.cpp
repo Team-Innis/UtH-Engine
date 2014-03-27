@@ -60,16 +60,16 @@ void Text::AddText(const std::wstring& text, /*const float size, umath::vector2&
 
 		if (glyph != nullptr)
 		{
-			int kerning = 0;
+			float kerning = 0.f;
 			if (i > 0 && !newLine)
 				kerning = texture_glyph_get_kerning(glyph, text.at(i - 1));
 
 			pos.x += kerning;
 
-			const int x0 = pos.x + glyph->offset_x;
-			const int y0 = pos.y - glyph->offset_y;
-			const int x1 = x0 + glyph->width;
-			const int y1 = y0 + glyph->height;
+			const float x0 = pos.x + glyph->offset_x;
+			const float y0 = pos.y - glyph->offset_y;
+			const float x1 = x0 + glyph->width;
+			const float y1 = y0 + glyph->height;
 			
 			const float s0 = glyph->s0; // Top left x
 			const float t0 = glyph->t0; // Top left y

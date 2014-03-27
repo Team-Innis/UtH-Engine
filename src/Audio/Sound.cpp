@@ -14,7 +14,7 @@ Sound::~Sound()
 	alDeleteSources(1, &source);
 	alDeleteBuffers(1, &buffer);
 
-	for(int i = 0; i < tempSource.size(); i++)
+	for(size_t i = 0; i < tempSource.size(); i++)
 	{
 		alDeleteSources(1, &tempSource[i]);
 	}
@@ -46,7 +46,7 @@ void Sound::Play(float offset)
 		WriteLog("Offset %f exceeds %f duration!\n", offset, duration);
 	else
 	{
-		alSourcei(source, AL_SEC_OFFSET, offset);
+		alSourcei(source, AL_SEC_OFFSET, static_cast<ALint>(offset));
 		alSourcePlay(source);
 	}
 }

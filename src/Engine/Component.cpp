@@ -8,7 +8,7 @@ Component::Component()
 {
 }
 
-Component::Component(std::string name)
+Component::Component(const std::string& name)
 	: m_name(name),
 	  m_active(true),
 	  parent(nullptr)
@@ -29,7 +29,7 @@ const bool Component::IsActive() const
 	return m_active;
 }
 
-void Component::SetName(const std::string name)
+void Component::SetName(const std::string& name)
 {
 	m_name = name;
 }
