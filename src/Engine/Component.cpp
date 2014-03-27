@@ -24,7 +24,7 @@ void Component::SetActive(bool active)
 	m_active = active;
 }
 
-bool Component::GetActive()
+const bool Component::IsActive() const
 {
 	return m_active;
 }

@@ -17,12 +17,13 @@ namespace uth
 		Component(const std::string name); // Should be unique(per gameobject)
 		virtual ~Component();
 
-		void SetActive(bool active);
-		bool GetActive();
+		virtual void SetActive(bool active);
+		const bool IsActive() const;
 
 		void SetName(const std::string name);
 		const std::string GetName() const;
 
+		// Default to doing nothing
 		virtual void Draw(Shader* shader, Camera* camera){};
 		virtual void Update(float dt){};
 
@@ -31,7 +32,6 @@ namespace uth
 	protected:
 		Component();
 
-	private:
 		std::string m_name;
 
 		bool m_active;		

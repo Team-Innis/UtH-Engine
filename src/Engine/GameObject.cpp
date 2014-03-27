@@ -76,7 +76,7 @@ void GameObject::Draw(Shader* shader, Camera* camera)
 	{
 		shader->Use();
 		auto component = (*i);
-		if (component->GetActive())
+		if (component->IsActive())
 			component->Draw(shader, camera);
 	}
 }
@@ -86,7 +86,7 @@ void GameObject::Update(float dt)
 	for (auto i = components.begin(); i != components.end(); ++i)
 	{
 		auto component = (*i);
-		if (component->GetActive())
+		if (component->IsActive())
 			component->Update(dt);
 	}
 }

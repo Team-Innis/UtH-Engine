@@ -86,7 +86,7 @@ void Layer::Draw(Shader* shader, Camera* camera)
 {
 	for(size_t i = 0; i < m_objects.size(); ++i)
 	{
-		if(m_objects.at(i)->transform.GetActive())
+		if(m_objects.at(i)->transform.IsActive())
 			m_objects.at(i)->Draw(shader, camera);
 	}
 }
