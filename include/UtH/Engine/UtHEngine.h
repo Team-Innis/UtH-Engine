@@ -28,6 +28,8 @@ namespace uth
 		bool Init(const uth::WindowSettings &wsettings);
 		void Update(double deltaTime);
 		void Draw();
+
+        Window& GetWindow();
 	
 		const umath::vector2 GetWindowResolution() const;
 		const bool Running() const;

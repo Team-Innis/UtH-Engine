@@ -87,4 +87,16 @@ namespace uth
 	{
 		return WindowImpl::processMessages(m_windowHandle);
 	}
+
+    umath::vector2 Window::GetSize() const
+    {
+        return m_windowSettings.size;
+    }
+
+    bool Window::Bind()
+    {
+        // Unbind frame buffer here
+
+        return true;
+    }
 }

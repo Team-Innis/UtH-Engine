@@ -1,5 +1,6 @@
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Renderer/Camera.hpp>
+#include <UtH/Renderer/RenderTarget.hpp>
 
 using namespace uth;
 
@@ -66,18 +67,22 @@ void GameObject::RemoveComponents()
 	components.clear();
 }
 
-void GameObject::Draw(Shader* shader, Camera* camera)
+void GameObject::Draw(RenderTarget& target)
 {
-	shader->Use();
-	shader->SetUniform("unifModel", transform.GetTransform());
-	shader->SetUniform("unifProjection", camera->GetProjectionTransform());
+    target.Bind();
+
+    Shader& shader = target.GetShader();
+
+    shader.Use();
+	shader.SetUniform("unifModel", transform.GetTransform());
+    shader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
 
 	for (auto i = components.begin(); i != components.end(); ++i)
 	{
-		shader->Use();
+		shader.Use();
 		auto component = (*i);
 		if (component->IsActive())
-			component->Draw(shader, camera);
+			component->Draw(target);
 	}
 }
 

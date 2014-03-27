@@ -26,7 +26,7 @@ namespace uth
 		void RemoveComponent(std::string name);
 		void RemoveComponents();
 
-		void Draw(Shader* shader, Camera* camera);
+		void Draw(RenderTarget& target);
 		void Update(float dt);
 
 		// Transform is a special component that every gameobject has

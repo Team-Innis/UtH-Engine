@@ -44,6 +44,11 @@ void UTHEngine::Draw()
     m_wndw->swapBuffers();
 }
 
+Window& UTHEngine::GetWindow()
+{
+    return *m_wndw;
+}
+
 bool UTHEngine::initialize()
 {
 	m_wndw = new Window(m_wsettings);

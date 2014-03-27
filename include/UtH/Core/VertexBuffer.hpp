@@ -24,9 +24,13 @@ namespace uth
 		// Add vector of indexes at the end of current index vector, offsets indices with already added indices
 		void addIndices(const std::vector<unsigned short>& indices);
 
+        const std::vector<Vertex>& getVertices() const;
+        const std::vector<unsigned short>& getIndices() const;
+
 		void clear();
 
-		void draw(Shader* shader) const;
+        void bindArrayBuffer() const;
+        void bindElementBuffer() const;
 
 	private:
 		void init();

@@ -9,6 +9,7 @@ namespace uth
 {
 	class GameObject;
 	class Camera;
+    class RenderTarget;
 
 	class Component
 	{
@@ -24,7 +25,7 @@ namespace uth
 		const std::string GetName() const;
 
 		// Default to doing nothing
-		virtual void Draw(Shader* shader, Camera* camera){};
+		virtual void Draw(RenderTarget&){};
 		virtual void Update(float dt){};
 
 		GameObject* parent;

@@ -82,12 +82,12 @@ void Layer::Update(float dt)
 	}
 }
 
-void Layer::Draw(Shader* shader, Camera* camera)
+void Layer::Draw(RenderTarget& target)
 {
 	for(size_t i = 0; i < m_objects.size(); ++i)
 	{
 		if(m_objects.at(i)->transform.IsActive())
-			m_objects.at(i)->Draw(shader, camera);
+			m_objects.at(i)->Draw(target);
 	}
 }
 

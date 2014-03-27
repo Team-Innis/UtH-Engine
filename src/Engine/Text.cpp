@@ -5,6 +5,7 @@
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Renderer/Camera.hpp>
 #include <UtH/Platform/Debug.hpp>
+#include <UtH/Renderer/RenderTarget.hpp>
 
 using namespace uth;
 
@@ -106,7 +107,7 @@ const std::wstring& Text::GetText() const
 	return m_text;
 }
 
-void Text::Draw(Shader* shader, Camera* camera)
+void Text::Draw(RenderTarget& target)
 {
 	m_textShader.Use();
 
@@ -114,7 +115,24 @@ void Text::Draw(Shader* shader, Camera* camera)
 	m_textShader.SetUniform("unifSampler", 0);
 
 	m_textShader.SetUniform("unifModel", parent->transform.GetTransform());
-	m_textShader.SetUniform("unifProjection", camera->GetProjectionTransform());
+    m_textShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
 
-	m_vertexBuffer.draw(&m_textShader);
+	m_vertexBuffer.bindArrayBuffer();
+	// (position + uv + color) * sizeof(float)
+	const int posOffset = (3 + 2 + 4)*sizeof(float);
+	// position * sizeof(float)
+	const int uvStart = 3*sizeof(float);
+	// (position + uv) * sizeof(float)
+	const int colorStart = (3 + 2)*sizeof(float);
+
+	// Attribute name, number of components, datatype, bytes between first elements,
+	// offset of first element in buffer
+	m_textShader.setAttributeData("attrPosition", 3, FLOAT_TYPE, posOffset, (void*)0);
+	m_textShader.setAttributeData("attrUV", 2, FLOAT_TYPE, posOffset, (void*)uvStart);
+	m_textShader.setAttributeData("attrColor", 4, FLOAT_TYPE, posOffset, (void*)colorStart);
+
+    m_vertexBuffer.bindElementBuffer();
+    uthGraphics.drawElements(TRIANGLES, m_vertexBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
+
+	uthGraphics.bindBuffer(ARRAY_BUFFER, 0);
 }

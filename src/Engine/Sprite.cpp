@@ -1,20 +1,21 @@
 #include <UtH/Engine/Sprite.hpp>
 #include <UtH/Math/Vector3.hpp>
 #include <UtH/Engine/GameObject.hpp>
+#include <UtH/Renderer/RenderTarget.hpp>
+#include <UtH/Platform/Graphics.hpp>
 
 using namespace uth;
 
-Sprite::Sprite(Texture* texture, const std::string name)
-	: Component(name)
+Sprite::Sprite(Texture* texture, const std::string& name)
+	: Component(name),
+      m_texture(texture)
 {
-	SetTexture(texture);
-
 	defaults();
 }
 
 // Public
 
-Sprite::Sprite(const std::string filePath, const std::string name)
+Sprite::Sprite(const std::string& filePath, const std::string& name)
 	: Component(name)
 {
 	Texture* tex = new Texture();
@@ -24,12 +25,12 @@ Sprite::Sprite(const std::string filePath, const std::string name)
 	defaults();
 }
 
-Sprite::Sprite(const umath::vector4& fillColor, const umath::vector2& size, const std::string name)
-	: Component(name)
+Sprite::Sprite(const umath::vector4& fillColor, const umath::vector2& size, const std::string& name)
+	: Component(name),
+      m_texture(nullptr)
 {
 	m_size = size;
 	m_isSizeSet = false;
-	m_useTexture = false;
 	SetColor(fillColor);
 }
 
@@ -44,22 +45,42 @@ void Sprite::Update(float dt)
 	generateBuffer();
 }
 
-void Sprite::Draw(Shader *shader, Camera* camera)
+void Sprite::Draw(RenderTarget& target)
 {
-	if(!m_isSizeSet)
+    Shader& shader = target.GetShader();
+
+	if (!m_isSizeSet)
 		return;
 
-	if(m_useTexture)
+	if (m_texture)
 	{
 		m_texture->Bind();
-		shader->SetUniform("useTexture", 1.f);
-		shader->SetUniform("unifSampler", 0);
+		shader.SetUniform("useTexture", 1.f);
+		shader.SetUniform("unifSampler", 0);
 	}
 	else
 	{
-		shader->SetUniform("useTexture", 0.f);
+		shader.SetUniform("useTexture", 0.f);
 	}
-	m_vertexBuffer.draw(shader);
+
+    m_vertexBuffer.bindArrayBuffer();
+	// (position + uv + color) * sizeof(float)
+	const int posOffset = (3 + 2 + 4)*sizeof(float);
+	// position * sizeof(float)
+	const int uvStart = 3*sizeof(float);
+	// (position + uv) * sizeof(float)
+	const int colorStart = (3 + 2)*sizeof(float);
+
+	// Attribute name, number of components, datatype, bytes between first elements,
+	// offset of first element in buffer
+	shader.setAttributeData("attrPosition", 3, FLOAT_TYPE, posOffset, (void*)0);
+	shader.setAttributeData("attrUV", 2, FLOAT_TYPE, posOffset, (void*)uvStart);
+	shader.setAttributeData("attrColor", 4, FLOAT_TYPE, posOffset, (void*)colorStart);
+
+    m_vertexBuffer.bindElementBuffer();
+    uthGraphics.drawElements(TRIANGLES, m_vertexBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
+
+	uthGraphics.bindBuffer(ARRAY_BUFFER, 0);
 }
 
 void Sprite::SetTexture(Texture* texture)
@@ -100,7 +121,6 @@ const umath::vector4& Sprite::GetColor() const
 // Private
 void Sprite::defaults()
 {
-	m_useTexture = true;
     m_size = m_texture->GetSize();
 	m_color = umath::vector4(1.f, 1.f, 1.f, 1.f);
 

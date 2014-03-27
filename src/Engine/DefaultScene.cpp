@@ -5,7 +5,7 @@
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Input.hpp>
 
-#include <UtH\Platform\Debug.hpp>
+#include <UtH/Platform/Debug.hpp>
 
 using namespace uth;
 
@@ -19,6 +19,8 @@ bool DefaultScene::Init()
 	shader = new Shader();
 	shader->LoadShader("vertexshader.vert", "fragmentshader.frag");
 	shader->Use();
+
+    uthEngine.GetWindow().SetShader(shader);
 
 	// Ground level
 	b2BodyDef groundBodyDef;
@@ -57,7 +59,7 @@ bool DefaultScene::Init()
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(0, go);
 
-	go = new GameObject();
+	/*go = new GameObject();
 	auto text = new Text("8bitoperator.ttf", 32);
 	text->AddText(L"!\"#$%&'()*+,-./0123456789:;<=     >?"
 				  L"\n@ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÅ[\\]^_"
@@ -66,7 +68,7 @@ bool DefaultScene::Init()
 	go->AddComponent(text);
 	go->transform.Move(-400, 200);
 	gameObjects.push_back(go);
-	AddGameObjectToLayer(0, go);
+	AddGameObjectToLayer(0, go);*/
 
 	WriteLog("GameObjects: %d\n", gameObjects.size());
 	WriteLog("Layers: %d\n", layers.size());
@@ -123,7 +125,7 @@ bool DefaultScene::Update(double dt)
 bool DefaultScene::Draw()
 {	
 	for(size_t i = 0; i < layers.size(); i++)
-		layers.at(i)->Draw(shader, &camera);
+        layers.at(i)->Draw(uthEngine.GetWindow());
 
 	return true;
 }

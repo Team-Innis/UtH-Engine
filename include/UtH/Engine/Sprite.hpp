@@ -9,24 +9,26 @@
 
 namespace uth
 {
+    class RenderTarget;
+
 	class Sprite : public Component
 	{
 	public:
-		Sprite(Texture* texture, const std::string name = "Sprite");
+		Sprite(Texture* texture, const std::string& name = "Sprite");
 		//Sprite(Texture* texture, umath::vector2 size);
 		//Sprite(Texture* texture, int width, int height);
 
-		Sprite(const std::string filePath, const std::string name = "Sprite");
+		Sprite(const std::string& filePath, const std::string& name = "Sprite");
 		//Sprite(std::string filePath, umath::vector2 size);
 		//Sprite(std::string filePath, int width, int height);
 
 		Sprite(const umath::vector4& fillColor, const umath::vector2& size,
-			const std::string name = "Sprite");
+			const std::string& name = "Sprite");
 
 		~Sprite();
 
 		void Update(float dt);
-		void Draw(Shader* shader, Camera* camera);
+		void Draw(RenderTarget& target);
 
 		void SetTexture(Texture* texture);
 		Texture* GetTexture() const;
@@ -46,7 +48,6 @@ namespace uth
 
 		VertexBuffer m_vertexBuffer;
 
-		bool m_useTexture;
 		Texture* m_texture;
 
 		umath::vector2 m_size;
