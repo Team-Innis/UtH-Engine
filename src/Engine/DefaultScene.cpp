@@ -30,7 +30,7 @@ bool DefaultScene::Init()
 	groundBox.SetAsBox(50.0f, 1.0f);
 	groundBody->CreateFixture(&groundBox, 0.0f);
 
-	camera.SetSize(Hood.GetWindowSize());
+	camera.SetSize(uthEngine.GetWindowResolution());
 	camera.SetPosition(0, 0);
 
 

@@ -8,31 +8,30 @@
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/HiResTimer.hpp>
 
-#define theHood uth::UtHEngine::getInstance()
-#define Hood uth::UtHEngine::getInstance()
+#define uthEngine uth::UTHEngine::getInstance()
 
 namespace uth
 {
-	class UtHEngine : public Singleton<UtHEngine>
+	class UTHEngine : public Singleton<UTHEngine>
 	{
-		UtHEngine();
-		~UtHEngine();
-		friend class Singleton<UtHEngine>;
-	public:
-		int MainLoop();
-		bool CreateGameWindow(uth::WindowSettings &settings);
-		bool Update();
-		bool Update(double dt);
-		void Draw();
-
-		void SetWindow(uth::Window * window);
-
-		const umath::vector2& GetWindowSize();
-
+		friend class Singleton<UTHEngine>;
 	private:
-		bool m_running;
+		uth::WindowSettings m_wsettings;
 		uth::Window* m_wndw;
 		uth::Timer m_timer;
+	
+		bool m_running;
+	
+		bool initialize();
+	public:
+		bool Init();
+		bool Init(const uth::WindowSettings &wsettings);
+		void Update(double deltaTime);
+		void Draw();
+	
+		const umath::vector2 GetWindowResolution() const;
+		const bool Running() const;
+		const Timer Timer() const;
 	};
 }
 

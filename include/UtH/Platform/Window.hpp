@@ -5,10 +5,11 @@
 #include <UtH/Platform/WindowSettings.hpp>
 #include <UtH/Platform/Uncopyable.hpp>
 
-
+#define uthWindow uth::Window::getInstance()
 
 namespace uth
 {
+
     class Window : private Uncopyable
     {
     public:
