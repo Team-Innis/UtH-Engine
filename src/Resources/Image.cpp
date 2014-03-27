@@ -32,11 +32,6 @@ namespace uth
         FileReader FR(filePath.c_str());
         BYTE* buffer;
 
-        //buffer = new BYTE[1];
-        //FR.FileSeek(2);
-        //FR.ReadBytes(buffer, 1);
-        //delete[] buffer;
-
 		buffer = new BYTE[4];
 		FR.FileSeek(12, 0);
 		FR.ReadBytes(buffer, 4);
@@ -81,7 +76,14 @@ namespace uth
 
     umath::vector4 Image::GetPixel(unsigned int x, unsigned int y) const
     {
-        return umath::vector4();
+        assert(x > m_size.x || y > m_size.y);
+
+        const unsigned int start = 4 * ((y * m_size.x) + x);
+
+        return umath::vector4(static_cast<float>(m_pixels[start]),
+                              static_cast<float>(m_pixels[start + 1]),
+                              static_cast<float>(m_pixels[start + 2]),
+                              static_cast<float>(m_pixels[start + 3]));
     }
 
 }
