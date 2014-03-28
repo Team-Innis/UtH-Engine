@@ -28,7 +28,7 @@ namespace uth
 	public:
 		bool Init();
 		bool Init(const uth::WindowSettings &wsettings);
-		void Update(double deltaTime);
+		void Update();
 		void Draw();
 
         Window& GetWindow();

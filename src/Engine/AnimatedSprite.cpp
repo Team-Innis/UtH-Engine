@@ -63,8 +63,6 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const int frames, const int fra
 	// frame size in texcoord float
 	m_frameSize.width = 1.0f / frameCountX;
 	m_frameSize.height = 1.0f / frameCountY;
-
-	ChangeAnimation(m_firstFrame,m_frames,m_firstFrame,m_fps);
 }
 
 AnimatedSprite::~AnimatedSprite()
@@ -81,7 +79,15 @@ void AnimatedSprite::ChangeAnimation(int loopStartFrame, int loopFrames, int sta
 	m_frames = loopFrames;
 	m_firstFrame = loopStartFrame;
 	m_fps = fps;
-	//genererateBuffer();
+	genererateBuffer();
+}
+
+void AnimatedSprite::Init()
+{
+	ChangeAnimation(m_firstFrame,m_frames,m_firstFrame,m_fps);
+
+	const umath::vector2 size = umath::vector2(m_frameSize.x, m_frameSize.y);
+	parent->transform.SetSize(size);
 }
 
 void AnimatedSprite::Update(float dt)
@@ -106,9 +112,8 @@ void AnimatedSprite::Update(float dt)
 
 		}
 
-		//genererateBuffer();
+		genererateBuffer();
 	}
-	genererateBuffer();
 
 }
 
@@ -153,11 +158,4 @@ void AnimatedSprite::genererateBuffer()
 	m_vertexBuffer.addIndex(1);
 	m_vertexBuffer.addIndex(3);
 	m_vertexBuffer.addIndex(2);
-
-	if(!m_isSizeSet)
-	{
-		umath::vector2 size = umath::vector2(m_frameSize.x, m_frameSize.y);
-		parent->transform.SetSize(size);
-		m_isSizeSet = true;
-	}
 }

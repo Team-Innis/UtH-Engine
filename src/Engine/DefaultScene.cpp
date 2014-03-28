@@ -125,7 +125,7 @@ bool DefaultScene::Update(float dt)
 	for(size_t i = 0; i < layers.size(); i++)
 		layers.at(i)->Update(dt);
 
-	if(timer.GetCurTime() > 1.0f)
+	if(timer.CurTime() > 1.0f)
 	{
 		auto rigidBody = static_cast<Rigidbody*>(gameObjects.at(0)->GetComponent("Rigidbody"));
 		rigidBody->ApplyImpulse(umath::vector2(50, 0), umath::vector2(-64, 64));

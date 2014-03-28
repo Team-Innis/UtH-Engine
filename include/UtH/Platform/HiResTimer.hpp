@@ -18,13 +18,13 @@ namespace uth
 	public:
 		Timer(); //initializes Timer class
 		/**
-		Sets timer start and memtime to current time
+		Sets timer start and memtime to current time, returns time since last reset
 		*/
-		void Reset();
+		const long double Reset();
 		/**
 		Updates memtime, returns the difference: "DeltaTime"
 		*/
-		const long double UpdateDeltaTime();
+		const long double DeltaTime();
 		/**
 		Updates memtime, returns total running time
 		*/
@@ -32,7 +32,7 @@ namespace uth
 		/**
 		Returns total running time since timer start
 		*/
-		const long double GetCurTime();
+		const long double CurTime();
 		/**
 		Returns the total running time until last Update() event
 		*/

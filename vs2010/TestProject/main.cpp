@@ -42,7 +42,7 @@ int main()
 
 	while(uthEngine.Running())
 	{
-		uthEngine.Update(uthEngine.Timer().GetMemTime());
+		uthEngine.Update();
 
 		uthEngine.Draw();
 	}
