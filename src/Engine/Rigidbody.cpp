@@ -240,7 +240,6 @@ void Rigidbody::init()
 		b2PolygonShape dynamicBox;
 		dynamicBox.SetAsBox(m_size.x/2, m_size.y/2);
 
-		m_fixtureDef.userData = "Box";
 		m_fixtureDef.shape = &dynamicBox;
 		m_fixtureDef.density = 1.0f;
 		m_fixtureDef.friction = 0.3f;
@@ -252,7 +251,6 @@ void Rigidbody::init()
 		b2CircleShape circleShape;
 		circleShape.m_radius = m_size.x/2;
 
-		m_fixtureDef.userData = "Ball";
 		m_fixtureDef.shape = &circleShape;
 		m_fixtureDef.density = 1.0f;
 		m_fixtureDef.friction = 0.3f;
