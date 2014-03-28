@@ -46,8 +46,8 @@ bool DefaultScene::Init()
 	texture->LoadFromFile("test.tga");
 
 	go->AddComponent(new Sprite(texture));
+	go->transform.Move(-100, -400); // need to move it before rigidbody is added
 	go->AddComponent(new Rigidbody(&world));
-	go->transform.Move(-100, -400);
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(0, go);
 
@@ -69,8 +69,8 @@ bool DefaultScene::Init()
 
 	go = new GameObject();
 	go->AddComponent(new Sprite(umath::vector4(1, 0, 1, 1), umath::vector2(100, 100)));
-	go->AddComponent(new Rigidbody(&world));
 	go->transform.Move(0, -200);
+	go->AddComponent(new Rigidbody(&world));
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(0, go);
 
