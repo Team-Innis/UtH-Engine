@@ -78,7 +78,7 @@ namespace uth
         glfwSetWindowPos(wndwHandle, (int)settings.position.x, (int)settings.position.y);
         glfwSwapInterval(settings.useVsync ? 1 : 0);
 
-		std::cout << "glew init might produces GL_INVALID_ENUM error. Just ignore it" << std::endl;
+		std::cout << "glew init might produce GL_INVALID_ENUM error. Just ignore it" << std::endl;
 		glewExperimental = GL_TRUE;
         oglCheck(glewInit());
 

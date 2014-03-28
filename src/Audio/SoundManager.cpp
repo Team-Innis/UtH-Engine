@@ -29,14 +29,14 @@ void SoundManager::CreateContext()
 
 		device = alcOpenDevice(0);
 		if(!device)
-			WriteLog("Failed to open audio device!");
+			WriteError("Failed to open audio device!");
 
 		WriteLog("Audio device opened.\n");
 
 		context = alcCreateContext(device, 0);
 		if(!alcMakeContextCurrent(context))
 		{
-			WriteLog("Failed to make context current!");
+			WriteError("Failed to make context current!");
 			CheckALError("alcMakeContextCurrent");
 		}
 	}

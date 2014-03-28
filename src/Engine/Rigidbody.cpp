@@ -169,7 +169,7 @@ void Rigidbody::init()
 		}
 		break;
 	default:
-		WriteLog("Collider type undefined\nThis is probably bad\n");
+		WriteError("Collider type undefined\nThis is probably bad");
 		break;
 	}
 	m_isInitialized = true;

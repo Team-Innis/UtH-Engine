@@ -55,7 +55,7 @@ namespace uth
 				WriteLog("Format tag: %d\n", format_tag);
 				if(format_tag != 1)
 				{
-					WriteLog("Only PCM format supported!\n");
+					WriteError("Only PCM format supported!");
 					return false;
 				}
 				//FR->FileSeek(22, 0);
@@ -96,10 +96,10 @@ namespace uth
 				WriteLog("Sound buffer: %u\n", m_soundInfo.soundBuffer);
 			}
 			else
-				WriteLog("Not a WAVE file!\n");
+				WriteError("Not a WAVE file!");
 		}
 		else
-			WriteLog("Not a RIFF file!\n");
+			WriteError("Not a RIFF file!");
 
 
 		m_soundInfo.frames = data_size / block_align;
