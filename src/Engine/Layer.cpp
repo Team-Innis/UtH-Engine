@@ -71,12 +71,12 @@ bool Layer::RemoveGameObject(GameObject* gameObject)
 
 void Layer::Update(float dt)
 {
-	UpdateTransform();
-
 	for(size_t i = 0; i < m_objects.size(); ++i)
 	{
 		m_objects.at(i)->Update(dt);
 	}
+
+	UpdateTransform();
 }
 
 void Layer::Draw(RenderTarget& target)

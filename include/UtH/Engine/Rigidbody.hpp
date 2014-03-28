@@ -31,7 +31,7 @@ namespace uth
 		void Update(float dt);
 		// Most other functions will not work untile the object is initialzed
 		// This should at most only take a few frames
-		bool IsInitialized() const;
+		const bool IsInitialized() const;
 
 		// Sets if the object is active
 		// Inactive objects will unaffetec by all physics
@@ -67,8 +67,6 @@ namespace uth
 	private:
 		void defaults();
 		void init();
-
-		b2Vec2 umathToBox2D(const umath::vector2& vec);
 
 		bool m_isInitialized;
 

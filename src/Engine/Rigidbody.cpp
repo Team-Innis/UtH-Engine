@@ -2,6 +2,11 @@
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Platform/Debug.hpp>
 
+// Helper functions
+////////////////////////////////////
+b2Vec2 umathToBox2D(const umath::vector2& vec);
+////////////////////////////////////
+
 using namespace uth;
 
 Rigidbody::Rigidbody(b2World* world, const COLLIDER_TYPE collider, const std::string& name)
@@ -52,7 +57,7 @@ void Rigidbody::Update(float dt)
 }
 
 
-bool Rigidbody::IsInitialized() const
+const bool Rigidbody::IsInitialized() const
 {
 	return m_isInitialized;
 }
@@ -165,7 +170,7 @@ void Rigidbody::init()
 	m_isInitialized = true;
 }
 
-b2Vec2 Rigidbody::umathToBox2D(const umath::vector2& vec)
+b2Vec2 umathToBox2D(const umath::vector2& vec)
 {
 	return b2Vec2(vec.x, vec.y);
 }
