@@ -8,6 +8,7 @@
 
 // Forward declaration so we dont need to include the ugly C headers
 struct texture_atlas_t;
+struct texture_font_t;
 
 namespace uth
 {
@@ -33,13 +34,13 @@ namespace uth
 
 		VertexBuffer m_vertexBuffer;
 
-		std::string m_path;
 		const float m_fontSize;
 
 		std::wstring m_text;
 		umath::vector2 m_lastPos;
 
 		texture_atlas_t* m_atlas;
+		texture_font_t* m_font;
 	};
 }
 

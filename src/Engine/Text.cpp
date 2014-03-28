@@ -13,15 +13,18 @@ Text::Text(const std::string& fontPath, const float fontSize, const std::string&
 	: Component(name),
 	  m_fontSize(fontSize)
 {
-	m_path = "assets/" + fontPath;
+	// fonts don't use fileareader. Have to fix path manually
+	const std::string path = "assets/" + fontPath;
 
 	m_textShader.LoadShader("shaders/text.vert", "shaders/text.frag");
 
 	m_atlas = texture_atlas_new(1024, 1024, 1);
+	m_font = texture_font_new_from_file(m_atlas, fontSize, path.c_str());
 }
 
 Text::~Text()
 {
+	texture_font_delete(m_font);
 	texture_atlas_delete(m_atlas);
 }
 
@@ -41,7 +44,7 @@ void Text::AddText(const std::wstring& text, umath::vector4 color)
 {
 	m_text += text;
 
-	texture_font_t* font = texture_font_new_from_file(m_atlas, m_fontSize, m_path.c_str());
+	texture_font_load_glyphs(m_font, text.c_str());
 
 	bool newLine = false;
 	umath::vector2 pos = m_lastPos; //= position;
@@ -56,7 +59,7 @@ void Text::AddText(const std::wstring& text, umath::vector4 color)
 			pos.x = 0;
 		}
 		else
-			glyph = texture_font_get_glyph(font, text.at(i));
+			glyph = texture_font_get_glyph(m_font, text.at(i));
 
 		if (glyph != nullptr)
 		{
@@ -98,8 +101,6 @@ void Text::AddText(const std::wstring& text, umath::vector4 color)
 	}
 
 	m_lastPos = pos;
-
-	texture_font_delete(font);
 }
 
 const std::wstring& Text::GetText() const
