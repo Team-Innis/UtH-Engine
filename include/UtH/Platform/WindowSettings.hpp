@@ -20,6 +20,8 @@ namespace uth
               contextVersionMajor(0),
               contextVersionMinor(0),
 
+              antialiasingSamples(0),
+
               position(0, 0),
               size(800, 600),
 
@@ -35,6 +37,8 @@ namespace uth
 
         int contextVersionMajor,
             contextVersionMinor;
+
+        int antialiasingSamples;
 
         umath::vector2 position;
         umath::vector2 size;

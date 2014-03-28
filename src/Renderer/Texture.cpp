@@ -15,13 +15,13 @@ namespace uth
 
     }
 
-    Texture::Texture(const char* path)
+    Texture::Texture(const std::string& filePath)
         : m_textureID(0),
           m_size(),
           m_smooth(false),
           m_repeated(false)
     {
-        LoadFromFile(path);
+        LoadFromFile(filePath);
     }
 
     Texture::~Texture()
@@ -30,14 +30,13 @@ namespace uth
     }
 
 
-    bool Texture::LoadFromFile(const char* path, const bool smooth, const bool repeated)
+    bool Texture::LoadFromFile(const std::string& filePath, const bool smooth, const bool repeated)
     {
-        uthRS.loadTGA(path);
+        const Image& img = uthRS.LoadTGA(filePath);
 
-        m_size.w = uthRS.header.width;
-        m_size.h = uthRS.header.height;
+        m_size = img.GetSize();
 
-        if (m_size.w == 0 || m_size.h == 0)
+        if (m_size.x == 0 || m_size.y == 0)
             return false;
 
         uthGraphics.setPixelStore(UNPACK_ALIGNMENT, 1);
@@ -46,9 +45,7 @@ namespace uth
 
         Bind();
 
-        uthGraphics.setTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT,
-			static_cast<unsigned int>(m_size.w), static_cast<unsigned int>(m_size.h),
-			RGBA_FORMAT, UNSIGNED_BYTE_TYPE, uthRS.header.pixels);
+        uthGraphics.setTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT, m_size.w, m_size.h, RGBA_FORMAT, UNSIGNED_BYTE_TYPE, img.m_pixels);
 		
 		SetSmooth(smooth);
         SetRepeated(repeated);
@@ -56,7 +53,7 @@ namespace uth
 		return true;
     }
 
-    void Texture::Bind()
+    void Texture::Bind() const
     {
         uthGraphics.setActiveTexUnit(TEXTURE_0);
         uthGraphics.bindTexture(TEXTURE_2D, m_textureID);

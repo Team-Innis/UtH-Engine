@@ -3,17 +3,15 @@
 using namespace uth;
 
 Layer::Layer()
-	: layerName(NULL),
-	  objectCount(NULL),
-	  m_objects(NULL),
-	  layerId(NULL)
+	: layerName(""),
+	  objectCount(0),
+	  layerId(0)
 {
 }
 
 Layer::Layer(const int layerId)
-	: layerName(NULL),
+	: layerName(""),
 	  objectCount(0),
-	  m_objects(NULL),
 	  layerId(layerId)
 {
 }
@@ -21,7 +19,6 @@ Layer::Layer(const int layerId)
 Layer::Layer(const char* layerName, const int layerId)
 	: layerName(layerName),
 	  objectCount(0),
-	  m_objects(NULL),
 	  layerId(layerId)
 {
 }

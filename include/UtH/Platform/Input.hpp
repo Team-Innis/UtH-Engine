@@ -4,12 +4,7 @@
 
 #include <UtH/Platform/Singleton.hpp>
 #include <UtH/Platform/Window.hpp>
-
-#include <UtH/Engine/UtHEngine.h>
-
-#include <UtH/Platform/Win32/MouseInput.hpp>
-
-
+#include <UtH/Platform/Configuration.hpp>
 
 #if defined(UTH_SYSTEM_ANDROID)
 	//#include <UtH/Platform/Android/InputCommon.hpp>
@@ -17,10 +12,15 @@
 	//#include <UtH/Platform/Android/InputMouse.hpp>
 	//#include <UtH/Platform/Android/InputTouch.hpp>
 #elif defined(UTH_SYSTEM_WINDOWS)
-	#include <UtH/Platform/Win32/CommonInput.hpp>
-	#include <UtH/Platform/Win32/KeyboardInput.hpp>
-	#include <UtH/Platform/Win32/MouseInput.hpp>
-	#include <UtH/Platform/Win32/TouchInput.hpp>
+	#include <UtH/Platform/Win32/InputCommon.hpp>
+	#include <UtH/Platform/Win32/InputKeyboard.hpp>
+	#include <UtH/Platform/Win32/InputMouse.hpp>
+	#include <UtH/Platform/Win32/InputTouch.hpp>
+#elif defined(UTH_SYSTEM_LINUX)
+    #include <UtH/Platform/Win32/InputCommon.hpp>
+    #include <UtH/Platform/Win32/InputKeyboard.hpp>
+    #include <UtH/Platform/Win32/InputMouse.hpp>
+    #include <UtH/Platform/Win32/InputTouch.hpp>
 #else
 	#error No input for such platform
 #endif

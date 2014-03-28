@@ -11,10 +11,24 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\UtH\Resources\ResourceManager.h" />
+    <ProjectReference Include="..\Core\Core.vcxproj">
+      <Project>{3a3f643b-9f93-4c53-afc9-dd057c6a026d}</Project>
+      <Private>true</Private>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\UtH\Resources\Image.hpp" />
+    <ClInclude Include="..\..\include\UtH\Resources\ResourceManager.h" />
+    <ClInclude Include="..\..\include\UtH\Resources\SoundBuffer.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Resources\Image.cpp" />
     <ClCompile Include="..\..\src\Resources\ResourceManager.cpp" />
+    <ClCompile Include="..\..\src\Resources\SoundBuffer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{471D0772-92B6-4239-8903-A3A1574DF99F}</ProjectGuid>
