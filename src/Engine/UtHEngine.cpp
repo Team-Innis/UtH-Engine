@@ -32,7 +32,7 @@ bool UTHEngine::Init(const uth::WindowSettings &wsettings)
 void UTHEngine::Update()
 {
 	const float deltaTime = static_cast<float>(m_timer.DeltaTime());
-	UTHInput.Update();
+	uthInput.Update(deltaTime);
 	UtHSceneM.Update(deltaTime);
 	
 	if(m_wndw->processMessages())
@@ -57,7 +57,7 @@ bool UTHEngine::initialize()
 {
 	m_wndw = new Window(m_wsettings);
 	uth::Graphics::SetBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
-	UTHInput.SetWindow(m_wndw->m_windowHandle);
+	uthInput.SetWindow(m_wndw->m_windowHandle);
 	m_running = true;
 	
 	return true;

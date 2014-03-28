@@ -182,7 +182,7 @@ bool DefaultScene::Update(float dt)
 	const float timeStep = 1.f/60.f;
 	world.Step(timeStep, 8, 3);
 
-	if(UTHInput.Mouse.IsButtonPressed(Mouse::MS1))
+	if(uthInput.Mouse.IsButtonPressed(Mouse::MS1))
 	{
 		DeInit();
 		Init();
