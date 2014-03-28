@@ -22,6 +22,9 @@ bool DefaultScene::Init()
 	shader->Use();
 
     uthEngine.GetWindow().SetShader(shader);
+    rtex.Initialize(uthEngine.GetWindowResolution(), false);
+    rtex.SetCamera(&camera);
+    rtex.SetShader(shader);
 
 	// Ground level
 	b2BodyDef groundBodyDef;
@@ -92,6 +95,16 @@ bool DefaultScene::Init()
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(1, go);
 
+    // render rtex
+    rtexSprite = new GameObject();
+    rtexSprite->AddComponent(new Sprite(&rtex.GetTexture(), "rtexSprite"));
+    rtexSprite->transform.SetPosition(0, 0);
+    rtexSprite->transform.SetScale(umath::vector2(0.5f, 0.5f));
+
+    obj = new GameObject();
+    obj->AddComponent(new Sprite("test.tga"));
+    obj->transform.SetPosition(0, 0);
+
 	WriteLog("GameObjects: %d\n", gameObjects.size());
 	WriteLog("Layers: %d\n", layers.size());
 
@@ -120,7 +133,11 @@ bool DefaultScene::DeInit()
 
 bool DefaultScene::Update(float dt)
 {
-	//layers.at(0)->transform.Rotate(0.1f);
+    const float offset = 75.f * dt;
+
+
+    camera.Rotate(-offset);
+    rtexSprite->transform.Rotate(offset);
 
 	for(size_t i = 0; i < layers.size(); i++)
 		layers.at(i)->Update(dt);
@@ -128,7 +145,7 @@ bool DefaultScene::Update(float dt)
 	/*if(timer.GetCurTime() > 1.0f)
 	{
 		auto rigidBody = static_cast<Rigidbody*>(gameObjects.at(0)->GetComponent("Rigidbody"));
-		rigidBody->ApplyImpulse(umath::vector2(50, 0), umath::vector2(-64, 64));
+		//rigidBody->ApplyImpulse(umath::vector2(50, 0), umath::vector2(-64, 64));
 		timer.Reset();
 		WriteLog("Impulse!\n");
 	}*/
@@ -175,8 +192,17 @@ bool DefaultScene::Update(float dt)
 }
 bool DefaultScene::Draw()
 {	
+    obj->Draw(uthEngine.GetWindow());
+    //glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+    rtex.Clear(0, 0, 1, 1);
 	for(size_t i = 0; i < layers.size(); i++)
-        layers.at(i)->Draw(uthEngine.GetWindow());
+        layers.at(i)->Draw(rtex);
+
+    rtex.Update();
+    rtex.GetTexture();
+    //static_cast<Sprite*>(rtexSprite->GetComponent("rtexSprite"))->SetTexture(&rtex.GetTexture());
+    rtexSprite->Draw(uthEngine.GetWindow());
 
 	return true;
 }

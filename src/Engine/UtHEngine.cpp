@@ -43,7 +43,7 @@ void UTHEngine::Update()
 
 void UTHEngine::Draw()
 {
-	m_wndw->clear(0.f, 0.f, 1.f);
+	m_wndw->Clear(0.f, 1.f, 0.f);
 	UtHSceneM.Draw();
     m_wndw->swapBuffers();
 }
@@ -56,7 +56,7 @@ Window& UTHEngine::GetWindow()
 bool UTHEngine::initialize()
 {
 	m_wndw = new Window(m_wsettings);
-	uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
+	uth::Graphics::SetBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 	UTHInput.SetWindow(m_wndw->m_windowHandle);
 	m_running = true;
 	

@@ -87,6 +87,7 @@ namespace uth
     {
         RGB_FORMAT,
         RGBA_FORMAT,
+        RGBA8_FORMAT,
 
         IMAGEFORMAT_LAST
     };

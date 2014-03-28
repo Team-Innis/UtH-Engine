@@ -75,9 +75,9 @@ void Sprite::Draw(RenderTarget& target)
 	shader.setAttributeData("attrColor", 4, FLOAT_TYPE, posOffset, (void*)colorStart);
 
     m_vertexBuffer.bindElementBuffer();
-    uthGraphics.drawElements(TRIANGLES, m_vertexBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
+    uth::Graphics::DrawElements(TRIANGLES, m_vertexBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
 
-	uthGraphics.bindBuffer(ARRAY_BUFFER, 0);
+	uth::Graphics::BindBuffer(ARRAY_BUFFER, 0);
 }
 
 void Sprite::SetTexture(Texture* texture)

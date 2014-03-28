@@ -6,6 +6,7 @@
 #include <UtH/Engine/Scene.hpp>
 #include <UtH/Renderer/Camera.hpp>
 #include <UtH/Platform/HiResTimer.hpp>
+#include <UtH/Renderer/RenderTexture.hpp>
 
 namespace uth
 {
@@ -26,6 +27,11 @@ namespace uth
 		Camera camera;
 
 		std::vector<GameObject*> gameObjects;
+        RenderTexture rtex;
+
+        GameObject* rtexSprite;
+
+        GameObject* obj;
 
 		int number;
 

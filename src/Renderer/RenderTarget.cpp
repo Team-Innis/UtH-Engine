@@ -15,6 +15,22 @@ namespace uth
     }
 
 
+    bool RenderTarget::Bind()
+    {
+        updateUniforms();
+
+        return bind();
+    }
+
+    void RenderTarget::Clear(const float r, const float g, const float b, const float a)
+    {
+        bind();
+
+        glClearColor(r, g, b, a);
+        glClearDepth(1.f);
+
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
 
     void RenderTarget::SetCamera(Camera* camera)
     {
@@ -58,5 +74,13 @@ namespace uth
             return *m_shader;
 
         return m_defaultShader;
+    }
+
+    void RenderTarget::updateUniforms()
+    {
+        if (m_shader)
+            m_shader->SetUniform("unifProjection", m_camera ? m_camera->GetProjectionTransform() : m_defaultCamera.GetProjectionTransform());
+        else
+            m_defaultShader.SetUniform("unifProjection", m_camera ? m_camera->GetProjectionTransform() : m_defaultCamera.GetProjectionTransform());
     }
 }

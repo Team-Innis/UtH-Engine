@@ -24,12 +24,18 @@ namespace uth
         Shader& GetShader();
 
 
-        virtual bool Bind() = 0;
+        bool Bind();
 
         virtual umath::vector2 GetSize() const = 0;
 
+        void Clear(const float r = 0.f, const float g = 0.f, const float b = 0.f, const float a = 1.f);
+
 
     private:
+
+        virtual bool bind() = 0;
+
+        void updateUniforms();
 
         Camera* m_camera;
         Shader* m_shader;

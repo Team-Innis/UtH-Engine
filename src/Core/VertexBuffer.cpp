@@ -12,8 +12,8 @@ VertexBuffer::VertexBuffer()
 VertexBuffer::~VertexBuffer()
 {
 	clear();
-	uthGraphics.deleteBuffers(1, &m_arrayBuffer);
-	uthGraphics.deleteBuffers(1, &m_elementBuffer);
+	uth::Graphics::DeleteBuffers(1, &m_arrayBuffer);
+	uth::Graphics::DeleteBuffers(1, &m_elementBuffer);
 }
 
 
@@ -73,33 +73,33 @@ void VertexBuffer::bindArrayBuffer() const
 {
     setData();
 
-    uthGraphics.bindBuffer(ARRAY_BUFFER, m_arrayBuffer);
+    uth::Graphics::BindBuffer(ARRAY_BUFFER, m_arrayBuffer);
 }
 
 void VertexBuffer::bindElementBuffer() const
 {
     setData();
 
-    uthGraphics.bindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
+    uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
 }
 
 // Private
 
 void VertexBuffer::init()
 {
-	uthGraphics.generateBuffers(1, &m_arrayBuffer);
-	uthGraphics.generateBuffers(1, &m_elementBuffer);
+	uth::Graphics::GenerateBuffers(1, &m_arrayBuffer);
+	uth::Graphics::GenerateBuffers(1, &m_elementBuffer);
 }
 
 void VertexBuffer::setData() const
 {
 	UsageType drawMode = STATIC_DRAW;
 
-	uthGraphics.bindBuffer(ARRAY_BUFFER, m_arrayBuffer);
-	uthGraphics.setBufferData(ARRAY_BUFFER, m_vertexData.size()*sizeof(Vertex),
+    uth::Graphics::BindBuffer(ARRAY_BUFFER, m_arrayBuffer);
+	uth::Graphics::SetBufferData(ARRAY_BUFFER, m_vertexData.size()*sizeof(Vertex),
 		&m_vertexData.front(), drawMode);
 
-	uthGraphics.bindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
-	uthGraphics.setBufferData(ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(unsigned short),
+	uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
+	uth::Graphics::SetBufferData(ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(unsigned short),
 		&m_indices.front(), drawMode);
 }
