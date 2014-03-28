@@ -30,7 +30,6 @@ Sprite::Sprite(const umath::vector4& fillColor, const umath::vector2& size, cons
       m_texture(nullptr)
 {
 	m_size = size;
-	m_isSizeSet = false;
 	SetColor(fillColor);
 }
 
@@ -40,17 +39,15 @@ Sprite::~Sprite()
 	m_texture = nullptr;
 }
 
-void Sprite::Update(float dt)
+void Sprite::Init()
 {
 	generateBuffer();
+	parent->transform.SetSize(m_size);
 }
 
 void Sprite::Draw(RenderTarget& target)
 {
     Shader& shader = target.GetShader();
-
-	if (!m_isSizeSet)
-		return;
 
 	if (m_texture)
 	{
@@ -103,7 +100,7 @@ void Sprite::SetColor(const umath::vector4& color)
 {
 	m_color = color;
 	m_vertexBuffer.clear();
-	m_bufferNeedsUpdate = true;
+	generateBuffer();
 }
 
 void Sprite::SetColor(float r, float g, float b, float a)
@@ -123,26 +120,13 @@ void Sprite::defaults()
 {
     m_size = m_texture->GetSize();
 	m_color = umath::vector4(1.f, 1.f, 1.f, 1.f);
-
-	m_bufferNeedsUpdate = true;
-	m_isSizeSet = false;
 }
 
 
 
 void Sprite::generateBuffer()
 {
-	if(!m_bufferNeedsUpdate)
-		return;
-
-	//m_vertexBuffer.addVertex(Vertex(umath::vector3(-m_size.x/2, -m_size.y/2, 0),
-	//	umath::vector2(1.0f, 1.0f), m_color));
-	//m_vertexBuffer.addVertex(Vertex(umath::vector3(m_size.x/2, -m_size.y/2, 0),
-	//	umath::vector2(0.0f, 1.0f), m_color));
-	//m_vertexBuffer.addVertex(Vertex(umath::vector3(-m_size.x/2, m_size.y/2, 0),
-	//	umath::vector2(1.0f, 0.0f), m_color));
-	//m_vertexBuffer.addVertex(Vertex(umath::vector3(m_size.x/2, m_size.y/2, 0),
-	//	umath::vector2(0.0f, 0.0f), m_color));
+	m_vertexBuffer.clear();
 
 	m_vertexBuffer.clear();
 
@@ -162,10 +146,4 @@ void Sprite::generateBuffer()
 	m_vertexBuffer.addIndex(1);
 	m_vertexBuffer.addIndex(3);
 	m_vertexBuffer.addIndex(2);
-
-	if(!m_isSizeSet)
-	{
-		parent->transform.SetSize(m_size);
-		m_isSizeSet = true;
-	}
 }
