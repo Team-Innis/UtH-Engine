@@ -3,11 +3,25 @@ SRC_PATH := ../../src/
 
 include $(CLEAR_VARS)
 
+include $(CLEAR_VARS)
+LOCAL_MODULE := libfreetype
+LOCAL_SRC_FILES := ../libs/libfreetype.a
+include $(PREBUILT_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := libbox2d
+LOCAL_SRC_FILES := ../libs/libbox2d_static.a
+include $(PREBUILT_STATIC_LIBRARY)
+
 LOCAL_MODULE    := engine
-LOCAL_STATIC_LIBRARIES := android_native_app_glue engine
+LOCAL_STATIC_LIBRARIES := android_native_app_glue engine libbox2d libfreetype
 LOCAL_SHARED_LIBRARIES := libopenal
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/openal/include/
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/Box2D/include/
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/freetype/include/
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/freetype-gl/include/
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/tinyxml2/include/
 
 #Math
 LOCAL_SRC_FILES := \
@@ -27,11 +41,17 @@ $(SRC_PATH)Audio/SoundManager.cpp
 #Renderer
 LOCAL_SRC_FILES += \
 $(SRC_PATH)Renderer/Camera.cpp \
+$(SRC_PATH)Renderer/RenderTarget.cpp \
+$(SRC_PATH)Renderer/RenderTexture.cpp \
+$(SRC_PATH)Renderer/SpriteBatch.cpp \
+$(SRC_PATH)Renderer/TextureAtlas.cpp \
 $(SRC_PATH)Renderer/Texture.cpp
 
 #Resources
 LOCAL_SRC_FILES += \
-$(SRC_PATH)Resources/ResourceManager.cpp
+$(SRC_PATH)Resources/ResourceManager.cpp \
+$(SRC_PATH)Resources/SoundBuffer.cpp \
+$(SRC_PATH)Resources/Image.cpp
 
 #Platform
 LOCAL_SRC_FILES += \
@@ -59,6 +79,13 @@ $(SRC_PATH)Engine/Scene.cpp \
 $(SRC_PATH)Engine/SceneManager.cpp \
 $(SRC_PATH)Engine/Sprite.cpp \
 $(SRC_PATH)Engine/UtHEngine.cpp \
-$(SRC_PATH)Engine/Transform.cpp
+$(SRC_PATH)Engine/Transform.cpp \
+$(SRC_PATH)Engine/RigidBody.cpp \
+$(SRC_PATH)Engine/Layer.cpp \
+$(SRC_PATH)Engine/AnimatedSprite.cpp \
+$(SRC_PATH)Engine/Text.cpp
+
+#TinyXML2
+LOCAL_SRC_FILES += $(LOCAL_PATH)/../../extlibs/tinyxml/src/tinyxml2.cpp
 
 include $(BUILD_STATIC_LIBRARY)
