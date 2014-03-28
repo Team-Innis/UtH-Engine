@@ -12,6 +12,9 @@ namespace uth
 {
 	class VertexBuffer
 	{
+
+        friend class SpriteBatch;
+
 	public:
 		VertexBuffer();
 		~VertexBuffer();
@@ -27,7 +30,7 @@ namespace uth
         const std::vector<Vertex>& getVertices() const;
         const std::vector<unsigned short>& getIndices() const;
 
-		void clear();
+		void clear(const bool arrayBuffer = true, const bool elementBuffer = true);
 
         void bindArrayBuffer() const;
         void bindElementBuffer() const;

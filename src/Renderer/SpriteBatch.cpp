@@ -85,11 +85,11 @@ namespace uth
         shader->SetUniform("unifColor", 1, 1, 1, 1);
 
 
-        uthGraphics.bindBuffer(ARRAY_BUFFER, m_spriteBuffer.getArrayBufferID());
+        uthGraphics.bindBuffer(ARRAY_BUFFER, m_spriteBuffer.m_arrayBuffer);
         shader->setAttributeData("attrPosition", 3, FLOAT_TYPE, sizeof(Vertex), (void*)0);
         shader->setAttributeData("attrUV", 2, FLOAT_TYPE, sizeof(Vertex), (void*)(3 * sizeof(float)));
 
-        uthGraphics.bindBuffer(ELEMENT_ARRAY_BUFFER, m_spriteBuffer.getElementBufferID());
+        uthGraphics.bindBuffer(ELEMENT_ARRAY_BUFFER, m_spriteBuffer.m_elementBuffer);
         uthGraphics.drawElements(TRIANGLES, m_spriteBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
     }
     
