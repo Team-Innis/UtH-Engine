@@ -27,7 +27,13 @@ namespace uth
         bind();
 
         glClearColor(r, g, b, a);
+#if defined(UTH_SYSTEM_OPENGLES)
+		glClearDepthf(1.f);
+#elif defined(UTH_SYSTEM_OPENGL)
         glClearDepth(1.f);
+#else
+	#error No such GL defined!
+#endif
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
