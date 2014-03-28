@@ -36,6 +36,7 @@ namespace uth
 			umath::vector2 m_curPos;
 			float m_downTime;
 			TouchMotion m_motion;
+			bool m_tapped;
 		public:
 			const TouchMotion Motion() const;
 			const int GetStartIndex() const;

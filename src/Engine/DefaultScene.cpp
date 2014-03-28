@@ -31,9 +31,20 @@ bool DefaultScene::DeInit()
 
 bool DefaultScene::Update(double dt)
 {
-	if(uthInput.Touch.Motion() == TouchMotion::TAP)
+	switch(uthInput.Touch.Motion())
 	{
+	case  TouchMotion::TAP:
 		WriteLog("Tapped!");
+		break;
+	case  TouchMotion::PINCH_IN:
+		WriteLog("PINCH_IN!");
+		break;
+	case  TouchMotion::PINCH_OUT:
+		WriteLog("PINCH_OUT!");
+		break;
+	case  TouchMotion::DRAG:
+		WriteLog("DRAGGED!");
+		break;
 	}
 
 	return true;

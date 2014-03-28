@@ -42,7 +42,9 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 			ID[index].m_motion = TouchMotion::STATIONARY;
 			ID[index].m_startIndex = index;
 			ID[index].m_downTime = 0.f;
+			ID[index].m_tapped = false;
 			}
+			break;
 		case AMOTION_EVENT_ACTION_MOVE:
 			//When pointer is moved
 			{
@@ -81,15 +83,23 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 				m_curLength = 0.f;
 			}
 
+			if(ID[index].Motion() == TouchMotion::STATIONARY && ID[index].m_downTime <= 0.5f)
+			{
+				ID[index].m_tapped = true;
+			}
+
 			ID[index].m_curPos.x = AMotionEvent_getX(droidInputEvent, index);
 			ID[index].m_curPos.y = AMotionEvent_getY(droidInputEvent, index);
 
-			for (unsigned int i = index; i < m_maxInputs-1; i++)
+			if(!ID[index].m_tapped)
 			{
-				ID[i].m_startIndex = ID[i+1].m_startIndex;
-				ID[i].m_startPos = ID[i+1].m_startPos;
-				ID[i].m_downTime = ID[i+1].m_downTime;
-				ID[i].m_motion = ID[i+1].Motion();
+				for (unsigned int i = index; i < m_maxInputs-1; i++)
+				{
+					ID[i].m_startIndex = ID[i+1].m_startIndex;
+					ID[i].m_startPos = ID[i+1].m_startPos;
+					ID[i].m_downTime = ID[i+1].m_downTime;
+					ID[i].m_motion = ID[i+1].Motion();
+				}
 			}
 			}
 			break;
@@ -103,11 +113,32 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 
 void TouchInput::Update(float deltaTime)
 {
-	for(int i = 0 ; i < m_maxInputs; i++)
+	for(int i = 0; i < m_maxInputs; i++)
 	{
-		if(ID[i].Motion() == TouchMotion::STATIONARY)
+		if(!ID[i].m_tapped)
 		{
-			ID[i].m_downTime += deltaTime;
+			switch(ID[i].Motion())
+			{
+			case TouchMotion::STATIONARY:
+				ID[i].m_downTime += deltaTime;
+				break;
+			case TouchMotion::TAP:
+				for (unsigned int j = i; j < m_maxInputs-1; j++)
+				{
+					ID[j].m_startIndex = ID[j+1].m_startIndex;
+					ID[j].m_startPos = ID[j+1].m_startPos;
+					ID[j].m_downTime = ID[j+1].m_downTime;
+					ID[j].m_motion = ID[j+1].Motion();
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		else
+		{
+			ID[i].m_tapped = false;
+			ID[i].m_motion = TouchMotion::TAP;
 		}
 	}
 
