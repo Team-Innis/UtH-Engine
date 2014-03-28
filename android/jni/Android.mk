@@ -28,6 +28,7 @@ include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := libbox2
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/Box2D/include/
 LOCAL_SRC_FILES := ../libs/libbox2d_static.a
 include $(PREBUILT_STATIC_LIBRARY)
 

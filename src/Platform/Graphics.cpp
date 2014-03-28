@@ -32,8 +32,7 @@ namespace uth
                                                          GL_REPEAT,
                                                          GL_CLAMP_TO_EDGE};
     static int imageFormats[IMAGEFORMAT_LAST] =         {GL_RGB,
-                                                         GL_RGBA,
-                                                         GL_RGBA8};
+                                                         GL_RGBA};
     static int textureParams[TEXTUREPARAM_LAST] =       {GL_TEXTURE_MIN_FILTER, 
                                                          GL_TEXTURE_MAG_FILTER, 
                                                          GL_TEXTURE_WRAP_S, 
