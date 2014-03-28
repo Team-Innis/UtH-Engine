@@ -31,7 +31,7 @@ namespace uth
 
         GameObject* rtexSprite;
 
-        //GameObject* obj;
+        GameObject* obj;
 
 		int number;
 

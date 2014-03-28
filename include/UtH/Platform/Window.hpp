@@ -5,7 +5,7 @@
 #include <UtH/Platform/WindowSettings.hpp>
 #include <UtH/Renderer/RenderTarget.hpp>
 
-#define uthWindow uth::Window::getInstance()
+//#define uthWindow uth::Window::getInstance()
 
 namespace uth
 {

@@ -70,8 +70,6 @@ namespace uth
             loaded = true;
         }
 
-        updateUniforms();
-
         if (m_shader)
             return *m_shader;
 

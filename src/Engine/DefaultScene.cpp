@@ -22,7 +22,7 @@ bool DefaultScene::Init()
 	shader->Use();
 
     uthEngine.GetWindow().SetShader(shader);
-    rtex.Initialize(uthEngine.GetWindowResolution(), false);
+    rtex.Initialize(uthEngine.GetWindowResolution() / 2.f, false);
     rtex.SetCamera(&camera);
     rtex.SetShader(shader);
 
@@ -101,6 +101,10 @@ bool DefaultScene::Init()
     rtexSprite->transform.SetPosition(0, 0);
     //rtexSprite->transform.SetRotation(180);
 
+    obj = new GameObject();
+    obj->AddComponent(new Sprite("test.tga"));
+    obj->transform.SetPosition(0, 0);
+
 	WriteLog("GameObjects: %d\n", gameObjects.size());
 	WriteLog("Layers: %d\n", layers.size());
 
@@ -157,12 +161,15 @@ bool DefaultScene::Update(float dt)
 }
 bool DefaultScene::Draw()
 {	
+    obj->Draw(uthEngine.GetWindow());
+    //glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
     rtex.Clear(0, 0, 1, 1);
 	for(size_t i = 0; i < layers.size(); i++)
         layers.at(i)->Draw(rtex);
 
     rtex.Update();
-    
+    rtex.GetTexture();
     //static_cast<Sprite*>(rtexSprite->GetComponent("rtexSprite"))->SetTexture(&rtex.GetTexture());
     rtexSprite->Draw(uthEngine.GetWindow());
 

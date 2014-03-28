@@ -29,7 +29,7 @@ namespace uth
     {
         if (!m_texture.Create(size, false, false))
         {
-            WriteLog("Failed to create rendertexture texture");
+            WriteError("Failed to create rendertexture texture");
             return false;
         }
 
@@ -37,7 +37,7 @@ namespace uth
         
         if (!m_frameBuffer)
         {
-            WriteLog("Failed to create rendertexture framebuffer");
+            WriteError("Failed to create rendertexture framebuffer");
             return false;
         }
 
@@ -49,7 +49,7 @@ namespace uth
 
             if (!m_depthBuffer)
             {
-                WriteLog("Failed to create rendertexture depth buffer");
+                WriteError("Failed to create rendertexture depth buffer");
                 uth::Graphics::DeleteFrameBuffers(1, &m_frameBuffer);
                 m_frameBuffer = 0;
                 return false;
@@ -66,7 +66,7 @@ namespace uth
         {
             uth::Graphics::DeleteFrameBuffers(1, &m_frameBuffer);
             uth::Graphics::DeleteRenderBuffers(1, &m_depthBuffer);
-            WriteLog("Failed to bind texture to rendertexture");
+            WriteError("Failed to bind texture to rendertexture");
             return false;
         }
 
