@@ -60,7 +60,7 @@ bool DefaultScene::Init()
 	go = new GameObject();
 	go->AddComponent(new AnimatedSprite(texture, 5, 4, 4, 1.f, 0, false, true));
 
-	//((AnimatedSprite*)go->GetComponent("AnimatedSprite"))->ChangeAnimation(5, 4);
+	((AnimatedSprite*)go->GetComponent("AnimatedSprite"))->ChangeAnimation(2, 4, 2, 1.0f, true, true);
 
 	//go->GetComponent("AnimatedSprite")
 

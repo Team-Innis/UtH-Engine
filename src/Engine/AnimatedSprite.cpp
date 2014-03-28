@@ -5,22 +5,25 @@
 
 using namespace uth;
 
-AnimatedSprite::AnimatedSprite(Texture* texture, const int frames, const umath::vector2 frameSize, 
-			const float fps, const int firstFrame, const bool reversed, const bool loop) 
-			: Sprite(texture, "AnimatedSprite"),
-			  m_frames(frames),
-			  m_curFrame(firstFrame),
-			  m_fps(fps),
-			  m_firstFrame(firstFrame),
-			  m_reversed(reversed),
-			  m_loop(loop),
-			  delay(0.0f)
+AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames, 
+	const umath::vector2 frameSize, 
+	const float fps, const unsigned int firstFrame, 
+	const bool reversed, const bool loop) 
+	: Sprite(texture, "AnimatedSprite"),
+		m_frames(frames),
+		m_curFrame(firstFrame),
+		m_fps(fps),
+		m_firstFrame(firstFrame),
+		m_reversed(reversed),
+		m_loop(loop),
+		m_delay(0.0f)
 {
 	const umath::vector2 texSize = texture->GetSize();
 #ifdef _DEBUG
 	if(int(texSize.x) % int(frameSize.x) != 0 || int(texSize.y) % int(frameSize.y) != 0)
 	{
-		WriteLog("\nBad frame size! texture(%f, %f) frame(%f, %f)", texSize.x, texSize.y, frameSize.x, frameSize.y);
+		WriteLog("\nBad frame size! texture(%f, %f) frame(%f, %f)", 
+			texSize.x, texSize.y, frameSize.x, frameSize.y);
 		assert(false);
 	}
 #endif
@@ -29,18 +32,20 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const int frames, const umath::
 	AnimatedSprite(texture, frames, m_frameCountX, m_frameCountY, fps, firstFrame, reversed, loop);
 }
 
-AnimatedSprite::AnimatedSprite(Texture* texture, const int frames, const int frameCountX, const int frameCountY, 
-			const float fps, const int firstFrame, const bool reversed, const bool loop) 
-			: Sprite(texture, "AnimatedSprite"),
-			  m_frames(frames),
-			  m_curFrame(firstFrame),
-			  m_frameCountX(frameCountX),
-			  m_frameCountY(frameCountY),
-			  m_fps(fps),
-			  m_firstFrame(firstFrame),
-			  m_reversed(reversed),
-			  m_loop(loop),
-			  delay(0.0f)
+AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames, 
+	const unsigned int frameCountX, const unsigned int frameCountY, 
+	const float fps, const unsigned int firstFrame, 
+	const bool reversed, const bool loop) 
+	: Sprite(texture, "AnimatedSprite"),
+		m_frames(frames),
+		m_curFrame(firstFrame),
+		m_frameCountX(frameCountX),
+		m_frameCountY(frameCountY),
+		m_fps(fps),
+		m_firstFrame(firstFrame),
+		m_reversed(reversed),
+		m_loop(loop),
+		m_delay(0.0f)
 {
 	const int texSizeX = texture->GetSize().x;
 	const int texSizeY = texture->GetSize().y;
@@ -48,12 +53,12 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const int frames, const int fra
 #ifdef _DEBUG
 	if(texSizeX % frameCountX != 0 || texSizeY % frameCountY != 0)
 	{
-		WriteLog("\nBad texture size! (%d, %d)", texSizeX, texSizeY);
+		WriteLog("Bad texture size! (%d, %d)\n", texSizeX, texSizeY);
 		assert(false);
 	}
 	if(frames > frameCountX * frameCountY)
 	{
-		WriteLog("\nToo many frames! (maximum frame capacity: %d)", frameCountX * frameCountY);
+		WriteLog("Too many frames! (maximum frame capacity: %d)\n", frameCountX * frameCountY);
 		assert(false);
 	}
 #endif
@@ -69,8 +74,17 @@ AnimatedSprite::~AnimatedSprite()
 {
 }
 
-void AnimatedSprite::ChangeAnimation(int loopStartFrame, int loopFrames, int startFrame, float fps)
+void AnimatedSprite::ChangeAnimation(int loopStartFrame, int loopFrames, 
+	int startFrame, float fps, bool loop, bool reversed)
 {
+	
+#ifdef _DEBUG
+	if(loopFrames == 0)
+	{
+		WriteLog("0 frame animation? (frame count = 0)\n");
+		assert(false);
+	}
+#endif
 	if(startFrame < loopStartFrame)
 		m_curFrame = loopStartFrame;
 	else
@@ -79,42 +93,55 @@ void AnimatedSprite::ChangeAnimation(int loopStartFrame, int loopFrames, int sta
 	m_frames = loopFrames;
 	m_firstFrame = loopStartFrame;
 	m_fps = fps;
+	m_loop = loop;
+	m_frameCount = 0;
+	m_reversed = reversed;
 	genererateBuffer();
 }
 
 void AnimatedSprite::Init()
 {
-	ChangeAnimation(m_firstFrame,m_frames,m_firstFrame,m_fps);
+	ChangeAnimation(m_firstFrame,m_frames,m_firstFrame, m_fps, m_loop, m_reversed);
 
 	const umath::vector2 size = umath::vector2(m_frameSize.x, m_frameSize.y);
 	parent->transform.SetSize(size);
+
+	testi = false;
 }
 
 void AnimatedSprite::Update(float dt)
 {
-	delay += dt;
+	m_delay += dt;
 	
-	//uth::Timer::
-
-	if(delay > 1.0f / m_fps)
+	if (!m_loop)
 	{
-		delay = 0.0f;
-		//umath::rectangle lastFrame = frame;
-		m_curFrame++;
-
-		if(m_curFrame - m_firstFrame >= m_frames && m_loop)
-		{
-			m_curFrame -= m_frames;
-		}
-
-		else if(m_curFrame - m_firstFrame >= m_frames && !m_loop)
-		{
-
-		}
-
-		genererateBuffer();
+		if(m_frames == m_frameCount + 1) 
+			testi = true;
 	}
 
+	if(m_delay > 1.0f / m_fps && !testi)
+	{
+		m_delay = 0.0f;
+		m_frameCount++;
+
+		if(!m_reversed)
+		{
+			m_curFrame++;
+			if (m_curFrame - m_firstFrame >= m_frames)
+			{
+				m_curFrame -= m_frames;
+			}
+		}
+		else
+		{
+			m_curFrame--;
+			if(m_curFrame < m_firstFrame)
+			{
+				m_curFrame = m_firstFrame + m_frames;
+			}
+		}	
+		genererateBuffer();
+	}
 }
 
 void AnimatedSprite::genererateBuffer()
@@ -128,11 +155,6 @@ void AnimatedSprite::genererateBuffer()
 	frame.height = -m_frameSize.height;
 
 	m_vertexBuffer.clear();
-
-	/*frame.left = 0.00f;
-	frame.width = 0.25f;
-	frame.top = 1.00f;
-	frame.height = 0.75f;*/
 
 	m_vertexBuffer.addVertex(Vertex(
 		umath::vector3(-0.5f, -0.5f, 0),
