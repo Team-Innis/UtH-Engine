@@ -98,18 +98,47 @@ bool DefaultScene::DeInit()
 
 bool DefaultScene::Update(float dt)
 {
-	//layers.at(0)->transform.Rotate(0.01f);
+	//layers.at(0)->transform.Rotate(0.1f);
 
 	for(size_t i = 0; i < layers.size(); i++)
 		layers.at(i)->Update(dt);
 
-	if(timer.GetCurTime() > 1.0f)
+	/*if(timer.GetCurTime() > 1.0f)
 	{
 		auto rigidBody = static_cast<Rigidbody*>(gameObjects.at(0)->GetComponent("Rigidbody"));
 		rigidBody->ApplyImpulse(umath::vector2(50, 0), umath::vector2(-64, 64));
 		timer.Reset();
 		WriteLog("Impulse!\n");
+	}*/
+
+	auto rigidBody = static_cast<Rigidbody*>(gameObjects.at(0)->GetComponent("Rigidbody"));
+
+	const int speed = 5;
+
+
+	if(GetAsyncKeyState(VK_LEFT))
+	{
+		umath::vector2 curV = rigidBody->GetVelocity();
+		rigidBody->SetVelocity(umath::vector2(-speed, curV.y));
 	}
+
+	if(GetAsyncKeyState(VK_RIGHT))
+	{
+		umath::vector2 curV = rigidBody->GetVelocity();
+		rigidBody->SetVelocity(umath::vector2(speed, curV.y));
+	}
+
+	if(GetAsyncKeyState(VK_UP))
+	{
+		umath::vector2 curV = rigidBody->GetVelocity();
+		rigidBody->SetVelocity(umath::vector2(curV.x, -speed));
+	}
+	if(GetAsyncKeyState(VK_DOWN))
+	{
+		umath::vector2 curV = rigidBody->GetVelocity();
+		rigidBody->SetVelocity(umath::vector2(curV.x, speed));
+	}
+
 
 	const float timeStep = 1.f/60.f;
 	world.Step(timeStep, 8, 3);
