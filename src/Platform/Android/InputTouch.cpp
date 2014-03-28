@@ -37,11 +37,11 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 				m_motion = TouchMotion::MULTIPLE;
 			}
 
-
 			ID[index].m_startPos.x = AMotionEvent_getX(droidInputEvent, index);
 			ID[index].m_startPos.y = AMotionEvent_getY(droidInputEvent, index);
 			ID[index].m_motion = TouchMotion::STATIONARY;
 			ID[index].m_startIndex = index;
+			ID[index].m_downTime = 0.f;
 			}
 		case AMOTION_EVENT_ACTION_MOVE:
 			//When pointer is moved
@@ -57,6 +57,7 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 			}
 			break;
 		case AMOTION_EVENT_ACTION_UP:
+		case AMOTION_EVENT_ACTION_POINTER_UP:
 		case AMOTION_EVENT_ACTION_CANCEL:
 		case AMOTION_EVENT_ACTION_OUTSIDE:
 			//If touch ends by taking finger away from screen or by some other event
@@ -78,7 +79,6 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 			{
 				m_prevLength = 0.f;
 				m_curLength = 0.f;
-				m_motion = TouchMotion::NONE;
 			}
 
 			ID[index].m_curPos.x = AMotionEvent_getX(droidInputEvent, index);
@@ -105,8 +105,10 @@ void TouchInput::Update(float deltaTime)
 {
 	for(int i = 0 ; i < m_maxInputs; i++)
 	{
-		if(ID[i].Motion() != TouchMotion::NONE)
+		if(ID[i].Motion() == TouchMotion::STATIONARY)
+		{
 			ID[i].m_downTime += deltaTime;
+		}
 	}
 
 	if(Motion() == TouchMotion::MULTIPLE || Motion() == TouchMotion::PINCH_IN || Motion() == TouchMotion::PINCH_OUT)
