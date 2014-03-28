@@ -82,7 +82,7 @@ bool DefaultScene::Init()
 		umath::vector2(2000, 2*PIXELS_PER_METER)));
 	go->transform.SetPosition(0, groundBody->GetPosition().y * PIXELS_PER_METER);
 	gameObjects.push_back(go);
-	AddGameObjectToLayer(0, go);
+	AddGameObjectToLayer(1, go);
 
 	go = new GameObject();
 	auto text = new Text("8bitoperator.ttf", 32);
@@ -93,7 +93,7 @@ bool DefaultScene::Init()
 	go->AddComponent(text);
 	go->transform.Move(-400, 200);
 	gameObjects.push_back(go);
-	AddGameObjectToLayer(1, go);
+	AddGameObjectToLayer(0, go);
 
     // render rtex
     rtexSprite = new GameObject();
