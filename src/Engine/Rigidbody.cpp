@@ -36,6 +36,11 @@ Rigidbody::~Rigidbody()
 
 // Public
 
+void Rigidbody::Init()
+{
+	init();
+}
+
 void Rigidbody::Update(float dt)
 {
 	if(!m_isInitialized && parent->transform.GetSize().getLenght() > sqrt(2.0))
@@ -164,7 +169,7 @@ void Rigidbody::init()
 		}
 		break;
 	default:
-		WriteLog("Collider type undefined\nThis is probably bad\n");
+		WriteError("Collider type undefined\nThis is probably bad");
 		break;
 	}
 	m_isInitialized = true;

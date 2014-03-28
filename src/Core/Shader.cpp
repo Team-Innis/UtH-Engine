@@ -31,7 +31,7 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 	const char* vertex = fr.ReadText();
 	if(!uth::Graphics::CreateShader(VERTEX_SHADER, m_program, vertex))
 	{
-		WriteLog("Vertex shader failed");
+		WriteError("Vertex shader failed");
 		return false;
 	}
 
@@ -40,7 +40,7 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 	const char* fragment = fr.ReadText();
 	if(!uth::Graphics::CreateShader(FRAGMENT_SHADER, m_program, fragment))
 	{
-		WriteLog("Fragment shader failed");
+		WriteError("Fragment shader failed");
 		return false;
 	}
 

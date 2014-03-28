@@ -22,8 +22,9 @@ Timer::Timer()
 	Reset();
 }
 
-void Timer::Reset()
+const long double Timer::Reset()
 {
+	const long double curTime = CurTime();
 #if defined(UTH_SYSTEM_WINDOWS)
 	m_memTime = 0;
     QueryPerformanceCounter(&m_startCount);
@@ -32,20 +33,21 @@ void Timer::Reset()
     gettimeofday(&m_startCount, NULL);
     m_startTime = (m_startCount.tv_sec * 1000000.0) + m_startCount.tv_usec;
 #endif
+	return curTime;
 }
 
-const long double Timer::UpdateDeltaTime() // Does Update, calculates difference between this and last GetDeltaTime
+const long double Timer::DeltaTime() // Does Update, calculates difference between this and last GetDeltaTime
 {
-	long double oldTime = m_memTime;
+	const long double oldTime = m_memTime;
 	return Update() - oldTime;
 }
 
 const long double Timer::Update() // Updates memTime to be current time
 {
-	return m_memTime = GetCurTime();
+	return m_memTime = CurTime();
 }
 
-const long double Timer::GetCurTime() // returns time elapsed since timer last restarted
+const long double Timer::CurTime() // returns time elapsed since timer last restarted
 {
 #if defined(UTH_SYSTEM_WINDOWS)
     QueryPerformanceCounter(&m_curCount);

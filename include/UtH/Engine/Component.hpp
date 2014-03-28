@@ -25,6 +25,7 @@ namespace uth
 		const std::string GetName() const;
 
 		// Default to doing nothing
+		virtual void Init(){};
 		virtual void Draw(RenderTarget&){};
 		virtual void Update(float dt){};
 

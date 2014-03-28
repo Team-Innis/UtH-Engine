@@ -35,14 +35,13 @@ void NewSceneFunc(int SceneID, uth::Scene* &CurScene)
 
 int main()
 {
-    WriteLog("main start");
 	UtHSceneM.registerNewSceneFunc(NewSceneFunc,COUNT);
 
 	uthEngine.Init();
 
 	while(uthEngine.Running())
 	{
-		uthEngine.Update(uthEngine.Timer().GetMemTime());
+		uthEngine.Update();
 
 		uthEngine.Draw();
 	}

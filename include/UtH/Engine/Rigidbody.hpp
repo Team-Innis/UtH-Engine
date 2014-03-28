@@ -28,6 +28,7 @@ namespace uth
 
 		~Rigidbody();
 
+		void Init();
 		void Update(float dt);
 		// Most other functions will not work untile the object is initialzed
 		// This should at most only take a few frames

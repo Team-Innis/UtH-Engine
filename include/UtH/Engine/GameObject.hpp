@@ -19,6 +19,9 @@ namespace uth
 		GameObject();
 		~GameObject();
 
+		void SetActive(bool value);
+		const bool IsActive() const;
+
 		void AddComponent(Component* component);
 		Component* GetComponent(const std::string& name);
 		// Will actually delete the component
@@ -34,6 +37,8 @@ namespace uth
 
 	private:
 		std::vector<Component*> components;
+
+		bool m_active;
 	};
 }
 #endif
