@@ -22,7 +22,7 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 #ifdef _DEBUG
 	if(int(texSize.x) % int(frameSize.x) != 0 || int(texSize.y) % int(frameSize.y) != 0)
 	{
-		WriteLog("\nBad frame size! texture(%f, %f) frame(%f, %f)", 
+		WriteError("Bad frame size! texture(%f, %f) frame(%f, %f)", 
 			texSize.x, texSize.y, frameSize.x, frameSize.y);
 		assert(false);
 	}
@@ -53,12 +53,12 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 #ifdef _DEBUG
 	if(texSizeX % frameCountX != 0 || texSizeY % frameCountY != 0)
 	{
-		WriteLog("Bad texture size! (%d, %d)\n", texSizeX, texSizeY);
+		WriteError("Bad texture size! (%d, %d)", texSizeX, texSizeY);
 		assert(false);
 	}
 	if(frames > frameCountX * frameCountY)
 	{
-		WriteLog("Too many frames! (maximum frame capacity: %d)\n", frameCountX * frameCountY);
+		WriteError("Too many frames! (maximum frame capacity: %d)", frameCountX * frameCountY);
 		assert(false);
 	}
 #endif
@@ -81,7 +81,7 @@ void AnimatedSprite::ChangeAnimation(int loopStartFrame, int loopFrames,
 #ifdef _DEBUG
 	if(loopFrames == 0)
 	{
-		WriteLog("0 frame animation? (frame count = 0)\n");
+		WriteError("0 frame animation? (frame count = 0)");
 		assert(false);
 	}
 #endif

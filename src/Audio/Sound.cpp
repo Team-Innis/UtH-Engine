@@ -43,7 +43,7 @@ void Sound::Play()
 void Sound::Play(float offset)
 {
 	if(offset >= duration)
-		WriteLog("Offset %f exceeds %f duration!\n", offset, duration);
+		WriteError("Offset %f exceeds %f duration!", offset, duration);
 	else
 	{
 		alSourcei(source, AL_SEC_OFFSET, static_cast<ALint>(offset));

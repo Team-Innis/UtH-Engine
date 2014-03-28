@@ -127,7 +127,7 @@ namespace uth
 		if (!success)
 		{
             glDeleteShader(shader);
-			WriteLog("Shader compilation failed");
+			WriteError("Shader compilation failed");
             return false;
         }
 
@@ -163,7 +163,7 @@ namespace uth
 		if (!success)
 		{
             destroyShaderProgram(shaderProgram);
-			WriteLog("Shader link failed");
+			WriteError("Shader link failed");
 			return false;
 		}
         
