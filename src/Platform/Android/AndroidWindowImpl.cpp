@@ -92,7 +92,7 @@ namespace uth
 		//glHint(GL_GENERATE_MIPMAP_HINT, GL_FASTEST);
 		//glEnable(GL_CULL_FACE);
 		//glEnable(GL_DEPTH_TEST);
-		uthGraphics.setBlendFunction(true, SRC_ALPHA, ONE_MINUS_SRC_ALPHA);
+		Graphics::SetBlendFunction(true, SRC_ALPHA, ONE_MINUS_SRC_ALPHA);
 
 		WriteLog("+++++++++++++++++++++++++++++++++++++++");
 		WriteLog((const char*)glGetString(GL_VERSION));
@@ -159,7 +159,7 @@ namespace uth
 			WriteLog("SaveStated");
 			break;
 		case APP_CMD_INIT_WINDOW:
-			create(uthAndroidEngine.settings);
+			uthEngine.Init(uthAndroidEngine.settings);
 			WriteLog("windowINIT");
 			window->setViewport(0.0f,0.0f,
 				uthAndroidEngine.settings.size.x,

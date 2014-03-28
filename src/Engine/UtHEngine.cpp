@@ -77,3 +77,8 @@ const bool UTHEngine::Running() const
 {
 	return m_running;
 }
+
+void UTHEngine::SetWindow(void* handle)
+{
+	m_wndw = (Window*)handle;
+}

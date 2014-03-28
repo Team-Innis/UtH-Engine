@@ -60,15 +60,9 @@ void handle_cmd(android_app* app, int cmd)
 	((uth::Window*)app->userData)->processMessages();
 }
 
-void update()
-{
-	gameObject.Draw(shader);
-	
-}
-
 void windowEventHandler(void* handle)
 {
-	theHood.SetWindow((uth::Window*)handle);
+	uthEngine.SetWindow((uth::Window*)handle);
 }
 
 void android_main(android_app* state)
@@ -116,8 +110,8 @@ void android_main(android_app* state)
 
 		if(uthAndroidEngine.initialized && uthAndroidEngine.display != NULL)
 		{
-			theHood.Update();
-			theHood.Draw();
+			uthEngine.Update();
+			uthEngine.Draw();
 		}
 	}
 }
