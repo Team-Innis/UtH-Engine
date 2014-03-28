@@ -6,7 +6,7 @@
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Input.hpp>
 
-#include <UtH\Platform\Debug.hpp>
+#include <UtH/Platform/Debug.hpp>
 
 using namespace uth;
 
@@ -18,8 +18,10 @@ DefaultScene::~DefaultScene()
 bool DefaultScene::Init()
 {
 	shader = new Shader();
-	shader->LoadShader("vertexshader.vert", "fragmentshader.frag");
+	shader->LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
 	shader->Use();
+
+    uthEngine.GetWindow().SetShader(shader);
 
 	// Ground level
 	b2BodyDef groundBodyDef;
@@ -31,7 +33,7 @@ bool DefaultScene::Init()
 	groundBox.SetAsBox(50.0f, 1.0f);
 	groundBody->CreateFixture(&groundBox, 0.0f);
 
-	camera.SetSize(Hood.GetWindowSize());
+	camera.SetSize(uthEngine.GetWindowResolution());
 	camera.SetPosition(0, 0);
 
 
@@ -83,7 +85,7 @@ bool DefaultScene::Init()
 	auto text = new Text("8bitoperator.ttf", 32);
 	text->AddText(L"!\"#$%&'()*+,-./0123456789:;<=     >?"
 				  L"\n@ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÅ[\\]^_"
-				  L"\n`abcdefghijklmnopqrstuvwxyzöäå{|}~");
+				  L"\n`abcdefghijklmnopqrstuvwxyzöäå{|}~", umath::vector4(0, 0, 0, 1));
 	text->AddText(L"\nPrkl!");
 	go->AddComponent(text);
 	go->transform.Move(-400, 200);
@@ -116,16 +118,22 @@ bool DefaultScene::DeInit()
 	return true;
 }
 
-bool DefaultScene::Update(double dt)
+bool DefaultScene::Update(float dt)
 {
 	//layers.at(0)->transform.Rotate(0.01f);
 
 	for(size_t i = 0; i < layers.size(); i++)
 		layers.at(i)->Update(dt);
 
-	//gameObject.transform.Move(0, 1.f * dt);
+	if(timer.GetCurTime() > 1.0f)
+	{
+		auto rigidBody = static_cast<Rigidbody*>(gameObjects.at(0)->GetComponent("Rigidbody"));
+		rigidBody->ApplyImpulse(umath::vector2(50, 0), umath::vector2(-64, 64));
+		timer.Reset();
+		WriteLog("Impulse!\n");
+	}
 
-	static float timeStep = 1.f/60.f;
+	const float timeStep = 1.f/60.f;
 	world.Step(timeStep, 8, 3);
 
 	if(UTHInput.Mouse.IsButtonPressed(Mouse::MS1))
@@ -139,7 +147,7 @@ bool DefaultScene::Update(double dt)
 bool DefaultScene::Draw()
 {	
 	for(size_t i = 0; i < layers.size(); i++)
-		layers.at(i)->Draw(shader, &camera);
+        layers.at(i)->Draw(uthEngine.GetWindow());
 
 	return true;
 }

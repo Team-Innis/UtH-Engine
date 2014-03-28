@@ -19,14 +19,17 @@ namespace uth
 		GameObject();
 		~GameObject();
 
+		void SetActive(bool value);
+		const bool IsActive() const;
+
 		void AddComponent(Component* component);
-		Component* GetComponent(const std::string name);
+		Component* GetComponent(const std::string& name);
 		// Will actually delete the component
 		void RemoveComponent(Component* component);
-		void RemoveComponent(std::string name);
+		void RemoveComponent(const std::string& name);
 		void RemoveComponents();
 
-		void Draw(Shader* shader, Camera* camera);
+		void Draw(RenderTarget& target);
 		void Update(float dt);
 
 		// Transform is a special component that every gameobject has
@@ -34,6 +37,8 @@ namespace uth
 
 	private:
 		std::vector<Component*> components;
+
+		bool m_active;
 	};
 }
 #endif

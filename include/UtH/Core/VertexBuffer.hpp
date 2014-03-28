@@ -12,6 +12,9 @@ namespace uth
 {
 	class VertexBuffer
 	{
+
+        friend class SpriteBatch;
+
 	public:
 		VertexBuffer();
 		~VertexBuffer();
@@ -24,9 +27,13 @@ namespace uth
 		// Add vector of indexes at the end of current index vector, offsets indices with already added indices
 		void addIndices(const std::vector<unsigned short>& indices);
 
-		void clear();
+        const std::vector<Vertex>& getVertices() const;
+        const std::vector<unsigned short>& getIndices() const;
 
-		void draw(Shader* shader) const;
+		void clear(const bool arrayBuffer = true, const bool elementBuffer = true);
+
+        void bindArrayBuffer() const;
+        void bindElementBuffer() const;
 
 	private:
 		void init();

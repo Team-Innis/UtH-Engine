@@ -25,14 +25,14 @@ typedef uth::AndroidWindowImpl WindowImpl;
 namespace uth
 {
     Window::Window()
-        : m_windowHandle(NULL),
+        : m_windowHandle(nullptr),
           m_windowSettings()
     {
 
     }
 
     Window::Window(const WindowSettings& settings)
-        : m_windowHandle(NULL),
+        : m_windowHandle(nullptr),
           m_windowSettings(settings)
     {
         create(m_windowSettings);
@@ -50,14 +50,14 @@ namespace uth
 
         m_windowHandle = WindowImpl::create(settings);
 
-        return m_windowHandle;
+		return m_windowHandle != nullptr;
     }
 
 
     void Window::destroy()
     {
         WindowImpl::destroy(m_windowHandle);
-        m_windowHandle = NULL;
+        m_windowHandle = nullptr;
     }
 
 
@@ -87,4 +87,16 @@ namespace uth
 	{
 		return WindowImpl::processMessages(m_windowHandle);
 	}
+
+    umath::vector2 Window::GetSize() const
+    {
+        return m_windowSettings.size;
+    }
+
+    bool Window::Bind()
+    {
+        // Unbind frame buffer here
+
+        return true;
+    }
 }

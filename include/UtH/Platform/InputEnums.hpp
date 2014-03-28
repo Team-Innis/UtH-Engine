@@ -10,7 +10,8 @@ namespace uth
 	{
 		enum TPattern
 		{
-			TAP
+			TAP,
+			SEPARATE
 		};
 	}
 

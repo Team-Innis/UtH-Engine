@@ -51,35 +51,36 @@ void VertexBuffer::addIndices(const std::vector<unsigned short>& indices)
 	m_indices.insert(m_indices.end(), input.begin(), input.end());
 }
 
-void VertexBuffer::clear()
+const std::vector<Vertex>& VertexBuffer::getVertices() const
 {
-	m_vertexData.clear();
-	m_indices.clear();	
+    return m_vertexData;
 }
 
-void VertexBuffer::draw(Shader* shader) const
+const std::vector<unsigned short>& VertexBuffer::getIndices() const
 {
-	setData();
+    return m_indices;
+}
 
-	uthGraphics.bindBuffer(ARRAY_BUFFER, m_arrayBuffer);
-	// (position + uv + color) * sizeof(float)
-	const int posOffset = (3 + 2 + 4)*sizeof(float);
-	// position * sizeof(float)
-	const int uvStart = 3*sizeof(float);
-	// (position + uv) * sizeof(float)
-	const int colorStart = (3 + 2)*sizeof(float);
+void VertexBuffer::clear(const bool arrayBuffer, const bool elementBuffer)
+{
+    if (arrayBuffer)
+	    m_vertexData.clear();
+    if (elementBuffer)
+	    m_indices.clear();	
+}
 
-	// Attribute name, number of components, datatype, bytes between first elements,
-	// offset of first element in buffer
-	shader->setAttributeData("attrPosition", 3, FLOAT_TYPE, posOffset, (void*)0);
-	shader->setAttributeData("attrUV", 2, FLOAT_TYPE, posOffset, (void*)uvStart);
-	shader->setAttributeData("attrColor", 4, FLOAT_TYPE, posOffset, (void*)colorStart);
+void VertexBuffer::bindArrayBuffer() const
+{
+    setData();
 
-	uthGraphics.bindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
-	uthGraphics.drawElements(TRIANGLES, m_indices.size(), 
-		UNSIGNED_SHORT_TYPE, (void*)0);
+    uthGraphics.bindBuffer(ARRAY_BUFFER, m_arrayBuffer);
+}
 
-	uthGraphics.bindBuffer(ARRAY_BUFFER, 0);	
+void VertexBuffer::bindElementBuffer() const
+{
+    setData();
+
+    uthGraphics.bindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
 }
 
 // Private

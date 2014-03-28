@@ -12,7 +12,7 @@ Scene::Scene()
 
 Scene::~Scene()
 {
-	for(int i = 0; i < layers.size(); i++)
+	for(size_t i = 0; i < layers.size(); i++)
 		delete layers.at(i);
 }
 
@@ -51,7 +51,7 @@ bool Scene::CreateLayer(const char* layerName, const int layerId)
 
 void Scene::SetLayerActive(const char* layerName,bool active)
 {
-	for(int i = 0; i < layers.size(); i++)
+	for(size_t i = 0; i < layers.size(); i++)
 	{
 		if(layers.at(i)->GetLayerName() == layerName)
 		{
@@ -62,7 +62,7 @@ void Scene::SetLayerActive(const char* layerName,bool active)
 
 void Scene::SetLayerActive(const int layerId,bool active)
 {
-	for(int i = 0; i < layers.size(); i++)
+	for(size_t i = 0; i < layers.size(); i++)
 	{
 		if(layers.at(i)->GetLayerId() == layerId)
 		{
@@ -73,7 +73,7 @@ void Scene::SetLayerActive(const int layerId,bool active)
 
 bool Scene::AddGameObjectToLayer(const char* layerName, GameObject* gameObject)
 {
-	for(int i = 0; i < layers.size(); i++)
+	for(size_t i = 0; i < layers.size(); i++)
 	{
 		if(layers.at(i)->GetLayerName() == layerName)
 		{
@@ -87,7 +87,7 @@ bool Scene::AddGameObjectToLayer(const char* layerName, GameObject* gameObject)
 
 bool Scene::AddGameObjectToLayer(int layerId, GameObject* gameObject)
 {
-	for(int i = 0; i < layers.size(); i++)
+	for(size_t i = 0; i < layers.size(); i++)
 	{
 		if(layers.at(i)->GetLayerId() == layerId)
 		{
@@ -101,7 +101,7 @@ bool Scene::AddGameObjectToLayer(int layerId, GameObject* gameObject)
 
 bool Scene::RemoveGameObjectFromLayer(const char* layerName, GameObject* gameObject)
 {
-	for(int i = 0; i < layers.size(); i++)
+	for(size_t i = 0; i < layers.size(); i++)
 	{
 		if(layers.at(i)->GetLayerName() == layerName)
 		{
@@ -115,7 +115,7 @@ bool Scene::RemoveGameObjectFromLayer(const char* layerName, GameObject* gameObj
 
 bool Scene::RemoveGameObjectFromLayer(int layerId, GameObject* gameObject)
 {
-	for(int i = 0; i < layers.size(); i++)
+	for(size_t i = 0; i < layers.size(); i++)
 	{
 		if(layers.at(i)->GetLayerId() == layerId)
 		{

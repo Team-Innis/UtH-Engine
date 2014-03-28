@@ -3,7 +3,7 @@
 
 using namespace uth;
 
-Transform::Transform(const std::string name)
+Transform::Transform(const std::string& name)
 	: Component(name),
 	  position(0, 0),
 	  size(1, 1),

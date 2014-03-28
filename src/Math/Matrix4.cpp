@@ -19,7 +19,7 @@ namespace umath
 		r3(fe[8],fe[9],fe[10],fe[11]),
 		r4(fe[12],fe[13],fe[14],fe[15])
 	{}
-	matrix4::matrix4(const matrix3 mat3)
+	matrix4::matrix4(const matrix3& mat3)
 		:
 		r1(mat3[0],0.f),
 		r2(mat3[1],0.f),
@@ -126,7 +126,7 @@ namespace umath
 			L[0][3] * R[3][0] + L[1][3] * R[3][1] + L[2][3] * R[3][2] + L[3][3] * R[3][3]
 			);
 	}
-	const matrix4 operator *=(matrix4& LeftVal, const matrix4& RightVal)
+	const matrix4& operator *=(matrix4& LeftVal, const matrix4& RightVal)
 	{
 		LeftVal = LeftVal * RightVal;
 		return LeftVal;
@@ -169,7 +169,7 @@ namespace umath
 			L[3][0] * R[0] + L[3][1] * R[1] + L[3][2] * R[2] + L[3][3] * R[3]
 			);
 	}
-	const vector4 operator *=(vector4& LeftVal, const matrix4& RightVal)
+	const vector4& operator *=(vector4& LeftVal, const matrix4& RightVal)
 	{
 		LeftVal = LeftVal * RightVal;
 		return LeftVal;

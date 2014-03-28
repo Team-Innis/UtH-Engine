@@ -1,8 +1,8 @@
 #pragma once
-#ifndef MOUSEINPUT_H_UTH
-#define MOUSEINPUT_H_UTH
+#ifndef INPUTMOUSE_H_UTH
+#define INPUTMOUSE_H_UTH
 
-#include <UtH/Platform/InputEnums.hpp>
+#include <UtH/Platform/Win32/InputBase.hpp>
 #include <UtH/Platform/Window.hpp>
 
 #include <UtH/Math/Vector2.hpp>
@@ -12,11 +12,14 @@
 namespace uth
 {
 	//extern class Input;
-	class MouseInput
+	class MouseInput : public InputBase
 	{
 	public:
 		MouseInput();
 		~MouseInput();
+
+		void Initiate();
+		void Update();
 
 		bool IsButtonDown(Mouse::MButton Button);
 		bool IsButtonPressed(Mouse::MButton Button);
@@ -24,10 +27,8 @@ namespace uth
 
 		umath::vector2 MousePosition();
 		umath::vector2 MouseMovement();
-		//int MouseWheel();
+		umath::vector2 MouseWheel();
 
-
-		void Update(void* windowHandle);
 	private:
 
 		umath::vector2 m_pos;
@@ -35,7 +36,6 @@ namespace uth
 		std::vector<bool> m_buttons;
 		std::vector<bool> m_Lbuttons;
 		umath::vector2 m_scroll;
-		umath::vector2 m_Lscroll;
 
 		//friend class Input;
 	};

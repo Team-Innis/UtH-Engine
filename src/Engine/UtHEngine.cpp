@@ -8,69 +8,71 @@
 
 using namespace uth;
 
-int UtHEngine::MainLoop()
+UTHEngine::UTHEngine() 
+{ }
+
+bool UTHEngine::Init()
 {
-    uth::WindowSettings settings;
-    settings.size = umath::vector2(1600, 900);
-    settings.position = umath::vector2(8, 30);
-	settings.contextVersionMajor = 3;
-	settings.contextVersionMinor = 3;
-    settings.fullScreen = false;
-	settings.useVsync = true;
-
-	CreateGameWindow(settings);
-
-	while (m_running)
-	{
-		if(!Update())
-			m_running = false;
-		Draw();
-		if(m_wndw->processMessages())
-			m_running = false;
-	}
-
-    m_wndw->destroy();
-
-	return 0;
+    m_wsettings.size = umath::vector2(1280, 720);
+    m_wsettings.position = umath::vector2(100, 100);
+	m_wsettings.contextVersionMajor = 3;
+	m_wsettings.contextVersionMinor = 3;
+    m_wsettings.fullScreen = false;
+	m_wsettings.useVsync = true;
+	
+	return initialize();
 }
 
-UtHEngine::UtHEngine()
-	: m_running(true)
-{}
-
-UtHEngine::~UtHEngine()
-{}
-
-bool UtHEngine::CreateGameWindow(uth::WindowSettings &settings)
+bool UTHEngine::Init(const uth::WindowSettings &wsettings)
 {
-	Window* window = new Window(settings);
-	uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
-	SetWindow(window);
-	return true;
+	m_wsettings = wsettings;
+	return initialize();
 }
-bool UtHEngine::Update()
-{
-	return Update(m_timer.UpdateDeltaTime());
-}
-bool UtHEngine::Update(double dt)
+
+void UTHEngine::Update(double deltaTime)
 {
 	UTHInput.Update();
-	return UtHSceneM.Update(dt);
+	UtHSceneM.Update(static_cast<float>(deltaTime));
+	
+	if(m_wndw->processMessages())
+	{
+			m_running = false;
+	}
 }
-void UtHEngine::Draw()
+
+void UTHEngine::Draw()
 {
-    m_wndw->clear(0.f, 0.f, 1.f);
+	m_wndw->clear(0.f, 0.f, 1.f);
 	UtHSceneM.Draw();
     m_wndw->swapBuffers();
 }
 
-void UtHEngine::SetWindow(uth::Window * window)
+Window& UTHEngine::GetWindow()
 {
-	m_wndw = window;
-	UTHInput.SetWindow(window->m_windowHandle);
+    return *m_wndw;
 }
 
-const umath::vector2& UtHEngine::GetWindowSize()
+bool UTHEngine::initialize()
 {
-	return m_wndw->getWindowSettings().size;
+	m_wndw = new Window(m_wsettings);
+	uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
+	UTHInput.SetWindow(m_wndw->m_windowHandle);
+	m_running = true;
+	
+	return true;
+}
+
+const Timer UTHEngine::Timer() const
+{
+	return m_timer;
+}
+
+const umath::vector2 UTHEngine::GetWindowResolution() const
+{
+	return m_wsettings.size;
+}
+
+const bool UTHEngine::Running() const 
+{
+	return m_running;
 }

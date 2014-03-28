@@ -5,6 +5,7 @@
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Renderer/Camera.hpp>
 #include <UtH/Platform/Debug.hpp>
+#include <UtH/Renderer/RenderTarget.hpp>
 
 using namespace uth;
 
@@ -27,7 +28,7 @@ Text::~Text()
 
 // Public
 
-void Text::SetText(const std::wstring& text, umath::vector4& color)
+void Text::SetText(const std::wstring& text, umath::vector4 color)
 {
 	m_vertexBuffer.clear();
 	m_lastPos = umath::vector2(0, 0);
@@ -36,7 +37,7 @@ void Text::SetText(const std::wstring& text, umath::vector4& color)
 	AddText(text, color);
 }
 
-void Text::AddText(const std::wstring& text, /*const float size, umath::vector2& position,*/ umath::vector4& color)
+void Text::AddText(const std::wstring& text, umath::vector4 color)
 {
 	m_text += text;
 
@@ -59,16 +60,16 @@ void Text::AddText(const std::wstring& text, /*const float size, umath::vector2&
 
 		if (glyph != nullptr)
 		{
-			int kerning = 0;
+			float kerning = 0.f;
 			if (i > 0 && !newLine)
 				kerning = texture_glyph_get_kerning(glyph, text.at(i - 1));
 
 			pos.x += kerning;
 
-			const int x0 = pos.x + glyph->offset_x;
-			const int y0 = pos.y - glyph->offset_y;
-			const int x1 = x0 + glyph->width;
-			const int y1 = y0 + glyph->height;
+			const float x0 = pos.x + glyph->offset_x;
+			const float y0 = pos.y - glyph->offset_y;
+			const float x1 = x0 + glyph->width;
+			const float y1 = y0 + glyph->height;
 			
 			const float s0 = glyph->s0; // Top left x
 			const float t0 = glyph->t0; // Top left y
@@ -106,7 +107,7 @@ const std::wstring& Text::GetText() const
 	return m_text;
 }
 
-void Text::Draw(Shader* shader, Camera* camera)
+void Text::Draw(RenderTarget& target)
 {
 	m_textShader.Use();
 
@@ -114,7 +115,24 @@ void Text::Draw(Shader* shader, Camera* camera)
 	m_textShader.SetUniform("unifSampler", 0);
 
 	m_textShader.SetUniform("unifModel", parent->transform.GetTransform());
-	m_textShader.SetUniform("unifProjection", camera->GetProjectionTransform());
+    m_textShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
 
-	m_vertexBuffer.draw(&m_textShader);
+	m_vertexBuffer.bindArrayBuffer();
+	// (position + uv + color) * sizeof(float)
+	const int posOffset = (3 + 2 + 4)*sizeof(float);
+	// position * sizeof(float)
+	const int uvStart = 3*sizeof(float);
+	// (position + uv) * sizeof(float)
+	const int colorStart = (3 + 2)*sizeof(float);
+
+	// Attribute name, number of components, datatype, bytes between first elements,
+	// offset of first element in buffer
+	m_textShader.setAttributeData("attrPosition", 3, FLOAT_TYPE, posOffset, (void*)0);
+	m_textShader.setAttributeData("attrUV", 2, FLOAT_TYPE, posOffset, (void*)uvStart);
+	m_textShader.setAttributeData("attrColor", 4, FLOAT_TYPE, posOffset, (void*)colorStart);
+
+    m_vertexBuffer.bindElementBuffer();
+    uthGraphics.drawElements(TRIANGLES, m_vertexBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
+
+	uthGraphics.bindBuffer(ARRAY_BUFFER, 0);
 }

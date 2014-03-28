@@ -10,7 +10,7 @@ namespace umath
 	{
 	public:
 		vector4();
-		vector4(const vector3 Vec3, const float W);
+		vector4(const vector3& Vec3, const float W);
 		vector4(const float X, const float Y, const float Z, const float W);
 		~vector4();
 

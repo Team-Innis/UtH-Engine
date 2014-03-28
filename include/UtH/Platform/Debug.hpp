@@ -49,14 +49,14 @@
 	}
 #endif
 
-static void PrintGLString(const char* name, GLenum s)
+static inline void PrintGLString(const char* name, GLenum s)
 {
 	const char *v = (const char *) glGetString(s);
 
 	WriteLog("GL %s = %s\n", name, v);
 }
 
-static void CheckGLError(const char* op)
+static inline void CheckGLError(const char* op)
 {
 	for (GLint error = glGetError(); error; error
 		= glGetError()) {
@@ -65,7 +65,7 @@ static void CheckGLError(const char* op)
 	}
 }
 
-static void CheckALError(const char* op)
+static inline void CheckALError(const char* op)
 {
 	
 	for(ALCenum error = alGetError(); error != AL_NO_ERROR; error = alGetError())
@@ -75,10 +75,4 @@ static void CheckALError(const char* op)
 	
 	WriteLog("after %s() glError (0x%x)\n", op);
 }
-
-static void Win32Assert(int expression)
-{
-	assert(expression);
-}
-
 #endif

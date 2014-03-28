@@ -5,6 +5,7 @@
 #include <vector>
 #include <UtH/Engine/Scene.hpp>
 #include <UtH/Renderer/Camera.hpp>
+#include <UtH/Platform/HiResTimer.hpp>
 
 namespace uth
 {
@@ -18,7 +19,7 @@ namespace uth
 		virtual bool Init();
 		virtual bool DeInit();
 
-		virtual bool Update(double dt);
+		virtual bool Update(float dt);
 		virtual bool Draw();
 	protected:
 		Shader* shader;
@@ -27,6 +28,8 @@ namespace uth
 		std::vector<GameObject*> gameObjects;
 
 		int number;
+
+		Timer timer;
 
 		b2Body* groundBody;
 	};
