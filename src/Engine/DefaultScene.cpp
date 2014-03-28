@@ -1,5 +1,6 @@
 #include "UtH/Engine/DefaultScene.hpp"
 #include <UtH/Engine/Sprite.hpp>
+#include <UtH/Engine/AnimatedSprite.hpp>
 #include <UtH/Engine/Text.hpp>
 #include <UtH/Engine/Rigidbody.hpp>
 #include <UtH/Engine/UtHEngine.h>
@@ -34,14 +35,35 @@ bool DefaultScene::Init()
 	camera.SetPosition(0, 0);
 
 
-	CreateLayer("testi", 0);
+	CreateLayer("testi", 1);
+	CreateLayer("prkl", 0);
+	CreateLayer("monsu", 3);
 	GameObject* go = new GameObject();
 
-	go->AddComponent(new Sprite("test.tga"));
+	Texture* texture = new Texture();
+	texture->LoadFromFile("test.tga");
+
+	go->AddComponent(new Sprite(texture));
 	go->AddComponent(new Rigidbody(&world));
 	go->transform.Move(-100, -400);
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(0, go);
+
+	texture = new Texture();
+	texture->LoadFromFile("monsu.tga");
+
+	//AnimatedSprite* as = new AnimatedSprite(texture, 5, 4, 4, 1.f, 0, false, true);
+	//as->ChangeAnimation(4, 4, 6, 1.f);
+
+	go = new GameObject();
+	go->AddComponent(new AnimatedSprite(texture, 5, 4, 4, 1.f, 0, false, true));
+
+	//((AnimatedSprite*)go->GetComponent("AnimatedSprite"))->ChangeAnimation(5, 4);
+
+	//go->GetComponent("AnimatedSprite")
+
+	gameObjects.push_back(go);
+	AddGameObjectToLayer(3, go);
 
 	go = new GameObject();
 	go->AddComponent(new Sprite(umath::vector4(1, 0, 1, 1), umath::vector2(100, 100)));
@@ -66,7 +88,7 @@ bool DefaultScene::Init()
 	go->AddComponent(text);
 	go->transform.Move(-400, 200);
 	gameObjects.push_back(go);
-	AddGameObjectToLayer(0, go);
+	AddGameObjectToLayer(1, go);
 
 	WriteLog("GameObjects: %d\n", gameObjects.size());
 	WriteLog("Layers: %d\n", layers.size());

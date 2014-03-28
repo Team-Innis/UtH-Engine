@@ -10,8 +10,8 @@ Transform::Transform(const std::string name)
 	  scale(1, 1),
 	  angle(0),     
 	  depth(0),
-	  m_transformNeedsUpdate(true)
-
+	  m_transformNeedsUpdate(true),
+	  transformNeedsUpdate(true)
 { }
 
 Transform::~Transform()
@@ -157,6 +157,15 @@ void Transform::updateTransform()
 							   0,          1.0f,       0,     position.y,
 							   0,          0,          1.0f,  0,
 							   0,		   0,		   0,	  1.0f);
+
+#ifndef _DEBUG
+	if(transformNeedsUpdate)
+	{
+		rotation*scale;
+		transformNeedsUpdate = false;
+	}
+#endif
+
 
 	m_modelTransform = translation * rotation * scale;
 	m_transformNeedsUpdate = false;
