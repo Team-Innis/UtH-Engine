@@ -20,6 +20,8 @@ bool DefaultScene::Init()
 
 	gameObject.AddComponent(new uth::Sprite("test.tga"));
 
+	m_zoom = 1.f;
+
 	return true;
 }
 bool DefaultScene::DeInit()
@@ -29,6 +31,24 @@ bool DefaultScene::DeInit()
 
 bool DefaultScene::Update(double dt)
 {
+	if(uthInput.Touch.Motion() == TouchMotion::PINCH_OUT)
+	{
+		m_zoom += dt;
+	}
+	if(uthInput.Touch.Motion() == TouchMotion::PINCH_IN)
+	{
+		if(m_zoom < 0.0f)
+		{
+			m_zoom = 0.f;
+		}
+		else
+		{
+			m_zoom -= dt;
+		}
+	}
+
+	camera.SetZoom(m_zoom);
+
 	return true;
 }
 

@@ -44,8 +44,12 @@ namespace uth
 			const umath::vector2 GetEndPosition() const;
 		};	
 		static const int m_maxInputs = 10;
-		TouchMotion m_motion;
+		static TouchMotion m_motion;
 		static TouchUnit ID[m_maxInputs];
+		static unsigned int m_touchCount;
+
+		static float m_curLength;
+		static float m_prevLength;
 	public:
 		const TouchMotion Motion() const;
 		static int DroidMessage(android_app* app, AInputEvent* droidInputEvent);

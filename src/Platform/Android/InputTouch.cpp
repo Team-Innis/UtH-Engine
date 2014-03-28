@@ -3,6 +3,10 @@
 using namespace uth;
 
 TouchInput::TouchUnit TouchInput::ID[10];
+unsigned int TouchInput::m_touchCount = 0;
+TouchMotion TouchInput::m_motion = TouchMotion::NONE;
+float TouchInput::m_curLength = 0.f;
+float TouchInput::m_prevLength = 0.f;
 
 int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 {
@@ -21,6 +25,18 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 
 			if(index >= m_maxInputs)
 				break;
+			
+			m_touchCount++;
+
+			if(m_touchCount == 1)
+			{
+				m_motion = TouchMotion::STATIONARY;
+			}
+			else if(m_touchCount > 1)
+			{
+				m_motion = TouchMotion::MULTIPLE;
+			}
+
 
 			ID[index].m_startPos.x = AMotionEvent_getX(droidInputEvent, index);
 			ID[index].m_startPos.y = AMotionEvent_getY(droidInputEvent, index);
@@ -51,6 +67,20 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 			if(index >= m_maxInputs)
 				break;
 
+			m_touchCount--;
+
+			if(m_touchCount == 0)
+			{
+				m_motion = TouchMotion::NONE;
+			}
+
+			if(index <= 1)
+			{
+				m_prevLength = 0.f;
+				m_curLength = 0.f;
+				m_motion = TouchMotion::NONE;
+			}
+
 			ID[index].m_curPos.x = AMotionEvent_getX(droidInputEvent, index);
 			ID[index].m_curPos.y = AMotionEvent_getY(droidInputEvent, index);
 
@@ -77,6 +107,35 @@ void TouchInput::Update(float deltaTime)
 	{
 		if(ID[i].Motion() != TouchMotion::NONE)
 			ID[i].m_downTime += deltaTime;
+	}
+
+	if(Motion() == TouchMotion::MULTIPLE)
+	{
+		if(ID[0].Motion() == TouchMotion::DRAG && ID[1].Motion() == TouchMotion::DRAG)
+		{
+			m_prevLength = m_curLength;
+			m_curLength = (ID[0].GetPosition()-ID[1].GetPosition()).getLenght();
+
+			if(m_curLength < m_prevLength)
+			{
+				m_motion = TouchMotion::PINCH_IN;
+				ID[0].m_motion = TouchMotion::PINCH_IN;
+				ID[1].m_motion = TouchMotion::PINCH_IN;
+			}
+			else if(m_curLength > m_prevLength && m_prevLength != 0.f)
+			{
+				m_motion = TouchMotion::PINCH_OUT;
+				ID[0].m_motion = TouchMotion::PINCH_OUT;
+				ID[1].m_motion = TouchMotion::PINCH_OUT;
+			}
+		}
+
+		if(m_curLength == m_prevLength)
+		{
+			m_motion = TouchMotion::MULTIPLE;
+			ID[0].m_motion = TouchMotion::STATIONARY;
+			ID[1].m_motion = TouchMotion::STATIONARY;
+		}
 	}
 }
 

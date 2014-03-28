@@ -132,7 +132,7 @@ namespace uth
 
     void AndroidWindowImpl::clear(const bool clearDepth, const bool clearStencil, const float r, const float g, const float b, const float a)
     {
-          oglCheck(glClear(GL_COLOR_BUFFER_BIT |
+        oglCheck(glClear(GL_COLOR_BUFFER_BIT |
                          GL_DEPTH_BUFFER_BIT |
                          GL_STENCIL_BUFFER_BIT));
 		oglCheck(glClearColor(r, g, b, a));
@@ -151,6 +151,7 @@ namespace uth
 	bool AndroidWindowImpl::processMessages(void* handle)
 	{
 		android_app* app = uthAndroidEngine.app;
+		uth::Window* window = ((uth::Window*)app->userData);
 
 		switch (uthAndroidEngine.message)
 		{
@@ -158,24 +159,24 @@ namespace uth
 			WriteLog("SaveStated");
 			break;
 		case APP_CMD_INIT_WINDOW:
-			//((uth::Window*)app->userData)->create(uth::AndroidEngine::getInstance().settings);
-			create(uth::AndroidEngine::getInstance().settings);
+			create(uthAndroidEngine.settings);
 			WriteLog("windowINIT");
-			((uth::Window*)app->userData)->setViewport(0.0f,0.0f,
+			window->setViewport(0.0f,0.0f,
 				uthAndroidEngine.settings.size.x,
 				uthAndroidEngine.settings.size.y);
 			uthAndroidEngine.initialized = true;
-			uthAndroidEngine.winEveHand(app->userData);
-			//displayInit(androidengine);
-			//draw_frame(androidengine);
+			uthAndroidEngine.winEveHand(window);
 			break;
 		case APP_CMD_TERM_WINDOW:
-			//displayDestroy(androidengine);
-			((uth::Window*)app->userData)->destroy();
+			uthAndroidEngine.initialized = false;
+			window->destroy();
+			break;
+		case APP_CMD_GAINED_FOCUS:
+			uthAndroidEngine.initialized = true;
 			break;
 		case APP_CMD_LOST_FOCUS:
-			//draw_frame(androidengine);
 			WriteLog("LostFocus");
+			uthAndroidEngine.initialized = false;
 			break;
 		}
 

@@ -26,6 +26,8 @@ namespace uth
 		GameObject gameObject;
 
 		int number;
+	private:
+		float m_zoom;
 	};
 }
 

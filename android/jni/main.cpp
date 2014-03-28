@@ -80,9 +80,6 @@ void android_main(android_app* state)
 	uth::Window wndw;
 	uth::FileReader::m_manager = state->activity->assetManager;
 
-
-	//memset(&androidengine, 0, sizeof(androidengine));
-	//state->userData = &androidengine;
 	state->onAppCmd = handle_cmd;
 	state->onInputEvent = uth::TouchInput::DroidMessage;
 
@@ -94,8 +91,6 @@ void android_main(android_app* state)
     uthAndroidEngine.settings.fullScreen = true;
 	
 	state->userData = &wndw;
-	//WriteLog("WINDOW");
-	//uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 
 	uthAndroidEngine.winEveHand = windowEventHandler;
 
