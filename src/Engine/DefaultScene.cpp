@@ -87,8 +87,8 @@ bool DefaultScene::Init()
 	go = new GameObject();
 	auto text = new Text("8bitoperator.ttf", 32);
 	text->AddText(L"!\"#$%&'()*+,-./0123456789:;<=     >?"
-				  L"\n@ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÅ[\\]^_"
-				  L"\n`abcdefghijklmnopqrstuvwxyzöäå{|}~", umath::vector4(0, 0, 0, 1));
+				  L"\n@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
+				  L"\n`abcdefghijklmnopqrstuvwxyz{|}~", umath::vector4(0, 0, 0, 1));
 	text->AddText(L"\nPrkl!");
 	go->AddComponent(text);
 	go->transform.Move(-400, 200);
@@ -153,31 +153,6 @@ bool DefaultScene::Update(float dt)
 	auto rigidBody = static_cast<Rigidbody*>(gameObjects.at(0)->GetComponent("Rigidbody"));
 
 	const int speed = 5;
-
-
-	if(GetAsyncKeyState(VK_LEFT))
-	{
-		umath::vector2 curV = rigidBody->GetVelocity();
-		rigidBody->SetVelocity(umath::vector2(-speed, curV.y));
-	}
-
-	if(GetAsyncKeyState(VK_RIGHT))
-	{
-		umath::vector2 curV = rigidBody->GetVelocity();
-		rigidBody->SetVelocity(umath::vector2(speed, curV.y));
-	}
-
-	if(GetAsyncKeyState(VK_UP))
-	{
-		umath::vector2 curV = rigidBody->GetVelocity();
-		rigidBody->SetVelocity(umath::vector2(curV.x, -speed));
-	}
-	if(GetAsyncKeyState(VK_DOWN))
-	{
-		umath::vector2 curV = rigidBody->GetVelocity();
-		rigidBody->SetVelocity(umath::vector2(curV.x, speed));
-	}
-
 
 	const float timeStep = 1.f/60.f;
 	world.Step(timeStep, 8, 3);
