@@ -1,6 +1,7 @@
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/OpenGL.hpp>
 #include <UtH/Platform/OGLCheck.hpp>
+#include <UtH/Platform/Graphics.hpp>
 
 
 #if defined(UTH_SYSTEM_WINDOWS)
@@ -61,13 +62,6 @@ namespace uth
     }
 
 
-    void Window::clear(const float r, const float g, const float b, const float a)
-    {
-        WindowImpl::clear(m_windowSettings.useDepthBuffer,
-                          m_windowSettings.useStencilBuffer,
-                          r, g, b, a);
-    }
-
     void Window::swapBuffers()
     {
         WindowImpl::swapBuffers(m_windowHandle);
@@ -93,10 +87,9 @@ namespace uth
         return m_windowSettings.size;
     }
 
-    bool Window::Bind()
+    bool Window::bind()
     {
-        // Unbind frame buffer here
-
+        uth::Graphics::BindFrameBuffer(0);
         return true;
     }
 }

@@ -30,6 +30,27 @@ namespace uth
     }
 
 
+
+    bool Texture::Create(const umath::vector2& size, const bool smooth, const bool repeated)
+    {
+        if (size.x == 0 || size.y == 0)
+            return false;
+
+        m_size = size;
+
+        uth::Graphics::SetPixelStore(UNPACK_ALIGNMENT, 1);
+        uth::Graphics::GenerateTextures(1, &m_textureID);
+        uth::Graphics::SetActiveTexUnit(TEXTURE_0);
+
+        Bind();
+		SetSmooth(smooth);
+        SetRepeated(repeated);
+
+        uth::Graphics::SetTextureImage2D(TEXTURE_2D, 0, RGBA8_FORMAT, m_size.w, m_size.h, RGBA_FORMAT, UNSIGNED_BYTE_TYPE, nullptr);
+
+        return true;
+    }
+
     bool Texture::LoadFromFile(const std::string& filePath, const bool smooth, const bool repeated)
     {
         const Image& img = uthRS.LoadTGA(filePath);
@@ -39,24 +60,28 @@ namespace uth
         if (m_size.x == 0 || m_size.y == 0)
             return false;
 
-        uthGraphics.setPixelStore(UNPACK_ALIGNMENT, 1);
-        uthGraphics.generateTextures(1, &m_textureID);
-        uthGraphics.setActiveTexUnit(TEXTURE_0);
+        uth::Graphics::SetPixelStore(UNPACK_ALIGNMENT, 1);
+        uth::Graphics::GenerateTextures(1, &m_textureID);
+        uth::Graphics::SetActiveTexUnit(TEXTURE_0);
 
         Bind();
-
-        uthGraphics.setTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT, m_size.w, m_size.h, RGBA_FORMAT, UNSIGNED_BYTE_TYPE, img.m_pixels);
-		
 		SetSmooth(smooth);
         SetRepeated(repeated);
+
+        uth::Graphics::SetTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT, m_size.w, m_size.h, RGBA_FORMAT, UNSIGNED_BYTE_TYPE, img.m_pixels);
 		
 		return true;
     }
 
     void Texture::Bind() const
     {
-        uthGraphics.setActiveTexUnit(TEXTURE_0);
-        uthGraphics.bindTexture(TEXTURE_2D, m_textureID);
+        uth::Graphics::SetActiveTexUnit(TEXTURE_0);
+        uth::Graphics::BindTexture(TEXTURE_2D, m_textureID);
+    }
+
+    void Texture::Unbind()
+    {
+        uth::Graphics::BindTexture(TEXTURE_2D, 0);
     }
 
     unsigned int Texture::GetTextureID() const
@@ -70,8 +95,8 @@ namespace uth
 
         Bind();
 
-        uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_MAG_FILTER, value ? LINEAR : NEAREST);
-		uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_MIN_FILTER, value ? LINEAR : NEAREST);
+        uth::Graphics::SetTextureParameter(TEXTURE_2D, TEXTURE_MAG_FILTER, value ? LINEAR : NEAREST);
+		uth::Graphics::SetTextureParameter(TEXTURE_2D, TEXTURE_MIN_FILTER, value ? LINEAR : NEAREST);
 
         m_smooth = value;
 
@@ -84,8 +109,8 @@ namespace uth
 
         Bind();
 
-        uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_WRAP_S, value ? REPEAT : CLAMP_TO_EDGE);
-        uthGraphics.setTextureParameter(TEXTURE_2D, TEXTURE_WRAP_T, value ? REPEAT : CLAMP_TO_EDGE);
+        uth::Graphics::SetTextureParameter(TEXTURE_2D, TEXTURE_WRAP_S, value ? REPEAT : CLAMP_TO_EDGE);
+        uth::Graphics::SetTextureParameter(TEXTURE_2D, TEXTURE_WRAP_T, value ? REPEAT : CLAMP_TO_EDGE);
 
         m_repeated = value;
 

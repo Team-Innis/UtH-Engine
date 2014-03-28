@@ -21,10 +21,14 @@ namespace uth
         ~Texture();
 
 
+        bool Create(const umath::vector2& size, const bool smooth = false, const bool repeated = false);
+
         /// Only supports uncompressed .tga for now.
         bool LoadFromFile(const std::string& filePath, const bool smooth = false, const bool repeated = false);
 
         void Bind() const;
+
+        static void Unbind();
 
         unsigned int GetTextureID() const;
 

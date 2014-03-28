@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\Renderer\Camera.cpp" />
     <ClCompile Include="..\..\src\Renderer\RenderTarget.cpp" />
+    <ClCompile Include="..\..\src\Renderer\RenderTexture.cpp" />
     <ClCompile Include="..\..\src\Renderer\SpriteBatch.cpp" />
     <ClCompile Include="..\..\src\Renderer\Texture.cpp" />
     <ClCompile Include="..\..\src\Renderer\TextureAtlas.cpp" />
@@ -20,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Renderer\Camera.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\RenderTarget.hpp" />
+    <ClInclude Include="..\..\include\UtH\Renderer\RenderTexture.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\SpriteBatch.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\Texture.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\TextureAtlas.hpp" />

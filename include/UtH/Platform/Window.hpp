@@ -23,8 +23,6 @@ namespace uth
 
         void destroy();
 
-        void clear(const float r, const float g, const float b, const float a = 1.f);
-
         void swapBuffers();
 
         void setViewport(const int x, const int y, const unsigned int width, const unsigned int height);
@@ -34,14 +32,14 @@ namespace uth
 		// return true while window should remain open
 		bool processMessages();
 
-        umath::vector2 GetSize() const;
-
-        bool Bind();
+        umath::vector2 GetSize() const override;
 
 
         void* m_windowHandle;
 
     private:
+        
+        bool bind() override;
 
         WindowSettings m_windowSettings;
 

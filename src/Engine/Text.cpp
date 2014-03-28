@@ -111,11 +111,11 @@ void Text::Draw(RenderTarget& target)
 {
 	m_textShader.Use();
 
-	uthGraphics.bindTexture(TEXTURE_2D, m_atlas->id);
+	uth::Graphics::BindTexture(TEXTURE_2D, m_atlas->id);
 	m_textShader.SetUniform("unifSampler", 0);
 
 	m_textShader.SetUniform("unifModel", parent->transform.GetTransform());
-    m_textShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
+    //m_textShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
 
 	m_vertexBuffer.bindArrayBuffer();
 	// (position + uv + color) * sizeof(float)
@@ -132,7 +132,7 @@ void Text::Draw(RenderTarget& target)
 	m_textShader.setAttributeData("attrColor", 4, FLOAT_TYPE, posOffset, (void*)colorStart);
 
     m_vertexBuffer.bindElementBuffer();
-    uthGraphics.drawElements(TRIANGLES, m_vertexBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
+    uth::Graphics::DrawElements(TRIANGLES, m_vertexBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
 
-	uthGraphics.bindBuffer(ARRAY_BUFFER, 0);
+	uth::Graphics::BindBuffer(ARRAY_BUFFER, 0);
 }
