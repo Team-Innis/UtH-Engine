@@ -61,10 +61,12 @@ const std::vector<unsigned short>& VertexBuffer::getIndices() const
     return m_indices;
 }
 
-void VertexBuffer::clear()
+void VertexBuffer::clear(const bool arrayBuffer, const bool elementBuffer)
 {
-	m_vertexData.clear();
-	m_indices.clear();	
+    if (arrayBuffer)
+	    m_vertexData.clear();
+    if (elementBuffer)
+	    m_indices.clear();	
 }
 
 void VertexBuffer::bindArrayBuffer() const

@@ -4,6 +4,7 @@
 
 #include <UtH/Platform/Uncopyable.hpp>
 #include <UtH/Math/Vector2.hpp>
+#include <string>
 
 
 
@@ -15,15 +16,15 @@ namespace uth
 
         Texture();
 
-        Texture(const char* path);
+        Texture(const std::string& filePath);
 
         ~Texture();
 
 
         /// Only supports uncompressed .tga for now.
-        bool LoadFromFile(const char* path, const bool smooth = false, const bool repeated = false);
+        bool LoadFromFile(const std::string& filePath, const bool smooth = false, const bool repeated = false);
 
-        void Bind();
+        void Bind() const;
 
         unsigned int GetTextureID() const;
 

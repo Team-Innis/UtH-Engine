@@ -28,7 +28,7 @@ Text::~Text()
 
 // Public
 
-void Text::SetText(const std::wstring& text, umath::vector4& color)
+void Text::SetText(const std::wstring& text, umath::vector4 color)
 {
 	m_vertexBuffer.clear();
 	m_lastPos = umath::vector2(0, 0);
@@ -37,7 +37,7 @@ void Text::SetText(const std::wstring& text, umath::vector4& color)
 	AddText(text, color);
 }
 
-void Text::AddText(const std::wstring& text, /*const float size, umath::vector2& position,*/ umath::vector4& color)
+void Text::AddText(const std::wstring& text, umath::vector4 color)
 {
 	m_text += text;
 
