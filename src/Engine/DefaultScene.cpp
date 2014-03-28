@@ -31,19 +31,31 @@ bool DefaultScene::DeInit()
 
 bool DefaultScene::Update(double dt)
 {
-	switch(uthInput.Touch.Motion())
+	switch(uthInput.Touch[0].Motion())
 	{
 	case  TouchMotion::TAP:
 		WriteLog("Tapped!");
 		break;
-	case  TouchMotion::PINCH_IN:
-		WriteLog("PINCH_IN!");
-		break;
-	case  TouchMotion::PINCH_OUT:
-		WriteLog("PINCH_OUT!");
-		break;
 	case  TouchMotion::DRAG:
 		WriteLog("DRAGGED!");
+		break;
+	}
+	switch(uthInput.Touch[1].Motion())
+	{
+	case  TouchMotion::TAP:
+		WriteLog("Tapped!1");
+		break;
+	case  TouchMotion::DRAG:
+		WriteLog("DRAGGED!1");
+		break;
+	}
+	switch(uthInput.Touch[2].Motion())
+	{
+	case  TouchMotion::TAP:
+		WriteLog("Tapped!2");
+		break;
+	case  TouchMotion::DRAG:
+		WriteLog("DRAGGED!2");
 		break;
 	}
 

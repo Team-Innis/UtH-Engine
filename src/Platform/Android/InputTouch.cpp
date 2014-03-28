@@ -63,7 +63,7 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 		case AMOTION_EVENT_ACTION_CANCEL:
 		case AMOTION_EVENT_ACTION_OUTSIDE:
 			//If touch ends by taking finger away from screen or by some other event
-			{
+		{
 			int index = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
 				>> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
 
@@ -83,9 +83,12 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 				m_curLength = 0.f;
 			}
 
-			if(ID[index].Motion() == TouchMotion::STATIONARY && ID[index].m_downTime <= 0.5f)
+			if(action == AMOTION_EVENT_ACTION_UP || action == AMOTION_EVENT_ACTION_POINTER_UP)
 			{
-				ID[index].m_tapped = true;
+				if(ID[index].Motion() == TouchMotion::STATIONARY && ID[index].m_downTime <= 0.5f)
+				{
+					ID[index].m_tapped = true;
+				}
 			}
 
 			ID[index].m_curPos.x = AMotionEvent_getX(droidInputEvent, index);
