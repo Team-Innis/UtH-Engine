@@ -37,7 +37,6 @@ namespace uth
 		FR.ReadBytes(buffer, 4);
 		m_size.x = (float)(buffer[0] + buffer[1] * 256);
 		m_size.y = (float)(buffer[2] + buffer[3] * 256);
-        //WriteLog("Buffer x: %f, Buffer y: %f\n", m_size.x, m_size.y);
 		delete[] buffer;
 
 		//bpp
