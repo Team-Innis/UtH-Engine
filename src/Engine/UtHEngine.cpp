@@ -29,14 +29,15 @@ bool UTHEngine::Init(const uth::WindowSettings &wsettings)
 	return initialize();
 }
 
-void UTHEngine::Update(double deltaTime)
+void UTHEngine::Update()
 {
+	const float deltaTime = static_cast<float>(m_timer.DeltaTime());
 	UTHInput.Update();
-	UtHSceneM.Update(static_cast<float>(deltaTime));
+	UtHSceneM.Update(deltaTime);
 	
 	if(m_wndw->processMessages())
 	{
-			m_running = false;
+		m_running = false;
 	}
 }
 

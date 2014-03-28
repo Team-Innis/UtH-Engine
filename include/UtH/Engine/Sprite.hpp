@@ -25,9 +25,9 @@ namespace uth
 		Sprite(const umath::vector4& fillColor, const umath::vector2& size,
 			const std::string& name = "Sprite");
 
-		~Sprite();
+		virtual ~Sprite();
 
-		void Init();
+		virtual void Init();
 		void Draw(RenderTarget& target);
 
 		void SetTexture(Texture* texture);
@@ -41,10 +41,10 @@ namespace uth
 		void SetColor(float r, float g, float b, float a);
 		const umath::vector4& GetColor() const;
 
-	private:
+	protected:
 		void defaults();
 
-		void generateBuffer();
+		virtual void generateBuffer();
 
 		VertexBuffer m_vertexBuffer;
 
