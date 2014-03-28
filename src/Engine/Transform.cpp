@@ -143,7 +143,7 @@ void Transform::updateTransform()
 							0,      0,      1.0f, 0,
 							0,      0,      0,    1.0f);
 				
-	umath::matrix4 scale(size.x * scale.x,	   0,   0,    0,
+	umath::matrix4 scaleMat(size.x * scale.x,	   0,   0,    0,
 						 0,      size.y * scale.y,  0,    0,
 						 0,      0,					1.0f, 0,
 						 0,      0,					0,    1.0f);
@@ -161,12 +161,12 @@ void Transform::updateTransform()
 #ifndef _DEBUG
 	if(transformNeedsUpdate)
 	{
-		rotation*scale;
+		rotation*scaleMat;
 		transformNeedsUpdate = false;
 	}
 #endif
 
 
-	m_modelTransform = translation * rotation * scale;
+	m_modelTransform = translation * rotation * scaleMat;
 	m_transformNeedsUpdate = false;
 }
