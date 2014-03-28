@@ -109,9 +109,11 @@ void TouchInput::Update(float deltaTime)
 			ID[i].m_downTime += deltaTime;
 	}
 
-	if(Motion() == TouchMotion::MULTIPLE)
+	if(Motion() == TouchMotion::MULTIPLE || Motion() == TouchMotion::PINCH_IN || Motion() == TouchMotion::PINCH_OUT)
 	{
-		if(ID[0].Motion() == TouchMotion::DRAG && ID[1].Motion() == TouchMotion::DRAG)
+		if((ID[0].Motion() == TouchMotion::DRAG && ID[1].Motion() == TouchMotion::DRAG) ||
+			(ID[0].Motion() == TouchMotion::PINCH_IN && ID[1].Motion() == TouchMotion::PINCH_IN) ||
+			(ID[0].Motion() == TouchMotion::PINCH_OUT && ID[1].Motion() == TouchMotion::PINCH_OUT))
 		{
 			m_prevLength = m_curLength;
 			m_curLength = (ID[0].GetPosition()-ID[1].GetPosition()).getLenght();
