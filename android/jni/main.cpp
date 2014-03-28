@@ -43,7 +43,7 @@ void init()
 		WriteLog("Shaders loaded");
 	}
 	else
-		WriteLog("Shaders not loaded");
+		WriteError("Shaders not loaded");
 
 	gameObject.AddComponent(new uth::Sprite("test.tga"));
 

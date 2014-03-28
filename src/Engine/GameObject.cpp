@@ -1,4 +1,6 @@
 #include <UtH/Engine/GameObject.hpp>
+#include <UtH/Renderer/Camera.hpp>
+#include <UtH/Renderer/RenderTarget.hpp>
 
 using namespace uth;
 
@@ -9,33 +11,33 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
+	RemoveComponents();
+}
+
+void GameObject::SetActive(bool value)
+{
+	m_active = value;
+}
+
+const bool GameObject::IsActive() const
+{
+	return m_active;
 }
 
 void GameObject::AddComponent(Component* component)
 {
-	if(component->GetDynamic())
-		updateComponents.push_back(component);
-	if(component->GetDrawable())
-		drawComponents.push_back(component);
-
+	components.push_back(component);
 	component->parent = this;
+	component->Init();
 }
 
-Component* GameObject::GetComponent(const std::string name)
+Component* GameObject::GetComponent(const std::string& name)
 {
-	for (int i = 0; i < updateComponents.size(); ++i)
+	for (size_t i = 0; i < components.size(); ++i)
 	{
-		if (updateComponents.at(i)->GetName() == name)
+		if (components.at(i)->GetName() == name)
 		{
-			return updateComponents.at(i);
-		}
-	}
-
-	for (int i = 0; i < drawComponents.size(); ++i)
-	{
-		if (drawComponents.at(i)->GetName() == name)
-		{
-			return drawComponents.at(i);
+			return components.at(i);
 		}
 	}
 
@@ -44,65 +46,67 @@ Component* GameObject::GetComponent(const std::string name)
 
 void GameObject::RemoveComponent(Component* component)
 {
-	for(int i = 0; i < updateComponents.size(); ++i)
+	for(size_t i = 0; i < components.size(); ++i)
 	{
-		if(updateComponents.at(i) == component)
+		if(components.at(i) == component)
 		{
-			delete updateComponents.at(i);
-			updateComponents.erase(updateComponents.begin() + i);
-		}
-	}
-
-	for(int i = 0; i < drawComponents.size(); ++i)
-	{
-		if(drawComponents.at(i) == component)
-		{
-			delete drawComponents.at(i);
-			drawComponents.erase(drawComponents.begin() + i);
+			delete components.at(i);
+			components.erase(components.begin() + i);
 		}
 	}
 }
 
-void GameObject::RemoveComponent(std::string name)
+void GameObject::RemoveComponent(const std::string& name)
 {
-	for(int i = 0; i < updateComponents.size(); ++i)
+	for(size_t i = 0; i < components.size(); ++i)
 	{
-		if(updateComponents.at(i)->GetName() == name)
+		if(components.at(i)->GetName() == name)
 		{
-			delete updateComponents.at(i);
-			updateComponents.erase(updateComponents.begin() + i);
-		}
-	}
-
-	for(int i = 0; i < drawComponents.size(); ++i)
-	{
-		if(drawComponents.at(i)->GetName() == name)
-		{
-			delete drawComponents.at(i);
-			drawComponents.erase(drawComponents.begin() + i);
+			delete components.at(i);
+			components.erase(components.begin() + i);
 		}
 	}
 }
 
-void GameObject::Draw(Shader* shader)
+void GameObject::RemoveComponents()
 {
-	shader->Use();
-	shader->SetUniform("unifModel", transform.GetTransform());
+	for(size_t i = 0; i < components.size(); ++i)
+			delete components.at(i);
 
-	for (auto i = drawComponents.begin(); i != drawComponents.end(); ++i)
+	components.clear();
+}
+
+void GameObject::Draw(RenderTarget& target)
+{
+	if(!m_active)
+		return;
+
+    target.Bind();
+
+    Shader& shader = target.GetShader();
+
+    shader.Use();
+	shader.SetUniform("unifModel", transform.GetTransform());
+    shader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
+
+	for (auto i = components.begin(); i != components.end(); ++i)
 	{
+		shader.Use();
 		auto component = (*i);
-		if (component->GetActive())
-			component->Draw(shader);
+		if (component->IsActive())
+			component->Draw(target);
 	}
 }
 
 void GameObject::Update(float dt)
 {
-	for (auto i = updateComponents.begin(); i != updateComponents.end(); ++i)
+	if(!m_active)
+		return;
+
+	for (auto i = components.begin(); i != components.end(); ++i)
 	{
 		auto component = (*i);
-		if (component->GetActive())
+		if (component->IsActive())
 			component->Update(dt);
 	}
 }

@@ -18,7 +18,7 @@ namespace uth
 		void GoToScene(int SceneNumber);
 		void GoToScene(Scene* newScene);
 
-		bool Update(double dt);
+		bool Update(float dt);
 		bool Draw();
 
 

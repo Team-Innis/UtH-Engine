@@ -2,8 +2,8 @@
 #ifndef TEXTUREATLAS_H_UTH
 #define TEXTUREATLAS_H_UTH
 
-#include <UtH\Renderer\Texture.hpp>
-#include <UtH\Math\Rectangle.hpp>
+#include <UtH/Renderer/Texture.hpp>
+#include <UtH/Math/Rectangle.hpp>
 #include <map>
 
 
@@ -15,12 +15,12 @@ namespace uth
 
         TextureAtlas();
 
-        TextureAtlas(const char* path);
+        TextureAtlas(const std::string& path);
 
         ~TextureAtlas();
 
 
-        bool LoadFromFile(const char* path, const bool smooth = false, const bool repeated = false);
+        bool LoadFromFile(const std::string& filePath, const bool smooth = false, const bool repeated = false);
 
         void Bind();
 
@@ -43,7 +43,7 @@ namespace uth
 
     private:
 
-        Texture m_texture;
+        Texture* m_texture;
         std::map<std::string, umath::rectangle> m_textureRects;
     };
 }

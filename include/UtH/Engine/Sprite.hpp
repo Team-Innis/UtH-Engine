@@ -9,37 +9,42 @@
 
 namespace uth
 {
+    class RenderTarget;
+
 	class Sprite : public Component
 	{
 	public:
-		Sprite(Texture* texture, const std::string name = "Sprite");
+		Sprite(Texture* texture, const std::string& name = "Sprite");
 		//Sprite(Texture* texture, umath::vector2 size);
 		//Sprite(Texture* texture, int width, int height);
 
-		Sprite(const std::string filePath, const std::string name = "Sprite");
+		Sprite(const std::string& filePath, const std::string& name = "Sprite");
 		//Sprite(std::string filePath, umath::vector2 size);
 		//Sprite(std::string filePath, int width, int height);
 
-		~Sprite();
+		Sprite(const umath::vector4& fillColor, const umath::vector2& size,
+			const std::string& name = "Sprite");
 
-		void Draw(Shader* shader);
-		void Update(float dt);
+		virtual ~Sprite();
+
+		virtual void Init();
+		void Draw(RenderTarget& target);
 
 		void SetTexture(Texture* texture);
 		Texture* GetTexture() const;
 
 		// Size of texture in pixels
-		const umath::vector2 GetSize() const;
+		const umath::vector2& GetSize() const;
 
 		// Just a simple multiplier for the texture color
-		void SetColor(const umath::vector4 color);
+		void SetColor(const umath::vector4& color);
 		void SetColor(float r, float g, float b, float a);
-		const umath::vector4 GetColor() const;
+		const umath::vector4& GetColor() const;
 
-	private:
+	protected:
 		void defaults();
 
-		void generetateBuffer();
+		virtual void generateBuffer();
 
 		VertexBuffer m_vertexBuffer;
 

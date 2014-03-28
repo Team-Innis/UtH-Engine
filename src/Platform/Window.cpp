@@ -1,6 +1,7 @@
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/OpenGL.hpp>
 #include <UtH/Platform/OGLCheck.hpp>
+#include <UtH/Platform/Graphics.hpp>
 
 
 #if defined(UTH_SYSTEM_WINDOWS)
@@ -25,14 +26,14 @@ typedef uth::AndroidWindowImpl WindowImpl;
 namespace uth
 {
     Window::Window()
-        : m_windowHandle(NULL),
+        : m_windowHandle(nullptr),
           m_windowSettings()
     {
 
     }
 
     Window::Window(const WindowSettings& settings)
-        : m_windowHandle(NULL),
+        : m_windowHandle(nullptr),
           m_windowSettings(settings)
     {
         create(m_windowSettings);
@@ -50,23 +51,16 @@ namespace uth
 
         m_windowHandle = WindowImpl::create(settings);
 
-        return m_windowHandle;
+		return m_windowHandle != nullptr;
     }
 
 
     void Window::destroy()
     {
         WindowImpl::destroy(m_windowHandle);
-        m_windowHandle = NULL;
+        m_windowHandle = nullptr;
     }
 
-
-    void Window::clear(const float r, const float g, const float b, const float a)
-    {
-        WindowImpl::clear(m_windowSettings.useDepthBuffer,
-                          m_windowSettings.useStencilBuffer,
-                          r, g, b, a);
-    }
 
     void Window::swapBuffers()
     {
@@ -87,4 +81,15 @@ namespace uth
 	{
 		return WindowImpl::processMessages(m_windowHandle);
 	}
+
+    umath::vector2 Window::GetSize() const
+    {
+        return m_windowSettings.size;
+    }
+
+    bool Window::bind()
+    {
+        uth::Graphics::BindFrameBuffer(0);
+        return true;
+    }
 }

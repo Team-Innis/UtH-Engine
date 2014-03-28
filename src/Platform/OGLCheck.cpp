@@ -51,7 +51,7 @@ namespace uth
 			ss << line;
 			errorS += ss.str();
 			//std::cout << file <<"\n" << errorS << " in " << func << std::endl;
-			WriteLog("%s \n %s in %s \n",file, errorS.c_str(), func);
+			WriteError("%s \n %s in %s",file, errorS.c_str(), func);
 
         }
     }

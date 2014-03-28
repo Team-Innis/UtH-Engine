@@ -40,7 +40,7 @@ namespace uth
 
 		if(uthAndroidEngine.display == EGL_NO_DISPLAY)
 		{
-			WriteLog("display nodisplay");
+			WriteError("display nodisplay");
 		}
 
 
@@ -74,7 +74,7 @@ namespace uth
 		if(eglMakeCurrent(uthAndroidEngine.display, uthAndroidEngine.surface, uthAndroidEngine.surface, uthAndroidEngine.context) == EGL_FALSE)
 		{
 			CheckEGLError();
-			WriteLog("eglMakeCurrent failed");
+			WriteError("eglMakeCurrent failed");
 			return (void*)NULL;
 		}
 
