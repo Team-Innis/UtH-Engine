@@ -14,6 +14,16 @@ GameObject::~GameObject()
 	RemoveComponents();
 }
 
+void GameObject::SetActive(bool value)
+{
+	m_active = value;
+}
+
+const bool GameObject::IsActive() const
+{
+	return m_active;
+}
+
 void GameObject::AddComponent(Component* component)
 {
 	components.push_back(component);
@@ -67,6 +77,9 @@ void GameObject::RemoveComponents()
 
 void GameObject::Draw(RenderTarget& target)
 {
+	if(!m_active)
+		return;
+
     target.Bind();
 
     Shader& shader = target.GetShader();
@@ -86,6 +99,9 @@ void GameObject::Draw(RenderTarget& target)
 
 void GameObject::Update(float dt)
 {
+	if(!m_active)
+		return;
+
 	for (auto i = components.begin(); i != components.end(); ++i)
 	{
 		auto component = (*i);
