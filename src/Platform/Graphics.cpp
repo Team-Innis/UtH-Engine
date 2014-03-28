@@ -143,14 +143,13 @@ namespace uth
     {
         glLinkProgram(shaderProgram);
 		CheckGLError("glLinkProgram");
-		WriteLog("\nShaderProgram: %d", shaderProgram);
 
 		int infoLenght;
 		glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLenght);
 		CheckGLError("glGetProgramiv INFO");
-		if(infoLenght > 0)
+		if(infoLenght > 1)
 		{
-			WriteLog("\nShader Program Log:\n");
+			WriteLog("\nShader Program (%d) Log:\n", shaderProgram);
 			char* buf = new char[infoLenght];
 			oglCheck(glGetProgramInfoLog(shaderProgram, infoLenght, NULL, buf));
 			WriteLog("%s", buf);
@@ -167,7 +166,7 @@ namespace uth
 			WriteLog("Shader link failed");
 			return false;
 		}
-
+        
 		return true;
     }
 
@@ -326,7 +325,7 @@ namespace uth
 	*/
     void Graphics::setTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, const unsigned int width, const unsigned int height, ImageFormat pixelFormat, DataType dataType, const void* pixels)
     {
-        oglCheck(glTexImage2D(textureTypes[TEXTURE_2D], level, imageFormats[imageFormat], width, height, 0, imageFormats[pixelFormat], dataTypes[dataType], pixels));
+		oglCheck(glTexImage2D(textureTypes[type], level, imageFormats[imageFormat], width, height, 0, imageFormats[pixelFormat], dataTypes[dataType], pixels));
     }
 
     void Graphics::setTextureParameter(TextureType type, TextureParam param, TextureFilter filter)

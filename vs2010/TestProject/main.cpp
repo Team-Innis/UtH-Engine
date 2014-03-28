@@ -1,5 +1,6 @@
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Engine/SceneManager.hpp>
+#include <UtH/Platform/Debug.hpp>
 
 #include <UtH/Engine/DefaultScene.hpp>
 // Enumeration of scenes, giving name for each scene number
@@ -34,8 +35,19 @@ void NewSceneFunc(int SceneID, uth::Scene* &CurScene)
 
 int main()
 {
+    WriteLog("main start");
 	UtHSceneM.registerNewSceneFunc(NewSceneFunc,COUNT);
-	return Hood.MainLoop();
+
+	uthEngine.Init();
+
+	while(uthEngine.Running())
+	{
+		uthEngine.Update();
+
+		uthEngine.Draw();
+	}
+
+	return 0;
 	//Hood.MainLoop(/*new StartScene*/);
 	//UtHSceneM.GoToScene(/*new GameScene*/1);
 }

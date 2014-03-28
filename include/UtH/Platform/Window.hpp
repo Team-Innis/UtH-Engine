@@ -3,13 +3,14 @@
 #define WINDOW_H_UTH
 
 #include <UtH/Platform/WindowSettings.hpp>
-#include <UtH/Platform/Uncopyable.hpp>
+#include <UtH/Renderer/RenderTarget.hpp>
 
-
+#define uthWindow uth::Window::getInstance()
 
 namespace uth
 {
-    class Window : private Uncopyable
+
+    class Window : public RenderTarget
     {
     public:
         Window();
@@ -33,6 +34,9 @@ namespace uth
 		// return true while window should remain open
 		bool processMessages();
 
+        umath::vector2 GetSize() const;
+
+        bool Bind();
 
 
         void* m_windowHandle;

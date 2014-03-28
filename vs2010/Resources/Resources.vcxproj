@@ -21,10 +21,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\UtH\Resources\Image.hpp" />
     <ClInclude Include="..\..\include\UtH\Resources\ResourceManager.h" />
+    <ClInclude Include="..\..\include\UtH\Resources\SoundBuffer.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\Resources\Image.cpp" />
     <ClCompile Include="..\..\src\Resources\ResourceManager.cpp" />
+    <ClCompile Include="..\..\src\Resources\SoundBuffer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{471D0772-92B6-4239-8903-A3A1574DF99F}</ProjectGuid>

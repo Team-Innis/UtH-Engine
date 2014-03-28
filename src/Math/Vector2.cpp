@@ -21,17 +21,17 @@ namespace umath
 	}
 	float vector2::getDegrees() const
 	{
-		return getRadians()*180.0/PI;
+		return getRadians()*180.0f/PI;
 	}
 
-	void vector2::Transform(const vector2 position)
+	void vector2::Transform(const vector2& position)
 	{
 		x += position.x;
 		y += position.y;
 	}
 	void vector2::RotateDegrees(const float degrees)
 	{
-		Rotate(degrees/180.0*PI);
+		Rotate(degrees/180.0f*PI);
 	}
 	void vector2::Rotate(const float radians)
 	{
@@ -44,7 +44,7 @@ namespace umath
 		x = oldX*cosA-y*sinA;
 		y = oldX*sinA+y*cosA;
 	}
-	void vector2::Scale(const vector2 scale)
+	void vector2::Scale(const vector2& scale)
 	{
 		x*=scale.x;
 		y*=scale.y;

@@ -7,7 +7,7 @@ namespace umath
 	vector4::vector4()
 			: x(0), y(0),z(0),w(0)
 	{}
-	vector4::vector4(const vector3 Vec3, const float W)
+	vector4::vector4(const vector3& Vec3, const float W)
 		: 
 		x(Vec3[0]),
 		y(Vec3[1]),

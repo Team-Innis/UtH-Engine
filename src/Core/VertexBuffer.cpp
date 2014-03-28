@@ -11,8 +11,7 @@ VertexBuffer::VertexBuffer()
 
 VertexBuffer::~VertexBuffer()
 {
-	m_vertexData.clear();
-	m_indices.clear();
+	clear();
 	uthGraphics.deleteBuffers(1, &m_arrayBuffer);
 	uthGraphics.deleteBuffers(1, &m_elementBuffer);
 }
@@ -37,28 +36,51 @@ void VertexBuffer::addIndex(const unsigned short index)
 
 void VertexBuffer::addIndices(const std::vector<unsigned short>& indices)
 {
-	m_indices.insert(m_indices.end(), indices.begin(), indices.end());
+	std::vector<unsigned short> input = indices;
+
+	if (m_indices.size() > 0)
+	{
+		short lastIndex = m_indices.at(m_indices.size() - 1) + 1;
+
+		for (auto it = input.begin(); it != input.end(); ++it)
+		{
+			(*it) += lastIndex;
+		}
+	}
+
+	m_indices.insert(m_indices.end(), input.begin(), input.end());
 }
 
-void VertexBuffer::draw(Shader* shader) const
+const std::vector<Vertex>& VertexBuffer::getVertices() const
 {
-	setData();
+    return m_vertexData;
+}
 
-	uthGraphics.bindBuffer(ARRAY_BUFFER, m_arrayBuffer);
-	const int posOffset = 5*sizeof(float);
-	const int uvOffset = 5*sizeof(float);
-	const int uvStart = 3*sizeof(float);
+const std::vector<unsigned short>& VertexBuffer::getIndices() const
+{
+    return m_indices;
+}
 
-	// Attribute name, number of components, datatype, bytes between first elements,
-	// offset of first element in buffer
-	shader->setAttributeData("attrPosition", 3, FLOAT_TYPE, posOffset, (void*)0);
-	shader->setAttributeData("attrUV", 2, FLOAT_TYPE, uvOffset, (void*)uvStart);
+void VertexBuffer::clear(const bool arrayBuffer, const bool elementBuffer)
+{
+    if (arrayBuffer)
+	    m_vertexData.clear();
+    if (elementBuffer)
+	    m_indices.clear();	
+}
 
-	uthGraphics.bindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
-	uthGraphics.drawElements(TRIANGLES, m_indices.size(), 
-		UNSIGNED_SHORT_TYPE, (void*)0);
+void VertexBuffer::bindArrayBuffer() const
+{
+    setData();
 
-	uthGraphics.bindBuffer(ARRAY_BUFFER, 0);	
+    uthGraphics.bindBuffer(ARRAY_BUFFER, m_arrayBuffer);
+}
+
+void VertexBuffer::bindElementBuffer() const
+{
+    setData();
+
+    uthGraphics.bindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
 }
 
 // Private

@@ -25,19 +25,15 @@ FileReader::FileReader(const char* path)
 
 FileReader::~FileReader()
 {
-	if(PHYSFS_isInit())
-	{
-		PHYSFS_close(cFile);
-		PHYSFS_deinit();
-	}
-	else
-		fclose(file);
+	CloseFile();
 }
 
 
 // Public
 void FileReader::OpenFile(const char* path)
 {
+    //CloseFile();
+
 	if(PHYSFS_isInit())
 	{		
 		PHYSFS_addToSearchPath("assets.uth",1);
@@ -58,12 +54,26 @@ void FileReader::OpenFile(const char* path)
 	}
 }
 
+void FileReader::CloseFile()
+{
+    if(PHYSFS_isInit())
+	{
+		PHYSFS_close(cFile);
+		PHYSFS_deinit();
+	}
+	else if (file)
+    {
+		fclose(file);
+        file = NULL;
+    }
+}
+
 int FileReader::GetFileSize()
 {
 	int size;
 	if(PHYSFS_isInit())
 	{
-		size = PHYSFS_fileLength(cFile);
+		size = static_cast<int>(PHYSFS_fileLength(cFile));
 		return size;
 	}
 	else
@@ -83,7 +93,7 @@ bool FileReader::FileSeek(int offset, int origin)
 		{
 			if(origin == 1)
 			{
-				origin = PHYSFS_tell(cFile);
+				origin = static_cast<int>(PHYSFS_tell(cFile));
 				offset += origin;
 			}
 			if(PHYSFS_seek(cFile, offset) == 1)
