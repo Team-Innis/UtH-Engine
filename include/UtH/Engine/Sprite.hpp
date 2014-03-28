@@ -27,7 +27,7 @@ namespace uth
 
 		~Sprite();
 
-		void Update(float dt);
+		void Init();
 		void Draw(RenderTarget& target);
 
 		void SetTexture(Texture* texture);
@@ -53,9 +53,6 @@ namespace uth
 		umath::vector2 m_size;
 
 		umath::vector4 m_color;
-
-		bool m_bufferNeedsUpdate;
-		bool m_isSizeSet;
 	};
 }
 
