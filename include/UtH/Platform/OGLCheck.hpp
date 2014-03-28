@@ -15,7 +15,7 @@ namespace uth
 			#define __func__ __FUNCTION__
 		#endif
 
-#define oglCheck(function) ((function), uth::checkGlError(__FILE__, __LINE__, __func__))
+        #define oglCheck(function) ((function), uth::checkGlError(__FILE__, __LINE__, __func__))
 
     #else
 

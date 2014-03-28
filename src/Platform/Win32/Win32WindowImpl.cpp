@@ -1,6 +1,7 @@
 #include <UtH/Platform/Win32/Win32WindowImpl.hpp>
 #include <UtH/Platform/OpenGL.hpp>
 #include <UtH/Platform/OGLCheck.hpp>
+#include <UtH/Platform/Debug.hpp>
 #include <iostream>
 
 
@@ -77,10 +78,22 @@ namespace uth
 
         glfwSetWindowPos(wndwHandle, (int)settings.position.x, (int)settings.position.y);
         glfwSwapInterval(settings.useVsync ? 1 : 0);
-
-		std::cout << "glew init might produce GL_INVALID_ENUM error. Just ignore it" << std::endl;
+        
+		//std::cout << "glew init might produce GL_INVALID_ENUM error. Just ignore it" << std::endl;
 		glewExperimental = GL_TRUE;
-        oglCheck(glewInit());
+
+        /////////////////////////////
+        CheckGLError("before glewInit");
+        glewInit();
+        GLenum errCode = glGetError();
+        if (errCode != GL_INVALID_ENUM && errCode != GL_NO_ERROR)
+        {
+            WriteError("Window creation failed!!! D:");
+            assert(false);
+        }
+
+        //oglCheck(glewInit());
+        ////////////////////////////
 
 		if(majorVer >= 3)
         {

@@ -84,7 +84,10 @@ namespace uth
 
     int Graphics::CreateShaderProgram()
     {
-        return glCreateProgram();
+        CheckGLError("glCreateProgram1");
+        const int i = glCreateProgram();
+
+        return i;
     }
 
     bool Graphics::CreateShader(const ShaderType type, const int shaderProgram, const char* shaderCode)

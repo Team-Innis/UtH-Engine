@@ -22,7 +22,7 @@ bool DefaultScene::Init()
 	shader->Use();
 
     uthEngine.GetWindow().SetShader(shader);
-    rtex.Initialize(uthEngine.GetWindowResolution() / 2.f, false);
+    rtex.Initialize(uthEngine.GetWindowResolution(), false);
     rtex.SetCamera(&camera);
     rtex.SetShader(shader);
 
@@ -99,7 +99,7 @@ bool DefaultScene::Init()
     rtexSprite = new GameObject();
     rtexSprite->AddComponent(new Sprite(&rtex.GetTexture(), "rtexSprite"));
     rtexSprite->transform.SetPosition(0, 0);
-    //rtexSprite->transform.SetRotation(180);
+    rtexSprite->transform.SetScale(umath::vector2(0.5f, 0.5f));
 
     obj = new GameObject();
     obj->AddComponent(new Sprite("test.tga"));
@@ -133,9 +133,12 @@ bool DefaultScene::DeInit()
 
 bool DefaultScene::Update(float dt)
 {
+    const float offset = 75.f * dt;
+
 	//layers.at(0)->transform.Rotate(0.01f);
 
-    rtexSprite->transform.Rotate(5.f * dt);
+    camera.Rotate(-offset);
+    rtexSprite->transform.Rotate(offset);
 
 	for(size_t i = 0; i < layers.size(); i++)
 		layers.at(i)->Update(dt);
