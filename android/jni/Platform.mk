@@ -9,12 +9,17 @@ LOCAL_SRC_FILES := ../libs/libfreetype.a
 include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := libfreetypegl
+LOCAL_SRC_FILES := ../libs/libfreetypegl_static.a
+include $(PREBUILT_STATIC_LIBRARY)
+
+include $(CLEAR_VARS)
 LOCAL_MODULE := libbox2d
 LOCAL_SRC_FILES := ../libs/libbox2d_static.a
 include $(PREBUILT_STATIC_LIBRARY)
 
 LOCAL_MODULE    := engine
-LOCAL_STATIC_LIBRARIES := android_native_app_glue engine libbox2d libfreetype
+LOCAL_STATIC_LIBRARIES := android_native_app_glue engine libbox2d libfreetype libfreetypegl
 LOCAL_SHARED_LIBRARIES := libopenal
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/openal/include/
@@ -22,6 +27,7 @@ LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/Box2D/include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/freetype/include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/freetype-gl/include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/tinyxml2/include/
+LOCAL_C_INCLUDES +=  $(LOCAL_PATH)/../../extlibs/freetype-gl/include/freetype-gl
 
 #Math
 LOCAL_SRC_FILES := \
@@ -86,6 +92,7 @@ $(SRC_PATH)Engine/AnimatedSprite.cpp \
 $(SRC_PATH)Engine/Text.cpp
 
 #TinyXML2
-LOCAL_SRC_FILES += $(LOCAL_PATH)/../../extlibs/tinyxml/src/tinyxml2.cpp
+LOCAL_SRC_FILES += \
+$(SRC_PATH)../extlibs/tinyxml2/src/tinyxml2.cpp
 
 include $(BUILD_STATIC_LIBRARY)
