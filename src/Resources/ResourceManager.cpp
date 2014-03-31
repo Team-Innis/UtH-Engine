@@ -60,6 +60,22 @@ Texture& ResourceManager::LoadTexture(const std::string& filePath)
     return *temp;
 }
 
+Font& ResourceManager::LoadFont(const std::string& filePath)
+{
+    auto itr = m_fonts.find(filePath);
+
+    if (itr != m_fonts.end())
+        return *itr->second;
+
+    Font* temp = new Font();
+    bool result = temp->LoadFromFile(filePath);
+	assert(result);
+
+    m_fonts[filePath] = std::unique_ptr<Font>(temp);
+
+    return *temp;
+}
+
 void ResourceManager::Clear(const unsigned int flags)
 {
     if ((flags & uth::ResourceManager::SoundBuffers) != 0)
@@ -68,6 +84,8 @@ void ResourceManager::Clear(const unsigned int flags)
         m_images.clear();
     if ((flags & uth::ResourceManager::Textures) != 0)
         m_textures.clear();
+	if ((flags & uth::ResourceManager::Fonts) != 0)
+        m_fonts.clear();
 }
 
 bool ResourceManager::DeleteSoundBuffer(const std::string& filePath)
@@ -103,6 +121,19 @@ bool ResourceManager::DeleteTexture(const std::string& filePath)
     if (itr != m_textures.end())
     {
         m_textures.erase(itr);
+        return true;
+    }
+
+    return false;
+}
+
+bool ResourceManager::DeleteFont(const std::string& filePath)
+{
+	auto itr = m_fonts.find(filePath);
+
+    if (itr != m_fonts.end())
+    {
+        m_fonts.erase(itr);
         return true;
     }
 

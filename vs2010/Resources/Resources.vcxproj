@@ -21,11 +21,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\UtH\Resources\Font.hpp" />
     <ClInclude Include="..\..\include\UtH\Resources\Image.hpp" />
     <ClInclude Include="..\..\include\UtH\Resources\ResourceManager.h" />
     <ClInclude Include="..\..\include\UtH\Resources\SoundBuffer.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\Resources\Font.cpp" />
     <ClCompile Include="..\..\src\Resources\Image.cpp" />
     <ClCompile Include="..\..\src\Resources\ResourceManager.cpp" />
     <ClCompile Include="..\..\src\Resources\SoundBuffer.cpp" />
