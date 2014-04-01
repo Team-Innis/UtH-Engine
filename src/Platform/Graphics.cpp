@@ -415,6 +415,19 @@ namespace uth
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     // Other
+    void Graphics::Clear(const float r, const float g, const float b, const float a)
+    {
+        glClearColor(r, g, b, a);
+
+        #ifdef UTH_SYSTEM_OPENGLES
+            glClearDepthf(1.f);
+        #else
+            glClearDepth(1.f);
+        #endif
+
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
+
     void Graphics::Flush()
     {
         oglCheck(glFlush());

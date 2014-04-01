@@ -126,6 +126,8 @@ namespace uth
 
         /////////////////////////////////////////////////////////
         // Other
+        static void Clear(const float r = 0.0f, const float g = 0.0f, const float b = 0.0f, const float a = 1.0f);
+
         static void Flush();
 
         static void SetDepthFunction(const bool enable, DepthFunction func = LESS);

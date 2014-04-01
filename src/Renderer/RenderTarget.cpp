@@ -1,6 +1,7 @@
 #include <UtH/Renderer/RenderTarget.hpp>
 #include <UtH/Renderer/Camera.hpp>
 #include <UtH/Platform/Debug.hpp>
+#include <UtH/Platform/Graphics.hpp>
 
 
 namespace uth
@@ -26,10 +27,7 @@ namespace uth
     {
         bind();
 
-        glClearColor(r, g, b, a);
-        glClearDepth(1.f);
-
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        uth::Graphics::Clear(r, g, b, a);
     }
 
     void RenderTarget::SetCamera(Camera* camera)
