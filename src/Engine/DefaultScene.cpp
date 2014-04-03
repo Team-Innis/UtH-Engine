@@ -21,10 +21,12 @@ bool DefaultScene::Init()
 	shader->LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
 	shader->Use();
 
+    uthEngine.GetWindow().SetViewport(umath::rectangle(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
     uthEngine.GetWindow().SetShader(shader);
-    rtex.Initialize(uthEngine.GetWindowResolution(), false);
+    rtex.Initialize(uthEngine.GetWindowResolution() / 2.f, false);
     rtex.SetCamera(&camera);
     rtex.SetShader(shader);
+    rtex.SetViewport(umath::rectangle(0, 0, rtex.GetSize().x, rtex.GetSize().y));
 
 	// Ground level
 	b2BodyDef groundBodyDef;
@@ -39,10 +41,10 @@ bool DefaultScene::Init()
 	camera.SetSize(uthEngine.GetWindowResolution());
 	camera.SetPosition(0, 0);
 
-
-	CreateLayer("testi", 1);
-	CreateLayer("prkl", 0);
 	CreateLayer("monsu", 3);
+	CreateLayer("testi", 1);
+	CreateLayer("testi", 0);
+
 	GameObject* go = new GameObject();
 
 	Texture* texture = new Texture();
@@ -63,9 +65,7 @@ bool DefaultScene::Init()
 	go = new GameObject();
 	go->AddComponent(new AnimatedSprite(texture, 5, 4, 4, 1.f, 0, false, true));
 
-	((AnimatedSprite*)go->GetComponent("AnimatedSprite"))->ChangeAnimation(2, 4, 2, 1.0f, true, true);
-
-	//go->GetComponent("AnimatedSprite")
+	((AnimatedSprite*)go->GetComponent("AnimatedSprite"))->ChangeAnimation(2, 4, 2, 1.0f, false, true);
 
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(3, go);
@@ -82,24 +82,24 @@ bool DefaultScene::Init()
 		umath::vector2(2000, 2*PIXELS_PER_METER)));
 	go->transform.SetPosition(0, groundBody->GetPosition().y * PIXELS_PER_METER);
 	gameObjects.push_back(go);
-	AddGameObjectToLayer(1, go);
+	AddGameObjectToLayer(0, go);
 
 	go = new GameObject();
 	auto text = new Text("8bitoperator.ttf", 32);
 	text->AddText(L"!\"#$%&'()*+,-./0123456789:;<=     >?"
-				  L"\n@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
-				  L"\n`abcdefghijklmnopqrstuvwxyz{|}~", umath::vector4(0, 0, 0, 1));
-	text->AddText(L"\nPrkl!");
+				  L"\n@ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÅ[\\]^_"
+				  L"\n`abcdefghijklmnopqrstuvwxyzöäå{|}~", umath::vector4(0, 0, 0, 1));
+	text->AddText(L"\nPrkl!", umath::vector4(1,0,0,1));
 	go->AddComponent(text);
 	go->transform.Move(-400, 200);
 	gameObjects.push_back(go);
-	AddGameObjectToLayer(0, go);
+	AddGameObjectToLayer(1, go);
 
     // render rtex
     rtexSprite = new GameObject();
     rtexSprite->AddComponent(new Sprite(&rtex.GetTexture(), "rtexSprite"));
     rtexSprite->transform.SetPosition(0, 0);
-    rtexSprite->transform.SetScale(umath::vector2(0.5f, 0.5f));
+    //rtexSprite->transform.SetScale(umath::vector2(0.5f, 0.5f));
 
     obj = new GameObject();
     obj->AddComponent(new Sprite("test.tga"));
@@ -154,10 +154,35 @@ bool DefaultScene::Update(float dt)
 
 	const int speed = 5;
 
+
+	if(GetAsyncKeyState(VK_LEFT))
+	{
+		umath::vector2 curV = rigidBody->GetVelocity();
+		rigidBody->SetVelocity(umath::vector2(-speed, curV.y));
+	}
+
+	if(GetAsyncKeyState(VK_RIGHT))
+	{
+		umath::vector2 curV = rigidBody->GetVelocity();
+		rigidBody->SetVelocity(umath::vector2(speed, curV.y));
+	}
+
+	if(GetAsyncKeyState(VK_UP))
+	{
+		umath::vector2 curV = rigidBody->GetVelocity();
+		rigidBody->SetVelocity(umath::vector2(curV.x, -speed));
+	}
+	if(GetAsyncKeyState(VK_DOWN))
+	{
+		umath::vector2 curV = rigidBody->GetVelocity();
+		rigidBody->SetVelocity(umath::vector2(curV.x, speed));
+	}
+
+
 	const float timeStep = 1.f/60.f;
 	world.Step(timeStep, 8, 3);
 
-	if(uthInput.Mouse.IsButtonPressed(Mouse::MS1))
+	if(UTHInput.Mouse.IsButtonPressed(Mouse::MS1))
 	{
 		DeInit();
 		Init();

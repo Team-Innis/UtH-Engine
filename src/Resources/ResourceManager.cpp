@@ -25,7 +25,6 @@ SoundBuffer& ResourceManager::LoadWAV(const std::string& filePath)
     m_soundBuffers[filePath] = std::unique_ptr<SoundBuffer>(temp);
 
     return *temp;
-
 }
 
 Image& ResourceManager::LoadTGA(const std::string& filePath)

@@ -28,7 +28,6 @@ namespace uth
 
 	protected:
 		//LAYERS
-		bool CreateLayer(const char* layerName);
 		bool CreateLayer(const int layerId);
 		bool CreateLayer(const char* layerName, const int layerId);
 		void SetLayerActive(const char* layerName, bool active);
@@ -44,6 +43,11 @@ namespace uth
 		GameObject layer;
 
 		b2World world;
+
+	private:
+
+		int createLayerWithAnotherID();
+		void arrangeLayers(); // Sort layers by their ID
 	};
 }
 

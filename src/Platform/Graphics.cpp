@@ -322,7 +322,11 @@ namespace uth
 
     void Graphics::SetRenderBufferStorage(const unsigned int x, const unsigned int y)
     {
-        oglCheck(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, x, y));
+        #ifdef UTH_SYSTEM_OPENGLES
+            oglCheck(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, x, y));
+        #else
+            oglCheck(glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, x, y));
+        #endif
     }
 
     void Graphics::BindRenderBuffer(const unsigned int buffer)
@@ -481,6 +485,11 @@ namespace uth
         }
 
         oglCheck(glCullFace(faceCullings[mode]));
+    }
+
+    void Graphics::SetViewport(const int x, const int y, const int width, const int height)
+    {
+        oglCheck(glViewport(x, y, width, height));
     }
 
 

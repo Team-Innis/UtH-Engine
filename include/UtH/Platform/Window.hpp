@@ -25,8 +25,6 @@ namespace uth
 
         void swapBuffers();
 
-        void setViewport(const int x, const int y, const unsigned int width, const unsigned int height);
-
         const WindowSettings& getWindowSettings() const;
 
 		// return true while window should remain open

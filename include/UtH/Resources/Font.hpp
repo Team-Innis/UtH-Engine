@@ -14,11 +14,7 @@ namespace uth
             void* fontData;
 			int dataSize;
 
-            ~FontStruct()
-            {
-                delete fontData;
-            }
-
+            ~FontStruct();
         } m_fontData;
 
 	public:

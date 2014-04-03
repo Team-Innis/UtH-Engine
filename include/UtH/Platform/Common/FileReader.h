@@ -1,10 +1,10 @@
 /***
- * Windows Specific filereader
+ * Filereader for linux and windows
  **/
 #ifndef FILEREADER_H
 #define FILEREADER_H
 
-#include <stdio.h>
+#include <cstdio>
 #include <physfs/physfs.h>
 
 namespace uth
@@ -35,7 +35,7 @@ namespace uth
 
 		static bool isCompressed;
 	private:
-		FILE* file;
+		std::FILE* file;
 		PHYSFS_file* cFile;
 
 		
