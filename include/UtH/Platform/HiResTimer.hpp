@@ -42,7 +42,7 @@ namespace uth
 		long double m_startTime;
 		long double m_memTime;
 		long double m_curTime;
-		
+
 #if defined(UTH_SYSTEM_WINDOWS)
 		LARGE_INTEGER m_frequency;
 		LARGE_INTEGER m_startCount;

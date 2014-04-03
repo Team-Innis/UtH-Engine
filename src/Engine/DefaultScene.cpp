@@ -151,7 +151,7 @@ bool DefaultScene::Update(float dt)
 		WriteLog("Impulse!\n");
 	}*/
 
-	auto rigidBody = static_cast<Rigidbody*>(gameObjects.at(0)->GetComponent("Rigidbody"));
+	//auto rigidBody = static_cast<Rigidbody*>(gameObjects.at(0)->GetComponent("Rigidbody"));
 
 	//const float speed = 5.f;
 

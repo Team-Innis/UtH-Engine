@@ -38,7 +38,7 @@ namespace uth
 
 		std::string m_name;
 
-		bool m_active;		
+		bool m_active;
 	};
 }
 #endif

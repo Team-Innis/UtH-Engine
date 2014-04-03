@@ -10,8 +10,8 @@ Transform::Transform(const std::string& name)
 	  scale(1, 1),
 	  angle(0),     
 	  depth(0),
-	  m_transformNeedsUpdate(true),
-	  transformNeedsUpdate(true)
+	  transformNeedsUpdate(true),
+	  m_transformNeedsUpdate(true)
 { }
 
 Transform::~Transform()
