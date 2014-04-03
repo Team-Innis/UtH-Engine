@@ -51,10 +51,10 @@ namespace uth
             float x = child->FindAttribute("x")->FloatValue(),
                   y = child->FindAttribute("y")->FloatValue();
 
-            rect.left = x / m_texture->GetSize().w;
-            rect.top = y / m_texture->GetSize().h;
-            rect.width = child->FindAttribute("width")->FloatValue() / m_texture->GetSize().w;
-            rect.height = child->FindAttribute("height")->FloatValue() / m_texture->GetSize().h;
+            rect.x = x / m_texture->GetSize().x;
+            rect.y = y / m_texture->GetSize().y;
+            rect.width = child->FindAttribute("width")->FloatValue() / m_texture->GetSize().x;
+            rect.height = child->FindAttribute("height")->FloatValue() / m_texture->GetSize().y;
 
             m_textureRects.insert(std::make_pair(name, rect));
         }

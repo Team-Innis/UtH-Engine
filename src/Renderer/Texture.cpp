@@ -51,7 +51,7 @@ namespace uth
         SetRepeated(repeated);
 
         uth::Graphics::SetTextureImage2D(TEXTURE_2D, 0, RGBA8_FORMAT, 
-			static_cast<unsigned int>(m_size.w), static_cast<unsigned int>(m_size.h), 
+			static_cast<unsigned int>(m_size.x), static_cast<unsigned int>(m_size.y), 
 			RGBA_FORMAT, UNSIGNED_BYTE_TYPE, nullptr);
 
         return true;
@@ -75,7 +75,7 @@ namespace uth
         SetRepeated(repeated);
 
         uth::Graphics::SetTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT, 
-			static_cast<unsigned int>(m_size.w), static_cast<unsigned int>(m_size.h), 
+			static_cast<unsigned int>(m_size.x), static_cast<unsigned int>(m_size.y), 
 			RGBA_FORMAT, UNSIGNED_BYTE_TYPE, img.m_pixels);
 		
 		return true;

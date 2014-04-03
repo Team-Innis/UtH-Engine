@@ -35,10 +35,22 @@ namespace uth
         float width = (m_atlas->GetSize().x * tex.width),
               height = (m_atlas->GetSize().y * tex.height);
 
-        m_vertexData.push_back(Vertex(umath::vector3(-width / 2.f, -height / 2.f, 1.f), umath::vector2(tex.left, 1.f - tex.top))); // vasen alakulma
-        m_vertexData.push_back(Vertex(umath::vector3(width / 2.f, -height / 2.f, 1.f), umath::vector2(tex.getRight(), 1.f - tex.top))); // oikea alakulma
-        m_vertexData.push_back(Vertex(umath::vector3(-width / 2.f, height / 2.f, 1.f), umath::vector2(tex.left, 1.f - (tex.top + tex.height)))); // vasen yläkulma
-        m_vertexData.push_back(Vertex(umath::vector3(width / 2.f, height / 2.f, 1.f), umath::vector2(tex.getRight(), 1.f - (tex.top + tex.height)))); // oikea yläkulma
+        m_vertexData.push_back(Vertex(
+			umath::vector3(-width / 2.f, -height / 2.f, 1.f), 
+			umath::vector2(tex.x, 1.f - tex.y)
+			));
+        m_vertexData.push_back(Vertex(
+			umath::vector3(width / 2.f, -height / 2.f, 1.f), 
+			umath::vector2(tex.getRight(), 1.f - tex.y)
+			));
+        m_vertexData.push_back(Vertex(
+			umath::vector3(-width / 2.f, height / 2.f, 1.f), 
+			umath::vector2(tex.x, 1.f - (tex.y + tex.height))
+			));
+        m_vertexData.push_back(Vertex(
+			umath::vector3(width / 2.f, height / 2.f, 1.f), 
+			umath::vector2(tex.getRight(), 1.f - (tex.y + tex.height))
+			));
 	    m_spriteBuffer.addIndex(0 + mod);
 	    m_spriteBuffer.addIndex(1 + mod);
 	    m_spriteBuffer.addIndex(2 + mod);

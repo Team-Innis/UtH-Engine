@@ -5,25 +5,25 @@
 namespace umath
 {
 	rectangle::rectangle(){}
-	rectangle::rectangle(float Left, float Top, float Width, float Height)
-		: left(Left),
-		  top(Top),
+	rectangle::rectangle(float X, float Y, float Width, float Height)
+		: x(X),
+		  y(Y),
 		  width(Width),
 		  height(Height)
 	{
 		assert(!(width<0||height<0));
 	}
 	rectangle::rectangle(vector2 Position, float Width, float Height)
-		: left(Position.x),
-		  top(Position.y),
+		: x(Position.x),
+		  y(Position.y),
 		  width(Width),
 		  height(Height)
 	{
 		assert(!(width<0||height<0));
 	}
 	rectangle::rectangle(vector2 Position, vector2 Size)
-		: left(Position.x),
-		  top(Position.y),
+		: x(Position.x),
+		  y(Position.y),
 		  width(Size.x),
 		  height(Size.y)
 	{
@@ -35,22 +35,22 @@ namespace umath
 	
 	float rectangle::getRight() const
 	{
-		return left + width;
+		return x + width;
 	}
 	float rectangle::getBottom() const
 	{
-		return top + height;
+		return y + height;
 	}
 	
 	bool rectangle::Intersects(rectangle otherRectangle) const
 	{
-		if (otherRectangle.getRight() < left)
+		if (otherRectangle.getRight() < x)
 			return false;
-		if (getRight() < otherRectangle.left)
+		if (getRight() < otherRectangle.x)
 			return false;
-		if (otherRectangle.getBottom() < top)
+		if (otherRectangle.getBottom() < y)
 			return false;
-		if (getBottom() < otherRectangle.top)
+		if (getBottom() < otherRectangle.y)
 			return false;
 		return true;
 	}

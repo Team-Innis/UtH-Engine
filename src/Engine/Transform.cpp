@@ -158,7 +158,7 @@ void Transform::updateTransform()
 							   0,          0,          1.0f,  0,
 							   0,		   0,		   0,	  1.0f);
 
-#ifndef _DEBUG
+#ifdef NDEBUG
 	if(transformNeedsUpdate)
 	{
 		rotation*scale;

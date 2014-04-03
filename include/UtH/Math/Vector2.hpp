@@ -37,18 +37,8 @@ namespace umath
 			Scales the current vector by given scale vector.
 			*/
 			void Scale(const vector2& Scale);
-
-			union
-			{
-				struct
-				{
-					float x,y;
-				};
-				struct
-				{
-					float w,h;
-				};
-			};
+			
+			float x,y;
 
 		private:
 
