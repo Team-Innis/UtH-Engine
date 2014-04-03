@@ -67,11 +67,6 @@ namespace uth
         WindowImpl::swapBuffers(m_windowHandle);
     }
 
-    void Window::setViewport(const int x, const int y, const unsigned int width, const unsigned int height)
-    {
-        oglCheck(glViewport(x, y, width, height));
-    }
-
     const WindowSettings& Window::getWindowSettings() const
     {
         return m_windowSettings;

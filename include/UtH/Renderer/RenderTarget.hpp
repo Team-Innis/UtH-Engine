@@ -24,6 +24,9 @@ namespace uth
         Shader& GetShader();
 
 
+
+
+
         bool Bind();
 
         virtual umath::vector2 GetSize() const = 0;
