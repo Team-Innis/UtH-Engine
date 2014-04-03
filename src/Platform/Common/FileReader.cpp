@@ -39,7 +39,8 @@ void FileReader::OpenFile(const char* path)
 	if(PHYSFS_isInit())
 	{		
 		PHYSFS_addToSearchPath("assets.uth",1);
-		assert(PHYSFS_exists(path));
+		int result = PHYSFS_exists(path);
+		assert(result);
 
 		if(cFile != NULL)
 			PHYSFS_close(cFile);
