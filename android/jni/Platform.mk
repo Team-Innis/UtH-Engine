@@ -57,6 +57,7 @@ $(SRC_PATH)Renderer/Texture.cpp
 LOCAL_SRC_FILES += \
 $(SRC_PATH)Resources/ResourceManager.cpp \
 $(SRC_PATH)Resources/SoundBuffer.cpp \
+$(SRC_PATH)Resources/Font.cpp \
 $(SRC_PATH)Resources/Image.cpp
 
 #Platform

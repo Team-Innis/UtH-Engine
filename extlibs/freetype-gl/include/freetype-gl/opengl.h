@@ -44,6 +44,9 @@
 #elif defined(_WIN32) || defined(_WIN64)
 #  include <GL/glew.h>
 #  include <GL/wglew.h>
+#elif defined(__ANDROID__)
+#	include <GLES2/gl2.h>
+#	include <GLES2/gl2ext.h>
 #else
 #  include <GL/glew.h>
 #  include <GL/gl.h>
