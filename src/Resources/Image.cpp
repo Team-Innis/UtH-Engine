@@ -35,8 +35,8 @@ namespace uth
 		buffer = new BYTE[4];
 		FR.FileSeek(12, 0);
 		FR.ReadBytes(buffer, 4);
-		m_size.x = (float)(buffer[0] + buffer[1] * 256);
-		m_size.y = (float)(buffer[2] + buffer[3] * 256);
+		m_size.x = static_cast<float>((buffer[0] + buffer[1] * 256));
+		m_size.y = static_cast<float>((buffer[2] + buffer[3] * 256));
 		delete[] buffer;
 
 		//bpp
@@ -48,7 +48,7 @@ namespace uth
 		delete[] buffer;
 
 		//data
-		int datasize = m_size.x * m_size.y * m_depth / 8;
+		int datasize = static_cast<int>(m_size.x * m_size.y * m_depth / 8);
 		m_pixels = new BYTE[datasize];
 		buffer = new BYTE[datasize];
 		FR.FileSeek(18, 0);
@@ -77,7 +77,7 @@ namespace uth
     {
         assert(x > m_size.x || y > m_size.y);
 
-        const unsigned int start = 4 * ((y * m_size.x) + x);
+        const unsigned int start = static_cast<unsigned int>(4 * ((y * m_size.x) + x));
 
         return umath::vector4(static_cast<float>(m_pixels[start]),
                               static_cast<float>(m_pixels[start + 1]),

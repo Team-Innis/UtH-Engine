@@ -20,10 +20,12 @@ namespace uth
 
         ~Texture();
 
+		/// Consider using the UTH ResourceManager, example: uthRS.DeleteTexture(filePath)
+		void Delete();
 
         bool Create(const umath::vector2& size, const bool smooth = false, const bool repeated = false);
-
-        /// Only supports uncompressed .tga for now.
+		
+		/// Consider using the UTH ResourceManager, example: uthRS.LoadTexture(filePath)
         bool LoadFromFile(const std::string& filePath, const bool smooth = false, const bool repeated = false);
 
         void Bind() const;

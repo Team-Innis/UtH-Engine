@@ -19,7 +19,7 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 		m_delay(0.0f)
 {
 	const umath::vector2 texSize = texture->GetSize();
-#ifdef _DEBUG
+#ifndef NDEBUG
 	if(int(texSize.x) % int(frameSize.x) != 0 || int(texSize.y) % int(frameSize.y) != 0)
 	{
 		WriteError("Bad frame size! texture(%f, %f) frame(%f, %f)", 
@@ -27,8 +27,8 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 		assert(false);
 	}
 #endif
-	m_frameCountX = texSize.x / frameSize.x;
-	m_frameCountY = texSize.y / frameSize.y;
+	m_frameCountX = static_cast<unsigned int>(texSize.x / frameSize.x);
+	m_frameCountY = static_cast<unsigned int>(texSize.y / frameSize.y);
 	AnimatedSprite(texture, frames, m_frameCountX, m_frameCountY, fps, firstFrame, reversed, loop);
 }
 
@@ -47,10 +47,10 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 		m_loop(loop),
 		m_delay(0.0f)
 {
-	const int texSizeX = texture->GetSize().x;
-	const int texSizeY = texture->GetSize().y;
+	const unsigned int texSizeX = static_cast<const unsigned int>(texture->GetSize().x);
+	const unsigned int texSizeY = static_cast<const unsigned int>(texture->GetSize().y);
 	
-#ifdef _DEBUG
+#ifndef NDEBUG
 	if(texSizeX % frameCountX != 0 || texSizeY % frameCountY != 0)
 	{
 		WriteError("Bad texture size! (%d, %d)", texSizeX, texSizeY);
@@ -63,8 +63,8 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 	}
 #endif
 	// frame size in pixels
-	m_frameSize.x = texSizeX / frameCountX;
-	m_frameSize.y = texSizeY / frameCountY;
+	m_frameSize.x = static_cast<const float>(texSizeX / frameCountX);
+	m_frameSize.y = static_cast<const float>(texSizeY / frameCountY);
 	// frame size in texcoord float
 	m_frameSize.width = 1.0f / frameCountX;
 	m_frameSize.height = 1.0f / frameCountY;
@@ -78,7 +78,7 @@ void AnimatedSprite::ChangeAnimation(int loopStartFrame, int loopFrames,
 	int startFrame, float fps, bool loop, bool reversed)
 {
 	
-#ifdef _DEBUG
+#ifndef NDEBUG
 	if(loopFrames == 0)
 	{
 		WriteError("0 frame animation? (frame count = 0)");
@@ -149,24 +149,24 @@ void AnimatedSprite::genererateBuffer()
 	const int X = m_curFrame % m_frameCountX;
 	const int Y = m_curFrame/m_frameCountX;
 
-	frame.left = X * m_frameSize.width;
+	frame.x = X * m_frameSize.width;
 	frame.width = m_frameSize.width;
-	frame.top = 1.0f - Y * m_frameSize.height;
+	frame.y = 1.0f - Y * m_frameSize.height;
 	frame.height = -m_frameSize.height;
 
 	m_vertexBuffer.clear();
 
 	m_vertexBuffer.addVertex(Vertex(
 		umath::vector3(-0.5f, -0.5f, 0),
-		umath::vector2(frame.left, frame.top), 
+		umath::vector2(frame.x, frame.y), 
 		m_color));
 	m_vertexBuffer.addVertex(Vertex(
 		umath::vector3(0.5f, -0.5f, 0),
-		umath::vector2(frame.getRight(), frame.top), 
+		umath::vector2(frame.getRight(), frame.y), 
 		m_color));
 	m_vertexBuffer.addVertex(Vertex(
 		umath::vector3(-0.5f, 0.5f, 0),
-		umath::vector2(frame.left, frame.getBottom()), 
+		umath::vector2(frame.x, frame.getBottom()), 
 		m_color));
 	m_vertexBuffer.addVertex(Vertex(
 		umath::vector3(0.5f, 0.5f, 0),

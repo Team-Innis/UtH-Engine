@@ -109,7 +109,7 @@ const std::wstring& Text::GetText() const
 	return m_text;
 }
 
-void Text::Draw(RenderTarget& target)
+void Text::Draw(RenderTarget&)
 {
 	m_textShader.Use();
 
