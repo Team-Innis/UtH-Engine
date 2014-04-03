@@ -137,7 +137,8 @@ void* FileReader::ReadBinary()
 	int size = GetFileSize();
 	void* buffer;
 	buffer = malloc(size);
-	ReadBytes(buffer, size);	
+	if(!ReadBytes(buffer, size))
+		return nullptr;
 	
 	return buffer;
 }
@@ -146,7 +147,7 @@ const char* FileReader::ReadText()
 {
 	
 	int size = GetFileSize();
-	char* buffer = new char[size];
+	char* buffer = new char[size+1];
 	ReadBytes(buffer, size);
 
 	buffer[size] = 0; // Null terminate the string

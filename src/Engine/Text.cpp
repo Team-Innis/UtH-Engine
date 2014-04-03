@@ -1,11 +1,12 @@
 #include <cmath>
-#include <UtH/Engine/Text.hpp>
 #include <freetype-gl/freetype-gl.h>
+
+#include <UtH/Engine/Text.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Engine/GameObject.hpp>
-#include <UtH/Renderer/Camera.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Renderer/RenderTarget.hpp>
+#include <UtH/Resources/ResourceManager.h>
 
 using namespace uth;
 
@@ -13,13 +14,13 @@ Text::Text(const std::string& fontPath, const float fontSize, const std::string&
 	: Component(name),
 	  m_fontSize(fontSize)
 {
-	// fonts don't use fileareader. Have to fix path manually
-	const std::string path = "assets/" + fontPath;
-
 	m_textShader.LoadShader("shaders/text.vert", "shaders/text.frag");
 
 	m_atlas = texture_atlas_new(1024, 1024, 1);
-	m_font = texture_font_new_from_file(m_atlas, fontSize, path.c_str());
+
+	auto& data = uthRS.LoadFont(fontPath).GetFontData();
+
+	m_font = texture_font_new_from_memory(m_atlas, fontSize, data.fontData, data.dataSize);
 }
 
 Text::~Text()

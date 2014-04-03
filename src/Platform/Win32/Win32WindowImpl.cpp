@@ -2,6 +2,7 @@
 #include <UtH/Platform/OpenGL.hpp>
 #include <UtH/Platform/OGLCheck.hpp>
 #include <UtH/Platform/Debug.hpp>
+#include <UtH/Platform/Graphics.hpp>
 #include <iostream>
 
 
@@ -122,20 +123,9 @@ namespace uth
     }
 
 
-    void Win32WindowImpl::clear(const bool clearDepth, const bool clearStencil, const float r, const float g, const float b, const float a)
+    void Win32WindowImpl::clear(const float r, const float g, const float b, const float a)
     {
-        oglCheck(glClear(GL_COLOR_BUFFER_BIT |
-                         GL_DEPTH_BUFFER_BIT |
-                         GL_STENCIL_BUFFER_BIT));
-		oglCheck(glClearColor(r, g, b, a));
-
-        if (!clearDepth) return;
-			
-        oglCheck(glClearDepth(1));
-
-        if (!clearStencil) return;
-
-        oglCheck(glClearStencil(1));
+        uth::Graphics::Clear(r, g, b, a);
     }
 
     void Win32WindowImpl::swapBuffers(void* handle)
