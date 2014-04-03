@@ -38,5 +38,5 @@ const Font::FontStruct& Font::GetFontData() const
 // Private
 Font::FontStruct::~FontStruct()
 {
-	std::free(fontData);
+	delete[] fontData;
 }

@@ -49,7 +49,7 @@ void* FileReader::ReadBinary()
 {
 	int size = GetFileSize();
 	void* buffer;
-	buffer = malloc(size);
+	buffer = new unsigned char[size];
 
 	ReadBytes(buffer, size);
 	

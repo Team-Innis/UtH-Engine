@@ -39,7 +39,7 @@ void FileReader::OpenFile(const char* path)
 	if(PHYSFS_isInit())
 	{		
 		PHYSFS_addToSearchPath("assets.uth",1);
-		int result = PHYSFS_exists(path);
+		const int result = PHYSFS_exists(path);
 		assert(result);
 
 		if(cFile != NULL)
@@ -139,7 +139,7 @@ void* FileReader::ReadBinary()
 {
 	int size = GetFileSize();
 	void* buffer;
-	buffer = std::malloc(size);
+	buffer = new unsigned char[size];
 	if(!ReadBytes(buffer, size))
 		return nullptr;
 	
