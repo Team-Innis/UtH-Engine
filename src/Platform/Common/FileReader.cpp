@@ -52,7 +52,8 @@ void FileReader::OpenFile(const char* path)
 	{
 		std::string temp_path = "assets/";
 		temp_path += path;
-		file = std::fopen(temp_path.c_str(), "rb");
+		//file = std::fopen(temp_path.c_str(), "rb");
+		fopen_s(&file, temp_path.c_str(), "rb");
 		assert(file != NULL);
 	}
 }
