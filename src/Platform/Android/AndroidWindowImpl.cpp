@@ -161,7 +161,7 @@ namespace uth
 		case APP_CMD_INIT_WINDOW:
 			uthEngine.Init(uthAndroidEngine.settings);
 			WriteLog("windowINIT");
-			window->setViewport(0.0f,0.0f,
+			Graphics::SetViewport(0.0f,0.0f,
 				uthAndroidEngine.settings.size.x,
 				uthAndroidEngine.settings.size.y);
 			uthAndroidEngine.initialized = true;
