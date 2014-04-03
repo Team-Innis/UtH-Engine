@@ -55,6 +55,8 @@ namespace uth
         RenderTarget();
 
         virtual ~RenderTarget(){};
+        
+        const unsigned int m_uniqueID;
 
     };
 }

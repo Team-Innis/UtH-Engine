@@ -4,6 +4,16 @@
 #include <UtH/Platform/Graphics.hpp>
 
 
+namespace
+{
+    static const unsigned int getUniqueID()
+    {
+        static unsigned int id = 0;
+
+        return ++id;
+    }
+}
+
 namespace uth
 {
     RenderTarget::RenderTarget()
@@ -11,7 +21,8 @@ namespace uth
           m_shader(nullptr),
           m_defaultCamera(),
           m_defaultShader(),
-          m_viewport()
+          m_viewport(),
+          m_uniqueID(getUniqueID())
     {
 
     }
@@ -21,7 +32,12 @@ namespace uth
     {
         updateUniforms();
 
-        return bind();
+        static unsigned int lastID = 0;
+
+        if (lastID != m_uniqueID)
+            return bind();
+        else
+            return true;
     }
 
     void RenderTarget::Clear(const float r, const float g, const float b, const float a)
