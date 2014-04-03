@@ -35,7 +35,10 @@ namespace uth
         static unsigned int lastID = 0;
 
         if (lastID != m_uniqueID)
+        {
+            lastID = m_uniqueID;
             return bind();
+        }
         else
             return true;
     }
