@@ -10,9 +10,10 @@ namespace uth
         : m_camera(nullptr),
           m_shader(nullptr),
           m_defaultCamera(),
-          m_defaultShader()
+          m_defaultShader(),
+          m_viewport()
     {
-        
+
     }
 
 
@@ -74,11 +75,27 @@ namespace uth
         return m_defaultShader;
     }
 
+    void RenderTarget::SetViewport(const umath::rectangle& rect)
+    {
+        m_viewport = rect;
+    }
+
+    const umath::rectangle& RenderTarget::GetViewport() const
+    {
+        return m_viewport;
+    }
+
     void RenderTarget::updateUniforms()
     {
         if (m_shader)
+        {
             m_shader->SetUniform("unifProjection", m_camera ? m_camera->GetProjectionTransform() : m_defaultCamera.GetProjectionTransform());
+
+        }
         else
+        {
             m_defaultShader.SetUniform("unifProjection", m_camera ? m_camera->GetProjectionTransform() : m_defaultCamera.GetProjectionTransform());
+
+        }
     }
 }

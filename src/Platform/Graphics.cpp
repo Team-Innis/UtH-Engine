@@ -488,6 +488,11 @@ namespace uth
         oglCheck(glCullFace(faceCullings[mode]));
     }
 
+    void Graphics::SetViewport(const int x, const int y, const int width, const int height)
+    {
+        oglCheck(glViewport(x, y, width, height));
+    }
+
 
 
     // Private

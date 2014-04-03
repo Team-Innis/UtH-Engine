@@ -85,6 +85,13 @@ namespace uth
     bool Window::bind()
     {
         uth::Graphics::BindFrameBuffer(0);
+
+        const umath::rectangle& vp = GetViewport();
+        uth::Graphics::SetViewport(static_cast<int>(vp.x + 0.5f),
+                                   static_cast<int>(vp.y + 0.5f),
+                                   static_cast<int>(vp.width + 0.5f),
+                                   static_cast<int>(vp.height + 0.5f));
+
         return true;
     }
 }
