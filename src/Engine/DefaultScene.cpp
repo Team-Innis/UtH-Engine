@@ -39,10 +39,10 @@ bool DefaultScene::Init()
 	camera.SetSize(uthEngine.GetWindowResolution());
 	camera.SetPosition(0, 0);
 
-
-	CreateLayer("testi", 1);
-	CreateLayer("prkl", 0);
 	CreateLayer("monsu", 3);
+	CreateLayer("testi", 1);
+	CreateLayer("testi", 0);
+
 	GameObject* go = new GameObject();
 
 	Texture* texture = new Texture();
@@ -63,9 +63,7 @@ bool DefaultScene::Init()
 	go = new GameObject();
 	go->AddComponent(new AnimatedSprite(texture, 5, 4, 4, 1.f, 0, false, true));
 
-	((AnimatedSprite*)go->GetComponent("AnimatedSprite"))->ChangeAnimation(2, 4, 2, 1.0f, true, true);
-
-	//go->GetComponent("AnimatedSprite")
+	((AnimatedSprite*)go->GetComponent("AnimatedSprite"))->ChangeAnimation(2, 4, 2, 1.0f, false, true);
 
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(3, go);
@@ -82,18 +80,18 @@ bool DefaultScene::Init()
 		umath::vector2(2000, 2*PIXELS_PER_METER)));
 	go->transform.SetPosition(0, groundBody->GetPosition().y * PIXELS_PER_METER);
 	gameObjects.push_back(go);
-	AddGameObjectToLayer(1, go);
+	AddGameObjectToLayer(0, go);
 
 	go = new GameObject();
 	auto text = new Text("8bitoperator.ttf", 32);
 	text->AddText(L"!\"#$%&'()*+,-./0123456789:;<=     >?"
 				  L"\n@ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÅ[\\]^_"
 				  L"\n`abcdefghijklmnopqrstuvwxyzöäå{|}~", umath::vector4(0, 0, 0, 1));
-	text->AddText(L"\nPrkl!");
+	text->AddText(L"\nPrkl!", umath::vector4(1,0,0,1));
 	go->AddComponent(text);
 	go->transform.Move(-400, 200);
 	gameObjects.push_back(go);
-	AddGameObjectToLayer(0, go);
+	AddGameObjectToLayer(1, go);
 
     // render rtex
     rtexSprite = new GameObject();

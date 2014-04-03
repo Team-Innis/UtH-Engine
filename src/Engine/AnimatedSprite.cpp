@@ -106,7 +106,7 @@ void AnimatedSprite::Init()
 	const umath::vector2 size = umath::vector2(m_frameSize.x, m_frameSize.y);
 	parent->transform.SetSize(size);
 
-	testi = false;
+	loopEnd = false;
 }
 
 void AnimatedSprite::Update(float dt)
@@ -116,10 +116,10 @@ void AnimatedSprite::Update(float dt)
 	if (!m_loop)
 	{
 		if(m_frames == m_frameCount + 1) 
-			testi = true;
+			loopEnd = true;
 	}
 
-	if(m_delay > 1.0f / m_fps && !testi)
+	if(m_delay > 1.0f / m_fps && !loopEnd)
 	{
 		m_delay = 0.0f;
 		m_frameCount++;
