@@ -4,8 +4,8 @@ SRC_PATH := ../../src/
 include $(CLEAR_VARS)
 
 include $(CLEAR_VARS)
-LOCAL_MODULE := freetype2-prebuilt
-LOCAL_SRC_FILES := ../libs/libfreetype2-static.a
+LOCAL_MODULE := freetype
+LOCAL_SRC_FILES := ../libs/libfreetype.a
 include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
@@ -19,7 +19,7 @@ LOCAL_SRC_FILES := ../libs/libbox2d_static.a
 include $(PREBUILT_STATIC_LIBRARY)
 
 LOCAL_MODULE    := engine
-LOCAL_STATIC_LIBRARIES := android_native_app_glue engine libbox2d freetype2-prebuilt libfreetypegl
+LOCAL_STATIC_LIBRARIES := android_native_app_glue engine libbox2d freetype libfreetypegl
 LOCAL_SHARED_LIBRARIES := libopenal
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/openal/include/
