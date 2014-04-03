@@ -2,9 +2,9 @@
 #ifndef RIGIDBODY_H_UTH
 #define RIGIDBODY_H_UTH
 
-#include <UtH/Engine/Component.hpp>
 #include <Box2D/Box2D.h>
 #include <UtH/Math/Vector.hpp>
+#include <UtH/Engine/Component.hpp>
 
 namespace uth
 {
@@ -103,6 +103,7 @@ namespace uth
 
 		b2World* m_world;
 		b2Body* m_body;
+
 		// For resizing etc...
 		b2FixtureDef m_fixtureDef;
 		COLLIDER_TYPE m_collider;
