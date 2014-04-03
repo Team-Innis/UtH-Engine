@@ -148,11 +148,6 @@ void Transform::updateTransform()
 						 0,      0,					1.0f, 0,
 						 0,      0,					0,    1.0f);
 
-	/*umath::matrix4 translation(1.0f,       0,          0,     0,
-							   0,          1.0f,       0,     0,
-							   0,          0,          1.0f,  0,
-							   position.x, position.y, depth, 1.0f);*/
-
 	umath::matrix4 translation(1.0f,       0,          0,     position.x,
 							   0,          1.0f,       0,     position.y,
 							   0,          0,          1.0f,  0,

@@ -7,7 +7,7 @@ namespace uth
 	static double MOUSE_WHEEL_X = 0;
 	static double MOUSE_WHEEL_Y = 0;
 	
-	void scroll(GLFWwindow *window, double x, double y)
+	void scroll(GLFWwindow*, double x, double y)
 	{
 		MOUSE_WHEEL_X += x;
 		MOUSE_WHEEL_Y += y;
