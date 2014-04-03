@@ -1,10 +1,12 @@
 #include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/Debug.hpp>
+
 #include <cassert>
-#include <cstdlib>
+#include <cstdlib> // malloc
 #include <string>
-#include <UtH\Platform\Debug.hpp>
 
 using namespace uth;
+
 
 bool FileReader::isCompressed = false;
 FileReader::FileReader()
@@ -63,7 +65,7 @@ void FileReader::CloseFile()
 	}
 	else if (file)
     {
-		fclose(file);
+		std::fclose(file);
         file = NULL;
     }
 }
@@ -78,9 +80,9 @@ int FileReader::GetFileSize()
 	}
 	else
 	{
-		fseek(file, 0, SEEK_END);
-		size = ftell(file);
-		fseek(file, 0, SEEK_SET);
+		std::fseek(file, 0, SEEK_END);
+		size = std::ftell(file);
+		std::fseek(file, 0, SEEK_SET);
 	}
 	return size;
 }
@@ -136,7 +138,7 @@ void* FileReader::ReadBinary()
 {
 	int size = GetFileSize();
 	void* buffer;
-	buffer = malloc(size);
+	buffer = std::malloc(size);
 	if(!ReadBytes(buffer, size))
 		return nullptr;
 	
