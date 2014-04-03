@@ -1,4 +1,4 @@
-#include "UtH/Engine/DefaultScene.hpp"
+#include <UtH/Engine/DefaultScene.hpp>
 #include <UtH/Engine/Sprite.hpp>
 #include <UtH/Engine/AnimatedSprite.hpp>
 #include <UtH/Engine/Text.hpp>
@@ -88,8 +88,8 @@ bool DefaultScene::Init()
 	go = new GameObject();
 	auto text = new Text("8bitoperator.ttf", 32);
 	text->AddText(L"!\"#$%&'()*+,-./0123456789:;<=     >?"
-				  L"\n@ABCDEFGHIJKLMNOPQRSTUVWXYZÖÄÅ[\\]^_"
-				  L"\n`abcdefghijklmnopqrstuvwxyzöäå{|}~", umath::vector4(0, 0, 0, 1));
+				  L"\n@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
+				  L"\n`abcdefghijklmnopqrstuvwxyz{|}~", umath::vector4(0, 0, 0, 1));
 	text->AddText(L"\nPrkl!", umath::vector4(1,0,0,1));
 	go->AddComponent(text);
 	go->transform.Move(-400, 200);
@@ -103,7 +103,8 @@ bool DefaultScene::Init()
     //rtexSprite->transform.SetScale(umath::vector2(0.5f, 0.5f));
 
     obj = new GameObject();
-    obj->AddComponent(new Sprite("test.tga"));
+    //obj->AddComponent(new Sprite("test.tga"));
+    obj->AddComponent(new Sprite(umath::vector4(1, 1, 1, 1), umath::vector2(100,100)));
     obj->transform.SetPosition(0, 0);
 
 	WriteLog("GameObjects: %d\n", gameObjects.size());
@@ -136,7 +137,6 @@ bool DefaultScene::Update(float dt)
 {
     const float offset = 75.f * dt;
 
-
     camera.Rotate(-offset);
     rtexSprite->transform.Rotate(offset);
 
@@ -151,11 +151,11 @@ bool DefaultScene::Update(float dt)
 		WriteLog("Impulse!\n");
 	}*/
 
-	auto rigidBody = static_cast<Rigidbody*>(gameObjects.at(0)->GetComponent("Rigidbody"));
+	//auto rigidBody = static_cast<Rigidbody*>(gameObjects.at(0)->GetComponent("Rigidbody"));
 
-	const float speed = 5.f;
+	//const float speed = 5.f;
 
-
+/*
 	if(GetAsyncKeyState(VK_LEFT))
 	{
 		umath::vector2 curV = rigidBody->GetVelocity();
@@ -177,7 +177,7 @@ bool DefaultScene::Update(float dt)
 	{
 		umath::vector2 curV = rigidBody->GetVelocity();
 		rigidBody->SetVelocity(umath::vector2(curV.x, speed));
-	}
+	}*/
 
 
 	const float timeStep = 1.f/60.f;
@@ -192,13 +192,13 @@ bool DefaultScene::Update(float dt)
 	return true;
 }
 bool DefaultScene::Draw()
-{	
+{
     obj->Draw(uthEngine.GetWindow());
     //glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     rtex.Clear(0, 0, 1, 1);
-	for(size_t i = 0; i < layers.size(); i++)
-        layers.at(i)->Draw(rtex);
+ 	for(size_t i = 0; i < layers.size(); i++)
+         layers.at(i)->Draw(rtex);
 
     rtex.Update();
     rtex.GetTexture();

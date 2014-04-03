@@ -1,4 +1,4 @@
-#include <UtH/Platform/Win32/InputBase.hpp>
+#include <UtH/Platform/Common/InputBase.hpp>
 #include <GLFW/glfw3.h>
 
 using namespace uth;

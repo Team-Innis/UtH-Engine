@@ -4,15 +4,10 @@
 #include <UtH/Platform/Graphics.hpp>
 
 
-#if defined(UTH_SYSTEM_WINDOWS)
+#if defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX)
 
-#include <UtH/Platform/Win32/Win32WindowImpl.hpp>
-typedef uth::Win32WindowImpl WindowImpl;
-
-#elif defined(UTH_SYSTEM_LINUX)
-
-#include <UtH/Platform/Linux/LinuxWindowImpl.hpp>
-typedef uth::LinuxWindowImpl WindowImpl;
+#include <UtH/Platform/Common/CommonWindowImpl.hpp>
+typedef uth::CommonWindowImpl WindowImpl;
 
 #elif defined(UTH_SYSTEM_ANDROID)
 

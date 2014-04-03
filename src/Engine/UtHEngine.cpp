@@ -3,12 +3,14 @@
 #include <UtH/Engine/SceneManager.hpp>
 
 #include <UtH/Platform/Graphics.hpp>
-#include <UtH/Platform/Window.hpp> 
+#include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/Input.hpp>
+
+#include <iostream>
 
 using namespace uth;
 
-UTHEngine::UTHEngine() 
+UTHEngine::UTHEngine()
 { }
 
 bool UTHEngine::Init()
@@ -19,7 +21,7 @@ bool UTHEngine::Init()
 	m_wsettings.contextVersionMinor = 3;
     m_wsettings.fullScreen = false;
 	m_wsettings.useVsync = true;
-	
+
 	return initialize();
 }
 
@@ -59,11 +61,11 @@ bool UTHEngine::initialize()
 	uth::Graphics::SetBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 	UTHInput.SetWindow(m_wndw->m_windowHandle);
 	m_running = true;
-	
+
 	return true;
 }
 
-const Timer UTHEngine::Timer() const
+const Timer UTHEngine::timer() const
 {
 	return m_timer;
 }
@@ -73,7 +75,7 @@ const umath::vector2 UTHEngine::GetWindowResolution() const
 	return m_wsettings.size;
 }
 
-const bool UTHEngine::Running() const 
+const bool UTHEngine::Running() const
 {
 	return m_running;
 }

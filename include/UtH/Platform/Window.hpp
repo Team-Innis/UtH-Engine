@@ -36,7 +36,7 @@ namespace uth
         void* m_windowHandle;
 
     private:
-        
+
         bool bind();
 
         WindowSettings m_windowSettings;

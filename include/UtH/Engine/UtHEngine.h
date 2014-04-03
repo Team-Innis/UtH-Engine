@@ -35,7 +35,7 @@ namespace uth
 	
 		const umath::vector2 GetWindowResolution() const;
 		const bool Running() const;
-		const Timer Timer() const;
+		const Timer timer() const;
 	};
 }
 

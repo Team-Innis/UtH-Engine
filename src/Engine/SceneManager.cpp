@@ -26,8 +26,8 @@ namespace uth
 	}
 
 	SceneManager::SceneManager()
-		: m_pendingSceneSwitch(true),
-		  m_nextScene(UTHDefaultScene)
+		: m_nextScene(UTHDefaultScene),
+		  m_pendingSceneSwitch(true)
 	{
 		registerNewSceneFunc(defaultNewSceneFunc, 3);
 	}

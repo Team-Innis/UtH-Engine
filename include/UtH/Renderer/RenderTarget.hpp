@@ -50,12 +50,15 @@ namespace uth
         umath::rectangle m_viewport;
 
 
+        bool m_loaded, m_set;
+
+
     protected:
 
         RenderTarget();
 
         virtual ~RenderTarget(){};
-        
+
         const unsigned int m_uniqueID;
 
     };

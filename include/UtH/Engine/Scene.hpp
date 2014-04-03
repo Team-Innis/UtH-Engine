@@ -18,7 +18,7 @@ namespace uth
 	public:
 		friend class SceneManager;
 		Scene();
-		~Scene();
+		virtual ~Scene();
 
 		virtual bool Init() = 0;
 		virtual bool DeInit() = 0;

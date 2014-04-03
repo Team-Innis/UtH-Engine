@@ -4,22 +4,22 @@ using namespace uth;
 
 Layer::Layer()
 	: layerName(""),
-	  objectCount(0),
-	  layerId(0)
+	  layerId(0),
+	  objectCount(0)
 {
 }
 
 Layer::Layer(const int layerId)
 	: layerName(""),
-	  objectCount(0),
-	  layerId(layerId)
+	  layerId(layerId),
+	  objectCount(0)
 {
 }
 
 Layer::Layer(const char* layerName, const int layerId)
 	: layerName(layerName),
-	  objectCount(0),
-	  layerId(layerId)
+	  layerId(layerId),
+	  objectCount(0)
 {
 }
 
