@@ -25,21 +25,21 @@ namespace uth
 		bool AddGameObject(GameObject* gameObject);
 		bool RemoveGameObject(GameObject* gameObject);
 
-		void Draw(Shader* shader, Camera* camera);
+		void Update(float dt);
+		void Draw(RenderTarget& target);
 
 		void SetObjectsActive(bool value);
 
 		Transform transform;
 
+	private:
 		void UpdateTransform();
 
-
-	private:
 		std::vector<GameObject*> m_objects;
 
 		const char* layerName;
 		const int layerId;
-		int objectCount;
+		unsigned int objectCount;
 	};
 }
 #endif

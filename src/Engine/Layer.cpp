@@ -3,17 +3,15 @@
 using namespace uth;
 
 Layer::Layer()
-	: layerName(NULL),
-	  objectCount(NULL),
-	  m_objects(NULL),
-	  layerId(NULL)
+	: layerName(""),
+	  objectCount(0),
+	  layerId(0)
 {
 }
 
 Layer::Layer(const int layerId)
-	: layerName(NULL),
+	: layerName(""),
 	  objectCount(0),
-	  m_objects(NULL),
 	  layerId(layerId)
 {
 }
@@ -21,13 +19,13 @@ Layer::Layer(const int layerId)
 Layer::Layer(const char* layerName, const int layerId)
 	: layerName(layerName),
 	  objectCount(0),
-	  m_objects(NULL),
 	  layerId(layerId)
 {
 }
 
 Layer::~Layer()
 {
+	m_objects.clear();
 }
 
 void Layer::SetLayerName(const char* layerName)
@@ -59,7 +57,7 @@ bool Layer::AddGameObject(GameObject* gameObject)
 bool Layer::RemoveGameObject(GameObject* gameObject)
 {
 	std::vector<GameObject*>::iterator it;
-	for(it = m_objects.begin(); it != m_objects.end(); it++)
+	for(it = m_objects.begin(); it != m_objects.end(); ++it)
 	{
 		if((*it) == gameObject)
 		{
@@ -71,18 +69,28 @@ bool Layer::RemoveGameObject(GameObject* gameObject)
 	return false;
 }
 
-void Layer::Draw(Shader* shader, Camera* camera)
+void Layer::Update(float dt)
 {
-	for(int i = 0; i < m_objects.size(); i++)
+	for(size_t i = 0; i < m_objects.size(); ++i)
 	{
-		if(m_objects.at(i)->transform.GetActive())
-			m_objects.at(i)->Draw(shader, camera);
+		m_objects.at(i)->Update(dt);
+	}
+
+	UpdateTransform();
+}
+
+void Layer::Draw(RenderTarget& target)
+{
+    for(size_t i = 0; i < m_objects.size(); ++i)
+	{
+		if(m_objects.at(i)->transform.IsActive())
+			m_objects.at(i)->Draw(target);
 	}
 }
 
 void Layer::SetObjectsActive(bool value)
 {
-	for(int i = 0; i < m_objects.size(); i++)
+	for(size_t i = 0; i < m_objects.size(); ++i)
 	{
 		m_objects.at(i)->transform.SetActive(value);
 		//m_objects.at(i)->transform.SetDrawable(value);
@@ -91,9 +99,14 @@ void Layer::SetObjectsActive(bool value)
 
 void Layer::UpdateTransform()
 {
-	for(int i = 0; i < m_objects.size(); i++)
+	
+	for(size_t i = 0; i < m_objects.size(); ++i)
 	{
+		m_objects.at(i)->transform.AddTransform(transform.GetTransform());
+		/*
 		m_objects.at(i)->transform.SetTransform(transform.GetTransform() *
 			m_objects.at(i)->transform.GetTransform());
+			*/
 	}
+	
 }

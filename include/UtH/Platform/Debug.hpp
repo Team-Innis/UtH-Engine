@@ -23,11 +23,18 @@
 	#ifndef LOGE
 		#define LOGE(...)	__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 	#endif
+	static void WriteError(const char* text, ...)
+	{
+		va_list v;
+		va_start(v, text);
+		LOGE(text, v);
+		va_end(v);
+	}
 	static void WriteLog(const char* text, ...)
 	{
 		va_list v;
 		va_start(v, text);
-		__android_log_vprint(ANDROID_LOG_INFO, LOG_TAG, text, v);
+		LOGI(text, v);
 		va_end(v);
 	}
 
@@ -36,49 +43,60 @@
 		EGLint error = eglGetError();
 		if(error != EGL_SUCCESS)
 		{
-			WriteLog("EGL Function Failed: %d", error);
+			WriteLog("EGL Function Failed: %d\n", error);
 		}
 	}
 #elif defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX)
+	static void WriteError(const char* text, ...)
+	{
+		va_list v;
+		va_start(v, text);
+		printf(	
+				"\n********ERROR********"
+				"\n");
+		vprintf(text, v);
+		va_end(v);
+		printf(
+				"\n*********************"
+				"\n\n");
+
+		//assert(false);  //GL_INVALID_ENUM would crash
+	}
 	static void WriteLog(const char* text, ...)
 	{
+	#ifdef _DEBUG
 		va_list v;
 		va_start(v, text);
 		vprintf(text, v);
 		va_end(v);
+	#endif
 	}
 #endif
 
-static void PrintGLString(const char* name, GLenum s)
+static inline void PrintGLString(const char* name, GLenum s)
 {
 	const char *v = (const char *) glGetString(s);
 
 	WriteLog("GL %s = %s\n", name, v);
 }
 
-static void CheckGLError(const char* op)
+static inline void CheckGLError(const char* op)
 {
 	for (GLint error = glGetError(); error; error
 		= glGetError()) {
 			
-			WriteLog("after %s() glError (0x%x)\n", op, error);
+			WriteError("after %s() glError (0x%x)", op, error);
 	}
 }
 
-static void CheckALError(const char* op)
+static inline void CheckALError(const char* op)
 {
 	
 	for(ALCenum error = alGetError(); error != AL_NO_ERROR; error = alGetError())
 	{
-		WriteLog("after %s() glError (0x%x)\n", op, error);
+		WriteError("after %s() glError (0x%x)", op, error);
 	}
 	
-	WriteLog("after %s() glError (0x%x)\n", op);
+	WriteError("after %s() glError (0x%x)", op);
 }
-
-static void Win32Assert(int expression)
-{
-	assert(expression);
-}
-
 #endif

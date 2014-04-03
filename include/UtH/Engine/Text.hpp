@@ -8,6 +8,7 @@
 
 // Forward declaration so we dont need to include the ugly C headers
 struct texture_atlas_t;
+struct texture_font_t;
 
 namespace uth
 {
@@ -18,14 +19,13 @@ namespace uth
 		~Text();
 
 		// Sets the text
-		void SetText(const std::wstring& text, umath::vector4& color = umath::vector4(1, 1, 1, 1));
+		void SetText(const std::wstring& text, umath::vector4 color = umath::vector4(1, 1, 1, 1));
 		// Adds to the current text
-		void AddText(const std::wstring& text, umath::vector4& color = umath::vector4(1, 1, 1, 1));
+		void AddText(const std::wstring& text, umath::vector4 color = umath::vector4(1, 1, 1, 1));
 		// Return current text
 		const std::wstring& GetText() const;
 
-		void Update(float dt);
-		void Draw(Shader* shader, Camera* camera);
+		void Draw(RenderTarget& target);
 
 	private:
 		Text();
@@ -34,13 +34,13 @@ namespace uth
 
 		VertexBuffer m_vertexBuffer;
 
-		std::string m_path;
 		const float m_fontSize;
 
 		std::wstring m_text;
 		umath::vector2 m_lastPos;
 
 		texture_atlas_t* m_atlas;
+		texture_font_t* m_font;
 	};
 }
 

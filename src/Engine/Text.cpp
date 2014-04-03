@@ -1,10 +1,12 @@
 #include <cmath>
-#include <UtH/Engine/Text.hpp>
 #include <freetype-gl/freetype-gl.h>
+
+#include <UtH/Engine/Text.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Engine/GameObject.hpp>
-#include <UtH/Renderer/Camera.hpp>
 #include <UtH/Platform/Debug.hpp>
+#include <UtH/Renderer/RenderTarget.hpp>
+#include <UtH/Resources/ResourceManager.h>
 
 using namespace uth;
 
@@ -12,23 +14,25 @@ Text::Text(const std::string& fontPath, const float fontSize, const std::string&
 	: Component(name),
 	  m_fontSize(fontSize)
 {
-	SetDrawable(true);
-	m_path = "assets/" + fontPath;
-
 	m_textShader.LoadShader("shaders/text.vert", "shaders/text.frag");
 
 	m_atlas = texture_atlas_new(1024, 1024, 1);
+
+	auto& data = uthRS.LoadFont(fontPath).GetFontData();
+
+	m_font = texture_font_new_from_memory(m_atlas, fontSize, data.fontData, data.dataSize);
 }
 
 Text::~Text()
 {
+	texture_font_delete(m_font);
 	texture_atlas_delete(m_atlas);
 }
 
 
 // Public
 
-void Text::SetText(const std::wstring& text, umath::vector4& color)
+void Text::SetText(const std::wstring& text, umath::vector4 color)
 {
 	m_vertexBuffer.clear();
 	m_lastPos = umath::vector2(0, 0);
@@ -37,11 +41,11 @@ void Text::SetText(const std::wstring& text, umath::vector4& color)
 	AddText(text, color);
 }
 
-void Text::AddText(const std::wstring& text, /*const float size, umath::vector2& position,*/ umath::vector4& color)
+void Text::AddText(const std::wstring& text, umath::vector4 color)
 {
 	m_text += text;
 
-	texture_font_t* font = texture_font_new_from_file(m_atlas, m_fontSize, m_path.c_str());
+	texture_font_load_glyphs(m_font, text.c_str());
 
 	bool newLine = false;
 	umath::vector2 pos = m_lastPos; //= position;
@@ -56,20 +60,20 @@ void Text::AddText(const std::wstring& text, /*const float size, umath::vector2&
 			pos.x = 0;
 		}
 		else
-			glyph = texture_font_get_glyph(font, text.at(i));
+			glyph = texture_font_get_glyph(m_font, text.at(i));
 
 		if (glyph != nullptr)
 		{
-			int kerning = 0;
+			float kerning = 0.f;
 			if (i > 0 && !newLine)
 				kerning = texture_glyph_get_kerning(glyph, text.at(i - 1));
 
 			pos.x += kerning;
 
-			const int x0 = pos.x + glyph->offset_x;
-			const int y0 = pos.y - glyph->offset_y;
-			const int x1 = x0 + glyph->width;
-			const int y1 = y0 + glyph->height;
+			const float x0 = pos.x + glyph->offset_x;
+			const float y0 = pos.y - glyph->offset_y;
+			const float x1 = x0 + glyph->width;
+			const float y1 = y0 + glyph->height;
 			
 			const float s0 = glyph->s0; // Top left x
 			const float t0 = glyph->t0; // Top left y
@@ -98,8 +102,6 @@ void Text::AddText(const std::wstring& text, /*const float size, umath::vector2&
 	}
 
 	m_lastPos = pos;
-
-	texture_font_delete(font);
 }
 
 const std::wstring& Text::GetText() const
@@ -107,20 +109,32 @@ const std::wstring& Text::GetText() const
 	return m_text;
 }
 
-void Text::Update(float dt)
-{
-	// No need for update
-}
-
-void Text::Draw(Shader* shader, Camera* camera)
+void Text::Draw(RenderTarget& target)
 {
 	m_textShader.Use();
 
-	uthGraphics.bindTexture(TEXTURE_2D, m_atlas->id);
+	uth::Graphics::BindTexture(TEXTURE_2D, m_atlas->id);
 	m_textShader.SetUniform("unifSampler", 0);
 
 	m_textShader.SetUniform("unifModel", parent->transform.GetTransform());
-	m_textShader.SetUniform("unifProjection", camera->GetProjectionTransform());
+    //m_textShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
 
-	m_vertexBuffer.draw(&m_textShader);
+	m_vertexBuffer.bindArrayBuffer();
+	// (position + uv + color) * sizeof(float)
+	const int posOffset = (3 + 2 + 4)*sizeof(float);
+	// position * sizeof(float)
+	const int uvStart = 3*sizeof(float);
+	// (position + uv) * sizeof(float)
+	const int colorStart = (3 + 2)*sizeof(float);
+
+	// Attribute name, number of components, datatype, bytes between first elements,
+	// offset of first element in buffer
+	m_textShader.setAttributeData("attrPosition", 3, FLOAT_TYPE, posOffset, (void*)0);
+	m_textShader.setAttributeData("attrUV", 2, FLOAT_TYPE, posOffset, (void*)uvStart);
+	m_textShader.setAttributeData("attrColor", 4, FLOAT_TYPE, posOffset, (void*)colorStart);
+
+    m_vertexBuffer.bindElementBuffer();
+    uth::Graphics::DrawElements(TRIANGLES, m_vertexBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
+
+	uth::Graphics::BindBuffer(ARRAY_BUFFER, 0);
 }

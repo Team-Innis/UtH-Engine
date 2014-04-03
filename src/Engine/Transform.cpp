@@ -3,14 +3,15 @@
 
 using namespace uth;
 
-Transform::Transform(const std::string name)
+Transform::Transform(const std::string& name)
 	: Component(name),
 	  position(0, 0),
 	  size(1, 1),
+	  scale(1, 1),
 	  angle(0),     
 	  depth(0),
-	  m_transformNeedsUpdate(false)
-
+	  m_transformNeedsUpdate(true),
+	  transformNeedsUpdate(true)
 { }
 
 Transform::~Transform()
@@ -18,7 +19,7 @@ Transform::~Transform()
 
 // Public
 
-void Transform::Move(umath::vector2 offset)
+void Transform::Move(const umath::vector2& offset)
 {
 	position += offset;
 	m_transformNeedsUpdate = true;
@@ -29,7 +30,7 @@ void Transform::Move(float offsetX, float offsetY)
 	Move(umath::vector2(offsetX, offsetY));
 }
 
-void Transform::SetPosition(umath::vector2 position)
+void Transform::SetPosition(const umath::vector2& position)
 {
 	this->position = position;
 	m_transformNeedsUpdate = true;
@@ -45,7 +46,7 @@ const umath::vector2& Transform::GetPosition() const
 	return position;
 }
 
-void Transform::SetSize(umath::vector2 size)
+void Transform::SetSize(const umath::vector2& size)
 {
 	this->size = size;
 	m_transformNeedsUpdate = true;
@@ -59,6 +60,22 @@ void Transform::SetSize(float width, float height)
 const umath::vector2& Transform::GetSize() const
 {
 	return size;
+}
+
+void Transform::SetScale(const umath::vector2& scale)
+{
+	this->scale = scale;
+	m_transformNeedsUpdate = true;
+}
+
+void Transform::SetSclae(float xScale, float yScale)
+{
+	SetScale(umath::vector2(xScale, yScale));
+}
+
+const umath::vector2& Transform::GetScale() const
+{
+	return scale;
 }
 
 void Transform::SetRotation(float angle)
@@ -90,9 +107,17 @@ const float Transform::GetDepth() const
 	return depth;
 }
 
-void Transform::SetTransform(umath::matrix4 modelTransform)
+void Transform::SetTransform(const umath::matrix4& modelTransform)
 {
 	m_modelTransform = modelTransform;
+}
+
+void Transform::AddTransform(const umath::matrix4& modelTransform)
+{
+	m_transformNeedsUpdate = true;
+	updateTransform();
+
+	m_modelTransform = modelTransform * m_modelTransform;
 }
 
 const umath::matrix4& Transform::GetTransform()
@@ -118,10 +143,10 @@ void Transform::updateTransform()
 							0,      0,      1.0f, 0,
 							0,      0,      0,    1.0f);
 				
-	umath::matrix4 scale(size.x, 0,      0,    0,
-						 0,      size.y, 0,    0,
-						 0,      0,      1.0f, 0,
-						 0,      0,      0,    1.0f);
+	umath::matrix4 scale(size.x * scale.x,	   0,   0,    0,
+						 0,      size.y * scale.y,  0,    0,
+						 0,      0,					1.0f, 0,
+						 0,      0,					0,    1.0f);
 
 	/*umath::matrix4 translation(1.0f,       0,          0,     0,
 							   0,          1.0f,       0,     0,
@@ -133,6 +158,15 @@ void Transform::updateTransform()
 							   0,          0,          1.0f,  0,
 							   0,		   0,		   0,	  1.0f);
 
-	m_modelTransform = scale * rotation * translation;
+#ifndef _DEBUG
+	if(transformNeedsUpdate)
+	{
+		rotation*scale;
+		transformNeedsUpdate = false;
+	}
+#endif
+
+
+	m_modelTransform = translation * rotation * scale;
 	m_transformNeedsUpdate = false;
 }

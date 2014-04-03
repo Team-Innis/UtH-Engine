@@ -2,8 +2,11 @@
 #ifndef DEFAULTSCENE_H_UTH
 #define DEFAULTSCENE_H_UTH
 
+#include <vector>
 #include <UtH/Engine/Scene.hpp>
 #include <UtH/Renderer/Camera.hpp>
+#include <UtH/Platform/HiResTimer.hpp>
+#include <UtH/Renderer/RenderTexture.hpp>
 
 namespace uth
 {
@@ -17,15 +20,24 @@ namespace uth
 		virtual bool Init();
 		virtual bool DeInit();
 
-		virtual bool Update(double dt);
+		virtual bool Update(float dt);
 		virtual bool Draw();
 	protected:
-		Shader shader;
+		Shader* shader;
 		Camera camera;
-		GameObject gameObject, textObject;
-		GameObject gameObject2;
+
+		std::vector<GameObject*> gameObjects;
+        RenderTexture rtex;
+
+        GameObject* rtexSprite;
+
+        GameObject* obj;
 
 		int number;
+
+		Timer timer;
+
+		b2Body* groundBody;
 	};
 }
 

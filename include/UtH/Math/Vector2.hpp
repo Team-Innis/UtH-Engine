@@ -24,7 +24,7 @@ namespace umath
 			/*
 			Transforms the current vector by given position vector.
 			*/
-			void Transform(const vector2 Position);
+			void Transform(const vector2& Position);
 			/*
 			Rotates the current vector by given amount of degrees.
 			*/
@@ -36,7 +36,7 @@ namespace umath
 			/*
 			Scales the current vector by given scale vector.
 			*/
-			void Scale(const vector2 Scale);
+			void Scale(const vector2& Scale);
 
 			union
 			{

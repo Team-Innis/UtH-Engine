@@ -1,6 +1,8 @@
 #include <UtH/Platform/Win32/Win32WindowImpl.hpp>
 #include <UtH/Platform/OpenGL.hpp>
 #include <UtH/Platform/OGLCheck.hpp>
+#include <UtH/Platform/Debug.hpp>
+#include <UtH/Platform/Graphics.hpp>
 #include <iostream>
 
 
@@ -45,6 +47,7 @@ namespace uth
         glfwWindowHint(GLFW_DEPTH_BITS, settings.useDepthBuffer ? 16 : 0);
         glfwWindowHint(GLFW_STENCIL_BITS, settings.useStencilBuffer ? 8 : 0);
         glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
+        glfwWindowHint(GLFW_SAMPLES, settings.antialiasingSamples);
 
         int majorVer = settings.contextVersionMajor == 0 ? 4 : settings.contextVersionMajor,
             minorVer = settings.contextVersionMajor == 0 ? 4 : settings.contextVersionMinor;
@@ -54,7 +57,7 @@ namespace uth
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, majorVer);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minorVer);
 
-            wndwHandle = glfwCreateWindow(settings.size.w, settings.size.h, settings.title.c_str(), settings.fullScreen ? glfwGetPrimaryMonitor() : NULL, NULL);
+            wndwHandle = glfwCreateWindow((int)settings.size.w, (int)settings.size.h, settings.title.c_str(), settings.fullScreen ? glfwGetPrimaryMonitor() : NULL, NULL);
 
             if (--minorVer < 0)
             {
@@ -74,12 +77,24 @@ namespace uth
         ++windowRefs;
         glfwMakeContextCurrent(wndwHandle);
 
-        glfwSetWindowPos(wndwHandle, settings.position.x, settings.position.y);
+        glfwSetWindowPos(wndwHandle, (int)settings.position.x, (int)settings.position.y);
         glfwSwapInterval(settings.useVsync ? 1 : 0);
-
-		std::cout << "glew init might produces GL_INVALID_ENUM error. Just ignore it" << std::endl;
+        
+		//std::cout << "glew init might produce GL_INVALID_ENUM error. Just ignore it" << std::endl;
 		glewExperimental = GL_TRUE;
-        oglCheck(glewInit());
+
+        /////////////////////////////
+        CheckGLError("before glewInit");
+        glewInit();
+        GLenum errCode = glGetError();
+        if (errCode != GL_INVALID_ENUM && errCode != GL_NO_ERROR)
+        {
+            WriteError("Window creation failed!!! D:");
+            assert(false);
+        }
+
+        //oglCheck(glewInit());
+        ////////////////////////////
 
 		if(majorVer >= 3)
         {
@@ -108,20 +123,9 @@ namespace uth
     }
 
 
-    void Win32WindowImpl::clear(const bool clearDepth, const bool clearStencil, const float r, const float g, const float b, const float a)
+    void Win32WindowImpl::clear(const float r, const float g, const float b, const float a)
     {
-        oglCheck(glClear(GL_COLOR_BUFFER_BIT |
-                         GL_DEPTH_BUFFER_BIT |
-                         GL_STENCIL_BUFFER_BIT));
-		oglCheck(glClearColor(r, g, b, a));
-
-        if (!clearDepth) return;
-			
-        oglCheck(glClearDepth(1));
-
-        if (!clearStencil) return;
-
-        oglCheck(glClearStencil(1));
+        uth::Graphics::Clear(r, g, b, a);
     }
 
     void Win32WindowImpl::swapBuffers(void* handle)
@@ -137,6 +141,6 @@ namespace uth
 
 		glfwPollEvents();
 
-		return glfwWindowShouldClose(static_cast<GLFWwindow*>(handle));
+		return glfwWindowShouldClose(static_cast<GLFWwindow*>(handle)) != 0;
 	}
 }

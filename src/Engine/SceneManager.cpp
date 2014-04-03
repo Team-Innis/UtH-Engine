@@ -41,7 +41,7 @@ namespace uth
 	{
 		if (!(UTHDefaultScene <= SceneID && SceneID < sceneCount))
 		{
-			WriteLog("Error when scene %d switching to %d, number out of range, switching to default scene\n",m_sceneID, m_nextScene);
+			WriteError("Error when scene %d switching to %d, number out of range, switching to default scene",m_sceneID, m_nextScene);
 			m_sceneID = -1;
 			return;
 		}
@@ -49,14 +49,14 @@ namespace uth
 		m_nextScene = SceneID;
 	}
 
-	bool SceneManager::Update(double dt)
+	bool SceneManager::Update(float dt)
 	{
 		if (m_pendingSceneSwitch)
 			m_switchScene();
 
 		if (!curScene->Update(dt))
 		{
-			WriteLog("Scene %d Update() func returns false\n",m_sceneID);
+			WriteError("Scene %d Update() func returns false",m_sceneID);
 			return false;
 		}
 		return true;
@@ -65,7 +65,7 @@ namespace uth
 	{
 		if (!curScene->Draw())
 		{
-			WriteLog("Scene %d Draw() func returns false\n",m_sceneID);
+			WriteError("Scene %d Draw() func returns false",m_sceneID);
 			return false;
 		}
 		return true;
@@ -81,7 +81,7 @@ namespace uth
 	void SceneManager::endScene()
 	{
 		if (!curScene->DeInit())
-			WriteLog("Scene %d DeInit() func returns false\n",m_sceneID);
+			WriteError("Scene %d DeInit() func returns false",m_sceneID);
 		delete curScene;
 	}
 	void SceneManager::startScene()
@@ -90,7 +90,7 @@ namespace uth
 			m_sceneID = m_nextScene;
 		else
 		{
-			WriteLog("Scene %d Init() func returns false\n",m_sceneID);
+			WriteError("Scene %d Init() func returns false",m_sceneID);
 			m_nextScene = -1;
 			m_switchScene();
 		}

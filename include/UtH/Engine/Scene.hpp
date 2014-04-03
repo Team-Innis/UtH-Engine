@@ -5,11 +5,14 @@
 #include <UtH/Core/Shader.hpp>
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Engine/Layer.hpp>
+#include <Box2D/Box2D.h>
 
 #include <vector>
 
 namespace uth
 {
+	const float GRAVITY = 10.f;
+
 	class Scene
 	{
 	public:
@@ -20,12 +23,11 @@ namespace uth
 		virtual bool Init() = 0;
 		virtual bool DeInit() = 0;
 
-		virtual bool Update(double dt) = 0;
+		virtual bool Update(float dt) = 0;
 		virtual bool Draw() = 0;	
 
 	protected:
 		//LAYERS
-		bool CreateLayer(const char* layerName);
 		bool CreateLayer(const int layerId);
 		bool CreateLayer(const char* layerName, const int layerId);
 		void SetLayerActive(const char* layerName, bool active);
@@ -36,9 +38,16 @@ namespace uth
 		bool RemoveGameObjectFromLayer(int LayerId, GameObject* gameObject);
 
 		std::vector<Layer*> layers;
-		int layersCount;
+		unsigned int layersCount;
 
 		GameObject layer;
+
+		b2World world;
+
+	private:
+
+		int createLayerWithAnotherID();
+		void arrangeLayers(); // Sort layers by their ID
 	};
 }
 

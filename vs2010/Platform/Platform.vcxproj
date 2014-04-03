@@ -25,10 +25,11 @@
     <ClInclude Include="..\..\include\UtH\Platform\Singleton.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Typedefs.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Uncopyable.hpp" />
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\CommonInput.hpp" />
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\KeyboardInput.hpp" />
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\MouseInput.hpp" />
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\TouchInput.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputBase.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputCommon.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputKeyboard.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputMouse.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputTouch.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Win32\Win32WindowImpl.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Window.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\WindowSettings.hpp" />
@@ -39,22 +40,13 @@
     <ClCompile Include="..\..\src\Platform\HiResTimer.cpp" />
     <ClCompile Include="..\..\src\Platform\Input.cpp" />
     <ClCompile Include="..\..\src\Platform\OGLCheck.cpp" />
-    <ClCompile Include="..\..\src\Platform\Win32\CommonInput.cpp" />
-    <ClCompile Include="..\..\src\Platform\Win32\KeyboardInput.cpp" />
-    <ClCompile Include="..\..\src\Platform\Win32\MouseInput.cpp" />
-    <ClCompile Include="..\..\src\Platform\Win32\TouchInput.cpp" />
+    <ClCompile Include="..\..\src\Platform\Win32\InputBase.cpp" />
+    <ClCompile Include="..\..\src\Platform\Win32\InputCommon.cpp" />
+    <ClCompile Include="..\..\src\Platform\Win32\InputKeyboard.cpp" />
+    <ClCompile Include="..\..\src\Platform\Win32\InputMouse.cpp" />
+    <ClCompile Include="..\..\src\Platform\Win32\InputTouch.cpp" />
     <ClCompile Include="..\..\src\Platform\Win32\Win32WindowImpl.cpp" />
     <ClCompile Include="..\..\src\Platform\Window.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\UMath\UMath.vcxproj">
-      <Project>{d16755ab-9f02-42c3-849d-acdd08e550ca}</Project>
-      <Private>true</Private>
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{18249A2B-04BC-4CC3-88DF-CD8C3E945692}</ProjectGuid>
