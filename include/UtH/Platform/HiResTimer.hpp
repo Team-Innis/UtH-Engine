@@ -7,7 +7,7 @@
 #if defined(UTH_SYSTEM_WINDOWS)
 #include <windows.h>
 
-#elif defined(UTH_SYSTEM_ANDROID) || defined(UTH_)
+#elif  defined(UTH_SYSTEM_LINUX) ||  defined(UTH_SYSTEM_ANDROID)
 #include <sys/time.h>
 #endif
 
@@ -48,7 +48,7 @@ namespace uth
 		LARGE_INTEGER m_startCount;
 		LARGE_INTEGER m_curCount;
 
-#elif defined(UTH_SYSTEM_ANDROID)
+#elif defined(UTH_SYSTEM_LINUX) || defined(UTH_SYSTEM_ANDROID)
 		timeval m_startCount;
 		timeval m_curCount;
 

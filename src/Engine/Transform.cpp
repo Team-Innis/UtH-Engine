@@ -142,8 +142,8 @@ void Transform::updateTransform()
 							sine,   cosine, 0,    0,
 							0,      0,      1.0f, 0,
 							0,      0,      0,    1.0f);
-				
-	umath::matrix4 scale(size.x * scale.x,	   0,   0,    0,
+
+	umath::matrix4 scaleMatrix(size.x * scale.x,	   0,   0,    0,
 						 0,      size.y * scale.y,  0,    0,
 						 0,      0,					1.0f, 0,
 						 0,      0,					0,    1.0f);
@@ -156,12 +156,12 @@ void Transform::updateTransform()
 #ifdef NDEBUG
 	if(transformNeedsUpdate)
 	{
-		rotation*scale;
+		rotation*scaleMatrix;
 		transformNeedsUpdate = false;
 	}
 #endif
 
 
-	m_modelTransform = translation * rotation * scale;
+	m_modelTransform = translation * rotation * scaleMatrix;
 	m_transformNeedsUpdate = false;
 }

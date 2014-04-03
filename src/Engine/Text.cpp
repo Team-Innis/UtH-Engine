@@ -14,7 +14,7 @@ Text::Text(const std::string& fontPath, const float fontSize, const std::string&
 	: Component(name),
 	  m_fontSize(fontSize)
 {
-	m_textShader.LoadShader("shaders/text.vert", "shaders/text.frag");
+	m_textShader.LoadShader("Shaders/text.vert", "Shaders/text.frag");
 
 	m_atlas = texture_atlas_new(1024, 1024, 1);
 

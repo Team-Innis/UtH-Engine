@@ -9,7 +9,8 @@ extlibs/openal/include/
 extlibs/freetype/include/
 extlibs/freetype-gl/include/
 extlibs/physfs/include/
-extlibs/tinyxml2/include/)
+extlibs/tinyxml2/include/
+extlibs/Box2D/include/)
 
 include_directories(${INCLUDE_DIRS})
 
@@ -31,14 +32,13 @@ src/Platform/OGLCheck.cpp
 src/Platform/HiResTimer.cpp
 src/Platform/Window.cpp
 src/Platform/Common/FileReader.cpp
-src/Platform/Linux/LinuxWindowImpl.cpp
+src/Platform/Common/CommonWindowImpl.cpp
 src/Platform/Input.cpp
-src/Platform/Win32/Win32WindowImpl.cpp
-src/Platform/Win32/InputTouch.cpp
-src/Platform/Win32/InputMouse.cpp
-src/Platform/Win32/InputKeyboard.cpp
-src/Platform/Win32/InputCommon.cpp
-src/Platform/Win32/InputBase.cpp)
+src/Platform/Common/InputTouch.cpp
+src/Platform/Common/InputMouse.cpp
+src/Platform/Common/InputKeyboard.cpp
+src/Platform/Common/InputCommon.cpp
+src/Platform/Common/InputBase.cpp)
 
 add_library(core STATIC
 src/Core/Shader.cpp
@@ -48,7 +48,8 @@ target_link_libraries(core platform)
 add_library(resources STATIC
 src/Resources/ResourceManager.cpp
 src/Resources/Image.cpp
-src/Resources/SoundBuffer.cpp)
+src/Resources/SoundBuffer.cpp
+src/Resources/Font.cpp)
 
 add_library(audio STATIC
 src/Audio/SoundManager.cpp
@@ -60,7 +61,9 @@ add_library(renderer STATIC
 src/Renderer/Texture.cpp
 src/Renderer/Camera.cpp
 src/Renderer/TextureAtlas.cpp
-src/Renderer/SpriteBatch.cpp)
+src/Renderer/SpriteBatch.cpp
+src/Renderer/RenderTarget.cpp
+src/Renderer/RenderTexture.cpp)
 target_link_libraries(renderer resources math)
 
 add_library(engine STATIC
@@ -73,7 +76,9 @@ src/Engine/GameObject.cpp
 src/Engine/Component.cpp
 src/Engine/DefaultScene.cpp
 src/Engine/Layer.cpp
-src/Engine/Text.cpp)
+src/Engine/Text.cpp
+src/Engine/AnimatedSprite.cpp
+src/Engine/Rigidbody.cpp)
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     find_package(PkgConfig REQUIRED)
@@ -101,6 +106,9 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
     #TinyXML2
     target_link_libraries(renderer ${CMAKE_SOURCE_DIR}/extlibs/tinyxml2/lib/Linux/libtinyxml2.a)
+
+    #Box2D
+    target_link_libraries(engine ${CMAKE_SOURCE_DIR}/extlibs/Box2D/lib/Linux/libBox2D.a)
 endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 target_link_libraries(engine math platform core resources audio renderer)

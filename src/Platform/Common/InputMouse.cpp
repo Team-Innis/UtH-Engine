@@ -1,4 +1,4 @@
-#include <UtH/Platform/Win32/InputMouse.hpp>
+#include <UtH/Platform/Common/InputMouse.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <GLFW/glfw3.h>
 
