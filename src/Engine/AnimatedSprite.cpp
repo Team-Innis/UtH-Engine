@@ -6,7 +6,7 @@
 using namespace uth;
 
 AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
-	const umath::vector2 frameSize, 
+	const umath::vector2& frameSize, 
 	const float fps, const unsigned int firstFrame, 
 	const bool reversed, const bool loop) 
 	: Sprite(texture, "AnimatedSprite"),
