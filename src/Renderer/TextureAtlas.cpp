@@ -27,7 +27,6 @@ namespace uth
 
     bool TextureAtlas::LoadFromFile(const std::string& filePath, const bool smooth, const bool repeated)
     {
-        uthRS.DeleteTexture(filePath);
         m_texture = &uthRS.LoadTexture(filePath);
 
         std::string s(filePath);

@@ -26,7 +26,7 @@ namespace uth
     void SpriteBatch::AddSprite(GameObject* object, const std::string& atlasName)
     {
         //WriteLog("mark");
-        int mod = m_objects.size() * 4;
+        unsigned short mod = static_cast<unsigned short>(m_objects.size()) * 4;
 
         m_objects.push_back(object);
         umath::rectangle tex = m_atlas->getTextureCoords(atlasName.c_str());
@@ -60,7 +60,7 @@ namespace uth
         m_spriteBuffer.clear(true, false);
         m_spriteBuffer.addVertices(m_vertexData);
 
-        for (int i = 0; i < m_vertexData.size() / 4; ++i)
+        for (size_t i = 0; i < m_vertexData.size() / 4; ++i)
         {
             const umath::matrix4& m = m_objects[i]->transform.GetTransform();
             umath::matrix3 t_m;

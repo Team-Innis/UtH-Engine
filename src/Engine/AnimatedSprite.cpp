@@ -27,8 +27,8 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 		assert(false);
 	}
 #endif
-	m_frameCountX = texSize.x / frameSize.x;
-	m_frameCountY = texSize.y / frameSize.y;
+	m_frameCountX = static_cast<unsigned int>(texSize.x / frameSize.x);
+	m_frameCountY = static_cast<unsigned int>(texSize.y / frameSize.y);
 	AnimatedSprite(texture, frames, m_frameCountX, m_frameCountY, fps, firstFrame, reversed, loop);
 }
 
@@ -47,8 +47,8 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 		m_loop(loop),
 		m_delay(0.0f)
 {
-	const int texSizeX = texture->GetSize().x;
-	const int texSizeY = texture->GetSize().y;
+	const unsigned int texSizeX = static_cast<const unsigned int>(texture->GetSize().x);
+	const unsigned int texSizeY = static_cast<const unsigned int>(texture->GetSize().y);
 	
 #ifdef _DEBUG
 	if(texSizeX % frameCountX != 0 || texSizeY % frameCountY != 0)
@@ -63,8 +63,8 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 	}
 #endif
 	// frame size in pixels
-	m_frameSize.x = texSizeX / frameCountX;
-	m_frameSize.y = texSizeY / frameCountY;
+	m_frameSize.x = static_cast<const float>(texSizeX / frameCountX);
+	m_frameSize.y = static_cast<const float>(texSizeY / frameCountY);
 	// frame size in texcoord float
 	m_frameSize.width = 1.0f / frameCountX;
 	m_frameSize.height = 1.0f / frameCountY;

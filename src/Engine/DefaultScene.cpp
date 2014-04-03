@@ -5,6 +5,7 @@
 #include <UtH/Engine/Rigidbody.hpp>
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Input.hpp>
+#include <UtH/Renderer/TextureAtlas.hpp>
 
 #include <UtH/Platform/Debug.hpp>
 
@@ -150,7 +151,7 @@ bool DefaultScene::Update(float dt)
 
 	auto rigidBody = static_cast<Rigidbody*>(gameObjects.at(0)->GetComponent("Rigidbody"));
 
-	const int speed = 5;
+	const float speed = 5.f;
 
 
 	if(GetAsyncKeyState(VK_LEFT))
