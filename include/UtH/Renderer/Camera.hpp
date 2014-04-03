@@ -35,8 +35,6 @@ namespace uth
 
         Camera& SetZoom(const float factor);
 
-        Camera& SetViewport(const umath::rectangle& rect);
-
         Camera& Scroll(const umath::vector2& offset);
 
         Camera& Scroll(const float x, const float y);
@@ -49,8 +47,6 @@ namespace uth
 
         float GetRotation() const;
 
-        const umath::rectangle& GetViewport() const;
-
         const umath::matrix4& GetProjectionTransform() const;
 
 
@@ -59,7 +55,6 @@ namespace uth
 
         umath::vector2 m_size;
         float m_zoom;
-        umath::rectangle m_viewport;
         mutable umath::matrix4 m_viewMatrix;
         mutable bool m_transformNeedsUpdate;
 

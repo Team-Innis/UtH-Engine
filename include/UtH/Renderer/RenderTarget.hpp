@@ -6,6 +6,7 @@
 #include <UtH/Core/Shader.hpp>
 #include <UtH/Platform/Uncopyable.hpp>
 #include <UtH/Math/Vector2.hpp>
+#include <UtH/Math/Rectangle.hpp>
 
 
 namespace uth
@@ -23,9 +24,9 @@ namespace uth
 
         Shader& GetShader();
 
+        void SetViewport(const umath::rectangle& rect);
 
-
-
+        const umath::rectangle& GetViewport() const;
 
         bool Bind();
 
@@ -46,12 +47,16 @@ namespace uth
         Camera m_defaultCamera;
         Shader m_defaultShader;
 
+        umath::rectangle m_viewport;
+
 
     protected:
 
         RenderTarget();
 
         virtual ~RenderTarget(){};
+        
+        const unsigned int m_uniqueID;
 
     };
 }

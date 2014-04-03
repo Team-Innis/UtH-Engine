@@ -22,10 +22,12 @@ bool DefaultScene::Init()
 	shader->LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
 	shader->Use();
 
+    uthEngine.GetWindow().SetViewport(umath::rectangle(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
     uthEngine.GetWindow().SetShader(shader);
-    rtex.Initialize(uthEngine.GetWindowResolution(), false);
+    rtex.Initialize(uthEngine.GetWindowResolution() / 2.f, false);
     rtex.SetCamera(&camera);
     rtex.SetShader(shader);
+    rtex.SetViewport(umath::rectangle(0, 0, rtex.GetSize().x, rtex.GetSize().y));
 
 	// Ground level
 	b2BodyDef groundBodyDef;
@@ -98,7 +100,7 @@ bool DefaultScene::Init()
     rtexSprite = new GameObject();
     rtexSprite->AddComponent(new Sprite(&rtex.GetTexture(), "rtexSprite"));
     rtexSprite->transform.SetPosition(0, 0);
-    rtexSprite->transform.SetScale(umath::vector2(0.5f, 0.5f));
+    //rtexSprite->transform.SetScale(umath::vector2(0.5f, 0.5f));
 
     obj = new GameObject();
     obj->AddComponent(new Sprite("test.tga"));

@@ -136,6 +136,8 @@ namespace uth
 
         static void SetFaceCulling(const bool enable, FaceCulling mode = BACK);
 
+        static void SetViewport(const int x, const int y, const int width, const int height);
+
 
 
     private:
