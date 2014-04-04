@@ -15,44 +15,15 @@
  *
  */
 #include <UtH/Platform/OpenGL.hpp>
-#include <UtH/Platform/Debug.hpp>
-
 #include <UtH/Math/Math.hpp>
-
 #include <UtH/Platform/Android/AndroidEngine.hpp>
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/WindowSettings.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Platform/FileReader.h>
-#include <UtH/Engine/GameObject.hpp>
-#include <UtH/Engine/Sprite.hpp>
 #include <UtH/Platform/Debug.hpp>
-#include <UtH/Platform/HiResTimer.hpp>
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Input.hpp>
-
-uth::Shader* shader;
-uth::GameObject gameObject;
-
-void init()
-{
-	shader = new uth::Shader();
-	if(shader->LoadShader("vertexshader.vert", "fragmentshader.frag"))
-	{
-		shader->Use();
-		WriteLog("Shaders loaded");
-	}
-	else
-		WriteError("Shaders not loaded");
-
-	gameObject.AddComponent(new uth::Sprite("test.tga"));
-
-	gameObject.transform.SetSize(0.5f, 0.5f);
-	gameObject.transform.SetPosition(-0.5f, -0.5f);
-	WriteLog("GameObject Position: %f, %f", gameObject.transform.GetPosition().x,gameObject.transform.GetPosition().y);
-
-	gameObject.transform.parent->transform.Rotate(45);
-}
 
 void handle_cmd(android_app* app, int cmd)
 {
