@@ -27,14 +27,14 @@
 	{
 		va_list v;
 		va_start(v, text);
-		LOGE(text, v);
+		__android_log_vprint(ANDROID_LOG_ERROR, LOG_TAG, text, v);
 		va_end(v);
 	}
 	static inline void WriteLog(const char* text, ...)
 	{
 		va_list v;
 		va_start(v, text);
-		LOGI(text, v);
+		__android_log_vprint(ANDROID_LOG_INFO, LOG_TAG, text, v);
 		va_end(v);
 	}
 
@@ -85,7 +85,7 @@ static inline void CheckGLError(const char* op)
 	for (GLint error = glGetError(); error; error
 		= glGetError()) {
 			
-			WriteLog("after %s() glError (0x%x)", op, error);
+			WriteError("after %s() glError (0x%x)", op, error);
 	}
 }
 
