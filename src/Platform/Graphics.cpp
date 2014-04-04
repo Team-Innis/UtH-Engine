@@ -83,8 +83,9 @@ namespace uth
 
     int Graphics::CreateShaderProgram()
     {
-        CheckGLError("glCreateProgram1");
         const int i = glCreateProgram();
+        CheckGLError("glCreateProgram");
+		WriteLog("Create Program %d", i);
 
         return i;
     }
@@ -146,8 +147,13 @@ namespace uth
 
     bool Graphics::LinkShaderProgram(const int shaderProgram)
     {
+		WriteLog("Before glLinkProgram");
+
+
         glLinkProgram(shaderProgram);
 		CheckGLError("glLinkProgram");
+
+		WriteLog("After glLinkProgram");
 
 		int infoLenght;
 		glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLenght);
