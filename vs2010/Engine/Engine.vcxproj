@@ -51,9 +51,6 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Include="..\UMath\UMath.vcxproj">
-      <Project>{d16755ab-9f02-42c3-849d-acdd08e550ca}</Project>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Engine\AnimatedSprite.cpp" />
@@ -138,6 +135,10 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\freetype\lib\Win32;$(SolutionDir)..\extlibs\freetype-gl\lib\Win32;$(SolutionDir)..\extlibs\Box2D\lib\Win32</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Box2D-d.lib;freetype253_D.lib;freetype-gl-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -156,6 +157,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\freetype\lib\Win32;$(SolutionDir)..\extlibs\freetype-gl\lib\Win32;$(SolutionDir)..\extlibs\Box2D\lib\Win32</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Box2D.lib;freetype253.lib;freetype-gl.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
