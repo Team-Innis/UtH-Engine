@@ -3,6 +3,9 @@
 #include <UtH/Platform/Debug.hpp>
 
 #include <UtH/Engine/DefaultScene.hpp>
+
+#include "TestScene.hpp"
+
 // Enumeration of scenes, giving name for each scene number
 enum SceneName
 {
@@ -19,13 +22,13 @@ void NewSceneFunc(int SceneID, uth::Scene* &CurScene)
 	switch (SceneID)
 	{
 	case MENU:
-		CurScene = new /*Menu*/uth::DefaultScene();
+		CurScene = new /*Menu*/uth::TestScene();
 		break;
 	case GAME:
-		CurScene = new /*Game*/uth::DefaultScene();
+		CurScene = new /*Game*/uth::TestScene();
 		break;
 	case CREDITS:
-		CurScene = new /*Credits*/uth::DefaultScene();
+		CurScene = new /*Credits*/uth::TestScene();
 		break;
 	default:
 		CurScene = new /*Menu*/uth::DefaultScene();
@@ -35,7 +38,7 @@ void NewSceneFunc(int SceneID, uth::Scene* &CurScene)
 
 int main()
 {
-	UtHSceneM.registerNewSceneFunc(NewSceneFunc,COUNT);
+	uthSceneM.registerNewSceneFunc(NewSceneFunc,COUNT);
 
 	uthEngine.Init();
 
@@ -48,5 +51,5 @@ int main()
 
 	return 0;
 	//Hood.MainLoop(/*new StartScene*/);
-	//UtHSceneM.GoToScene(/*new GameScene*/1);
+	//uthSceneM.GoToScene(/*new GameScene*/1);
 }

@@ -12,7 +12,9 @@ Shader::Shader()
 }
 
 Shader::~Shader()
-{}
+{
+	uth::Graphics::DestroyShaderProgram(m_program);
+}
 
 
 // Public

@@ -18,9 +18,7 @@ Sprite::Sprite(Texture* texture, const std::string& name)
 Sprite::Sprite(const std::string& filePath, const std::string& name)
 	: Component(name)
 {
-	Texture* tex = new Texture();
-	tex->LoadFromFile(filePath.c_str());
-	SetTexture(tex);
+	SetTexture(&uthRS.LoadTexture(filePath));
 
 	defaults();
 }
