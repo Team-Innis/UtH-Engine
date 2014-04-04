@@ -159,11 +159,11 @@ namespace uth
 			WriteLog("SaveStated");
 			break;
 		case APP_CMD_INIT_WINDOW:
-			uthEngine.Init(uthAndroidEngine.settings);
-			WriteLog("windowINIT");
 			Graphics::SetViewport(0.0f,0.0f,
 				uthAndroidEngine.settings.size.x,
 				uthAndroidEngine.settings.size.y);
+			uthEngine.Init(uthAndroidEngine.settings);
+			WriteLog("windowINIT");
 			uthAndroidEngine.initialized = true;
 			uthAndroidEngine.winEveHand(window);
 			break;
