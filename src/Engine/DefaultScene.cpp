@@ -66,7 +66,8 @@ bool DefaultScene::Init()
 	go = new GameObject();
 	go->AddComponent(new AnimatedSprite(texture, 5, 4, 4, 1.f, 0, false, true));
 
-	((AnimatedSprite*)go->GetComponent("AnimatedSprite"))->ChangeAnimation(2, 4, 2, 1.0f, false, true);
+	((AnimatedSprite*)go->GetComponent("AnimatedSprite"))->ChangeAnimation(0, 4, 2, 3.0f, true, false);
+	go->transform.SetScale(3,3);
 
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(3, go);
