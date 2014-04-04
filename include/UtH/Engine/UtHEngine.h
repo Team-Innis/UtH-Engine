@@ -7,6 +7,8 @@
 
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/HiResTimer.hpp>
+#include <UtH/Resources/ResourceManager.h>
+#include <UtH/Engine/SceneManager.hpp>
 
 #define uthEngine uth::UTHEngine::getInstance()
 

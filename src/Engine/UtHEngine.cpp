@@ -1,6 +1,5 @@
 #include "UtH/Engine/UtHEngine.h"
 
-#include <UtH/Engine/SceneManager.hpp>
 
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Platform/Window.hpp>
@@ -35,7 +34,7 @@ void UTHEngine::Update()
 {
 	const float deltaTime = static_cast<float>(m_timer.DeltaTime());
 	uthInput.Update(deltaTime);
-	UtHSceneM.Update(deltaTime);
+	uthSceneM.Update(deltaTime);
 	
 	if(m_wndw->processMessages())
 	{
@@ -46,7 +45,7 @@ void UTHEngine::Update()
 void UTHEngine::Draw()
 {
 	m_wndw->Clear(0.f, 1.f, 0.f);
-	UtHSceneM.Draw();
+	uthSceneM.Draw();
     m_wndw->swapBuffers();
 }
 

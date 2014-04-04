@@ -67,7 +67,7 @@ void Transform::SetScale(const umath::vector2& scale)
 	m_transformNeedsUpdate = true;
 }
 
-void Transform::SetSclae(float xScale, float yScale)
+void Transform::SetScale(float xScale, float yScale)
 {
 	SetScale(umath::vector2(xScale, yScale));
 }

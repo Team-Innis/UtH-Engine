@@ -1,6 +1,6 @@
 #pragma once
-#ifndef DefaultScene_H_UTH
-#define DefaultScene_H_UTH
+#ifndef TestScene_H_UTH
+#define TestScene_H_UTH
 
 #include <vector>
 #include <UtH/Engine/Scene.hpp>
@@ -10,12 +10,12 @@
 
 namespace uth
 {
-	class DefaultScene : public Scene
+	class TestScene : public Scene
 	{
 	public:
-		friend class SceneManager;
-		DefaultScene();
-		~DefaultScene();
+		friend class TestScene;
+		TestScene();
+		~TestScene();
 
 		virtual bool Init();
 		virtual bool DeInit();

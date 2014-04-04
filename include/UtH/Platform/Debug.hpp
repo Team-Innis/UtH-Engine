@@ -64,12 +64,12 @@
 	}
 	static void WriteLog(const char* text, ...)
 	{
-	//#ifndef NDEBUG
+	#ifndef NDEBUG
 		va_list v;
 		va_start(v, text);
 		vprintf(text, v);
 		va_end(v);
-	//#endif
+	#endif
 	}
 #endif
 
