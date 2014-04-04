@@ -18,6 +18,7 @@ namespace uth
 		~FileReader();
 
 		void OpenFile(const char* path);
+		void CloseFile();
 		int GetFileSize();
 
 		// Move the file pointer by offset from origin(defaults to current location)
