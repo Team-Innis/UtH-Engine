@@ -24,7 +24,7 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
     {
         //uth::Graphics::DestroyShaderProgram(m_program);
         m_program = uth::Graphics::CreateShaderProgram();
-		WriteLog("Shader Program: %d", m_program);
+
     }
 
 	FileReader fr;
@@ -37,8 +37,6 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 		WriteError("Vertex shader failed");
 		return false;
 	}
-	WriteLog(vertex.c_str());
-	//delete[] vertex;
     fr.CloseFile();
 
 	// Fragment Shader
@@ -49,8 +47,6 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 		WriteError("Fragment shader failed");
 		return false;
 	}
-	WriteLog(fragment.c_str());
-	//delete[] fragment;
     fr.CloseFile();
 	return uth::Graphics::LinkShaderProgram(m_program);
 }
