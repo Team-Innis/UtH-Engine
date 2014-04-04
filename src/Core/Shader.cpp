@@ -22,32 +22,34 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
     {
         //uth::Graphics::DestroyShaderProgram(m_program);
         m_program = uth::Graphics::CreateShaderProgram();
+		WriteLog("Shader Program: %d", m_program);
     }
 
 	FileReader fr;
 
 	// Vertex Shader
 	fr.OpenFile(vertexShaderPath.c_str());
-	const char* vertex = fr.ReadText();
-	if(!uth::Graphics::CreateShader(VERTEX_SHADER, m_program, vertex))
+	std::string vertex = fr.ReadText();
+	if(!uth::Graphics::CreateShader(VERTEX_SHADER, m_program, vertex.c_str()))
 	{
 		WriteError("Vertex shader failed");
 		return false;
 	}
-	delete[] vertex;
+	WriteLog(vertex.c_str());
+	//delete[] vertex;
     fr.CloseFile();
 
 	// Fragment Shader
 	fr.OpenFile(fragmentShaderPath.c_str());
-	const char* fragment = fr.ReadText();
-	if(!uth::Graphics::CreateShader(FRAGMENT_SHADER, m_program, fragment))
+	std::string fragment = fr.ReadText();
+	if(!uth::Graphics::CreateShader(FRAGMENT_SHADER, m_program, fragment.c_str()))
 	{
 		WriteError("Fragment shader failed");
 		return false;
 	}
-	delete[] fragment;
+	WriteLog(fragment.c_str());
+	//delete[] fragment;
     fr.CloseFile();
-
 	return uth::Graphics::LinkShaderProgram(m_program);
 }
 
