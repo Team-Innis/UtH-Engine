@@ -14,29 +14,24 @@ Font::Font(const std::string& filePath)
 
 
 Font::~Font()
-{ }
+{
+	m_fontData.clear();
+}
 
 // Public
 bool Font::LoadFromFile(const std::string& filePath)
 {
 	FileReader fr;
 	fr.OpenFile(filePath.c_str());
-	m_fontData.fontData = fr.ReadBinary();
-	m_fontData.dataSize = fr.GetFileSize();
+	m_fontData = fr.ReadBinary();
 
-	if(m_fontData.fontData == nullptr)
+	if(m_fontData.ptr() == nullptr)
 		return false;
 
 	return true;
 }
 
-const Font::FontStruct& Font::GetFontData() const
+const BINARY_DATA& Font::GetFontData() const
 {
 	return m_fontData;
-}
-
-// Private
-Font::FontStruct::~FontStruct()
-{
-	delete[] fontData;
 }

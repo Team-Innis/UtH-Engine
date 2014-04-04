@@ -20,7 +20,7 @@ Text::Text(const std::string& fontPath, const float fontSize, const std::string&
 
 	auto& data = uthRS.LoadFont(fontPath).GetFontData();
 
-	m_font = texture_font_new_from_memory(m_atlas, fontSize, data.fontData, data.dataSize);
+	m_font = texture_font_new_from_memory(m_atlas, fontSize, data.ptr(), data.size());
 }
 
 Text::~Text()
