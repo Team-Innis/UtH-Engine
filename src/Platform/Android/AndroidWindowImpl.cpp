@@ -170,6 +170,7 @@ namespace uth
 		case APP_CMD_TERM_WINDOW:
 			uthAndroidEngine.initialized = false;
 			window->destroy();
+			return true;
 			break;
 		case APP_CMD_GAINED_FOCUS:
 			uthAndroidEngine.initialized = true;
@@ -180,6 +181,6 @@ namespace uth
 			break;
 		}
 
-		return true;
+		return false;
 	}
 }
