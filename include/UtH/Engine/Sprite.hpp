@@ -6,6 +6,7 @@
 #include <UtH/Math/Vector.hpp>
 #include <UtH/Engine/Component.hpp>
 #include <UtH/Core/VertexBuffer.hpp>
+#include <UtH/Resources/ResourceManager.h>
 
 namespace uth
 {
