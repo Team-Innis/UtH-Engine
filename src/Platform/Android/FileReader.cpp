@@ -70,5 +70,5 @@ const char* FileReader::ReadText()
 
 void FileReader::CloseFile()
 {
-	AAsset_close(m_asset);
+	//AAsset_close(m_asset);
 }

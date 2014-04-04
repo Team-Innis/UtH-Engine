@@ -178,8 +178,6 @@ namespace uth
 			WriteLog("Shader link failed");
 			return false;
 		}
-		WriteLog("Befre true");
-        
 		return true;
     }
 

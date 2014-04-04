@@ -10,7 +10,7 @@
 
 #include <vector>
 
-#include <UtH\Platform\Debug.hpp>
+#include <UtH/Platform/Debug.hpp>
 
 namespace uth
 {

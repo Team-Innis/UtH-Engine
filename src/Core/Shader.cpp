@@ -48,7 +48,8 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 		return false;
 	}
     fr.CloseFile();
-	return uth::Graphics::LinkShaderProgram(m_program);
+
+    return uth::Graphics::LinkShaderProgram(m_program);
 }
 
 void Shader::Use()

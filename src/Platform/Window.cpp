@@ -11,7 +11,7 @@ typedef uth::CommonWindowImpl WindowImpl;
 
 #elif defined(UTH_SYSTEM_ANDROID)
 
-#include <../src/Platform/Android/AndroidWindowImpl.hpp>
+#include <UtH/Platform/Android/AndroidWindowImpl.hpp>
 typedef uth::AndroidWindowImpl WindowImpl;
 
 #endif

@@ -5,6 +5,7 @@
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Input.hpp>
 #include <UtH/Renderer/TextureAtlas.hpp>
+#include <UtH/Engine/Text.hpp>
 
 #include <UtH/Platform/Debug.hpp>
 
@@ -21,7 +22,7 @@ bool DefaultScene::Init()
 	WriteLog("DefaultScene Init");
 	shader = new Shader();
 	WriteLog("new shader");
-	shader->LoadShader("shaders/vertexshader.vert", "shaders/fragmentshader.frag");
+	shader->LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
 	WriteLog("Load Shader");
 	shader->Use();
 
@@ -41,7 +42,10 @@ bool DefaultScene::Init()
 
     obj = new GameObject();
     //obj->AddComponent(new Sprite("test.tga"));
-    obj->AddComponent(new Sprite(umath::vector4(1, 1, 1, 1), umath::vector2(100,100)));
+    //obj->AddComponent(new Sprite(umath::vector4(1, 1, 1, 1), umath::vector2(100,100)));
+    auto text = new Text("8bitoperator.ttf", 30);
+    obj->AddComponent(text);
+    text->AddText(L"Testi 123");
     obj->transform.SetPosition(0, 0);
 
 	WriteLog("GameObjects: %d\n", gameObjects.size());
