@@ -81,11 +81,10 @@ namespace uth
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     // Shaders
 
-    int Graphics::CreateShaderProgram()
+    const unsigned int Graphics::CreateShaderProgram()
     {
-        const int i = glCreateProgram();
+        const unsigned int i = glCreateProgram();
         CheckGLError("glCreateProgram");
-		WriteLog("Create Program %d", i);
 
         return i;
     }
@@ -95,6 +94,7 @@ namespace uth
         if (!shaderCode) return false;
 
         unsigned int shader = glCreateShader(shaderTypes[type]);
+		CheckGLError("glCreateShader");
         glShaderSource(shader, 1, &shaderCode, NULL);
 		CheckGLError("glShaderSource");
 
@@ -147,13 +147,10 @@ namespace uth
 
     bool Graphics::LinkShaderProgram(const int shaderProgram)
     {
-		WriteLog("Before glLinkProgram");
-
-
+		CheckGLError("Before glLinkProgram");
         glLinkProgram(shaderProgram);
 		CheckGLError("glLinkProgram");
 
-		WriteLog("After glLinkProgram");
 
 		int infoLenght;
 		glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLenght);
@@ -162,7 +159,8 @@ namespace uth
 		{
 			WriteLog("\nShader Program (%d) Log:\n", shaderProgram);
 			char* buf = new char[infoLenght];
-			oglCheck(glGetProgramInfoLog(shaderProgram, infoLenght, NULL, buf));
+			glGetProgramInfoLog(shaderProgram, infoLenght, NULL, buf);
+			CheckGLError("glGetProgramInfoLog");
 			WriteLog("%s", buf);
 			delete[] buf;
 		}
