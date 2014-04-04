@@ -25,6 +25,40 @@
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Input.hpp>
 
+#include <UtH/Engine/DefaultScene.hpp>
+#include "TestScene.hpp"
+
+// Enumeration of scenes, giving name for each scene number
+enum SceneName
+{
+    DEFAULT = UTHDefaultScene,
+    MENU = 0,
+    GAME = 1,
+    CREDITS,
+    COUNT // Keep this last, it tells how many scenes there are
+};
+
+// Create function for a new scene, having a case for every user made scene
+void NewSceneFunc(int SceneID, uth::Scene* &CurScene)
+{
+    switch (SceneID)
+    {
+    case MENU:
+        CurScene = new /*Menu*/uth::TestScene();
+        break;
+    case GAME:
+        CurScene = new /*Game*/uth::TestScene();
+        break;
+    case CREDITS:
+        CurScene = new /*Credits*/uth::TestScene();
+        break;
+    default:
+        CurScene = new /*Menu*/uth::DefaultScene();
+        break;
+    }
+}
+
+
 void handle_cmd(android_app* app, int cmd)
 {
 	uthAndroidEngine.message = cmd;
@@ -54,10 +88,13 @@ void android_main(android_app* state)
 	uthAndroidEngine.settings.contextVersionMajor = 2;
 	uthAndroidEngine.settings.contextVersionMinor = 0;
     uthAndroidEngine.settings.fullScreen = true;
-	
+
 	state->userData = &wndw;
 
 	uthAndroidEngine.winEveHand = windowEventHandler;
+
+
+    uthSceneM.registerNewSceneFunc(NewSceneFunc, COUNT);
 
 	while(1)
 	{

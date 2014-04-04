@@ -5,11 +5,10 @@
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/Input.hpp>
 
-#include <iostream>
-
 using namespace uth;
 
 UTHEngine::UTHEngine()
+    : m_running(false)
 { }
 
 bool UTHEngine::Init()

@@ -47,10 +47,10 @@ namespace uth
 		eglInitialize(uthAndroidEngine.display,0,0);
 			WriteLog("eglInitialize succeeded");
 		CheckEGLError();
-		
+
 		//eglChooseConfig(androidengine.display, attribs, NULL, 1, &numConfigs);
 		//WriteLog("Configs: %d", (int)numConfigs);
-		
+
 		eglChooseConfig(uthAndroidEngine.display, attribs, &uthAndroidEngine.config, 1, &numConfigs);
 		CheckEGLError();
 			WriteLog("eglChooseConfig succeeded");
@@ -58,7 +58,7 @@ namespace uth
 		CheckEGLError();
 			WriteLog("eglGetConfigAttrib succeeded");
 
-		
+
 
 		//ANativeWindow_setBuffersGeometry(androidengine.app->window, 0, 0, 0);
 		//CheckEGLError();
@@ -86,8 +86,8 @@ namespace uth
 		eglQuerySurface(uthAndroidEngine.display, uthAndroidEngine.surface, EGL_HEIGHT, &tempY);
 		CheckEGLError();
 
-		uthAndroidEngine.settings.size.x = tempX;
-		uthAndroidEngine.settings.size.y = tempY;
+		uthAndroidEngine.settings.size.x = static_cast<float>(tempX);
+		uthAndroidEngine.settings.size.y = static_cast<float>(tempY);
 
 		//glHint(GL_GENERATE_MIPMAP_HINT, GL_FASTEST);
 		//glEnable(GL_CULL_FACE);
@@ -123,10 +123,10 @@ namespace uth
 		uthAndroidEngine.surface = EGL_NO_SURFACE;
 
 		uthAndroidEngine.initialized = false;
-		
+
 		WriteLog("Window Destroyed");
 
-		return (void*)NULL;
+		return nullptr;
     }
 
 
@@ -138,7 +138,7 @@ namespace uth
 		oglCheck(glClearColor(r, g, b, a));
 
         if (!clearDepth) return;
-			
+
         oglCheck(glClearDepthf(1.0f));
     }
 
@@ -159,9 +159,6 @@ namespace uth
 			WriteLog("SaveStated");
 			break;
 		case APP_CMD_INIT_WINDOW:
-			Graphics::SetViewport(0.0f,0.0f,
-				uthAndroidEngine.settings.size.x,
-				uthAndroidEngine.settings.size.y);
 			uthEngine.Init(uthAndroidEngine.settings);
 			WriteLog("windowINIT");
 			uthAndroidEngine.initialized = true;

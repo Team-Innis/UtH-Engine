@@ -41,9 +41,9 @@ varying vec4 textColor;
 
 void main()
 {
-    float a = texture2D(unifSampler, texCoord).r;
-    gl_FragColor = vec4(textColor.rgb, textColor.a*a);
+    vec4 tex = texture2D(unifSampler, texCoord);
+    gl_FragColor = vec4(textColor.rgb, textColor.a*tex.a);
     //gl_FragColor = vec4(1, 1, 1, 1);
-    //gl_FragColor = vec4(vec3(a), 1);
+    //gl_FragColor = vec4(vec3(tex.r), 1);
     //gl_FragColor = texture2D(unifSampler, texCoord);
 }

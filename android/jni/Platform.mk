@@ -96,4 +96,8 @@ $(SRC_PATH)Engine/AnimatedSprite.cpp
 LOCAL_SRC_FILES += \
 $(SRC_PATH)../extlibs/tinyxml2/src/tinyxml2.cpp
 
+#TestScene
+LOCAL_SRC_FILES += \
+TestScene.cpp
+
 include $(BUILD_STATIC_LIBRARY)
