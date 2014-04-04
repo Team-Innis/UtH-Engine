@@ -20,36 +20,31 @@ namespace uth
 {
 	class ResourceManager : public uth::Singleton<uth::ResourceManager>
 	{
-
 		friend class Singleton<uth::ResourceManager>;
 
 	public:
 
         enum
         {
-            SoundBuffers = 1,
-            Images = 1 << 1,
-            Textures = 1 << 2,
-			Fonts = 1 << 3,
-
+            SoundBuffers =	1,
+            Images =		1 << 1,
+            Textures =		1 << 2,
+			Fonts =			1 << 3,
 
             All = SoundBuffers | Images | Textures | Fonts
         };
 
-
-
 		SoundBuffer& LoadWAV(const std::string& filePath);
 		Image& LoadTGA(const std::string& filePath);
+		/// Only supports uncompressed .tga for now	
         Texture& LoadTexture(const std::string& filePath);
         Font& LoadFont(const std::string& filePath);
-
 
         void Clear(const unsigned int flags);
         bool DeleteSoundBuffer(const std::string& filePath);
         bool DeleteImage(const std::string& filePath);
         bool DeleteTexture(const std::string& filePath);
         bool DeleteFont(const std::string& filePath);
-
 
 	private:
 		ResourceManager();

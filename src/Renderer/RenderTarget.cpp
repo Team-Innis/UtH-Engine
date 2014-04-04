@@ -22,6 +22,8 @@ namespace uth
           m_defaultCamera(),
           m_defaultShader(),
           m_viewport(),
+          m_loaded(false),
+          m_set(false),
           m_uniqueID(getUniqueID())
     {
 
@@ -57,13 +59,11 @@ namespace uth
 
     Camera& RenderTarget::GetCamera()
     {
-        static bool set = false;
-
-        if (!set)
+        if (!m_set)
         {
             m_defaultCamera.SetSize(GetSize());
             m_defaultCamera.SetPosition(0, 0);
-            set = true;
+            m_set = true;
         }
 
         if (m_camera)
@@ -79,13 +79,11 @@ namespace uth
 
     Shader& RenderTarget::GetShader()
     {
-        static bool loaded = false;
-
-        if (!loaded)
+        if (!m_loaded)
         {
-            bool compiled = m_defaultShader.LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
+            const bool compiled = m_defaultShader.LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
             assert(compiled);
-            loaded = true;
+            m_loaded = true;
         }
 
         if (m_shader)

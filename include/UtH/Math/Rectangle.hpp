@@ -10,23 +10,13 @@ namespace umath
 	{
 	public:
 		rectangle();
-		rectangle(float Left, float Top, float Width, float Height);
+		rectangle(float X, float Y, float Width, float Height);
 		rectangle(vector2 Position, float Width, float Height);
 		rectangle(vector2 Position, vector2 Size);
 
 		~rectangle();
-
-		union
-		{
-			struct 
-			{
-				float left, top, width, height;
-			};
-			struct
-			{
-				float x, y;
-			};
-		};
+		
+		float x, y, width, height;
 
 		float getRight() const;
 		float getBottom() const;

@@ -2,8 +2,10 @@
 #ifndef COMPONENT_H_UTH
 #define COMPONENT_H_UTH
 
-#include <string>
+#include <UtH/Platform/Uncopyable.hpp>
 #include <UtH/Core/Shader.hpp>
+#include <string>
+
 
 namespace uth
 {
@@ -11,7 +13,7 @@ namespace uth
 	class Camera;
     class RenderTarget;
 
-	class Component
+	class Component : private Uncopyable
 	{
 	public:
 
@@ -27,7 +29,7 @@ namespace uth
 		// Default to doing nothing
 		virtual void Init(){};
 		virtual void Draw(RenderTarget&){};
-		virtual void Update(float dt){};
+		virtual void Update(float){};
 
 		GameObject* parent;
 
@@ -36,7 +38,7 @@ namespace uth
 
 		std::string m_name;
 
-		bool m_active;		
+		bool m_active;
 	};
 }
 #endif

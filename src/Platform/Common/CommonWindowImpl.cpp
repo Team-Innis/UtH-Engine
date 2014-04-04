@@ -1,4 +1,4 @@
-#include <UtH/Platform/Win32/Win32WindowImpl.hpp>
+#include <UtH/Platform/Common/CommonWindowImpl.hpp>
 #include <UtH/Platform/OpenGL.hpp>
 #include <UtH/Platform/OGLCheck.hpp>
 #include <UtH/Platform/Debug.hpp>
@@ -18,7 +18,7 @@ namespace
         {
             glfwTerminate();
             initialized = false;
-        }    
+        }
     }
 
     void ensureGLFWInit()
@@ -37,7 +37,7 @@ namespace
 namespace uth
 {
 
-    void* Win32WindowImpl::create(const WindowSettings& settings)
+    void* CommonWindowImpl::create(const WindowSettings& settings)
     {
         ensureGLFWInit();
 
@@ -57,7 +57,7 @@ namespace uth
             glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, majorVer);
             glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minorVer);
 
-            wndwHandle = glfwCreateWindow((int)settings.size.w, (int)settings.size.h, settings.title.c_str(), settings.fullScreen ? glfwGetPrimaryMonitor() : NULL, NULL);
+            wndwHandle = glfwCreateWindow((int)settings.size.x, (int)settings.size.y, settings.title.c_str(), settings.fullScreen ? glfwGetPrimaryMonitor() : NULL, NULL);
 
             if (--minorVer < 0)
             {
@@ -79,7 +79,7 @@ namespace uth
 
         glfwSetWindowPos(wndwHandle, (int)settings.position.x, (int)settings.position.y);
         glfwSwapInterval(settings.useVsync ? 1 : 0);
-        
+
 		//std::cout << "glew init might produce GL_INVALID_ENUM error. Just ignore it" << std::endl;
 		glewExperimental = GL_TRUE;
 
@@ -108,7 +108,7 @@ namespace uth
     }
 
 
-    void* Win32WindowImpl::destroy(void* handle)
+    void* CommonWindowImpl::destroy(void* handle)
     {
         if (!handle) return handle;
 
@@ -118,24 +118,24 @@ namespace uth
 
         --windowRefs;
         manageWindowRefs();
-        
+
         return handle;
     }
 
 
-    void Win32WindowImpl::clear(const float r, const float g, const float b, const float a)
+    void CommonWindowImpl::clear(const float r, const float g, const float b, const float a)
     {
         uth::Graphics::Clear(r, g, b, a);
     }
 
-    void Win32WindowImpl::swapBuffers(void* handle)
+    void CommonWindowImpl::swapBuffers(void* handle)
     {
         if (!handle) return;
 
         glfwSwapBuffers(static_cast<GLFWwindow*>(handle));
     }
-	
-	bool Win32WindowImpl::processMessages(void* handle)
+
+	bool CommonWindowImpl::processMessages(void* handle)
 	{
 		if (!handle) return false;
 

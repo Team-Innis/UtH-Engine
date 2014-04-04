@@ -13,7 +13,7 @@ namespace uth
 		~AnimatedSprite();
 
 		AnimatedSprite(Texture* texture, const unsigned int frames,
-			const umath::vector2 frameSize,
+			const umath::vector2& frameSize,
 			const float fps = 5.0f, const unsigned int firstFrame = 0,
 			const bool reversed = false, const bool loop = true);
 		AnimatedSprite(Texture* texture, const unsigned int frames,

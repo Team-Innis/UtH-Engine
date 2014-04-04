@@ -107,12 +107,14 @@ namespace uth
 		{
 			switch (type)
 			{
-			case VERTEX_SHADER: 
+			case VERTEX_SHADER:
 				WriteLog("\nVertex ");
 				break;
-			case FRAGMENT_SHADER: 
+			case FRAGMENT_SHADER:
 				WriteLog("\nFragment ");
 				break;
+            default:
+                break;
 			}
 			WriteLog("Shader Log:\n");
 			char* buf = new char[infoLenght];

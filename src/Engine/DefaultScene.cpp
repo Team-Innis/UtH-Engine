@@ -1,9 +1,10 @@
-#include "UtH/Engine/DefaultScene.hpp"
+#include <UtH/Engine/DefaultScene.hpp>
 #include <UtH/Engine/Sprite.hpp>
 #include <UtH/Engine/AnimatedSprite.hpp>
 #include <UtH/Engine/Rigidbody.hpp>
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Input.hpp>
+#include <UtH/Renderer/TextureAtlas.hpp>
 
 #include <UtH/Platform/Debug.hpp>
 
@@ -96,7 +97,8 @@ bool DefaultScene::Init()
     //rtexSprite->transform.SetScale(umath::vector2(0.5f, 0.5f));
 
     obj = new GameObject();
-    obj->AddComponent(new Sprite("test.tga"));
+    //obj->AddComponent(new Sprite("test.tga"));
+    obj->AddComponent(new Sprite(umath::vector4(1, 1, 1, 1), umath::vector2(100,100)));
     obj->transform.SetPosition(0, 0);
 
 	WriteLog("GameObjects: %d\n", gameObjects.size());
@@ -129,7 +131,6 @@ bool DefaultScene::Update(float dt)
 {
     const float offset = 75.f * dt;
 
-
     camera.Rotate(-offset);
     rtexSprite->transform.Rotate(offset);
 
@@ -144,9 +145,9 @@ bool DefaultScene::Update(float dt)
 		WriteLog("Impulse!\n");
 	}*/
 
-	auto rigidBody = static_cast<Rigidbody*>(gameObjects.at(0)->GetComponent("Rigidbody"));
+	//auto rigidBody = static_cast<Rigidbody*>(gameObjects.at(0)->GetComponent("Rigidbody"));
 
-	const int speed = 5;
+	//const float speed = 5.f;
 
 	const float timeStep = 1.f/60.f;
 	world.Step(timeStep, 8, 3);
@@ -160,13 +161,13 @@ bool DefaultScene::Update(float dt)
 	return true;
 }
 bool DefaultScene::Draw()
-{	
+{
     obj->Draw(uthEngine.GetWindow());
     //glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     rtex.Clear(0, 0, 1, 1);
-	for(size_t i = 0; i < layers.size(); i++)
-        layers.at(i)->Draw(rtex);
+ 	for(size_t i = 0; i < layers.size(); i++)
+         layers.at(i)->Draw(rtex);
 
     rtex.Update();
     rtex.GetTexture();

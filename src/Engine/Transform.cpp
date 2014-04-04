@@ -10,8 +10,7 @@ Transform::Transform(const std::string& name)
 	  scale(1, 1),
 	  angle(0),     
 	  depth(0),
-	  m_transformNeedsUpdate(true),
-	  transformNeedsUpdate(true)
+	  m_transformNeedsUpdate(true)
 { }
 
 Transform::~Transform()
@@ -142,31 +141,17 @@ void Transform::updateTransform()
 							sine,   cosine, 0,    0,
 							0,      0,      1.0f, 0,
 							0,      0,      0,    1.0f);
-				
-	umath::matrix4 scaleMat(size.x * scale.x,	   0,   0,    0,
+
+	umath::matrix4 scaleMatrix(size.x * scale.x,	   0,   0,    0,
 						 0,      size.y * scale.y,  0,    0,
 						 0,      0,					1.0f, 0,
 						 0,      0,					0,    1.0f);
-
-	/*umath::matrix4 translation(1.0f,       0,          0,     0,
-							   0,          1.0f,       0,     0,
-							   0,          0,          1.0f,  0,
-							   position.x, position.y, depth, 1.0f);*/
 
 	umath::matrix4 translation(1.0f,       0,          0,     position.x,
 							   0,          1.0f,       0,     position.y,
 							   0,          0,          1.0f,  0,
 							   0,		   0,		   0,	  1.0f);
 
-#ifndef _DEBUG
-	if(transformNeedsUpdate)
-	{
-		rotation*scaleMat;
-		transformNeedsUpdate = false;
-	}
-#endif
-
-
-	m_modelTransform = translation * rotation * scaleMat;
+	m_modelTransform = translation * rotation * scaleMatrix;
 	m_transformNeedsUpdate = false;
 }

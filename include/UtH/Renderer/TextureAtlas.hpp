@@ -20,7 +20,7 @@ namespace uth
         ~TextureAtlas();
 
 
-        bool LoadFromFile(const std::string& filePath, const bool smooth = false, const bool repeated = false);
+        bool LoadFromFile(const std::string& filePath);
 
         void Bind();
 
@@ -28,15 +28,11 @@ namespace uth
 
         bool SetSmooth(const bool value);
 
-        bool SetRepeated(const bool value);
-
         const umath::vector2& GetSize() const;
 
         bool IsValid() const;
 
         bool IsSmooth() const;
-
-        bool IsRepeated() const;
 
         const umath::rectangle& getTextureCoords(const char* name) const;
 

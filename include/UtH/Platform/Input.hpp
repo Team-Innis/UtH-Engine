@@ -11,16 +11,12 @@
 	#include <UtH/Platform/Android/InputKeyboard.hpp>
 	#include <UtH/Platform/Android/InputMouse.hpp>
 	#include <UtH/Platform/Android/InputTouch.hpp>
-#elif defined(UTH_SYSTEM_WINDOWS)
-	#include <UtH/Platform/Win32/InputCommon.hpp>
-	#include <UtH/Platform/Win32/InputKeyboard.hpp>
-	#include <UtH/Platform/Win32/InputMouse.hpp>
-	#include <UtH/Platform/Win32/InputTouch.hpp>
-#elif defined(UTH_SYSTEM_LINUX)
-    #include <UtH/Platform/Win32/InputCommon.hpp>
-    #include <UtH/Platform/Win32/InputKeyboard.hpp>
-    #include <UtH/Platform/Win32/InputMouse.hpp>
-    #include <UtH/Platform/Win32/InputTouch.hpp>
+
+#elif defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX)
+    #include <UtH/Platform/Common/InputCommon.hpp>
+    #include <UtH/Platform/Common/InputKeyboard.hpp>
+    #include <UtH/Platform/Common/InputMouse.hpp>
+    #include <UtH/Platform/Common/InputTouch.hpp>
 #else
 	#error No input for such platform
 #endif

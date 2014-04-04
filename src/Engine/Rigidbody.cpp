@@ -42,15 +42,15 @@ void Rigidbody::Init()
 	init();
 }
 
-void Rigidbody::Update(float dt)
+void Rigidbody::Update(float)
 {
-		float angDegrees = GetAngle();
-		parent->transform.SetRotation(angDegrees);
+	const float angDegrees = GetAngle();
+	parent->transform.SetRotation(angDegrees);
 
-		b2Vec2 pos = m_body->GetPosition();
-		umath::vector2 tpos(pos.x, pos.y);
-		tpos *= PIXELS_PER_METER;
-		parent->transform.SetPosition(tpos);
+	b2Vec2 pos = m_body->GetPosition();
+	umath::vector2 tpos(pos.x, pos.y);
+	tpos *= PIXELS_PER_METER;
+	parent->transform.SetPosition(tpos);
 }
 
 
@@ -140,9 +140,6 @@ void Rigidbody::SetUnitSize(const float radius)
 
 	// Remove original fixture
 	m_body->DestroyFixture(m_body->GetFixtureList());
-
-
-	float curAng = m_body->GetAngle();
 	
 	b2CircleShape circle;
 	circle.m_radius = radius;

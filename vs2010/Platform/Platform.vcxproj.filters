@@ -13,12 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\Win32">
-      <UniqueIdentifier>{4cd08451-885b-4a91-8a5f-73fb91cd2e52}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Win32">
-      <UniqueIdentifier>{79b13ad5-7fec-4c72-bbd9-91ca52e2f274}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Common">
       <UniqueIdentifier>{7e473aa5-cda1-49c9-9bea-10264237f40c}</UniqueIdentifier>
     </Filter>
@@ -72,25 +66,25 @@
     <ClInclude Include="..\..\include\UtH\Platform\Input.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\Win32WindowImpl.hpp">
-      <Filter>Header Files\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\InputEnums.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputKeyboard.hpp">
-      <Filter>Header Files\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputMouse.hpp">
-      <Filter>Header Files\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputTouch.hpp">
-      <Filter>Header Files\Win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Win32\InputCommon.hpp">
-      <Filter>Header Files\Win32</Filter>
+    <ClInclude Include="..\..\include\UtH\Platform\Common\CommonWindowImpl.hpp">
+      <Filter>Header Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Platform\Common\InputBase.hpp">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Common\InputCommon.hpp">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\InputEnums.hpp">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Common\InputKeyboard.hpp">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Common\InputMouse.hpp">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Common\InputTouch.hpp">
       <Filter>Header Files\Common</Filter>
     </ClInclude>
   </ItemGroup>
@@ -107,28 +101,31 @@
     <ClCompile Include="..\..\src\Platform\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Platform\Win32\Win32WindowImpl.cpp">
-      <Filter>Source Files\Win32</Filter>
+    <ClCompile Include="..\..\src\Platform\Common\FileReader.cpp">
+      <Filter>Source Files\Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Platform\Win32\InputCommon.cpp">
-      <Filter>Source Files\Win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Platform\Win32\InputKeyboard.cpp">
-      <Filter>Source Files\Win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Platform\Win32\InputMouse.cpp">
-      <Filter>Source Files\Win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Platform\Win32\InputTouch.cpp">
-      <Filter>Source Files\Win32</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Platform\Common\FileReader.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Common\CommonWindowImpl.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Platform\Common\InputBase.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Common\InputCommon.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Common\InputKeyboard.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Common\InputMouse.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Common\InputTouch.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
   </ItemGroup>

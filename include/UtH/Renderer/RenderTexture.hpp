@@ -19,7 +19,7 @@ namespace uth
 
         bool Initialize(const umath::vector2& size, const bool depthBuffer = false);
 
-        umath::vector2 GetSize() const override;
+        umath::vector2 GetSize() const;
 
         Texture& GetTexture();
 
@@ -27,7 +27,7 @@ namespace uth
 
     private:
 
-        bool bind() override;
+        bool bind();
 
         Texture m_texture;
         unsigned int m_frameBuffer,
