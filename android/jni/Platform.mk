@@ -89,8 +89,7 @@ $(SRC_PATH)Engine/UtHEngine.cpp \
 $(SRC_PATH)Engine/Transform.cpp \
 $(SRC_PATH)Engine/RigidBody.cpp \
 $(SRC_PATH)Engine/Layer.cpp \
-$(SRC_PATH)Engine/AnimatedSprite.cpp \
-$(SRC_PATH)Engine/Text.cpp
+$(SRC_PATH)Engine/AnimatedSprite.cpp
 
 #TinyXML2
 LOCAL_SRC_FILES += \

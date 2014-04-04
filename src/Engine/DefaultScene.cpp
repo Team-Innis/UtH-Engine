@@ -1,7 +1,6 @@
 #include "UtH/Engine/DefaultScene.hpp"
 #include <UtH/Engine/Sprite.hpp>
 #include <UtH/Engine/AnimatedSprite.hpp>
-#include <UtH/Engine/Text.hpp>
 #include <UtH/Engine/Rigidbody.hpp>
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Input.hpp>
@@ -17,12 +16,18 @@ DefaultScene::~DefaultScene()
 
 bool DefaultScene::Init()
 {
+	
+	WriteLog("DefaultScene Init");
 	shader = new Shader();
-	shader->LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
+	WriteLog("new shader");
+	shader->LoadShader("shaders/vertexshader.vert", "shaders/fragmentshader.frag");
+	WriteLog("Load Shader");
 	shader->Use();
 
     uthEngine.GetWindow().SetViewport(umath::rectangle(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
+	WriteLog("Window ViewPort");
     uthEngine.GetWindow().SetShader(shader);
+	WriteLog("Window Shader");
     rtex.Initialize(uthEngine.GetWindowResolution() / 2.f, false);
     rtex.SetCamera(&camera);
     rtex.SetShader(shader);
@@ -83,17 +88,6 @@ bool DefaultScene::Init()
 	go->transform.SetPosition(0, groundBody->GetPosition().y * PIXELS_PER_METER);
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(0, go);
-
-	go = new GameObject();
-	auto text = new Text("8bitoperator.ttf", 32);
-	text->AddText(L"!\"#$%&'()*+,-./0123456789:;<=     >?"
-				  L"\n@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
-				  L"\n`abcdefghijklmnopqrstuvwxyz{|}~", umath::vector4(0, 0, 0, 1));
-	text->AddText(L"\nPrkl!", umath::vector4(1,0,0,1));
-	go->AddComponent(text);
-	go->transform.Move(-400, 200);
-	gameObjects.push_back(go);
-	AddGameObjectToLayer(1, go);
 
     // render rtex
     rtexSprite = new GameObject();
