@@ -20,11 +20,6 @@
     <ClInclude Include="..\..\include\UtH\Audio\Sound.h" />
     <ClInclude Include="..\..\include\UtH\Audio\SoundManager.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Platform\Platform.vcxproj">
-      <Project>{18249a2b-04bc-4cc3-88df-cd8c3e945692}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{78EC45C3-4529-4645-8101-3FAECB76BA68}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
