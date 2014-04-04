@@ -151,7 +151,7 @@ bool TestScene::Update(float dt)
 	const float timeStep = 1.f/60.f;
 	world.Step(timeStep, 8, 3);
 	
-	if(UTHInput.Mouse.IsButtonPressed(Mouse::MS1))
+	if(uthInput.Mouse.IsButtonPressed(Mouse::MS1))
 	{
 		uthSceneM.GoToScene(0);
 	}
