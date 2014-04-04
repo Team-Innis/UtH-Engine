@@ -86,6 +86,17 @@ namespace uth
 		// Set fixed rotation to the object.
 		void SetFixedRotation(bool value);
 
+		// Set the density of the object
+		void SetDensity(float density);
+		// Get the density of the object
+		float GetDensity() const;
+
+		// Set the friction of the object
+		void SetFriction(float friction);
+		// Get the friction of the object
+		float GetFriction() const;
+
+
 		// Sets if the object is active
 		// Inactive objects will unaffetec by all physics
 		void SetActive(bool value);

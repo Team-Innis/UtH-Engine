@@ -188,6 +188,27 @@ void Rigidbody::SetFixedRotation(bool value)
 	m_body->SetFixedRotation(value);
 }
 
+void Rigidbody::SetDensity(float density)
+{
+	m_body->GetFixtureList()->SetDensity(density);
+	m_body->ResetMassData();
+}
+
+float Rigidbody::GetDensity() const
+{
+	return m_body->GetFixtureList()->GetDensity();
+}
+
+void Rigidbody::SetFriction(float friction)
+{
+	m_body->GetFixtureList()->SetFriction(friction);
+}
+
+float Rigidbody::GetFriction() const
+{
+	return m_body->GetFixtureList()->GetFriction();
+}
+
 void Rigidbody::SetActive(bool value)
 {
 	m_body->SetActive(value);
