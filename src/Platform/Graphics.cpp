@@ -85,6 +85,7 @@ namespace uth
     {
         const unsigned int i = glCreateProgram();
         CheckGLError("glCreateProgram");
+		if(glIsProgram(i) == GL_FALSE)WriteLog("m_program isn't GLprogram");
 
         return i;
     }
@@ -147,7 +148,10 @@ namespace uth
 
     bool Graphics::LinkShaderProgram(const int shaderProgram)
     {
-		CheckGLError("Before glLinkProgram");
+		if(glIsProgram(shaderProgram) == GL_FALSE)
+			WriteLog("shaderProgram isn't GLprogram");
+		CheckGLError("glIsProgram");
+
         glLinkProgram(shaderProgram);
 		CheckGLError("glLinkProgram");
 
@@ -161,10 +165,9 @@ namespace uth
 			char* buf = new char[infoLenght];
 			glGetProgramInfoLog(shaderProgram, infoLenght, NULL, buf);
 			CheckGLError("glGetProgramInfoLog");
-			WriteLog("%s", buf);
+			WriteLog(buf);
 			delete[] buf;
 		}
-
         int success;
 		glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
 		CheckGLError("glGetProgramiv LINK");
@@ -175,6 +178,7 @@ namespace uth
 			WriteLog("Shader link failed");
 			return false;
 		}
+		WriteLog("Befre true");
         
 		return true;
     }
