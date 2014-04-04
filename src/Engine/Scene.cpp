@@ -26,7 +26,7 @@ Scene::~Scene()
 
 bool Scene::CreateLayer(const int layerId)
 {
-	for(int i = 0; i < layers.size(); i++)
+	for(size_t i = 0; i < layers.size(); i++)
 	{
 		if(layerId == layers.at(i)->GetLayerId())
 		{
@@ -48,7 +48,7 @@ bool Scene::CreateLayer(const int layerId)
 
 bool Scene::CreateLayer(const char* layerName, const int layerId)
 {
-	for(int i = 0; i < layers.size(); i++)
+	for(size_t i = 0; i < layers.size(); i++)
 	{
 		if(layerId == layers.at(i)->GetLayerId())
 		{
@@ -162,7 +162,7 @@ int Scene::createLayerWithAnotherID()
 
 	for(int i = 0; i < 9; i++)
 	{
-		for(int j = 0; j < layers.size(); j++)
+		for(size_t j = 0; j < layers.size(); j++)
 		{
 			if(layers.at(j)->GetLayerId() == i)
 				newID = false;

@@ -1,5 +1,6 @@
 #include <UtH/Resources/Font.hpp>
 #include <UtH/Platform/FileReader.h>
+#include <cstdlib> // free
 
 using namespace uth;
 
@@ -32,4 +33,10 @@ bool Font::LoadFromFile(const std::string& filePath)
 const Font::FontStruct& Font::GetFontData() const
 {
 	return m_fontData;
+}
+
+// Private
+Font::FontStruct::~FontStruct()
+{
+	delete[] fontData;
 }

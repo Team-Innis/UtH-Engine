@@ -4,7 +4,7 @@
 #include "UtH/Engine/Scene.hpp"
 #include <UtH/Platform/Singleton.hpp>
 
-#define UtHSceneM uth::SceneManager::getInstance()
+#define uthSceneM uth::SceneManager::getInstance()
 #define UTHDefaultScene -1
 
 namespace uth

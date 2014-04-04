@@ -30,14 +30,14 @@ namespace uth
 		// return true while window should remain open
 		bool processMessages();
 
-        umath::vector2 GetSize() const override;
+        umath::vector2 GetSize() const;
 
 
         void* m_windowHandle;
 
     private:
-        
-        bool bind() override;
+
+        bool bind();
 
         WindowSettings m_windowSettings;
 

@@ -25,7 +25,7 @@ namespace uth
 		const umath::vector2& GetSize() const;
 
 		void SetScale(const umath::vector2& scale);
-		void SetSclae(float xScale, float yScale);
+		void SetScale(float xScale, float yScale);
 		const umath::vector2& GetScale() const;
 
 		void SetRotation(float angle);
@@ -48,8 +48,6 @@ namespace uth
 
 	private:
 		void updateTransform();
-
-		bool transformNeedsUpdate;
 
 		umath::matrix4 m_modelTransform;
         bool m_transformNeedsUpdate;

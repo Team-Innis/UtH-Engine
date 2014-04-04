@@ -26,9 +26,13 @@ namespace uth
 
     Texture::~Texture()
     {
-
+		Delete();
     }
-
+	
+	void Texture::Delete()
+	{
+		uth::Graphics::DeleteTextures(1,&m_textureID);
+	}
 
 
     bool Texture::Create(const umath::vector2& size, const bool smooth, const bool repeated)
@@ -46,7 +50,9 @@ namespace uth
 		SetSmooth(smooth);
         SetRepeated(repeated);
 
-        uth::Graphics::SetTextureImage2D(TEXTURE_2D, 0, RGBA8_FORMAT, m_size.w, m_size.h, RGBA_FORMAT, UNSIGNED_BYTE_TYPE, nullptr);
+        uth::Graphics::SetTextureImage2D(TEXTURE_2D, 0, RGBA8_FORMAT, 
+			static_cast<unsigned int>(m_size.x), static_cast<unsigned int>(m_size.y), 
+			RGBA_FORMAT, UNSIGNED_BYTE_TYPE, nullptr);
 
         return true;
     }
@@ -68,7 +74,9 @@ namespace uth
 		SetSmooth(smooth);
         SetRepeated(repeated);
 
-        uth::Graphics::SetTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT, m_size.w, m_size.h, RGBA_FORMAT, UNSIGNED_BYTE_TYPE, img.m_pixels);
+        uth::Graphics::SetTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT, 
+			static_cast<unsigned int>(m_size.x), static_cast<unsigned int>(m_size.y), 
+			RGBA_FORMAT, UNSIGNED_BYTE_TYPE, img.m_pixels);
 		
 		return true;
     }

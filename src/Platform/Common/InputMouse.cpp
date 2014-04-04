@@ -1,4 +1,4 @@
-#include <UtH/Platform/Win32/InputMouse.hpp>
+#include <UtH/Platform/Common/InputMouse.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <GLFW/glfw3.h>
 
@@ -7,8 +7,9 @@ namespace uth
 	static double MOUSE_WHEEL_X = 0;
 	static double MOUSE_WHEEL_Y = 0;
 	
-	void scroll(GLFWwindow *window, double x, double y)
+	void scroll(GLFWwindow*, double x, double y)
 	{
+		MOUSE_WHEEL_X += x;
 		MOUSE_WHEEL_Y += y;
 	}
 
@@ -31,21 +32,21 @@ namespace uth
 		m_Lpos = m_pos;
 		double x,y;
 		glfwGetCursorPos(window,&x,&y);
-		m_pos.x = x;
-		m_pos.y = y;
+		m_pos.x = static_cast<float>(x);
+		m_pos.y = static_cast<float>(y);
 
 		//WriteLog("\n%f	%f	", x,y);
 
 		for (int i = 0; i < Mouse::COUNT; i++)
 		{
 			m_Lbuttons.at(i) = m_buttons.at(i);
-			m_buttons.at(i) = (bool)glfwGetMouseButton(window, i);
+			m_buttons.at(i) = glfwGetMouseButton(window, i) == 1;
 			//WriteLog(" %d", glfwGetMouseButton(window, i));
 		}
-		const float scrollX = MOUSE_WHEEL_X;
+		const float scrollX = static_cast<float>(MOUSE_WHEEL_X);
 		MOUSE_WHEEL_X = 0;
 
-		const float scrollY = MOUSE_WHEEL_Y;
+		const float scrollY = static_cast<float>(MOUSE_WHEEL_Y);
 		MOUSE_WHEEL_Y = 0;
 
 		m_scroll.x = scrollX;

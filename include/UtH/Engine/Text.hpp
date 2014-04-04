@@ -5,6 +5,7 @@
 #include <UtH/Engine/Component.hpp>
 #include <UtH/Math/Vector.hpp>
 #include <UtH/Core/VertexBuffer.hpp>
+#include <UtH/Resources/ResourceManager.h>
 
 // Forward declaration so we dont need to include the ugly C headers
 struct texture_atlas_t;

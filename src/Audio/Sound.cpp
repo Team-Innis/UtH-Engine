@@ -22,9 +22,8 @@ Sound::~Sound()
 
 Sound::Sound(const char* fileName)
 	: loop(false),
-	  _posX(0), _posY(0), _posZ(0),
-	  duration(0.1f)
-
+	  duration(0.1f),
+	  _posX(0), _posY(0), _posZ(0)
 {
 	Initialize(fileName);
 }

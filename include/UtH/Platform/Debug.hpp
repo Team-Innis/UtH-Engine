@@ -64,7 +64,7 @@
 	}
 	static void WriteLog(const char* text, ...)
 	{
-	#ifdef _DEBUG
+	#ifndef NDEBUG
 		va_list v;
 		va_start(v, text);
 		vprintf(text, v);

@@ -15,18 +15,8 @@ namespace umath
 		~vector4();
 
 		float getLenght();
-
-		union
-		{
-			struct
-			{
-				float x,y,z,w;
-			};
-			struct
-			{
-				float r,g,b,a;
-			};
-		};
+		
+		float x,y,z,w;
 
 		const float& operator [](const unsigned int& index) const;
 		float& operator [](const unsigned int& index);

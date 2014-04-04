@@ -54,13 +54,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\Box2D\include\;$(SolutionDir)..\extlibs\freetype\include\;$(SolutionDir)..\extlibs\freetype-gl\include\;$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\glfw\include\;$(SolutionDir)..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\Box2D\include\;$(SolutionDir)..\extlibs\freetype\include\;$(SolutionDir)..\extlibs\freetype-gl\include\;$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\physfs\include;$(SolutionDir)..\extlibs\glfw\include\;$(SolutionDir)..\include\;$(ProjectDir)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\freetype\lib\Win32;$(SolutionDir)..\extlibs\freetype-gl\lib\Win32;$(SolutionDir)..\extlibs\physfs\lib\Win32;$(SolutionDir)..\extlibs\openal\lib\Win32;$(SolutionDir)..\extlibs\glfw\lib\Win32;$(SolutionDir)..\extlibs\glew\lib\Win32;$(SolutionDir)..\extlibs\tinyxml2\lib\Win32;$(SolutionDir)..\extlibs\Box2D\lib\Win32</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;libOpenAL32.dll.a;physfs.lib;Box2D-d.lib;freetype253_D.lib;freetype-gl-d.lib;tinyxml2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>$(ProjectDir)RunCopyAssets.bat</Command>
@@ -75,15 +73,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\Box2D\include\;$(SolutionDir)..\extlibs\freetype\include\;$(SolutionDir)..\extlibs\freetype-gl\include\;$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\glfw\include\;$(SolutionDir)..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\extlibs\Box2D\include\;$(SolutionDir)..\extlibs\freetype\include\;$(SolutionDir)..\extlibs\freetype-gl\include\;$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\physfs\include;$(SolutionDir)..\extlibs\glfw\include\;$(SolutionDir)..\include\;$(ProjectDir)\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\freetype\lib\Win32;$(SolutionDir)..\extlibs\freetype-gl\lib\Win32;$(SolutionDir)..\extlibs\physfs\lib\Win32;$(SolutionDir)..\extlibs\openal\lib\Win32;$(SolutionDir)..\extlibs\glfw\lib\Win32;$(SolutionDir)..\extlibs\glew\lib\Win32;$(SolutionDir)..\extlibs\tinyxml2\lib\Win32;$(SolutionDir)..\extlibs\Box2D\lib\Win32</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;libOpenAL32.dll.a;physfs.lib;Box2D.lib;freetype253.lib;freetype-gl.lib;tinyxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>$(ProjectDir)RunCopyAssets.bat</Command>
@@ -95,7 +91,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\TestScene.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\TestScene.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

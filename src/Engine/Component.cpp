@@ -3,15 +3,16 @@
 using namespace uth;
 
 Component::Component()
-	: m_active(false),
-	  parent(nullptr)
+	: parent(nullptr),
+	  m_name(""),
+	  m_active(false)
 {
 }
 
 Component::Component(const std::string& name)
-	: m_name(name),
-	  m_active(true),
-	  parent(nullptr)
+	: parent(nullptr),
+	  m_name(name),
+	  m_active(true)
 {
 }
 

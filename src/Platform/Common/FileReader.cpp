@@ -1,10 +1,12 @@
 #include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/Debug.hpp>
+
 #include <cassert>
-#include <cstdlib>
+#include <cstdlib> // malloc
 #include <string>
-#include <UtH\Platform\Debug.hpp>
 
 using namespace uth;
+
 
 bool FileReader::isCompressed = false;
 FileReader::FileReader()
@@ -37,7 +39,8 @@ void FileReader::OpenFile(const char* path)
 	if(PHYSFS_isInit())
 	{		
 		PHYSFS_addToSearchPath("assets.uth",1);
-		assert(PHYSFS_exists(path));
+		const int result = PHYSFS_exists(path);
+		assert(result);
 
 		if(cFile != NULL)
 			PHYSFS_close(cFile);
@@ -63,7 +66,7 @@ void FileReader::CloseFile()
 	}
 	else if (file)
     {
-		fclose(file);
+		std::fclose(file);
         file = NULL;
     }
 }
@@ -78,9 +81,9 @@ int FileReader::GetFileSize()
 	}
 	else
 	{
-		fseek(file, 0, SEEK_END);
-		size = ftell(file);
-		fseek(file, 0, SEEK_SET);
+		std::fseek(file, 0, SEEK_END);
+		size = std::ftell(file);
+		std::fseek(file, 0, SEEK_SET);
 	}
 	return size;
 }
@@ -136,7 +139,7 @@ void* FileReader::ReadBinary()
 {
 	int size = GetFileSize();
 	void* buffer;
-	buffer = malloc(size);
+	buffer = new unsigned char[size];
 	if(!ReadBytes(buffer, size))
 		return nullptr;
 	

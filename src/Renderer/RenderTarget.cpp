@@ -4,15 +4,29 @@
 #include <UtH/Platform/Graphics.hpp>
 
 
+namespace
+{
+    static const unsigned int getUniqueID()
+    {
+        static unsigned int id = 0;
+
+        return ++id;
+    }
+}
+
 namespace uth
 {
     RenderTarget::RenderTarget()
         : m_camera(nullptr),
           m_shader(nullptr),
           m_defaultCamera(),
-          m_defaultShader()
+          m_defaultShader(),
+          m_viewport(),
+          m_loaded(false),
+          m_set(false),
+          m_uniqueID(getUniqueID())
     {
-        
+
     }
 
 
@@ -20,7 +34,15 @@ namespace uth
     {
         updateUniforms();
 
-        return bind();
+        static unsigned int lastID = 0;
+
+        if (lastID != m_uniqueID)
+        {
+            lastID = m_uniqueID;
+            return bind();
+        }
+        else
+            return true;
     }
 
     void RenderTarget::Clear(const float r, const float g, const float b, const float a)
@@ -37,13 +59,11 @@ namespace uth
 
     Camera& RenderTarget::GetCamera()
     {
-        static bool set = false;
-
-        if (!set)
+        if (!m_set)
         {
             m_defaultCamera.SetSize(GetSize());
             m_defaultCamera.SetPosition(0, 0);
-            set = true;
+            m_set = true;
         }
 
         if (m_camera)
@@ -59,13 +79,11 @@ namespace uth
 
     Shader& RenderTarget::GetShader()
     {
-        static bool loaded = false;
-
-        if (!loaded)
+        if (!m_loaded)
         {
-            bool compiled = m_defaultShader.LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
+            const bool compiled = m_defaultShader.LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
             assert(compiled);
-            loaded = true;
+            m_loaded = true;
         }
 
         if (m_shader)
@@ -74,11 +92,27 @@ namespace uth
         return m_defaultShader;
     }
 
+    void RenderTarget::SetViewport(const umath::rectangle& rect)
+    {
+        m_viewport = rect;
+    }
+
+    const umath::rectangle& RenderTarget::GetViewport() const
+    {
+        return m_viewport;
+    }
+
     void RenderTarget::updateUniforms()
     {
         if (m_shader)
+        {
             m_shader->SetUniform("unifProjection", m_camera ? m_camera->GetProjectionTransform() : m_defaultCamera.GetProjectionTransform());
+
+        }
         else
+        {
             m_defaultShader.SetUniform("unifProjection", m_camera ? m_camera->GetProjectionTransform() : m_defaultCamera.GetProjectionTransform());
+
+        }
     }
 }

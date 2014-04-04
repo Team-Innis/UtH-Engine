@@ -13,17 +13,7 @@ namespace umath
 
 		float getLenght();
 		
-		union
-		{
-			struct
-			{
-				float x,y,z;
-			};
-			struct
-			{
-				float r,g,b;
-			};
-		};
+		float x,y,z;
 			
 		const float& operator [](const unsigned int& index) const;
 		float& operator [](const unsigned int& index);

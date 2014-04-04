@@ -7,12 +7,12 @@
 
 namespace uth
 {
-    class Win32WindowImpl
+    class CommonWindowImpl
     {
     public:
 
-        Win32WindowImpl();
-        ~Win32WindowImpl();
+        CommonWindowImpl();
+        ~CommonWindowImpl();
 
         static void* create(const WindowSettings& settings);
 

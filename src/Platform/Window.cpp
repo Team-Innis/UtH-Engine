@@ -4,15 +4,10 @@
 #include <UtH/Platform/Graphics.hpp>
 
 
-#if defined(UTH_SYSTEM_WINDOWS)
+#if defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX)
 
-#include <UtH/Platform/Win32/Win32WindowImpl.hpp>
-typedef uth::Win32WindowImpl WindowImpl;
-
-#elif defined(UTH_SYSTEM_LINUX)
-
-#include <UtH/Platform/Linux/LinuxWindowImpl.hpp>
-typedef uth::LinuxWindowImpl WindowImpl;
+#include <UtH/Platform/Common/CommonWindowImpl.hpp>
+typedef uth::CommonWindowImpl WindowImpl;
 
 #elif defined(UTH_SYSTEM_ANDROID)
 
@@ -85,6 +80,13 @@ namespace uth
     bool Window::bind()
     {
         uth::Graphics::BindFrameBuffer(0);
+
+        const umath::rectangle& vp = GetViewport();
+        uth::Graphics::SetViewport(static_cast<int>(vp.x + 0.5f),
+                                   static_cast<int>(vp.y + 0.5f),
+                                   static_cast<int>(vp.width + 0.5f),
+                                   static_cast<int>(vp.height + 0.5f));
+
         return true;
     }
 }

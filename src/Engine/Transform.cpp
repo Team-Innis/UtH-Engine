@@ -10,8 +10,7 @@ Transform::Transform(const std::string& name)
 	  scale(1, 1),
 	  angle(0),     
 	  depth(0),
-	  m_transformNeedsUpdate(true),
-	  transformNeedsUpdate(true)
+	  m_transformNeedsUpdate(true)
 { }
 
 Transform::~Transform()
@@ -68,7 +67,7 @@ void Transform::SetScale(const umath::vector2& scale)
 	m_transformNeedsUpdate = true;
 }
 
-void Transform::SetSclae(float xScale, float yScale)
+void Transform::SetScale(float xScale, float yScale)
 {
 	SetScale(umath::vector2(xScale, yScale));
 }
@@ -142,31 +141,17 @@ void Transform::updateTransform()
 							sine,   cosine, 0,    0,
 							0,      0,      1.0f, 0,
 							0,      0,      0,    1.0f);
-				
-	umath::matrix4 scale(size.x * scale.x,	   0,   0,    0,
+
+	umath::matrix4 scaleMatrix(size.x * scale.x,	   0,   0,    0,
 						 0,      size.y * scale.y,  0,    0,
 						 0,      0,					1.0f, 0,
 						 0,      0,					0,    1.0f);
-
-	/*umath::matrix4 translation(1.0f,       0,          0,     0,
-							   0,          1.0f,       0,     0,
-							   0,          0,          1.0f,  0,
-							   position.x, position.y, depth, 1.0f);*/
 
 	umath::matrix4 translation(1.0f,       0,          0,     position.x,
 							   0,          1.0f,       0,     position.y,
 							   0,          0,          1.0f,  0,
 							   0,		   0,		   0,	  1.0f);
 
-#ifndef _DEBUG
-	if(transformNeedsUpdate)
-	{
-		rotation*scale;
-		transformNeedsUpdate = false;
-	}
-#endif
-
-
-	m_modelTransform = translation * rotation * scale;
+	m_modelTransform = translation * rotation * scaleMatrix;
 	m_transformNeedsUpdate = false;
 }
