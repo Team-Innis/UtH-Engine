@@ -81,7 +81,10 @@ namespace uth
 		// Set the angle of the object in degrees
 		void SetAngle(const float angle);
 		// Get the angle of the object in degrees
-		const float GetAngle();
+		float GetAngle() const;
+
+		// Set fixed rotation to the object.
+		void SetFixedRotation(bool value);
 
 		// Sets if the object is active
 		// Inactive objects will unaffetec by all physics

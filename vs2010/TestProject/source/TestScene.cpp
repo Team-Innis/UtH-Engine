@@ -57,7 +57,7 @@ bool TestScene::Init()
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(0, go);
 
-	
+
 	//AnimatedSprite* as = new AnimatedSprite(texture, 5, 4, 4, 1.f, 0, false, true);
 	//as->ChangeAnimation(4, 4, 6, 1.f);
 
@@ -150,7 +150,7 @@ bool TestScene::Update(float dt)
 
 	const float timeStep = 1.f/60.f;
 	world.Step(timeStep, 8, 3);
-	
+
 	if(UTHInput.Mouse.IsButtonPressed(Mouse::MS1))
 	{
 		uthSceneM.GoToScene(0);
