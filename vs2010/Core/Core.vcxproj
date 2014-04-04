@@ -11,10 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\Core\Randomizer.cpp" />
     <ClCompile Include="..\..\src\Core\Shader.cpp" />
     <ClCompile Include="..\..\src\Core\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\include\UtH\Core\Randomizer.hpp" />
     <ClInclude Include="..\..\include\UtH\Core\Shader.hpp" />
     <ClInclude Include="..\..\include\UtH\Core\Vertex.hpp" />
     <ClInclude Include="..\..\include\UtH\Core\VertexBuffer.hpp" />
