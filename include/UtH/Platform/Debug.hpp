@@ -23,14 +23,14 @@
 	#ifndef LOGE
 		#define LOGE(...)	__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
 	#endif
-	static void WriteError(const char* text, ...)
+	static inline void WriteError(const char* text, ...)
 	{
 		va_list v;
 		va_start(v, text);
 		LOGE(text, v);
 		va_end(v);
 	}
-	static void WriteLog(const char* text, ...)
+	static inline void WriteLog(const char* text, ...)
 	{
 		va_list v;
 		va_start(v, text);
@@ -38,7 +38,7 @@
 		va_end(v);
 	}
 
-	static void CheckEGLError()
+	static inline void CheckEGLError()
 	{
 		EGLint error = eglGetError();
 		if(error != EGL_SUCCESS)
@@ -85,7 +85,7 @@ static inline void CheckGLError(const char* op)
 	for (GLint error = glGetError(); error; error
 		= glGetError()) {
 			
-			WriteError("after %s() glError (0x%x)", op, error);
+			WriteLog("after %s() glError (0x%x)", op, error);
 	}
 }
 
