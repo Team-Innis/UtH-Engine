@@ -10,7 +10,8 @@ extlibs/freetype/include/
 extlibs/freetype-gl/include/
 extlibs/physfs/include/
 extlibs/tinyxml2/include/
-extlibs/Box2D/include/)
+extlibs/Box2D/include/
+vs2010/TestProject/include)
 
 include_directories(${INCLUDE_DIRS})
 
@@ -113,5 +114,7 @@ endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
 target_link_libraries(engine math platform core resources audio renderer)
 
-add_executable(testproject vs2010/TestProject/main.cpp)
+add_executable(testproject
+vs2010/TestProject/source/main.cpp
+vs2010/TestProject/source/TestScene.cpp)
 target_link_libraries(testproject engine)

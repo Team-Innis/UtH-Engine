@@ -6,6 +6,7 @@
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Input.hpp>
 #include <UtH/Renderer/TextureAtlas.hpp>
+#include <UtH/Platform/Configuration.hpp>
 
 #include <UtH/Platform/Debug.hpp>
 
@@ -65,7 +66,12 @@ bool DefaultScene::Update(float dt)
     const float timeStep = 1.f/60.f;
     world.Step(timeStep, 8, 3);
     */
-    if(uthInput.Mouse.IsButtonPressed(Mouse::MS1) || uthInput.Touch.Motion() != TouchMotion::NONE)
+    if(uthInput.Mouse.IsButtonPressed(Mouse::MS1)
+        #if defined(UTH_SYSTEM_ANDROID)
+        || uthInput.Touch.Motion() != TouchMotion::NONE)
+        #else
+        )
+        #endif
     {
         /*DeInit();
         Init();*/

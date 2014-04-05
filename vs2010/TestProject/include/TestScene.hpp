@@ -13,7 +13,6 @@ namespace uth
 	class TestScene : public Scene
 	{
 	public:
-		friend class TestScene;
 		TestScene();
 		~TestScene();
 
