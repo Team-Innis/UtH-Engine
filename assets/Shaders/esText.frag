@@ -30,9 +30,7 @@
  * those of the authors and should not be interpreted as representing official
  * policies, either expressed or implied, of Nicolas P. Rougier.
  * ========================================================================= */
-#ifdef GL_ES
 precision mediump float;
-#endif
 
 uniform sampler2D unifSampler;
 
