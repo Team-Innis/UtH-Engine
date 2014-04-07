@@ -28,10 +28,10 @@ namespace uth
     }
 
     Window::Window(const WindowSettings& settings)
-        : m_windowHandle(nullptr),
-          m_windowSettings(settings)
+        : m_windowHandle(nullptr)
     {
-        create(m_windowSettings);
+        create(settings);
+        m_windowSettings = settings;
     }
 
     Window::~Window()

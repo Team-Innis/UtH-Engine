@@ -88,6 +88,7 @@ namespace uth
 
 		uthAndroidEngine.settings.size.x = static_cast<float>(tempX);
 		uthAndroidEngine.settings.size.y = static_cast<float>(tempY);
+		const_cast<WindowSettings&>(settings).size = uthAndroidEngine.settings.size;
 
 		//glHint(GL_GENERATE_MIPMAP_HINT, GL_FASTEST);
 		//glEnable(GL_CULL_FACE);
@@ -159,10 +160,11 @@ namespace uth
 			WriteLog("SaveStated");
 			break;
 		case APP_CMD_INIT_WINDOW:
-			uthEngine.Init(uthAndroidEngine.settings);
 			WriteLog("windowINIT");
+			uthEngine.Init(uthAndroidEngine.settings);
 			uthAndroidEngine.initialized = true;
 			uthAndroidEngine.winEveHand(window);
+			WriteLog("uthAndroidEngine.winEveHand");
 			break;
 		case APP_CMD_TERM_WINDOW:
 			uthAndroidEngine.initialized = false;
