@@ -1,4 +1,4 @@
-<TextureAtlas imagePath="sheet.png">
+<TextureAtlas imagePath="atlastest.tga">
 	<SubTexture name="bomb.png" x="432" y="432" width="70" height="70"/>
 	<SubTexture name="bombFlash.png" x="432" y="360" width="70" height="70"/>
 	<SubTexture name="bush.png" x="346" y="144" width="70" height="70"/>

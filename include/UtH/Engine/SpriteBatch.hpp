@@ -9,6 +9,8 @@
 
 namespace uth
 {
+    class RenderTarget;
+
     class SpriteBatch : public GameObject
     {
     public:
@@ -18,17 +20,20 @@ namespace uth
         SpriteBatch();
 
 
-        void AddSprite(GameObject* object, const std::string& atlasName);
+        bool AddSprite(GameObject* object, const std::string& atlasName = "");
 
         void SetTextureAtlas(TextureAtlas* atlas);
 
-        void Draw(Shader* shader);
+        void SetTexture(Texture* texture);
+
+        void Draw(RenderTarget& target);
 
 
     private:
 
         std::vector<GameObject*> m_objects;
         TextureAtlas* m_atlas;
+        Texture* m_texture;
 
         std::vector<Vertex> m_vertexData;
         VertexBuffer m_spriteBuffer;

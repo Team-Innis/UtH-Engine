@@ -29,7 +29,7 @@ namespace uth
 		void RemoveComponent(const std::string& name);
 		void RemoveComponents();
 
-		void Draw(RenderTarget& target);
+		virtual void Draw(RenderTarget& target);
 		void Update(float dt);
 
 		// Transform is a special component that every gameobject has

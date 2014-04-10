@@ -12,6 +12,8 @@
 
 using namespace uth;
 
+const unsigned int sprites = 10;
+
 TestScene::TestScene()
 {}
 TestScene::~TestScene()
@@ -30,6 +32,16 @@ bool TestScene::Init()
     rtex.SetCamera(&camera);
     rtex.SetShader(shader);
     rtex.SetViewport(umath::rectangle(0, 0, rtex.GetSize().x, rtex.GetSize().y));
+
+    atlas.LoadFromFile("atlastest.xml");
+    batch.SetTextureAtlas(&atlas);
+
+    for (int i = 0; i < sprites; ++i)
+    {
+        GameObject* obj = new GameObject();
+        batch.AddSprite(obj, "bomb.png");
+        obj->transform.SetPosition(250 + (i * 70), -500 + (i * 70));
+    }
 
 
 	// Ground level
@@ -94,6 +106,8 @@ bool TestScene::Init()
 	go->transform.Move(-400, 200);
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(1, go);
+
+    AddGameObjectToLayer(1, &batch);
 
     // render rtex
     rtexSprite = new GameObject();

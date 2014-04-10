@@ -7,6 +7,7 @@
 #include <UtH/Renderer/Camera.hpp>
 #include <UtH/Platform/HiResTimer.hpp>
 #include <UtH/Renderer/RenderTexture.hpp>
+#include <UtH/Engine/SpriteBatch.hpp>
 
 namespace uth
 {
@@ -27,6 +28,9 @@ namespace uth
 
 		std::vector<GameObject*> gameObjects;
         RenderTexture rtex;
+
+        TextureAtlas atlas;
+        SpriteBatch batch;
 
         GameObject* rtexSprite;
 
