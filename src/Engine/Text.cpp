@@ -115,7 +115,7 @@ const std::wstring& Text::GetText() const
 	return m_text;
 }
 
-void Text::Draw(RenderTarget&)
+void Text::Draw(RenderTarget& target)
 {
 	m_textShader.Use();
 
@@ -123,7 +123,7 @@ void Text::Draw(RenderTarget&)
 	m_textShader.SetUniform("unifSampler", 0);
 
 	m_textShader.SetUniform("unifModel", parent->transform.GetTransform());
-    //m_textShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
+    m_textShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
 
 	m_vertexBuffer.bindArrayBuffer();
 	// (position + uv + color) * sizeof(float)
