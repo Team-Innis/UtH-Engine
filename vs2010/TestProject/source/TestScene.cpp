@@ -60,7 +60,7 @@ bool TestScene::Init()
 	camera.SetPosition(0, 0);
 
 	CreateLayer("monsu", 3);
-	CreateLayer("testi", 1);
+	CreateLayer("derp", 1);
 	CreateLayer("testi", 0);
 
 	GameObject* go = new GameObject();

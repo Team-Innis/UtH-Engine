@@ -91,12 +91,9 @@ static inline void CheckGLError(const char* op)
 
 static inline void CheckALError(const char* op)
 {
-	
-	for(ALCenum error = alGetError(); error != AL_NO_ERROR; error = alGetError())
+	for(ALCenum error = alGetError(); error != ALC_NO_ERROR; error = alGetError())
 	{
-		WriteError("after %s() glError (0x%x)", op, error);
+		WriteError("after %s() alError (0x%x)", op, error);
 	}
-	
-	WriteError("after %s() glError (0x%x)", op);
 }
 #endif
