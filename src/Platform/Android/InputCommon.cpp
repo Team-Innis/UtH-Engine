@@ -73,3 +73,8 @@ bool CommonInput::operator == (InputEvent Event)
 {
 	return m_event == Event;
 }
+
+bool CommonInput::operator != (InputEvent Event)
+{
+	return m_event != Event;
+}

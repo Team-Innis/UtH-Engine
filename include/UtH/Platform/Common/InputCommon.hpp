@@ -27,8 +27,9 @@ namespace uth
 		const umath::vector2 Position() const;
 		
 		void Update();
-
+		
 		bool operator == (InputEvent Event);
+		bool operator != (InputEvent Event);
 	};
 }
 
