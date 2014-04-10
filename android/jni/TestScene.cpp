@@ -151,8 +151,9 @@ bool TestScene::Update(float dt)
 	const float timeStep = 1.f/60.f;
 	world.Step(timeStep, 8, 3);
 
-	if(uthInput.Mouse.IsButtonPressed(Mouse::MS1))
+	if(uthInput.Common.Event() == InputEvent::TAP)
 	{
+		WriteLog("Tapped");
 		uthSceneM.GoToScene(0);
 	}
 
