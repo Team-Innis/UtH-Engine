@@ -116,16 +116,6 @@ namespace uth
 			COUNT
 		};
 	}
-	
-	namespace UniInput
-	{
-		enum Happening
-		{
-			CLICK	= 0,
-			CLICK_ALTERNATIVE = 1,
-			DOUBLECLICK = 2
-		};
-	}
 }
 
 #endif

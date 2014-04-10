@@ -21,11 +21,15 @@
     <ClCompile Include="..\..\android\jni\main.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\AndroidWindowImpl.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\FileReader.cpp" />
+    <ClCompile Include="..\..\src\Platform\Android\InputCommon.cpp" />
+    <ClCompile Include="..\..\src\Platform\Android\InputKeyboard.cpp" />
+    <ClCompile Include="..\..\src\Platform\Android\InputMouse.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputTouch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Platform\Android\AndroidEngine.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\FileReader.h" />
+    <ClInclude Include="..\..\include\UtH\Platform\Android\InputCommon.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputKeyboard.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputMouse.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputTouch.hpp" />

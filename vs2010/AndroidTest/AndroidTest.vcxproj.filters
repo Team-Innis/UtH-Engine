@@ -16,6 +16,9 @@
     <Filter Include="Header Files\Input">
       <UniqueIdentifier>{05941d8b-75ef-49a9-bd07-b692bdcb27ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{73b96115-5be2-4f0c-b4be-7ef498a48a10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\android\jni\Android.mk" />
@@ -35,7 +38,16 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Android\InputTouch.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Android\InputKeyboard.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Android\InputMouse.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Android\InputCommon.cpp">
+      <Filter>Source Files\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +67,9 @@
       <Filter>Header Files\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputTouch.hpp">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Android\InputCommon.hpp">
       <Filter>Header Files\Input</Filter>
     </ClInclude>
   </ItemGroup>
