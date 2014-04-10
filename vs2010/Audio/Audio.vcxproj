@@ -74,7 +74,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\openal\lib\Win32</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libOpenAL32.dll.a</AdditionalDependencies>
+      <AdditionalDependencies>OpenAL32.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -96,7 +96,7 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\openal\lib\Win32</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libOpenAL32.dll.a</AdditionalDependencies>
+      <AdditionalDependencies>OpenAL32.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

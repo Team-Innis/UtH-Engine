@@ -4,13 +4,11 @@ using namespace uth;
 
 Audio::Audio()
 {
-	_manager = new SoundManager();
 }
 
 Audio::~Audio()
 {
 	delete _sound;
-	delete _manager;
 }
 
 // Public

@@ -63,7 +63,7 @@ namespace uth
 				WriteLog("Channels: %d\n", m_soundInfo.channels);
 				//FR->FileSeek(24, 0);
 				FR.ReadBytes(&m_soundInfo.sampleRate, 4);
-				WriteLog("Sample rate: %lu\n");
+				WriteLog("Sample rate: %lu\n", m_soundInfo.sampleRate);
 				//FR->FileSeek(28, 0);
 				FR.ReadBytes(&avg_bytes_sec, 4);
 				WriteLog("Avg bytes sec: %lu\n", avg_bytes_sec);
@@ -75,15 +75,21 @@ namespace uth
 				WriteLog("Bits per sample: %d\n", m_soundInfo.bitsPerSample);
 				//FR->FileSeek(20 + i, 0);
 
+				if(m_soundInfo.channels == 1 && m_soundInfo.bitsPerSample == 8)
+				{
+					WriteError("For some reason 8bit MONO doesnt work!"
+								"\nSo it's not supported.");
+					return false;
+				}
 				FR.ReadBytes(id, 4);
 				WriteLog((char*)id);
-				if((char)id[0] != 'd' && (char)id[1] != 'a' && (char)id[2] != 't' && (char)id[3] != 'a')
+				if((char)id[0] != 'd' || (char)id[1] != 'a' || (char)id[2] != 't' || (char)id[3] != 'a')
 				{
-					FR.FileSeek(24 + i, 0);
-					FR.ReadBytes(&format_lenght, 4);
-					i += format_lenght;
-					WriteLog("\nBlock lenght: %lu\n", format_lenght);
-					FR.FileSeek(28 + i, 0);
+					FR.FileSeek(20 + i, 0);
+					//FR.ReadBytes(&format_lenght, 4);
+					//i += format_lenght;
+					//WriteLog("\nBlock lenght: %lu\n", format_lenght);
+					//FR.FileSeek(28 + i, 0);
 					FR.ReadBytes(id, 4);
 					WriteLog((char*)id);
 				}
@@ -96,11 +102,16 @@ namespace uth
 				WriteLog("Sound buffer: %u\n", m_soundInfo.soundBuffer);
 			}
 			else
+			{
 				WriteError("Not a WAVE file!");
+				return false;
+			}
 		}
 		else
+		{
 			WriteError("Not a RIFF file!");
-
+			return false;
+		}
 
 		m_soundInfo.frames = data_size / block_align;
 		WriteLog("Frames: %d\n", m_soundInfo.frames);

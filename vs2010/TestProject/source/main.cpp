@@ -5,6 +5,8 @@
 #include <UtH/Engine/DefaultScene.hpp>
 
 #include "TestScene.hpp"
+#include <UtH/Audio/Audio.h>
+#include <UtH/Audio/SoundManager.h>
 
 // Enumeration of scenes, giving name for each scene number
 enum SceneName
@@ -42,6 +44,13 @@ int main()
 
 	uthEngine.Init();
 
+	//uth::SoundManager* sm = new uth::SoundManager();
+
+	//uth::Audio* sound = new uth::Audio();
+	//sound->Load("testi3.wav");
+	//sound->Play();
+	//sound->Loop(true);
+
 	while(uthEngine.Running())
 	{
 		uthEngine.Update();
@@ -49,6 +58,7 @@ int main()
 		uthEngine.Draw();
 	}
 
+	//delete sm;
 	return 0;
 	//Hood.MainLoop(/*new StartScene*/);
 	//uthSceneM.GoToScene(/*new GameScene*/1);

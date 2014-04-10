@@ -5,6 +5,7 @@
 
 using namespace uth;
 
+
 Sound::Sound()
 {
 }
@@ -154,7 +155,7 @@ void Sound::Initialize(const char* fileName)
 	// Create buffer
 	alGenBuffers(1, &buffer);
 	CheckALError("alGenBuffers");
-
+	
 	const SoundBuffer& buf = uthRS.LoadWAV(fileName);
 
     if(buf.GetSoundInfo().channels == 2)
