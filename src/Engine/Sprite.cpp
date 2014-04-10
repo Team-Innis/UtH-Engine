@@ -8,7 +8,7 @@ using namespace uth;
 
 Sprite::Sprite(Texture* texture, const std::string& name)
 	: Component(name),
-      m_texture(texture)
+	  m_texture(texture)
 {
 	defaults();
 }
@@ -25,7 +25,7 @@ Sprite::Sprite(const std::string& filePath, const std::string& name)
 
 Sprite::Sprite(const umath::vector4& fillColor, const umath::vector2& size, const std::string& name)
 	: Component(name),
-      m_texture(nullptr)
+	  m_texture(nullptr)
 {
 	m_size = size;
 	SetColor(fillColor);
@@ -45,7 +45,7 @@ void Sprite::Init()
 
 void Sprite::Draw(RenderTarget& target)
 {
-    Shader& shader = target.GetShader();
+	Shader& shader = target.GetShader();
 
 	if (m_texture)
 	{
@@ -58,7 +58,7 @@ void Sprite::Draw(RenderTarget& target)
 		shader.SetUniform("useTexture", 0.f);
 	}
 
-    m_vertexBuffer.bindArrayBuffer();
+	m_vertexBuffer.bindArrayBuffer();
 	// (position + uv + color) * sizeof(float)
 	const int posOffset = (3 + 2 + 4)*sizeof(float);
 	// position * sizeof(float)
@@ -72,8 +72,8 @@ void Sprite::Draw(RenderTarget& target)
 	shader.setAttributeData("attrUV", 2, FLOAT_TYPE, posOffset, (void*)uvStart);
 	shader.setAttributeData("attrColor", 4, FLOAT_TYPE, posOffset, (void*)colorStart);
 
-    m_vertexBuffer.bindElementBuffer();
-    uth::Graphics::DrawElements(TRIANGLES, m_vertexBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
+	m_vertexBuffer.bindElementBuffer();
+	uth::Graphics::DrawElements(TRIANGLES, m_vertexBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
 
 	uth::Graphics::BindBuffer(ARRAY_BUFFER, 0);
 }
@@ -116,7 +116,7 @@ const umath::vector4& Sprite::GetColor() const
 // Private
 void Sprite::defaults()
 {
-    m_size = m_texture->GetSize();
+	m_size = m_texture->GetSize();
 	m_color = umath::vector4(1.f, 1.f, 1.f, 1.f);
 }
 
