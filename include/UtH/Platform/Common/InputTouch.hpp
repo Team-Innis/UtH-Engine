@@ -11,6 +11,7 @@ namespace uth
 	public:
 		TouchInput(){}
 		~TouchInput(){}
+		void Update(float dt){}
 //		Touch tlist[8]
 	};
 }

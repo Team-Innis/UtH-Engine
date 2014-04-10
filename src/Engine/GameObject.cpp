@@ -90,10 +90,10 @@ void GameObject::Draw(RenderTarget& target)
 	shader.SetUniform("unifModel", transform.GetTransform());
     shader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
 
-	for (auto i = components.begin(); i != components.end(); ++i)
+	for (auto it = components.begin(); it != components.end(); ++it)
 	{
 		shader.Use();
-		auto component = (*i);
+		auto component = (*it);
 		if (component->IsActive())
 			component->Draw(target);
 	}

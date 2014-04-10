@@ -3,8 +3,6 @@
 #include <UtH/Platform/OGLCheck.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/Graphics.hpp>
-#include <iostream>
-
 
 
 namespace

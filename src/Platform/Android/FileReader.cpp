@@ -1,5 +1,6 @@
 #include <UtH/Platform/FileReader.h>
 #include <cstdlib> //malloc
+#include <UtH/Platform/Debug.hpp>
 
 using namespace uth;
 
@@ -16,7 +17,7 @@ FileReader::FileReader(const char* path)
 
 FileReader::~FileReader()
 {
-	AAsset_close(m_asset);
+	CloseFile();
 }
 
 void FileReader::OpenFile(const char* path)
@@ -61,4 +62,9 @@ const char* FileReader::ReadText()
 	buffer[size] = 0; // Null terminate the string
 
 	return buffer;
+}
+
+void FileReader::CloseFile()
+{
+	//AAsset_close(m_asset);
 }

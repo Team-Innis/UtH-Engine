@@ -5,11 +5,10 @@
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/Input.hpp>
 
-#include <iostream>
-
 using namespace uth;
 
 UTHEngine::UTHEngine()
+    : m_running(false)
 { }
 
 bool UTHEngine::Init()
@@ -33,7 +32,7 @@ bool UTHEngine::Init(const uth::WindowSettings &wsettings)
 void UTHEngine::Update()
 {
 	const float deltaTime = static_cast<float>(m_timer.DeltaTime());
-	UTHInput.Update();
+	uthInput.Update(deltaTime);
 	uthSceneM.Update(deltaTime);
 	
 	if(m_wndw->processMessages())
@@ -58,7 +57,7 @@ bool UTHEngine::initialize()
 {
 	m_wndw = new Window(m_wsettings);
 	uth::Graphics::SetBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
-	UTHInput.SetWindow(m_wndw->m_windowHandle);
+	uthInput.SetWindow(m_wndw->m_windowHandle);
 	m_running = true;
 
 	return true;
@@ -77,4 +76,9 @@ const umath::vector2 UTHEngine::GetWindowResolution() const
 const bool UTHEngine::Running() const
 {
 	return m_running;
+}
+
+void UTHEngine::SetWindow(void* handle)
+{
+	m_wndw = (Window*)handle;
 }

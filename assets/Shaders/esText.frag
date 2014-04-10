@@ -1,9 +1,9 @@
-/* ============================================================================
+/* =========================================================================
  * Freetype GL - A C OpenGL Freetype engine
  * Platform:    Any
  * WWW:         http://code.google.com/p/freetype-gl/
- * ----------------------------------------------------------------------------
- * Copyright 2011,2012 Nicolas P. Rougier. All rights reserved.
+ * -------------------------------------------------------------------------
+ * Copyright 2011 Nicolas P. Rougier. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,27 +29,19 @@
  * The views and conclusions contained in the software and documentation are
  * those of the authors and should not be interpreted as representing official
  * policies, either expressed or implied, of Nicolas P. Rougier.
- * ============================================================================
- */
-#ifndef __OPEN_GL_H__
-#define __OPEN_GL_H__
+ * ========================================================================= */
+precision mediump float;
 
-#if defined(__APPLE__)
-#   include <GL/glew.h>
-#  ifdef GL_ES_VERSION_2_0
-#    include <OpenGLES/ES2/gl.h>
-#  else
-#    include <OpenGL/gl.h>
-#  endif
-#elif defined(_WIN32) || defined(_WIN64)
-#  include <GL/glew.h>
-#  include <GL/wglew.h>
-#elif defined(__ANDROID__)
-#	include <GLES2/gl2.h>
-#	include <GLES2/gl2ext.h>
-#else
-#  include <GL/glew.h>
-#  include <GL/gl.h>
-#endif
+uniform sampler2D unifSampler;
 
-#endif /* OPEN_GL_H */
+varying vec2 texCoord;
+varying vec4 textColor;
+
+void main()
+{
+    vec4 tex = texture2D(unifSampler, texCoord);
+    gl_FragColor = vec4(textColor.rgb, textColor.a*tex.a);
+    //gl_FragColor = vec4(1, 1, 1, 1);
+    //gl_FragColor = vec4(vec3(tex.r), 1);
+    //gl_FragColor = texture2D(unifSampler, texCoord);
+}

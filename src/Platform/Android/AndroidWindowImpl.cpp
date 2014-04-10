@@ -1,4 +1,4 @@
-#include "AndroidWindowImpl.hpp"
+#include <UtH/Platform/Android/AndroidWindowImpl.hpp>
 #include <UtH/Platform/OpenGL.hpp>
 #include <UtH/Platform/OGLCheck.hpp>
 #include <UtH/Platform/Android/AndroidEngine.hpp>
@@ -47,10 +47,10 @@ namespace uth
 		eglInitialize(uthAndroidEngine.display,0,0);
 			WriteLog("eglInitialize succeeded");
 		CheckEGLError();
-		
+
 		//eglChooseConfig(androidengine.display, attribs, NULL, 1, &numConfigs);
 		//WriteLog("Configs: %d", (int)numConfigs);
-		
+
 		eglChooseConfig(uthAndroidEngine.display, attribs, &uthAndroidEngine.config, 1, &numConfigs);
 		CheckEGLError();
 			WriteLog("eglChooseConfig succeeded");
@@ -58,7 +58,7 @@ namespace uth
 		CheckEGLError();
 			WriteLog("eglGetConfigAttrib succeeded");
 
-		
+
 
 		//ANativeWindow_setBuffersGeometry(androidengine.app->window, 0, 0, 0);
 		//CheckEGLError();
@@ -86,13 +86,14 @@ namespace uth
 		eglQuerySurface(uthAndroidEngine.display, uthAndroidEngine.surface, EGL_HEIGHT, &tempY);
 		CheckEGLError();
 
-		uthAndroidEngine.settings.size.x = tempX;
-		uthAndroidEngine.settings.size.y = tempY;
+		uthAndroidEngine.settings.size.x = static_cast<float>(tempX);
+		uthAndroidEngine.settings.size.y = static_cast<float>(tempY);
+		const_cast<WindowSettings&>(settings).size = uthAndroidEngine.settings.size;
 
 		//glHint(GL_GENERATE_MIPMAP_HINT, GL_FASTEST);
 		//glEnable(GL_CULL_FACE);
 		//glEnable(GL_DEPTH_TEST);
-		uthGraphics.setBlendFunction(true, SRC_ALPHA, ONE_MINUS_SRC_ALPHA);
+		Graphics::SetBlendFunction(true, SRC_ALPHA, ONE_MINUS_SRC_ALPHA);
 
 		WriteLog("+++++++++++++++++++++++++++++++++++++++");
 		WriteLog((const char*)glGetString(GL_VERSION));
@@ -123,22 +124,22 @@ namespace uth
 		uthAndroidEngine.surface = EGL_NO_SURFACE;
 
 		uthAndroidEngine.initialized = false;
-		
+
 		WriteLog("Window Destroyed");
 
-		return (void*)NULL;
+		return nullptr;
     }
 
 
     void AndroidWindowImpl::clear(const bool clearDepth, const bool clearStencil, const float r, const float g, const float b, const float a)
     {
-          oglCheck(glClear(GL_COLOR_BUFFER_BIT |
+        oglCheck(glClear(GL_COLOR_BUFFER_BIT |
                          GL_DEPTH_BUFFER_BIT |
                          GL_STENCIL_BUFFER_BIT));
 		oglCheck(glClearColor(r, g, b, a));
 
         if (!clearDepth) return;
-			
+
         oglCheck(glClearDepthf(1.0f));
     }
 
@@ -151,6 +152,7 @@ namespace uth
 	bool AndroidWindowImpl::processMessages(void* handle)
 	{
 		android_app* app = uthAndroidEngine.app;
+		uth::Window* window = ((uth::Window*)app->userData);
 
 		switch (uthAndroidEngine.message)
 		{
@@ -158,27 +160,26 @@ namespace uth
 			WriteLog("SaveStated");
 			break;
 		case APP_CMD_INIT_WINDOW:
-			//((uth::Window*)app->userData)->create(uth::AndroidEngine::getInstance().settings);
-			create(uth::AndroidEngine::getInstance().settings);
 			WriteLog("windowINIT");
-			((uth::Window*)app->userData)->setViewport(0.0f,0.0f,
-				uthAndroidEngine.settings.size.x,
-				uthAndroidEngine.settings.size.y);
+			uthEngine.Init(uthAndroidEngine.settings);
 			uthAndroidEngine.initialized = true;
-			uthAndroidEngine.winEveHand(app->userData);
-			//displayInit(androidengine);
-			//draw_frame(androidengine);
+			uthAndroidEngine.winEveHand(window);
+			WriteLog("uthAndroidEngine.winEveHand");
 			break;
 		case APP_CMD_TERM_WINDOW:
-			//displayDestroy(androidengine);
-			((uth::Window*)app->userData)->destroy();
+			uthAndroidEngine.initialized = false;
+			window->destroy();
+			return true;
+			break;
+		case APP_CMD_GAINED_FOCUS:
+			uthAndroidEngine.initialized = true;
 			break;
 		case APP_CMD_LOST_FOCUS:
-			//draw_frame(androidengine);
 			WriteLog("LostFocus");
+			uthAndroidEngine.initialized = false;
 			break;
 		}
 
-		return true;
+		return false;
 	}
 }

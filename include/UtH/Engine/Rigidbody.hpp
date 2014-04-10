@@ -2,9 +2,9 @@
 #ifndef RIGIDBODY_H_UTH
 #define RIGIDBODY_H_UTH
 
-#include <UtH/Engine/Component.hpp>
 #include <Box2D/Box2D.h>
 #include <UtH/Math/Vector.hpp>
+#include <UtH/Engine/Component.hpp>
 
 namespace uth
 {
@@ -81,7 +81,21 @@ namespace uth
 		// Set the angle of the object in degrees
 		void SetAngle(const float angle);
 		// Get the angle of the object in degrees
-		const float GetAngle();
+		float GetAngle() const;
+
+		// Set fixed rotation to the object.
+		void SetFixedRotation(bool value);
+
+		// Set the density of the object
+		void SetDensity(float density);
+		// Get the density of the object
+		float GetDensity() const;
+
+		// Set the friction of the object
+		void SetFriction(float friction);
+		// Get the friction of the object
+		float GetFriction() const;
+
 
 		// Sets if the object is active
 		// Inactive objects will unaffetec by all physics
@@ -103,6 +117,7 @@ namespace uth
 
 		b2World* m_world;
 		b2Body* m_body;
+
 		// For resizing etc...
 		b2FixtureDef m_fixtureDef;
 		COLLIDER_TYPE m_collider;

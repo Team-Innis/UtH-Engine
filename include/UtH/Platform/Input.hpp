@@ -7,10 +7,10 @@
 #include <UtH/Platform/Configuration.hpp>
 
 #if defined(UTH_SYSTEM_ANDROID)
-	//#include <UtH/Platform/Android/InputCommon.hpp>
-	//#include <UtH/Platform/Android/InputKeyboard.hpp>
-	//#include <UtH/Platform/Android/InputMouse.hpp>
-	//#include <UtH/Platform/Android/InputTouch.hpp>
+	#include <UtH/Platform/Android/InputCommon.hpp>
+	#include <UtH/Platform/Android/InputKeyboard.hpp>
+	#include <UtH/Platform/Android/InputMouse.hpp>
+	#include <UtH/Platform/Android/InputTouch.hpp>
 
 #elif defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX)
     #include <UtH/Platform/Common/InputCommon.hpp>
@@ -21,7 +21,7 @@
 	#error No input for such platform
 #endif
 
-#define UTHInput uth::Input::getInstance()
+#define uthInput uth::Input::getInstance()
 
 namespace uth
 {
@@ -36,7 +36,7 @@ namespace uth
 		KeyboardInput Keyboard;
 		CommonInput Common;
 
-		void Update();
+		void Update(float deltaTime);
 		void SetWindow(void *windowHandle);
 	private:
 		void *m_windowHandle;

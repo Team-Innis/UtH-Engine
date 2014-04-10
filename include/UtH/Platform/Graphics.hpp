@@ -15,7 +15,7 @@ namespace uth
         
         /////////////////////////////////////////////////////////
         // Shader functions
-        static int CreateShaderProgram();
+        static const unsigned int CreateShaderProgram();
 
         // Creates the shader object, compiles the source and then attaches it to the program object.
         // Does not do the linking.

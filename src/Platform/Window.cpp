@@ -11,7 +11,7 @@ typedef uth::CommonWindowImpl WindowImpl;
 
 #elif defined(UTH_SYSTEM_ANDROID)
 
-#include <../src/Platform/Android/AndroidWindowImpl.hpp>
+#include <UtH/Platform/Android/AndroidWindowImpl.hpp>
 typedef uth::AndroidWindowImpl WindowImpl;
 
 #endif
@@ -28,10 +28,10 @@ namespace uth
     }
 
     Window::Window(const WindowSettings& settings)
-        : m_windowHandle(nullptr),
-          m_windowSettings(settings)
+        : m_windowHandle(nullptr)
     {
-        create(m_windowSettings);
+        create(settings);
+        m_windowSettings = settings;
     }
 
     Window::~Window()

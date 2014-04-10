@@ -1,12 +1,14 @@
-#include <cmath>
-#include <freetype-gl/freetype-gl.h>
-
 #include <UtH/Engine/Text.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Renderer/RenderTarget.hpp>
 #include <UtH/Resources/ResourceManager.h>
+#include <UtH/Platform/Configuration.hpp>
+
+#include <freetype-gl/freetype-gl.h>
+
+#include <cmath>
 
 using namespace uth;
 
@@ -14,7 +16,11 @@ Text::Text(const std::string& fontPath, const float fontSize, const std::string&
 	: Component(name),
 	  m_fontSize(fontSize)
 {
+#if defined(UTH_SYSTEM_OPENGLES)
+    m_textShader.LoadShader("Shaders/text.vert", "Shaders/esText.frag");
+#else
 	m_textShader.LoadShader("Shaders/text.vert", "Shaders/text.frag");
+#endif
 
 	m_atlas = texture_atlas_new(1024, 1024, 1);
 
@@ -48,7 +54,7 @@ void Text::AddText(const std::wstring& text, umath::vector4 color)
 	texture_font_load_glyphs(m_font, text.c_str());
 
 	bool newLine = false;
-	umath::vector2 pos = m_lastPos; //= position;
+	umath::vector2 pos = m_lastPos;
 
 	for (size_t i = 0; i < text.length(); ++i)
 	{
@@ -74,7 +80,7 @@ void Text::AddText(const std::wstring& text, umath::vector4 color)
 			const float y0 = pos.y - glyph->offset_y;
 			const float x1 = x0 + glyph->width;
 			const float y1 = y0 + glyph->height;
-			
+
 			const float s0 = glyph->s0; // Top left x
 			const float t0 = glyph->t0; // Top left y
 			const float s1 = glyph->s1; // Bottom right x

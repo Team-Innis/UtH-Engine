@@ -11,7 +11,8 @@ void Input::SetWindow(void *windowHandle)
 	InputBase::setWindowHandle(windowHandle);
 	Mouse.Initiate();
 }
-void Input::Update()
+void Input::Update(float deltaTime)
 {
 	Mouse.Update();
+	Touch.Update(deltaTime);
 }

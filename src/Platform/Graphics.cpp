@@ -32,8 +32,7 @@ namespace uth
                                                          GL_REPEAT,
                                                          GL_CLAMP_TO_EDGE};
     static int imageFormats[IMAGEFORMAT_LAST] =         {GL_RGB,
-                                                         GL_RGBA,
-                                                         GL_RGBA8};
+                                                         GL_RGBA};
     static int textureParams[TEXTUREPARAM_LAST] =       {GL_TEXTURE_MIN_FILTER, 
                                                          GL_TEXTURE_MAG_FILTER, 
                                                          GL_TEXTURE_WRAP_S, 
@@ -82,10 +81,11 @@ namespace uth
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     // Shaders
 
-    int Graphics::CreateShaderProgram()
+    const unsigned int Graphics::CreateShaderProgram()
     {
-        CheckGLError("glCreateProgram1");
-        const int i = glCreateProgram();
+        const unsigned int i = glCreateProgram();
+        CheckGLError("glCreateProgram");
+		if(glIsProgram(i) == GL_FALSE)WriteLog("m_program isn't GLprogram");
 
         return i;
     }
@@ -95,6 +95,7 @@ namespace uth
         if (!shaderCode) return false;
 
         unsigned int shader = glCreateShader(shaderTypes[type]);
+		CheckGLError("glCreateShader");
         glShaderSource(shader, 1, &shaderCode, NULL);
 		CheckGLError("glShaderSource");
 
@@ -147,8 +148,13 @@ namespace uth
 
     bool Graphics::LinkShaderProgram(const int shaderProgram)
     {
+		if(glIsProgram(shaderProgram) == GL_FALSE)
+			WriteLog("shaderProgram isn't GLprogram");
+		CheckGLError("glIsProgram");
+
         glLinkProgram(shaderProgram);
 		CheckGLError("glLinkProgram");
+
 
 		int infoLenght;
 		glGetProgramiv(shaderProgram, GL_INFO_LOG_LENGTH, &infoLenght);
@@ -157,11 +163,11 @@ namespace uth
 		{
 			WriteLog("\nShader Program (%d) Log:\n", shaderProgram);
 			char* buf = new char[infoLenght];
-			oglCheck(glGetProgramInfoLog(shaderProgram, infoLenght, NULL, buf));
-			WriteLog("%s", buf);
+			glGetProgramInfoLog(shaderProgram, infoLenght, NULL, buf);
+			CheckGLError("glGetProgramInfoLog");
+			WriteLog(buf);
 			delete[] buf;
 		}
-
         int success;
 		glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
 		CheckGLError("glGetProgramiv LINK");
@@ -172,7 +178,6 @@ namespace uth
 			WriteLog("Shader link failed");
 			return false;
 		}
-        
 		return true;
     }
 

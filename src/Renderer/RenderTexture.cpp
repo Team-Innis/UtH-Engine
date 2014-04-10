@@ -34,7 +34,7 @@ namespace uth
         }
 
         uth::Graphics::GenerateFrameBuffers(1, &m_frameBuffer);
-        
+
         if (!m_frameBuffer)
         {
             WriteError("Failed to create rendertexture framebuffer");

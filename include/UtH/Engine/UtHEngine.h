@@ -34,6 +34,7 @@ namespace uth
 		void Draw();
 
         Window& GetWindow();
+		void SetWindow(void* handle);
 	
 		const umath::vector2 GetWindowResolution() const;
 		const bool Running() const;

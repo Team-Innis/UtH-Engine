@@ -14,7 +14,6 @@
     <ClCompile Include="..\..\src\Renderer\Camera.cpp" />
     <ClCompile Include="..\..\src\Renderer\RenderTarget.cpp" />
     <ClCompile Include="..\..\src\Renderer\RenderTexture.cpp" />
-    <ClCompile Include="..\..\src\Renderer\SpriteBatch.cpp" />
     <ClCompile Include="..\..\src\Renderer\Texture.cpp" />
     <ClCompile Include="..\..\src\Renderer\TextureAtlas.cpp" />
   </ItemGroup>
@@ -22,7 +21,6 @@
     <ClInclude Include="..\..\include\UtH\Renderer\Camera.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\RenderTarget.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\RenderTexture.hpp" />
-    <ClInclude Include="..\..\include\UtH\Renderer\SpriteBatch.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\Texture.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\TextureAtlas.hpp" />
   </ItemGroup>
@@ -54,13 +52,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(ProjectDir)$(Configuration)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>$(ProjectDir)$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)..\Build\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(ProjectDir)$(Configuration)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IntDir>$(ProjectDir)$(Configuration)\</IntDir>
@@ -79,6 +77,10 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\tinyxml2\lib\Win32</AdditionalLibraryDirectories>
+      <AdditionalDependencies>tinyxml2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -98,6 +100,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\tinyxml2\lib\Win32</AdditionalLibraryDirectories>
+      <AdditionalDependencies>tinyxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
