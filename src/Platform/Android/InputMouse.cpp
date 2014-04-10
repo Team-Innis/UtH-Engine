@@ -19,17 +19,18 @@ bool MouseInput::IsButtonReleased(Mouse Button)
 	return false;
 }
 
-umath::vector2 MouseInput::MousePosition()
+umath::vector2 MouseInput::Position()
 {
 	WriteLog("No Mouse with android. Returning zero");
 	return umath::vector2();
 }
-umath::vector2 MouseInput::MouseMovement()
+umath::vector2 MouseInput::Movement()
 {
 	WriteLog("No Mouse with android. Returning zero");
 	return umath::vector2();
 }
-void MouseInput::Update()
+umath::vector2 MouseInput::Wheel()
 {
-
+	WriteLog("No Mouse with android. Returning zero");
+	return umath::vector2();
 }

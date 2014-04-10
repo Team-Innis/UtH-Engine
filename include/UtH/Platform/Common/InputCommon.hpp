@@ -3,6 +3,7 @@
 #define INPUTCOMMON_H_UTH
 //Windows
 #include <UtH/Platform/Common/InputBase.hpp>
+#include <UtH/Math/Vector2.hpp>
 
 namespace uth
 {
@@ -19,8 +20,15 @@ namespace uth
 	class CommonInput : public InputBase
 	{
 	private:
-
+		InputEvent m_event;
+		umath::vector2 m_position;
 	public:
+		const InputEvent& Event() const;
+		const umath::vector2 Position() const;
+		
+		void Update();
+
+		bool operator == (InputEvent Event);
 	};
 }
 

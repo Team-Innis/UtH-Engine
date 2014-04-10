@@ -43,9 +43,9 @@ namespace uth
 		bool IsButtonPressed(Mouse::MButton Button);
 		bool IsButtonReleased(Mouse::MButton Button);
 
-		umath::vector2 MousePosition();
-		umath::vector2 MouseMovement();
-		umath::vector2 MouseWheel();
+		umath::vector2 Position();
+		umath::vector2 Movement();
+		umath::vector2 Wheel();
 
 	private:
 

@@ -34,7 +34,3 @@ namespace uth
 }
 
 #endif
-
-uthInput.Common == InputEvent::CLICK;
-uthInput.Common.Event() == InputEvent::CLICK;
-uthInput.Common.Position();

@@ -41,7 +41,7 @@ const umath::vector2 TouchInput::TouchUnit::GetStartPosition() const
 
 const umath::vector2 TouchInput::TouchUnit::GetPosition() const
 {
-	WriteError("Touch not defined on computer.");
+	WriteLog("Touch not defined on computer.");
 	return umath::vector2();
 }
 
