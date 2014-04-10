@@ -12,7 +12,7 @@
 
 using namespace uth;
 
-const unsigned int sprites = 10;
+const unsigned int sprites = 40;
 
 TestScene::TestScene()
 {}
@@ -36,11 +36,13 @@ bool TestScene::Init()
     atlas.LoadFromFile("atlastest.xml");
     batch.SetTextureAtlas(&atlas);
 
+    const float radius = 450.f;
+
     for (int i = 0; i < sprites; ++i)
     {
         GameObject* obj = new GameObject();
         batch.AddSprite(obj, "bomb.png");
-        obj->transform.SetPosition(250 + (i * 70), -500 + (i * 70));
+        obj->transform.SetPosition((radius * std::cos(i * (6.284f / static_cast<float>(sprites)))) + 400, (radius * std::sin(i * (6.284f / static_cast<float>(sprites)))) - 200);
     }
 
 
