@@ -62,6 +62,7 @@
     <ClCompile Include="..\..\src\Engine\Scene.cpp" />
     <ClCompile Include="..\..\src\Engine\SceneManager.cpp" />
     <ClCompile Include="..\..\src\Engine\Sprite.cpp" />
+    <ClCompile Include="..\..\src\Engine\SpriteBatch.cpp" />
     <ClCompile Include="..\..\src\Engine\Text.cpp" />
     <ClCompile Include="..\..\src\Engine\Transform.cpp" />
     <ClCompile Include="..\..\src\Engine\UtHEngine.cpp" />
@@ -76,6 +77,7 @@
     <ClInclude Include="..\..\include\UtH\Engine\Scene.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\SceneManager.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Sprite.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\SpriteBatch.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Text.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Transform.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\UtHEngine.h" />

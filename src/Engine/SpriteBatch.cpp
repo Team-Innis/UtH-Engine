@@ -1,4 +1,4 @@
-#include <UtH/Renderer/SpriteBatch.hpp>
+#include <UtH/Engine/SpriteBatch.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Platform/OpenGL.hpp>
 #include <UtH/Platform/Debug.hpp>
