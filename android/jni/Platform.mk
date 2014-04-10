@@ -71,7 +71,7 @@ $(SRC_PATH)Platform/Android/AndroidWindowImpl.cpp \
 $(SRC_PATH)Platform/Input.cpp \
 $(SRC_PATH)Platform/Common/InputBase.cpp \
 $(SRC_PATH)Platform/Android/InputTouch.cpp \
-$(SRC_PATH)Platform/Common/InputCommon.cpp \
+$(SRC_PATH)Platform/Android/InputCommon.cpp \
 $(SRC_PATH)Platform/Android/InputMouse.cpp \
 $(SRC_PATH)Platform/Android/InputKeyboard.cpp
 

@@ -32,7 +32,7 @@ namespace uth
 		bool IsButtonReleased(Mouse Button);
 
 		umath::vector2 Position();
-		umath::vector2 MouseMovement();
+		umath::vector2 Movement();
 		umath::vector2 Wheel();
 	};
 }
