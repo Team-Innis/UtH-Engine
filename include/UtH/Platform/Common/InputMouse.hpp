@@ -11,7 +11,25 @@
 
 namespace uth
 {
-	//extern class Input;
+	
+	namespace Mouse
+	{
+		enum MButton
+		{
+			MS1		= 0,
+			LEFT	= MS1,
+			MS2		= 1,
+			RIGHT	= MS2,
+			MS3		= 2,
+			MIDDLE	= MS3,
+			MS4		= 3,
+			X1		= MS4,
+			MS5		= 4,
+			X2		= MS5,
+			COUNT
+		};
+	}
+
 	class MouseInput : public InputBase
 	{
 	public:
@@ -36,8 +54,6 @@ namespace uth
 		std::vector<bool> m_buttons;
 		std::vector<bool> m_Lbuttons;
 		umath::vector2 m_scroll;
-
-		//friend class Input;
 	};
 }
 

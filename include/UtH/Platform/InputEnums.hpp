@@ -6,33 +6,6 @@
 
 namespace uth
 {
-	namespace Touch
-	{
-		enum TPattern
-		{
-			TAP,
-			SEPARATE
-		};
-	}
-
-	namespace Mouse
-	{
-		enum MButton
-		{
-			MS1		= 0,
-			LEFT	= MS1,
-			MS2		= 1,
-			RIGHT	= MS2,
-			MS3		= 2,
-			MIDDLE	= MS3,
-			MS4		= 3,
-			X1		= MS4,
-			MS5		= 4,
-			X2		= MS5,
-			COUNT
-		};
-	}
-	
 	namespace Keyboard
 	{
 		enum Key
