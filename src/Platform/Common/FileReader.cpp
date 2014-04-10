@@ -7,8 +7,8 @@
 
 using namespace uth;
 
-
 bool FileReader::isCompressed = false;
+
 FileReader::FileReader()
 	: file(NULL),
 	  cFile(NULL)
@@ -34,7 +34,7 @@ FileReader::~FileReader()
 // Public
 void FileReader::OpenFile(const char* path)
 {
-    //CloseFile();
+	//CloseFile();
 
 	if(PHYSFS_isInit())
 	{		
@@ -59,16 +59,16 @@ void FileReader::OpenFile(const char* path)
 
 void FileReader::CloseFile()
 {
-    if(PHYSFS_isInit())
+	if(PHYSFS_isInit())
 	{
 		PHYSFS_close(cFile);
 		PHYSFS_deinit();
 	}
 	else if (file)
-    {
+	{
 		std::fclose(file);
-        file = NULL;
-    }
+		file = NULL;
+	}
 }
 
 int FileReader::GetFileSize()
@@ -129,21 +129,18 @@ bool FileReader::ReadBytes(void* buffer, unsigned int count, unsigned int blockS
 		if(file != NULL)
 		{
 			if(std::fread(buffer, blockSize, count, file) == count)
-				return true;		
+				return true;
 		}
 	}
 	return false;
 }
 
-void* FileReader::ReadBinary()
+const BINARY_DATA FileReader::ReadBinary()
 {
-	int size = GetFileSize();
-	void* buffer;
-	buffer = new unsigned char[size];
-	if(!ReadBytes(buffer, size))
-		return nullptr;
-	
-	return buffer;
+	BINARY_DATA retVal(GetFileSize());
+	if(!ReadBytes(retVal.ptr(),retVal.size()))
+		return BINARY_DATA();
+	return retVal;
 }
 
 const char* FileReader::ReadText()
@@ -155,5 +152,5 @@ const char* FileReader::ReadText()
 
 	buffer[size] = 0; // Null terminate the string
 
-	return buffer;	
+	return buffer;
 }

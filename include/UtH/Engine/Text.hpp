@@ -20,7 +20,7 @@ namespace uth
 		~Text();
 
 		// Sets the text
-		void SetText(const std::wstring& text, umath::vector4 color = umath::vector4(1, 1, 1, 1));
+	void SetText(const std::wstring& text, umath::vector4 color = umath::vector4(1, 1, 1, 1));
 		// Adds to the current text
 		void AddText(const std::wstring& text, umath::vector4 color = umath::vector4(1, 1, 1, 1));
 		// Return current text
@@ -38,6 +38,7 @@ namespace uth
 		const float m_fontSize;
 
 		std::wstring m_text;
+		// last text cursor pos
 		umath::vector2 m_lastPos;
 
 		texture_atlas_t* m_atlas;

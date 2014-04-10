@@ -45,16 +45,12 @@ bool FileReader::ReadBytes(void* buffer, unsigned int count, unsigned int blockS
 	return false;
 }
 
-
-void* FileReader::ReadBinary()
+const BINARY_DATA FileReader::ReadBinary()
 {
-	int size = GetFileSize();
-	void* buffer;
-	buffer = new unsigned char[size];
-
-	ReadBytes(buffer, size);
-	
-	return buffer;
+	BINARY_DATA retVal(GetFileSize());
+	if(!ReadBytes(retVal.ptr(),retVal.size()))
+		return BINARY_DATA();
+	return retVal;
 }
 
 const char* FileReader::ReadText()

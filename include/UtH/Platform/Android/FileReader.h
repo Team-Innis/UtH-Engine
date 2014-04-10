@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
+#include <UtH/Platform/BinaryData.hpp>
 
 namespace uth
 {
@@ -31,7 +32,7 @@ namespace uth
 		bool ReadBytes(void* buffer, unsigned int count, unsigned int blockSize = 1);
 
 		// Read whole file
-		void* ReadBinary();
+		const BINARY_DATA ReadBinary();
 		const char* ReadText();
 
 		static AAssetManager* m_manager;

@@ -1,11 +1,13 @@
 /***
  * Filereader for linux and windows
  **/
+#pragma once
 #ifndef FILEREADER_H
 #define FILEREADER_H
 
 #include <cstdio>
 #include <physfs/physfs.h>
+#include <UtH/Platform/BinaryData.hpp>
 
 namespace uth
 {
@@ -30,7 +32,7 @@ namespace uth
 		bool ReadBytes(void* buffer, unsigned int count, unsigned int blockSize = 1);
 
 		// Read whole file
-		void* ReadBinary();
+		const BINARY_DATA ReadBinary();
 		const char* ReadText();
 
 		static bool isCompressed;
