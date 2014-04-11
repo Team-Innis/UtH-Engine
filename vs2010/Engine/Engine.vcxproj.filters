@@ -60,6 +60,9 @@
     <ClCompile Include="..\..\src\Engine\SpriteBatch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\TMX\Map.cpp">
+      <Filter>Source Files\TMX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Engine\Scene.hpp">
