@@ -5,7 +5,8 @@
 using namespace uth;
 
 GameObject::GameObject()
-    : m_active(true)
+    : m_active(true),
+	  parent(nullptr)
 {
 	transform.parent = this;
 }
