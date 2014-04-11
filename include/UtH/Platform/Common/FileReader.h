@@ -31,8 +31,12 @@ namespace uth
 		// Also sets the file pointer to the end of read block
 		bool ReadBytes(void* buffer, unsigned int count, unsigned int blockSize = 1);
 
-		// Read whole file
+		// Returns the content of whole file as binary data
 		const BINARY_DATA ReadBinary();
+
+		// Returns the content of the whole file as text
+		// IMPORTANT: The 'size' or 'length' of the text will be filesize+1
+		// because it needs to be null terminated manually when reading
 		const char* ReadText();
 
 		static bool isCompressed;
