@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\TMX">
+      <UniqueIdentifier>{081a3ee2-7e44-419b-b60e-bf1b81f712d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TMX">
+      <UniqueIdentifier>{3226967a-6f9f-4cc2-8b4f-070c40a628c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Engine\Scene.cpp">
@@ -94,6 +100,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\SpriteBatch.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\TMX\Enums.hpp">
+      <Filter>Header Files\TMX</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
