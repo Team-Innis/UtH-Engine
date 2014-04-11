@@ -7,6 +7,7 @@
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Input.hpp>
 #include <UtH/Renderer/TextureAtlas.hpp>
+#include "MoveAffector.hpp"
 
 #include <UtH/Platform/Debug.hpp>
 
@@ -17,14 +18,20 @@ const unsigned int sprites = 40;
 TestScene::TestScene()
 {}
 TestScene::~TestScene()
-{
-}
+{}
 
 bool TestScene::Init()
 {
 	shader = new Shader();
 	shader->LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
 	shader->Use();
+
+    pSystem.AddAffector(new MoveAffector());
+    ParticleTemplate pTemplate;
+    pTemplate.SetLifetime(2);
+    pTemplate.SetSpeed(10);
+    pTemplate.SetTexture(&uthRS.LoadTexture("particle.tga"));
+    pSystem.SetTemplate(pTemplate);
 
     uthEngine.GetWindow().SetViewport(umath::rectangle(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
     uthEngine.GetWindow().SetShader(shader);
@@ -36,7 +43,7 @@ bool TestScene::Init()
     atlas.LoadFromFile("atlastest.xml");
     batch.SetTextureAtlas(&atlas);
 
-    const float radius = 450.f;
+    const float radius = 550.f;
 
     for (int i = 0; i < sprites; ++i)
     {
@@ -110,6 +117,7 @@ bool TestScene::Init()
 	AddGameObjectToLayer(1, go);
 
     AddGameObjectToLayer(1, &batch);
+    AddGameObjectToLayer(1, &pSystem);
 
     // render rtex
     rtexSprite = new GameObject();
@@ -155,6 +163,15 @@ bool TestScene::DeInit()
 
 bool TestScene::Update(float dt)
 {
+    static unsigned short count = 0;
+
+    if (++count > 60)
+    {
+        pSystem.Emit(20);
+
+        count = 0;
+    }
+
     const float offset = 75.f * dt;
 
     camera.Rotate(-offset);

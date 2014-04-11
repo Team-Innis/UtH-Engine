@@ -77,7 +77,14 @@ namespace uth
         m_atlas = nullptr;
     }
 
-    void SpriteBatch::Draw(RenderTarget& target)
+    void SpriteBatch::Clear()
+    {
+        m_objects.clear();
+        m_vertexData.clear();
+        m_spriteBuffer.clear();
+    }
+
+    void SpriteBatch::draw(RenderTarget& target)
     {
         if (!m_atlas && m_texture)
             return;
@@ -101,8 +108,6 @@ namespace uth
             m_spriteBuffer.m_vertexData[2 + (i * 4)].position *= t_m;
             m_spriteBuffer.m_vertexData[3 + (i * 4)].position *= t_m;
         }
-
-        target.Bind();
         
         m_spriteBuffer.setData();
 

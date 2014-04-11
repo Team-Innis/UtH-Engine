@@ -41,6 +41,9 @@ namespace uth
 
         std::vector<Vertex> m_vertexData;
 
+        mutable bool m_arrayBufferNeedsUpdate,
+                     m_elementBufferNeedsUpdate;
+
 		unsigned int m_arrayBuffer;
 		unsigned int m_elementBuffer;
 

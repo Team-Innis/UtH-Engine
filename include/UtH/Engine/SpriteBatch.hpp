@@ -26,10 +26,13 @@ namespace uth
 
         void SetTexture(Texture* texture);
 
-        void Draw(RenderTarget& target);
+
+        void Clear();
 
 
     private:
+
+        void draw(RenderTarget& target);
 
         std::vector<GameObject*> m_objects;
         TextureAtlas* m_atlas;

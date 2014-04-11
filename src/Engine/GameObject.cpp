@@ -84,15 +84,11 @@ void GameObject::Draw(RenderTarget& target)
 
     target.Bind();
 
-    Shader& shader = target.GetShader();
-
-    shader.Use();
-	shader.SetUniform("unifModel", transform.GetTransform());
-    shader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
+    draw(target);
 
 	for (auto it = components.begin(); it != components.end(); ++it)
 	{
-		shader.Use();
+        target.GetShader().Use();
 		auto component = (*it);
 		if (component->IsActive())
 			component->Draw(target);
@@ -103,6 +99,8 @@ void GameObject::Update(float dt)
 {
 	if(!m_active)
 		return;
+    
+    update(dt);
 
 	for (auto i = components.begin(); i != components.end(); ++i)
 	{
@@ -110,4 +108,13 @@ void GameObject::Update(float dt)
 		if (component->IsActive())
 			component->Update(dt);
 	}
+}
+
+void GameObject::draw(RenderTarget& target)
+{
+    Shader& shader = target.GetShader();
+
+    shader.Use();
+	shader.SetUniform("unifModel", transform.GetTransform());
+    shader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
 }

@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Particles">
+      <UniqueIdentifier>{3854cd31-3855-4615-bde9-d40a29340c8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Particles">
+      <UniqueIdentifier>{027d4475-81ca-4dec-9081-2a57d01e9f66}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Engine\Scene.cpp">
@@ -54,6 +60,12 @@
     <ClCompile Include="..\..\src\Engine\SpriteBatch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Particles\ParticleSystem.cpp">
+      <Filter>Source Files\Particles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Particles\ParticleTemplate.cpp">
+      <Filter>Source Files\Particles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Engine\Scene.hpp">
@@ -94,6 +106,18 @@
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\SpriteBatch.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\Particles\Affector.hpp">
+      <Filter>Header Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\Particles\ParticleSystem.hpp">
+      <Filter>Header Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\Particles\ParticleTemplate.hpp">
+      <Filter>Header Files\Particles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\Particles\Particle.hpp">
+      <Filter>Header Files\Particles</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
