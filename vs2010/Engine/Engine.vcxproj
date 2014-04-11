@@ -65,6 +65,7 @@
     <ClCompile Include="..\..\src\Engine\SpriteBatch.cpp" />
     <ClCompile Include="..\..\src\Engine\Text.cpp" />
     <ClCompile Include="..\..\src\Engine\TMX\Map.cpp" />
+    <ClCompile Include="..\..\src\Engine\TMX\Tileset.cpp" />
     <ClCompile Include="..\..\src\Engine\Transform.cpp" />
     <ClCompile Include="..\..\src\Engine\UtHEngine.cpp" />
   </ItemGroup>
@@ -80,10 +81,13 @@
     <ClInclude Include="..\..\include\UtH\Engine\Sprite.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\SpriteBatch.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Text.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\TMX\Enums.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\TMX\Layer.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Map.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Object.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\TMX\ObjectGroup.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Tile.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\TMX\Tileset.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Transform.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\UtHEngine.h" />
   </ItemGroup>

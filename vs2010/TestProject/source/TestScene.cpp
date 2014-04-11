@@ -26,6 +26,8 @@ bool TestScene::Init()
 	shader->LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
 	shader->Use();
 
+	map = new TMX::Map("Maps/desert.tmx");
+
     uthEngine.GetWindow().SetViewport(umath::rectangle(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
     uthEngine.GetWindow().SetShader(shader);
     rtex.Initialize(uthEngine.GetWindowResolution() / /*0.125f*/1, false);

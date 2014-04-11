@@ -63,6 +63,9 @@
     <ClCompile Include="..\..\src\Engine\TMX\Map.cpp">
       <Filter>Source Files\TMX</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\TMX\Tileset.cpp">
+      <Filter>Source Files\TMX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Engine\Scene.hpp">
@@ -103,6 +106,12 @@
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\SpriteBatch.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\TMX\Tile.hpp">
+      <Filter>Header Files\TMX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\TMX\Tileset.hpp">
+      <Filter>Header Files\TMX</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Layer.hpp">
       <Filter>Header Files\TMX</Filter>

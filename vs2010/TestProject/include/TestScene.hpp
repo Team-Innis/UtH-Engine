@@ -8,6 +8,8 @@
 #include <UtH/Platform/HiResTimer.hpp>
 #include <UtH/Renderer/RenderTexture.hpp>
 #include <UtH/Engine/SpriteBatch.hpp>
+#include <UtH/Engine/TMX/Map.hpp>
+
 
 namespace uth
 {
@@ -35,6 +37,8 @@ namespace uth
         GameObject* rtexSprite;
 
         GameObject* obj;
+		
+		TMX::Map* map;
 
 		int number;
 
