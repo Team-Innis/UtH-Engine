@@ -33,7 +33,7 @@ namespace uth
 
 			unsigned int m_spacing, m_margin;
 
-			Texture* texture;
+			Texture* m_texture;
 		};
 	}
 }

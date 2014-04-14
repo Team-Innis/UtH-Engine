@@ -19,14 +19,16 @@ Tileset::Tileset(tinyxml2::XMLElement* tilesetElement, const std::string& mapFol
 }
 
 Tileset::~Tileset()
-{ }
+{
+	m_texture = nullptr;
+}
 
 // Public
 
 
 const Texture* Tileset::GetTexture() const
 {
-	return texture;
+	return m_texture;
 }
 
 unsigned int Tileset::GetFirstGID() const
@@ -40,27 +42,30 @@ unsigned int Tileset::GetFirstGID() const
 
 void Tileset::parseTileset(tinyxml2::XMLElement* tilesetElement, const std::string& mapFolder)
 {
+	// In case the tileset is in a .tsx file
+	tinyxml2::XMLDocument doc;
+
 	m_firstgid = tilesetElement->UnsignedAttribute("firstgid");
 
 	tinyxml2::XMLElement* imageElement = nullptr;
 
-	const char* source = tilesetElement->Attribute("source");
-	std::string path = mapFolder + source;
-	if(source != 0)
+	const char* tilesetSource = tilesetElement->Attribute("source");
+	// If tileset has a source attribute then the tileset is defined in a .tsx file
+	if(tilesetSource != 0)
 	{
 		// Open tsx file
-		tinyxml2::XMLDocument doc;
+		std::string path = mapFolder + tilesetSource;
 		FileReader fr(path.c_str());
 		doc.Parse(fr.ReadText(), fr.GetFileSize()+1);
 
 		imageElement = doc.FirstChildElement("tileset")->FirstChildElement("image");
-		WriteLog("%s", imageElement->ToText());
 	}
 	else
 		imageElement = tilesetElement->FirstChildElement("image");
 
+
 	std::string imagePath = mapFolder + imageElement->Attribute("source");
-	texture = &uthRS.LoadTexture(imagePath);
+	//m_texture = &uthRS.LoadTexture(imagePath);
 }
 
 

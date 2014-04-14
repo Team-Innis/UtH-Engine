@@ -72,6 +72,11 @@ namespace uth
         return m_size;
     }
 
+	BYTE Image::GetDepth() const
+	{
+		return m_depth;
+	}
+
 
     umath::vector4 Image::GetPixel(unsigned int x, unsigned int y) const
     {

@@ -74,9 +74,11 @@ namespace uth
 		SetSmooth(smooth);
         SetRepeated(repeated);
 
-        uth::Graphics::SetTextureImage2D(TEXTURE_2D, 0, RGBA_FORMAT, 
+		ImageFormat format = img.GetDepth() == 32 ? RGBA_FORMAT : RGB_FORMAT;
+
+        uth::Graphics::SetTextureImage2D(TEXTURE_2D, 0, format, 
 			static_cast<unsigned int>(m_size.x), static_cast<unsigned int>(m_size.y), 
-			RGBA_FORMAT, UNSIGNED_BYTE_TYPE, img.m_pixels);
+			format, UNSIGNED_BYTE_TYPE, img.m_pixels);
 		
 		return true;
     }

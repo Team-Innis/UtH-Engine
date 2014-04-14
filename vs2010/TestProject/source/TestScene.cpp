@@ -151,6 +151,7 @@ bool TestScene::DeInit()
 	delete shader;
 	delete rtexSprite;
 	delete obj;
+	delete map;
 
 	return true;
 }

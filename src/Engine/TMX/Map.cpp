@@ -19,7 +19,9 @@ Map::Map(const std::string& path)
 
 Map::~Map()
 {
-
+	for(auto it = tilesets.begin(); it != tilesets.end(); ++it)
+		delete (*it);
+	tilesets.clear();
 }
 
 bool Map::LoadFromFile(const std::string& path)
