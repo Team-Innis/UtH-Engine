@@ -2,7 +2,6 @@
 #include <GLFW/glfw3.h>
 
 
-
 namespace uth
 {
 
@@ -500,7 +499,7 @@ namespace uth
 			LeftSuper		  = GLFW_KEY_LEFT_SUPER,
 			RightSuper		  = GLFW_KEY_RIGHT_SUPER,
 			NumpadEnter		  = GLFW_KEY_KP_ENTER,
-			COUNT			  = GLFW_KEY_LAST
+			COUNT			  = GLFW_KEY_LAST+1
 		};
 	}
 
