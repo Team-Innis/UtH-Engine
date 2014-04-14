@@ -172,6 +172,11 @@ bool TestScene::Update(float dt)
 		WriteLog("Tapped");
 		uthSceneM.GoToScene(0);
 	}
+	if(uthInput.Common != InputEvent::NONE)
+	{
+		WriteLog("Action");
+		uthSceneM.GoToScene(0);
+	}
 
 	return true;
 }

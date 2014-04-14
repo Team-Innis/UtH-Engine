@@ -12,6 +12,8 @@
 
 using namespace uth;
 
+const unsigned int sprites = 40;
+
 TestScene::TestScene()
 {}
 TestScene::~TestScene()
@@ -31,6 +33,18 @@ bool TestScene::Init()
     rtex.SetShader(shader);
     rtex.SetViewport(umath::rectangle(0, 0, rtex.GetSize().x, rtex.GetSize().y));
 
+    atlas.LoadFromFile("atlastest.xml");
+    batch.SetTextureAtlas(&atlas);
+
+    const float radius = 450.f;
+
+    for (int i = 0; i < sprites; ++i)
+    {
+        GameObject* obj = new GameObject();
+        batch.AddSprite(obj, "bomb.png");
+        obj->transform.SetPosition((radius * std::cos(i * (6.284f / static_cast<float>(sprites)))) + 400, (radius * std::sin(i * (6.284f / static_cast<float>(sprites)))) - 200);
+    }
+
 
 	// Ground level
 	b2BodyDef groundBodyDef;
@@ -46,7 +60,7 @@ bool TestScene::Init()
 	camera.SetPosition(0, 0);
 
 	CreateLayer("monsu", 3);
-	CreateLayer("testi", 1);
+	CreateLayer("derp", 1);
 	CreateLayer("testi", 0);
 
 	GameObject* go = new GameObject();
@@ -94,6 +108,8 @@ bool TestScene::Init()
 	go->transform.Move(-400, 200);
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(1, go);
+
+    AddGameObjectToLayer(1, &batch);
 
     // render rtex
     rtexSprite = new GameObject();
@@ -151,10 +167,10 @@ bool TestScene::Update(float dt)
 	const float timeStep = 1.f/60.f;
 	world.Step(timeStep, 8, 3);
 
-	if(uthInput.Common.Event() == InputEvent::TAP)
+	if(uthInput.Common == InputEvent::TAP)
 	{
-		WriteLog("Tapped");
-		uthSceneM.GoToScene(0);
+		WriteLog("Tapped %d", uthInput.Common.Event());
+		//uthSceneM.GoToScene(0);
 	}
 
 	return true;
