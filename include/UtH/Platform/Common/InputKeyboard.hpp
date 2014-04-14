@@ -113,7 +113,7 @@ namespace uth
 			LocalBackslash		, // §
 			LocalCloseBracket	, // å
 			LocalQuote			, // ä
-			//LocalAngleBracket = 0xE2,
+			LocalAngleBracket	,
 			LeftSuper			,
 			RightSuper			,
 			NumpadEnter			,
