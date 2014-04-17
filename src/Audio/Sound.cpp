@@ -1,4 +1,4 @@
-#include <UtH/Audio/Sound.h>
+#include <UtH/Audio/Sound.hpp>
 #include <UtH/Platform/Typedefs.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Resources/ResourceManager.h>

@@ -5,6 +5,12 @@
 #include <UtH/Renderer/RenderTarget.hpp>
 
 
+
+namespace
+{
+    static uth::Shader batchShader;
+}
+
 namespace uth
 {
     void SpriteBatch::reserve(const unsigned int amount)
@@ -82,6 +88,13 @@ namespace uth
         if (!m_atlas && m_texture)
             return;
 
+        static bool shaderLoaded = false;
+        if (!shaderLoaded)
+        {
+            batchShader.LoadShader("Shaders/batchvertexshader.vert", "Shaders/batchfragmentshader.frag");
+            shaderLoaded = true;
+        }
+
         m_spriteBuffer.clear(true, false);
         m_spriteBuffer.addVertices(m_vertexData);
 
@@ -108,18 +121,21 @@ namespace uth
 
         m_atlas ? m_atlas->Bind() : m_texture->Bind();
 
-        Shader& shader = target.GetShader();
+        batchShader.Use();
 
-        shader.SetUniform("unifSampler", 0);
-        shader.SetUniform("unifColor", 1, 1, 1, 1);
+        batchShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
+        batchShader.SetUniform("unifSampler", 0);
+        batchShader.SetUniform("unifColor", 1, 1, 1, 1);
 
 
         uth::Graphics::BindBuffer(ARRAY_BUFFER, m_spriteBuffer.m_arrayBuffer);
-        shader.setAttributeData("attrPosition", 3, FLOAT_TYPE, sizeof(Vertex), (void*)0);
-        shader.setAttributeData("attrUV", 2, FLOAT_TYPE, sizeof(Vertex), (void*)(3 * sizeof(float)));
+        batchShader.setAttributeData("attrPosition", 3, FLOAT_TYPE, sizeof(Vertex), (void*)0);
+        batchShader.setAttributeData("attrUV", 2, FLOAT_TYPE, sizeof(Vertex), (void*)(3 * sizeof(float)));
 
         uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_spriteBuffer.m_elementBuffer);
         uth::Graphics::DrawElements(TRIANGLES, m_spriteBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
+    
+        target.SetShader(nullptr);
     }
     
 }

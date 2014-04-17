@@ -4,7 +4,8 @@
 #ifndef AUDIO_H
 #define AUDIO_H
 
-#include <UtH/Audio/Sound.h>
+#include <UtH/Audio/Sound.hpp>
+#include <UtH/Audio/SoundDevice.hpp>
 
 namespace uth
 {
@@ -33,7 +34,7 @@ namespace uth
 		void SetListenerPosition(umath::vector3 position);
 
 	private:
-		Sound* _sound;
+		Sound* m_sound;
 	};
 }
 
