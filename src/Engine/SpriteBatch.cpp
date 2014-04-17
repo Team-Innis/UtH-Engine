@@ -109,7 +109,7 @@ namespace uth
 
     void SpriteBatch::draw(RenderTarget& target)
     {
-        if (!m_atlas && !m_texture)
+        if ((!m_atlas && !m_texture) || m_objects.empty())
             return;
 
         static bool shaderLoaded = false;

@@ -15,8 +15,9 @@ namespace uth
 
         void UpdateParticle(Particle& particle, float dt)
         {
-            particle.direction *= 0.95f;
+            //particle.direction *= 0.95f;
             particle.transform.Move(particle.direction);
+            particle.transform.Rotate(5);
         }
 
     };
