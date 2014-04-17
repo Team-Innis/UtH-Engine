@@ -17,7 +17,9 @@ namespace uth
 
         void reserve(const unsigned int amount);
 
-        SpriteBatch();
+        SpriteBatch(const bool adoptPointers = true);
+
+        ~SpriteBatch();
 
 
         GameObject* AddSprite(GameObject* object, const std::string& atlasName = "");
@@ -26,10 +28,13 @@ namespace uth
 
         void SetTexture(Texture* texture);
 
-        void Draw(RenderTarget& target);
+        void Clear();
 
 
     private:
+        
+        void draw(RenderTarget& target);
+
 
         std::vector<std::unique_ptr<GameObject>> m_objects;
         TextureAtlas* m_atlas;
@@ -37,6 +42,8 @@ namespace uth
 
         std::vector<Vertex> m_vertexData;
         VertexBuffer m_spriteBuffer;
+
+        bool m_adoptedPointers;
 
     };
 }

@@ -22,11 +22,17 @@ namespace uth
     }
 
 
-    SpriteBatch::SpriteBatch()
+    SpriteBatch::SpriteBatch(const bool adoptPointers)
         : m_atlas(nullptr),
-          m_texture(nullptr)
+          m_texture(nullptr),
+          m_adoptedPointers(adoptPointers)
     {
         reserve(975);
+    }
+
+    SpriteBatch::~SpriteBatch()
+    {
+        Clear();
     }
 
 
@@ -88,9 +94,22 @@ namespace uth
         m_atlas = nullptr;
     }
 
-    void SpriteBatch::Draw(RenderTarget& target)
+    void SpriteBatch::Clear()
     {
-        if (!m_atlas && m_texture)
+        if (!m_adoptedPointers)
+        {
+            for (auto itr = m_objects.begin(); itr != m_objects.end(); ++itr)
+                itr->release();
+        }
+
+        m_objects.clear();
+        m_vertexData.clear();
+        m_spriteBuffer.clear();
+    }
+
+    void SpriteBatch::draw(RenderTarget& target)
+    {
+        if ((!m_atlas && !m_texture) || m_objects.empty())
             return;
 
         static bool shaderLoaded = false;
@@ -119,8 +138,6 @@ namespace uth
             m_spriteBuffer.m_vertexData[2 + (i * 4)].position *= t_m;
             m_spriteBuffer.m_vertexData[3 + (i * 4)].position *= t_m;
         }
-
-        target.Bind();
         
         m_spriteBuffer.setData();
 

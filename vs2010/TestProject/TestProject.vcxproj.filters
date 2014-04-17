@@ -26,5 +26,8 @@
     <ClInclude Include="include\TestScene.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\MoveAffector.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
