@@ -171,7 +171,7 @@ void Sound::Initialize(const char* fileName)
 		{
 			alBufferData(buffer, AL_FORMAT_STEREO8, 
 				buf.GetSoundInfo().soundBuffer, 
-				buf.GetSoundInfo().frames * sizeof(int), 
+				buf.GetSoundInfo().frames * sizeof(short), 
 				buf.GetSoundInfo().sampleRate);
 		}
 	}
@@ -181,14 +181,14 @@ void Sound::Initialize(const char* fileName)
 		{
 			alBufferData(buffer, AL_FORMAT_MONO16, 
 				buf.GetSoundInfo().soundBuffer, 
-				buf.GetSoundInfo().frames * sizeof(int), 
+				buf.GetSoundInfo().frames * sizeof(short), 
 				buf.GetSoundInfo().sampleRate);
 		}
 		else if(buf.GetSoundInfo().bitsPerSample == 8)
 		{
 			alBufferData(buffer, AL_FORMAT_MONO8, 
 				buf.GetSoundInfo().soundBuffer, 
-				buf.GetSoundInfo().frames * sizeof(int), 
+				buf.GetSoundInfo().frames * sizeof(short), 
 				buf.GetSoundInfo().sampleRate);
 		}
 	}
