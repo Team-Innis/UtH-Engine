@@ -19,7 +19,7 @@ namespace uth
 
         ParticleSystem();
 
-        virtual ~ParticleSystem(){};
+        ~ParticleSystem(){};
 
 
         virtual void Emit(const unsigned int amount);

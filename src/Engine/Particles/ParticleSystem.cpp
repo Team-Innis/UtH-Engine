@@ -6,7 +6,8 @@ using namespace uth;
 
 
 ParticleSystem::ParticleSystem()
-    : GameObject()
+    : GameObject(),
+      m_batch(false)
 {
     
 }
@@ -60,7 +61,7 @@ void ParticleSystem::update(float dt)
 
         bool operator()(const std::unique_ptr<Particle>& particle)
         {
-            return particle.get()->lifetime.CurTime() > maxLifetime;
+            return particle.get()->lifetime.CurTime() >= maxLifetime;
         }
     };
 

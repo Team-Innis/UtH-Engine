@@ -29,7 +29,7 @@ bool TestScene::Init()
     pSystem.AddAffector(new MoveAffector());
     ParticleTemplate pTemplate;
     pTemplate.SetLifetime(2);
-    pTemplate.SetSpeed(10);
+    pTemplate.SetSpeed(2);
     pTemplate.SetTexture(&uthRS.LoadTexture("particle.tga"));
     pSystem.SetTemplate(pTemplate);
 
@@ -117,7 +117,7 @@ bool TestScene::Init()
 	AddGameObjectToLayer(1, go);
 
     AddGameObjectToLayer(1, &batch);
-    AddGameObjectToLayer(1, &pSystem);
+    //AddGameObjectToLayer(1, &pSystem);
 
     // render rtex
     rtexSprite = new GameObject();
@@ -163,7 +163,7 @@ bool TestScene::DeInit()
 
 bool TestScene::Update(float dt)
 {
-    static unsigned short count = 0;
+    static unsigned short count = 60;
 
     if (++count > 60)
     {
@@ -190,6 +190,8 @@ bool TestScene::Update(float dt)
 		uthSceneM.GoToScene(0);
 	}
 
+    pSystem.Update(dt);
+
 	return true;
 }
 bool TestScene::Draw()
@@ -205,6 +207,7 @@ bool TestScene::Draw()
     rtex.GetTexture();
     //static_cast<Sprite*>(rtexSprite->GetComponent("rtexSprite"))->SetTexture(&rtex.GetTexture());
     rtexSprite->Draw(uthEngine.GetWindow());
+    pSystem.Draw(uthEngine.GetWindow());
 
 	return true;
 }
