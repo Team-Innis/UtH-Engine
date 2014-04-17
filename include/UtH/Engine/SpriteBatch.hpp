@@ -20,21 +20,18 @@ namespace uth
         SpriteBatch();
 
 
-        bool AddSprite(GameObject* object, const std::string& atlasName = "");
+        GameObject* AddSprite(GameObject* object, const std::string& atlasName = "");
 
         void SetTextureAtlas(TextureAtlas* atlas);
 
         void SetTexture(Texture* texture);
 
-
-        void Clear();
+        void Draw(RenderTarget& target);
 
 
     private:
 
-        void draw(RenderTarget& target);
-
-        std::vector<GameObject*> m_objects;
+        std::vector<std::unique_ptr<GameObject>> m_objects;
         TextureAtlas* m_atlas;
         Texture* m_texture;
 

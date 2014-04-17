@@ -1,20 +1,20 @@
 #pragma once
-#ifndef SOUNDMANAGER_H
-#define SOUNDMANAGER_H
+#ifndef SoundDevice_H
+#define SoundDevice_H
 
 #include <AL/al.h>
 #include <AL/alc.h>
 
 namespace uth
 {
-	class SoundManager
+	class SoundDevice
 	{
 	public:
-		SoundManager();
-		~SoundManager();
+		SoundDevice();
+		~SoundDevice();
 
 	private:
-		SoundManager(const SoundManager&);
+		SoundDevice(const SoundDevice&);
 
 		static ALCdevice* device;
 		static ALCcontext* context;
