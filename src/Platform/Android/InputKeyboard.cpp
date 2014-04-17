@@ -16,7 +16,7 @@ namespace uth
 	bool KeyboardInput::IsKeyDown(Keyboard::Key)
 	{
 		WriteLog("No Keyboard with android. Returning false");
-		return false
+		return false;
 	}
 	bool KeyboardInput::IsKeyPressed(Keyboard::Key)
 	{

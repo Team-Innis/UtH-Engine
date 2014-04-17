@@ -43,7 +43,7 @@ public:
 	}
 	void clear()
 	{
-		delete[m_size] m_data;
+		delete[] m_data;
 		m_size = 0;
 	}
 

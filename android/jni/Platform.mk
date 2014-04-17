@@ -42,14 +42,13 @@ $(SRC_PATH)Math/Rectangle.cpp
 LOCAL_SRC_FILES += \
 $(SRC_PATH)Audio/Audio.cpp \
 $(SRC_PATH)Audio/Sound.cpp \
-$(SRC_PATH)Audio/SoundManager.cpp
+$(SRC_PATH)Audio/SoundDevice.cpp
 
 #Renderer
 LOCAL_SRC_FILES += \
 $(SRC_PATH)Renderer/Camera.cpp \
 $(SRC_PATH)Renderer/RenderTarget.cpp \
 $(SRC_PATH)Renderer/RenderTexture.cpp \
-$(SRC_PATH)Renderer/SpriteBatch.cpp \
 $(SRC_PATH)Renderer/TextureAtlas.cpp \
 $(SRC_PATH)Renderer/Texture.cpp
 
@@ -93,14 +92,11 @@ $(SRC_PATH)Engine/Transform.cpp \
 $(SRC_PATH)Engine/Rigidbody.cpp \
 $(SRC_PATH)Engine/Layer.cpp \
 $(SRC_PATH)Engine/Text.cpp \
+$(SRC_PATH)Engine/SpriteBatch.cpp \
 $(SRC_PATH)Engine/AnimatedSprite.cpp
 
 #TinyXML2
 LOCAL_SRC_FILES += \
 $(SRC_PATH)../extlibs/tinyxml2/src/tinyxml2.cpp
-
-#TestScene
-LOCAL_SRC_FILES += \
-TestScene.cpp
 
 include $(BUILD_STATIC_LIBRARY)
