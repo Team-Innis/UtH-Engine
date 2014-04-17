@@ -54,7 +54,11 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 			{
 				ID[index].m_curPos.x = AMotionEvent_getX(droidInputEvent, index);
 				ID[index].m_curPos.y = AMotionEvent_getY(droidInputEvent, index);
-				ID[index].m_motion = TouchMotion::DRAG;
+
+				if((ID[index].m_curPos - ID[index].m_startPos).getLenght() >= 25.f)
+				{
+					ID[index].m_motion = TouchMotion::DRAG;
+				}
 			}
 			}
 			break;

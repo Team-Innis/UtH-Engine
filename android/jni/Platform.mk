@@ -42,7 +42,7 @@ $(SRC_PATH)Math/Rectangle.cpp
 LOCAL_SRC_FILES += \
 $(SRC_PATH)Audio/Audio.cpp \
 $(SRC_PATH)Audio/Sound.cpp \
-$(SRC_PATH)Audio/SoundManager.cpp
+$(SRC_PATH)Audio/SoundDevice.cpp
 
 #Renderer
 LOCAL_SRC_FILES += \
@@ -98,9 +98,5 @@ $(SRC_PATH)Engine/AnimatedSprite.cpp
 #TinyXML2
 LOCAL_SRC_FILES += \
 $(SRC_PATH)../extlibs/tinyxml2/src/tinyxml2.cpp
-
-#TestScene
-LOCAL_SRC_FILES += \
-TestScene.cpp
 
 include $(BUILD_STATIC_LIBRARY)
