@@ -13,7 +13,15 @@ namespace uth
 
         //virtual ~Affector();
 
-        virtual void UpdateParticle(Particle& particle, float dt) = 0;
+        virtual void UpdateParticle(Particle& particle, float dt){Update(particle, dt);}
+
+        void setUpdateFunc(void (*UpdateFunc)(Particle& particle, float dt))
+        {
+            Update = UpdateFunc;
+        }
+
+    private:
+        void (*Update)(Particle& particle, float dt);
 
     };
 }

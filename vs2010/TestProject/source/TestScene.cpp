@@ -29,7 +29,7 @@ bool TestScene::Init()
     pSystem.AddAffector(new MoveAffector());
     ParticleTemplate pTemplate;
     pTemplate.SetLifetime(2);
-    pTemplate.SetSpeed(4, 6);
+    pTemplate.SetSpeed(80, 100);
     pTemplate.SetTexture(&uthRS.LoadTexture("particle.tga"));
     pSystem.SetTemplate(pTemplate);
 
