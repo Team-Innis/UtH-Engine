@@ -65,7 +65,7 @@ void Tileset::parseTileset(tinyxml2::XMLElement* tilesetElement, const std::stri
 
 
 	std::string imagePath = mapFolder + imageElement->Attribute("source");
-	//m_texture = &uthRS.LoadTexture(imagePath);
+	m_texture = &uthRS.LoadTexture(imagePath);
 }
 
 
