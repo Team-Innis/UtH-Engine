@@ -31,14 +31,19 @@ namespace uth
 
 
 
-    bool SpriteBatch::AddSprite(GameObject* object, const std::string& atlasName)
+    GameObject* SpriteBatch::AddSprite(GameObject* object, const std::string& atlasName)
     {
         if (!m_atlas && !m_texture)
-            return false;
+        {
+            if (object)
+                delete object;
+
+            return nullptr;
+        }
 
         unsigned short mod = static_cast<unsigned short>(m_objects.size()) * 4;
 
-        m_objects.push_back(object);
+        m_objects.emplace_back(object);
         umath::rectangle tex = (atlasName.empty() || !m_atlas) ? umath::rectangle(0.f, 0.f, 1.f, 1.f) : m_atlas->getTextureCoords(atlasName.c_str());
 
 
@@ -68,7 +73,7 @@ namespace uth
 	    m_spriteBuffer.addIndex(3 + mod);
 	    m_spriteBuffer.addIndex(2 + mod);
 
-        return true;
+        return m_objects.back().get();
     }
 
     void SpriteBatch::SetTextureAtlas(TextureAtlas* atlas)

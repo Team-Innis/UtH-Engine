@@ -41,8 +41,8 @@ bool TestScene::Init()
     for (int i = 0; i < sprites; ++i)
     {
         GameObject* obj = new GameObject();
-        batch.AddSprite(obj, "flagYellow.png");
-        obj->transform.SetPosition((radius * std::cos(i * (6.284f / static_cast<float>(sprites)))) + 400, (radius * std::sin(i * (6.284f / static_cast<float>(sprites)))) - 200);
+        batch.AddSprite(obj, i % 2 == 0 ? "flagYellow.png" : "bomb.png");
+        obj->transform.SetPosition((radius * std::cos(i * (6.284f / static_cast<float>(sprites)))), (radius * std::sin(i * (6.284f / static_cast<float>(sprites)))));
     }
 
 
