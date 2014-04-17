@@ -19,7 +19,8 @@ const umath::vector2 CommonInput::Position() const
 void CommonInput::Update()
 {
 	TouchInput& Touch = uthInput.Touch;
-	switch(Touch.Motion())
+
+	switch(Touch[0].Motion())
 	{
 	case TouchMotion::NONE:
 		m_event = InputEvent::NONE;
@@ -58,13 +59,13 @@ void CommonInput::Update()
 			m_event = InputEvent::DRAG;
 			break;
 		default:
-			WriteError("Propably undefined behaviour");
+			WriteError("Probably undefined behaviour");
 			break;
 		}
 		m_position = Touch[0].GetPosition();
 		break;
 	default:
-		WriteError("Propably undefined behaviour");
+		WriteError("Probably undefined behaviour");
 		break;
 	}
 }
