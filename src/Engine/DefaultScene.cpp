@@ -49,6 +49,8 @@ bool DefaultScene::Init()
 bool DefaultScene::DeInit()
 {
     delete obj;
+	delete shader;
+
     return true;
 }
 
