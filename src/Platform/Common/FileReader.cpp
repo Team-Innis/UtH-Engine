@@ -143,14 +143,13 @@ const BINARY_DATA FileReader::ReadBinary()
 	return retVal;
 }
 
-const char* FileReader::ReadText()
+const std::string FileReader::ReadText()
 {
-	
 	int size = GetFileSize();
-	char* buffer = new char[size+1];
+	char* buffer = new char[size];
 	ReadBytes(buffer, size);
 
-	buffer[size] = 0; // Null terminate the string
-
-	return buffer;
+	std::string str(buffer, size);
+	delete[] buffer;
+	return str;
 }

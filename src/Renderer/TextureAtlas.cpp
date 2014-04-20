@@ -31,7 +31,7 @@ namespace uth
         fr.OpenFile(filePath.c_str());
 
         tinyxml2::XMLDocument doc;
-        if (doc.Parse(fr.ReadText()))
+        if (doc.Parse(fr.ReadText().c_str()))
             return false;
 
         const tinyxml2::XMLElement* element = doc.FirstChildElement();
