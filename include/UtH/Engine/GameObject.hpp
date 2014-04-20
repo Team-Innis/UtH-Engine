@@ -29,8 +29,8 @@ namespace uth
 		void RemoveComponent(const std::string& name);
 		void RemoveComponents();
 
-		virtual void Draw(RenderTarget& target);
-		virtual void Update(float dt);
+		void Draw(RenderTarget& target);
+		void Update(float dt);
 
 		// Transform is a special component that every gameobject has
 		Transform transform;
@@ -38,6 +38,10 @@ namespace uth
 		GameObject* parent;
 
 	private:
+
+        virtual void update(float){};
+        virtual void draw(RenderTarget& target);
+
 		std::vector<Component*> components;
 
 		bool m_active;

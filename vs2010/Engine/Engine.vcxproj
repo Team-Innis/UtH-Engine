@@ -58,6 +58,8 @@
     <ClCompile Include="..\..\src\Engine\DefaultScene.cpp" />
     <ClCompile Include="..\..\src\Engine\GameObject.cpp" />
     <ClCompile Include="..\..\src\Engine\Layer.cpp" />
+    <ClCompile Include="..\..\src\Engine\Particles\ParticleSystem.cpp" />
+    <ClCompile Include="..\..\src\Engine\Particles\ParticleTemplate.cpp" />
     <ClCompile Include="..\..\src\Engine\Rigidbody.cpp" />
     <ClCompile Include="..\..\src\Engine\Scene.cpp" />
     <ClCompile Include="..\..\src\Engine\SceneManager.cpp" />
@@ -75,6 +77,10 @@
     <ClInclude Include="..\..\include\UtH\Engine\DefaultScene.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\GameObject.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Layer.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\Particles\Affector.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\Particles\Particle.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\Particles\ParticleSystem.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\Particles\ParticleTemplate.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Rigidbody.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Scene.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\SceneManager.hpp" />

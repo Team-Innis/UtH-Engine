@@ -32,6 +32,11 @@ namespace uth
 
     bool RenderTarget::Bind()
     {
+        if (m_shader)
+            m_shader->Use();
+        else
+            m_defaultShader.Use();
+
         updateUniforms();
 
         static unsigned int lastID = 0;
@@ -107,12 +112,10 @@ namespace uth
         if (m_shader)
         {
             m_shader->SetUniform("unifProjection", m_camera ? m_camera->GetProjectionTransform() : m_defaultCamera.GetProjectionTransform());
-
         }
         else
         {
             m_defaultShader.SetUniform("unifProjection", m_camera ? m_camera->GetProjectionTransform() : m_defaultCamera.GetProjectionTransform());
-
         }
     }
 }

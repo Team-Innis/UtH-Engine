@@ -2,12 +2,12 @@
 #ifndef INPUTMOUSE_H_UTH
 #define INPUTMOUSE_H_UTH
 
+#include <vector>
 #include <UtH/Platform/Common/InputBase.hpp>
 #include <UtH/Platform/Window.hpp>
 
 #include <UtH/Math/Vector2.hpp>
 
-#include <vector>
 
 namespace uth
 {

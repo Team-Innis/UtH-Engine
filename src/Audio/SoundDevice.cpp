@@ -1,18 +1,18 @@
-#include <UtH/Audio/SoundManager.h>
+#include <UtH/Audio/SoundDevice.hpp>
 #include <UtH/Platform/Debug.hpp>
 
 using namespace uth;
 
-bool SoundManager::initialized = false;
-ALCdevice* SoundManager::device = 0;
-ALCcontext* SoundManager::context = 0;
+bool SoundDevice::initialized = false;
+ALCdevice* SoundDevice::device = 0;
+ALCcontext* SoundDevice::context = 0;
 
-SoundManager::SoundManager()
+SoundDevice::SoundDevice()
 {
 	CreateContext();
 }
 
-SoundManager::~SoundManager()
+SoundDevice::~SoundDevice()
 {
 	alcMakeContextCurrent(0);
 	alcDestroyContext(context);
@@ -21,7 +21,7 @@ SoundManager::~SoundManager()
 
 // PRIVATE
 
-void SoundManager::CreateContext()
+void SoundDevice::CreateContext()
 {
 	if(!initialized)
 	{

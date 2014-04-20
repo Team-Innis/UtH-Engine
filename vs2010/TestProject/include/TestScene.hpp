@@ -8,6 +8,7 @@
 #include <UtH/Platform/HiResTimer.hpp>
 #include <UtH/Renderer/RenderTexture.hpp>
 #include <UtH/Engine/SpriteBatch.hpp>
+#include <UtH/Engine/Particles/ParticleSystem.hpp>
 #include <UtH/Engine/TMX/Map.hpp>
 
 
@@ -45,6 +46,8 @@ namespace uth
 		Timer timer;
 
 		b2Body* groundBody;
+
+        ParticleSystem pSystem;
 	};
 }
 

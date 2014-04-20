@@ -13,7 +13,7 @@ namespace uth
 	class Camera;
     class RenderTarget;
 
-	class Component : private Uncopyable
+	class Component
 	{
 	public:
 

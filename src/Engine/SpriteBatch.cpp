@@ -5,6 +5,12 @@
 #include <UtH/Renderer/RenderTarget.hpp>
 
 
+
+namespace
+{
+    static uth::Shader batchShader;
+}
+
 namespace uth
 {
     void SpriteBatch::reserve(const unsigned int amount)
@@ -16,23 +22,34 @@ namespace uth
     }
 
 
-    SpriteBatch::SpriteBatch()
+    SpriteBatch::SpriteBatch(const bool adoptPointers)
         : m_atlas(nullptr),
-          m_texture(nullptr)
+          m_texture(nullptr),
+          m_adoptedPointers(adoptPointers)
     {
         reserve(975);
     }
 
+    SpriteBatch::~SpriteBatch()
+    {
+        Clear();
+    }
 
 
-    bool SpriteBatch::AddSprite(GameObject* object, const std::string& atlasName)
+
+    GameObject* SpriteBatch::AddSprite(GameObject* object, const std::string& atlasName)
     {
         if (!m_atlas && !m_texture)
-            return false;
+        {
+            if (object)
+                delete object;
+
+            return nullptr;
+        }
 
         unsigned short mod = static_cast<unsigned short>(m_objects.size()) * 4;
 
-        m_objects.push_back(object);
+        m_objects.emplace_back(object);
         umath::rectangle tex = (atlasName.empty() || !m_atlas) ? umath::rectangle(0.f, 0.f, 1.f, 1.f) : m_atlas->getTextureCoords(atlasName.c_str());
 
 
@@ -62,7 +79,7 @@ namespace uth
 	    m_spriteBuffer.addIndex(3 + mod);
 	    m_spriteBuffer.addIndex(2 + mod);
 
-        return true;
+        return m_objects.back().get();
     }
 
     void SpriteBatch::SetTextureAtlas(TextureAtlas* atlas)
@@ -77,10 +94,30 @@ namespace uth
         m_atlas = nullptr;
     }
 
-    void SpriteBatch::Draw(RenderTarget& target)
+    void SpriteBatch::Clear()
     {
-        if (!m_atlas && m_texture)
+        if (!m_adoptedPointers)
+        {
+            for (auto itr = m_objects.begin(); itr != m_objects.end(); ++itr)
+                itr->release();
+        }
+
+        m_objects.clear();
+        m_vertexData.clear();
+        m_spriteBuffer.clear();
+    }
+
+    void SpriteBatch::draw(RenderTarget& target)
+    {
+        if ((!m_atlas && !m_texture) || m_objects.empty())
             return;
+
+        static bool shaderLoaded = false;
+        if (!shaderLoaded)
+        {
+            batchShader.LoadShader("Shaders/batchvertexshader.vert", "Shaders/batchfragmentshader.frag");
+            shaderLoaded = true;
+        }
 
         m_spriteBuffer.clear(true, false);
         m_spriteBuffer.addVertices(m_vertexData);
@@ -101,25 +138,26 @@ namespace uth
             m_spriteBuffer.m_vertexData[2 + (i * 4)].position *= t_m;
             m_spriteBuffer.m_vertexData[3 + (i * 4)].position *= t_m;
         }
-
-        target.Bind();
         
         m_spriteBuffer.setData();
 
         m_atlas ? m_atlas->Bind() : m_texture->Bind();
 
-        Shader& shader = target.GetShader();
+        batchShader.Use();
 
-        shader.SetUniform("unifSampler", 0);
-        shader.SetUniform("unifColor", 1, 1, 1, 1);
+        batchShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
+        batchShader.SetUniform("unifSampler", 0);
+        batchShader.SetUniform("unifColor", 1, 1, 1, 1);
 
 
         uth::Graphics::BindBuffer(ARRAY_BUFFER, m_spriteBuffer.m_arrayBuffer);
-        shader.setAttributeData("attrPosition", 3, FLOAT_TYPE, sizeof(Vertex), (void*)0);
-        shader.setAttributeData("attrUV", 2, FLOAT_TYPE, sizeof(Vertex), (void*)(3 * sizeof(float)));
+        batchShader.setAttributeData("attrPosition", 3, FLOAT_TYPE, sizeof(Vertex), (void*)0);
+        batchShader.setAttributeData("attrUV", 2, FLOAT_TYPE, sizeof(Vertex), (void*)(3 * sizeof(float)));
 
         uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_spriteBuffer.m_elementBuffer);
         uth::Graphics::DrawElements(TRIANGLES, m_spriteBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
+    
+        target.SetShader(nullptr);
     }
     
 }
