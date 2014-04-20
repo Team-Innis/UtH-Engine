@@ -29,7 +29,7 @@ bool Map::LoadFromFile(const std::string& path)
 	// Create the xml document
 	tinyxml2::XMLDocument doc;
 	FileReader fr(path.c_str());
-	doc.Parse(fr.ReadText(), fr.GetFileSize()+1);
+	doc.Parse(fr.ReadText().c_str());
 
 	// Parse the map element
 	tinyxml2::XMLElement* map = doc.FirstChildElement("map");
