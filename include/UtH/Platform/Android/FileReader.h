@@ -5,6 +5,7 @@
 #define FILEREADER_H
 
 #include <stdio.h>
+#include <string>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 #include <UtH/Platform/BinaryData.hpp>
@@ -33,7 +34,7 @@ namespace uth
 
 		// Read whole file
 		const BINARY_DATA ReadBinary();
-		const char* ReadText();
+		const std::string ReadText();
 
 		static AAssetManager* m_manager;
 	private:

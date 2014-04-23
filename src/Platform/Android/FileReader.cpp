@@ -53,7 +53,7 @@ const BINARY_DATA FileReader::ReadBinary()
 	return retVal;
 }
 
-const char* FileReader::ReadText()
+const std::string FileReader::ReadText()
 {
 	int size = GetFileSize();
 	char* buffer = new char[size];
