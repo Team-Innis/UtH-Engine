@@ -77,6 +77,7 @@ $(SRC_PATH)Platform/Android/InputKeyboard.cpp
 #Core
 LOCAL_SRC_FILES += \
 $(SRC_PATH)Core/Shader.cpp \
+$(SRC_PATH)Core/Randomizer.cpp \
 $(SRC_PATH)Core/VertexBuffer.cpp
 
 #Engine
@@ -93,6 +94,10 @@ $(SRC_PATH)Engine/Rigidbody.cpp \
 $(SRC_PATH)Engine/Layer.cpp \
 $(SRC_PATH)Engine/Text.cpp \
 $(SRC_PATH)Engine/SpriteBatch.cpp \
+$(SRC_PATH)Engine/Particles/ParticleTemplate.cpp \
+$(SRC_PATH)Engine/Particles/ParticleSystem.cpp \
+$(SRC_PATH)Engine/TMX/Map.cpp \
+$(SRC_PATH)Engine/TMX/Tileset.cpp \
 $(SRC_PATH)Engine/AnimatedSprite.cpp
 
 #TinyXML2
