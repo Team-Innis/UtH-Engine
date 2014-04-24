@@ -56,7 +56,7 @@ void Tileset::parseTileset(tinyxml2::XMLElement* tilesetElement, const std::stri
 		// Open tsx file
 		std::string path = mapFolder + tilesetSource;
 		FileReader fr(path.c_str());
-		doc.Parse(fr.ReadText(), fr.GetFileSize()+1);
+		doc.Parse(fr.ReadText().c_str());
 
 		imageElement = doc.FirstChildElement("tileset")->FirstChildElement("image");
 	}
@@ -77,6 +77,6 @@ tinyxml2::XMLElement* getImageElementFromTSX(const std::string& path)
 	FileReader fr(path.c_str());
 
 	// ReadText returns filesize+1 because of null termination
-	doc.Parse(fr.ReadText(), fr.GetFileSize()+1);
+	doc.Parse(fr.ReadText().c_str());
 	return doc.FirstChildElement("tileset")->FirstChildElement("image");
 }

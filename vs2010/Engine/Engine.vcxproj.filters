@@ -16,8 +16,14 @@
     <Filter Include="Header Files\TMX">
       <UniqueIdentifier>{081a3ee2-7e44-419b-b60e-bf1b81f712d4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Particles">
+      <UniqueIdentifier>{3854cd31-3855-4615-bde9-d40a29340c8c}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\TMX">
       <UniqueIdentifier>{3226967a-6f9f-4cc2-8b4f-070c40a628c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Particles">
+      <UniqueIdentifier>{027d4475-81ca-4dec-9081-2a57d01e9f66}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -63,8 +69,14 @@
     <ClCompile Include="..\..\src\Engine\TMX\Map.cpp">
       <Filter>Source Files\TMX</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Particles\ParticleSystem.cpp">
+      <Filter>Source Files\Particles</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Engine\TMX\Tileset.cpp">
       <Filter>Source Files\TMX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Particles\ParticleTemplate.cpp">
+      <Filter>Source Files\Particles</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,14 +122,26 @@
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Tile.hpp">
       <Filter>Header Files\TMX</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\Particles\Affector.hpp">
+      <Filter>Header Files\Particles</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Tileset.hpp">
       <Filter>Header Files\TMX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\Particles\ParticleSystem.hpp">
+      <Filter>Header Files\Particles</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Layer.hpp">
       <Filter>Header Files\TMX</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\Particles\ParticleTemplate.hpp">
+      <Filter>Header Files\Particles</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Map.hpp">
       <Filter>Header Files\TMX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\Particles\Particle.hpp">
+      <Filter>Header Files\Particles</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Object.hpp">
       <Filter>Header Files\TMX</Filter>

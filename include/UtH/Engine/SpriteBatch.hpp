@@ -17,26 +17,33 @@ namespace uth
 
         void reserve(const unsigned int amount);
 
-        SpriteBatch();
+        SpriteBatch(const bool adoptPointers = true);
+
+        ~SpriteBatch();
 
 
-        bool AddSprite(GameObject* object, const std::string& atlasName = "");
+        GameObject* AddSprite(GameObject* object, const std::string& atlasName = "");
 
         void SetTextureAtlas(TextureAtlas* atlas);
 
         void SetTexture(Texture* texture);
 
-        void Draw(RenderTarget& target);
+        void Clear();
 
 
     private:
+        
+        void draw(RenderTarget& target);
 
-        std::vector<GameObject*> m_objects;
+
+        std::vector<std::unique_ptr<GameObject>> m_objects;
         TextureAtlas* m_atlas;
         Texture* m_texture;
 
         std::vector<Vertex> m_vertexData;
         VertexBuffer m_spriteBuffer;
+
+        bool m_adoptedPointers;
 
     };
 }

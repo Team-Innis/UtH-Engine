@@ -7,6 +7,7 @@
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Input.hpp>
 #include <UtH/Renderer/TextureAtlas.hpp>
+#include "MoveAffector.hpp"
 
 #include <UtH/Platform/Debug.hpp>
 
@@ -17,14 +18,22 @@ const unsigned int sprites = 40;
 TestScene::TestScene()
 {}
 TestScene::~TestScene()
-{
-}
+{}
 
 bool TestScene::Init()
 {
 	shader = new Shader();
 	shader->LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
 	shader->Use();
+
+	map = new TMX::Map("Maps/desert.tmx");
+
+    pSystem.AddAffector(new MoveAffector());
+    ParticleTemplate pTemplate;
+    pTemplate.SetLifetime(2);
+    pTemplate.SetSpeed(80, 100);
+    pTemplate.SetTexture(&uthRS.LoadTexture("particle.tga"));
+    pSystem.SetTemplate(pTemplate);
 
     uthEngine.GetWindow().SetViewport(umath::rectangle(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
     uthEngine.GetWindow().SetShader(shader);
@@ -36,15 +45,13 @@ bool TestScene::Init()
     atlas.LoadFromFile("atlastest.xml");
     batch.SetTextureAtlas(&atlas);
 
-	map = new TMX::Map("Maps/desert.tmx");
-
-    const float radius = 450.f;
+    const float radius = 550.f;
 
     for (int i = 0; i < sprites; ++i)
     {
         GameObject* obj = new GameObject();
-        batch.AddSprite(obj, "bomb.png");
-        obj->transform.SetPosition((radius * std::cos(i * (6.284f / static_cast<float>(sprites)))) + 400, (radius * std::sin(i * (6.284f / static_cast<float>(sprites)))) - 200);
+        batch.AddSprite(obj, i % 2 == 0 ? "flagYellow.png" : "bomb.png");
+        obj->transform.SetPosition((radius * std::cos(i * (6.284f / static_cast<float>(sprites)))), (radius * std::sin(i * (6.284f / static_cast<float>(sprites)))));
     }
 
 
@@ -112,6 +119,7 @@ bool TestScene::Init()
 	AddGameObjectToLayer(1, go);
 
     AddGameObjectToLayer(1, &batch);
+    //AddGameObjectToLayer(1, &pSystem);
 
     // render rtex
     rtexSprite = new GameObject();
@@ -158,6 +166,15 @@ bool TestScene::DeInit()
 
 bool TestScene::Update(float dt)
 {
+    static unsigned short count = 60;
+
+    if (++count > 60)
+    {
+        pSystem.Emit(20);
+
+        count = 0;
+    }
+
     const float offset = 75.f * dt;
 
     camera.Rotate(-offset);
@@ -175,6 +192,13 @@ bool TestScene::Update(float dt)
 		WriteLog("Tapped");
 		uthSceneM.GoToScene(0);
 	}
+	if(uthInput.Common != InputEvent::NONE)
+	{
+		WriteLog("Action");
+		uthSceneM.GoToScene(0);
+	}
+
+    pSystem.Update(dt);
 
 	return true;
 }
@@ -191,6 +215,7 @@ bool TestScene::Draw()
     rtex.GetTexture();
     //static_cast<Sprite*>(rtexSprite->GetComponent("rtexSprite"))->SetTexture(&rtex.GetTexture());
     rtexSprite->Draw(uthEngine.GetWindow());
+    pSystem.Draw(uthEngine.GetWindow());
 
 	return true;
 }

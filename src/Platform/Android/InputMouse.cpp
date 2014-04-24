@@ -3,17 +3,17 @@
 
 using namespace uth;
 
-bool MouseInput::IsButtonDown(Mouse Button)
+bool MouseInput::IsButtonDown(Mouse)
 {
 	WriteLog("No Mouse with android. Returning false");
 	return false;
 }
-bool MouseInput::IsButtonPressed(Mouse Button)
+bool MouseInput::IsButtonPressed(Mouse)
 {
 	WriteLog("No Mouse with android. Returning false");
 	return false;
 }
-bool MouseInput::IsButtonReleased(Mouse Button)
+bool MouseInput::IsButtonReleased(Mouse)
 {
 	WriteLog("No Mouse with android. Returning false");
 	return false;

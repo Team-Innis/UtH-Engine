@@ -117,6 +117,7 @@ const std::wstring& Text::GetText() const
 
 void Text::Draw(RenderTarget& target)
 {
+    target.Bind();
 	m_textShader.Use();
 
 	uth::Graphics::BindTexture(TEXTURE_2D, m_atlas->id);

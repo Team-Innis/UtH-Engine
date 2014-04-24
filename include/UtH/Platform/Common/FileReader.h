@@ -6,6 +6,7 @@
 #define FILEREADER_H
 
 #include <cstdio>
+#include <string>
 #include <physfs/physfs.h>
 #include <UtH/Platform/BinaryData.hpp>
 
@@ -22,9 +23,9 @@ namespace uth
         void CloseFile();
 		int GetFileSize();
 
-		// Move the file pointer by offset from origin(defaults to current location)
+		// Move the file pointer by offset from origin(defaults to beginning of file)
 		// see SEEK_SET, SEEK_CUR and SEEK_END
-		bool FileSeek(int offset, int origin = SEEK_CUR);
+		bool FileSeek(int offset, int origin = SEEK_SET);
 
 		// Read a 'count' ammount of 'blockSize' sized blocks of data from file to buffer
 		// Buffer is a pointer to the first element of an array
@@ -35,9 +36,7 @@ namespace uth
 		const BINARY_DATA ReadBinary();
 
 		// Returns the content of the whole file as text
-		// IMPORTANT: The 'size' or 'length' of the text will be filesize+1
-		// because it needs to be null terminated manually when reading
-		const char* ReadText();
+		const std::string ReadText();
 
 		static bool isCompressed;
 	private:

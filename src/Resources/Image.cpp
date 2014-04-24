@@ -2,6 +2,7 @@
 #include <UtH/Platform/FileReader.h>
 #include <UtH/Platform/Debug.hpp>
 #include <cassert>
+#include <vector>
 
 
 namespace uth
@@ -30,39 +31,44 @@ namespace uth
     bool Image::LoadFromFile(const std::string& filePath)
     {
         FileReader FR(filePath.c_str());
-        BYTE* buffer;
 
-		buffer = new BYTE[4];
+		std::vector<BYTE> buffer;
+
+		// Check image type
+		FR.FileSeek(2);
+		BYTE imageType;
+		FR.ReadBytes(&imageType, 1);
+		assert(imageType == 2); // Uncompressed true-color
+
+		buffer.resize(4);
 		FR.FileSeek(12, 0);
-		FR.ReadBytes(buffer, 4);
+		FR.ReadBytes(&buffer.front(), 4);
 		m_size.x = static_cast<float>((buffer[0] + buffer[1] * 256));
 		m_size.y = static_cast<float>((buffer[2] + buffer[3] * 256));
-		delete[] buffer;
+		buffer.clear();
 
 		//bpp
-		buffer = new BYTE[1];
+		BYTE colorDepth;
 		FR.FileSeek(16, 0);
-		FR.ReadBytes(buffer, 1);
-		m_depth = buffer[0];
+		FR.ReadBytes(&colorDepth, 1);
+		m_depth = colorDepth;
 		assert(m_depth == 24 || m_depth == 32);
-		delete[] buffer;
 
 		//data
 		int datasize = static_cast<int>(m_size.x * m_size.y * m_depth / 8);
 		m_pixels = new BYTE[datasize];
-		buffer = new BYTE[datasize];
+		buffer.resize(datasize);
 		FR.FileSeek(18, 0);
-		FR.ReadBytes(buffer, datasize);
+		FR.ReadBytes(&buffer.front(), datasize);
 
 		//(pixels) rgb = bgr(tga)
-		for(int i = 0; i < datasize; i+=4)
+		for(int i = 0; i < datasize - 1; i += 4)
 		{
 			m_pixels[i+0] = buffer[i+2];
 			m_pixels[i+1] = buffer[i+1];
 			m_pixels[i+2] = buffer[i+0];
 			m_pixels[i+3] = buffer[i+3];
 		}
-		delete[] buffer;
 
         return true;
     }
