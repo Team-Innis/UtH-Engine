@@ -2,6 +2,8 @@
 #ifndef AFFECTOR_H_UTH
 #define AFFECTOR_H_UTH
 
+#include <functional>
+
 
 namespace uth
 {
@@ -11,17 +13,21 @@ namespace uth
     {
     public:
 
-        //virtual ~Affector();
+        Affector();
 
-        virtual void UpdateParticle(Particle& particle, float dt){Update(particle, dt);}
+        Affector(std::function<void(Particle&, float)> func);
 
-        void setUpdateFunc(void (*UpdateFunc)(Particle& particle, float dt))
-        {
-            Update = UpdateFunc;
-        }
+        virtual ~Affector(){};
+
+
+
+        virtual void UpdateParticle(Particle& particle, float dt);
+
+        void SetUpdateFunc(std::function<void(Particle&, float)> func);
 
     private:
-        void (*Update)(Particle& particle, float dt);
+        
+        std::function<void(Particle&, float)> m_func;
 
     };
 }

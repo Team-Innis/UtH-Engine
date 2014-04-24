@@ -7,7 +7,7 @@
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Input.hpp>
 #include <UtH/Renderer/TextureAtlas.hpp>
-#include "MoveAffector.hpp"
+#include <UtH/Core/Randomizer.hpp>
 
 #include <UtH/Platform/Debug.hpp>
 
@@ -26,12 +26,22 @@ bool TestScene::Init()
 	shader->LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
 	shader->Use();
 
-    pSystem.AddAffector(new MoveAffector());
+    pSystem.AddAffector(new Affector([](Particle& particle, float dt)
+                                     {
+                                         particle.transform.Move(particle.direction * dt);
+                                         particle.transform.Rotate(50 * dt);
+                                     }));
+
     ParticleTemplate pTemplate;
     pTemplate.SetLifetime(2);
     pTemplate.SetSpeed(80, 100);
     pTemplate.SetTexture(&uthRS.LoadTexture("particle.tga"));
+    pTemplate.SetInitFunction([](Particle& particle, ParticleTemplate& pTemplate)
+    {
+        particle.direction = umath::vector2(Randomizer::GetFloat(pTemplate.minSpeed, pTemplate.maxSpeed), Randomizer::GetFloat(-30.f, 30.0f));
+    });
     pSystem.SetTemplate(pTemplate);
+    pSystem.transform.SetPosition(50.f, 0.f);
 
     uthEngine.GetWindow().SetViewport(umath::rectangle(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
     uthEngine.GetWindow().SetShader(shader);
@@ -163,13 +173,13 @@ bool TestScene::DeInit()
 
 bool TestScene::Update(float dt)
 {
-    static unsigned short count = 60;
+    static float count = 1.f;
 
-    if (++count > 60)
+    if ((count += dt) > 0.2f)
     {
-        pSystem.Emit(20);
+        pSystem.Emit(1);
 
-        count = 0;
+        count = 0.f;
     }
 
     const float offset = 75.f * dt;
