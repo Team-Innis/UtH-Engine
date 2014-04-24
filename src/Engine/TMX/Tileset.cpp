@@ -1,5 +1,8 @@
 #include <UtH/Engine/TMX/Tileset.hpp>
+#include <UtH/Engine/TMX/Map.hpp>
 #include <UtH/Platform/FileReader.h>
+
+#include <UtH/Platform/Debug.hpp>
 
 // Works fine here
 #include <tinyxml2.h>
@@ -26,7 +29,7 @@ Tileset::~Tileset()
 // Public
 
 
-const Texture* Tileset::GetTexture() const
+Texture* Tileset::GetTexture() const
 {
 	return m_texture;
 }
@@ -35,6 +38,43 @@ unsigned int Tileset::GetFirstGID() const
 {
 	return m_firstgid;
 }
+
+unsigned int Tileset::GetTileWidth() const
+{
+	return m_tileWidth;
+}
+
+unsigned int Tileset::GetTileHeight() const
+{
+	return m_tileHeight;
+}
+
+const umath::rectangle Tileset::GetTile(unsigned int localId) const
+{
+	const int wTiles = m_texture->GetSize().x / m_tileWidth;
+	const int hTiles = m_texture->GetSize().y / m_tileHeight;
+
+	int x = localId % wTiles * m_tileWidth;
+	int y = localId / wTiles * m_tileHeight;
+
+	x += m_margin;
+	y += m_margin;
+
+	const int xtile = x / m_tileWidth;
+	const int ytile = y / m_tileHeight;
+
+	x += xtile * m_spacing;
+	y += ytile * m_spacing;
+
+	umath::rectangle out;
+	out.x = x / m_texture->GetSize().x;
+	out.width = m_tileWidth / m_texture->GetSize().x;
+	out.y = x / m_texture->GetSize().y;
+	out.height = m_tileHeight / m_texture->GetSize().y;
+
+	return out;
+}
+
 
 
 // Private
@@ -58,10 +98,24 @@ void Tileset::parseTileset(tinyxml2::XMLElement* tilesetElement, const std::stri
 		FileReader fr(path.c_str());
 		doc.Parse(fr.ReadText().c_str());
 
-		imageElement = doc.FirstChildElement("tileset")->FirstChildElement("image");
+		auto tileset = doc.FirstChildElement("tileset");
+
+		m_tileWidth = tileset->UnsignedAttribute("tilewidth");
+		m_tileHeight = tileset->UnsignedAttribute("tileheight");
+		m_spacing = tileset->UnsignedAttribute("spacing");
+		m_margin = tileset->UnsignedAttribute("margin");
+
+		imageElement = tileset->FirstChildElement("image");
 	}
 	else
+	{
+		m_tileWidth = tilesetElement->UnsignedAttribute("tilewidth");
+		m_tileHeight = tilesetElement->UnsignedAttribute("tileheight");
+		m_spacing = tilesetElement->UnsignedAttribute("spacing");
+		m_margin = tilesetElement->UnsignedAttribute("margin");
+
 		imageElement = tilesetElement->FirstChildElement("image");
+	}
 
 
 	std::string imagePath = mapFolder + imageElement->Attribute("source");
