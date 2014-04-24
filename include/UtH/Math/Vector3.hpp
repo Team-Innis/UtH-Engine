@@ -10,8 +10,10 @@ namespace umath
 		vector3();
 		vector3(float X, float Y, float Z);
 		~vector3();
+		
+		float getLengthSquared() const;
 
-		float getLenght();
+		float getLength() const;
 		
 		float x,y,z;
 			

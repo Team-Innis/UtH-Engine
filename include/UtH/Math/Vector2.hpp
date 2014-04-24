@@ -10,8 +10,12 @@ namespace umath
 			vector2();
 			vector2(float X, float Y);
 			~vector2();
-
-			float getLenght() const;
+			
+			float getLengthSquared() const;
+			/*
+			Returns the angle of the vector in radians ranging from -PI to PI
+			*/
+			float getLength() const;
 			/*
 			Returns the angle of the vector in radians ranging from -PI to PI
 			*/

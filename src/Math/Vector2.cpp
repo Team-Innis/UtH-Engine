@@ -4,16 +4,20 @@
 namespace umath
 {
 	vector2::vector2()
-			: x(0), y(0)
+		: x(0), y(0)
 	{}
 	vector2::vector2(float X, float Y)
 		: x(X), y(Y)
 	{}
 	vector2::~vector2(){}
-
-	float vector2::getLenght() const
+	
+	float vector2::getLengthSquared() const
 	{	
-		return sqrt(pow(x,2) + pow(y,2));
+		return pow(x,2) + pow(y,2);
+	}
+	float vector2::getLength() const
+	{	
+		return sqrt(getLengthSquared());
 	}
 	float vector2::getRadians() const
 	{

@@ -18,10 +18,14 @@ namespace umath
 		: x(X), y(Y), z(Z), w(W)
 	{}
 	vector4::~vector4(){}
-
-	float vector4::getLenght()
+	
+	float vector4::getLengthSquared() const
 	{	
-		return sqrt(pow(x,2) + pow(y,2) + pow(z,2) + pow(w,2));
+		return pow(x,2) + pow(y,2) + pow(z,2) + pow(w,2);
+	}
+	float vector4::getLength() const
+	{	
+		return sqrt(getLengthSquared());
 	}
 
 	// Public
