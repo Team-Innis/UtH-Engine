@@ -9,7 +9,6 @@
 #include <UtH/Engine/Particles/Affector.hpp>
 #include <UtH/Engine/Particles/Particle.hpp>
 
-
 namespace uth
 {
 

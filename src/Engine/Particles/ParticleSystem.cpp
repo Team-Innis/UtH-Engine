@@ -19,13 +19,13 @@ void ParticleSystem::Emit(const unsigned int amount)
 
     for (unsigned int i = 0; i < amount; ++i)
     {
-        umath::vector2 tvec(Randomizer::InsideCircle());
-        tvec /= tvec.getLenght();
-        p.direction = (m_template.m_maxSpeed == 0.f ? m_template.m_minSpeed : (Randomizer::GetFloat(m_template.m_minSpeed, m_template.m_maxSpeed))) * tvec;
+        m_template.m_pInitFunc(p, m_template);
 
         AddParticles(1, p);
     }
 }
+
+
 
 void ParticleSystem::AddAffector(Affector* affector)
 {
@@ -67,7 +67,7 @@ void ParticleSystem::update(float dt)
 
     const unsigned int size = m_particles.size();
 
-    m_particles.erase(std::remove_if(m_particles.begin(), m_particles.end(), Eraser(m_template.m_lifetime)), m_particles.end());
+    m_particles.erase(std::remove_if(m_particles.begin(), m_particles.end(), Eraser(m_template.lifetime)), m_particles.end());
 
     if (size > m_particles.size())
     {

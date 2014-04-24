@@ -66,6 +66,9 @@
     <ClCompile Include="..\..\src\Engine\Particles\ParticleTemplate.cpp">
       <Filter>Source Files\Particles</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Particles\Affector.cpp">
+      <Filter>Source Files\Particles</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Engine\Scene.hpp">
