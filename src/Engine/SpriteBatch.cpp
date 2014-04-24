@@ -37,7 +37,7 @@ namespace uth
 
 
 
-    GameObject* SpriteBatch::AddSprite(GameObject* object, const std::string& atlasName)
+    GameObject* SpriteBatch::AddSprite(GameObject* object, const std::string& atlasName, const umath::rectangle& texCoords)
     {
         if (!m_atlas && !m_texture)
         {
@@ -50,7 +50,12 @@ namespace uth
         unsigned short mod = static_cast<unsigned short>(m_objects.size()) * 4;
 
         m_objects.emplace_back(object);
-        umath::rectangle tex = (atlasName.empty() || !m_atlas) ? umath::rectangle(0.f, 0.f, 1.f, 1.f) : m_atlas->getTextureCoords(atlasName.c_str());
+
+		umath::rectangle tex;
+		if(texCoords.width != 0 && texCoords.height != 0)
+			tex = texCoords;
+		else
+			tex = (atlasName.empty() || !m_atlas) ? umath::rectangle(0.f, 0.f, 1.f, 1.f) : m_atlas->getTextureCoords(atlasName.c_str());
 
 
         float width = ((m_atlas ? m_atlas->GetSize().x : m_texture->GetSize().x) * tex.width),
