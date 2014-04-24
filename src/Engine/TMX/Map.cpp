@@ -48,19 +48,50 @@ bool Map::LoadFromFile(const std::string& path)
 		// TODO: Make getting the map folder better
 		std::string mapfolder = path.substr(0, path.find_last_of("/")+1);
 		tilesets.push_back(new Tileset(tileset, mapfolder));
-		tileset = map->NextSiblingElement("tileset");
+		tileset = tileset->NextSiblingElement("tileset");
 	}
 
 	// Parse layers
-
+	auto layer = map->FirstChildElement("layer");
+	while(layer != 0)
+	{
+		layers.push_back(new TileLayer(layer, this));
+		layer = layer->NextSiblingElement("layer");
+	}
 
 	// Parse objectgroups
 
 	return true;
 }
 
+unsigned int Map::GetWidth() const
+{
+	return m_width;
+}
+
+unsigned int Map::GetTileWidth() const
+{
+	return m_tileWidth;
+}
+
+unsigned int Map::GetHeight() const
+{
+	return m_height;
+}
+
+unsigned int Map::GetTileHeight() const
+{
+	return m_tileHeight;
+}
+
 
 // Private
+
+void Map::draw(RenderTarget& target)
+{
+	for(auto it = layers.begin(); it != layers.end(); ++it)
+		(*it)->Draw(target);
+}
 
 // Local
 

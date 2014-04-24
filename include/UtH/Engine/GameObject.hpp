@@ -37,8 +37,7 @@ namespace uth
 
 		GameObject* parent;
 
-	private:
-
+	protected:
         virtual void update(float){};
         virtual void draw(RenderTarget& target);
 

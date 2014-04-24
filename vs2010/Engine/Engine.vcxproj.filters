@@ -78,6 +78,12 @@
     <ClCompile Include="..\..\src\Engine\Particles\ParticleTemplate.cpp">
       <Filter>Source Files\Particles</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\TMX\Tile.cpp">
+      <Filter>Source Files\TMX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\TMX\TileLayer.cpp">
+      <Filter>Source Files\TMX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Engine\Scene.hpp">
@@ -131,9 +137,6 @@
     <ClInclude Include="..\..\include\UtH\Engine\Particles\ParticleSystem.hpp">
       <Filter>Header Files\Particles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Engine\TMX\Layer.hpp">
-      <Filter>Header Files\TMX</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\Particles\ParticleTemplate.hpp">
       <Filter>Header Files\Particles</Filter>
     </ClInclude>
@@ -150,6 +153,9 @@
       <Filter>Header Files\TMX</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Enums.hpp">
+      <Filter>Header Files\TMX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\TMX\TileLayer.hpp">
       <Filter>Header Files\TMX</Filter>
     </ClInclude>
   </ItemGroup>

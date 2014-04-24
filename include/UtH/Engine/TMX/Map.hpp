@@ -3,8 +3,10 @@
 #define MAP_TMX_UTH_H
 
 #include <UtH/Engine/GameObject.hpp>
+#include <UtH/Engine/SpriteBatch.hpp>
 #include <UtH/Engine/TMX/Enums.hpp>
 #include <UtH/Engine/TMX/Tileset.hpp>
+#include <UtH/Engine/TMX/TileLayer.hpp>
 
 #include <string>
 #include <vector>
@@ -21,9 +23,15 @@ namespace uth
 			~Map();
 			bool LoadFromFile(const std::string& path);
 
-		private:
-			//TODO: Add SpriteBatch
+			unsigned int GetWidth() const;
+			unsigned int GetTileWidth() const;
+			unsigned int GetHeight() const;
+			unsigned int GetTileHeight() const;
+
 			std::vector<Tileset*> tilesets;
+			std::vector<TileLayer*> layers;
+		private:
+			void draw(RenderTarget& target);
 
 			Orientation::Orientation m_orientation;
 
