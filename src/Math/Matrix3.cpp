@@ -92,7 +92,7 @@ namespace umath
 	}
 	matrix3& operator *=(matrix3& LeftVal, const matrix3& RightVal)
 	{
-		LeftVal = LeftVal * RightVal;
+		LeftVal = RightVal * LeftVal;
 		return LeftVal;
 	}
 	

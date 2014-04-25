@@ -173,6 +173,7 @@ bool TestScene::DeInit()
 
 bool TestScene::Update(float dt)
 {
+    rtexSprite->transform.SetOrigin(uthInput.Common.Position());
     static float count = 1.f;
 
     if ((count += dt) > 0.2f)
@@ -183,6 +184,8 @@ bool TestScene::Update(float dt)
     }
 
     const float offset = 75.f * dt;
+
+    obj->transform.Rotate(offset*0.125);
 
     camera.Rotate(-offset);
     rtexSprite->transform.Rotate(offset);

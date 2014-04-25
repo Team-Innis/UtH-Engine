@@ -9,7 +9,8 @@ Transform::Transform(const std::string& name)
 	  position(0, 0),
 	  size(1, 1),
 	  scale(1, 1),
-	  angle(0),     
+      origin(0,0),
+	  angle(0),
 	  depth(0),
 	  m_transformNeedsUpdate(true)
 { }
@@ -167,14 +168,14 @@ void Transform::updateTransform()
 	const float sine = std::sin(ang);
     
     const umath::matrix4 origo(
-        1.0f,   0,      0,      origin.x,
-        0,      1.0f,   0,      origin.y,
+        1.0f,   0,      0,      -origin.x/size.x,
+        0,      1.0f,   0,      -origin.y/size.y,
         0,      0,      1.0f,   0,
         0,      0,      0,      1.0f
         );
 
     const umath::matrix4 rotation(
-        cosine, sine,   0,      0,
+        cosine, -sine,   0,      0,
         sine,   cosine, 0,      0,
         0,      0,      1.0f,   0,
         0,      0,      0,      1.0f
@@ -194,6 +195,6 @@ void Transform::updateTransform()
         0,      0,      0,      1.0f
         );
 
-	m_modelTransform = translation * rotation * scaleMatrix;
+	m_modelTransform = translation * rotation * scaleMatrix * origo;
 	m_transformNeedsUpdate = false;
 }
