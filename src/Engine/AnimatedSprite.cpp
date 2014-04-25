@@ -111,6 +111,9 @@ void AnimatedSprite::Init()
 
 void AnimatedSprite::Update(float dt)
 {
+    if (m_frames < 2 || m_fps == 0)
+        return;
+
 	m_delay += dt;
 
 	if (!m_loop)
