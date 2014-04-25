@@ -13,7 +13,7 @@ namespace umath
 			
 			float getLengthSquared() const;
 			/*
-			Returns the angle of the vector in radians ranging from -PI to PI
+			Returns length of vector
 			*/
 			float getLength() const;
 			/*
