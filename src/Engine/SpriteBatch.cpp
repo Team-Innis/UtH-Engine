@@ -39,9 +39,9 @@ namespace uth
 
     GameObject* SpriteBatch::AddSprite(GameObject* object, const std::string& atlasName)
     {
-        if (!m_atlas && !m_texture)
+        if ((!m_atlas && !m_texture) || !object)
         {
-            if (object)
+            if (m_adoptedPointers)
                 delete object;
 
             return nullptr;
