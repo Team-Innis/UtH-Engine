@@ -26,15 +26,16 @@ bool TestScene::Init()
 	shader->LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
 	shader->Use();
 
-    pSystem.AddAffector(new Affector([](Particle& particle, float dt)
+    pSystem.AddAffector(new Affector([](Particle& particle, ParticleTemplate& pTemplate, float dt)
                                      {
                                          particle.transform.Move(particle.direction * dt);
                                          particle.transform.Rotate(50 * dt);
+                                         particle.color.w = (pTemplate.lifetime - particle.lifetime.CurTime()) / pTemplate.lifetime;
                                      }));
 
     ParticleTemplate pTemplate;
     pTemplate.SetLifetime(2);
-    pTemplate.SetSpeed(80, 100);
+    pTemplate.SetSpeed(80, 150);
     pTemplate.SetTexture(&uthRS.LoadTexture("particle.tga"));
     pTemplate.SetInitFunction([](Particle& particle, ParticleTemplate& pTemplate)
     {
@@ -175,9 +176,9 @@ bool TestScene::Update(float dt)
 {
     static float count = 1.f;
 
-    if ((count += dt) > 0.2f)
+    if ((count += dt) > 0.1f)
     {
-        pSystem.Emit(1);
+        pSystem.Emit(5);
 
         count = 0.f;
     }

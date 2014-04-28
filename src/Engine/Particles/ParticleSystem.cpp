@@ -16,6 +16,7 @@ void ParticleSystem::Emit(const unsigned int amount)
 {
     Particle p;
     p.transform = this->transform;
+    p.color = m_template.color;
 
     for (unsigned int i = 0; i < amount; ++i)
     {
@@ -69,12 +70,13 @@ void ParticleSystem::update(float dt)
 
     m_particles.erase(std::remove_if(m_particles.begin(), m_particles.end(), Eraser(m_template.lifetime)), m_particles.end());
 
-    if (size > m_particles.size())
+    //if (size > m_particles.size())
+    if (true)
     {
         m_batch.Clear();
         for (auto itr = m_particles.begin(); itr != m_particles.end(); ++itr)
         {
-            m_batch.AddSprite(itr->get());
+            m_batch.AddSprite(itr->get(), "", itr->get()->color);
         }
     }
 
@@ -82,7 +84,7 @@ void ParticleSystem::update(float dt)
     {
         for (auto itr2 = m_affectors.begin(); itr2 != m_affectors.end(); ++itr2)
         {
-            itr2->get()->UpdateParticle(*itr->get(), dt);
+            itr2->get()->UpdateParticle(*itr->get(), m_template, dt);
         }
     }
 }

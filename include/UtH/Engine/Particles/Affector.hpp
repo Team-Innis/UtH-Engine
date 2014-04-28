@@ -8,6 +8,7 @@
 namespace uth
 {
     class Particle;
+    class ParticleTemplate;
 
     class Affector
     {
@@ -15,19 +16,19 @@ namespace uth
 
         Affector();
 
-        Affector(std::function<void(Particle&, float)> func);
+        Affector(std::function<void(Particle&, ParticleTemplate&, float)> func);
 
         virtual ~Affector(){};
 
 
 
-        virtual void UpdateParticle(Particle& particle, float dt);
+        virtual void UpdateParticle(Particle& particle, ParticleTemplate&, float dt);
 
-        void SetUpdateFunc(std::function<void(Particle&, float)> func);
+        void SetUpdateFunc(std::function<void(Particle&, ParticleTemplate&, float)> func);
 
     private:
         
-        std::function<void(Particle&, float)> m_func;
+        std::function<void(Particle&, ParticleTemplate&, float)> m_func;
 
     };
 }

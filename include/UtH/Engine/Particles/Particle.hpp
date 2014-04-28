@@ -15,6 +15,7 @@ namespace uth
 
         Timer lifetime;
         umath::vector2 direction;
+        umath::vector4 color;
 
     };
 }

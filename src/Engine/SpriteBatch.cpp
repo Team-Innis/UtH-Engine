@@ -37,7 +37,7 @@ namespace uth
 
 
 
-    GameObject* SpriteBatch::AddSprite(GameObject* object, const std::string& atlasName)
+    GameObject* SpriteBatch::AddSprite(GameObject* object, const std::string& atlasName, const umath::vector4& color)
     {
         if ((!m_atlas && !m_texture) || !object)
         {
@@ -58,19 +58,23 @@ namespace uth
 
         m_vertexData.push_back(Vertex(
 			umath::vector3(-width / 2.f, -height / 2.f, 1.f), 
-			umath::vector2(tex.x, 1.f - tex.y)
+			umath::vector2(tex.x, 1.f - tex.y),
+            color
 			));
         m_vertexData.push_back(Vertex(
 			umath::vector3(width / 2.f, -height / 2.f, 1.f), 
-			umath::vector2(tex.getRight(), 1.f - tex.y)
+			umath::vector2(tex.getRight(), 1.f - tex.y),
+            color
 			));
         m_vertexData.push_back(Vertex(
 			umath::vector3(-width / 2.f, height / 2.f, 1.f), 
-			umath::vector2(tex.x, 1.f - (tex.y + tex.height))
+			umath::vector2(tex.x, 1.f - (tex.y + tex.height)),
+            color
 			));
         m_vertexData.push_back(Vertex(
 			umath::vector3(width / 2.f, height / 2.f, 1.f), 
-			umath::vector2(tex.getRight(), 1.f - (tex.y + tex.height))
+			umath::vector2(tex.getRight(), 1.f - (tex.y + tex.height)),
+            color
 			));
 	    m_spriteBuffer.addIndex(0 + mod);
 	    m_spriteBuffer.addIndex(1 + mod);
@@ -147,12 +151,13 @@ namespace uth
 
         batchShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
         batchShader.SetUniform("unifSampler", 0);
-        batchShader.SetUniform("unifColor", 1, 1, 1, 1);
+        //batchShader.SetUniform("unifColor", 1, 1, 1, 1);
 
 
         uth::Graphics::BindBuffer(ARRAY_BUFFER, m_spriteBuffer.m_arrayBuffer);
         batchShader.setAttributeData("attrPosition", 3, FLOAT_TYPE, sizeof(Vertex), (void*)0);
         batchShader.setAttributeData("attrUV", 2, FLOAT_TYPE, sizeof(Vertex), (void*)(3 * sizeof(float)));
+        batchShader.setAttributeData("attrColor", 4, FLOAT_TYPE, sizeof(Vertex), (void*)(5 * sizeof(float)));
 
         uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_spriteBuffer.m_elementBuffer);
         uth::Graphics::DrawElements(TRIANGLES, m_spriteBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);

@@ -9,6 +9,7 @@ ParticleTemplate::ParticleTemplate()
       m_texture(nullptr),
       minSpeed(1.f),
       maxSpeed(0.f),
+      color(1, 1, 1, 1),
       m_pInitFunc([](Particle& particle, ParticleTemplate& pTemplate)
                   {
                       // Default init function. Will distribute particles to random directions at speeds defined by the template.
@@ -48,4 +49,9 @@ void ParticleTemplate::SetSpeed(const float pixelsPerSecondMin, const float pixe
 void ParticleTemplate::SetInitFunction(std::function<void(Particle&, ParticleTemplate&)> func)
 {
     m_pInitFunc = func;
+}
+
+void ParticleTemplate::SetColor(const float r, const float g, const float b, const float a)
+{
+    color = umath::vector4(r, g, b, a);
 }

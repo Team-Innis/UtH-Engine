@@ -109,7 +109,7 @@ void VertexBuffer::init()
 
 void VertexBuffer::setData() const
 {
-	UsageType drawMode = STATIC_DRAW;
+	UsageType drawMode = DYNAMIC_DRAW;
 
     if (m_arrayBufferNeedsUpdate)
     {
