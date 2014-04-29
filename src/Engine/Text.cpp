@@ -40,6 +40,7 @@ Text::~Text()
 
 void Text::SetText(const std::wstring& text, umath::vector4 color)
 {
+	m_size = umath::vector2();
 	m_vertexBuffer.clear();
 	m_lastPos = umath::vector2(0, 0);
 	m_text = std::wstring();
@@ -62,7 +63,7 @@ void Text::AddText(const std::wstring& text, umath::vector4 color)
 		if (text.at(i) == L'\n')
 		{
 			newLine = true;
-			pos.y += m_fontSize;
+			m_size.y = pos.y += m_fontSize;
 			pos.x = 0;
 		}
 		else
@@ -104,6 +105,11 @@ void Text::AddText(const std::wstring& text, umath::vector4 color)
 
 			pos.x += glyph->advance_x;
 			newLine = false;
+
+			if (pos.x>m_size.x)
+			{
+				m_size.x=pos.x;
+			}
 		}
 	}
 

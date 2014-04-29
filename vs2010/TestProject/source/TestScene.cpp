@@ -25,7 +25,18 @@ bool TestScene::Init()
 	shader = new Shader();
 	shader->LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
 	shader->Use();
+    uthEngine.GetWindow().SetViewport(umath::rectangle(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
+    uthEngine.GetWindow().SetShader(shader);
 
+	GameObject* temp;
+
+#pragma region layers
+	CreateLayer("monsu", 3);
+	CreateLayer("derp", 1);
+	CreateLayer("testi", 0);
+#pragma endregion
+
+#pragma region particles
     pSystem.AddAffector(new Affector([](Particle& particle, float dt)
                                      {
                                          particle.transform.Move(particle.direction * dt);
@@ -42,17 +53,24 @@ bool TestScene::Init()
     });
     pSystem.SetTemplate(pTemplate);
     pSystem.transform.SetPosition(50.f, 0.f);
+#pragma endregion
 
-    uthEngine.GetWindow().SetViewport(umath::rectangle(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
-    uthEngine.GetWindow().SetShader(shader);
+#pragma region rendertex
     rtex.Initialize(uthEngine.GetWindowResolution() / /*0.125f*/1, false);
     rtex.SetCamera(&camera);
     rtex.SetShader(shader);
     rtex.SetViewport(umath::rectangle(0, 0, rtex.GetSize().x, rtex.GetSize().y));
+	
+    // render rtex
+    rtexSprite = new GameObject();
+    rtexSprite->AddComponent(new Sprite(&rtex.GetTexture(), "rtexSprite"));
+    rtexSprite->transform.SetPosition(0, 0);
+	rtexSprite->transform.SetScale(/*0.0625,0.0625*/0.5,0.5);
+#pragma endregion
 
+#pragma region textureatlas_spritebatch
     atlas.LoadFromFile("atlastest.xml");
     batch.SetTextureAtlas(&atlas);
-
     const float radius = 550.f;
 
     for (int i = 0; i < sprites; ++i)
@@ -62,7 +80,11 @@ bool TestScene::Init()
         obj->transform.SetPosition((radius * std::cos(i * (6.284f / static_cast<float>(sprites)))), (radius * std::sin(i * (6.284f / static_cast<float>(sprites)))));
     }
 
+    AddGameObjectToLayer(1, &batch);
+#pragma endregion
 
+
+#pragma region box2d
 	// Ground level
 	b2BodyDef groundBodyDef;
 	groundBodyDef.position.Set(0.0f, 5.0f);
@@ -73,34 +95,15 @@ bool TestScene::Init()
 	groundBox.SetAsBox(50.0f, 1.0f);
 	groundBody->CreateFixture(&groundBox, 0.0f);
 
-	camera.SetSize(uthEngine.GetWindowResolution());
-	camera.SetPosition(0, 0);
-
-	CreateLayer("monsu", 3);
-	CreateLayer("derp", 1);
-	CreateLayer("testi", 0);
-
-	GameObject* go = new GameObject();
-
+	// smile object
+	go = new GameObject();
 	go->AddComponent(new Sprite("test.tga"));
 	go->transform.Move(-100, -400); // need to move it before rigidbody is added
 	go->AddComponent(new Rigidbody(&world));
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(0, go);
 
-
-	//AnimatedSprite* as = new AnimatedSprite(texture, 5, 4, 4, 1.f, 0, false, true);
-	//as->ChangeAnimation(4, 4, 6, 1.f);
-
-	go = new GameObject();
-	go->AddComponent(new AnimatedSprite(&uthRS.LoadTexture("monsu.tga"), 5, 4, 4, 1.f, 0, false, true));
-
-	((AnimatedSprite*)go->GetComponent("AnimatedSprite"))->ChangeAnimation(0, 4, 2, 3.0f, true, false);
-	go->transform.SetScale(10,10);
-
-	gameObjects.push_back(go);
-	AddGameObjectToLayer(3, go);
-
+	// other object
 	go = new GameObject();
 	go->AddComponent(new Sprite(umath::vector4(1, 0, 1, 1), umath::vector2(100, 100)));
 	go->transform.Move(0, -200);
@@ -108,14 +111,29 @@ bool TestScene::Init()
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(0, go);
 
+	// Ground visual
 	go = new GameObject();
 	go->AddComponent(new Sprite(umath::vector4(1, 1, 1, 1),
 		umath::vector2(2000, 2*PIXELS_PER_METER)));
 	go->transform.SetPosition(0, groundBody->GetPosition().y * PIXELS_PER_METER);
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(0, go);
+#pragma endregion
 
+#pragma region animation
 	go = new GameObject();
+	go->AddComponent(new AnimatedSprite(&uthRS.LoadTexture("monsu.tga"), 5, 4, 4, 1.f, 0, false, true));
+	((AnimatedSprite*)go->GetComponent("AnimatedSprite"))->ChangeAnimation(0, 4, 2, 3.0f, true, false);
+	go->transform.SetScale(10,10);
+	gameObjects.push_back(go);
+	AddGameObjectToLayer(3, go);
+#pragma endregion
+
+	camera.SetSize(uthEngine.GetWindowResolution());
+	camera.SetPosition(0, 0);
+
+#pragma region text
+	temp = go = new GameObject();
 	auto text = new Text("8bitoperator.ttf", 32);
 	text->AddText(L"!\"#$%&'()*+,-./0123456789:;<=     >?"
 				  L"\n@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
@@ -125,27 +143,21 @@ bool TestScene::Init()
 	go->transform.Move(-400, 200);
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(1, go);
+#pragma endregion
 
-    AddGameObjectToLayer(1, &batch);
-    //AddGameObjectToLayer(1, &pSystem);
-
-    // render rtex
-    rtexSprite = new GameObject();
-    rtexSprite->AddComponent(new Sprite(&rtex.GetTexture(), "rtexSprite"));
-    rtexSprite->transform.SetPosition(0, 0);
-	rtexSprite->transform.SetScale(/*0.0625,0.0625*/0.5,0.5);
-    //rtexSprite->transform.SetScale(umath::vector2(0.5f, 0.5f));
 
     obj = new GameObject();
     //obj->AddComponent(new Sprite("test.tga"));
     obj->AddComponent(new Sprite(umath::vector4(1, 1, 1, 1), umath::vector2(100,100)));
     obj->transform.SetPosition(0, 0);
 
-	WriteLog("GameObjects: %d\n", gameObjects.size());
+	//WriteLog("GameObjects: %d\n", gameObjects.size());
 	WriteLog("Layers: %d\n", layers.size());
 
-	SetLayerActive(0, false);
+	//SetLayerActive(0, false);
 
+	go = temp;
+	number = 0;
 	return true;
 }
 bool TestScene::DeInit()
@@ -173,7 +185,9 @@ bool TestScene::DeInit()
 
 bool TestScene::Update(float dt)
 {
-    rtexSprite->transform.SetOrigin(uthInput.Common.Position());
+	number++;
+	go->transform.SetOrigin(uth::Origin::Point((number/40)%10));
+    //rtexSprite->transform.SetOrigin(uthInput.Common.Position());
     static float count = 1.f;
 
     if ((count += dt) > 0.2f)
@@ -197,16 +211,16 @@ bool TestScene::Update(float dt)
 	const float timeStep = 1.f/60.f;
 	world.Step(timeStep, 8, 3);
 
-	if(uthInput.Common == InputEvent::TAP)
-	{
-		WriteLog("Tapped");
-		uthSceneM.GoToScene(0);
-	}
-	if(uthInput.Common != InputEvent::NONE)
-	{
-		WriteLog("Action");
-		uthSceneM.GoToScene(0);
-	}
+	//if(uthInput.Common == InputEvent::TAP)
+	//{
+	//	WriteLog("Tapped");
+	//	uthSceneM.GoToScene(0);
+	//}
+	//if(uthInput.Common != InputEvent::NONE)
+	//{
+	//	WriteLog("Action");
+	//	uthSceneM.GoToScene(0);
+	//}
 
     pSystem.Update(dt);
 

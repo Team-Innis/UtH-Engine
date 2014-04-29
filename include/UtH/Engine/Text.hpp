@@ -36,6 +36,7 @@ namespace uth
 		VertexBuffer m_vertexBuffer;
 
 		const float m_fontSize;
+		umath::vector2 m_size;
 
 		std::wstring m_text;
 		// last text cursor pos

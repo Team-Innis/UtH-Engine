@@ -68,21 +68,28 @@ void Transform::SetOrigin(const Origin::Point origin)
     switch (origin)
     {
     case Origin::Point::BottomLeft:
-        SetOrigin(vector2());
+        SetOrigin(vector2(size.x * -0.5f,size.y * 0.5f));
         break;
     case Origin::Point::BottomCenter:
+        SetOrigin(vector2(0.0f,size.y * 0.5f));
         break;
     case Origin::Point::BottomRight:
+        SetOrigin(vector2(size.x * 0.5f,size.y * 0.5f));
         break;
     case Origin::Point::MidLeft:
+        SetOrigin(vector2(size.x * -0.5f,0.f));
         break;
     case Origin::Point::MidRight:
+        SetOrigin(vector2(size.x * 0.5f,0.f));
         break;
     case Origin::Point::TopLeft:
+        SetOrigin(vector2(size.x * -0.5f,size.y * -0.5f));
         break;
     case Origin::Point::TopCenter:
+        SetOrigin(vector2(0.0f,size.y * -0.5f));
         break;
     case Origin::Point::TopRight:
+        SetOrigin(vector2(size.x * 0.5f,size.y * -0.5f));
         break;
     case Origin::Point::Center:
     default:
@@ -167,7 +174,7 @@ void Transform::updateTransform()
 	const float cosine = std::cos(ang);
 	const float sine = std::sin(ang);
     
-    const umath::matrix4 origo(
+    const umath::matrix4 orig(
         1.0f,   0,      0,      -origin.x/size.x,
         0,      1.0f,   0,      -origin.y/size.y,
         0,      0,      1.0f,   0,
@@ -195,6 +202,6 @@ void Transform::updateTransform()
         0,      0,      0,      1.0f
         );
 
-	m_modelTransform = translation * rotation * scaleMatrix * origo;
+	m_modelTransform = translation * rotation * scaleMatrix * orig;
 	m_transformNeedsUpdate = false;
 }

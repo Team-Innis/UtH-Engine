@@ -49,9 +49,9 @@ namespace uth
 		void SetScale(const float scale);
 		const umath::vector2& GetScale() const;
 
-		void SetRotation(const float angle);
+		void SetRotation(const float degrees);
 		const float GetRotation() const;
-		void Rotate(const float angle);
+		void Rotate(const float degrees);
 
 		void SetDepth(const float depth);
 		const float GetDepth() const;
