@@ -37,6 +37,7 @@ namespace uth
 
 		const float m_fontSize;
 		umath::vector2 m_size;
+		umath::matrix4 m_matrix;
 
 		std::wstring m_text;
 		// last text cursor pos
