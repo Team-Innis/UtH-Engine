@@ -65,7 +65,7 @@ bool TestScene::Init()
     rtexSprite = new GameObject();
     rtexSprite->AddComponent(new Sprite(&rtex.GetTexture(), "rtexSprite"));
     rtexSprite->transform.SetPosition(0, 0);
-	rtexSprite->transform.SetScale(/*0.0625,0.0625*/1.f,1.f);
+	rtexSprite->transform.SetScale(/*0.0625,0.0625*/.5f,.5f);
 #pragma endregion
 
 #pragma region textureatlas_spritebatch
@@ -157,7 +157,6 @@ bool TestScene::Init()
 	//SetLayerActive(0, false);
 
 	go = temp;
-	number = 0;
 	return true;
 }
 bool TestScene::DeInit()
@@ -185,8 +184,6 @@ bool TestScene::DeInit()
 
 bool TestScene::Update(float dt)
 {
-	number++;
-	go->transform.SetOrigin(uth::Origin::Point((number/40)%10));
     //rtexSprite->transform.SetOrigin(uthInput.Common.Position());
     static float count = 1.f;
 
@@ -222,11 +219,10 @@ bool TestScene::Update(float dt)
 	if (orig != 0)
 		go->transform.SetOrigin(uth::Origin::Point(orig));
 
-
     obj->transform.Rotate(offset*0.125);
 
-    //camera.Rotate(-offset);
-    //rtexSprite->transform.Rotate(offset);
+    camera.Rotate(-offset);
+    rtexSprite->transform.Rotate(offset);
 
 	for(size_t i = 0; i < layers.size(); i++)
 		layers.at(i)->Update(dt);
