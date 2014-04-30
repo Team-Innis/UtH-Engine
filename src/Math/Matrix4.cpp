@@ -55,6 +55,15 @@ namespace umath
 	{
 		return (float*)&r1.x;
 	}
+    
+    const matrix3 matrix4::getMatrix3() const
+    {
+        return matrix3(
+            r1[0], r1[1], r1[3],
+            r2[0], r2[1], r2[3],
+            r4[0], r4[1], r4[3]
+        );
+    }
 	
 	const vector4& matrix4::operator [](const unsigned int& index) const
 	{
@@ -65,7 +74,7 @@ namespace umath
 		return (&r1)[index];
 	}
 	
-	matrix4 operator *(const matrix4& RM, const matrix4& LM)
+	matrix4 operator *(const matrix4& LM, const matrix4& RM)
 	{
 		const float L[4][4] = 
 		{
@@ -108,32 +117,32 @@ namespace umath
 
 
 		return matrix4(
-			L[0][0] * R[0][0] + L[1][0] * R[0][1] + L[2][0] * R[0][2] + L[3][0] * R[0][3],
-			L[0][1] * R[0][0] + L[1][1] * R[0][1] + L[2][1] * R[0][2] + L[3][1] * R[0][3],
-			L[0][2] * R[0][0] + L[1][2] * R[0][1] + L[2][2] * R[0][2] + L[3][2] * R[0][3],
-			L[0][3] * R[0][0] + L[1][3] * R[0][1] + L[2][3] * R[0][2] + L[3][3] * R[0][3],
-			L[0][0] * R[1][0] + L[1][0] * R[1][1] + L[2][0] * R[1][2] + L[3][0] * R[1][3],
-			L[0][1] * R[1][0] + L[1][1] * R[1][1] + L[2][1] * R[1][2] + L[3][1] * R[1][3],
-			L[0][2] * R[1][0] + L[1][2] * R[1][1] + L[2][2] * R[1][2] + L[3][2] * R[1][3],
-			L[0][3] * R[1][0] + L[1][3] * R[1][1] + L[2][3] * R[1][2] + L[3][3] * R[1][3],
-			L[0][0] * R[2][0] + L[1][0] * R[2][1] + L[2][0] * R[2][2] + L[3][0] * R[2][3],
-			L[0][1] * R[2][0] + L[1][1] * R[2][1] + L[2][1] * R[2][2] + L[3][1] * R[2][3],
-			L[0][2] * R[2][0] + L[1][2] * R[2][1] + L[2][2] * R[2][2] + L[3][2] * R[2][3],
-			L[0][3] * R[2][0] + L[1][3] * R[2][1] + L[2][3] * R[2][2] + L[3][3] * R[2][3],
-			L[0][0] * R[3][0] + L[1][0] * R[3][1] + L[2][0] * R[3][2] + L[3][0] * R[3][3],
-			L[0][1] * R[3][0] + L[1][1] * R[3][1] + L[2][1] * R[3][2] + L[3][1] * R[3][3],
-			L[0][2] * R[3][0] + L[1][2] * R[3][1] + L[2][2] * R[3][2] + L[3][2] * R[3][3],
-			L[0][3] * R[3][0] + L[1][3] * R[3][1] + L[2][3] * R[3][2] + L[3][3] * R[3][3]
+			L[0][0] * R[0][0] + L[0][1] * R[1][0] + L[0][2] * R[2][0] + L[0][3] * R[3][0],
+			L[0][0] * R[0][1] + L[0][1] * R[1][1] + L[0][2] * R[2][1] + L[0][3] * R[3][1],
+			L[0][0] * R[0][2] + L[0][1] * R[1][2] + L[0][2] * R[2][2] + L[0][3] * R[3][2],
+			L[0][0] * R[0][3] + L[0][1] * R[1][3] + L[0][2] * R[2][3] + L[0][3] * R[3][3],
+			L[1][0] * R[0][0] + L[1][1] * R[1][0] + L[1][2] * R[2][0] + L[1][3] * R[3][0],
+			L[1][0] * R[0][1] + L[1][1] * R[1][1] + L[1][2] * R[2][1] + L[1][3] * R[3][1],
+			L[1][0] * R[0][2] + L[1][1] * R[1][2] + L[1][2] * R[2][2] + L[1][3] * R[3][2],
+			L[1][0] * R[0][3] + L[1][1] * R[1][3] + L[1][2] * R[2][3] + L[1][3] * R[3][3],
+			L[2][0] * R[0][0] + L[2][1] * R[1][0] + L[2][2] * R[2][0] + L[2][3] * R[3][0],
+			L[2][0] * R[0][1] + L[2][1] * R[1][1] + L[2][2] * R[2][1] + L[2][3] * R[3][1],
+			L[2][0] * R[0][2] + L[2][1] * R[1][2] + L[2][2] * R[2][2] + L[2][3] * R[3][2],
+			L[2][0] * R[0][3] + L[2][1] * R[1][3] + L[2][2] * R[2][3] + L[2][3] * R[3][3],
+			L[3][0] * R[0][0] + L[3][1] * R[1][0] + L[3][2] * R[2][0] + L[3][3] * R[3][0],
+			L[3][0] * R[0][1] + L[3][1] * R[1][1] + L[3][2] * R[2][1] + L[3][3] * R[3][1],
+			L[3][0] * R[0][2] + L[3][1] * R[1][2] + L[3][2] * R[2][2] + L[3][3] * R[3][2],
+			L[3][0] * R[0][3] + L[3][1] * R[1][3] + L[3][2] * R[2][3] + L[3][3] * R[3][3]
 			);
 	}
-	const matrix4& operator *=(matrix4& LeftVal, const matrix4& RightVal)
+	matrix4& operator *=(matrix4& LeftVal, const matrix4& RightVal)
 	{
-		LeftVal = LeftVal * RightVal;
+		LeftVal = RightVal * LeftVal;
 		return LeftVal;
 	}
 
 	
-	vector4 operator *(const vector4& RV, const matrix4& LM)
+	vector4 operator *(const matrix4& LM, const vector4& RV)
 	{
 		const float L[4][4] = 
 		{
@@ -169,9 +178,9 @@ namespace umath
 			L[3][0] * R[0] + L[3][1] * R[1] + L[3][2] * R[2] + L[3][3] * R[3]
 			);
 	}
-	const vector4& operator *=(vector4& LeftVal, const matrix4& RightVal)
+	vector4& operator *=(vector4& LeftVal, const matrix4& RightVal)
 	{
-		LeftVal = LeftVal * RightVal;
+		LeftVal = RightVal * LeftVal;
 		return LeftVal;
 	}
 

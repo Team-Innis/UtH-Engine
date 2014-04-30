@@ -128,19 +128,12 @@ namespace uth
 
         for (size_t i = 0; i < m_vertexData.size() / 4; ++i)
         {
-            const umath::matrix4& m = m_objects[i]->transform.GetTransform();
-            umath::matrix3 t_m;
-            t_m[0][0] = m[0][0];
-            t_m[0][1] = m[0][1];
-            t_m[1][0] = m[1][0];
-            t_m[1][1] = m[1][1];
-            t_m[0][2] = m[0][3];
-            t_m[1][2] = m[1][3];
+            const umath::matrix3 m = m_objects[i]->transform.GetTransform().getMatrix3();
 
-            m_spriteBuffer.m_vertexData[0 + (i * 4)].position *= t_m;
-            m_spriteBuffer.m_vertexData[1 + (i * 4)].position *= t_m;
-            m_spriteBuffer.m_vertexData[2 + (i * 4)].position *= t_m;
-            m_spriteBuffer.m_vertexData[3 + (i * 4)].position *= t_m;
+            m_spriteBuffer.m_vertexData[0 + (i * 4)].position *= m;
+            m_spriteBuffer.m_vertexData[1 + (i * 4)].position *= m;
+            m_spriteBuffer.m_vertexData[2 + (i * 4)].position *= m;
+            m_spriteBuffer.m_vertexData[3 + (i * 4)].position *= m;
         }
         
         m_spriteBuffer.setData();
