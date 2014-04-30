@@ -65,7 +65,7 @@ bool TestScene::Init()
     rtexSprite = new GameObject();
     rtexSprite->AddComponent(new Sprite(&rtex.GetTexture(), "rtexSprite"));
     rtexSprite->transform.SetPosition(0, 0);
-	rtexSprite->transform.SetScale(/*0.0625,0.0625*/0.5,0.5);
+	rtexSprite->transform.SetScale(/*0.0625,0.0625*/1.f,1.f);
 #pragma endregion
 
 #pragma region textureatlas_spritebatch
@@ -135,11 +135,11 @@ bool TestScene::Init()
 #pragma region text
 	temp = go = new GameObject();
 	auto text = new Text("8bitoperator.ttf", 32);
+	go->AddComponent(text);
 	text->AddText(L"!\"#$%&'()*+,-./0123456789:;<=     >?"
 				  L"\n@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
 				  L"\n`abcdefghijklmnopqrstuvwxyz{|}~", umath::vector4(0, 0, 0, 1));
 	text->AddText(L"\nPrkl!", umath::vector4(1,0,0,1));
-	go->AddComponent(text);
 	go->transform.Move(-400, 200);
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(1, go);
@@ -199,10 +199,34 @@ bool TestScene::Update(float dt)
 
     const float offset = 75.f * dt;
 
+	go->transform.SetPosition(uthInput.Common.Position()-uthEngine.GetWindowResolution()/2.f);
+	int orig = 0;
+	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::Key::Numpad1))
+		orig = 1;
+	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::Key::Numpad2))
+		orig = 2;
+	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::Key::Numpad3))
+		orig = 3;
+	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::Key::Numpad4))
+		orig = 4;
+	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::Key::Numpad5))
+		orig = 5;
+	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::Key::Numpad6))
+		orig = 6;
+	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::Key::Numpad7))
+		orig = 7;
+	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::Key::Numpad8))
+		orig = 8;
+	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::Key::Numpad9))
+		orig = 9;
+	if (orig != 0)
+		go->transform.SetOrigin(uth::Origin::Point(orig));
+
+
     obj->transform.Rotate(offset*0.125);
 
-    camera.Rotate(-offset);
-    rtexSprite->transform.Rotate(offset);
+    //camera.Rotate(-offset);
+    //rtexSprite->transform.Rotate(offset);
 
 	for(size_t i = 0; i < layers.size(); i++)
 		layers.at(i)->Update(dt);

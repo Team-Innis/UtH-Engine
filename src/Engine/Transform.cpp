@@ -120,7 +120,7 @@ const umath::vector2& Transform::GetScale() const
 	return scale;
 }
 
-void Transform::SetRotation(const float angle)
+void Transform::SetRotation(const float degrees)
 {
 	this->angle = angle;
 	m_transformNeedsUpdate = true;
@@ -129,8 +129,8 @@ const float Transform::GetRotation() const
 {
 	return angle;
 }
-void Transform::Rotate(const float angle)
-{
+void Transform::Rotate(const float degrees)
+{ 
 	this->angle += angle;
 	m_transformNeedsUpdate = true;
 }

@@ -63,7 +63,8 @@ void Text::AddText(const std::wstring& text, umath::vector4 color)
 		if (text.at(i) == L'\n')
 		{
 			newLine = true;
-			m_size.y = pos.y += m_fontSize;
+			pos.y += m_fontSize;
+			m_size.y = pos.y + m_fontSize;
 			pos.x = 0;
 		}
 		else
@@ -112,6 +113,8 @@ void Text::AddText(const std::wstring& text, umath::vector4 color)
 			}
 		}
 	}
+
+	parent->transform.SetSize(m_size);
 
 	m_lastPos = pos;
 }
