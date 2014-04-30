@@ -37,15 +37,17 @@ bool TestScene::Init()
 #pragma endregion
 
 #pragma region particles
-    pSystem.AddAffector(new Affector([](Particle& particle, float dt)
+    pSystem.AddAffector(new Affector([](Particle& particle, ParticleTemplate& pTemplate, float dt)
+
                                      {
                                          particle.transform.Move(particle.direction * dt);
                                          particle.transform.Rotate(50 * dt);
+                                         particle.color.w = (pTemplate.lifetime - particle.lifetime.CurTime()) / pTemplate.lifetime;
                                      }));
 
     ParticleTemplate pTemplate;
     pTemplate.SetLifetime(2);
-    pTemplate.SetSpeed(80, 100);
+    pTemplate.SetSpeed(80, 150);
     pTemplate.SetTexture(&uthRS.LoadTexture("particle.tga"));
     pTemplate.SetInitFunction([](Particle& particle, ParticleTemplate& pTemplate)
     {
@@ -56,7 +58,7 @@ bool TestScene::Init()
 #pragma endregion
 
 #pragma region rendertex
-    rtex.Initialize(uthEngine.GetWindowResolution() / /*0.125f*/1, false);
+    rtex.Initialize(uthEngine.GetWindowResolution() / /*0.125f*/0.5f, false);
     rtex.SetCamera(&camera);
     rtex.SetShader(shader);
     rtex.SetViewport(umath::rectangle(0, 0, rtex.GetSize().x, rtex.GetSize().y));
@@ -65,7 +67,7 @@ bool TestScene::Init()
     rtexSprite = new GameObject();
     rtexSprite->AddComponent(new Sprite(&rtex.GetTexture(), "rtexSprite"));
     rtexSprite->transform.SetPosition(0, 0);
-	rtexSprite->transform.SetScale(/*0.0625,0.0625*/.5f,.5f);
+	rtexSprite->transform.SetScale(/*0.0625,0.0625*/0.5f,0.5f);
 #pragma endregion
 
 #pragma region textureatlas_spritebatch
@@ -140,6 +142,7 @@ bool TestScene::Init()
 				  L"\n@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_"
 				  L"\n`abcdefghijklmnopqrstuvwxyz{|}~", umath::vector4(0, 0, 0, 1));
 	text->AddText(L"\nPrkl!", umath::vector4(1,0,0,1));
+	go->transform.SetOrigin(uth::Origin::Point::TopLeft);
 	go->transform.Move(-400, 200);
 	gameObjects.push_back(go);
 	AddGameObjectToLayer(1, go);
@@ -151,7 +154,7 @@ bool TestScene::Init()
     obj->AddComponent(new Sprite(umath::vector4(1, 1, 1, 1), umath::vector2(100,100)));
     obj->transform.SetPosition(0, 0);
 
-	//WriteLog("GameObjects: %d\n", gameObjects.size());
+	WriteLog("GameObjects: %d\n", gameObjects.size());
 	WriteLog("Layers: %d\n", layers.size());
 
 	//SetLayerActive(0, false);
@@ -184,12 +187,11 @@ bool TestScene::DeInit()
 
 bool TestScene::Update(float dt)
 {
-    //rtexSprite->transform.SetOrigin(uthInput.Common.Position());
     static float count = 1.f;
 
-    if ((count += dt) > 0.2f)
+    if ((count += dt) > 0.1f)
     {
-        pSystem.Emit(1);
+        pSystem.Emit(5);
 
         count = 0.f;
     }
@@ -217,7 +219,7 @@ bool TestScene::Update(float dt)
 	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::Key::Numpad9))
 		orig = 9;
 	if (orig != 0)
-		go->transform.SetOrigin(uth::Origin::Point(orig));
+		go->transform.SetOrigin(orig);
 
     obj->transform.Rotate(offset*0.125);
 

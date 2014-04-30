@@ -5,23 +5,23 @@ using namespace uth;
 
 
 Affector::Affector()
-    : m_func([](Particle&, float){})
+    : m_func([](Particle&, ParticleTemplate&, float){})
 {
 
 }
 
-Affector::Affector(std::function<void(Particle&, float)> func)
+Affector::Affector(std::function<void(Particle&, ParticleTemplate&, float)> func)
     : m_func(func)
 {
     
 }
 
-void Affector::UpdateParticle(Particle& particle, float dt)
+void Affector::UpdateParticle(Particle& particle, ParticleTemplate& pTemplate, float dt)
 {
-    m_func(particle, dt);
+    m_func(particle, pTemplate, dt);
 }
 
-void Affector::SetUpdateFunc(std::function<void(Particle&, float)> func)
+void Affector::SetUpdateFunc(std::function<void(Particle&, ParticleTemplate&, float)> func)
 {
     m_func = func;
 }

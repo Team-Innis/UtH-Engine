@@ -63,9 +63,9 @@ void Transform::SetOrigin(const umath::vector2& origin)
 	this->origin = origin;
 	m_transformNeedsUpdate = true;
 }
-void Transform::SetOrigin(const Origin::Point origin)
+void Transform::SetOrigin(const int originPoint)
 {
-    switch (origin)
+    switch (originPoint)
     {
     case Origin::Point::BottomLeft:
         SetOrigin(vector2(size.x * -0.5f,size.y * 0.5f));

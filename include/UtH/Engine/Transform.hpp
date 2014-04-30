@@ -41,7 +41,7 @@ namespace uth
 		const umath::vector2& GetSize() const;
 
 		void SetOrigin(const umath::vector2& origin);
-        void SetOrigin(const Origin::Point = Origin::Point::Center);
+        void SetOrigin(const int originPoint = Origin::Point::Center);
 		const umath::vector2& GetOrigin() const;
 
 		void SetScale(const umath::vector2& scale);
