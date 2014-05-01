@@ -47,7 +47,7 @@ bool TestScene::Init()
 
 	map = new TMX::Map("Maps/test.tmx");
 	//map->transform.Move(-500, -300);
-	//map->transform.SetScale(0.2f, 0.2f);
+	map->transform.SetScale(0.2f, 0.2f);
 
     ParticleTemplate pTemplate;
     pTemplate.SetLifetime(2);
