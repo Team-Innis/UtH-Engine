@@ -23,8 +23,8 @@ namespace uth
         ~SpriteBatch();
 
 
-        GameObject* AddSprite(GameObject* object, const std::string& atlasName = "",
-			const umath::rectangle& texCoords = umath::rectangle(0, 0, 0, 0));
+        GameObject* AddSprite(GameObject* object, const std::strig& atlasName = "", const umath::vector4& color = umath::vector4(1, 1, 1, 1),
+                              const umath::rectangle& texCoords = umath::rectangle(0, 0, 0, 0));
 
         void SetTextureAtlas(TextureAtlas* atlas);
 

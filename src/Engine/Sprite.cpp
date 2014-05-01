@@ -126,8 +126,6 @@ void Sprite::generateBuffer()
 {
 	m_vertexBuffer.clear();
 
-	m_vertexBuffer.clear();
-
 	m_vertexBuffer.addVertex(Vertex(umath::vector3(-0.5f, -0.5f, 0),
 		umath::vector2(0.0f, 1.0f), m_color));
 	m_vertexBuffer.addVertex(Vertex(umath::vector3(0.5f, -0.5f, 0),

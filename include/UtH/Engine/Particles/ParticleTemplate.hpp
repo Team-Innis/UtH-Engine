@@ -4,12 +4,15 @@
 
 #include <UtH/Renderer/Texture.hpp>
 #include <UtH/Math/Rectangle.hpp>
+#include <UtH/Math/Vector4.hpp>
 #include <string>
+#include <functional>
 
 
 
 namespace uth
 {
+    class Particle;
 
     class ParticleTemplate
     {
@@ -29,16 +32,24 @@ namespace uth
 
         void SetSpeed(const float pixelsPerSecondMin, const float pixelsPerSecondMax);
 
+        /// Function for particle initialization. The initial transform will be copied from the ParticleSystem to which this template is bound.
+        void SetInitFunction(std::function<void(Particle&, ParticleTemplate&)> func);
 
+        void SetColor(const float r, const float g, const float b, const float a);
+
+
+        double lifetime;
+        float minSpeed,
+              maxSpeed;
+        
+        umath::vector4 color;
 
     private:
 
         Texture* m_texture;
         umath::rectangle m_texCoords;
 
-        double m_lifetime;
-        float m_minSpeed,
-              m_maxSpeed;
+        std::function<void(Particle&, ParticleTemplate&)> m_pInitFunc;
 
     };
 

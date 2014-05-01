@@ -10,10 +10,14 @@ namespace umath
 		: x(X), y(Y), z(Z)
 	{}
 	vector3::~vector3(){}
-
-	float vector3::getLenght()
+	
+	float vector3::getLengthSquared() const
 	{	
-		return sqrt(pow(x,2) + pow(y,2) + pow(z,2));
+		return pow(x,2) + pow(y,2) + pow(z,2);
+	}
+	float vector3::getLength() const
+	{	
+		return sqrt(getLengthSquared());
 	}
 	
 	// Public

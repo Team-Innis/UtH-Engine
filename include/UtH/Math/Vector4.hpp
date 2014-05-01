@@ -13,8 +13,9 @@ namespace umath
 		vector4(const vector3& Vec3, const float W);
 		vector4(const float X, const float Y, const float Z, const float W);
 		~vector4();
-
-		float getLenght();
+		
+		float getLengthSquared() const;
+		float getLength() const;
 		
 		float x,y,z,w;
 

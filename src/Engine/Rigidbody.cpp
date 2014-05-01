@@ -248,7 +248,7 @@ void Rigidbody::init()
 
 	m_body = m_world->CreateBody(&bodyDef);
 
-	if(!(m_size.getLenght() > 0))
+	if(!(m_size.getLengthSquared() > 0))
 		m_size = parent->transform.size;
 
 

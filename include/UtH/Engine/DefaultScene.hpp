@@ -33,10 +33,6 @@ namespace uth
 
         GameObject* obj;
 
-		int number;
-
-		Timer timer;
-
 		b2Body* groundBody;
 	};
 }

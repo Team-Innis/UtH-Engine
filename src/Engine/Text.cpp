@@ -40,6 +40,7 @@ Text::~Text()
 
 void Text::SetText(const std::wstring& text, umath::vector4 color)
 {
+	m_size = umath::vector2();
 	m_vertexBuffer.clear();
 	m_lastPos = umath::vector2(0, 0);
 	m_text = std::wstring();
@@ -63,6 +64,7 @@ void Text::AddText(const std::wstring& text, umath::vector4 color)
 		{
 			newLine = true;
 			pos.y += m_fontSize;
+			m_size.y = pos.y + m_fontSize;
 			pos.x = 0;
 		}
 		else
@@ -77,7 +79,7 @@ void Text::AddText(const std::wstring& text, umath::vector4 color)
 			pos.x += kerning;
 
 			const float x0 = pos.x + glyph->offset_x;
-			const float y0 = pos.y - glyph->offset_y;
+			const float y0 = pos.y + m_fontSize - glyph->offset_y;
 			const float x1 = x0 + glyph->width;
 			const float y1 = y0 + glyph->height;
 
@@ -104,8 +106,19 @@ void Text::AddText(const std::wstring& text, umath::vector4 color)
 
 			pos.x += glyph->advance_x;
 			newLine = false;
+
+			if (pos.x>m_size.x)
+			{
+				m_size.x=pos.x;
+			}
 		}
 	}
+
+	parent->transform.SetSize(m_size);
+	m_matrix[0][0] = 1/m_size.x;
+	m_matrix[1][1] = 1/m_size.y;
+	m_matrix[0][3] = (-0.5f);
+	m_matrix[1][3] = (-0.5f);
 
 	m_lastPos = pos;
 }
@@ -123,7 +136,7 @@ void Text::Draw(RenderTarget& target)
 	uth::Graphics::BindTexture(TEXTURE_2D, m_atlas->id);
 	m_textShader.SetUniform("unifSampler", 0);
 
-	m_textShader.SetUniform("unifModel", parent->transform.GetTransform());
+	m_textShader.SetUniform("unifModel", parent->transform.GetTransform() * m_matrix);
     m_textShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
 
 	m_vertexBuffer.bindArrayBuffer();

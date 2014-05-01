@@ -20,7 +20,7 @@ namespace uth
 		~Text();
 
 		// Sets the text
-	void SetText(const std::wstring& text, umath::vector4 color = umath::vector4(1, 1, 1, 1));
+		void SetText(const std::wstring& text, umath::vector4 color = umath::vector4(1, 1, 1, 1));
 		// Adds to the current text
 		void AddText(const std::wstring& text, umath::vector4 color = umath::vector4(1, 1, 1, 1));
 		// Return current text
@@ -36,6 +36,8 @@ namespace uth
 		VertexBuffer m_vertexBuffer;
 
 		const float m_fontSize;
+		umath::vector2 m_size;
+		umath::matrix4 m_matrix;
 
 		std::wstring m_text;
 		// last text cursor pos

@@ -1,13 +1,23 @@
 #include <UtH/Engine/Particles/ParticleTemplate.hpp>
-
+#include <UtH/Core/Randomizer.hpp>
+#include <UtH/Engine/Particles/Particle.hpp>
 
 using namespace uth;
 
 ParticleTemplate::ParticleTemplate()
-    : m_lifetime(0),
+    : lifetime(0),
       m_texture(nullptr),
-      m_minSpeed(1.f),
-      m_maxSpeed(0.f)
+      minSpeed(1.f),
+      maxSpeed(0.f),
+      color(1, 1, 1, 1),
+      m_pInitFunc([](Particle& particle, ParticleTemplate& pTemplate)
+                  {
+                      // Default init function. Will distribute particles to random directions at speeds defined by the template.
+
+                      umath::vector2 tvec(Randomizer::InsideCircle());
+                      tvec /= tvec.getLength();
+                      particle.direction = (pTemplate.maxSpeed == 0.f ? pTemplate.minSpeed : (Randomizer::GetFloat(pTemplate.minSpeed, pTemplate.maxSpeed))) * tvec;
+                  })
 {
 
 }
@@ -21,17 +31,27 @@ void ParticleTemplate::SetTexture(Texture* texture, const umath::rectangle& texC
 
 void ParticleTemplate::SetLifetime(const double seconds)
 {
-    m_lifetime = seconds;
+    lifetime = seconds;
 }
 
 void ParticleTemplate::SetSpeed(const float pixelsPerSecond)
 {
-    m_minSpeed = pixelsPerSecond;
-    m_maxSpeed = 0.f;
+    minSpeed = pixelsPerSecond;
+    maxSpeed = 0.f;
 }
 
 void ParticleTemplate::SetSpeed(const float pixelsPerSecondMin, const float pixelsPerSecondMax)
 {
-    m_minSpeed = pixelsPerSecondMin;
-    m_maxSpeed = pixelsPerSecondMax;
+    minSpeed = pixelsPerSecondMin;
+    maxSpeed = pixelsPerSecondMax;
+}
+
+void ParticleTemplate::SetInitFunction(std::function<void(Particle&, ParticleTemplate&)> func)
+{
+    m_pInitFunc = func;
+}
+
+void ParticleTemplate::SetColor(const float r, const float g, const float b, const float a)
+{
+    color = umath::vector4(r, g, b, a);
 }

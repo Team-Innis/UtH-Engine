@@ -29,13 +29,21 @@ namespace uth
 		Shader* shader;
 		Camera camera;
 
-		std::vector<GameObject*> gameObjects;
+		// Particles
+        ParticleSystem pSystem;
+
+		// Render texture
         RenderTexture rtex;
+        GameObject* rtexSprite;
+
+
+
+		std::vector<GameObject*> gameObjects;
 
         TextureAtlas atlas;
         SpriteBatch batch;
 
-        GameObject* rtexSprite;
+		GameObject* go;
 
         GameObject* obj;
 		
@@ -43,11 +51,8 @@ namespace uth
 
 		int number;
 
-		Timer timer;
-
 		b2Body* groundBody;
 
-        ParticleSystem pSystem;
 	};
 }
 
