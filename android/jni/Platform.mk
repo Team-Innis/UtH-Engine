@@ -96,7 +96,10 @@ $(SRC_PATH)Engine/Text.cpp \
 $(SRC_PATH)Engine/SpriteBatch.cpp \
 $(SRC_PATH)Engine/Particles/ParticleTemplate.cpp \
 $(SRC_PATH)Engine/Particles/ParticleSystem.cpp \
+$(SRC_PATH)Engine/Particles/Affector.cpp \
 $(SRC_PATH)Engine/TMX/Map.cpp \
+$(SRC_PATH)Engine/TMX/Tile.cpp \
+$(SRC_PATH)Engine/TMX/TileLayer.cpp \
 $(SRC_PATH)Engine/TMX/Tileset.cpp \
 $(SRC_PATH)Engine/AnimatedSprite.cpp
 
