@@ -45,11 +45,29 @@ void TileLayer::Draw(RenderTarget& target)
 		(*it).second->Draw(target);
 }
 
+unsigned int TileLayer::GetHeight()
+{
+	return m_height;
+}
+
+unsigned int TileLayer::GetWidth()
+{
+	return m_width;
+}
+
 const std::string& TileLayer::GetName()
 {
 	return m_name;
 }
 
+const std::string& TileLayer::GetProperty(const std::string& name)
+{
+	auto result = m_properties.find(name);
+	if(result != m_properties.end())
+		return result->second;
+
+	return std::string();
+}
 
 // Private
 
