@@ -96,7 +96,7 @@ namespace uth
 
         unsigned int shader = glCreateShader(shaderTypes[type]);
 		CheckGLError("glCreateShader");
-        glShaderSource(shader, 1, &shaderCode, NULL);
+        glShaderSource(shader, 1, &shaderCode, nullptr);
 		CheckGLError("glShaderSource");
 
         glCompileShader(shader);
@@ -120,7 +120,7 @@ namespace uth
 			}
 			WriteLog("Shader Log:\n");
 			char* buf = new char[infoLenght];
-			glGetShaderInfoLog(shader, infoLenght, NULL, buf);
+			glGetShaderInfoLog(shader, infoLenght, nullptr, buf);
 			CheckGLError("glGetShaderInfoLog");
 			WriteLog("%s", buf);
 			delete[] buf;
@@ -163,7 +163,7 @@ namespace uth
 		{
 			WriteLog("\nShader Program (%d) Log:\n", shaderProgram);
 			char* buf = new char[infoLenght];
-			glGetProgramInfoLog(shaderProgram, infoLenght, NULL, buf);
+			glGetProgramInfoLog(shaderProgram, infoLenght, nullptr, buf);
 			CheckGLError("glGetProgramInfoLog");
 			WriteLog(buf);
 			delete[] buf;

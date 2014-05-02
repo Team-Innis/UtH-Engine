@@ -4,10 +4,10 @@
 
 using namespace uth;
 
-AAssetManager* FileReader::m_manager = NULL;
+AAssetManager* FileReader::m_manager = nullptr;
 
 FileReader::FileReader()
-	: m_asset(NULL)
+	: m_asset(nullptr)
 { }
 
 FileReader::FileReader(const char* path)

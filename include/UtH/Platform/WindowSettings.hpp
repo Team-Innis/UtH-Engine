@@ -18,13 +18,8 @@ namespace uth
 			useVsync(false),
 			fullScreen(false),
 
-#if defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX)
-			contextVersionMajor(3),
-			contextVersionMinor(3),
-#else
-			contextVersionMajor(2),
+			contextVersionMajor(0),
 			contextVersionMinor(0),
-#endif
 
 			antialiasingSamples(0),
 

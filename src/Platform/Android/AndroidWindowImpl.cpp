@@ -48,7 +48,7 @@ namespace uth
 			WriteLog("eglInitialize succeeded");
 		CheckEGLError();
 
-		//eglChooseConfig(androidengine.display, attribs, NULL, 1, &numConfigs);
+		//eglChooseConfig(androidengine.display, attribs, 0, 1, &numConfigs);
 		//WriteLog("Configs: %d", (int)numConfigs);
 
 		eglChooseConfig(uthAndroidEngine.display, attribs, &uthAndroidEngine.config, 1, &numConfigs);
@@ -64,7 +64,7 @@ namespace uth
 		//CheckEGLError();
 		//	WriteLog("ANativeWindow_setBuffersGeometry succeeded");
 
-		uthAndroidEngine.surface = eglCreateWindowSurface(uthAndroidEngine.display, uthAndroidEngine.config, uthAndroidEngine.app->window, NULL);
+		uthAndroidEngine.surface = eglCreateWindowSurface(uthAndroidEngine.display, uthAndroidEngine.config, uthAndroidEngine.app->window, 0);
 		CheckEGLError();
 			WriteLog("eglCreateWindowSurface succeeded");
 		uthAndroidEngine.context = eglCreateContext(uthAndroidEngine.display, uthAndroidEngine.config, EGL_NO_CONTEXT, attribList);
@@ -75,7 +75,7 @@ namespace uth
 		{
 			CheckEGLError();
 			WriteError("eglMakeCurrent failed");
-			return (void*)NULL;
+			return nullptr;
 		}
 
 		EGLint tempX;

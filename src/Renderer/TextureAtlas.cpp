@@ -38,7 +38,7 @@ namespace uth
         std::string s(element->FindAttribute("imagePath")->Value());
         m_texture = &uthRS.LoadTexture(element->FindAttribute("imagePath")->Value());
 
-        for (const tinyxml2::XMLElement* child = element->FirstChildElement(); child != NULL; child = child->NextSiblingElement())
+        for (const tinyxml2::XMLElement* child = element->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
         {
             std::string name(child->FindAttribute("name")->Value());
             umath::rectangle rect;
