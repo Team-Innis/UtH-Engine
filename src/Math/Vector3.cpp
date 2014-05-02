@@ -6,11 +6,14 @@ namespace umath
 	vector3::vector3()
 		: x(0), y(0),z(0)
 	{}
+	vector3::vector3(const vector3& vec3)
+		: x(vec3.x), y(vec3.y), z(vec3.z)
+	{}
 	vector3::vector3(float X, float Y, float Z)
 		: x(X), y(Y), z(Z)
 	{}
 	vector3::~vector3(){}
-	
+
 	float vector3::getLengthSquared() const
 	{	
 		return pow(x,2) + pow(y,2) + pow(z,2);
@@ -19,10 +22,7 @@ namespace umath
 	{	
 		return sqrt(getLengthSquared());
 	}
-	
-	// Public
-	// Operators
-	
+
 	const float& vector3::operator [](const unsigned int& index) const
 	{
 		return (&x)[index];

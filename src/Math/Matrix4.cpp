@@ -4,13 +4,20 @@
 namespace umath
 {
 	const matrix4 matrix4::Identity;
-	
+
 	matrix4::matrix4()
 		:
 		r1(vector4(1.f,0.f,0.f,0.f)),
 		r2(vector4(0.f,1.f,0.f,0.f)),
 		r3(vector4(0.f,0.f,1.f,0.f)),
 		r4(vector4(0.f,0.f,0.f,1.f))
+	{}
+	matrix4::matrix4(const matrix4& mat4)
+		:
+		r1(mat4[0]),
+		r2(mat4[1]),
+		r3(mat4[2]),
+		r4(mat4[3])
 	{}
 	matrix4::matrix4(const float* fe)
 		:
@@ -32,7 +39,7 @@ namespace umath
 		const vector4& Row3,
 		const vector4& Row4)
 		: 
-		r1(Row1),
+	r1(Row1),
 		r2(Row2),
 		r3(Row3),
 		r4(Row4)
@@ -43,28 +50,28 @@ namespace umath
 		const float& r3c1,const float& r3c2,const float& r3c3,const float& r3c4,
 		const float& r4c1,const float& r4c2,const float& r4c3,const float& r4c4)
 		:
-		r1(r1c1,r1c2,r1c3,r1c4),
+	r1(r1c1,r1c2,r1c3,r1c4),
 		r2(r2c1,r2c2,r2c3,r2c4),
 		r3(r3c1,r3c2,r3c3,r3c4),
 		r4(r4c1,r4c2,r4c3,r4c4)
 	{}
 	matrix4::~matrix4()
 	{}
-	
-	float* matrix4::FirstElement() const
+
+	float* matrix4::ptr() const
 	{
 		return (float*)&r1.x;
 	}
-    
-    const matrix3 matrix4::getMatrix3() const
-    {
-        return matrix3(
-            r1[0], r1[1], r1[3],
-            r2[0], r2[1], r2[3],
-            r4[0], r4[1], r4[3]
-        );
-    }
-	
+
+	const matrix3 matrix4::getMatrix3() const
+	{
+		return matrix3(
+			r1[0], r1[1], r1[3],
+			r2[0], r2[1], r2[3],
+			r4[0], r4[1], r4[3]
+		);
+	}
+
 	const vector4& matrix4::operator [](const unsigned int& index) const
 	{
 		return (&r1)[index];
@@ -73,7 +80,7 @@ namespace umath
 	{
 		return (&r1)[index];
 	}
-	
+
 	matrix4 operator *(const matrix4& LM, const matrix4& RM)
 	{
 		const float L[4][4] = 
@@ -133,7 +140,7 @@ namespace umath
 			L[3][0] * R[0][1] + L[3][1] * R[1][1] + L[3][2] * R[2][1] + L[3][3] * R[3][1],
 			L[3][0] * R[0][2] + L[3][1] * R[1][2] + L[3][2] * R[2][2] + L[3][3] * R[3][2],
 			L[3][0] * R[0][3] + L[3][1] * R[1][3] + L[3][2] * R[2][3] + L[3][3] * R[3][3]
-			);
+		);
 	}
 	matrix4& operator *=(matrix4& LeftVal, const matrix4& RightVal)
 	{
@@ -141,7 +148,7 @@ namespace umath
 		return LeftVal;
 	}
 
-	
+
 	vector4 operator *(const matrix4& LM, const vector4& RV)
 	{
 		const float L[4][4] = 
@@ -176,7 +183,7 @@ namespace umath
 			L[1][0] * R[0] + L[1][1] * R[1] + L[1][2] * R[2] + L[1][3] * R[3],
 			L[2][0] * R[0] + L[2][1] * R[1] + L[2][2] * R[2] + L[2][3] * R[3],
 			L[3][0] * R[0] + L[3][1] * R[1] + L[3][2] * R[2] + L[3][3] * R[3]
-			);
+		);
 	}
 	vector4& operator *=(vector4& LeftVal, const matrix4& RightVal)
 	{

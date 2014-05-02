@@ -13,7 +13,8 @@ namespace umath
 		Creates Identity Matrix
 		*/
 		matrix3();
-		matrix3(const float* FirstElement);
+		matrix3(const matrix3& mat3);
+		matrix3(const float* ptr);
 		matrix3(
 			const vector3& Row1,
 			const vector3& Row2,
@@ -24,7 +25,7 @@ namespace umath
 			const float& r3c1,const float& r3c2,const float& r3c3);
 		~matrix3();
 
-		float* FirstElement();
+		float* ptr();
 
 		const vector3& operator [](const unsigned int& index) const;
 		vector3& operator [](const unsigned int& index);
@@ -36,7 +37,7 @@ namespace umath
 
 	matrix3 operator *(const matrix3& LeftVal, const matrix3& RightVal);
 	matrix3& operator *=(matrix3& LeftVal, const matrix3& RightVal);
-	
+
 	vector3 operator *(const matrix3& LeftVal, const vector3& RightVal);
 	vector3& operator *=(vector3& LeftVal, const matrix3& RightVal);
 }
