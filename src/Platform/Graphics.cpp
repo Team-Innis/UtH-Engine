@@ -85,7 +85,7 @@ namespace uth
     {
         const unsigned int i = glCreateProgram();
         CheckGLError("glCreateProgram");
-		if(glIsProgram(i) == GL_FALSE)WriteLog("m_program isn't GLprogram");
+		if(glIsProgram(i) == GL_FALSE)WriteWarning("m_program isn't GLprogram");
 
         return i;
     }
@@ -134,7 +134,7 @@ namespace uth
 		if (!success)
 		{
             glDeleteShader(shader);
-			WriteLog("Shader compilation failed");
+			WriteWarning("Shader compilation failed");
             return false;
         }
 
@@ -149,7 +149,7 @@ namespace uth
     bool Graphics::LinkShaderProgram(const int shaderProgram)
     {
 		if(glIsProgram(shaderProgram) == GL_FALSE)
-			WriteLog("shaderProgram isn't GLprogram");
+			WriteWarning("shaderProgram isn't GLprogram");
 		CheckGLError("glIsProgram");
 
         glLinkProgram(shaderProgram);
@@ -175,7 +175,7 @@ namespace uth
 		if (!success)
 		{
             DestroyShaderProgram(shaderProgram);
-			WriteLog("Shader link failed");
+			WriteWarning("Shader link failed");
 			return false;
 		}
 		return true;

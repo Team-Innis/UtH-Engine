@@ -58,10 +58,10 @@ bool Scene::CreateLayer(const char* layerName, const int layerId)
 		}
 		if(layerName == layers.at(i)->GetLayerName())
 		{
-			WriteLog("\n*******WARNING*******\n"
+			WriteWarning(
 				"Layer with name '%s' already exists.\n"
-				"Use layer ID(%d) to remove gameobjects.\n"
-				"*********************\n\n", layerName, layerId);
+				"Use layer ID(%d) to remove gameobjects."
+				, layerName, layerId);
 		}
 	}
 
