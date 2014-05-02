@@ -45,10 +45,6 @@ bool TestScene::Init()
                                          particle.color.w = (pTemplate.lifetime - particle.lifetime.CurTime()) / pTemplate.lifetime;
                                      }));
 
-	map = new TMX::Map("Maps/test.tmx");
-	//map->transform.Move(-500, -300);
-	map->transform.SetScale(0.2f, 0.2f);
-
     ParticleTemplate pTemplate;
     pTemplate.SetLifetime(2);
     pTemplate.SetSpeed(80, 150);
@@ -59,6 +55,12 @@ bool TestScene::Init()
     });
     pSystem.SetTemplate(pTemplate);
     pSystem.transform.SetPosition(50.f, 0.f);
+#pragma endregion
+
+#pragma region TMX_map
+	map = new TMX::Map("Maps/test.tmx");
+	//map->transform.Move(-500, -300);
+	map->transform.SetScale(0.2f, 0.2f);
 #pragma endregion
 
 #pragma region rendertex
