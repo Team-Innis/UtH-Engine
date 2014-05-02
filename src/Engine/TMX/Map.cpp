@@ -84,6 +84,18 @@ unsigned int Map::GetTileHeight() const
 	return m_tileHeight;
 }
 
+TileLayer* Map::GetLayer(const std::string& name)
+{
+	for(auto it = layers.begin(); it != layers.end; ++it)
+	{
+		auto layer = (*it);
+		if(layer->GetName() == name)
+			return layer;
+	}
+
+	return nullptr;
+}
+
 
 // Private
 
