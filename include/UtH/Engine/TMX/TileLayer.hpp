@@ -33,7 +33,7 @@ namespace uth
 			unsigned int GetHeight();
 			unsigned int GetWidth();
 
-			const std::string& GetProperty(const std::string& name);
+			std::string GetProperty(const std::string& name);
 
 			Tile* GetTile(const int x, const int y);
 		private:
