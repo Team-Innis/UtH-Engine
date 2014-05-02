@@ -17,17 +17,24 @@
 	#ifndef LOG_TAG
 		#define LOG_TAG	"uth-engine"
 	#endif
-	#ifndef LOGI
-		#define LOGI(...)	__android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
-	#endif
-	#ifndef LOGE
-		#define LOGE(...)	__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
-	#endif
+	//#ifndef LOGI
+	//	#define LOGI(...)	__android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+	//#endif
+	//#ifndef LOGE
+	//	#define LOGE(...)	__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+	//#endif
 	static inline void WriteError(const char* text, ...)
 	{
 		va_list v;
 		va_start(v, text);
 		__android_log_vprint(ANDROID_LOG_ERROR, LOG_TAG, text, v);
+		va_end(v);
+	}
+	static inline void WriteWarning(const char* text, ...)
+	{
+		va_list v;
+		va_start(v, text);
+		__android_log_vprint(ANDROID_LOG_WARN, LOG_TAG, text, v);
 		va_end(v);
 	}
 	static inline void WriteLog(const char* text, ...)
@@ -43,24 +50,41 @@
 		EGLint error = eglGetError();
 		if(error != EGL_SUCCESS)
 		{
-			WriteLog("EGL Function Failed: %d\n", error);
+			WriteWarning("EGL Function Failed: %d\n", error);
 		}
 	}
 #elif defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX)
 	static void WriteError(const char* text, ...)
 	{
-		va_list v;
-		va_start(v, text);
 		printf(	
 				"\n********ERROR********"
 				"\n");
+
+		va_list v;
+		va_start(v, text);
 		vprintf(text, v);
 		va_end(v);
+
 		printf(
 				"\n*********************"
 				"\n\n");
 
 		//assert(false);  //GL_INVALID_ENUM would crash
+	}
+	static void WriteWarning(const char* text, ...)
+	{
+		printf(	
+				"\n-------WARNING-------"
+				"\n");
+
+		va_list v;
+		va_start(v, text);
+		vprintf(text, v);
+		va_end(v);
+
+		printf(
+				"\n---------------------"
+				"\n\n");
 	}
 	static void WriteLog(const char* text, ...)
 	{

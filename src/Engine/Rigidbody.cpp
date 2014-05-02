@@ -107,7 +107,7 @@ void Rigidbody::SetUnitSize(const umath::vector2& size)
 
 	if(m_body->GetFixtureList()->GetType() != b2Shape::e_polygon)
 	{
-		WriteLog("WARNING: Calling SetSize(vec2 size) on a ball. Size not updated\n");
+		WriteWarning("Calling SetSize(vec2 size) on a ball. Size not updated");
 		return;
 	}
 
@@ -134,7 +134,7 @@ void Rigidbody::SetUnitSize(const float radius)
 
 	if(m_fixtureDef.shape->GetType() != b2Shape::e_circle)
 	{
-		WriteLog("WARNING: Calling SetSize(float radius) on a box. Size not updated\n");
+		WriteWarning("Calling SetSize(float radius) on a box. Size not updated");
 		return;
 	}
 
