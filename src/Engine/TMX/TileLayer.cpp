@@ -75,7 +75,7 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 		// Read out the flags
 		bool flipped_horizontally = (gid & FLIPPED_HORIZONTALLY_FLAG);
 		bool flipped_vertically = (gid & FLIPPED_VERTICALLY_FLAG);
-		bool flipped_diagonally = (gid & FLIPPED_DIAGONALLY_FLAG);
+		bool flipped_diagonally = (gid & FLIPPED_DIAGONALLY_FLAG); // TODO: implement this
 
 		// Clear the flags
 		gid &= ~(FLIPPED_HORIZONTALLY_FLAG | FLIPPED_VERTICALLY_FLAG 
@@ -98,7 +98,13 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 					tileset->GetTileWidth(), tileset->GetTileHeight());
 
 				auto tile = new Tile(t);
-				tile->parent = dynamic_cast<GameObject*>(map);
+
+				if(flipped_horizontally)
+					tile->transform.scale.x = -1;
+				if(flipped_vertically)
+					tile->transform.scale.y = -1;
+
+				tile->parent = static_cast<GameObject*>(map);
 				const umath::rectangle texCoords = tileset->GetTile(gid - tileset->GetFirstGID());
 
 				//m_tiles.push_back(new Tile(x, y));

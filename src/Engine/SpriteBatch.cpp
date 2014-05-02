@@ -136,8 +136,8 @@ namespace uth
             umath::matrix3 m = m_objects[i]->transform.GetTransform().getMatrix3();
 			// NOTE: this will cause the map to draw correctly.
 			// TODO: figure out a real solution
-			//m[0][0] = 1;
-			//m[1][1] = 1;
+			//m[0][0] = m[0][0] > 0 ? 1 : -1;
+			//m[1][1] = m[1][1] > 0 ? 1 : -1;
 
             m_spriteBuffer.m_vertexData[0 + (i * 4)].position *= m;
             m_spriteBuffer.m_vertexData[1 + (i * 4)].position *= m;
