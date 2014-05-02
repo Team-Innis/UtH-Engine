@@ -86,7 +86,7 @@ unsigned int Map::GetTileHeight() const
 
 TileLayer* Map::GetLayer(const std::string& name)
 {
-	for(auto it = layers.begin(); it != layers.end; ++it)
+	for(auto it = layers.begin(); it != layers.end(); ++it)
 	{
 		auto layer = (*it);
 		if(layer->GetName() == name)
