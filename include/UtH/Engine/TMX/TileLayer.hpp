@@ -35,6 +35,7 @@ namespace uth
 
 			const std::string& GetProperty(const std::string& name);
 
+			Tile* GetTile(const int x, const int y);
 		private:
 			void parseElement(tinyxml2::XMLElement* layerElement, Map* map);
 			void parseProperties(tinyxml2::XMLElement* propertiesElement);
@@ -43,7 +44,7 @@ namespace uth
 
 			unsigned int m_width, m_height;
 
-			//std::vector<Tile*> m_tiles;
+			std::vector<Tile*> m_tiles;
 
 			std::map<std::string, std::string> m_properties;
 			std::map<Texture*, SpriteBatch*> m_spriteBatches;

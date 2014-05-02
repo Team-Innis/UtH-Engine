@@ -8,6 +8,8 @@ Tile::Tile()
 
 Tile::Tile(const umath::rectangle& tile)
 {
+	tileRectangle = tile;
+
 	transform.SetPosition(tile.x, tile.y);
 	transform.SetSize(tile.width, tile.height);
 }

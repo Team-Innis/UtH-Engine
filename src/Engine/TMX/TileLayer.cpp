@@ -32,6 +32,9 @@ TileLayer::TileLayer(tinyxml2::XMLElement* layerElement, Map* map)
 
 TileLayer::~TileLayer()
 {
+	for(auto it = m_tiles.begin(); it != m_tiles.end(); ++it)
+		delete (*it);
+
 	for(auto it = m_spriteBatches.begin(); it != m_spriteBatches.end(); ++it)
 		delete (*it).second;
 }
@@ -67,6 +70,18 @@ const std::string& TileLayer::GetProperty(const std::string& name)
 		return result->second;
 
 	return std::string();
+}
+
+Tile* TileLayer::GetTile(const int x, const int y)
+{
+	for(auto it = m_tiles.begin(); it != m_tiles.end(); ++it)
+	{
+		auto tile = (*it);
+		if(tile->tileRectangle.x == x && tile->tileRectangle.y == y)
+			return tile;
+	}
+	
+	return nullptr;
 }
 
 // Private
@@ -125,7 +140,7 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 				tile->parent = static_cast<GameObject*>(map);
 				const umath::rectangle texCoords = tileset->GetTile(gid - tileset->GetFirstGID());
 
-				//m_tiles.push_back(new Tile(x, y));
+				m_tiles.push_back(tile);
 				m_spriteBatches.at(tileset->GetTexture())->AddSprite(tile, "", umath::vector4(1,1,1,1),  texCoords);
 				x++;
 				break;

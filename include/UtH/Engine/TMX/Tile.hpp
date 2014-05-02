@@ -15,6 +15,8 @@ namespace uth
 			Tile();
 			Tile(const umath::rectangle& tile);
 			~Tile();
+
+			umath::rectangle tileRectangle;
 		};
 	}
 }
