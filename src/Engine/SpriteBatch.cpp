@@ -37,7 +37,7 @@ namespace uth
 
 
 
-    GameObject* SpriteBatch::AddSprite(GameObject* object, const std::string& atlasName, const umath::vector4& color)
+    GameObject* SpriteBatch::AddSprite(GameObject* object, const std::string& atlasName, const umath::vector4& color, const umath::rectangle& texCoords)
     {
         if ((!m_atlas && !m_texture) || !object)
         {
@@ -50,7 +50,12 @@ namespace uth
         unsigned short mod = static_cast<unsigned short>(m_objects.size()) * 4;
 
         m_objects.emplace_back(object);
-        umath::rectangle tex = (atlasName.empty() || !m_atlas) ? umath::rectangle(0.f, 0.f, 1.f, 1.f) : m_atlas->getTextureCoords(atlasName.c_str());
+
+		umath::rectangle tex;
+		if(texCoords.width != 0 && texCoords.height != 0)
+			tex = texCoords;
+		else
+			tex = (atlasName.empty() || !m_atlas) ? umath::rectangle(0.f, 0.f, 1.f, 1.f) : m_atlas->getTextureCoords(atlasName.c_str());
 
 
         float width = ((m_atlas ? m_atlas->GetSize().x : m_texture->GetSize().x) * tex.width),
@@ -128,7 +133,11 @@ namespace uth
 
         for (size_t i = 0; i < m_vertexData.size() / 4; ++i)
         {
-            const umath::matrix3 m = m_objects[i]->transform.GetTransform().getMatrix3();
+            umath::matrix3 m = m_objects[i]->transform.GetTransform().getMatrix3();
+			// NOTE: this will cause the map to draw correctly.
+			// TODO: figure out a real solution
+			//m[0][0] = m[0][0] > 0 ? 1 : -1;
+			//m[1][1] = m[1][1] > 0 ? 1 : -1;
 
             m_spriteBuffer.m_vertexData[0 + (i * 4)].position *= m;
             m_spriteBuffer.m_vertexData[1 + (i * 4)].position *= m;

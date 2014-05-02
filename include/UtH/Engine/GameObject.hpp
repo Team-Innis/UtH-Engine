@@ -17,7 +17,7 @@ namespace uth
 	{
 	public:
 		GameObject();
-		~GameObject();
+		virtual ~GameObject();
 
 		void SetActive(bool value);
 		const bool IsActive() const;
@@ -35,8 +35,9 @@ namespace uth
 		// Transform is a special component that every gameobject has
 		Transform transform;
 
-	private:
+		GameObject* parent;
 
+	protected:
         virtual void update(float){};
         virtual void draw(RenderTarget& target);
 

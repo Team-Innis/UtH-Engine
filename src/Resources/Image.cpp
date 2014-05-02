@@ -62,12 +62,24 @@ namespace uth
 		FR.ReadBytes(&buffer.front(), datasize);
 
 		//(pixels) rgb = bgr(tga)
-		for(int i = 0; i < datasize - 1; i += 4)
+		if(m_depth == 32)
 		{
-			m_pixels[i+0] = buffer[i+2];
-			m_pixels[i+1] = buffer[i+1];
-			m_pixels[i+2] = buffer[i+0];
-			m_pixels[i+3] = buffer[i+3];
+			for(int i = 0; i < datasize - 1; i += 4)
+			{
+				m_pixels[i+0] = buffer[i+2];
+				m_pixels[i+1] = buffer[i+1];
+				m_pixels[i+2] = buffer[i+0];
+				m_pixels[i+3] = buffer[i+3];
+			}
+		}
+		else
+		{
+			for(int i = 0; i < datasize - 1; i += 3)
+			{
+				m_pixels[i+0] = buffer[i+2];
+				m_pixels[i+1] = buffer[i+1];
+				m_pixels[i+2] = buffer[i+0];
+			}
 		}
 
         return true;
@@ -77,6 +89,11 @@ namespace uth
     {
         return m_size;
     }
+
+	BYTE Image::GetDepth() const
+	{
+		return m_depth;
+	}
 
 
     umath::vector4 Image::GetPixel(unsigned int x, unsigned int y) const

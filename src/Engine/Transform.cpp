@@ -1,4 +1,6 @@
 #include <UtH/Engine/Transform.hpp>
+#include <UtH/Engine/GameObject.hpp>
+
 #include <cmath>
 
 using namespace uth;
@@ -159,6 +161,9 @@ void Transform::AddTransform(const umath::matrix4& modelTransform)
 const umath::matrix4& Transform::GetTransform()
 {
 	updateTransform();
+
+	if(parent != nullptr && parent->parent != nullptr)
+		AddTransform(parent->parent->transform.GetTransform());
 
 	return m_modelTransform;
 }
