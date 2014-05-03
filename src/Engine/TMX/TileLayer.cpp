@@ -63,7 +63,7 @@ const std::string& TileLayer::GetName()
 	return m_name;
 }
 
-const std::string& TileLayer::GetProperty(const std::string& name)
+std::string TileLayer::GetProperty(const std::string& name)
 {
 	auto result = m_properties.find(name);
 	if(result != m_properties.end())
@@ -115,7 +115,7 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 			| FLIPPED_DIAGONALLY_FLAG);
 
 		// Find correct tileset
-		for(size_t i = map->tilesets.size() - 1; i >= 0; --i)
+		for(int i = map->tilesets.size() - 1; i >= 0; --i)
 		{
 			Tileset* tileset = map->tilesets[i];
 
