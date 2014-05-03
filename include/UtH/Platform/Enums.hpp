@@ -4,159 +4,159 @@
 
 namespace uth
 {
-    enum ShaderType
-    {
-        VERTEX_SHADER,
-        FRAGMENT_SHADER,
+	enum ShaderType
+	{
+		VERTEX_SHADER,
+		FRAGMENT_SHADER,
 
-        SHADERTYPE_LAST
-    };
+		SHADERTYPE_LAST
+	};
 
-    enum DataType
-    {
-        BYTE_TYPE,
-        UNSIGNED_BYTE_TYPE,
-        SHORT_TYPE,
-        UNSIGNED_SHORT_TYPE,
-        INT_TYPE,
-        UNSIGNED_INT_TYPE,
-        FLOAT_TYPE,
+	enum DataType
+	{
+		BYTE_TYPE,
+		UNSIGNED_BYTE_TYPE,
+		SHORT_TYPE,
+		UNSIGNED_SHORT_TYPE,
+		INT_TYPE,
+		UNSIGNED_INT_TYPE,
+		FLOAT_TYPE,
 
-        DATATYPE_LAST
-    };
+		DATATYPE_LAST
+	};
 
-    enum BufferType
-    {
-        ARRAY_BUFFER,
-        ELEMENT_ARRAY_BUFFER,
+	enum BufferType
+	{
+		ARRAY_BUFFER,
+		ELEMENT_ARRAY_BUFFER,
 
-        BUFFERTYPE_LAST
-    };
+		BUFFERTYPE_LAST
+	};
 
-    enum UsageType
-    {
-        STREAM_DRAW,
-        STATIC_DRAW,
-        DYNAMIC_DRAW,
+	enum UsageType
+	{
+		STREAM_DRAW,
+		STATIC_DRAW,
+		DYNAMIC_DRAW,
 
-        USAGETYPE_LAST
-    };
+		USAGETYPE_LAST
+	};
 
-    enum PixelStoreParam
-    {
-        PACK_ALIGNMENT,
+	enum PixelStoreParam
+	{
+		PACK_ALIGNMENT,
 		UNPACK_ALIGNMENT,
 
-        PIXELSTOREPARAM_LAST
-    };
+		PIXELSTOREPARAM_LAST
+	};
 
-    enum TexUnit
-    {
-        TEXTURE_0,
-        TEXTURE_1,
-        TEXTURE_2,
-        TEXTURE_3,
-        TEXTURE_4,
-        TEXTURE_5,
-        TEXTURE_6,
-        TEXTURE_7,
+	enum TexUnit
+	{
+		TEXTURE_0,
+		TEXTURE_1,
+		TEXTURE_2,
+		TEXTURE_3,
+		TEXTURE_4,
+		TEXTURE_5,
+		TEXTURE_6,
+		TEXTURE_7,
 
-        TEXUNIT_LAST
-    };
+		TEXUNIT_LAST
+	};
 
-    enum TextureType
-    {
-          
-        TEXTURE_2D,
-        TEXTURE_CUBE_MAP,
+	enum TextureType
+	{
 
-        TEXTURETYPE_LAST
-    };
+		TEXTURE_2D,
+		TEXTURE_CUBE_MAP,
 
-    enum TextureFilter
-    {
-        NEAREST,
-        LINEAR,
-        REPEAT,
-        CLAMP_TO_EDGE,
+		TEXTURETYPE_LAST
+	};
 
-        TEXTUREFILTER_LAST
-    };
+	enum TextureFilter
+	{
+		NEAREST,
+		LINEAR,
+		REPEAT,
+		CLAMP_TO_EDGE,
 
-    enum ImageFormat
-    {
-        RGB_FORMAT,
-        RGBA_FORMAT,
-        RGBA8_FORMAT,
+		TEXTUREFILTER_LAST
+	};
 
-        IMAGEFORMAT_LAST
-    };
+	enum ImageFormat
+	{
+		RGB_FORMAT,
+		RGBA_FORMAT,
+		RGBA8_FORMAT,
 
-    enum TextureParam
-    {
-        TEXTURE_MIN_FILTER, 
-        TEXTURE_MAG_FILTER,
-        TEXTURE_WRAP_S, 
-        TEXTURE_WRAP_T,
-    
-        TEXTUREPARAM_LAST
-    };
+		IMAGEFORMAT_LAST
+	};
 
-    enum PrimitiveType
-    {
-        POINTS, 
-        LINE_STRIP, 
-        LINE_LOOP, 
-        LINES,
-        TRIANGLE_STRIP, 
-        TRIANGLE_FAN, 
-        TRIANGLES, 
+	enum TextureParam
+	{
+		TEXTURE_MIN_FILTER,
+		TEXTURE_MAG_FILTER,
+		TEXTURE_WRAP_S,
+		TEXTURE_WRAP_T,
 
-        PRIMITIVETYPE_LAST
-    };
+		TEXTUREPARAM_LAST
+	};
 
-    enum DepthFunction
-    {
-        NEVER, 
-        LESS, 
-        EQUAL, 
-        LEQUAL, 
-        GREATER, 
-        NOTEQUAL, 
-        GEQUAL, 
-        ALWAYS,
+	enum PrimitiveType
+	{
+		POINTS,
+		LINE_STRIP,
+		LINE_LOOP,
+		LINES,
+		TRIANGLE_STRIP,
+		TRIANGLE_FAN,
+		TRIANGLES,
 
-        DEPTHFUNCTION_LAST
-    };
+		PRIMITIVETYPE_LAST
+	};
 
-    enum BlendFunction
-    {
-        ZERO, 
-        ONE, 
-        SRC_COLOR, 
-        ONE_MINUS_SRC_COLOR, 
-        DST_COLOR, 
-        ONE_MINUS_DST_COLOR, 
-        SRC_ALPHA, 
-        ONE_MINUS_SRC_ALPHA, 
-        DST_ALPHA, 
-        ONE_MINUS_DST_ALPHA, 
-        CONSTANT_COLOR, 
-        ONE_MINUS_CONSTANT_COLOR, 
-        CONSTANT_ALPHA, 
-        ONE_MINUS_CONSTANT_ALPHA,
+	enum DepthFunction
+	{
+		NEVER,
+		LESS,
+		EQUAL,
+		LEQUAL,
+		GREATER,
+		NOTEQUAL,
+		GEQUAL,
+		ALWAYS,
 
-        BLENDFUNCTION_LAST
-    };
+		DEPTHFUNCTION_LAST
+	};
 
-    enum FaceCulling
-    {
-         FRONT, 
-         BACK, 
-         FRONT_AND_BACK,
+	enum BlendFunction
+	{
+		ZERO,
+		ONE,
+		SRC_COLOR,
+		ONE_MINUS_SRC_COLOR,
+		DST_COLOR,
+		ONE_MINUS_DST_COLOR,
+		SRC_ALPHA,
+		ONE_MINUS_SRC_ALPHA,
+		DST_ALPHA,
+		ONE_MINUS_DST_ALPHA,
+		CONSTANT_COLOR,
+		ONE_MINUS_CONSTANT_COLOR,
+		CONSTANT_ALPHA,
+		ONE_MINUS_CONSTANT_ALPHA,
 
-         FACECULLING_LAST
-    };
+		BLENDFUNCTION_LAST
+	};
+
+	enum FaceCulling
+	{
+		FRONT,
+		BACK,
+		FRONT_AND_BACK,
+
+		FACECULLING_LAST
+	};
 }
 
 #endif

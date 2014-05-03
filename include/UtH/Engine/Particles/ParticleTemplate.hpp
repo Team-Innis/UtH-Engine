@@ -16,7 +16,7 @@ namespace uth
 
     class ParticleTemplate
     {
-    
+ 
         friend class ParticleSystem;
 
     public:
@@ -41,7 +41,7 @@ namespace uth
         double lifetime;
         float minSpeed,
               maxSpeed;
-        
+     
         umath::vector4 color;
 
     private:

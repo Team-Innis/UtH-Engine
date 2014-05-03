@@ -5,43 +5,35 @@
 #include <UtH/Platform/WindowSettings.hpp>
 #include <UtH/Renderer/RenderTarget.hpp>
 
-//#define uthWindow uth::Window::getInstance()
-
 namespace uth
 {
 
-    class Window : public RenderTarget
-    {
-    public:
-        Window();
+	class Window : public RenderTarget
+	{
+	public:
+		Window();
+		Window(const WindowSettings& settings);
+		~Window();
 
-        Window(const WindowSettings& settings);
-
-        ~Window();
-
-        bool create(const WindowSettings& settings);
-
-        void destroy();
-
-        void swapBuffers();
-
-        const WindowSettings& getWindowSettings() const;
+		bool create(const WindowSettings& settings);
+		void destroy();
 
 		// return true while window should remain open
 		bool processMessages();
+		void swapBuffers();
 
-        umath::vector2 GetSize() const;
+		const WindowSettings& getWindowSettings() const;
+		umath::vector2 GetSize() const;
 
+		void* m_windowHandle;
 
-        void* m_windowHandle;
+	private:
 
-    private:
+		bool bind();
 
-        bool bind();
+		WindowSettings m_windowSettings;
 
-        WindowSettings m_windowSettings;
-
-    };
+	};
 }
 
 #endif

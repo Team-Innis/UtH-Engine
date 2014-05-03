@@ -9,144 +9,144 @@
 namespace uth
 {
 
-    class Graphics
-    {
-    public:
-        
-        /////////////////////////////////////////////////////////
-        // Shader functions
-        static const unsigned int CreateShaderProgram();
+	class Graphics
+	{
+	public:
 
-        // Creates the shader object, compiles the source and then attaches it to the program object.
-        // Does not do the linking.
-        static bool CreateShader(const ShaderType type, const int shaderProgram, const char* shaderCode);
+		/////////////////////////////////////////////////////////
+		// Shader functions
+		static const unsigned int CreateShaderProgram();
 
-        static bool LinkShaderProgram(const int shaderProgram);
+		// Creates the shader object, compiles the source and then attaches it to the program object.
+		// Does not do the linking.
+		static bool CreateShader(const ShaderType type, const int shaderProgram, const char* shaderCode);
 
-        static void BindProgram(const int shaderProgram);
+		static bool LinkShaderProgram(const int shaderProgram);
 
-        static void UnbindProgram();
+		static void BindProgram(const int shaderProgram);
 
-        static void DestroyShaderProgram(const int shaderProgram);
+		static void UnbindProgram();
 
-        static int GetUniformLocation(const int shaderProgram, const char* name);
+		static void DestroyShaderProgram(const int shaderProgram);
 
-        static int GetAttributeLocation(const int shaderProgram, const char* name);
+		static int GetUniformLocation(const int shaderProgram, const char* name);
 
-        static void SetUniform(const int location, const int x);
+		static int GetAttributeLocation(const int shaderProgram, const char* name);
 
-        static void SetUniform(const int location, const float x);
+		static void SetUniform(const int location, const int x);
 
-        static void SetUniform(const int location, const float x, const float y);
+		static void SetUniform(const int location, const float x);
 
-        static void SetUniform(const int location, const float x, const float y, const float z);
+		static void SetUniform(const int location, const float x, const float y);
 
-        static void SetUniform(const int location, const float x, const float y, const float z, const float w);
+		static void SetUniform(const int location, const float x, const float y, const float z);
 
-        static void SetUniform(const int location, const umath::vector2& vector);
+		static void SetUniform(const int location, const float x, const float y, const float z, const float w);
 
-        static void SetUniform(const int location, const umath::vector3& vector);
+		static void SetUniform(const int location, const umath::vector2& vector);
 
-        static void SetUniform(const int location, const umath::vector4& vector);
+		static void SetUniform(const int location, const umath::vector3& vector);
 
-        static void SetUniform(const int location, const umath::matrix3& matrix);
+		static void SetUniform(const int location, const umath::vector4& vector);
 
-        static void SetUniform(const int location, const umath::matrix4& matrix);
+		static void SetUniform(const int location, const umath::matrix3& matrix);
 
-        static void EnableVertexAttribArray(const int location);
+		static void SetUniform(const int location, const umath::matrix4& matrix);
 
-        static void DisableVertexAttribArray(const int location);
+		static void EnableVertexAttribArray(const int location);
 
-        static void SetVertexAttribPointer(const int location, const int size, DataType type, const int stride, const void* pointer);
+		static void DisableVertexAttribArray(const int location);
 
-
-        /////////////////////////////////////////////////////////
-        // Buffer functions
-        static void GenerateBuffers(const unsigned int amount, unsigned int* buffers);
-
-        static void DeleteBuffers(const unsigned int amount, unsigned int* buffers);
-
-        static void BindBuffer(BufferType type, const unsigned int buffer);
-
-        static void SetBufferData(BufferType type, const unsigned int size, const void* data, UsageType usageType);
-
-        static void SetBufferSubData(BufferType type, const unsigned int offset, const unsigned int size, const void* data);
+		static void SetVertexAttribPointer(const int location, const int size, DataType type, const int stride, const void* pointer);
 
 
-        /////////////////////////////////////////////////////////
-        // Framebuffer functions
-        static void GenerateFrameBuffers(const unsigned int amount, unsigned int* buffers);
+		/////////////////////////////////////////////////////////
+		// Buffer functions
+		static void GenerateBuffers(const unsigned int amount, unsigned int* buffers);
 
-        static void DeleteFrameBuffers(const unsigned int amount, unsigned int* buffers);
+		static void DeleteBuffers(const unsigned int amount, unsigned int* buffers);
 
-        static void BindFrameBuffer(const unsigned int buffer);
+		static void BindBuffer(BufferType type, const unsigned int buffer);
 
-        static void GenerateRenderBuffers(const unsigned int amount, unsigned int* buffers);
+		static void SetBufferData(BufferType type, const unsigned int size, const void* data, UsageType usageType);
 
-        static void DeleteRenderBuffers(const unsigned int amount, unsigned int* buffers);
-
-        static void SetRenderBufferStorage(const unsigned int x, const unsigned int y);
-
-        static void BindRenderBuffer(const unsigned int buffer);
-
-        static void BindTextureToFrameBuffer(const unsigned int buffer, const unsigned int texture);
-
-        static void BindRenderBufferToFrameBuffer(const unsigned int framebuffer, const unsigned int renderbuffer);
+		static void SetBufferSubData(BufferType type, const unsigned int offset, const unsigned int size, const void* data);
 
 
-        /////////////////////////////////////////////////////////
-        // Texture functions
-        static void SetPixelStore(PixelStoreParam param, const int value);
+		/////////////////////////////////////////////////////////
+		// Framebuffer functions
+		static void GenerateFrameBuffers(const unsigned int amount, unsigned int* buffers);
 
-        static void GenerateTextures(const unsigned int amount, unsigned int* data);
+		static void DeleteFrameBuffers(const unsigned int amount, unsigned int* buffers);
 
-        static void DeleteTextures(const unsigned int amount, unsigned int* data);
+		static void BindFrameBuffer(const unsigned int buffer);
 
-        static void SetActiveTexUnit(TexUnit unit);
+		static void GenerateRenderBuffers(const unsigned int amount, unsigned int* buffers);
 
-        static void BindTexture(TextureType type, const int texture);
+		static void DeleteRenderBuffers(const unsigned int amount, unsigned int* buffers);
 
-        static void SetTextureImage1D(const int level, ImageFormat imageFormat, const unsigned int width, ImageFormat pixelFormat, DataType dataType, const void* pixels);
+		static void SetRenderBufferStorage(const unsigned int x, const unsigned int y);
 
-        static void SetTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, const unsigned int width, const unsigned int height, ImageFormat pixelFormat, DataType dataType, const void* pixels);
+		static void BindRenderBuffer(const unsigned int buffer);
 
-        static void SetTextureParameter(TextureType type, TextureParam param, TextureFilter filter);
+		static void BindTextureToFrameBuffer(const unsigned int buffer, const unsigned int texture);
 
-
-        /////////////////////////////////////////////////////////
-        // Drawing functions
-        static void DrawArrays(PrimitiveType type, const int first, const unsigned int count);
-
-        static void DrawElements(PrimitiveType type, const unsigned int count, DataType dataType, const void* indices);
-
-        static void SetPointSize(const float size);
-
-        static void SetLineWidth(const float width);
+		static void BindRenderBufferToFrameBuffer(const unsigned int framebuffer, const unsigned int renderbuffer);
 
 
-        /////////////////////////////////////////////////////////
-        // Other
-        static void Clear(const float r = 0.0f, const float g = 0.0f, const float b = 0.0f, const float a = 1.0f);
+		/////////////////////////////////////////////////////////
+		// Texture functions
+		static void SetPixelStore(PixelStoreParam param, const int value);
 
-        static void Flush();
+		static void GenerateTextures(const unsigned int amount, unsigned int* data);
 
-        static void SetDepthFunction(const bool enable, DepthFunction func = LESS);
+		static void DeleteTextures(const unsigned int amount, unsigned int* data);
 
-        static void SetBlendFunction(const bool enable, BlendFunction sfunc = ONE, BlendFunction dfunc = ZERO);
+		static void SetActiveTexUnit(TexUnit unit);
 
-        static void SetFaceCulling(const bool enable, FaceCulling mode = BACK);
+		static void BindTexture(TextureType type, const int texture);
 
-        static void SetViewport(const int x, const int y, const int width, const int height);
+		static void SetTextureImage1D(const int level, ImageFormat imageFormat, const unsigned int width, ImageFormat pixelFormat, DataType dataType, const void* pixels);
+
+		static void SetTextureImage2D(TextureType type, const int level, ImageFormat imageFormat, const unsigned int width, const unsigned int height, ImageFormat pixelFormat, DataType dataType, const void* pixels);
+
+		static void SetTextureParameter(TextureType type, TextureParam param, TextureFilter filter);
+
+
+		/////////////////////////////////////////////////////////
+		// Drawing functions
+		static void DrawArrays(PrimitiveType type, const int first, const unsigned int count);
+
+		static void DrawElements(PrimitiveType type, const unsigned int count, DataType dataType, const void* indices);
+
+		static void SetPointSize(const float size);
+
+		static void SetLineWidth(const float width);
+
+
+		/////////////////////////////////////////////////////////
+		// Other
+		static void Clear(const float r = 0.0f, const float g = 0.0f, const float b = 0.0f, const float a = 1.0f);
+
+		static void Flush();
+
+		static void SetDepthFunction(const bool enable, DepthFunction func = LESS);
+
+		static void SetBlendFunction(const bool enable, BlendFunction sfunc = ONE, BlendFunction dfunc = ZERO);
+
+		static void SetFaceCulling(const bool enable, FaceCulling mode = BACK);
+
+		static void SetViewport(const int x, const int y, const int width, const int height);
 
 
 
-    private:
+	private:
 
-        Graphics();
+		Graphics();
 
-        ~Graphics();
+		~Graphics();
 
-    };
+	};
 }
 
-#endif
+#endif // GRAPHICS_H_UTH

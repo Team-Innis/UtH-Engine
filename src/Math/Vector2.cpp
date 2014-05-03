@@ -6,11 +6,14 @@ namespace umath
 	vector2::vector2()
 		: x(0), y(0)
 	{}
+	vector2::vector2(const vector2& vec2)
+		: x(vec2.x), y(vec2.y)
+	{}
 	vector2::vector2(float X, float Y)
 		: x(X), y(Y)
 	{}
 	vector2::~vector2(){}
-	
+
 	float vector2::getLengthSquared() const
 	{	
 		return pow(x,2) + pow(y,2);

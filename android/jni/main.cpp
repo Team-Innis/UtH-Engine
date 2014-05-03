@@ -102,10 +102,10 @@ void android_main(android_app* state)
 		int events;
 		android_poll_source* source;
 
-		while ((ident=ALooper_pollAll(0, NULL, &events,(void**)&source)) >= 0)
+		while ((ident=ALooper_pollAll(0, nullptr, &events,(void**)&source)) >= 0)
 		{
 			//Insteads of these two 'if' statement proper exit should be placed
-			if (source != NULL)
+			if (source != nullptr)
 			{
 				source->process(state, source);
 			}
@@ -116,7 +116,7 @@ void android_main(android_app* state)
 			}
 		}
 
-		if(uthAndroidEngine.initialized && uthAndroidEngine.display != NULL)
+		if(uthAndroidEngine.initialized && uthAndroidEngine.display != nullptr)
 		{
 			uthEngine.Update();
 			uthEngine.Draw();

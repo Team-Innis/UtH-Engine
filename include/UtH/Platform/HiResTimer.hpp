@@ -7,7 +7,7 @@
 #if defined(UTH_SYSTEM_WINDOWS)
 #include <windows.h>
 
-#elif  defined(UTH_SYSTEM_LINUX) ||  defined(UTH_SYSTEM_ANDROID)
+#elif defined(UTH_SYSTEM_LINUX) || defined(UTH_SYSTEM_ANDROID)
 #include <sys/time.h>
 #endif
 
@@ -16,7 +16,8 @@ namespace uth
 	class Timer
 	{
 	public:
-		Timer(); //initializes Timer class
+		//initializes Timer class
+		Timer();
 		/**
 		Sets timer start and memtime to current time, returns time since last reset
 		*/
@@ -57,4 +58,4 @@ namespace uth
 	};
 }
 
-#endif
+#endif // UTILS_H_UTH
