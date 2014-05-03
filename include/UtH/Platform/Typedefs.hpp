@@ -6,6 +6,6 @@
 
 typedef unsigned long       DWORD;
 typedef unsigned char       BYTE;
-typedef unsigned short		USHORT;
+typedef unsigned short      USHORT;
 
 #endif

@@ -4,23 +4,17 @@
 
 namespace uth
 {
-    class Uncopyable
-    {
-    protected:
+	class Uncopyable
+	{
+	protected:
+		Uncopyable(){}
+		~Uncopyable(){}
 
-        Uncopyable(){}
+	private:
+		Uncopyable(const Uncopyable&);
+		Uncopyable& operator =(const Uncopyable&);
 
-        ~Uncopyable(){}
-
-
-    private:
-
-        Uncopyable(const Uncopyable&);
-
-        Uncopyable& operator =(const Uncopyable&);
-
-
-    };
+	};
 }
 
 #endif
