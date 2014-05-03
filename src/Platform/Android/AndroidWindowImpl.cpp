@@ -11,10 +11,10 @@
 namespace uth
 {
 
-    void* AndroidWindowImpl::create(const WindowSettings& settings)
-    {
+	void* AndroidWindowImpl::create(const WindowSettings& settings)
+	{
 
-        const EGLint attribs[] =
+		const EGLint attribs[] =
 		{
 			EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
 			EGL_BLUE_SIZE, 8,
@@ -100,13 +100,13 @@ namespace uth
 		WriteLog("+++++++++++++++++++++++++++++++++++++++");
 
 		return nullptr;
-    }
+	}
 
 
-    void* AndroidWindowImpl::destroy(void* handle)
-    {
+	void* AndroidWindowImpl::destroy(void* handle)
+	{
 
-        if(uthAndroidEngine.display != EGL_NO_DISPLAY)
+		if(uthAndroidEngine.display != EGL_NO_DISPLAY)
 		{
 			eglMakeCurrent(uthAndroidEngine.display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
 			if(uthAndroidEngine.display != EGL_NO_DISPLAY)
@@ -128,32 +128,34 @@ namespace uth
 		WriteLog("Window Destroyed");
 
 		return nullptr;
-    }
+	}
 
 
-    void AndroidWindowImpl::clear(
+	void AndroidWindowImpl::clear(
 		const float r,
 		const float g,
 		const float b,
 		const float a,
 		const bool clearDepth,
 		const bool clearStencil)
-    {
-        oglCheck(glClear(GL_COLOR_BUFFER_BIT |
-                         GL_DEPTH_BUFFER_BIT |
-                         GL_STENCIL_BUFFER_BIT));
+	{
+		oglCheck(glClear(
+			GL_COLOR_BUFFER_BIT |
+			GL_DEPTH_BUFFER_BIT |
+			GL_STENCIL_BUFFER_BIT
+			));
 		oglCheck(glClearColor(r, g, b, a));
 
-        if (!clearDepth) return;
+		if (!clearDepth) return;
 
-        oglCheck(glClearDepthf(1.0f));
-    }
+		oglCheck(glClearDepthf(1.0f));
+	}
 
-    void AndroidWindowImpl::swapBuffers(void* handle)
-    {
-        //glxSwapBuffers();
+	void AndroidWindowImpl::swapBuffers(void* handle)
+	{
+		//glxSwapBuffers();
 		eglSwapBuffers(uth::AndroidEngine::getInstance().display, uth::AndroidEngine::getInstance().surface);
-    }
+	}
 
 	bool AndroidWindowImpl::processMessages(void* handle)
 	{
