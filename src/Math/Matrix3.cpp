@@ -42,7 +42,7 @@ namespace umath
 	matrix3::~matrix3()
 	{}
 
-	float* matrix3::ptr()
+	float* matrix3::ptr() const
 	{
 		return (float*)&r1.x;
 	}

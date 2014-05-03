@@ -25,7 +25,7 @@ namespace umath
 			const float& r3c1,const float& r3c2,const float& r3c3);
 		~matrix3();
 
-		float* ptr();
+		float* ptr() const;
 
 		const vector3& operator [](const unsigned int& index) const;
 		vector3& operator [](const unsigned int& index);
