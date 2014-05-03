@@ -11,12 +11,11 @@ bool FileReader::isCompressed = false;
 
 FileReader::FileReader()
 	: file(nullptr),
-	  cFile(nullptr)
+	cFile(nullptr)
 {
 	if(isCompressed)
 		PHYSFS_init(nullptr);
 }
-
 FileReader::FileReader(const char* path)
 {
 	if(isCompressed)
@@ -24,7 +23,6 @@ FileReader::FileReader(const char* path)
 
 	OpenFile(path);
 }
-
 FileReader::~FileReader()
 {
 	CloseFile();
@@ -56,7 +54,6 @@ void FileReader::OpenFile(const char* path)
 		assert(file != nullptr);
 	}
 }
-
 void FileReader::CloseFile()
 {
 	if(PHYSFS_isInit())
@@ -70,7 +67,6 @@ void FileReader::CloseFile()
 		file = nullptr;
 	}
 }
-
 int FileReader::GetFileSize()
 {
 	int size;
