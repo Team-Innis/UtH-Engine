@@ -10,21 +10,19 @@ using namespace uth;
 bool FileReader::isCompressed = false;
 
 FileReader::FileReader()
-	: file(NULL),
-	  cFile(NULL)
+	: file(nullptr),
+	cFile(nullptr)
 {
 	if(isCompressed)
-		PHYSFS_init(NULL);
+		PHYSFS_init(nullptr);
 }
-
 FileReader::FileReader(const char* path)
 {
 	if(isCompressed)
-		PHYSFS_init(NULL);
+		PHYSFS_init(nullptr);
 
 	OpenFile(path);
 }
-
 FileReader::~FileReader()
 {
 	CloseFile();
@@ -42,21 +40,20 @@ void FileReader::OpenFile(const char* path)
 		const int result = PHYSFS_exists(path);
 		assert(result);
 
-		if(cFile != NULL)
+		if(cFile != nullptr)
 			PHYSFS_close(cFile);
 
 		cFile = PHYSFS_openRead(path);
-		assert(cFile != NULL);
+		assert(cFile != nullptr);
 	}
 	else
 	{
 		std::string temp_path = "assets/";
 		temp_path += path;
 		file = std::fopen(temp_path.c_str(), "rb");
-		assert(file != NULL);
+		assert(file != nullptr);
 	}
 }
-
 void FileReader::CloseFile()
 {
 	if(PHYSFS_isInit())
@@ -67,10 +64,9 @@ void FileReader::CloseFile()
 	else if (file)
 	{
 		std::fclose(file);
-		file = NULL;
+		file = nullptr;
 	}
 }
-
 int FileReader::GetFileSize()
 {
 	int size;
@@ -92,7 +88,7 @@ bool FileReader::FileSeek(int offset, int origin)
 {
 	if(PHYSFS_isInit())
 	{
-		if(cFile != NULL)
+		if(cFile != nullptr)
 		{
 			if(origin == 1)
 			{
@@ -105,7 +101,7 @@ bool FileReader::FileSeek(int offset, int origin)
 	}
 	else
 	{
-		if(file != NULL)
+		if(file != nullptr)
 		{
 			if(std::fseek(file, offset, origin) == 0) // Returns 0 on succesful read
 				return true;
@@ -118,7 +114,7 @@ bool FileReader::ReadBytes(void* buffer, unsigned int count, unsigned int blockS
 {
 	if(PHYSFS_isInit())
 	{
-		if(cFile != NULL)
+		if(cFile != nullptr)
 		{
 			if(PHYSFS_read(cFile, buffer, blockSize, count) == count)
 				return true;
@@ -126,7 +122,7 @@ bool FileReader::ReadBytes(void* buffer, unsigned int count, unsigned int blockS
 	}
 	else
 	{
-		if(file != NULL)
+		if(file != nullptr)
 		{
 			if(std::fread(buffer, blockSize, count, file) == count)
 				return true;

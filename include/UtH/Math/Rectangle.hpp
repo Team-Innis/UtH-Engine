@@ -10,6 +10,7 @@ namespace umath
 	{
 	public:
 		rectangle();
+		rectangle(const rectangle& rect);
 		rectangle(float X, float Y, float Width, float Height);
 		rectangle(vector2 Position, float Width, float Height);
 		rectangle(vector2 Position, vector2 Size);

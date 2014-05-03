@@ -11,7 +11,7 @@ class BINARY_DATA
 public:
 	BINARY_DATA()
 		: m_data(nullptr),
-		  m_size(0)
+		m_size(0)
 	{}
 	BINARY_DATA(const unsigned int size)
 	{

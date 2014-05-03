@@ -5,7 +5,8 @@
 using namespace uth;
 
 GameObject::GameObject()
-    : m_active(true)
+	: m_active(true),
+	parent(nullptr)
 {
 	transform.parent = this;
 }
@@ -72,7 +73,7 @@ void GameObject::RemoveComponent(const std::string& name)
 void GameObject::RemoveComponents()
 {
 	for(size_t i = 0; i < components.size(); ++i)
-			delete components.at(i);
+		delete components.at(i);
 
 	components.clear();
 }
@@ -82,13 +83,13 @@ void GameObject::Draw(RenderTarget& target)
 	if(!m_active)
 		return;
 
-    target.Bind();
+	target.Bind();
 
-    draw(target);
+	draw(target);
 
 	for (auto it = components.begin(); it != components.end(); ++it)
 	{
-        target.GetShader().Use();
+		target.GetShader().Use();
 		auto component = (*it);
 		if (component->IsActive())
 			component->Draw(target);
@@ -99,8 +100,8 @@ void GameObject::Update(float dt)
 {
 	if(!m_active)
 		return;
-    
-    update(dt);
+
+	update(dt);
 
 	for (auto i = components.begin(); i != components.end(); ++i)
 	{
@@ -112,9 +113,9 @@ void GameObject::Update(float dt)
 
 void GameObject::draw(RenderTarget& target)
 {
-    Shader& shader = target.GetShader();
+	Shader& shader = target.GetShader();
 
-    shader.Use();
+	shader.Use();
 	shader.SetUniform("unifModel", transform.GetTransform());
-    shader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
+	shader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
 }

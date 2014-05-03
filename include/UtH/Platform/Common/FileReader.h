@@ -1,6 +1,6 @@
 /***
- * Filereader for linux and windows
- **/
+* Filereader for linux and windows
+**/
 #pragma once
 #ifndef FILEREADER_H
 #define FILEREADER_H
@@ -20,7 +20,7 @@ namespace uth
 		~FileReader();
 
 		void OpenFile(const char* path);
-        void CloseFile();
+		void CloseFile();
 		int GetFileSize();
 
 		// Move the file pointer by offset from origin(defaults to beginning of file)
@@ -43,7 +43,7 @@ namespace uth
 		std::FILE* file;
 		PHYSFS_file* cFile;
 
-		
+
 	};
 }
 

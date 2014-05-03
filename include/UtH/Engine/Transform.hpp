@@ -7,21 +7,21 @@
 
 namespace uth
 {
-    namespace Origin
-    {
-        enum Point
-        {
-            BottomLeft = 1,
-            BottomCenter,
-            BottomRight,
-            MidLeft,
-            Center,
-            MidRight,
-            TopLeft,
-            TopCenter,
-            TopRight
-        };
-    }
+	namespace Origin
+	{
+		enum Point
+		{
+			BottomLeft = 1,
+			BottomCenter,
+			BottomRight,
+			MidLeft,
+			Center,
+			MidRight,
+			TopLeft,
+			TopCenter,
+			TopRight
+		};
+	}
 
 	class Transform : public Component
 	{
@@ -41,7 +41,7 @@ namespace uth
 		const umath::vector2& GetSize() const;
 
 		void SetOrigin(const umath::vector2& origin);
-        void SetOrigin(const int originPoint = Origin::Point::Center);
+		void SetOrigin(const int originPoint = Origin::Point::Center);
 		const umath::vector2& GetOrigin() const;
 
 		void SetScale(const umath::vector2& scale);
@@ -72,7 +72,7 @@ namespace uth
 		void updateTransform();
 
 		umath::matrix4 m_modelTransform;
-        bool m_transformNeedsUpdate;
+		bool m_transformNeedsUpdate;
 	};
 }
 

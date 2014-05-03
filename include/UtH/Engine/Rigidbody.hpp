@@ -25,7 +25,7 @@ namespace uth
 			const std::string& name = "Rigidbody");
 		// Create a rigidibody with a bit more control
 		// If creating a ball put diameter in size.x
-		Rigidbody(b2World* world, const COLLIDER_TYPE collider, 
+		Rigidbody(b2World* world, const COLLIDER_TYPE collider,
 			const umath::vector2& size, const std::string& name = "Rigidbody");
 
 		~Rigidbody();

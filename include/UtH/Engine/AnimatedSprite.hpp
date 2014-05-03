@@ -24,7 +24,7 @@ namespace uth
 
 		//AnimatedSprite(const std::string filePath);
 
-		void ChangeAnimation(int loopStartFrame, int loopFrames, 
+		void ChangeAnimation(int loopStartFrame, int loopFrames,
 			int startFrame = 0, float fps = 5.0f, bool loop = true, bool reversed = false);
 
 		void Init();

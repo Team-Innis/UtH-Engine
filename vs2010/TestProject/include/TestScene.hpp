@@ -9,6 +9,8 @@
 #include <UtH/Renderer/RenderTexture.hpp>
 #include <UtH/Engine/SpriteBatch.hpp>
 #include <UtH/Engine/Particles/ParticleSystem.hpp>
+#include <UtH/Engine/TMX/Map.hpp>
+
 
 namespace uth
 {
@@ -44,6 +46,8 @@ namespace uth
 		GameObject* go;
 
         GameObject* obj;
+		
+		TMX::Map* map;
 
 		int number;
 

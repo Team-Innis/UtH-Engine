@@ -57,6 +57,12 @@ bool TestScene::Init()
     pSystem.transform.SetPosition(50.f, 0.f);
 #pragma endregion
 
+#pragma region TMX_map
+	map = new TMX::Map("Maps/test.tmx");
+	//map->transform.Move(-500, -300);
+	map->transform.SetScale(0.2f, 0.2f);
+#pragma endregion
+
 #pragma region rendertex
     rtex.Initialize(uthEngine.GetWindowResolution() / /*0.125f*/0.5f, false);
     rtex.SetCamera(&camera);
@@ -99,7 +105,7 @@ bool TestScene::Init()
 
 	// smile object
 	go = new GameObject();
-	go->AddComponent(new Sprite("test.tga"));
+	go->AddComponent(new Sprite("Maps/tmw_desert_spacing.tga"));
 	go->transform.Move(-100, -400); // need to move it before rigidbody is added
 	go->AddComponent(new Rigidbody(&world));
 	gameObjects.push_back(go);
@@ -158,6 +164,7 @@ bool TestScene::Init()
 	WriteLog("Layers: %d\n", layers.size());
 
 	//SetLayerActive(0, false);
+	SetLayerActive(3, false);
 
 	go = temp;
 	return true;
@@ -181,6 +188,7 @@ bool TestScene::DeInit()
 	delete shader;
 	delete rtexSprite;
 	delete obj;
+	delete map;
 
 	return true;
 }
@@ -250,7 +258,7 @@ bool TestScene::Update(float dt)
 }
 bool TestScene::Draw()
 {
-    obj->Draw(uthEngine.GetWindow());
+    //obj->Draw(uthEngine.GetWindow());
     //glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     rtex.Clear(0, 0, 1, 1);
@@ -262,6 +270,8 @@ bool TestScene::Draw()
     //static_cast<Sprite*>(rtexSprite->GetComponent("rtexSprite"))->SetTexture(&rtex.GetTexture());
     rtexSprite->Draw(uthEngine.GetWindow());
     pSystem.Draw(uthEngine.GetWindow());
+
+	map->Draw(uthEngine.GetWindow());
 
 	return true;
 }

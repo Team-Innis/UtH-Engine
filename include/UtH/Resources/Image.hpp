@@ -31,6 +31,8 @@ namespace uth
 
         const umath::vector2& GetSize() const;
 
+		BYTE GetDepth() const;
+
 
         umath::vector4 GetPixel(unsigned int x, unsigned int y) const;
 

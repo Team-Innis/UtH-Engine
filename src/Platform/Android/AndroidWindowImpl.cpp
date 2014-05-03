@@ -11,10 +11,10 @@
 namespace uth
 {
 
-    void* AndroidWindowImpl::create(const WindowSettings& settings)
-    {
+	void* AndroidWindowImpl::create(const WindowSettings& settings)
+	{
 
-        const EGLint attribs[] =
+		const EGLint attribs[] =
 		{
 			EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
 			EGL_BLUE_SIZE, 8,
@@ -48,7 +48,7 @@ namespace uth
 			WriteLog("eglInitialize succeeded");
 		CheckEGLError();
 
-		//eglChooseConfig(androidengine.display, attribs, NULL, 1, &numConfigs);
+		//eglChooseConfig(androidengine.display, attribs, 0, 1, &numConfigs);
 		//WriteLog("Configs: %d", (int)numConfigs);
 
 		eglChooseConfig(uthAndroidEngine.display, attribs, &uthAndroidEngine.config, 1, &numConfigs);
@@ -64,7 +64,7 @@ namespace uth
 		//CheckEGLError();
 		//	WriteLog("ANativeWindow_setBuffersGeometry succeeded");
 
-		uthAndroidEngine.surface = eglCreateWindowSurface(uthAndroidEngine.display, uthAndroidEngine.config, uthAndroidEngine.app->window, NULL);
+		uthAndroidEngine.surface = eglCreateWindowSurface(uthAndroidEngine.display, uthAndroidEngine.config, uthAndroidEngine.app->window, 0);
 		CheckEGLError();
 			WriteLog("eglCreateWindowSurface succeeded");
 		uthAndroidEngine.context = eglCreateContext(uthAndroidEngine.display, uthAndroidEngine.config, EGL_NO_CONTEXT, attribList);
@@ -75,7 +75,7 @@ namespace uth
 		{
 			CheckEGLError();
 			WriteError("eglMakeCurrent failed");
-			return (void*)NULL;
+			return nullptr;
 		}
 
 		EGLint tempX;
@@ -100,13 +100,13 @@ namespace uth
 		WriteLog("+++++++++++++++++++++++++++++++++++++++");
 
 		return nullptr;
-    }
+	}
 
 
-    void* AndroidWindowImpl::destroy(void* handle)
-    {
+	void* AndroidWindowImpl::destroy(void* handle)
+	{
 
-        if(uthAndroidEngine.display != EGL_NO_DISPLAY)
+		if(uthAndroidEngine.display != EGL_NO_DISPLAY)
 		{
 			eglMakeCurrent(uthAndroidEngine.display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
 			if(uthAndroidEngine.display != EGL_NO_DISPLAY)
@@ -128,26 +128,34 @@ namespace uth
 		WriteLog("Window Destroyed");
 
 		return nullptr;
-    }
+	}
 
 
-    void AndroidWindowImpl::clear(const bool clearDepth, const bool clearStencil, const float r, const float g, const float b, const float a)
-    {
-        oglCheck(glClear(GL_COLOR_BUFFER_BIT |
-                         GL_DEPTH_BUFFER_BIT |
-                         GL_STENCIL_BUFFER_BIT));
+	void AndroidWindowImpl::clear(
+		const float r,
+		const float g,
+		const float b,
+		const float a,
+		const bool clearDepth,
+		const bool clearStencil)
+	{
+		oglCheck(glClear(
+			GL_COLOR_BUFFER_BIT |
+			GL_DEPTH_BUFFER_BIT |
+			GL_STENCIL_BUFFER_BIT
+			));
 		oglCheck(glClearColor(r, g, b, a));
 
-        if (!clearDepth) return;
+		if (!clearDepth) return;
 
-        oglCheck(glClearDepthf(1.0f));
-    }
+		oglCheck(glClearDepthf(1.0f));
+	}
 
-    void AndroidWindowImpl::swapBuffers(void* handle)
-    {
-        //glxSwapBuffers();
+	void AndroidWindowImpl::swapBuffers(void* handle)
+	{
+		//glxSwapBuffers();
 		eglSwapBuffers(uth::AndroidEngine::getInstance().display, uth::AndroidEngine::getInstance().surface);
-    }
+	}
 
 	bool AndroidWindowImpl::processMessages(void* handle)
 	{
