@@ -11,7 +11,7 @@ namespace umath
 		: x(vec4.x), y(vec4.y), z(vec4.z), w(vec4.w)
 	{}
 	vector4::vector4(const vector3& Vec3, const float W)
-		: 
+		:
 		x(Vec3[0]),
 		y(Vec3[1]),
 		z(Vec3[2]),

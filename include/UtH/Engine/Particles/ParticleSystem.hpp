@@ -31,7 +31,7 @@ namespace uth
 
 
     private:
-        
+     
         void update(float dt);
         void draw(RenderTarget& target);
 

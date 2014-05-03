@@ -132,11 +132,11 @@ namespace uth
 
 
     void AndroidWindowImpl::clear(
-		const float r, 
-		const float g, 
-		const float b, 
-		const float a, 
-		const bool clearDepth, 
+		const float r,
+		const float g,
+		const float b,
+		const float a,
+		const bool clearDepth,
 		const bool clearStencil)
     {
         oglCheck(glClear(GL_COLOR_BUFFER_BIT |

@@ -8,48 +8,48 @@
 
 namespace
 {
-    static uth::Shader batchShader;
+	static uth::Shader batchShader;
 }
 
 namespace uth
 {
-    void SpriteBatch::reserve(const unsigned int amount)
-    {
-        m_objects.reserve(amount);
-        m_vertexData.reserve(amount);
-        m_spriteBuffer.m_vertexData.reserve(amount);
-        m_spriteBuffer.m_indices.reserve(amount);
-    }
+	void SpriteBatch::reserve(const unsigned int amount)
+	{
+		m_objects.reserve(amount);
+		m_vertexData.reserve(amount);
+		m_spriteBuffer.m_vertexData.reserve(amount);
+		m_spriteBuffer.m_indices.reserve(amount);
+	}
 
 
-    SpriteBatch::SpriteBatch(const bool adoptPointers)
-        : m_atlas(nullptr),
-          m_texture(nullptr),
-          m_adoptedPointers(adoptPointers)
-    {
-        reserve(975);
-    }
+	SpriteBatch::SpriteBatch(const bool adoptPointers)
+		: m_atlas(nullptr),
+		m_texture(nullptr),
+		m_adoptedPointers(adoptPointers)
+	{
+		reserve(975);
+	}
 
-    SpriteBatch::~SpriteBatch()
-    {
-        Clear();
-    }
+	SpriteBatch::~SpriteBatch()
+	{
+		Clear();
+	}
 
 
 
-    GameObject* SpriteBatch::AddSprite(GameObject* object, const std::string& atlasName, const umath::vector4& color, const umath::rectangle& texCoords)
-    {
-        if ((!m_atlas && !m_texture) || !object)
-        {
-            if (m_adoptedPointers)
-                delete object;
+	GameObject* SpriteBatch::AddSprite(GameObject* object, const std::string& atlasName, const umath::vector4& color, const umath::rectangle& texCoords)
+	{
+		if ((!m_atlas && !m_texture) || !object)
+		{
+			if (m_adoptedPointers)
+				delete object;
 
-            return nullptr;
-        }
+			return nullptr;
+		}
 
-        unsigned short mod = static_cast<unsigned short>(m_objects.size()) * 4;
+		unsigned short mod = static_cast<unsigned short>(m_objects.size()) * 4;
 
-        m_objects.emplace_back(object);
+		m_objects.emplace_back(object);
 
 		umath::rectangle tex;
 		if(texCoords.width != 0 && texCoords.height != 0)
@@ -58,113 +58,113 @@ namespace uth
 			tex = (atlasName.empty() || !m_atlas) ? umath::rectangle(0.f, 0.f, 1.f, 1.f) : m_atlas->getTextureCoords(atlasName.c_str());
 
 
-        float width = ((m_atlas ? m_atlas->GetSize().x : m_texture->GetSize().x) * tex.width),
-              height = ((m_atlas ? m_atlas->GetSize().y : m_texture->GetSize().y) * tex.height);
+		float width = ((m_atlas ? m_atlas->GetSize().x : m_texture->GetSize().x) * tex.width),
+			height = ((m_atlas ? m_atlas->GetSize().y : m_texture->GetSize().y) * tex.height);
 
-        m_vertexData.push_back(Vertex(
-			umath::vector3(-width / 2.f, -height / 2.f, 1.f), 
+		m_vertexData.push_back(Vertex(
+			umath::vector3(-width / 2.f, -height / 2.f, 1.f),
 			umath::vector2(tex.x, 1.f - tex.y),
-            color
+			color
 			));
-        m_vertexData.push_back(Vertex(
-			umath::vector3(width / 2.f, -height / 2.f, 1.f), 
+		m_vertexData.push_back(Vertex(
+			umath::vector3(width / 2.f, -height / 2.f, 1.f),
 			umath::vector2(tex.getRight(), 1.f - tex.y),
-            color
+			color
 			));
-        m_vertexData.push_back(Vertex(
-			umath::vector3(-width / 2.f, height / 2.f, 1.f), 
+		m_vertexData.push_back(Vertex(
+			umath::vector3(-width / 2.f, height / 2.f, 1.f),
 			umath::vector2(tex.x, 1.f - (tex.y + tex.height)),
-            color
+			color
 			));
-        m_vertexData.push_back(Vertex(
-			umath::vector3(width / 2.f, height / 2.f, 1.f), 
+		m_vertexData.push_back(Vertex(
+			umath::vector3(width / 2.f, height / 2.f, 1.f),
 			umath::vector2(tex.getRight(), 1.f - (tex.y + tex.height)),
-            color
+			color
 			));
-	    m_spriteBuffer.addIndex(0 + mod);
-	    m_spriteBuffer.addIndex(1 + mod);
-	    m_spriteBuffer.addIndex(2 + mod);
-	    m_spriteBuffer.addIndex(1 + mod);
-	    m_spriteBuffer.addIndex(3 + mod);
-	    m_spriteBuffer.addIndex(2 + mod);
+		m_spriteBuffer.addIndex(0 + mod);
+		m_spriteBuffer.addIndex(1 + mod);
+		m_spriteBuffer.addIndex(2 + mod);
+		m_spriteBuffer.addIndex(1 + mod);
+		m_spriteBuffer.addIndex(3 + mod);
+		m_spriteBuffer.addIndex(2 + mod);
 
-        return m_objects.back().get();
-    }
+		return m_objects.back().get();
+	}
 
-    void SpriteBatch::SetTextureAtlas(TextureAtlas* atlas)
-    {
-        m_atlas = atlas;
-        m_texture = nullptr;
-    }
+	void SpriteBatch::SetTextureAtlas(TextureAtlas* atlas)
+	{
+		m_atlas = atlas;
+		m_texture = nullptr;
+	}
 
-    void SpriteBatch::SetTexture(Texture* texture)
-    {
-        m_texture = texture;
-        m_atlas = nullptr;
-    }
+	void SpriteBatch::SetTexture(Texture* texture)
+	{
+		m_texture = texture;
+		m_atlas = nullptr;
+	}
 
-    void SpriteBatch::Clear()
-    {
-        if (!m_adoptedPointers)
-        {
-            for (auto itr = m_objects.begin(); itr != m_objects.end(); ++itr)
-                itr->release();
-        }
+	void SpriteBatch::Clear()
+	{
+		if (!m_adoptedPointers)
+		{
+			for (auto itr = m_objects.begin(); itr != m_objects.end(); ++itr)
+				itr->release();
+		}
 
-        m_objects.clear();
-        m_vertexData.clear();
-        m_spriteBuffer.clear();
-    }
+		m_objects.clear();
+		m_vertexData.clear();
+		m_spriteBuffer.clear();
+	}
 
-    void SpriteBatch::draw(RenderTarget& target)
-    {
-        if ((!m_atlas && !m_texture) || m_objects.empty())
-            return;
+	void SpriteBatch::draw(RenderTarget& target)
+	{
+		if ((!m_atlas && !m_texture) || m_objects.empty())
+			return;
 
-        static bool shaderLoaded = false;
-        if (!shaderLoaded)
-        {
-            batchShader.LoadShader("Shaders/batchvertexshader.vert", "Shaders/batchfragmentshader.frag");
-            shaderLoaded = true;
-        }
+		static bool shaderLoaded = false;
+		if (!shaderLoaded)
+		{
+			batchShader.LoadShader("Shaders/batchvertexshader.vert", "Shaders/batchfragmentshader.frag");
+			shaderLoaded = true;
+		}
 
-        m_spriteBuffer.clear(true, false);
-        m_spriteBuffer.addVertices(m_vertexData);
+		m_spriteBuffer.clear(true, false);
+		m_spriteBuffer.addVertices(m_vertexData);
 
-        for (size_t i = 0; i < m_vertexData.size() / 4; ++i)
-        {
-            umath::matrix3 m = m_objects[i]->transform.GetTransform().getMatrix3();
+		for (size_t i = 0; i < m_vertexData.size() / 4; ++i)
+		{
+			umath::matrix3 m = m_objects[i]->transform.GetTransform().getMatrix3();
 			// NOTE: this will cause the map to draw correctly.
 			// TODO: figure out a real solution
 			//m[0][0] = m[0][0] > 0 ? 1 : -1;
 			//m[1][1] = m[1][1] > 0 ? 1 : -1;
 
-            m_spriteBuffer.m_vertexData[0 + (i * 4)].position *= m;
-            m_spriteBuffer.m_vertexData[1 + (i * 4)].position *= m;
-            m_spriteBuffer.m_vertexData[2 + (i * 4)].position *= m;
-            m_spriteBuffer.m_vertexData[3 + (i * 4)].position *= m;
-        }
-        
-        m_spriteBuffer.setData();
+			m_spriteBuffer.m_vertexData[0 + (i * 4)].position *= m;
+			m_spriteBuffer.m_vertexData[1 + (i * 4)].position *= m;
+			m_spriteBuffer.m_vertexData[2 + (i * 4)].position *= m;
+			m_spriteBuffer.m_vertexData[3 + (i * 4)].position *= m;
+		}
 
-        m_atlas ? m_atlas->Bind() : m_texture->Bind();
+		m_spriteBuffer.setData();
 
-        batchShader.Use();
+		m_atlas ? m_atlas->Bind() : m_texture->Bind();
 
-        batchShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
-        batchShader.SetUniform("unifSampler", 0);
-        //batchShader.SetUniform("unifColor", 1, 1, 1, 1);
+		batchShader.Use();
+
+		batchShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
+		batchShader.SetUniform("unifSampler", 0);
+		//batchShader.SetUniform("unifColor", 1, 1, 1, 1);
 
 
-        uth::Graphics::BindBuffer(ARRAY_BUFFER, m_spriteBuffer.m_arrayBuffer);
-        batchShader.setAttributeData("attrPosition", 3, FLOAT_TYPE, sizeof(Vertex), (void*)0);
-        batchShader.setAttributeData("attrUV", 2, FLOAT_TYPE, sizeof(Vertex), (void*)(3 * sizeof(float)));
-        batchShader.setAttributeData("attrColor", 4, FLOAT_TYPE, sizeof(Vertex), (void*)(5 * sizeof(float)));
+		uth::Graphics::BindBuffer(ARRAY_BUFFER, m_spriteBuffer.m_arrayBuffer);
+		batchShader.setAttributeData("attrPosition", 3, FLOAT_TYPE, sizeof(Vertex), (void*)0);
+		batchShader.setAttributeData("attrUV", 2, FLOAT_TYPE, sizeof(Vertex), (void*)(3 * sizeof(float)));
+		batchShader.setAttributeData("attrColor", 4, FLOAT_TYPE, sizeof(Vertex), (void*)(5 * sizeof(float)));
 
-        uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_spriteBuffer.m_elementBuffer);
-        uth::Graphics::DrawElements(TRIANGLES, m_spriteBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
-    
-        target.SetShader(nullptr);
-    }
-    
+		uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_spriteBuffer.m_elementBuffer);
+		uth::Graphics::DrawElements(TRIANGLES, m_spriteBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
+
+		target.SetShader(nullptr);
+	}
+
 }

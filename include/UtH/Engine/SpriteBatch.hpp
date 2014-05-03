@@ -34,7 +34,7 @@ namespace uth
 
 
     private:
-        
+     
         void draw(RenderTarget& target);
 
 

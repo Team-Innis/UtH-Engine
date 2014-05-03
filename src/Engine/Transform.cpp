@@ -8,13 +8,13 @@ using namespace umath;
 
 Transform::Transform(const std::string& name)
 	: Component(name),
-	  position(0, 0),
-	  size(1, 1),
-	  scale(1, 1),
-      origin(0,0),
-	  angle(0),
-	  depth(0),
-	  m_transformNeedsUpdate(true)
+	position(0, 0),
+	size(1, 1),
+	scale(1, 1),
+	origin(0,0),
+	angle(0),
+	depth(0),
+	m_transformNeedsUpdate(true)
 { }
 Transform::~Transform()
 { }
@@ -67,37 +67,37 @@ void Transform::SetOrigin(const umath::vector2& origin)
 }
 void Transform::SetOrigin(const int originPoint)
 {
-    switch (originPoint)
-    {
-    case Origin::Point::BottomLeft:
-        SetOrigin(vector2(size.x * -0.5f,size.y * 0.5f));
-        break;
-    case Origin::Point::BottomCenter:
-        SetOrigin(vector2(0.0f,size.y * 0.5f));
-        break;
-    case Origin::Point::BottomRight:
-        SetOrigin(vector2(size.x * 0.5f,size.y * 0.5f));
-        break;
-    case Origin::Point::MidLeft:
-        SetOrigin(vector2(size.x * -0.5f,0.f));
-        break;
-    case Origin::Point::MidRight:
-        SetOrigin(vector2(size.x * 0.5f,0.f));
-        break;
-    case Origin::Point::TopLeft:
-        SetOrigin(vector2(size.x * -0.5f,size.y * -0.5f));
-        break;
-    case Origin::Point::TopCenter:
-        SetOrigin(vector2(0.0f,size.y * -0.5f));
-        break;
-    case Origin::Point::TopRight:
-        SetOrigin(vector2(size.x * 0.5f,size.y * -0.5f));
-        break;
-    case Origin::Point::Center:
-    default:
-        SetOrigin(vector2());
-        break;
-    }
+	switch (originPoint)
+	{
+	case Origin::Point::BottomLeft:
+		SetOrigin(vector2(size.x * -0.5f,size.y * 0.5f));
+		break;
+	case Origin::Point::BottomCenter:
+		SetOrigin(vector2(0.0f,size.y * 0.5f));
+		break;
+	case Origin::Point::BottomRight:
+		SetOrigin(vector2(size.x * 0.5f,size.y * 0.5f));
+		break;
+	case Origin::Point::MidLeft:
+		SetOrigin(vector2(size.x * -0.5f,0.f));
+		break;
+	case Origin::Point::MidRight:
+		SetOrigin(vector2(size.x * 0.5f,0.f));
+		break;
+	case Origin::Point::TopLeft:
+		SetOrigin(vector2(size.x * -0.5f,size.y * -0.5f));
+		break;
+	case Origin::Point::TopCenter:
+		SetOrigin(vector2(0.0f,size.y * -0.5f));
+		break;
+	case Origin::Point::TopRight:
+		SetOrigin(vector2(size.x * 0.5f,size.y * -0.5f));
+		break;
+	case Origin::Point::Center:
+	default:
+		SetOrigin(vector2());
+		break;
+	}
 }
 const umath::vector2& Transform::GetOrigin() const
 {
@@ -132,7 +132,7 @@ const float Transform::GetRotation() const
 	return angle;
 }
 void Transform::Rotate(const float degrees)
-{ 
+{
 	this->angle += degrees;
 	m_transformNeedsUpdate = true;
 }
@@ -172,40 +172,40 @@ const umath::matrix4& Transform::GetTransform()
 
 void Transform::updateTransform()
 {
-    if (!m_transformNeedsUpdate)
-        return;
+	if (!m_transformNeedsUpdate)
+		return;
 
 	const float ang = -angle * PI / 180.f;
 	const float cosine = std::cos(ang);
 	const float sine = std::sin(ang);
-    
-    const umath::matrix4 orig(
-        1.0f,   0,      0,      -origin.x/size.x,
-        0,      1.0f,   0,      -origin.y/size.y,
-        0,      0,      1.0f,   0,
-        0,      0,      0,      1.0f
-        );
 
-    const umath::matrix4 rotation(
-        cosine, -sine,   0,      0,
-        sine,   cosine, 0,      0,
-        0,      0,      1.0f,   0,
-        0,      0,      0,      1.0f
-        );
+	const umath::matrix4 orig(
+		1.0f,   0,      0,      -origin.x/size.x,
+		0,      1.0f,   0,      -origin.y/size.y,
+		0,      0,      1.0f,   0,
+		0,      0,      0,      1.0f
+		);
 
-    const umath::matrix4 scaleMatrix(
-        size.x * scale.x,   0,                  0,      0,
-        0,                  size.y * scale.y,   0,      0,
-        0,                  0,                  1.0f,   0,
-        0,                  0,                  0,      1.0f
-        );
+	const umath::matrix4 rotation(
+		cosine, -sine,   0,      0,
+		sine,   cosine, 0,      0,
+		0,      0,      1.0f,   0,
+		0,      0,      0,      1.0f
+		);
 
-    const umath::matrix4 translation(
-        1.0f,   0,      0,      position.x,
-        0,      1.0f,   0,      position.y,
-        0,      0,      1.0f,   0,
-        0,      0,      0,      1.0f
-        );
+	const umath::matrix4 scaleMatrix(
+		size.x * scale.x,   0,                  0,      0,
+		0,                  size.y * scale.y,   0,      0,
+		0,                  0,                  1.0f,   0,
+		0,                  0,                  0,      1.0f
+		);
+
+	const umath::matrix4 translation(
+		1.0f,   0,      0,      position.x,
+		0,      1.0f,   0,      position.y,
+		0,      0,      1.0f,   0,
+		0,      0,      0,      1.0f
+		);
 
 	m_modelTransform = translation * rotation * scaleMatrix * orig;
 	m_transformNeedsUpdate = false;

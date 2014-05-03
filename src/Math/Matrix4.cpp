@@ -38,7 +38,7 @@ namespace umath
 		const vector4& Row2,
 		const vector4& Row3,
 		const vector4& Row4)
-		: 
+		:
 	r1(Row1),
 		r2(Row2),
 		r3(Row3),
@@ -83,7 +83,7 @@ namespace umath
 
 	matrix4 operator *(const matrix4& LM, const matrix4& RM)
 	{
-		const float L[4][4] = 
+		const float L[4][4] =
 		{
 			LM[0][0],
 			LM[0][1],
@@ -102,7 +102,7 @@ namespace umath
 			LM[3][2],
 			LM[3][3]
 		};
-		const float R[4][4] = 
+		const float R[4][4] =
 		{
 			RM[0][0],
 			RM[0][1],
@@ -151,7 +151,7 @@ namespace umath
 
 	vector4 operator *(const matrix4& LM, const vector4& RV)
 	{
-		const float L[4][4] = 
+		const float L[4][4] =
 		{
 			LM[0][0],
 			LM[0][1],
@@ -170,7 +170,7 @@ namespace umath
 			LM[3][2],
 			LM[3][3]
 		};
-		const float R[4] = 
+		const float R[4] =
 		{
 			RV[0],
 			RV[1],

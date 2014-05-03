@@ -5,9 +5,9 @@
 #include <tinyxml2.h>
 
 // Bits on the far end of the 32-bit global tile ID are used for tile flags
-const unsigned int FLIPPED_HORIZONTALLY_FLAG = 0x80000000;
-const unsigned int FLIPPED_VERTICALLY_FLAG   = 0x40000000;
-const unsigned int FLIPPED_DIAGONALLY_FLAG   = 0x20000000;
+const unsigned int FLIPPED_HORIZONTALLY_FLAG    = 0x80000000;
+const unsigned int FLIPPED_VERTICALLY_FLAG      = 0x40000000;
+const unsigned int FLIPPED_DIAGONALLY_FLAG      = 0x20000000;
 
 
 using namespace uth;
@@ -98,20 +98,20 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 	m_height = layerElement->UnsignedAttribute("height");
 
 	// Parse data
-	int x = 0;
-	int	y = 0;
+	unsigned int x = 0;
+	unsigned int y = 0;
 	auto tile = layerElement->FirstChildElement("data")->FirstChildElement("tile");
 	while(tile != 0)
 	{
 		unsigned int gid = tile->UnsignedAttribute("gid");
 
 		// Read out the flags
-		bool flipped_horizontally = (gid & FLIPPED_HORIZONTALLY_FLAG);
-		bool flipped_vertically = (gid & FLIPPED_VERTICALLY_FLAG);
-		bool flipped_diagonally = (gid & FLIPPED_DIAGONALLY_FLAG); // TODO: implement this
+		bool flipped_horizontally = (gid & FLIPPED_HORIZONTALLY_FLAG) != 0;
+		bool flipped_vertically = (gid & FLIPPED_VERTICALLY_FLAG) != 0;
+		bool flipped_diagonally = (gid & FLIPPED_DIAGONALLY_FLAG) != 0; // TODO: implement this
 
 		// Clear the flags
-		gid &= ~(FLIPPED_HORIZONTALLY_FLAG | FLIPPED_VERTICALLY_FLAG 
+		gid &= ~(FLIPPED_HORIZONTALLY_FLAG | FLIPPED_VERTICALLY_FLAG
 			| FLIPPED_DIAGONALLY_FLAG);
 
 		// Find correct tileset
@@ -127,8 +127,8 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 					y++;
 				}
 
-				const umath::rectangle t(x * tileset->GetTileWidth(), y * tileset->GetTileHeight(),
-					tileset->GetTileWidth(), tileset->GetTileHeight());
+				const umath::rectangle t(static_cast<float>(x * tileset->GetTileWidth()), static_cast<float>(y * tileset->GetTileHeight()),
+					static_cast<float>(tileset->GetTileWidth()), static_cast<float>(tileset->GetTileHeight()));
 
 				auto tile = new Tile(t);
 

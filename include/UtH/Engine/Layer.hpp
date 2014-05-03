@@ -9,7 +9,7 @@
 
 namespace uth
 {
-	class Layer : private Uncopyable 
+	class Layer : private Uncopyable
 	{
 	public:
 		Layer();

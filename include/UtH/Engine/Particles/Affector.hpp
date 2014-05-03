@@ -27,7 +27,7 @@ namespace uth
         void SetUpdateFunc(std::function<void(Particle&, ParticleTemplate&, float)> func);
 
     private:
-        
+     
         std::function<void(Particle&, ParticleTemplate&, float)> m_func;
 
     };

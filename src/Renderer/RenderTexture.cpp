@@ -57,7 +57,7 @@ namespace uth
 
             uth::Graphics::BindRenderBuffer(m_depthBuffer);
             uth::Graphics::SetRenderBufferStorage(
-				static_cast<unsigned int>(size.x), 
+				static_cast<unsigned int>(size.x),
 				static_cast<unsigned int>(size.y));
             uth::Graphics::BindRenderBufferToFrameBuffer(m_frameBuffer, m_depthBuffer);
         }

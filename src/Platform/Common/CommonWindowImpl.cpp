@@ -56,10 +56,10 @@ namespace uth
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minorVer);
 
 			wndwHandle = glfwCreateWindow(
-				(int)settings.size.x, 
-				(int)settings.size.y, 
-				settings.title.c_str(), 
-				settings.fullScreen ? glfwGetPrimaryMonitor() : nullptr, 
+				(int)settings.size.x,
+				(int)settings.size.y,
+				settings.title.c_str(),
+				settings.fullScreen ? glfwGetPrimaryMonitor() : nullptr,
 				nullptr
 				);
 

@@ -16,7 +16,7 @@ namespace uth
 		bool LoadShader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
 		void Use();
 
-		bool setAttributeData(const std::string& name, const int size, DataType type, const int offset, const void* data); 
+		bool setAttributeData(const std::string& name, const int size, DataType type, const int offset, const void* data);
 
 
 
