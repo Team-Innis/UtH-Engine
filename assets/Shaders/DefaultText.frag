@@ -31,7 +31,7 @@
  * policies, either expressed or implied, of Nicolas P. Rougier.
  * ========================================================================= */
  
-//#version 100
+#version 130
 
 #ifdef GL_ES
 precision mediump float;
@@ -49,7 +49,7 @@ void main()
 	vec4 tex = texture2D(unifSampler, texCoord);
 	float a = tex.a;
 #else
-    float a = texture2D(unifSampler, texCoord).r;
+	float a = texture2D(unifSampler, texCoord).r;
 #endif
     gl_FragColor = vec4(textColor.rgb, textColor.a*a);
     //gl_FragColor = vec4(1, 1, 1, 1);
