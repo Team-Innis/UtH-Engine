@@ -30,7 +30,7 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 	FileReader fr;
 
 	// Vertex Shader
-	fr.OpenFile(vertexShaderPath.c_str());
+	fr.OpenFile(vertexShaderPath);
 	const std::string vertex = fr.ReadText();
 	if(!uth::Graphics::CreateShader(VERTEX_SHADER, m_program, vertex.c_str()))
 	{
@@ -40,7 +40,7 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
     fr.CloseFile();
 
 	// Fragment Shader
-	fr.OpenFile(fragmentShaderPath.c_str());
+	fr.OpenFile(fragmentShaderPath);
 	const std::string fragment = fr.ReadText();
 	if(!uth::Graphics::CreateShader(FRAGMENT_SHADER, m_program, fragment.c_str()))
 	{

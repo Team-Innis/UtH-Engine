@@ -22,7 +22,7 @@ Font::~Font()
 bool Font::LoadFromFile(const std::string& filePath)
 {
 	FileReader fr;
-	fr.OpenFile(filePath.c_str());
+	fr.OpenFile(filePath);
 	m_fontData = fr.ReadBinary();
 
 	if(m_fontData.ptr() == nullptr)
