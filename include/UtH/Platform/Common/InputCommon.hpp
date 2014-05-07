@@ -28,8 +28,9 @@ namespace uth
 		
 		void Update();
 		
-		bool operator == (InputEvent Event);
-		bool operator != (InputEvent Event);
+        // Use with uthInput.Common == Event
+		bool operator == (const InputEvent& Event) const;
+		bool operator != (const InputEvent& Event) const;
 	};
 }
 
