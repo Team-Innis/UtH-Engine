@@ -31,7 +31,7 @@
  * policies, either expressed or implied, of Nicolas P. Rougier.
  * ========================================================================= */
  
-#version 100
+//#version 100
 
 uniform mat4 unifModel;
 uniform mat4 unifProjection;

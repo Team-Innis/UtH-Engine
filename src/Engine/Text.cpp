@@ -16,11 +16,11 @@ Text::Text(const std::string& fontPath, const float fontSize, const std::string&
 	: Component(name),
 	  m_fontSize(fontSize)
 {
-#if defined(UTH_SYSTEM_OPENGLES)
-    m_textShader.LoadShader("Shaders/text.vert", "Shaders/esText.frag");
-#else
-	m_textShader.LoadShader("Shaders/text.vert", "Shaders/text.frag");
-#endif
+//#if defined(UTH_SYSTEM_OPENGLES)
+//    m_textShader.LoadShader("Shaders/DefaultText.vert", "Shaders/esText.frag");
+//#else
+	m_textShader.LoadShader("Shaders/DefaultText.vert", "Shaders/DefaultText.frag");
+//#endif
 
 	m_atlas = texture_atlas_new(1024, 1024, 1);
 

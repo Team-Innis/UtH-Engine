@@ -20,7 +20,7 @@ DefaultScene::~DefaultScene()
 bool DefaultScene::Init()
 {
     shader = new Shader();
-    shader->LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
+    shader->LoadShader("Shaders/Default.vert", "Shaders/Default.frag");
     shader->Use();
 
     uthEngine.GetWindow().SetViewport(umath::rectangle(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));

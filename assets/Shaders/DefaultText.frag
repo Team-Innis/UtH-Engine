@@ -31,8 +31,13 @@
  * policies, either expressed or implied, of Nicolas P. Rougier.
  * ========================================================================= */
  
-#version 100
- 
+//#version 100
+
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+
 uniform sampler2D unifSampler;
 
 varying vec2 texCoord;
@@ -40,7 +45,12 @@ varying vec4 textColor;
 
 void main()
 {
+#ifdef GL_ES //(GL_es_profile == 0)
+	vec4 tex = texture2D(unifSampler, texCoord);
+	float a = tex.a;
+#else
     float a = texture2D(unifSampler, texCoord).r;
+#endif
     gl_FragColor = vec4(textColor.rgb, textColor.a*a);
     //gl_FragColor = vec4(1, 1, 1, 1);
     //gl_FragColor = vec4(vec3(tex.r), 1);
