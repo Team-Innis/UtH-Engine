@@ -20,7 +20,7 @@ void CommonInput::Update()
 {
 	TouchInput& Touch = uthInput.Touch;
 
-	switch(Touch[0].Motion())
+	switch(Touch.Motion())
 	{
 	case TouchMotion::NONE:
 		m_event = InputEvent::NONE;
@@ -52,11 +52,11 @@ void CommonInput::Update()
 		case TouchMotion::STATIONARY:
 			m_event = InputEvent::STATIONARY;
 			break;
-		case TouchMotion::TAP:
-			m_event = InputEvent::TAP;
+		case TouchMotion::PINCH_IN:
+			m_event = InputEvent::ZOOM_OUT;
 			break;
-		case TouchMotion::DRAG:
-			m_event = InputEvent::DRAG;
+		case TouchMotion::PINCH_OUT:
+			m_event = InputEvent::ZOOM_IN;
 			break;
 		default:
 			WriteError("Probably undefined behaviour");
@@ -70,12 +70,12 @@ void CommonInput::Update()
 	}
 }
 
-bool CommonInput::operator == (InputEvent Event)
+bool CommonInput::operator == (const InputEvent& Event) const
 {
 	return m_event == Event;
 }
 
-bool CommonInput::operator != (InputEvent Event)
+bool CommonInput::operator != (const InputEvent& Event) const
 {
 	return m_event != Event;
 }
