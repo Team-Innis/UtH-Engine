@@ -14,7 +14,8 @@ using namespace uth;
 
 Text::Text(const std::string& fontPath, const float fontSize, const std::string& name)
 	: Component(name),
-	  m_fontSize(fontSize)
+	  m_fontSize(fontSize),
+	  m_size(0,m_fontSize)
 {
 //#if defined(UTH_SYSTEM_OPENGLES)
 //    m_textShader.LoadShader("Shaders/DefaultText.vert", "Shaders/esText.frag");
@@ -40,7 +41,7 @@ Text::~Text()
 
 void Text::SetText(const std::wstring& text, umath::vector4 color)
 {
-	m_size = umath::vector2();
+	m_size = umath::vector2(0,m_fontSize);
 	m_vertexBuffer.clear();
 	m_lastPos = umath::vector2(0, 0);
 	m_text = std::wstring();
