@@ -169,9 +169,9 @@ namespace uth
 			break;
 		case APP_CMD_INIT_WINDOW:
 			WriteLog("windowINIT");
-			uthEngine.Init(uthAndroidEngine.settings);
 			uthAndroidEngine.initialized = true;
 			uthAndroidEngine.winEveHand(window);
+			uthEngine.Init(uthAndroidEngine.settings);
 			WriteLog("uthAndroidEngine.winEveHand");
 			break;
 		case APP_CMD_TERM_WINDOW:
