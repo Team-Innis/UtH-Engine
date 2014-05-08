@@ -38,8 +38,9 @@ bool DefaultScene::Init()
 
     obj = new GameObject();
     //obj->AddComponent(new Sprite("test.tga"));
-    obj->AddComponent(new Sprite(umath::vector4(1, 1, 1, 1), umath::vector2(100,100)));
+    obj->AddComponent(new Sprite("engineLogo.tga"));
     obj->transform.SetPosition(0, 0);
+	obj->transform.SetScale(0.5f);
 
     WriteLog("GameObjects: %d\n", gameObjects.size());
     WriteLog("Layers: %d\n", layers.size());
@@ -80,6 +81,7 @@ bool DefaultScene::Update(float dt)
 }
 bool DefaultScene::Draw()
 {
+	uthEngine.GetWindow().Clear(0,0,0,1);
     obj->Draw(uthEngine.GetWindow());
 
 
