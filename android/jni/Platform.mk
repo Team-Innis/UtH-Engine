@@ -101,6 +101,7 @@ $(SRC_PATH)Engine/TMX/Map.cpp \
 $(SRC_PATH)Engine/TMX/Tile.cpp \
 $(SRC_PATH)Engine/TMX/TileLayer.cpp \
 $(SRC_PATH)Engine/TMX/Tileset.cpp \
+$(SRC_PATH)Engine/TMX/TileHackBatch.cpp \
 $(SRC_PATH)Engine/AnimatedSprite.cpp
 
 #TinyXML2
