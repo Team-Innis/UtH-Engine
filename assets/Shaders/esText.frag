@@ -31,10 +31,6 @@
  * policies, either expressed or implied, of Nicolas P. Rougier.
  * ========================================================================= */
  
-//#version 100
- 
-precision mediump float;
-
 uniform sampler2D unifSampler;
 
 varying vec2 texCoord;

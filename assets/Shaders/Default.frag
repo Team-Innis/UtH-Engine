@@ -1,16 +1,11 @@
-#version 100
-precision mediump float;
-
 uniform sampler2D unifSampler;
 
 varying vec2 texCoord;
 varying vec4 color;
-varying float enableTexture;
+varying float enableTexture; // 1 if true, 0 if false
 
 void main() 
 {
-	if(enableTexture > 0.0)
-		gl_FragColor = texture2D(unifSampler,texCoord) * color;
-	else
-		gl_FragColor = color;
+	gl_FragColor =	enableTexture * (texture2D(unifSampler,texCoord) * color)
+	+ ((1.0 - enableTexture) * 	color);
 }

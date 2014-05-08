@@ -1,6 +1,7 @@
 #include <UtH/Core/Shader.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/Configuration.hpp>
 #include <UtH/Platform/Debug.hpp>
 
 using namespace uth;
@@ -31,7 +32,13 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 
 	// Vertex Shader
 	fr.OpenFile(vertexShaderPath);
-	const std::string vertex = fr.ReadText();
+
+#if defined(UTH_SYSTEM_OPENGLES)
+	const std::string vertex = "#version 100\n#define UTH_ES\n" + fr.ReadText(); 
+#elif defined(UTH_SYSTEM_OPENGL)
+	const std::string vertex = "#version 100\n" + fr.ReadText();
+#endif
+
 	if(!uth::Graphics::CreateShader(VERTEX_SHADER, m_program, vertex.c_str()))
 	{
 		WriteError("Vertex shader failed");
@@ -41,14 +48,21 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 
 	// Fragment Shader
 	fr.OpenFile(fragmentShaderPath);
-	const std::string fragment = fr.ReadText();
+	
+
+#if defined(UTH_SYSTEM_OPENGLES)
+	const std::string fragment = "#version 100\n#define UTH_ES\nprecision mediump float;\n" + fr.ReadText(); 
+#elif defined(UTH_SYSTEM_OPENGL)
+	const std::string fragment = "#version 100\nprecision mediump float;\n" + fr.ReadText();
+#endif
+
 	if(!uth::Graphics::CreateShader(FRAGMENT_SHADER, m_program, fragment.c_str()))
 	{
 		WriteError("Fragment shader failed");
 		return false;
 	}
     fr.CloseFile();
-
+	
     return uth::Graphics::LinkShaderProgram(m_program);
 }
 
