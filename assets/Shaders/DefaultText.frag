@@ -30,8 +30,12 @@
  * those of the authors and should not be interpreted as representing official
  * policies, either expressed or implied, of Nicolas P. Rougier.
  * ========================================================================= */
- 
-#version 130
+
+#ifdef GL_ES
+#define UTH_ES
+#endif
+
+#version 100
 
 #ifdef GL_ES
 precision mediump float;
@@ -45,7 +49,7 @@ varying vec4 textColor;
 
 void main()
 {
-#ifdef GL_ES //(GL_es_profile == 0)
+#ifdef UTH_ES
 	vec4 tex = texture2D(unifSampler, texCoord);
 	float a = tex.a;
 #else
