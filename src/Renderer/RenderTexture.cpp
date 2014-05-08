@@ -11,7 +11,6 @@ namespace uth
           m_frameBuffer(0),
           m_depthBuffer(0)
     {
-
     }
 
     RenderTexture::~RenderTexture()
@@ -71,6 +70,8 @@ namespace uth
             WriteError("Failed to bind texture to rendertexture");
             return false;
         }
+
+		Clear(0,0,0,0);
 
         return true;
     }
