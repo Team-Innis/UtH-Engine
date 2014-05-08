@@ -31,17 +31,6 @@
  * policies, either expressed or implied, of Nicolas P. Rougier.
  * ========================================================================= */
 
-#ifdef GL_ES
-#define UTH_ES
-#endif
-
-#version 100
-
-#ifdef GL_ES
-precision mediump float;
-#endif
-
-
 uniform sampler2D unifSampler;
 
 varying vec2 texCoord;
