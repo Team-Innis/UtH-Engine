@@ -35,7 +35,8 @@ namespace uth
         void bindArrayBuffer() const;
         void bindElementBuffer() const;
 
-	private:
+	// FIXME: put the private back as soon as spritebatch is fixed
+	//private:
 		void init();
 		void setData() const;
 
