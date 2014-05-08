@@ -30,7 +30,7 @@ bool DefaultScene::Init()
 	logo = new GameObject();
 	Text* text = new Text("kenpixel.ttf",32.f,"logotext");
 	logo->AddComponent(text);
-	text->AddText(L"UtH Engine");
+	text->AddText("UtH Engine");
 
 	logo->transform.SetOrigin(5);
 

@@ -39,7 +39,11 @@ Text::~Text()
 
 // Public
 
-void Text::SetText(const std::wstring& text, umath::vector4 color)
+void Text::SetText(const std::string& text, const umath::vector4 color)
+{
+    SetText(std::wstring(text.begin(),text.end()),color);
+}
+void Text::SetText(const std::wstring& text, const umath::vector4 color)
 {
 	m_size = umath::vector2(0,m_fontSize);
 	m_vertexBuffer.clear();
@@ -49,7 +53,11 @@ void Text::SetText(const std::wstring& text, umath::vector4 color)
 	AddText(text, color);
 }
 
-void Text::AddText(const std::wstring& text, umath::vector4 color)
+void Text::AddText(const std::string& text, const umath::vector4 color)
+{
+    AddText(std::wstring(text.begin(),text.end()),color);
+}
+void Text::AddText(const std::wstring& text, const umath::vector4 color)
 {
 	m_text += text;
 
