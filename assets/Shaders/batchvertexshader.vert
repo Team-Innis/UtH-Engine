@@ -1,4 +1,3 @@
-#version 100
 uniform mat4 unifProjection;
 
 attribute vec3 attrPosition;
