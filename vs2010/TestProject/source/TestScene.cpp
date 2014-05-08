@@ -5,10 +5,6 @@
 #include <UtH/Engine/Text.hpp>
 #include <UtH/Engine/Rigidbody.hpp>
 #include <UtH/Engine/UtHEngine.h>
-#include <UtH/Platform/Input.hpp>
-#include <UtH/Renderer/TextureAtlas.hpp>
-#include <UtH/Core/Randomizer.hpp>
-
 #include <UtH/Platform/Debug.hpp>
 
 using namespace uth;
@@ -28,6 +24,9 @@ bool TestScene::Init()
     uthEngine.GetWindow().SetViewport(umath::rectangle(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
     uthEngine.GetWindow().SetShader(shader);
 
+	test = new GameObject();
+	test->AddComponent(new Sprite(umath::vector4(1,0,0,1),umath::vector2(128,128)));
+
 	return true;
 }
 bool TestScene::DeInit()
@@ -42,5 +41,6 @@ bool TestScene::Update(float dt)
 }
 bool TestScene::Draw()
 {
+	test->Draw(uthEngine.GetWindow());
 	return true;
 }

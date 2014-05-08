@@ -2,14 +2,9 @@
 #ifndef TestScene_H_UTH
 #define TestScene_H_UTH
 
-#include <vector>
 #include <UtH/Engine/Scene.hpp>
-#include <UtH/Renderer/Camera.hpp>
-#include <UtH/Platform/HiResTimer.hpp>
-#include <UtH/Renderer/RenderTexture.hpp>
-#include <UtH/Engine/SpriteBatch.hpp>
-#include <UtH/Engine/Particles/ParticleSystem.hpp>
-#include <UtH/Engine/TMX/Map.hpp>
+#include <UtH/Core/Shader.hpp>
+#include <UtH/Engine/GameObject.hpp>
 
 
 namespace uth
@@ -27,31 +22,8 @@ namespace uth
 		virtual bool Draw();
 	protected:
 		Shader* shader;
-		Camera camera;
 
-		// Particles
-        ParticleSystem pSystem;
-
-		// Render texture
-        RenderTexture rtex;
-        GameObject* rtexSprite;
-
-
-
-		std::vector<GameObject*> gameObjects;
-
-        TextureAtlas atlas;
-        SpriteBatch batch;
-
-		GameObject* go;
-
-        GameObject* obj;
-		
-		TMX::Map* map;
-
-		int number;
-
-		b2Body* groundBody;
+		GameObject *test;
 
 	};
 }
