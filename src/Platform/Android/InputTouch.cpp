@@ -146,6 +146,7 @@ void TouchInput::Update(float deltaTime)
 		{
 			ID[i].m_tapped = false;
 			ID[i].m_motion = TouchMotion::TAP;
+			m_motion = TouchMotion::TAP;
 		}
 	}
 
