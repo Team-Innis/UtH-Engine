@@ -33,9 +33,8 @@ void UTHEngine::Update()
 {
 	const float deltaTime = static_cast<float>(m_timer.DeltaTime());
 	uthInput.Update(deltaTime);
-	uthSceneM.Update(deltaTime);
 	
-	if(m_wndw->processMessages())
+	if(!uthSceneM.Update(deltaTime) || m_wndw->processMessages())
 	{
 		m_running = false;
 	}
