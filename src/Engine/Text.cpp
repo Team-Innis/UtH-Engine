@@ -14,13 +14,14 @@ using namespace uth;
 
 Text::Text(const std::string& fontPath, const float fontSize, const std::string& name)
 	: Component(name),
-	  m_fontSize(fontSize)
+	  m_fontSize(fontSize),
+	  m_size(0,m_fontSize)
 {
-#if defined(UTH_SYSTEM_OPENGLES)
-    m_textShader.LoadShader("Shaders/text.vert", "Shaders/esText.frag");
-#else
-	m_textShader.LoadShader("Shaders/text.vert", "Shaders/text.frag");
-#endif
+//#if defined(UTH_SYSTEM_OPENGLES)
+//    m_textShader.LoadShader("Shaders/DefaultText.vert", "Shaders/esText.frag");
+//#else
+	m_textShader.LoadShader("Shaders/DefaultText.vert", "Shaders/DefaultText.frag");
+//#endif
 
 	m_atlas = texture_atlas_new(1024, 1024, 1);
 
@@ -38,9 +39,13 @@ Text::~Text()
 
 // Public
 
-void Text::SetText(const std::wstring& text, umath::vector4 color)
+void Text::SetText(const std::string& text, const umath::vector4 color)
 {
-	m_size = umath::vector2();
+    SetText(std::wstring(text.begin(),text.end()),color);
+}
+void Text::SetText(const std::wstring& text, const umath::vector4 color)
+{
+	m_size = umath::vector2(0,m_fontSize);
 	m_vertexBuffer.clear();
 	m_lastPos = umath::vector2(0, 0);
 	m_text = std::wstring();
@@ -48,7 +53,11 @@ void Text::SetText(const std::wstring& text, umath::vector4 color)
 	AddText(text, color);
 }
 
-void Text::AddText(const std::wstring& text, umath::vector4 color)
+void Text::AddText(const std::string& text, const umath::vector4 color)
+{
+    AddText(std::wstring(text.begin(),text.end()),color);
+}
+void Text::AddText(const std::wstring& text, const umath::vector4 color)
 {
 	m_text += text;
 

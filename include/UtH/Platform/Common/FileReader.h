@@ -16,10 +16,10 @@ namespace uth
 	{
 	public:
 		FileReader();
-		FileReader(const char* path);
+		FileReader(const std::string& path);
 		~FileReader();
 
-		void OpenFile(const char* path);
+		void OpenFile(const std::string& path);
 		void CloseFile();
 		int GetFileSize();
 

@@ -33,9 +33,9 @@ namespace uth
         void Clear();
 
 
-    private:
-     
-        void draw(RenderTarget& target);
+    protected:
+
+        virtual void draw(RenderTarget& target);
 
 
         std::vector<std::unique_ptr<GameObject>> m_objects;

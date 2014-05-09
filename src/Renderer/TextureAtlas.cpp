@@ -28,7 +28,7 @@ namespace uth
 	bool TextureAtlas::LoadFromFile(const std::string& filePath)
 	{
 		FileReader fr;
-		fr.OpenFile(filePath.c_str());
+		fr.OpenFile(filePath);
 
 		tinyxml2::XMLDocument doc;
 		if (doc.Parse(fr.ReadText().c_str()))

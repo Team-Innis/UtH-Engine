@@ -9,7 +9,7 @@ AAssetManager* FileReader::m_manager = nullptr;
 FileReader::FileReader()
 	: m_asset(nullptr)
 { }
-FileReader::FileReader(const char* path)
+FileReader::FileReader(const std::string& path)
 {
 	OpenFile(path);
 }
@@ -18,9 +18,9 @@ FileReader::~FileReader()
 	CloseFile();
 }
 
-void FileReader::OpenFile(const char* path)
+void FileReader::OpenFile(const std::string& path)
 {
-	m_asset = AAssetManager_open(m_manager, path,2);
+	m_asset = AAssetManager_open(m_manager, path.c_str(),2);
 	m_length = AAsset_getLength(m_asset);
 }
 void FileReader::CloseFile()

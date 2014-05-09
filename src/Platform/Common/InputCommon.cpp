@@ -22,6 +22,7 @@ void CommonInput::Update()
 			m_event = InputEvent::ZOOM_IN;
 		else
 			m_event = InputEvent::ZOOM_OUT;
+
 		m_position = Mouse.Position();
 	}
 	else if(Mouse.IsButtonDown(uth::Mouse::MButton::MS1) ||
@@ -55,12 +56,12 @@ void CommonInput::Update()
 	}
 }
 
-bool CommonInput::operator == (InputEvent Event)
+bool CommonInput::operator == (const InputEvent& Event) const
 {
 	return m_event == Event;
 }
 
-bool CommonInput::operator != (InputEvent Event)
+bool CommonInput::operator != (const InputEvent& Event) const
 {
 	return m_event != Event;
 }

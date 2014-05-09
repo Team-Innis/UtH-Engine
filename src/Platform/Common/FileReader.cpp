@@ -16,8 +16,10 @@ FileReader::FileReader()
 	if(isCompressed)
 		PHYSFS_init(nullptr);
 }
-FileReader::FileReader(const char* path)
+FileReader::FileReader(const std::string& path)
 {
+
+
 	if(isCompressed)
 		PHYSFS_init(nullptr);
 
@@ -30,20 +32,20 @@ FileReader::~FileReader()
 
 
 // Public
-void FileReader::OpenFile(const char* path)
+void FileReader::OpenFile(const std::string& path)
 {
 	//CloseFile();
 
 	if(PHYSFS_isInit())
 	{		
 		PHYSFS_addToSearchPath("assets.uth",1);
-		const int result = PHYSFS_exists(path);
+		const int result = PHYSFS_exists(path.c_str());
 		assert(result);
 
 		if(cFile != nullptr)
 			PHYSFS_close(cFile);
 
-		cFile = PHYSFS_openRead(path);
+		cFile = PHYSFS_openRead(path.c_str());
 		assert(cFile != nullptr);
 	}
 	else

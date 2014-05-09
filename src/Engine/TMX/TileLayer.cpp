@@ -21,7 +21,7 @@ TileLayer::TileLayer(tinyxml2::XMLElement* layerElement, Map* map)
 
 		if(m_spriteBatches.find(t) == m_spriteBatches.end())
 		{
-			auto s = new SpriteBatch();
+			auto s = new TileHackBatch();
 			s->SetTexture(t);
 			m_spriteBatches[t] = s;
 		}

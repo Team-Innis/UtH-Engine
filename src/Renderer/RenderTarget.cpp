@@ -86,7 +86,7 @@ namespace uth
     {
         if (!m_loaded)
         {
-            const bool compiled = m_defaultShader.LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
+            const bool compiled = m_defaultShader.LoadShader("Shaders/Default.vert", "Shaders/Default.frag");
             assert(compiled);
             m_loaded = true;
         }
