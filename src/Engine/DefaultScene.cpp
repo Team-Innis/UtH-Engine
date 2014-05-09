@@ -27,7 +27,7 @@ bool DefaultScene::Init()
     uthEngine.GetWindow().SetShader(shader);
 
     logo = new GameObject();
-    logo->AddComponent(new Sprite("engineLogo.tga"));
+    logo->AddComponent(new Sprite("eLogo.tga"));
     logo->transform.SetPosition(0, 0);
 	logo->transform.SetScale(0.5f);
 
