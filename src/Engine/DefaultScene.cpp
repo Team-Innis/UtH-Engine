@@ -20,69 +20,41 @@ DefaultScene::~DefaultScene()
 bool DefaultScene::Init()
 {
     shader = new Shader();
-    shader->LoadShader("Shaders/vertexshader.vert", "Shaders/fragmentshader.frag");
+    shader->LoadShader("Shaders/Default.vert", "Shaders/Default.frag");
     shader->Use();
 
     uthEngine.GetWindow().SetViewport(umath::rectangle(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
     uthEngine.GetWindow().SetShader(shader);
-    WriteLog("x %f, y %f", uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y);
-    rtex.Initialize(uthEngine.GetWindowResolution() / 2.f, false);
-    rtex.SetCamera(&camera);
-    rtex.SetShader(shader);
-    rtex.SetViewport(umath::rectangle(0, 0, rtex.GetSize().x, rtex.GetSize().y));
 
-    camera.SetSize(uthEngine.GetWindowResolution());
-    camera.SetPosition(0, 0);
+    logo = new GameObject();
+    logo->AddComponent(new Sprite("engineLogo.tga"));
+    logo->transform.SetPosition(0, 0);
+	logo->transform.SetScale(0.5f);
 
-
-
-    obj = new GameObject();
-    //obj->AddComponent(new Sprite("test.tga"));
-    obj->AddComponent(new Sprite("engineLogo.tga"));
-    obj->transform.SetPosition(0, 0);
-	obj->transform.SetScale(0.5f);
-
-    WriteLog("GameObjects: %d\n", gameObjects.size());
-    WriteLog("Layers: %d\n", layers.size());
+	totalTime = 0;
 
     return true;
 }
 bool DefaultScene::DeInit()
 {
-    delete obj;
-	delete shader;
+    delete logo;
 
     return true;
 }
 
 bool DefaultScene::Update(float dt)
 {
-    /*const float offset = 75.f * dt;
-
-    camera.Rotate(-offset);
-    rtexSprite->transform.Rotate(offset);
-
-    for(size_t i = 0; i < layers.size(); i++)
-        layers.at(i)->Update(dt);
-
-
-    const float timeStep = 1.f/60.f;
-    world.Step(timeStep, 8, 3);
-    */
-	if(uthInput.Common == InputEvent::TAP)
+	totalTime += dt;
+	if(totalTime >= 2.0f)
     {
-        /*DeInit();
-        Init();*/
-		WriteLog("Tapped %d\n", uthInput.Common.Event());
         uthSceneM.GoToScene(0);
-    }
-
+	}
     return true;
 }
 bool DefaultScene::Draw()
 {
 	uthEngine.GetWindow().Clear(0,0,0,1);
-    obj->Draw(uthEngine.GetWindow());
+    logo->Draw(uthEngine.GetWindow());
 
 
     return true;
