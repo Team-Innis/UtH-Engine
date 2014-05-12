@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <map>
+#include <string>
 
 // Forward declaration
 namespace tinyxml2

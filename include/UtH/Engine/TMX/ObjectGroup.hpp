@@ -48,7 +48,7 @@ namespace uth
             // Objects by type
             std::map<std::string, ObjectList> m_types;
 
-			std::map<std::string, std::string> m_properties 
+			std::map<std::string, std::string> m_properties;
         };
     }
 }
