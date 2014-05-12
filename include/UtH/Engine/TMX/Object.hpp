@@ -26,7 +26,11 @@ namespace uth
             ~Object();
 
             const umath::rectangle& GetRectangle() const;
+			// Returns the points for polygon and line
             const std::vector<umath::vector2>& GetPoints() const;
+			// Return the position of the object
+			// Is also the start position for line and polygon
+			const umath::vector2 GetPosition() const;
 
             std::string GetProperty(const std::string& name) const;
 
@@ -38,7 +42,7 @@ namespace uth
             void parseProperties(tinyxml2::XMLElement* element);
 
             std::string m_name;
-            std::string m_type;
+            std::string m_typeString;
 
             umath::rectangle m_rectangle;
             std::vector<umath::vector2> m_points;

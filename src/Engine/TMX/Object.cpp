@@ -16,6 +16,39 @@ Object::~Object()
 
 // Public
 
+const umath::rectangle& Object::GetRectangle() const
+{
+	return m_rectangle;
+}
+
+const std::vector<umath::vector2>& Object::GetPoints() const
+{
+	return m_points;
+}
+
+const umath::vector2 Object::GetPosition() const
+{
+	return umath::vector2(m_rectangle.x, m_rectangle.y);
+}
+
+std::string Object::GetProperty(const std::string& name) const
+{
+	auto prop = m_properties.find(name);
+	if(prop != m_properties.end())
+		return prop->second;
+
+	return std::string();
+}
+
+const std::string& Object::GetName() const
+{
+	return m_name;
+}
+
+const std::string& Object::GetType() const
+{
+	return m_typeString;
+}
 
 // Private
 
