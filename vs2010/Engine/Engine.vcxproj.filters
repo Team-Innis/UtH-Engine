@@ -90,6 +90,12 @@
     <ClCompile Include="..\..\src\Engine\TMX\TileHackBatch.cpp">
       <Filter>Source Files\TMX</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\TMX\Object.cpp">
+      <Filter>Source Files\TMX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\TMX\ObjectGroup.cpp">
+      <Filter>Source Files\TMX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Engine\Scene.hpp">
