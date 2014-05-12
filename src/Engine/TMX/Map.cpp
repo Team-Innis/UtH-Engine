@@ -60,6 +60,12 @@ bool Map::LoadFromFile(const std::string& path)
 	}
 
 	// Parse objectgroups
+	auto objectgroup = map->FirstChildElement("objectgroup");
+	while(objectgroup != 0)
+	{
+		objectGroups.push_back(new ObjectGroup(objectgroup));
+		objectgroup = objectgroup->NextSiblingElement("objectgroup");
+	}
 
 	return true;
 }

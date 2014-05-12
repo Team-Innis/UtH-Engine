@@ -2,6 +2,9 @@
 
 #include <tinyxml2.h>
 
+#include <cstdlib>
+#include <sstream>
+
 using namespace uth;
 using namespace TMX;
 
@@ -55,13 +58,46 @@ const std::string& Object::GetType() const
 void Object::parseObject(tinyxml2::XMLElement* element)
 {
     // Parse properties
+	m_name = element->Attribute("name");
+	m_typeString = element->Attribute("type");
+
     auto properties = element->FirstChildElement("properties");
-    if(properties != nullptr)
+    if(properties != 0)
     {
         parseProperties(properties);
     }
 
     // Parse actual object
+	m_rectangle.x = element->FloatAttribute("x");
+	m_rectangle.y = element->FloatAttribute("y");
+
+	// There are only 3 possibilities here but use else if for future compability
+	if(element->UnsignedAttribute("width") != 0)
+	{
+		// Rectangle
+		m_type = RECTANGLE;
+		m_rectangle.width = element->FloatAttribute("width");
+		m_rectangle.height = element->FloatAttribute("height");
+
+		m_points.push_back(umath::vector2(m_rectangle.x, m_rectangle.y));
+		m_points.push_back(umath::vector2(m_rectangle.x, m_rectangle.y));
+		m_points.push_back(umath::vector2(m_rectangle.x, m_rectangle.y));
+		m_points.push_back(umath::vector2(m_rectangle.x, m_rectangle.y));
+	}
+	else if(element->FirstChildElement("polygon") != 0)
+	{
+		// Polygon
+		m_type = POLYGON;
+		std::string points = element->FirstChildElement("polygon")->Attribute("points");
+		parsePoints(points);
+	}
+	else if(element->FirstChildElement("polyline") != 0)
+	{
+		// Line
+		m_type = LINE;
+		std::string points = element->FirstChildElement("polyline")->Attribute("points");
+		parsePoints(points);
+	}
 }
 
 void Object::parseProperties(tinyxml2::XMLElement* element)
@@ -77,4 +113,48 @@ void Object::parseProperties(tinyxml2::XMLElement* element)
 
 		p = p->NextSiblingElement("property");
 	}
+}
+
+void Object::parsePoints(const std::string& points)
+{
+	std::istringstream pointStream(points);
+	std::string point;
+
+	while(std::getline(pointStream, point, ' '))
+	{
+		std::istringstream componentStream(point);
+		std::string x;
+		std::string y;
+		std::getline(componentStream, x, ',');
+		std::getline(componentStream, y);
+		// Looks good, right?
+		m_points.push_back(umath::vector2(
+			static_cast<float>(atoi(x.c_str())),
+			static_cast<float>(atoi(y.c_str()))
+			));
+	}
+
+	// Calculate AABB
+	float left = 0;
+	float right = 0;
+	float top = 0;
+	float bottom = 0;
+	for(auto it = m_points.begin(); it != m_points.end(); ++it)
+	{
+		auto point = (*it);
+		if(point.x < left)
+			left = point.x;
+		else if(point.x > right)
+			right = point.x;
+
+		if(point.y < bottom)
+			bottom = point.y;
+		else if(point.y > top)
+			top = point.y;
+	}
+
+	m_rectangle.x += left;
+	m_rectangle.y += bottom;
+	m_rectangle.width = right - left;
+	m_rectangle.height = top - bottom;
 }

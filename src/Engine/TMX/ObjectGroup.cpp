@@ -50,28 +50,28 @@ void ObjectGroup::parseObjectGroup(tinyxml2::XMLElement* element)
     m_height = element->UnsignedAttribute("height");
 
     auto properties = element->FirstChildElement("properties");
-    if(properties != nullptr)
+    if(properties != 0)
     {
         parseProperties(properties);
     }
 
     // Parse objects
     auto objectElement = element->FirstChildElement("object");
-    while(objectElement != nullptr)
+    while(objectElement != 0)
     {
         auto object = new Object(objectElement);
 
         m_objects[object->GetName()] = object;
         m_types[object->GetType()].push_back(object);
 
-        objectElement->NextSiblingElement("object");
+		objectElement = objectElement->NextSiblingElement("object");
     }
 }
 
 void ObjectGroup::parseProperties(tinyxml2::XMLElement* element)
 {
     auto p = element->FirstChildElement("property");
-	while(p != nullptr)
+	while(p != 0)
 	{
 		std::pair<std::string, std::string> tmp;
 		tmp.first = p->Attribute("name");

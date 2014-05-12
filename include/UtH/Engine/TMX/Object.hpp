@@ -22,6 +22,14 @@ namespace uth
         class Object
         {
         public:
+			enum Type
+			{
+				NONE = 0,
+				RECTANGLE,
+				POLYGON,
+				LINE
+			};
+
             Object(tinyxml2::XMLElement* objectElement);
             ~Object();
 
@@ -40,6 +48,9 @@ namespace uth
         private:
             void parseObject(tinyxml2::XMLElement* element);
             void parseProperties(tinyxml2::XMLElement* element);
+			void parsePoints(const std::string& points);
+
+			Type m_type;
 
             std::string m_name;
             std::string m_typeString;
