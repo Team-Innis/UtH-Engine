@@ -40,6 +40,21 @@ const ObjectGroup::ObjectList* ObjectGroup::GetObjectsByType(const std::string& 
     return nullptr;
 }
 
+const std::string& ObjectGroup::GetName() const
+{
+    return m_name;
+}
+
+unsigned int ObjectGroup::GetWidth() const
+{
+    return m_width;
+}
+
+unsigned int ObjectGroup::GetHeight() const
+{
+    return m_height;
+}
+
 // Private
 
 void ObjectGroup::parseObjectGroup(tinyxml2::XMLElement* element)
