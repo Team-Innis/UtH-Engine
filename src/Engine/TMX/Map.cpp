@@ -102,6 +102,18 @@ TileLayer* Map::GetLayer(const std::string& name)
 	return nullptr;
 }
 
+ObjectGroup* Map::GetObjectGroup(const std::string& name)
+{
+    for (auto it = objectGroups.begin(); it != objectGroups.end(); ++it)
+    {
+        auto objectgroup = (*it);
+        if (objectgroup->GetName() == name)
+            return objectgroup;
+    }
+
+    return nullptr;
+}
+
 
 // Private
 

@@ -30,6 +30,7 @@ namespace uth
 			unsigned int GetTileHeight() const;
 
 			TileLayer* GetLayer(const std::string& name);
+            ObjectGroup* GetObjectGroup(const std::string& name);
 
 			std::vector<Tileset*> tilesets;
 			std::vector<TileLayer*> layers;
