@@ -80,9 +80,9 @@ void Object::parseObject(tinyxml2::XMLElement* element)
 		m_rectangle.height = element->FloatAttribute("height");
 
 		m_points.push_back(umath::vector2(m_rectangle.x, m_rectangle.y));
-		m_points.push_back(umath::vector2(m_rectangle.x, m_rectangle.y));
-		m_points.push_back(umath::vector2(m_rectangle.x, m_rectangle.y));
-		m_points.push_back(umath::vector2(m_rectangle.x, m_rectangle.y));
+		m_points.push_back(umath::vector2(m_rectangle.x, m_rectangle.y-m_rectangle.height));
+		m_points.push_back(umath::vector2(m_rectangle.x+m_rectangle.width, m_rectangle.y-m_rectangle.height));
+		m_points.push_back(umath::vector2(m_rectangle.x+m_rectangle.width, m_rectangle.y));
 	}
 	else if(element->FirstChildElement("polygon") != 0)
 	{
