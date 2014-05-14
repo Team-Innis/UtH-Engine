@@ -70,28 +70,28 @@ void Transform::SetOrigin(const int originPoint)
 	switch (originPoint)
 	{
 	case Origin::Point::BottomLeft:
-		SetOrigin(vector2(size.x * -0.5f,size.y * 0.5f));
+		SetOrigin(vector2(size.x * scale.x * -0.5f,size.y * scale.y * 0.5f));
 		break;
 	case Origin::Point::BottomCenter:
-		SetOrigin(vector2(0.0f,size.y * 0.5f));
+		SetOrigin(vector2(0.0f,size.y * scale.y * 0.5f));
 		break;
 	case Origin::Point::BottomRight:
-		SetOrigin(vector2(size.x * 0.5f,size.y * 0.5f));
+		SetOrigin(vector2(size.x * scale.x * 0.5f,size.y * scale.y * 0.5f));
 		break;
 	case Origin::Point::MidLeft:
-		SetOrigin(vector2(size.x * -0.5f,0.f));
+		SetOrigin(vector2(size.x * scale.x * -0.5f,0.f));
 		break;
 	case Origin::Point::MidRight:
-		SetOrigin(vector2(size.x * 0.5f,0.f));
+		SetOrigin(vector2(size.x * scale.x * 0.5f,0.f));
 		break;
 	case Origin::Point::TopLeft:
-		SetOrigin(vector2(size.x * -0.5f,size.y * -0.5f));
+		SetOrigin(vector2(size.x * scale.x * -0.5f,size.y * scale.y * -0.5f));
 		break;
 	case Origin::Point::TopCenter:
-		SetOrigin(vector2(0.0f,size.y * -0.5f));
+		SetOrigin(vector2(0.0f,size.y * scale.y * -0.5f));
 		break;
 	case Origin::Point::TopRight:
-		SetOrigin(vector2(size.x * 0.5f,size.y * -0.5f));
+		SetOrigin(vector2(size.x * scale.x * 0.5f,size.y * scale.y * -0.5f));
 		break;
 	case Origin::Point::Center:
 	default:
@@ -180,8 +180,8 @@ void Transform::updateTransform()
 	const float sine = std::sin(ang);
 
 	const umath::matrix4 orig(
-		1.0f,   0,      0,      -origin.x/size.x,
-		0,      1.0f,   0,      -origin.y/size.y,
+		1.0f,   0,      0,      -origin.x,
+		0,      1.0f,   0,      -origin.y,
 		0,      0,      1.0f,   0,
 		0,      0,      0,      1.0f
 		);
