@@ -67,6 +67,8 @@
     <ClCompile Include="..\..\src\Engine\Sprite.cpp" />
     <ClCompile Include="..\..\src\Engine\SpriteBatch.cpp" />
     <ClCompile Include="..\..\src\Engine\Text.cpp" />
+    <ClCompile Include="..\..\src\Engine\TMX\Object.cpp" />
+    <ClCompile Include="..\..\src\Engine\TMX\ObjectGroup.cpp" />
     <ClCompile Include="..\..\src\Engine\TMX\TileHackBatch.cpp" />
     <ClCompile Include="..\..\src\Engine\TMX\TileLayer.cpp" />
     <ClCompile Include="..\..\src\Engine\TMX\Map.cpp" />

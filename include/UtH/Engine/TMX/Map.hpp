@@ -7,6 +7,7 @@
 #include <UtH/Engine/TMX/Enums.hpp>
 #include <UtH/Engine/TMX/Tileset.hpp>
 #include <UtH/Engine/TMX/TileLayer.hpp>
+#include <UtH/Engine/TMX/ObjectGroup.hpp>
 
 #include <string>
 #include <vector>
@@ -29,9 +30,11 @@ namespace uth
 			unsigned int GetTileHeight() const;
 
 			TileLayer* GetLayer(const std::string& name);
+            ObjectGroup* GetObjectGroup(const std::string& name);
 
 			std::vector<Tileset*> tilesets;
 			std::vector<TileLayer*> layers;
+			std::vector<ObjectGroup*> objectGroups;
 		private:
 			void draw(RenderTarget& target);
 
