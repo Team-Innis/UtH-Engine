@@ -14,13 +14,13 @@ ParticleSystem::ParticleSystem()
 
 void ParticleSystem::Emit(const unsigned int amount)
 {
-	Particle p;
-	p.transform = this->transform;
-	p.color = m_template.color;
-
 	for (unsigned int i = 0; i < amount; ++i)
 	{
-		m_template.m_pInitFunc(p, m_template);
+        Particle* p = new Particle();
+	    p->transform = this->transform;
+	    p->color = m_template.color;
+
+		m_template.m_pInitFunc(*p, m_template);
 
 		AddParticles(1, p);
 	}
@@ -94,13 +94,13 @@ void ParticleSystem::draw(RenderTarget& target)
 	m_batch.Draw(target);
 }
 
-void ParticleSystem::AddParticles(const unsigned int amount, Particle& particle)
+void ParticleSystem::AddParticles(const unsigned int amount, Particle* particle)
 {
-	particle.lifetime.Reset();
+	particle->lifetime.Reset();
 
 	for (unsigned int i = 0; i < amount; ++i)
 	{
-		m_particles.emplace_back(new Particle(particle));
+		m_particles.emplace_back(particle);
 		m_batch.AddSprite(m_particles.back().get());
 	}
 }

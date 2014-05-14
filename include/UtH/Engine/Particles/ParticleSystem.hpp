@@ -44,7 +44,7 @@ namespace uth
 
     protected:
 
-        void AddParticles(const unsigned int amount, Particle& particle);
+        void AddParticles(const unsigned int amount, Particle* particle);
 
     };
 
