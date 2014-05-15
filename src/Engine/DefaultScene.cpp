@@ -97,24 +97,24 @@ bool DefaultScene::Update(float dt)
 	textU->Draw(uthEngine.GetWindow());
 	textT->Draw(uthEngine.GetWindow());
 
-	const float aStart = 3.0f; // animation start time
-	const float aEnd = aStart + 11;
+	const float aStart = 1.0f; // animation start time
+	const float aEnd = aStart + 6;
 
-	bringLetter(textU,aStart+0,aStart+1,totalTime);
-	bringLetter(textT,aStart+1,aStart+2,totalTime);
-	bringLetter(textH,aStart+2,aStart+3,totalTime);
+	bringLetter(textU,aStart+0,aStart+0.8f,totalTime);
+	bringLetter(textT,aStart+0.5f,aStart+1.3f,totalTime);
+	bringLetter(textH,aStart+1,aStart+1.8f,totalTime);
 
-	if (totalTime > aStart+7)
+	if (totalTime > aStart+4)
 		newestText->SetText("Made with", umath::vector4(1,1,1,1));
-	else if (totalTime > aStart+4)
-		newestText->SetText("Made with", umath::vector4(1,1,1,(totalTime - (aStart+3)) / 3));
+	else if (totalTime > aStart+2)
+		newestText->SetText("Made with", umath::vector4(1,1,1,(totalTime - (aStart+2)) / 2));
 
-	if (totalTime > aEnd-2)
+	if (totalTime > aEnd-1)
 		fadeSprite->SetColor(0,0,0,1);
-	else if (totalTime > aEnd-4)
-		fadeSprite->SetColor(0,0,0,(totalTime - (aEnd-4))/2);
-	else if (totalTime < 2)
-		fadeSprite->SetColor(0,0,0,(2 - totalTime)/2);
+	else if (totalTime > aEnd-3)
+		fadeSprite->SetColor(0,0,0,(totalTime - (aEnd-3))/2);
+	else if (totalTime < 0.5f)
+		fadeSprite->SetColor(0,0,0,(0.5f - totalTime)*2);
 
 
 
