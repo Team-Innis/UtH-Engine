@@ -33,19 +33,6 @@ void GameObject::AddComponent(Component* component)
 	component->Init();
 }
 
-Component* GameObject::GetComponent(const std::string& name)
-{
-	for (size_t i = 0; i < components.size(); ++i)
-	{
-		if (components.at(i)->GetName() == name)
-		{
-			return components.at(i);
-		}
-	}
-
-	return nullptr;
-}
-
 void GameObject::RemoveComponent(Component* component)
 {
 	for(size_t i = 0; i < components.size(); ++i)

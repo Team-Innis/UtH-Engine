@@ -23,7 +23,8 @@ namespace uth
 		const bool IsActive() const;
 
 		void AddComponent(Component* component);
-		Component* GetComponent(const std::string& name);
+        template<typename T>
+        T* GetComponent(const std::string& name);
 		// Will actually delete the component
 		void RemoveComponent(Component* component);
 		void RemoveComponent(const std::string& name);
@@ -45,5 +46,20 @@ namespace uth
 
 		bool m_active;
 	};
+
+
+    template<typename T>
+    T* GameObject::GetComponent(const std::string& name)
+    {
+        for (size_t i = 0; i < components.size(); ++i)
+        {
+            if (components.at(i)->GetName() == name)
+            {
+                return dynamic_cast<T*>(components.at(i));
+            }
+        }
+
+        return nullptr;
+    }
 }
 #endif
