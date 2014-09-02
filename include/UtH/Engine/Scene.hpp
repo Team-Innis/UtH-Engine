@@ -18,7 +18,7 @@ namespace uth
 	public:
 		friend class SceneManager;
 		Scene();
-		~Scene();
+		virtual ~Scene();
 
 		virtual bool Init() = 0;
 		virtual bool DeInit() = 0;
@@ -30,8 +30,8 @@ namespace uth
 		//LAYERS
 		bool CreateLayer(const int layerId);
 		bool CreateLayer(const char* layerName, const int layerId);
-		void SetLayerActive(const char* layerName, bool active);
-		void SetLayerActive(const int layerId, bool active);
+		void SetLayerActive(const char* layerName, bool active = true);
+		void SetLayerActive(const int layerId, bool active = true);
 		bool AddGameObjectToLayer(const char* layerName, GameObject* gameObject);
 		bool AddGameObjectToLayer(int layerId, GameObject* gameObject);
 		bool RemoveGameObjectFromLayer(const char* layerName, GameObject* gameObject);
@@ -46,7 +46,7 @@ namespace uth
 
 	private:
 
-		int createLayerWithAnotherID();
+		int nextAvailableID();
 		void arrangeLayers(); // Sort layers by their ID
 	};
 }

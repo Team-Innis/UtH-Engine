@@ -1,12 +1,11 @@
 #pragma once
-#ifndef DEFAULTSCENE_H_UTH
-#define DEFAULTSCENE_H_UTH
+#ifndef DefaultScene_H_UTH
+#define DefaultScene_H_UTH
 
-#include <vector>
 #include <UtH/Engine/Scene.hpp>
-#include <UtH/Renderer/Camera.hpp>
-#include <UtH/Platform/HiResTimer.hpp>
-#include <UtH/Renderer/RenderTexture.hpp>
+#include <UtH/Engine/GameObject.hpp>
+#include <UtH/Engine/Text.hpp>
+#include <UtH/Engine/Sprite.hpp>
 
 namespace uth
 {
@@ -24,20 +23,19 @@ namespace uth
 		virtual bool Draw();
 	protected:
 		Shader* shader;
-		Camera camera;
+		float totalTime;
 
-		std::vector<GameObject*> gameObjects;
-        RenderTexture rtex;
+		GameObject* logo;
 
-        GameObject* rtexSprite;
+		GameObject* textU;
+		GameObject* textT;
+		GameObject* textH;
+		GameObject* text;
 
-        GameObject* obj;
+		GameObject* fade;
+		Sprite* fadeSprite;
 
-		int number;
-
-		Timer timer;
-
-		b2Body* groundBody;
+		Text* newestText;
 	};
 }
 

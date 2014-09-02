@@ -1,28 +1,30 @@
 #include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/Debug.hpp>
+
 #include <cassert>
-#include <cstdlib>
+#include <cstdlib> // malloc
 #include <string>
-#include <UtH\Platform\Debug.hpp>
 
 using namespace uth;
 
 bool FileReader::isCompressed = false;
-FileReader::FileReader()
-	: file(NULL),
-	  cFile(NULL)
-{
-	if(isCompressed)
-		PHYSFS_init(NULL);
-}
 
-FileReader::FileReader(const char* path)
+FileReader::FileReader()
+	: file(nullptr),
+	cFile(nullptr)
 {
 	if(isCompressed)
-		PHYSFS_init(NULL);
+		PHYSFS_init(nullptr);
+}
+FileReader::FileReader(const std::string& path)
+{
+
+
+	if(isCompressed)
+		PHYSFS_init(nullptr);
 
 	OpenFile(path);
 }
-
 FileReader::~FileReader()
 {
 	CloseFile();
@@ -30,44 +32,43 @@ FileReader::~FileReader()
 
 
 // Public
-void FileReader::OpenFile(const char* path)
+void FileReader::OpenFile(const std::string& path)
 {
-    //CloseFile();
+	//CloseFile();
 
 	if(PHYSFS_isInit())
 	{		
 		PHYSFS_addToSearchPath("assets.uth",1);
-		assert(PHYSFS_exists(path));
+		const int result = PHYSFS_exists(path.c_str());
+		assert(result);
 
-		if(cFile != NULL)
+		if(cFile != nullptr)
 			PHYSFS_close(cFile);
 
-		cFile = PHYSFS_openRead(path);
-		assert(cFile != NULL);
+		cFile = PHYSFS_openRead(path.c_str());
+		assert(cFile != nullptr);
 	}
 	else
 	{
 		std::string temp_path = "assets/";
 		temp_path += path;
 		file = std::fopen(temp_path.c_str(), "rb");
-		assert(file != NULL);
+		assert(file != nullptr);
 	}
 }
-
 void FileReader::CloseFile()
 {
-    if(PHYSFS_isInit())
+	if(PHYSFS_isInit())
 	{
 		PHYSFS_close(cFile);
 		PHYSFS_deinit();
 	}
 	else if (file)
-    {
-		fclose(file);
-        file = NULL;
-    }
+	{
+		std::fclose(file);
+		file = nullptr;
+	}
 }
-
 int FileReader::GetFileSize()
 {
 	int size;
@@ -78,9 +79,9 @@ int FileReader::GetFileSize()
 	}
 	else
 	{
-		fseek(file, 0, SEEK_END);
-		size = ftell(file);
-		fseek(file, 0, SEEK_SET);
+		std::fseek(file, 0, SEEK_END);
+		size = std::ftell(file);
+		std::fseek(file, 0, SEEK_SET);
 	}
 	return size;
 }
@@ -89,7 +90,7 @@ bool FileReader::FileSeek(int offset, int origin)
 {
 	if(PHYSFS_isInit())
 	{
-		if(cFile != NULL)
+		if(cFile != nullptr)
 		{
 			if(origin == 1)
 			{
@@ -102,7 +103,7 @@ bool FileReader::FileSeek(int offset, int origin)
 	}
 	else
 	{
-		if(file != NULL)
+		if(file != nullptr)
 		{
 			if(std::fseek(file, offset, origin) == 0) // Returns 0 on succesful read
 				return true;
@@ -115,7 +116,7 @@ bool FileReader::ReadBytes(void* buffer, unsigned int count, unsigned int blockS
 {
 	if(PHYSFS_isInit())
 	{
-		if(cFile != NULL)
+		if(cFile != nullptr)
 		{
 			if(PHYSFS_read(cFile, buffer, blockSize, count) == count)
 				return true;
@@ -123,34 +124,30 @@ bool FileReader::ReadBytes(void* buffer, unsigned int count, unsigned int blockS
 	}
 	else
 	{
-		if(file != NULL)
+		if(file != nullptr)
 		{
 			if(std::fread(buffer, blockSize, count, file) == count)
-				return true;		
+				return true;
 		}
 	}
 	return false;
 }
 
-void* FileReader::ReadBinary()
+const BINARY_DATA FileReader::ReadBinary()
 {
-	int size = GetFileSize();
-	void* buffer;
-	buffer = malloc(size);
-	if(!ReadBytes(buffer, size))
-		return nullptr;
-	
-	return buffer;
+	BINARY_DATA retVal(GetFileSize());
+	if(!ReadBytes(retVal.ptr(),retVal.size()))
+		return BINARY_DATA();
+	return retVal;
 }
 
-const char* FileReader::ReadText()
+const std::string FileReader::ReadText()
 {
-	
 	int size = GetFileSize();
-	char* buffer = new char[size+1];
+	char* buffer = new char[size];
 	ReadBytes(buffer, size);
 
-	buffer[size] = 0; // Null terminate the string
-
-	return buffer;	
+	std::string str(buffer, size);
+	delete[] buffer;
+	return str;
 }

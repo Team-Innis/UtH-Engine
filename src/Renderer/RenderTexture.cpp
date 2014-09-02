@@ -11,7 +11,6 @@ namespace uth
           m_frameBuffer(0),
           m_depthBuffer(0)
     {
-
     }
 
     RenderTexture::~RenderTexture()
@@ -34,7 +33,7 @@ namespace uth
         }
 
         uth::Graphics::GenerateFrameBuffers(1, &m_frameBuffer);
-        
+
         if (!m_frameBuffer)
         {
             WriteError("Failed to create rendertexture framebuffer");
@@ -56,7 +55,9 @@ namespace uth
             }
 
             uth::Graphics::BindRenderBuffer(m_depthBuffer);
-            uth::Graphics::SetRenderBufferStorage(size.x, size.y);
+            uth::Graphics::SetRenderBufferStorage(
+				static_cast<unsigned int>(size.x),
+				static_cast<unsigned int>(size.y));
             uth::Graphics::BindRenderBufferToFrameBuffer(m_frameBuffer, m_depthBuffer);
         }
 
@@ -69,6 +70,8 @@ namespace uth
             WriteError("Failed to bind texture to rendertexture");
             return false;
         }
+
+		Clear(0,0,0,0);
 
         return true;
     }
@@ -93,6 +96,12 @@ namespace uth
         if (m_frameBuffer)
         {
             uth::Graphics::BindFrameBuffer(m_frameBuffer);
+
+            const umath::rectangle& vp = GetViewport();
+            uth::Graphics::SetViewport(static_cast<int>(vp.x + 0.5f),
+                                       static_cast<int>(vp.y + 0.5f),
+                                       static_cast<int>(vp.width + 0.5f),
+                                       static_cast<int>(vp.height + 0.5f));
             return true;
         }
 

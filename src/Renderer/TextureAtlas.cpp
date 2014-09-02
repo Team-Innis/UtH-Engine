@@ -7,103 +7,87 @@
 
 namespace uth
 {
-    TextureAtlas::TextureAtlas()
-        : m_texture(nullptr)
-    {
+	TextureAtlas::TextureAtlas()
+		: m_texture(nullptr)
+	{
 
-    }
+	}
 
-    TextureAtlas::TextureAtlas(const std::string& filePath)
-        : m_texture(nullptr)
-    {
-        LoadFromFile(filePath);
-    }
+	TextureAtlas::TextureAtlas(const std::string& filePath)
+		: m_texture(nullptr)
+	{
+		LoadFromFile(filePath);
+	}
 
-    TextureAtlas::~TextureAtlas()
-    {
-        
-    }
+	TextureAtlas::~TextureAtlas()
+	{
+
+	}
 
 
-    bool TextureAtlas::LoadFromFile(const std::string& filePath, const bool smooth, const bool repeated)
-    {
-        uthRS.DeleteTexture(filePath);
-        m_texture = &uthRS.LoadTexture(filePath);
+	bool TextureAtlas::LoadFromFile(const std::string& filePath)
+	{
+		FileReader fr;
+		fr.OpenFile(filePath);
 
-        std::string s(filePath);
-        unsigned int extensionStart = s.find_last_of('.') + 1;
+		tinyxml2::XMLDocument doc;
+		if (doc.Parse(fr.ReadText().c_str()))
+			return false;
 
-        s.replace(extensionStart, s.length() - extensionStart, "xml");
+		const tinyxml2::XMLElement* element = doc.FirstChildElement();
+		std::string s(element->FindAttribute("imagePath")->Value());
+		m_texture = &uthRS.LoadTexture(element->FindAttribute("imagePath")->Value());
 
-        FileReader fr;
-        fr.OpenFile(s.c_str());
+		for (const tinyxml2::XMLElement* child = element->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
+		{
+			std::string name(child->FindAttribute("name")->Value());
+			umath::rectangle rect;
 
-        tinyxml2::XMLDocument doc;
-        if (doc.Parse(fr.ReadText()))
-            return false;
+			float x = child->FindAttribute("x")->FloatValue(),
+				y = child->FindAttribute("y")->FloatValue();
 
-        tinyxml2::XMLElement* element = doc.FirstChildElement();
+			rect.x = x / m_texture->GetSize().x;
+			rect.y = y / m_texture->GetSize().y;
+			rect.width = child->FindAttribute("width")->FloatValue() / m_texture->GetSize().x;
+			rect.height = child->FindAttribute("height")->FloatValue() / m_texture->GetSize().y;
 
-        for (const tinyxml2::XMLElement* child = element->FirstChildElement(); child != NULL; child = child->NextSiblingElement())
-        {
-            std::string name(child->FindAttribute("name")->Value());
-            umath::rectangle rect;
+			m_textureRects.insert(std::make_pair(name, rect));
+		}
+		return true;
+	}
 
-            float x = child->FindAttribute("x")->FloatValue(),
-                  y = child->FindAttribute("y")->FloatValue();
+	void TextureAtlas::Bind()
+	{
+		m_texture->Bind();
+	}
 
-            rect.left = x / m_texture->GetSize().w;
-            rect.top = y / m_texture->GetSize().h;
-            rect.width = child->FindAttribute("width")->FloatValue() / m_texture->GetSize().w;
-            rect.height = child->FindAttribute("height")->FloatValue() / m_texture->GetSize().h;
+	unsigned int TextureAtlas::GetTextureID() const
+	{
+		return m_texture->GetTextureID();
+	}
 
-            m_textureRects.insert(std::make_pair(name, rect));
-        }
-        return true;
-    }
+	bool TextureAtlas::SetSmooth(const bool value)
+	{
+		return m_texture->SetSmooth(value);
+	}
 
-    void TextureAtlas::Bind()
-    {
-        m_texture->Bind();
-    }
+	const umath::vector2& TextureAtlas::GetSize() const
+	{
+		return m_texture->GetSize();
+	}
 
-    unsigned int TextureAtlas::GetTextureID() const
-    {
-        return m_texture->GetTextureID();
-    }
+	bool TextureAtlas::IsValid() const
+	{
+		return m_texture->IsValid();
+	}
 
-    bool TextureAtlas::SetSmooth(const bool value)
-    {
-        return m_texture->SetSmooth(value);
-    }
+	bool TextureAtlas::IsSmooth() const
+	{
+		return m_texture->IsSmooth();
+	}
 
-    bool TextureAtlas::SetRepeated(const bool value)
-    {
-        return m_texture->SetRepeated(value);
-    }
-
-    const umath::vector2& TextureAtlas::GetSize() const
-    {
-        return m_texture->GetSize();
-    }
-
-    bool TextureAtlas::IsValid() const
-    {
-        return m_texture->IsValid();
-    }
-
-    bool TextureAtlas::IsSmooth() const
-    {
-        return m_texture->IsSmooth();
-    }
-
-    bool TextureAtlas::IsRepeated() const
-    {
-        return m_texture->IsRepeated();
-    }
-
-    const umath::rectangle& TextureAtlas::getTextureCoords(const char* name) const
-    {
-        return m_textureRects.at(name);
-    }
+	const umath::rectangle& TextureAtlas::getTextureCoords(const char* name) const
+	{
+		return m_textureRects.at(name);
+	}
 }

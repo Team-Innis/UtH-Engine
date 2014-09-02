@@ -15,43 +15,49 @@
  *
  */
 #include <UtH/Platform/OpenGL.hpp>
-#include <UtH/Platform/Debug.hpp>
-
 #include <UtH/Math/Math.hpp>
-
 #include <UtH/Platform/Android/AndroidEngine.hpp>
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/WindowSettings.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Platform/FileReader.h>
-#include <UtH/Engine/GameObject.hpp>
-#include <UtH/Engine/Sprite.hpp>
 #include <UtH/Platform/Debug.hpp>
-#include <UtH/Platform/HiResTimer.hpp>
 #include <UtH/Engine/UtHEngine.h>
+#include <UtH/Platform/Input.hpp>
 
-uth::Shader* shader;
-uth::GameObject gameObject;
+#include <UtH/Engine/DefaultScene.hpp>
+#include "TestScene.hpp"
 
-void init()
+// Enumeration of scenes, giving name for each scene number
+enum SceneName
 {
-	shader = new uth::Shader();
-	if(shader->LoadShader("vertexshader.vert", "fragmentshader.frag"))
-	{
-		shader->Use();
-		WriteLog("Shaders loaded");
-	}
-	else
-		WriteError("Shaders not loaded");
+    DEFAULT = UTHDefaultScene,
+    MENU = 0,
+    GAME = 1,
+    CREDITS,
+    COUNT // Keep this last, it tells how many scenes there are
+};
 
-	gameObject.AddComponent(new uth::Sprite("test.tga"));
-
-	gameObject.transform.SetSize(0.5f, 0.5f);
-	gameObject.transform.SetPosition(-0.5f, -0.5f);
-	WriteLog("GameObject Position: %f, %f", gameObject.transform.GetPosition().x,gameObject.transform.GetPosition().y);
-
-	gameObject.transform.parent->transform.Rotate(45);
+// Create function for a new scene, having a case for every user made scene
+void NewSceneFunc(int SceneID, uth::Scene* &CurScene)
+{
+    switch (SceneID)
+    {
+    case MENU:
+        CurScene = new /*Menu*/uth::TestScene();
+        break;
+    case GAME:
+        CurScene = new /*Game*/uth::TestScene();
+        break;
+    case CREDITS:
+        CurScene = new /*Credits*/uth::TestScene();
+        break;
+    default:
+        CurScene = new /*Menu*/uth::DefaultScene();
+        break;
+    }
 }
+
 
 void handle_cmd(android_app* app, int cmd)
 {
@@ -59,15 +65,9 @@ void handle_cmd(android_app* app, int cmd)
 	((uth::Window*)app->userData)->processMessages();
 }
 
-void update()
-{
-	gameObject.Draw(shader);
-	
-}
-
 void windowEventHandler(void* handle)
 {
-	theHood.SetWindow((uth::Window*)handle);
+	uthEngine.SetWindow((uth::Window*)handle);
 }
 
 void android_main(android_app* state)
@@ -79,10 +79,8 @@ void android_main(android_app* state)
 	uth::Window wndw;
 	uth::FileReader::m_manager = state->activity->assetManager;
 
-
-	//memset(&androidengine, 0, sizeof(androidengine));
-	//state->userData = &androidengine;
 	state->onAppCmd = handle_cmd;
+	state->onInputEvent = uth::TouchInput::DroidMessage;
 
 	uthAndroidEngine.app = state;
 
@@ -90,12 +88,13 @@ void android_main(android_app* state)
 	uthAndroidEngine.settings.contextVersionMajor = 2;
 	uthAndroidEngine.settings.contextVersionMinor = 0;
     uthAndroidEngine.settings.fullScreen = true;
-	
+
 	state->userData = &wndw;
-	//WriteLog("WINDOW");
-	//uthGraphics.setBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 
 	uthAndroidEngine.winEveHand = windowEventHandler;
+
+
+    uthSceneM.registerNewSceneFunc(NewSceneFunc, COUNT);
 
 	while(1)
 	{
@@ -103,10 +102,10 @@ void android_main(android_app* state)
 		int events;
 		android_poll_source* source;
 
-		while ((ident=ALooper_pollAll(0, NULL, &events,(void**)&source)) >= 0)
+		while ((ident=ALooper_pollAll(0, nullptr, &events,(void**)&source)) >= 0)
 		{
 			//Insteads of these two 'if' statement proper exit should be placed
-			if (source != NULL)
+			if (source != nullptr)
 			{
 				source->process(state, source);
 			}
@@ -117,10 +116,10 @@ void android_main(android_app* state)
 			}
 		}
 
-		if(uthAndroidEngine.initialized && uthAndroidEngine.display != NULL)
+		if(uthAndroidEngine.initialized && uthAndroidEngine.display != nullptr)
 		{
-			theHood.Update();
-			theHood.Draw();
+			uthEngine.Update();
+			uthEngine.Draw();
 		}
 	}
 }

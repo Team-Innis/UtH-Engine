@@ -8,23 +8,22 @@ namespace umath
 	{
 	public:
 		vector3();
+		vector3(const vector3& vec3);
 		vector3(float X, float Y, float Z);
 		~vector3();
 
-		float getLenght();
-		
-		union
-		{
-			struct
-			{
-				float x,y,z;
-			};
-			struct
-			{
-				float r,g,b;
-			};
-		};
-			
+		/*
+		Returns length of vector squared (length ^ 2)
+		Needs less computing
+		*/
+		float getLengthSquared() const;
+		/*
+		Returns length of vector
+		*/
+		float getLength() const;
+
+		float x,y,z;
+
 		const float& operator [](const unsigned int& index) const;
 		float& operator [](const unsigned int& index);
 	private:

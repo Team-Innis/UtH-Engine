@@ -1,5 +1,4 @@
 #include <UtH/Resources/ResourceManager.h>
-#include <cstdlib> // malloc etc...
 
 using namespace uth;
 
@@ -11,7 +10,6 @@ ResourceManager::~ResourceManager()
 {
 }
 
-
 SoundBuffer& ResourceManager::LoadWAV(const std::string& filePath)
 {
     auto itr = m_soundBuffers.find(filePath);
@@ -20,7 +18,8 @@ SoundBuffer& ResourceManager::LoadWAV(const std::string& filePath)
         return *itr->second;
 
     SoundBuffer* temp = new SoundBuffer;
-    assert(temp->LoadFromFile(filePath));
+	const bool result = temp->LoadFromFile(filePath);
+    assert(result);
 
     m_soundBuffers[filePath] = std::unique_ptr<SoundBuffer>(temp);
 
@@ -35,7 +34,7 @@ Image& ResourceManager::LoadTGA(const std::string& filePath)
         return *itr->second;
 
     Image* temp = new Image();
-    bool result = temp->LoadFromFile(filePath);
+    const bool result = temp->LoadFromFile(filePath);
 	assert(result);
 
     m_images[filePath] = std::unique_ptr<Image>(temp);
@@ -51,7 +50,7 @@ Texture& ResourceManager::LoadTexture(const std::string& filePath)
         return *itr->second;
 
     Texture* temp = new Texture();
-    bool result = temp->LoadFromFile(filePath);
+    const bool result = temp->LoadFromFile(filePath);
 	assert(result);
 
     m_textures[filePath] = std::unique_ptr<Texture>(temp);
@@ -67,7 +66,7 @@ Font& ResourceManager::LoadFont(const std::string& filePath)
         return *itr->second;
 
     Font* temp = new Font();
-    bool result = temp->LoadFromFile(filePath);
+    const bool result = temp->LoadFromFile(filePath);
 	assert(result);
 
     m_fonts[filePath] = std::unique_ptr<Font>(temp);

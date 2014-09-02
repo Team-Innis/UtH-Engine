@@ -13,7 +13,7 @@ namespace uth
 		~AnimatedSprite();
 
 		AnimatedSprite(Texture* texture, const unsigned int frames,
-			const umath::vector2 frameSize,
+			const umath::vector2& frameSize,
 			const float fps = 5.0f, const unsigned int firstFrame = 0,
 			const bool reversed = false, const bool loop = true);
 		AnimatedSprite(Texture* texture, const unsigned int frames,
@@ -24,7 +24,7 @@ namespace uth
 
 		//AnimatedSprite(const std::string filePath);
 
-		void ChangeAnimation(int loopStartFrame, int loopFrames, 
+		void ChangeAnimation(int loopStartFrame, int loopFrames,
 			int startFrame = 0, float fps = 5.0f, bool loop = true, bool reversed = false);
 
 		void Init();

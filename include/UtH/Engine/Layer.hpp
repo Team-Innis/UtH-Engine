@@ -2,13 +2,14 @@
 #ifndef LAYER_H_UTH
 #define LAYER_H_UTH
 
+#include <UtH/Platform/Uncopyable.hpp>
 #include <UtH/Engine/GameObject.hpp>
 
 #include <vector>
 
 namespace uth
 {
-	class Layer
+	class Layer : private Uncopyable
 	{
 	public:
 		Layer();

@@ -42,15 +42,15 @@ void Rigidbody::Init()
 	init();
 }
 
-void Rigidbody::Update(float dt)
+void Rigidbody::Update(float)
 {
-		float angDegrees = GetAngle();
-		parent->transform.SetRotation(angDegrees);
+	const float angDegrees = GetAngle();
+	parent->transform.SetRotation(angDegrees);
 
-		b2Vec2 pos = m_body->GetPosition();
-		umath::vector2 tpos(pos.x, pos.y);
-		tpos *= PIXELS_PER_METER;
-		parent->transform.SetPosition(tpos);
+	b2Vec2 pos = m_body->GetPosition();
+	umath::vector2 tpos(pos.x, pos.y);
+	tpos *= PIXELS_PER_METER;
+	parent->transform.SetPosition(tpos);
 }
 
 
@@ -107,7 +107,7 @@ void Rigidbody::SetUnitSize(const umath::vector2& size)
 
 	if(m_body->GetFixtureList()->GetType() != b2Shape::e_polygon)
 	{
-		WriteLog("WARNING: Calling SetSize(vec2 size) on a ball. Size not updated\n");
+		WriteWarning("Calling SetSize(vec2 size) on a ball. Size not updated");
 		return;
 	}
 
@@ -115,7 +115,7 @@ void Rigidbody::SetUnitSize(const umath::vector2& size)
 	m_body->DestroyFixture(m_body->GetFixtureList());
 
 	//WriteLog("x: %f,y: %f\n", size.x, size.y);
-	
+
 	b2PolygonShape box;
 	box.SetAsBox(size.x, size.y);
 	m_fixtureDef.shape = &box;
@@ -134,16 +134,13 @@ void Rigidbody::SetUnitSize(const float radius)
 
 	if(m_fixtureDef.shape->GetType() != b2Shape::e_circle)
 	{
-		WriteLog("WARNING: Calling SetSize(float radius) on a box. Size not updated\n");
+		WriteWarning("Calling SetSize(float radius) on a box. Size not updated");
 		return;
 	}
 
 	// Remove original fixture
 	m_body->DestroyFixture(m_body->GetFixtureList());
 
-
-	float curAng = m_body->GetAngle();
-	
 	b2CircleShape circle;
 	circle.m_radius = radius;
 	m_fixtureDef.shape = &circle;
@@ -181,9 +178,35 @@ void Rigidbody::SetAngle(const float angle)
 	m_body->SetTransform(m_body->GetPosition(), ang);
 }
 
-const float Rigidbody::GetAngle()
+float Rigidbody::GetAngle() const
 {
 	return -m_body->GetAngle() * 180.f / PI;
+}
+
+void Rigidbody::SetFixedRotation(bool value)
+{
+	m_body->SetFixedRotation(value);
+}
+
+void Rigidbody::SetDensity(float density)
+{
+	m_body->GetFixtureList()->SetDensity(density);
+	m_body->ResetMassData();
+}
+
+float Rigidbody::GetDensity() const
+{
+	return m_body->GetFixtureList()->GetDensity();
+}
+
+void Rigidbody::SetFriction(float friction)
+{
+	m_body->GetFixtureList()->SetFriction(friction);
+}
+
+float Rigidbody::GetFriction() const
+{
+	return m_body->GetFixtureList()->GetFriction();
 }
 
 void Rigidbody::SetActive(bool value)
@@ -224,8 +247,8 @@ void Rigidbody::init()
 	bodyDef.position.Set(pos.x, pos.y);
 
 	m_body = m_world->CreateBody(&bodyDef);
-	
-	if(!(m_size.getLenght() > 0))
+
+	if(!(m_size.getLengthSquared() > 0))
 		m_size = parent->transform.size;
 
 
@@ -272,4 +295,3 @@ umath::vector2 box2DToUmath(const b2Vec2& vec)
 {
 	return umath::vector2(vec.x, vec.y);
 }
-

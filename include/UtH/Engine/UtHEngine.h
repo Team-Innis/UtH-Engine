@@ -7,6 +7,8 @@
 
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/HiResTimer.hpp>
+#include <UtH/Resources/ResourceManager.h>
+#include <UtH/Engine/SceneManager.hpp>
 
 #define uthEngine uth::UTHEngine::getInstance()
 
@@ -32,10 +34,11 @@ namespace uth
 		void Draw();
 
         Window& GetWindow();
+		void SetWindow(void* handle);
 	
 		const umath::vector2 GetWindowResolution() const;
 		const bool Running() const;
-		const Timer Timer() const;
+		const Timer timer() const;
 	};
 }
 

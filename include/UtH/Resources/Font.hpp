@@ -3,23 +3,15 @@
 #define FONT_H_UTH
 
 #include <string>
+#include <UtH/Platform/BinaryData.hpp>
 
 namespace uth
 {
 	class Font
 	{
 	private:
-		struct FontStruct
-        {
-            void* fontData;
-			int dataSize;
+		BINARY_DATA m_fontData;
 
-            ~FontStruct()
-            {
-                delete fontData;
-            }
-
-        } m_fontData;
 
 	public:
 		Font();
@@ -28,7 +20,7 @@ namespace uth
 
 		bool LoadFromFile(const std::string& filePath);
 
-		const FontStruct& GetFontData() const;
+		const BINARY_DATA& GetFontData() const;
 	};
 }
 

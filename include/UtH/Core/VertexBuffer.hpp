@@ -35,11 +35,15 @@ namespace uth
         void bindArrayBuffer() const;
         void bindElementBuffer() const;
 
-	private:
+	// FIXME: put the private back as soon as spritebatch is fixed
+	//private:
 		void init();
 		void setData() const;
 
         std::vector<Vertex> m_vertexData;
+
+        mutable bool m_arrayBufferNeedsUpdate,
+                     m_elementBufferNeedsUpdate;
 
 		unsigned int m_arrayBuffer;
 		unsigned int m_elementBuffer;

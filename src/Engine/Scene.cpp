@@ -26,12 +26,12 @@ Scene::~Scene()
 
 bool Scene::CreateLayer(const int layerId)
 {
-	for(int i = 0; i < layers.size(); i++)
+	for(size_t i = 0; i < layers.size(); i++)
 	{
 		if(layerId == layers.at(i)->GetLayerId())
 		{
 			WriteError("Layer with id#%d exists already.\nProceeding to create new LayerID", layerId);
-			CreateLayer(createLayerWithAnotherID());
+			CreateLayer(nextAvailableID());
 			return true;
 		}
 	}
@@ -48,20 +48,20 @@ bool Scene::CreateLayer(const int layerId)
 
 bool Scene::CreateLayer(const char* layerName, const int layerId)
 {
-	for(int i = 0; i < layers.size(); i++)
+	for(size_t i = 0; i < layers.size(); i++)
 	{
 		if(layerId == layers.at(i)->GetLayerId())
 		{
 			WriteError("Layer with ID#%d exists already.\nProceeding to create new layerID", layerId);
-			CreateLayer(layerName, createLayerWithAnotherID());
+			CreateLayer(layerName, nextAvailableID());
 			return true;
 		}
 		if(layerName == layers.at(i)->GetLayerName())
 		{
-			WriteLog("\n*******WARNING*******\n"
+			WriteWarning(
 				"Layer with name '%s' already exists.\n"
-				"Use layer ID(%d) to remove gameobjects.\n"
-				"*********************\n\n", layerName, layerId);
+				"Use layer ID(%d) to remove gameobjects."
+				, layerName, layerId);
 		}
 	}
 
@@ -156,13 +156,21 @@ bool Scene::RemoveGameObjectFromLayer(int layerId, GameObject* gameObject)
 
 // Private
 
-int Scene::createLayerWithAnotherID()
+int Scene::nextAvailableID()
 {
-	bool newID = true;
+	size_t retVal;
+	for(retVal = 0; retVal < layers.size(); ++retVal)
+	{
+		if (layers.at(retVal)->GetLayerId() != retVal)
+			break;
+	}
+	return retVal;
 
+
+	bool newID = true;
 	for(int i = 0; i < 9; i++)
 	{
-		for(int j = 0; j < layers.size(); j++)
+		for(size_t j = 0; j < layers.size(); j++)
 		{
 			if(layers.at(j)->GetLayerId() == i)
 				newID = false;

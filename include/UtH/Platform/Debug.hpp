@@ -17,54 +17,78 @@
 	#ifndef LOG_TAG
 		#define LOG_TAG	"uth-engine"
 	#endif
-	#ifndef LOGI
-		#define LOGI(...)	__android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
-	#endif
-	#ifndef LOGE
-		#define LOGE(...)	__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
-	#endif
-	static void WriteError(const char* text, ...)
+	//#ifndef LOGI
+	//	#define LOGI(...)	__android_log_print(ANDROID_LOG_INFO, LOG_TAG, __VA_ARGS__)
+	//#endif
+	//#ifndef LOGE
+	//	#define LOGE(...)	__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
+	//#endif
+	static inline void WriteError(const char* text, ...)
 	{
 		va_list v;
 		va_start(v, text);
-		LOGE(text, v);
+		__android_log_vprint(ANDROID_LOG_ERROR, LOG_TAG, text, v);
 		va_end(v);
 	}
-	static void WriteLog(const char* text, ...)
+	static inline void WriteWarning(const char* text, ...)
 	{
 		va_list v;
 		va_start(v, text);
-		LOGI(text, v);
+		__android_log_vprint(ANDROID_LOG_WARN, LOG_TAG, text, v);
+		va_end(v);
+	}
+	static inline void WriteLog(const char* text, ...)
+	{
+		va_list v;
+		va_start(v, text);
+		__android_log_vprint(ANDROID_LOG_INFO, LOG_TAG, text, v);
 		va_end(v);
 	}
 
-	static void CheckEGLError()
+	static inline void CheckEGLError()
 	{
 		EGLint error = eglGetError();
 		if(error != EGL_SUCCESS)
 		{
-			WriteLog("EGL Function Failed: %d\n", error);
+			WriteWarning("EGL Function Failed: %d\n", error);
 		}
 	}
 #elif defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX)
 	static void WriteError(const char* text, ...)
 	{
-		va_list v;
-		va_start(v, text);
 		printf(	
 				"\n********ERROR********"
 				"\n");
+
+		va_list v;
+		va_start(v, text);
 		vprintf(text, v);
 		va_end(v);
+
 		printf(
 				"\n*********************"
 				"\n\n");
 
 		//assert(false);  //GL_INVALID_ENUM would crash
 	}
+	static void WriteWarning(const char* text, ...)
+	{
+		printf(	
+				"\n-------WARNING-------"
+				"\n");
+
+		va_list v;
+		va_start(v, text);
+		vprintf(text, v);
+		va_end(v);
+
+		printf(
+				"\n---------------------"
+				"\n\n");
+	}
 	static void WriteLog(const char* text, ...)
 	{
-	#ifdef _DEBUG
+	#ifndef NDEBUG
 		va_list v;
 		va_start(v, text);
 		vprintf(text, v);
@@ -91,12 +115,9 @@ static inline void CheckGLError(const char* op)
 
 static inline void CheckALError(const char* op)
 {
-	
-	for(ALCenum error = alGetError(); error != AL_NO_ERROR; error = alGetError())
+	for(ALCenum error = alGetError(); error != ALC_NO_ERROR; error = alGetError())
 	{
-		WriteError("after %s() glError (0x%x)", op, error);
+		WriteError("after %s() alError (0x%x)", op, error);
 	}
-	
-	WriteError("after %s() glError (0x%x)", op);
 }
 #endif

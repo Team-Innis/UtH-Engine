@@ -5,6 +5,8 @@
 using namespace uth;
 
 VertexBuffer::VertexBuffer()
+    : m_arrayBufferNeedsUpdate(false),
+      m_elementBufferNeedsUpdate(false)
 {
 	init();
 }
@@ -22,16 +24,22 @@ VertexBuffer::~VertexBuffer()
 void VertexBuffer::addVertex(const Vertex& vertex)
 {
 	m_vertexData.push_back(vertex);
+
+    m_arrayBufferNeedsUpdate = true;
 }
 
 void VertexBuffer::addVertices(const std::vector<Vertex>& vertices)
 {
 	m_vertexData.insert(m_vertexData.end(), vertices.begin(), vertices.end());
+
+    m_arrayBufferNeedsUpdate = true;
 }
 
 void VertexBuffer::addIndex(const unsigned short index)
 {
 	m_indices.push_back(index);
+
+    m_elementBufferNeedsUpdate = true;
 }
 
 void VertexBuffer::addIndices(const std::vector<unsigned short>& indices)
@@ -49,6 +57,8 @@ void VertexBuffer::addIndices(const std::vector<unsigned short>& indices)
 	}
 
 	m_indices.insert(m_indices.end(), input.begin(), input.end());
+
+    m_elementBufferNeedsUpdate = true;
 }
 
 const std::vector<Vertex>& VertexBuffer::getVertices() const
@@ -64,9 +74,15 @@ const std::vector<unsigned short>& VertexBuffer::getIndices() const
 void VertexBuffer::clear(const bool arrayBuffer, const bool elementBuffer)
 {
     if (arrayBuffer)
+    {
 	    m_vertexData.clear();
+        m_arrayBufferNeedsUpdate = true;
+    }
     if (elementBuffer)
-	    m_indices.clear();	
+    {
+	    m_indices.clear();
+        m_elementBufferNeedsUpdate = true;
+    }
 }
 
 void VertexBuffer::bindArrayBuffer() const
@@ -93,13 +109,21 @@ void VertexBuffer::init()
 
 void VertexBuffer::setData() const
 {
-	UsageType drawMode = STATIC_DRAW;
+	UsageType drawMode = DYNAMIC_DRAW;
 
-    uth::Graphics::BindBuffer(ARRAY_BUFFER, m_arrayBuffer);
-	uth::Graphics::SetBufferData(ARRAY_BUFFER, m_vertexData.size()*sizeof(Vertex),
+    if (m_arrayBufferNeedsUpdate)
+    {
+        uth::Graphics::BindBuffer(ARRAY_BUFFER, m_arrayBuffer);
+	    uth::Graphics::SetBufferData(ARRAY_BUFFER, m_vertexData.size()*sizeof(Vertex),
 		&m_vertexData.front(), drawMode);
+        m_arrayBufferNeedsUpdate = false;
+    }
 
-	uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
-	uth::Graphics::SetBufferData(ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(unsigned short),
+    if (m_elementBufferNeedsUpdate)
+    {
+	    uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
+	    uth::Graphics::SetBufferData(ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(unsigned short),
 		&m_indices.front(), drawMode);
+        m_elementBufferNeedsUpdate = false;
+    }
 }

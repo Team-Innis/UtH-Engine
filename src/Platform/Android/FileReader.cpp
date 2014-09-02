@@ -1,30 +1,32 @@
 #include <UtH/Platform/FileReader.h>
 #include <cstdlib> //malloc
+#include <UtH/Platform/Debug.hpp>
 
 using namespace uth;
 
-AAssetManager* FileReader::m_manager = NULL;
+AAssetManager* FileReader::m_manager = nullptr;
 
 FileReader::FileReader()
-	: m_asset(NULL)
+	: m_asset(nullptr)
 { }
-
-FileReader::FileReader(const char* path)
+FileReader::FileReader(const std::string& path)
 {
 	OpenFile(path);
 }
-
 FileReader::~FileReader()
 {
-	AAsset_close(m_asset);
+	CloseFile();
 }
 
-void FileReader::OpenFile(const char* path)
+void FileReader::OpenFile(const std::string& path)
 {
-	m_asset = AAssetManager_open(m_manager, path,2);
+	m_asset = AAssetManager_open(m_manager, path.c_str(),2);
 	m_length = AAsset_getLength(m_asset);
 }
-
+void FileReader::CloseFile()
+{
+	//AAsset_close(m_asset);
+}
 int FileReader::GetFileSize()
 {
 	return m_length;
@@ -32,7 +34,7 @@ int FileReader::GetFileSize()
 
 bool FileReader::FileSeek(int offset, int origin)
 {
-	if(AAsset_seek(m_asset, offset, origin) != 1)
+	if(AAsset_seek(m_asset, offset, origin) != -1)
 		return true;
 	return false;
 }
@@ -44,25 +46,22 @@ bool FileReader::ReadBytes(void* buffer, unsigned int count, unsigned int blockS
 	return false;
 }
 
-
-void* FileReader::ReadBinary()
+const BINARY_DATA FileReader::ReadBinary()
 {
-	int size = GetFileSize();
-	void* buffer;
-	buffer = malloc(size);
-
-	ReadBytes(buffer, size);
-	
-	return buffer;
+	BINARY_DATA retVal(GetFileSize());
+	if(!ReadBytes(retVal.ptr(),retVal.size()))
+		return BINARY_DATA();
+	return retVal;
 }
 
-const char* FileReader::ReadText()
+const std::string FileReader::ReadText()
 {
 	int size = GetFileSize();
 	char* buffer = new char[size];
 	ReadBytes(buffer, size);
 
-	buffer[size] = 0; // Null terminate the string
-
-	return buffer;
+	std::string str(buffer, size);
+	delete[] buffer;
+	return str;
 }
+

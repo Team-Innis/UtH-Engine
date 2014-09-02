@@ -1,9 +1,10 @@
-#include <UtH/Audio/Sound.h>
+#include <UtH/Audio/Sound.hpp>
 #include <UtH/Platform/Typedefs.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Resources/ResourceManager.h>
 
 using namespace uth;
+
 
 Sound::Sound()
 {
@@ -22,9 +23,8 @@ Sound::~Sound()
 
 Sound::Sound(const char* fileName)
 	: loop(false),
-	  _posX(0), _posY(0), _posZ(0),
-	  duration(0.1f)
-
+	  duration(0.1f),
+	  _posX(0), _posY(0), _posZ(0)
 {
 	Initialize(fileName);
 }
@@ -155,23 +155,23 @@ void Sound::Initialize(const char* fileName)
 	// Create buffer
 	alGenBuffers(1, &buffer);
 	CheckALError("alGenBuffers");
-
+	
 	const SoundBuffer& buf = uthRS.LoadWAV(fileName);
 
     if(buf.GetSoundInfo().channels == 2)
 	{
 		if(buf.GetSoundInfo().bitsPerSample == 16)
 		{
-			alBufferData(buffer, AL_FORMAT_STEREO16, 
-				buf.GetSoundInfo().soundBuffer, 
-				buf.GetSoundInfo().frames * sizeof(int), 
+			alBufferData(buffer, AL_FORMAT_STEREO16,
+				buf.GetSoundInfo().soundBuffer,
+				buf.GetSoundInfo().frames * sizeof(int),
 				buf.GetSoundInfo().sampleRate);
 		}
 		else if(buf.GetSoundInfo().bitsPerSample == 8)
 		{
-			alBufferData(buffer, AL_FORMAT_STEREO8, 
-				buf.GetSoundInfo().soundBuffer, 
-				buf.GetSoundInfo().frames * sizeof(int), 
+			alBufferData(buffer, AL_FORMAT_STEREO8,
+				buf.GetSoundInfo().soundBuffer,
+				buf.GetSoundInfo().frames * sizeof(short),
 				buf.GetSoundInfo().sampleRate);
 		}
 	}
@@ -179,16 +179,16 @@ void Sound::Initialize(const char* fileName)
 	{
 		if(buf.GetSoundInfo().bitsPerSample == 16)
 		{
-			alBufferData(buffer, AL_FORMAT_MONO16, 
-				buf.GetSoundInfo().soundBuffer, 
-				buf.GetSoundInfo().frames * sizeof(int), 
+			alBufferData(buffer, AL_FORMAT_MONO16,
+				buf.GetSoundInfo().soundBuffer,
+				buf.GetSoundInfo().frames * sizeof(short),
 				buf.GetSoundInfo().sampleRate);
 		}
 		else if(buf.GetSoundInfo().bitsPerSample == 8)
 		{
-			alBufferData(buffer, AL_FORMAT_MONO8, 
-				buf.GetSoundInfo().soundBuffer, 
-				buf.GetSoundInfo().frames * sizeof(int), 
+			alBufferData(buffer, AL_FORMAT_MONO8,
+				buf.GetSoundInfo().soundBuffer,
+				buf.GetSoundInfo().frames * sizeof(short),
 				buf.GetSoundInfo().sampleRate);
 		}
 	}

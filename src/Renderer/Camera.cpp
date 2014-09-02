@@ -8,7 +8,6 @@ namespace uth
     Camera::Camera()
         : m_size(),
           m_zoom(1.f),
-          m_viewport(),
           m_viewMatrix(),
           m_transformNeedsUpdate(true)
     {
@@ -18,7 +17,6 @@ namespace uth
     Camera::Camera(const umath::vector2& position, const umath::vector2& size)
         : m_size(size),
           m_zoom(1.f),
-          m_viewport(),
           m_viewMatrix(),
           m_transformNeedsUpdate(true)
     {
@@ -87,13 +85,6 @@ namespace uth
         return *this;
     }
 
-    Camera& Camera::SetViewport(const umath::rectangle& rect)
-    {
-        m_viewport = rect;
-
-        return *this;
-    }
-
     Camera& Camera::Scroll(const umath::vector2& offset)
     {
         transform.Move(offset);
@@ -134,11 +125,6 @@ namespace uth
     float Camera::GetRotation() const
     {
         return transform.GetRotation();
-    }
-
-    const umath::rectangle& Camera::GetViewport() const
-    {
-        return m_viewport;
     }
 
     const umath::matrix4& Camera::GetProjectionTransform() const

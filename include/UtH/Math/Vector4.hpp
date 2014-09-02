@@ -10,29 +10,27 @@ namespace umath
 	{
 	public:
 		vector4();
+		vector4(const vector4& vec4);
 		vector4(const vector3& Vec3, const float W);
 		vector4(const float X, const float Y, const float Z, const float W);
 		~vector4();
+		
+		/*
+		Returns length of vector squared (length ^ 2)
+		Needs less computing
+		*/
+		float getLengthSquared() const;
+		/*
+		Returns length of vector
+		*/
+		float getLength() const;
 
-		float getLenght();
-
-		union
-		{
-			struct
-			{
-				float x,y,z,w;
-			};
-			struct
-			{
-				float r,g,b,a;
-			};
-		};
+		float x,y,z,w;
 
 		const float& operator [](const unsigned int& index) const;
 		float& operator [](const unsigned int& index);
 	private:
 	};
-	
 
 	vector4 operator -(const vector4& RightVal);
 

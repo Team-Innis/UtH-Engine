@@ -5,6 +5,8 @@
 using namespace uth;
 
 GameObject::GameObject()
+	: m_active(true),
+	parent(nullptr)
 {
 	transform.parent = this;
 }
@@ -29,19 +31,6 @@ void GameObject::AddComponent(Component* component)
 	components.push_back(component);
 	component->parent = this;
 	component->Init();
-}
-
-Component* GameObject::GetComponent(const std::string& name)
-{
-	for (size_t i = 0; i < components.size(); ++i)
-	{
-		if (components.at(i)->GetName() == name)
-		{
-			return components.at(i);
-		}
-	}
-
-	return nullptr;
 }
 
 void GameObject::RemoveComponent(Component* component)
@@ -71,7 +60,7 @@ void GameObject::RemoveComponent(const std::string& name)
 void GameObject::RemoveComponents()
 {
 	for(size_t i = 0; i < components.size(); ++i)
-			delete components.at(i);
+		delete components.at(i);
 
 	components.clear();
 }
@@ -81,18 +70,14 @@ void GameObject::Draw(RenderTarget& target)
 	if(!m_active)
 		return;
 
-    target.Bind();
+	target.Bind();
 
-    Shader& shader = target.GetShader();
+	draw(target);
 
-    shader.Use();
-	shader.SetUniform("unifModel", transform.GetTransform());
-    shader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
-
-	for (auto i = components.begin(); i != components.end(); ++i)
+	for (auto it = components.begin(); it != components.end(); ++it)
 	{
-		shader.Use();
-		auto component = (*i);
+		target.GetShader().Use();
+		auto component = (*it);
 		if (component->IsActive())
 			component->Draw(target);
 	}
@@ -103,10 +88,21 @@ void GameObject::Update(float dt)
 	if(!m_active)
 		return;
 
+	update(dt);
+
 	for (auto i = components.begin(); i != components.end(); ++i)
 	{
 		auto component = (*i);
 		if (component->IsActive())
 			component->Update(dt);
 	}
+}
+
+void GameObject::draw(RenderTarget& target)
+{
+	Shader& shader = target.GetShader();
+
+	shader.Use();
+	shader.SetUniform("unifModel", transform.GetTransform());
+	shader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
 }

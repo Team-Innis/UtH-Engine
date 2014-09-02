@@ -159,7 +159,7 @@ android/libs/
 
 #Assets
 android/assets/
-vs2010/TestProject/assets/
+vs*/TestProject/assets/
 
 # Eclipse crap
 .classpath

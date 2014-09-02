@@ -5,10 +5,13 @@
 namespace umath
 {
 	vector4::vector4()
-			: x(0), y(0),z(0),w(0)
+		: x(0), y(0),z(0),w(0)
+	{}
+	vector4::vector4(const vector4& vec4)
+		: x(vec4.x), y(vec4.y), z(vec4.z), w(vec4.w)
 	{}
 	vector4::vector4(const vector3& Vec3, const float W)
-		: 
+		:
 		x(Vec3[0]),
 		y(Vec3[1]),
 		z(Vec3[2]),
@@ -19,14 +22,15 @@ namespace umath
 	{}
 	vector4::~vector4(){}
 
-	float vector4::getLenght()
+	float vector4::getLengthSquared() const
 	{	
-		return sqrt(pow(x,2) + pow(y,2) + pow(z,2) + pow(w,2));
+		return pow(x,2) + pow(y,2) + pow(z,2) + pow(w,2);
+	}
+	float vector4::getLength() const
+	{	
+		return sqrt(getLengthSquared());
 	}
 
-	// Public
-	// Operators
-	
 	const float& vector4::operator [](const unsigned int& index) const
 	{
 		return (&x)[index];

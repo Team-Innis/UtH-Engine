@@ -24,12 +24,17 @@ include $(PREBUILT_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE    := uthengine
-LOCAL_SRC_FILES := main.cpp
+LOCAL_SRC_FILES := main.cpp \
+../../vs2010/TestProject/source/TestScene.cpp
 LOCAL_LDLIBS    := -llog -landroid -lEGL -lGLESv2 -lOpenSLES
 LOCAL_STATIC_LIBRARIES := android_native_app_glue engine
-LOCAL_SHARED_LIBRARIES := 
+LOCAL_SHARED_LIBRARIES :=
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../vs2010/TestProject/include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/openal/include/
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/Box2D/include/
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/freetype/include/
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/freetype-gl/include/
 
 include $(BUILD_SHARED_LIBRARY)
 

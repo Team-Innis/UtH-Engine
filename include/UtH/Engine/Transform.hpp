@@ -7,6 +7,22 @@
 
 namespace uth
 {
+	namespace Origin
+	{
+		enum Point
+		{
+			BottomLeft = 1,
+			BottomCenter,
+			BottomRight,
+			MidLeft,
+			Center,
+			MidRight,
+			TopLeft,
+			TopCenter,
+			TopRight
+		};
+	}
+
 	class Transform : public Component
 	{
 	public:
@@ -14,25 +30,30 @@ namespace uth
 		~Transform();
 
 		void Move(const umath::vector2& offset);
-		void Move(float offsetX, float offsetY);
+		void Move(const float offsetX, const float offsetY);
 
 		void SetPosition(const umath::vector2& position);
-		void SetPosition(float posX, float posY);
+		void SetPosition(const float posX, const float posY);
 		const umath::vector2& GetPosition() const;
 
 		void SetSize(const umath::vector2& size);
-		void SetSize(float width, float height);
+		void SetSize(const float width, const float height);
 		const umath::vector2& GetSize() const;
 
+		void SetOrigin(const umath::vector2& origin);
+		void SetOrigin(const int originPoint = Origin::Point::Center);
+		const umath::vector2& GetOrigin() const;
+
 		void SetScale(const umath::vector2& scale);
-		void SetSclae(float xScale, float yScale);
+		void SetScale(const float xScale, const float yScale);
+		void SetScale(const float scale);
 		const umath::vector2& GetScale() const;
 
-		void SetRotation(float angle);
+		void SetRotation(const float degrees);
 		const float GetRotation() const;
-		void Rotate(float angle);
+		void Rotate(const float degrees);
 
-		void SetDepth(float depth);
+		void SetDepth(const float depth);
 		const float GetDepth() const;
 
 		void SetTransform(const umath::matrix4& modelTransform);
@@ -43,16 +64,15 @@ namespace uth
 		umath::vector2 position;
 		umath::vector2 size;
 		umath::vector2 scale;
+		umath::vector2 origin;
 		float angle;
 		float depth;
 
 	private:
 		void updateTransform();
 
-		bool transformNeedsUpdate;
-
 		umath::matrix4 m_modelTransform;
-        bool m_transformNeedsUpdate;
+		bool m_transformNeedsUpdate;
 	};
 }
 

@@ -1,26 +1,33 @@
-#include <cmath>
-#include <freetype-gl/freetype-gl.h>
-
 #include <UtH/Engine/Text.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Renderer/RenderTarget.hpp>
 #include <UtH/Resources/ResourceManager.h>
+#include <UtH/Platform/Configuration.hpp>
+
+#include <freetype-gl/freetype-gl.h>
+
+#include <cmath>
 
 using namespace uth;
 
 Text::Text(const std::string& fontPath, const float fontSize, const std::string& name)
 	: Component(name),
-	  m_fontSize(fontSize)
+	  m_fontSize(fontSize),
+	  m_size(0,m_fontSize)
 {
-	m_textShader.LoadShader("shaders/text.vert", "shaders/text.frag");
+//#if defined(UTH_SYSTEM_OPENGLES)
+//    m_textShader.LoadShader("Shaders/DefaultText.vert", "Shaders/esText.frag");
+//#else
+	m_textShader.LoadShader("Shaders/DefaultText.vert", "Shaders/DefaultText.frag");
+//#endif
 
 	m_atlas = texture_atlas_new(1024, 1024, 1);
 
 	auto& data = uthRS.LoadFont(fontPath).GetFontData();
 
-	m_font = texture_font_new_from_memory(m_atlas, fontSize, data.fontData, data.dataSize);
+	m_font = texture_font_new_from_memory(m_atlas, fontSize, data.ptr(), data.size());
 }
 
 Text::~Text()
@@ -32,8 +39,13 @@ Text::~Text()
 
 // Public
 
-void Text::SetText(const std::wstring& text, umath::vector4 color)
+void Text::SetText(const std::string& text, const umath::vector4 color)
 {
+    SetText(std::wstring(text.begin(),text.end()),color);
+}
+void Text::SetText(const std::wstring& text, const umath::vector4 color)
+{
+	m_size = umath::vector2(0,m_fontSize);
 	m_vertexBuffer.clear();
 	m_lastPos = umath::vector2(0, 0);
 	m_text = std::wstring();
@@ -41,14 +53,18 @@ void Text::SetText(const std::wstring& text, umath::vector4 color)
 	AddText(text, color);
 }
 
-void Text::AddText(const std::wstring& text, umath::vector4 color)
+void Text::AddText(const std::string& text, const umath::vector4 color)
+{
+    AddText(std::wstring(text.begin(),text.end()),color);
+}
+void Text::AddText(const std::wstring& text, const umath::vector4 color)
 {
 	m_text += text;
 
 	texture_font_load_glyphs(m_font, text.c_str());
 
 	bool newLine = false;
-	umath::vector2 pos = m_lastPos; //= position;
+	umath::vector2 pos = m_lastPos;
 
 	for (size_t i = 0; i < text.length(); ++i)
 	{
@@ -57,6 +73,7 @@ void Text::AddText(const std::wstring& text, umath::vector4 color)
 		{
 			newLine = true;
 			pos.y += m_fontSize;
+			m_size.y = pos.y + m_fontSize;
 			pos.x = 0;
 		}
 		else
@@ -71,10 +88,10 @@ void Text::AddText(const std::wstring& text, umath::vector4 color)
 			pos.x += kerning;
 
 			const float x0 = pos.x + glyph->offset_x;
-			const float y0 = pos.y - glyph->offset_y;
+			const float y0 = pos.y + m_fontSize - glyph->offset_y;
 			const float x1 = x0 + glyph->width;
 			const float y1 = y0 + glyph->height;
-			
+
 			const float s0 = glyph->s0; // Top left x
 			const float t0 = glyph->t0; // Top left y
 			const float s1 = glyph->s1; // Bottom right x
@@ -98,8 +115,19 @@ void Text::AddText(const std::wstring& text, umath::vector4 color)
 
 			pos.x += glyph->advance_x;
 			newLine = false;
+
+			if (pos.x>m_size.x)
+			{
+				m_size.x=pos.x;
+			}
 		}
 	}
+
+	parent->transform.SetSize(m_size);
+	m_matrix[0][0] = 1/m_size.x;
+	m_matrix[1][1] = 1/m_size.y;
+	m_matrix[0][3] = (-0.5f);
+	m_matrix[1][3] = (-0.5f);
 
 	m_lastPos = pos;
 }
@@ -111,13 +139,14 @@ const std::wstring& Text::GetText() const
 
 void Text::Draw(RenderTarget& target)
 {
+    target.Bind();
 	m_textShader.Use();
 
 	uth::Graphics::BindTexture(TEXTURE_2D, m_atlas->id);
 	m_textShader.SetUniform("unifSampler", 0);
 
-	m_textShader.SetUniform("unifModel", parent->transform.GetTransform());
-    //m_textShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
+	m_textShader.SetUniform("unifModel", parent->transform.GetTransform() * m_matrix);
+    m_textShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
 
 	m_vertexBuffer.bindArrayBuffer();
 	// (position + uv + color) * sizeof(float)
