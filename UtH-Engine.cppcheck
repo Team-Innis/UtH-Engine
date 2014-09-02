@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="1">
+    <root name="E:/Ohjelmointi/Koulu/UtH-Engine/"/>
+    <includedir>
+        <dir name="include/"/>
+        <dir name="extlibs/freetype/include/"/>
+        <dir name="extlibs/freetype-gl/include/"/>
+        <dir name="extlibs/glew/include/"/>
+        <dir name="extlibs/glfw/include/"/>
+        <dir name="extlibs/openal/include/"/>
+        <dir name="extlibs/physfs/include/"/>
+        <dir name="extlibs/tinyxml2/include/"/>
+    </includedir>
+    <defines>
+        <define name="GLEW_STATIC"/>
+        <define name="_WIN32"/>
+    </defines>
+    <paths>
+        <dir name="E:/Ohjelmointi/Koulu/UtH-Engine/src"/>
+    </paths>
+    <libraries>
+        <library>windows</library>
+        <library>windows</library>
+    </libraries>
+</project>
