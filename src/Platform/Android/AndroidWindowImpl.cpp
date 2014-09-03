@@ -37,7 +37,7 @@ namespace uth
 
 		uthAndroidEngine.display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
 		WriteLog("eglGetDisplay %d", (int)uthAndroidEngine.display);
-		CheckEGLError();
+		CheckGLError("eglGetDisplay");
 
 		if(uthAndroidEngine.display == EGL_NO_DISPLAY)
 		{
@@ -47,34 +47,34 @@ namespace uth
 
 		eglInitialize(uthAndroidEngine.display,0,0);
 			WriteLog("eglInitialize succeeded");
-		CheckEGLError();
+		CheckGLError("eglInitialize");
 
 		//eglChooseConfig(androidengine.display, attribs, 0, 1, &numConfigs);
 		//WriteLog("Configs: %d", (int)numConfigs);
 
 		eglChooseConfig(uthAndroidEngine.display, attribs, &uthAndroidEngine.config, 1, &numConfigs);
-		CheckEGLError();
+		CheckGLError("eglChooseConfig");
 			WriteLog("eglChooseConfig succeeded");
 		eglGetConfigAttrib(uthAndroidEngine.display, uthAndroidEngine.config, EGL_NATIVE_VISUAL_ID, &format);
-		CheckEGLError();
+		CheckGLError("eglGetConfigAttrib");
 			WriteLog("eglGetConfigAttrib succeeded");
 
 
 
 		//ANativeWindow_setBuffersGeometry(androidengine.app->window, 0, 0, 0);
-		//CheckEGLError();
+		//CheckGLError();
 		//	WriteLog("ANativeWindow_setBuffersGeometry succeeded");
 
 		uthAndroidEngine.surface = eglCreateWindowSurface(uthAndroidEngine.display, uthAndroidEngine.config, uthAndroidEngine.app->window, 0);
-		CheckEGLError();
+		CheckGLError("eglCreateWindowSurface");
 			WriteLog("eglCreateWindowSurface succeeded");
 		uthAndroidEngine.context = eglCreateContext(uthAndroidEngine.display, uthAndroidEngine.config, EGL_NO_CONTEXT, attribList);
-		CheckEGLError();
+		CheckGLError("eglCreateContext");
 			WriteLog("eglCreateContext succeeded");
 
 		if(eglMakeCurrent(uthAndroidEngine.display, uthAndroidEngine.surface, uthAndroidEngine.surface, uthAndroidEngine.context) == EGL_FALSE)
 		{
-			CheckEGLError();
+			CheckGLError("eglMakeCurrent");
 			WriteError("eglMakeCurrent failed");
 			return nullptr;
 		}
@@ -83,9 +83,9 @@ namespace uth
 		EGLint tempY;
 
 		eglQuerySurface(uthAndroidEngine.display, uthAndroidEngine.surface, EGL_WIDTH, &tempX);
-		CheckEGLError();
+		CheckGLError("eglQuerySurface");
 		eglQuerySurface(uthAndroidEngine.display, uthAndroidEngine.surface, EGL_HEIGHT, &tempY);
-		CheckEGLError();
+		CheckGLError("eglQuerySurface");
 
 		uthAndroidEngine.settings.size.x = static_cast<float>(tempX);
 		uthAndroidEngine.settings.size.y = static_cast<float>(tempY);
@@ -180,11 +180,11 @@ namespace uth
 			window->destroy();
 			return true;
 			break;
-		case APP_CMD_GAINED_FOCUS:
-			uthAndroidEngine.initialized = true;
+        case APP_CMD_GAINED_FOCUS:
+            uthAndroidEngine.initialized = true;
 
             uth::SensorInput::GainFocus();
-			break;
+            break;
 		case APP_CMD_LOST_FOCUS:
 			WriteLog("LostFocus");
 			uthAndroidEngine.initialized = false;

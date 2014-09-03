@@ -12,7 +12,6 @@
 #ifdef UTH_SYSTEM_ANDROID
 
     #include <android/log.h>
-    #include <gl/egl.h>
     #ifndef LOG_TAG
         #define LOG_TAG	"uth-engine"
     #endif

@@ -36,6 +36,7 @@ $(SRC_PATH)Math/Matrix4.cpp \
 $(SRC_PATH)Math/Vector2.cpp \
 $(SRC_PATH)Math/Vector3.cpp \
 $(SRC_PATH)Math/Vector4.cpp \
+$(SRC_PATH)Math/Math.cpp \
 $(SRC_PATH)Math/Rectangle.cpp
 
 #Audio
@@ -63,6 +64,7 @@ $(SRC_PATH)Resources/Image.cpp
 LOCAL_SRC_FILES += \
 $(SRC_PATH)Platform/Android/FileReader.cpp \
 $(SRC_PATH)Platform/Graphics.cpp \
+$(SRC_PATH)Platform/Debug.cpp \
 $(SRC_PATH)Platform/HiResTimer.cpp \
 $(SRC_PATH)Platform/OGLCheck.cpp \
 $(SRC_PATH)Platform/Window.cpp \
