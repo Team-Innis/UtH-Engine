@@ -3,7 +3,10 @@
 #include <cassert>
 #include <vector>
 #include <algorithm>
+
+#pragma warning(push, 1)
 #include "external/stb_image.h"
+#pragma warning(pop)
 
 
 namespace uth
@@ -45,7 +48,7 @@ namespace uth
             m_pixels.resize(width * height * depth);
 
             // Flip the pixels horizontally into OpenGL format.
-            for (std::size_t i = 0; i < height; ++i)
+            for (int i = 0; i < height; ++i)
             {
                 std::memcpy(&m_pixels[i * width * depth],
                             &pointer[m_pixels.size() - (i * width * depth) - width * depth],
@@ -89,7 +92,7 @@ namespace uth
     {
         if (!m_pixels.empty())
         {
-            std::size_t rowSize = m_size.x * 4;
+            std::size_t rowSize = static_cast<std::size_t>(m_size.x) * 4;
 
             std::vector<BYTE>::iterator top = m_pixels.begin();
             std::vector<BYTE>::iterator bottom = m_pixels.end() - rowSize;
@@ -108,7 +111,7 @@ namespace uth
     {
         if (!m_pixels.empty())
         {
-            std::size_t rowSize = m_size.x * m_depth;
+            std::size_t rowSize = static_cast<std::size_t>(m_size.x) * m_depth;
 
             for (std::size_t y = 0; y < m_size.y; ++y)
             {

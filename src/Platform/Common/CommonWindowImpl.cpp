@@ -131,8 +131,8 @@ namespace uth
 		const float g,
 		const float b,
 		const float a,
-		const bool clearDepth,
-		const bool clearStencil
+		const bool,
+		const bool
 		)
 	{
 		uth::Graphics::Clear(r, g, b, a);
