@@ -6,6 +6,7 @@
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Graphics.hpp>
+#include <UtH/Platform/Android/InputSensor.hpp>
 
 
 namespace uth
@@ -181,10 +182,14 @@ namespace uth
 			break;
 		case APP_CMD_GAINED_FOCUS:
 			uthAndroidEngine.initialized = true;
+
+            uth::SensorInput::GainFocus();
 			break;
 		case APP_CMD_LOST_FOCUS:
 			WriteLog("LostFocus");
 			uthAndroidEngine.initialized = false;
+
+            uth::SensorInput::LostFocus();
 			break;
 		}
 

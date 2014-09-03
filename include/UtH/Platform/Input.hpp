@@ -11,12 +11,15 @@
 	#include <UtH/Platform/Android/InputKeyboard.hpp>
 	#include <UtH/Platform/Android/InputMouse.hpp>
 	#include <UtH/Platform/Android/InputTouch.hpp>
+    #include <UtH/Platform/Android/InputSensor.hpp>
 
 #elif defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX)
     #include <UtH/Platform/Common/InputCommon.hpp>
     #include <UtH/Platform/Common/InputKeyboard.hpp>
     #include <UtH/Platform/Common/InputMouse.hpp>
     #include <UtH/Platform/Common/InputTouch.hpp>
+    #include <UtH/Platform/Common/InputSensor.hpp>
+
 #else
 	#error No input for such platform
 #endif
@@ -33,6 +36,7 @@ namespace uth
 	public:
 		MouseInput Mouse;
 		TouchInput Touch;
+        SensorInput Sensor;
 		KeyboardInput Keyboard;
 		CommonInput Common;
 
