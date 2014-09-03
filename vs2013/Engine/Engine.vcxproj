@@ -51,6 +51,9 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
+    <ProjectReference Include="..\UMath\UMath.vcxproj">
+      <Project>{d16755ab-9f02-42c3-849d-acdd08e550ca}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Engine\AnimatedSprite.cpp" />
