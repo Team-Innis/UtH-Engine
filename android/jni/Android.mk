@@ -18,18 +18,18 @@ include $(LOCAL_PATH)/Platform.mk
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := libopenal
-LOCAL_SRC_FILES := ../libs/libopenal.so
+LOCAL_SRC_FILES := ../../extlibs/android/libopenal.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 
 LOCAL_MODULE    := uthengine
 LOCAL_SRC_FILES := main.cpp \
-../../vs2010/TestProject/source/TestScene.cpp
+../../vs2013/TestProject/source/TestScene.cpp
 LOCAL_LDLIBS    := -llog -landroid -lEGL -lGLESv2 -lOpenSLES
 LOCAL_STATIC_LIBRARIES := android_native_app_glue engine
 LOCAL_SHARED_LIBRARIES :=
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../vs2010/TestProject/include/
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../vs2013/TestProject/include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/openal/include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/Box2D/include/

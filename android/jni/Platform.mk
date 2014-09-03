@@ -5,17 +5,17 @@ include $(CLEAR_VARS)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := freetype
-LOCAL_SRC_FILES := ../libs/libfreetype.a
+LOCAL_SRC_FILES := ../../extlibs/android/libfreetype.a
 include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := libfreetypegl
-LOCAL_SRC_FILES := ../libs/libfreetypegl_static.a
+LOCAL_SRC_FILES := ../../extlibs/android/libfreetypegl_static.a
 include $(PREBUILT_STATIC_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := libbox2d
-LOCAL_SRC_FILES := ../libs/libbox2d_static.a
+LOCAL_SRC_FILES := ../../extlibs/android/libbox2d_static.a
 include $(PREBUILT_STATIC_LIBRARY)
 
 LOCAL_MODULE    := engine
