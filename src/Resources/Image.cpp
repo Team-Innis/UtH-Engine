@@ -1,6 +1,7 @@
 #include <UtH/Resources/Image.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <cassert>
+#include <cstring>
 #include <vector>
 #include <algorithm>
 
