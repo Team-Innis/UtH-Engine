@@ -1,4 +1,5 @@
 #include <UtH/Resources/ResourceManager.h>
+#include <cassert>
 
 using namespace uth;
 

@@ -1,6 +1,7 @@
 #include <UtH/Renderer/RenderTexture.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/Graphics.hpp>
+#include <UtH/Platform/OpenGL.hpp>
 
 
 namespace uth
