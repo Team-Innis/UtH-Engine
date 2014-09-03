@@ -65,6 +65,30 @@ void handle_cmd(android_app* app, int cmd)
 	((uth::Window*)app->userData)->processMessages();
 }
 
+void handle_input(android_app* app, AInputEvent* droidInputEvent)
+{
+    switch (AInputEvent_getType(droidInputEvent))
+    {
+    case AINPUT_EVENT_TYPE_KEY:
+        break;
+    case AINPUT_EVENT_TYPE_MOTION:
+        switch (AInputEvent_getSource(droidInputEvent))
+        {
+        case AINPUT_SOURCE_DPAD:
+        case AINPUT_SOURCE_JOYSTICK:
+            // Handle controller
+            break;
+        case AINPUT_SOURCE_TOUCHSCREEN:
+            // Handle touch
+            break;
+        default:
+            // Not supported
+            break;
+        }
+        break;
+    }
+}
+
 void windowEventHandler(void* handle)
 {
 	uthEngine.SetWindow((uth::Window*)handle);
