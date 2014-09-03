@@ -40,6 +40,7 @@
     <ClCompile Include="..\..\src\Platform\Common\CommonWindowImpl.cpp" />
     <ClCompile Include="..\..\src\Platform\Common\FileReader.cpp" />
     <ClCompile Include="..\..\src\Platform\Common\InputSensor.cpp" />
+    <ClCompile Include="..\..\src\Platform\Debug.cpp" />
     <ClCompile Include="..\..\src\Platform\Graphics.cpp" />
     <ClCompile Include="..\..\src\Platform\HiResTimer.cpp" />
     <ClCompile Include="..\..\src\Platform\Input.cpp" />
