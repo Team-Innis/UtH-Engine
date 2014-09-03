@@ -75,6 +75,10 @@ void android_main(android_app* state)
 {
 	app_dummy();
 
+    ALooper* looper = ALooper_forThread();
+    if (looper == NULL)
+        looper = ALooper_prepare(ALOOPER_PREPARE_ALLOW_NON_CALLBACKS);
+
 	uthAndroidEngine.initialized = false;
 
 	uth::Window wndw;
@@ -86,7 +90,7 @@ void android_main(android_app* state)
     uth::SensorInput::sensorManager = ASensorManager_getInstance();
     uth::SensorInput::sensorEventQueue = ASensorManager_createEventQueue(
         uth::SensorInput::sensorManager,
-        state->looper, LOOPER_ID_USER, NULL, NULL);
+        looper, LOOPER_ID_USER, uth::SensorInput::getSensorEvents, NULL);
     uth::SensorInput::accelerometer = ASensorManager_getDefaultSensor(
         uth::SensorInput::sensorManager, ASENSOR_TYPE_ACCELEROMETER);
     uth::SensorInput::gyroscope = ASensorManager_getDefaultSensor(

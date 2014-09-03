@@ -12,10 +12,10 @@ namespace uth
     class SensorInput : public InputBase
     {
     public:
-        void Update();
-
         umath::vector3 getAccelerometerInput();
         umath::vector3 getGyroscopeInput();
+
+        static int getSensorEvents(int fd, int events, void* data);
 
         static void LostFocus();
         static void GainFocus();
@@ -26,8 +26,10 @@ namespace uth
         static const ASensor* gyroscope;
 
     private:
-        umath::vector3 m_accelerometer;
-        umath::vector3 m_gyroscope;
+        static umath::vector3 m_accelerometer;
+        static umath::vector3 m_gyroscope;
+
+        static bool m_enabled;
     };
 }
 
