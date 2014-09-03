@@ -78,7 +78,7 @@ namespace uth
 
         uth::Graphics::SetTextureImage2D(TEXTURE_2D, 0, format,
 			static_cast<unsigned int>(m_size.x), static_cast<unsigned int>(m_size.y),
-			format, UNSIGNED_BYTE_TYPE, img.m_pixels);
+			format, UNSIGNED_BYTE_TYPE, &img.m_pixels[0]);
 		
 		return true;
     }
