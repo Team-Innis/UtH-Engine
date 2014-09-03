@@ -80,6 +80,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\src\Math\Math.cpp" />
     <ClCompile Include="..\..\src\Math\Matrix3.cpp" />
     <ClCompile Include="..\..\src\Math\Matrix4.cpp" />
     <ClCompile Include="..\..\src\Math\Rectangle.cpp" />

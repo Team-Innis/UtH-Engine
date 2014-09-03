@@ -3,6 +3,7 @@
 #include <UtH/Platform/Debug.hpp>
 
 #include <tinyxml2.h>
+#include <cassert>
 
 using namespace uth;
 using namespace TMX;
