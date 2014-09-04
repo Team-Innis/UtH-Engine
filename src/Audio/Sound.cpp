@@ -151,27 +151,30 @@ void Sound::SetListenerPosition(umath::vector3 position)
 
 void Sound::Initialize(const char* fileName)
 {
+	const SoundBuffer* buf = uthRS.LoadSoundBuffer(fileName);
+
+	if (!buf)
+		return;
+
 	Sound::CreateSources(source);
 	// Create buffer
 	alGenBuffers(1, &buffer);
 	CheckALError("alGenBuffers");
-	
-	const SoundBuffer& buf = uthRS.LoadWAV(fileName);
 
-	short channels = buf.GetSoundInfo().channels;
-	if(buf.GetSoundInfo().bitsPerSample == 16)
+	short channels = buf->GetSoundInfo().channels;
+	if(buf->GetSoundInfo().bitsPerSample == 16)
 	{
 		alBufferData(buffer, channels == 2 ? AL_FORMAT_STEREO16:AL_FORMAT_MONO16 ,
-			buf.GetSoundInfo().soundBuffer,
-			buf.GetSoundInfo().frames * sizeof(short) * channels,
-			buf.GetSoundInfo().sampleRate);
+			buf->GetSoundInfo().soundBuffer,
+			buf->GetSoundInfo().frames * sizeof(short) * channels,
+			buf->GetSoundInfo().sampleRate);
 	}
-	else if(buf.GetSoundInfo().bitsPerSample == 8)
+	else if(buf->GetSoundInfo().bitsPerSample == 8)
 	{
 		alBufferData(buffer, channels == 2 ? AL_FORMAT_STEREO8:AL_FORMAT_MONO8,
-			buf.GetSoundInfo().soundBuffer,
-			buf.GetSoundInfo().frames * sizeof(char) * channels,
-			buf.GetSoundInfo().sampleRate);
+			buf->GetSoundInfo().soundBuffer,
+			buf->GetSoundInfo().frames * sizeof(char) * channels,
+			buf->GetSoundInfo().sampleRate);
 	}
 	
 
@@ -180,7 +183,7 @@ void Sound::Initialize(const char* fileName)
 	alSourcei(source, AL_BUFFER, buffer);
 	CheckALError("alSourcei");
 
-	duration = static_cast<float>(buf.GetSoundInfo().frames) / static_cast<float>(buf.GetSoundInfo().sampleRate);
+	duration = static_cast<float>(buf->GetSoundInfo().frames) / static_cast<float>(buf->GetSoundInfo().sampleRate);
 	WriteLog("duration: %f\n", duration);
 }
 
