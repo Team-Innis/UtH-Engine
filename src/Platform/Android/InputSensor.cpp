@@ -36,9 +36,6 @@ int SensorInput::getSensorEvents(int fd, int events, void* data)
         }
     }
 
-    WriteLog("acc: %f, %f, %f", m_accelerometer.x, m_accelerometer.y, m_accelerometer.z);
-    WriteLog("gyr: %f, %f, %f", m_gyroscope.x, m_gyroscope.y, m_gyroscope.z);
-
     return 1;
 }
 
