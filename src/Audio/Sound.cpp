@@ -158,40 +158,22 @@ void Sound::Initialize(const char* fileName)
 	
 	const SoundBuffer& buf = uthRS.LoadWAV(fileName);
 
-    if(buf.GetSoundInfo().channels == 2)
+	short channels = buf.GetSoundInfo().channels;
+	if(buf.GetSoundInfo().bitsPerSample == 16)
 	{
-		if(buf.GetSoundInfo().bitsPerSample == 16)
-		{
-			alBufferData(buffer, AL_FORMAT_STEREO16,
-				buf.GetSoundInfo().soundBuffer,
-				buf.GetSoundInfo().frames * sizeof(int),
-				buf.GetSoundInfo().sampleRate);
-		}
-		else if(buf.GetSoundInfo().bitsPerSample == 8)
-		{
-			alBufferData(buffer, AL_FORMAT_STEREO8,
-				buf.GetSoundInfo().soundBuffer,
-				buf.GetSoundInfo().frames * sizeof(short),
-				buf.GetSoundInfo().sampleRate);
-		}
+		alBufferData(buffer, channels == 2 ? AL_FORMAT_STEREO16:AL_FORMAT_MONO16 ,
+			buf.GetSoundInfo().soundBuffer,
+			buf.GetSoundInfo().frames * sizeof(short) * channels,
+			buf.GetSoundInfo().sampleRate);
 	}
-	else if(buf.GetSoundInfo().channels == 1)
+	else if(buf.GetSoundInfo().bitsPerSample == 8)
 	{
-		if(buf.GetSoundInfo().bitsPerSample == 16)
-		{
-			alBufferData(buffer, AL_FORMAT_MONO16,
-				buf.GetSoundInfo().soundBuffer,
-				buf.GetSoundInfo().frames * sizeof(short),
-				buf.GetSoundInfo().sampleRate);
-		}
-		else if(buf.GetSoundInfo().bitsPerSample == 8)
-		{
-			alBufferData(buffer, AL_FORMAT_MONO8,
-				buf.GetSoundInfo().soundBuffer,
-				buf.GetSoundInfo().frames * sizeof(short),
-				buf.GetSoundInfo().sampleRate);
-		}
+		alBufferData(buffer, channels == 2 ? AL_FORMAT_STEREO8:AL_FORMAT_MONO8,
+			buf.GetSoundInfo().soundBuffer,
+			buf.GetSoundInfo().frames * sizeof(char) * channels,
+			buf.GetSoundInfo().sampleRate);
 	}
+	
 
 	CheckALError("alBufferData");
 
