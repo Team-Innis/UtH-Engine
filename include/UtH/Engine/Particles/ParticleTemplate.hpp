@@ -18,6 +18,7 @@ namespace uth
     {
  
         friend class ParticleSystem;
+        typedef std::function<void(Particle&, const ParticleTemplate&)> ParticleInitFunc;
 
     public:
 
@@ -26,19 +27,19 @@ namespace uth
 
         void SetTexture(Texture* texture, const umath::rectangle& texCoords = umath::rectangle(0.f, 0.f, 1.f, 1.f));
 
-        void SetLifetime(const double seconds);
+        void SetLifetime(const float seconds);
 
         void SetSpeed(const float pixelsPerSecond);
 
         void SetSpeed(const float pixelsPerSecondMin, const float pixelsPerSecondMax);
 
         /// Function for particle initialization. The initial transform will be copied from the ParticleSystem to which this template is bound.
-        void SetInitFunction(std::function<void(Particle&, ParticleTemplate&)> func);
+        void SetInitFunction(ParticleInitFunc func);
 
         void SetColor(const float r, const float g, const float b, const float a);
 
 
-        double lifetime;
+        float lifetime;
         float minSpeed,
               maxSpeed;
      
@@ -49,7 +50,7 @@ namespace uth
         Texture* m_texture;
         umath::rectangle m_texCoords;
 
-        std::function<void(Particle&, ParticleTemplate&)> m_pInitFunc;
+        ParticleInitFunc m_pInitFunc;
 
     };
 

@@ -13,21 +13,13 @@ namespace
 
 namespace uth
 {
-	void SpriteBatch::reserve(const unsigned int amount)
-	{
-		m_objects.reserve(amount);
-		m_vertexData.reserve(amount);
-		m_spriteBuffer.m_vertexData.reserve(amount);
-		m_spriteBuffer.m_indices.reserve(amount);
-	}
-
 
 	SpriteBatch::SpriteBatch(const bool adoptPointers)
 		: m_atlas(nullptr),
-		m_texture(nullptr),
-		m_adoptedPointers(adoptPointers)
+		  m_texture(nullptr),
+		  m_adoptedPointers(adoptPointers)
 	{
-		reserve(975);
+		
 	}
 
 	SpriteBatch::~SpriteBatch()
@@ -37,14 +29,17 @@ namespace uth
 
 
 
-	GameObject* SpriteBatch::AddSprite(GameObject* object, const std::string& atlasName, const umath::vector4& color, const umath::rectangle& texCoords)
+	void SpriteBatch::AddSprite(Transform* object, const std::string& atlasName, const umath::vector4& color, const umath::rectangle& texCoords)
 	{
 		if ((!m_atlas && !m_texture) || !object)
 		{
-			if (m_adoptedPointers)
-				delete object;
+            if (m_adoptedPointers)
+            {
+                // There's no penalty for deleting a null pointer.
+                delete object;
+            }
 
-			return nullptr;
+			return;
 		}
 
 		unsigned short mod = static_cast<unsigned short>(m_objects.size()) * 4;
@@ -87,8 +82,6 @@ namespace uth
 		m_spriteBuffer.addIndex(1 + mod);
 		m_spriteBuffer.addIndex(3 + mod);
 		m_spriteBuffer.addIndex(2 + mod);
-
-		return m_objects.back().get();
 	}
 
 	void SpriteBatch::SetTextureAtlas(TextureAtlas* atlas)
@@ -107,8 +100,8 @@ namespace uth
 	{
 		if (!m_adoptedPointers)
 		{
-			for (auto itr = m_objects.begin(); itr != m_objects.end(); ++itr)
-				itr->release();
+			for (auto& i : m_objects)
+				i.release();
 		}
 
 		m_objects.clear();
@@ -133,7 +126,7 @@ namespace uth
 
 		for (size_t i = 0; i < m_vertexData.size() / 4; ++i)
 		{
-			umath::matrix3 m = m_objects[i]->transform.GetTransform().getMatrix3();
+			umath::matrix3 m = m_objects[i]->GetTransform().getMatrix3();
 			// NOTE: this will cause the map to draw correctly.
 			// TODO: figure out a real solution
 			//m[0][0] = m[0][0] > 0 ? 1 : -1;
@@ -166,5 +159,4 @@ namespace uth
 
 		target.SetShader(nullptr);
 	}
-
 }

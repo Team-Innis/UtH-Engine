@@ -16,14 +16,14 @@ namespace uth
     {
     public:
 
-        ParticleSystem();
+        ParticleSystem(const size_t reserve);
 
         ~ParticleSystem(){};
 
 
         virtual void Emit(const unsigned int amount);
 
-        void AddAffector(Affector* affector);
+        void AddAffector(const Affector& affector);
 
         void SetTemplate(const ParticleTemplate& pTemplate);
 
@@ -38,13 +38,8 @@ namespace uth
         ParticleTemplate m_template;
         SpriteBatch m_batch;
 
-        std::vector<std::unique_ptr<Affector>> m_affectors;
-        std::vector<std::unique_ptr<Particle>> m_particles;
-
-
-    protected:
-
-        void AddParticles(const unsigned int amount, Particle* particle);
+        std::vector<Affector> m_affectors;
+        std::vector<Particle> m_particles;
 
     };
 
