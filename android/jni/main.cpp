@@ -66,21 +66,21 @@ void handle_cmd(android_app* app, int cmd)
 	((uth::Window*)app->userData)->processMessages();
 }
 
-void handle_input(android_app* app, AInputEvent* droidInputEvent)
+void handle_input(android_app* app, AInputEvent* inputEvent)
 {
-    switch (AInputEvent_getType(droidInputEvent))
+    switch (AInputEvent_getType(inputEvent))
     {
     case AINPUT_EVENT_TYPE_KEY:
         break;
     case AINPUT_EVENT_TYPE_MOTION:
-        switch (AInputEvent_getSource(droidInputEvent))
+        switch (AInputEvent_getSource(inputEvent))
         {
         case AINPUT_SOURCE_DPAD:
         case AINPUT_SOURCE_JOYSTICK:
-            // Handle controller
+
             break;
         case AINPUT_SOURCE_TOUCHSCREEN:
-            // Handle touch
+            uth::TouchInput::DroidMessage(app, inputEvent);
             break;
         default:
             // Not supported
