@@ -19,19 +19,19 @@ Object::~Object()
 
 // Public
 
-const umath::rectangle& Object::GetRectangle() const
+const pmath::Rect& Object::GetRectangle() const
 {
 	return m_rectangle;
 }
 
-const std::vector<umath::vector2>& Object::GetPoints() const
+const std::vector<pmath::Vec2>& Object::GetPoints() const
 {
 	return m_points;
 }
 
-const umath::vector2 Object::GetPosition() const
+const pmath::Vec2 Object::GetPosition() const
 {
-	return umath::vector2(m_rectangle.x, m_rectangle.y);
+	return pmath::Vec2(m_rectangle.position.x, m_rectangle.position.y);
 }
 
 std::string Object::GetProperty(const std::string& name) const
@@ -68,21 +68,21 @@ void Object::parseObject(tinyxml2::XMLElement* element)
     }
 
     // Parse actual object
-	m_rectangle.x = element->FloatAttribute("x");
-	m_rectangle.y = element->FloatAttribute("y");
+	m_rectangle.position.x = element->FloatAttribute("x");
+	m_rectangle.position.y = element->FloatAttribute("y");
 
 	// There are only 3 possibilities here but use else if for future compability
 	if(element->UnsignedAttribute("width") != 0)
 	{
 		// Rectangle
 		m_type = RECTANGLE;
-		m_rectangle.width = element->FloatAttribute("width");
-		m_rectangle.height = element->FloatAttribute("height");
+		m_rectangle.size.x = element->FloatAttribute("width");
+		m_rectangle.size.y = element->FloatAttribute("height");
 
-		m_points.push_back(umath::vector2(m_rectangle.x, m_rectangle.y));
-		m_points.push_back(umath::vector2(m_rectangle.x, m_rectangle.y-m_rectangle.height));
-		m_points.push_back(umath::vector2(m_rectangle.x+m_rectangle.width, m_rectangle.y-m_rectangle.height));
-		m_points.push_back(umath::vector2(m_rectangle.x+m_rectangle.width, m_rectangle.y));
+		m_points.push_back(pmath::Vec2(m_rectangle.position.x, m_rectangle.position.y));
+		m_points.push_back(pmath::Vec2(m_rectangle.position.x, m_rectangle.position.y-m_rectangle.size.y));
+		m_points.push_back(pmath::Vec2(m_rectangle.position.x+m_rectangle.size.x, m_rectangle.position.y-m_rectangle.size.y));
+		m_points.push_back(pmath::Vec2(m_rectangle.position.x+m_rectangle.size.x, m_rectangle.position.y));
 	}
 	else if(element->FirstChildElement("polygon") != 0)
 	{
@@ -128,7 +128,7 @@ void Object::parsePoints(const std::string& points)
 		std::getline(componentStream, x, ',');
 		std::getline(componentStream, y);
 		// Looks good, right?
-		m_points.push_back(umath::vector2(
+		m_points.push_back(pmath::Vec2(
 			static_cast<float>(atoi(x.c_str())),
 			static_cast<float>(atoi(y.c_str()))
 			));
@@ -153,8 +153,8 @@ void Object::parsePoints(const std::string& points)
 			top = point.y;
 	}
 
-	m_rectangle.x += left;
-	m_rectangle.y += bottom;
-	m_rectangle.width = right - left;
-	m_rectangle.height = top - bottom;
+	m_rectangle.position.x += left;
+	m_rectangle.position.y += bottom;
+	m_rectangle.size.x = right - left;
+	m_rectangle.size.y = top - bottom;
 }

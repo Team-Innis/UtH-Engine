@@ -7,13 +7,13 @@ void SensorInput::Update()
 {
 }
 
-umath::vector3 SensorInput::getAccelerometerInput()
+pmath::Vec3 SensorInput::getAccelerometerInput()
 {
-    return umath::vector3(0, 0, 0);
+    return pmath::Vec3(0, 0, 0);
 }
 
 
-umath::vector3 SensorInput::getGyroscopeInput()
+pmath::Vec3 SensorInput::getGyroscopeInput()
 {
-    return umath::vector3(0, 0, 0);
+    return pmath::Vec3(0, 0, 0);
 }

@@ -2,7 +2,7 @@
 #define SENSORINPUT_H_UTH
 
 #include <UtH/Platform/Common/InputBase.hpp>
-#include <UtH/Math/Vector3.hpp>
+#include <pmath/Vector3.hpp>
 
 namespace uth
 {
@@ -12,12 +12,12 @@ namespace uth
     public:
         void Update();
 
-        umath::vector3 getAccelerometerInput();
-        umath::vector3 getGyroscopeInput();
+        pmath::Vec3 getAccelerometerInput();
+        pmath::Vec3 getGyroscopeInput();
 
     private:
-        umath::vector3 m_accelerometer;
-        umath::vector3 m_gyroscope;
+        pmath::Vec3 m_accelerometer;
+        pmath::Vec3 m_gyroscope;
     };
 }
 

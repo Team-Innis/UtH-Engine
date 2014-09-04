@@ -43,15 +43,15 @@ namespace uth
 		for (const tinyxml2::XMLElement* child = element->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
 		{
 			std::string name(child->FindAttribute("name")->Value());
-			umath::rectangle rect;
+			pmath::Rect rect;
 
 			float x = child->FindAttribute("x")->FloatValue(),
 				y = child->FindAttribute("y")->FloatValue();
 
-			rect.x = x / m_texture->GetSize().x;
-			rect.y = y / m_texture->GetSize().y;
-			rect.width = child->FindAttribute("width")->FloatValue() / m_texture->GetSize().x;
-			rect.height = child->FindAttribute("height")->FloatValue() / m_texture->GetSize().y;
+			rect.position.x = x / m_texture->GetSize().x;
+			rect.position.y = y / m_texture->GetSize().y;
+			rect.size.x = child->FindAttribute("width")->FloatValue() / m_texture->GetSize().x;
+			rect.size.y = child->FindAttribute("height")->FloatValue() / m_texture->GetSize().y;
 
 			m_textureRects.insert(std::make_pair(name, rect));
 		}
@@ -73,7 +73,7 @@ namespace uth
 		return m_texture->SetSmooth(value);
 	}
 
-	const umath::vector2& TextureAtlas::GetSize() const
+	const pmath::Vec2& TextureAtlas::GetSize() const
 	{
 		return m_texture->GetSize();
 	}
@@ -88,7 +88,7 @@ namespace uth
 		return m_texture->IsSmooth();
 	}
 
-	const umath::rectangle& TextureAtlas::getTextureCoords(const char* name) const
+	const pmath::Rect& TextureAtlas::getTextureCoords(const char* name) const
 	{
 		return m_textureRects.at(name);
 	}

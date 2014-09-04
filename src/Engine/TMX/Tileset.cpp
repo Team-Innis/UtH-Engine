@@ -49,7 +49,7 @@ unsigned int Tileset::GetTileHeight() const
 	return m_tileHeight;
 }
 
-const umath::rectangle Tileset::GetTile(unsigned int localId) const
+const pmath::Rect Tileset::GetTile(unsigned int localId) const
 {
 	const unsigned int wTiles = static_cast<unsigned int>(m_texture->GetSize().x) / m_tileWidth;
     const unsigned int hTiles = static_cast<unsigned int>(m_texture->GetSize().y) / m_tileHeight;
@@ -66,11 +66,11 @@ const umath::rectangle Tileset::GetTile(unsigned int localId) const
 	x += xtile * m_spacing;
 	y += ytile * m_spacing;
 
-	umath::rectangle out;
-	out.x = x / m_texture->GetSize().x;
-	out.width = m_tileWidth / m_texture->GetSize().x;
-	out.y = y / m_texture->GetSize().y;
-	out.height = m_tileHeight / m_texture->GetSize().y;
+	pmath::Rect out;
+	out.position.x = x / m_texture->GetSize().x;
+	out.size.x = m_tileWidth / m_texture->GetSize().x;
+	out.position.y = y / m_texture->GetSize().y;
+	out.size.y = m_tileHeight / m_texture->GetSize().y;
 
 	return out;
 }

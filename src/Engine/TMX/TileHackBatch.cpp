@@ -39,7 +39,7 @@ void TileHackBatch::draw(RenderTarget& target)
 
 		for (size_t i = 0; i < m_vertexData.size() / 4; ++i)
 		{
-			umath::matrix3 m = m_objects[i]->GetTransform().getMatrix3();
+			pmath::Mat3 m = m_objects[i]->GetTransform().getMatrix3();
 			// NOTE: this will cause the map to draw correctly.
 			// TODO: figure out a real solution
 			m[0][0] = m[0][0] > 0.f ? 1.f : -1.f;

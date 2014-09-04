@@ -126,7 +126,7 @@ bool Shader::SetUniform(const std::string& name, const float x, const float y, c
 	uth::Graphics::SetUniform(location, x, y, z, w);
 	return true;
 }
-bool Shader::SetUniform(const std::string& name, const umath::vector2& vector)
+bool Shader::SetUniform(const std::string& name, const pmath::Vec2& vector)
 {
 	int location = uth::Graphics::GetUniformLocation(m_program, name.c_str());
 	if(location == -1)
@@ -134,7 +134,7 @@ bool Shader::SetUniform(const std::string& name, const umath::vector2& vector)
 	uth::Graphics::SetUniform(location, vector);
 	return true;
 }
-bool Shader::SetUniform(const std::string& name, const umath::vector3& vector)
+bool Shader::SetUniform(const std::string& name, const pmath::Vec3& vector)
 {
 	int location = uth::Graphics::GetUniformLocation(m_program, name.c_str());
 	if(location == -1)
@@ -142,7 +142,7 @@ bool Shader::SetUniform(const std::string& name, const umath::vector3& vector)
 	uth::Graphics::SetUniform(location, vector);
 	return true;
 }
-bool Shader::SetUniform(const std::string& name, const umath::vector4& vector)
+bool Shader::SetUniform(const std::string& name, const pmath::Vec4& vector)
 {
 	int location = uth::Graphics::GetUniformLocation(m_program, name.c_str());
 	if(location == -1)
@@ -150,7 +150,7 @@ bool Shader::SetUniform(const std::string& name, const umath::vector4& vector)
 	uth::Graphics::SetUniform(location, vector);
 	return true;
 }
-bool Shader::SetUniform(const std::string& name, const umath::matrix3& matrix)
+bool Shader::SetUniform(const std::string& name, const pmath::Mat3& matrix)
 {
 	int location = uth::Graphics::GetUniformLocation(m_program, name.c_str());
 	if(location == -1)
@@ -158,7 +158,7 @@ bool Shader::SetUniform(const std::string& name, const umath::matrix3& matrix)
 	uth::Graphics::SetUniform(location, matrix);
 	return true;
 }
-bool Shader::SetUniform(const std::string& name, const umath::matrix4& matrix)
+bool Shader::SetUniform(const std::string& name, const pmath::Mat4& matrix)
 {
 	int location = uth::Graphics::GetUniformLocation(m_program, name.c_str());
 	if(location == -1)

@@ -55,7 +55,7 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 				ID[index].m_curPos.x = AMotionEvent_getX(droidInputEvent, index);
 				ID[index].m_curPos.y = AMotionEvent_getY(droidInputEvent, index);
 
-				if((ID[index].m_curPos - ID[index].m_startPos).getLengthSquared() >= 625.f)
+				if((ID[index].m_curPos - ID[index].m_startPos).lengthSquared() >= 625.f)
 				{
 					ID[index].m_motion = TouchMotion::DRAG;
 				}
@@ -157,7 +157,7 @@ void TouchInput::Update(float deltaTime)
 			(ID[0].Motion() == TouchMotion::PINCH_OUT && ID[1].Motion() == TouchMotion::PINCH_OUT))
 		{
 			m_prevLength = m_curLength;
-			m_curLength = (ID[0].GetPosition()-ID[1].GetPosition()).getLength();
+			m_curLength = (ID[0].GetPosition()-ID[1].GetPosition()).length();
 
 			if(m_curLength < m_prevLength)
 			{
@@ -195,17 +195,17 @@ const int TouchInput::TouchUnit::GetStartIndex() const
 	return m_startIndex;
 }
 
-const umath::vector2 TouchInput::TouchUnit::GetStartPosition() const
+const pmath::Vec2 TouchInput::TouchUnit::GetStartPosition() const
 {
 	return m_startPos;
 }
 
-const umath::vector2 TouchInput::TouchUnit::GetPosition() const
+const pmath::Vec2 TouchInput::TouchUnit::GetPosition() const
 {
 	return m_curPos;
 }
 
-const umath::vector2 TouchInput::TouchUnit::GetEndPosition() const
+const pmath::Vec2 TouchInput::TouchUnit::GetEndPosition() const
 {
 	return m_curPos;
 }

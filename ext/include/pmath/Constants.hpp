@@ -1,0 +1,12 @@
+#pragma once
+#ifndef CONSTANTS_PMATH_H
+#define CONSTANTS_PMATH_H
+
+namespace pmath
+{
+    const double tau = 6.28318530717958647692528676655900577;
+    const double pi = 3.14159265358979323846264338327950288;
+
+    const double e = 2.71828182845904523536028747135266249776;
+}
+#endif

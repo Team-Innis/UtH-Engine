@@ -44,32 +44,32 @@ Text::~Text()
 
 // Public
 
-void Text::SetText(const std::string& text, const umath::vector4 color)
+void Text::SetText(const std::string& text, const pmath::Vec4 color)
 {
     SetText(std::wstring(text.begin(),text.end()),color);
 }
-void Text::SetText(const std::wstring& text, const umath::vector4 color)
+void Text::SetText(const std::wstring& text, const pmath::Vec4 color)
 {
-	m_size = umath::vector2(0,m_fontSize);
+	m_size = pmath::Vec2(0,m_fontSize);
 	m_vertexBuffer.clear();
-	m_lastPos = umath::vector2(0, 0);
+	m_lastPos = pmath::Vec2(0, 0);
 	m_text = std::wstring();
 
 	AddText(text, color);
 }
 
-void Text::AddText(const std::string& text, const umath::vector4 color)
+void Text::AddText(const std::string& text, const pmath::Vec4 color)
 {
     AddText(std::wstring(text.begin(),text.end()),color);
 }
-void Text::AddText(const std::wstring& text, const umath::vector4 color)
+void Text::AddText(const std::wstring& text, const pmath::Vec4 color)
 {
 	m_text += text;
 
 	texture_font_load_glyphs(m_font, text.c_str());
 
 	bool newLine = false;
-	umath::vector2 pos = m_lastPos;
+	pmath::Vec2 pos = m_lastPos;
 
 	for (size_t i = 0; i < text.length(); ++i)
 	{
@@ -103,10 +103,10 @@ void Text::AddText(const std::wstring& text, const umath::vector4 color)
 			const float t1 = glyph->t1; // Bottom right y
 
 
-			m_vertexBuffer.addVertex(Vertex(umath::vector3(x0, y0, 0), umath::vector2(s0, t0), color));
-			m_vertexBuffer.addVertex(Vertex(umath::vector3(x0, y1, 0), umath::vector2(s0, t1), color));
-			m_vertexBuffer.addVertex(Vertex(umath::vector3(x1, y1, 0), umath::vector2(s1, t1), color));
-			m_vertexBuffer.addVertex(Vertex(umath::vector3(x1, y0, 0), umath::vector2(s1, t0), color));
+			m_vertexBuffer.addVertex(Vertex(pmath::Vec3(x0, y0, 0), pmath::Vec2(s0, t0), color));
+			m_vertexBuffer.addVertex(Vertex(pmath::Vec3(x0, y1, 0), pmath::Vec2(s0, t1), color));
+			m_vertexBuffer.addVertex(Vertex(pmath::Vec3(x1, y1, 0), pmath::Vec2(s1, t1), color));
+			m_vertexBuffer.addVertex(Vertex(pmath::Vec3(x1, y0, 0), pmath::Vec2(s1, t0), color));
 
 
 			std::vector<unsigned short> indices;

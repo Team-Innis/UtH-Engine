@@ -2,7 +2,7 @@
 #ifndef SPRITEBATCH_H_UTH
 #define SPRITEBATCH_H_UTH
 
-#include <UtH/Math/Rectangle.hpp>
+#include <pmath/Rectangle.hpp>
 #include <UtH/Engine/Sprite.hpp>
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Renderer/TextureAtlas.hpp>
@@ -21,8 +21,8 @@ namespace uth
         ~SpriteBatch();
 
 
-        void AddSprite(Transform* object, const std::string& atlasName = "", const umath::vector4& color = umath::vector4(1, 1, 1, 1),
-                              const umath::rectangle& texCoords = umath::rectangle(0, 0, 0, 0));
+        void AddSprite(Transform* object, const std::string& atlasName = "", const pmath::Vec4& color = pmath::Vec4(1, 1, 1, 1),
+                              const pmath::Rect& texCoords = pmath::Rect(0, 0, 0, 0));
 
         void SetTextureAtlas(TextureAtlas* atlas);
 

@@ -3,7 +3,7 @@
 #define TEXTUREATLAS_H_UTH
 
 #include <UtH/Renderer/Texture.hpp>
-#include <UtH/Math/Rectangle.hpp>
+#include <pmath/Rectangle.hpp>
 #include <map>
 
 
@@ -28,19 +28,19 @@ namespace uth
 
         bool SetSmooth(const bool value);
 
-        const umath::vector2& GetSize() const;
+        const pmath::Vec2& GetSize() const;
 
         bool IsValid() const;
 
         bool IsSmooth() const;
 
-        const umath::rectangle& getTextureCoords(const char* name) const;
+        const pmath::Rect& getTextureCoords(const char* name) const;
 
 
     private:
 
         Texture* m_texture;
-        std::map<std::string, umath::rectangle> m_textureRects;
+        std::map<std::string, pmath::Rect> m_textureRects;
     };
 }
 

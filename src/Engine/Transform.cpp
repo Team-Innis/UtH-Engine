@@ -4,7 +4,7 @@
 #include <cmath>
 
 using namespace uth;
-using namespace umath;
+using namespace pmath;
 
 Transform::Transform(const std::string& name)
 	: Component(name),
@@ -21,46 +21,46 @@ Transform::~Transform()
 
 // Public
 
-void Transform::Move(const umath::vector2& offset)
+void Transform::Move(const pmath::Vec2& offset)
 {
 	position += offset;
 	m_transformNeedsUpdate = true;
 }
 void Transform::Move(const float offsetX, const float offsetY)
 {
-	Move(umath::vector2(offsetX, offsetY));
+	Move(pmath::Vec2(offsetX, offsetY));
 }
 
-void Transform::SetPosition(const umath::vector2& position)
+void Transform::SetPosition(const pmath::Vec2& position)
 {
 	this->position = position;
 	m_transformNeedsUpdate = true;
 }
 void Transform::SetPosition(const float posX, const float posY)
 {
-	SetPosition(umath::vector2(posX, posY));
+	SetPosition(pmath::Vec2(posX, posY));
 }
-const umath::vector2& Transform::GetPosition() const
+const pmath::Vec2& Transform::GetPosition() const
 {
 	return position;
 }
 
-void Transform::SetSize(const umath::vector2& size)
+void Transform::SetSize(const pmath::Vec2& size)
 {
 	this->size = size;
 	m_transformNeedsUpdate = true;
 }
 void Transform::SetSize(const float width, const float height)
 {
-	SetSize(umath::vector2(width, height));
+	SetSize(pmath::Vec2(width, height));
 }
-const umath::vector2& Transform::GetSize() const
+const pmath::Vec2& Transform::GetSize() const
 {
 	return size;
 }
 
 
-void Transform::SetOrigin(const umath::vector2& origin)
+void Transform::SetOrigin(const pmath::Vec2& origin)
 {
 	this->origin = origin;
 	m_transformNeedsUpdate = true;
@@ -70,54 +70,54 @@ void Transform::SetOrigin(const int originPoint)
 	switch (originPoint)
 	{
 	case Origin::Point::BottomLeft:
-		SetOrigin(vector2(size.x * scale.x * -0.5f,size.y * scale.y * 0.5f));
+		SetOrigin(Vec2(size.x * scale.x * -0.5f,size.y * scale.y * 0.5f));
 		break;
 	case Origin::Point::BottomCenter:
-		SetOrigin(vector2(0.0f,size.y * scale.y * 0.5f));
+		SetOrigin(Vec2(0.0f, size.y * scale.y * 0.5f));
 		break;
 	case Origin::Point::BottomRight:
-		SetOrigin(vector2(size.x * scale.x * 0.5f,size.y * scale.y * 0.5f));
+		SetOrigin(Vec2(size.x * scale.x * 0.5f, size.y * scale.y * 0.5f));
 		break;
 	case Origin::Point::MidLeft:
-		SetOrigin(vector2(size.x * scale.x * -0.5f,0.f));
+		SetOrigin(Vec2(size.x * scale.x * -0.5f, 0.f));
 		break;
 	case Origin::Point::MidRight:
-		SetOrigin(vector2(size.x * scale.x * 0.5f,0.f));
+		SetOrigin(Vec2(size.x * scale.x * 0.5f, 0.f));
 		break;
 	case Origin::Point::TopLeft:
-		SetOrigin(vector2(size.x * scale.x * -0.5f,size.y * scale.y * -0.5f));
+		SetOrigin(Vec2(size.x * scale.x * -0.5f, size.y * scale.y * -0.5f));
 		break;
 	case Origin::Point::TopCenter:
-		SetOrigin(vector2(0.0f,size.y * scale.y * -0.5f));
+		SetOrigin(Vec2(0.0f, size.y * scale.y * -0.5f));
 		break;
 	case Origin::Point::TopRight:
-		SetOrigin(vector2(size.x * scale.x * 0.5f,size.y * scale.y * -0.5f));
+		SetOrigin(Vec2(size.x * scale.x * 0.5f, size.y * scale.y * -0.5f));
 		break;
 	case Origin::Point::Center:
 	default:
-		SetOrigin(vector2());
+		SetOrigin(Vec2());
 		break;
 	}
 }
-const umath::vector2& Transform::GetOrigin() const
+const pmath::Vec2& Transform::GetOrigin() const
 {
 	return origin;
 }
 
-void Transform::SetScale(const umath::vector2& scale)
+void Transform::SetScale(const pmath::Vec2& scale)
 {
 	this->scale = scale;
 	m_transformNeedsUpdate = true;
 }
 void Transform::SetScale(const float xScale, const float yScale)
 {
-	SetScale(umath::vector2(xScale, yScale));
+	SetScale(pmath::Vec2(xScale, yScale));
 }
 void Transform::SetScale(const float scale)
 {
-	SetScale(umath::vector2(scale, scale));
+	SetScale(pmath::Vec2(scale, scale));
 }
-const umath::vector2& Transform::GetScale() const
+const pmath::Vec2& Transform::GetScale() const
 {
 	return scale;
 }
@@ -147,18 +147,18 @@ const float Transform::GetDepth() const
 	return depth;
 }
 
-void Transform::SetTransform(const umath::matrix4& modelTransform)
+void Transform::SetTransform(const pmath::Mat4& modelTransform)
 {
 	m_modelTransform = modelTransform;
 }
 
-void Transform::AddTransform(const umath::matrix4& modelTransform)
+void Transform::AddTransform(const pmath::Mat4& modelTransform)
 {
 	m_transformNeedsUpdate = true;
 
 	m_modelTransform = m_modelTransform * modelTransform;
 }
-const umath::matrix4& Transform::GetTransform()
+const pmath::Mat4& Transform::GetTransform()
 {
 	updateTransform();
 
@@ -175,32 +175,32 @@ void Transform::updateTransform()
 	if (!m_transformNeedsUpdate)
 		return;
 
-	const float ang = -angle * PI / 180.f;
+	const float ang = -angle * static_cast<float>(pi) / 180.f;
 	const float cosine = std::cos(ang);
 	const float sine = std::sin(ang);
 
-	const umath::matrix4 orig(
+	const pmath::Mat4 orig(
 		1.0f,   0,      0,      -origin.x,
 		0,      1.0f,   0,      -origin.y,
 		0,      0,      1.0f,   0,
 		0,      0,      0,      1.0f
 		);
 
-	const umath::matrix4 rotation(
+	const pmath::Mat4 rotation(
 		cosine, -sine,   0,      0,
 		sine,   cosine, 0,      0,
 		0,      0,      1.0f,   0,
 		0,      0,      0,      1.0f
 		);
 
-	const umath::matrix4 scaleMatrix(
+	const pmath::Mat4 scaleMatrix(
 		size.x * scale.x,   0,                  0,      0,
 		0,                  size.y * scale.y,   0,      0,
 		0,                  0,                  1.0f,   0,
 		0,                  0,                  0,      1.0f
 		);
 
-	const umath::matrix4 translation(
+	const pmath::Mat4 translation(
 		1.0f,   0,      0,      position.x,
 		0,      1.0f,   0,      position.y,
 		0,      0,      1.0f,   0,
