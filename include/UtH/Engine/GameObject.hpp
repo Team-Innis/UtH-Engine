@@ -2,12 +2,14 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-#include <vector>
-#include <string>
-
 #include <UtH/Engine/Component.hpp>
 #include <UtH/Math/Math.hpp>
 #include <UtH/Engine/Transform.hpp>
+
+#include <vector>
+#include <string>
+#include <memory>
+
 
 namespace uth
 {
@@ -42,7 +44,7 @@ namespace uth
         virtual void update(float){};
         virtual void draw(RenderTarget& target);
 
-		std::vector<Component*> components;
+		std::vector<std::unique_ptr<Component>> components;
 
 		bool m_active;
 	};
@@ -55,7 +57,7 @@ namespace uth
         {
             if (components.at(i)->GetName() == name)
             {
-                return dynamic_cast<T*>(components.at(i));
+                return dynamic_cast<T*>(components[i].get());
             }
         }
 
