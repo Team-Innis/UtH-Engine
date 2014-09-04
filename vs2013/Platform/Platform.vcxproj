@@ -100,7 +100,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>GLEW_STATIC;FREEGLUT_STATIC;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\extlibs\glfw\include;$(SolutionDir)..\src;$(SolutionDir)..\extlibs\glew\include;$(SolutionDir)..\extlibs\openal\include;$(SolutionDir)..\extlibs\physfs\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\ext\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -110,7 +110,7 @@
       <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;physfs.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\physfs\lib\Win32;$(SolutionDir)..\extlibs\glfw\lib\Win32;$(SolutionDir)..\extlibs\glew\lib\Win32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\ext\lib\physfs\lib\Win32;$(SolutionDir)..\ext\lib\glfw\lib\Win32;$(SolutionDir)..\ext\lib\glew\lib\Win32</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -122,7 +122,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>GLEW_STATIC;FREEGLUT_STATIC;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\extlibs\glfw\include;$(SolutionDir)..\src;$(SolutionDir)..\extlibs\glew\include;$(SolutionDir)..\extlibs\openal\include;$(SolutionDir)..\extlibs\physfs\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\ext\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -134,7 +134,7 @@
       <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;physfs.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\physfs\lib\Win32;$(SolutionDir)..\extlibs\glfw\lib\Win32;$(SolutionDir)..\extlibs\glew\lib\Win32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\ext\lib\physfs\lib\Win32;$(SolutionDir)..\ext\lib\glfw\lib\Win32;$(SolutionDir)..\ext\lib\glew\lib\Win32</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
