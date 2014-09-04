@@ -65,7 +65,7 @@ void Audio::SetSourcePosition(float x, float y, float z)
 	m_sound->SetSourcePosition(x, y, z);
 }
 
-void Audio::SetSourcePosition(umath::vector3 position)
+void Audio::SetSourcePosition(pmath::Vec3 position)
 {
 	m_sound->SetSourcePosition(position);
 }
@@ -75,7 +75,7 @@ void Audio::SetListenerPosition(float x, float y, float z)
 	m_sound->SetListenerPosition(x, y, z);
 }
 
-void Audio::SetListenerPosition(umath::vector3 position)
+void Audio::SetListenerPosition(pmath::Vec3 position)
 {
 	m_sound->SetListenerPosition(position);
 }

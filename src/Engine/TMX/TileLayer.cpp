@@ -1,6 +1,6 @@
 #include <UtH/Engine/TMX/TileLayer.hpp>
 #include <UtH/Engine/TMX/Map.hpp>
-#include <UtH/Math/Rectangle.hpp>
+#include <pmath/Rectangle.hpp>
 
 #include <tinyxml2.h>
 
@@ -77,7 +77,7 @@ Tile* TileLayer::GetTile(const int x, const int y)
 	for(auto it = m_tiles.begin(); it != m_tiles.end(); ++it)
 	{
 		auto tile = (*it);
-		if(tile->tileRectangle.x == x && tile->tileRectangle.y == y)
+		if(tile->tileRectangle.position.x == x && tile->tileRectangle.position.y == y)
 			return tile;
 	}
 	
@@ -127,7 +127,7 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 					y++;
 				}
 
-				const umath::rectangle t(static_cast<float>(x * tileset->GetTileWidth()), static_cast<float>(y * tileset->GetTileHeight()),
+				const pmath::Rect t(static_cast<float>(x * tileset->GetTileWidth()), static_cast<float>(y * tileset->GetTileHeight()),
 					static_cast<float>(tileset->GetTileWidth()), static_cast<float>(tileset->GetTileHeight()));
 
 				auto tile = new Tile(t);
@@ -138,10 +138,10 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 					tile->transform.scale.y = -1;
 
 				tile->parent = static_cast<GameObject*>(map);
-				const umath::rectangle texCoords = tileset->GetTile(gid - tileset->GetFirstGID());
+				const pmath::Rect texCoords = tileset->GetTile(gid - tileset->GetFirstGID());
 
 				m_tiles.push_back(tile);
-				m_spriteBatches.at(tileset->GetTexture())->AddSprite(&tile->transform, "", umath::vector4(1,1,1,1),  texCoords);
+				m_spriteBatches.at(tileset->GetTexture())->AddSprite(&tile->transform, "", pmath::Vec4(1,1,1,1),  texCoords);
 				x++;
 				break;
 			}

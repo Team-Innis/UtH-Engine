@@ -5,8 +5,8 @@
 #include <UtH/Renderer/Camera.hpp>
 #include <UtH/Core/Shader.hpp>
 #include <UtH/Platform/Uncopyable.hpp>
-#include <UtH/Math/Vector2.hpp>
-#include <UtH/Math/Rectangle.hpp>
+#include <pmath/Vector2.hpp>
+#include <pmath/Rectangle.hpp>
 
 
 namespace uth
@@ -24,13 +24,13 @@ namespace uth
 
         Shader& GetShader();
 
-        void SetViewport(const umath::rectangle& rect);
+        void SetViewport(const pmath::Rect& rect);
 
-        const umath::rectangle& GetViewport() const;
+        const pmath::Rect& GetViewport() const;
 
         bool Bind();
 
-        virtual umath::vector2 GetSize() const = 0;
+        virtual pmath::Vec2 GetSize() const = 0;
 
         void Clear(const float r = 0.f, const float g = 0.f, const float b = 0.f, const float a = 1.f);
 
@@ -47,7 +47,7 @@ namespace uth
         Camera m_defaultCamera;
         Shader m_defaultShader;
 
-        umath::rectangle m_viewport;
+        pmath::Rect m_viewport;
 
 
         bool m_loaded, m_set;

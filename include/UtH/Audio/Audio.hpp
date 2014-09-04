@@ -28,10 +28,10 @@ namespace uth
 		void SetPitch(int pitchPercent);
 		
 		void SetSourcePosition(float x, float y, float z = 0);
-		void SetSourcePosition(umath::vector3 position);
+		void SetSourcePosition(pmath::Vec3 position);
 
 		void SetListenerPosition(float x, float y, float z = 0);
-		void SetListenerPosition(umath::vector3 position);
+		void SetListenerPosition(pmath::Vec3 position);
 
 	private:
 		Sound* m_sound;

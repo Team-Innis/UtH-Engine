@@ -14,8 +14,8 @@ ParticleTemplate::ParticleTemplate()
                   {
                       // Default init function. Will distribute particles to random directions at speeds defined by the template.
 
-                      umath::vector2 tvec(Randomizer::InsideCircle());
-                      tvec /= tvec.getLength();
+                      pmath::Vec2 tvec(Randomizer::InsideCircle());
+                      tvec /= tvec.length();
                       particle.direction = (pTemplate.maxSpeed == 0.f ? pTemplate.minSpeed : (Randomizer::GetFloat(pTemplate.minSpeed, pTemplate.maxSpeed))) * tvec;
                   })
 {
@@ -23,7 +23,7 @@ ParticleTemplate::ParticleTemplate()
 }
 
 
-void ParticleTemplate::SetTexture(Texture* texture, const umath::rectangle& texCoords)
+void ParticleTemplate::SetTexture(Texture* texture, const pmath::Rect& texCoords)
 {
     m_texture = texture;
     m_texCoords = texCoords;
@@ -53,5 +53,5 @@ void ParticleTemplate::SetInitFunction(ParticleInitFunc func)
 
 void ParticleTemplate::SetColor(const float r, const float g, const float b, const float a)
 {
-    color = umath::vector4(r, g, b, a);
+    color = pmath::Vec4(r, g, b, a);
 }

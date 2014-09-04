@@ -21,10 +21,10 @@ void Randomizer::SetSeed(const unsigned int seed)
     std::srand(seed);
 }
 
-umath::vector2 Randomizer::InsideCircle(const float radius)
+pmath::Vec2 Randomizer::InsideCircle(const float radius)
 {
     const float angle = GetFloat(0.f, 2 * PI);
     const float rad = std::sqrt(GetFloat()) * radius;
 
-    return umath::vector2(rad * std::cos(angle), rad * std::sin(angle));
+    return pmath::Vec2(rad * std::cos(angle), rad * std::sin(angle));
 }

@@ -3,7 +3,7 @@
 #define TEXTURE_H_UTH
 
 #include <UtH/Platform/Uncopyable.hpp>
-#include <UtH/Math/Vector2.hpp>
+#include <pmath/Vector2.hpp>
 #include <string>
 
 
@@ -23,7 +23,7 @@ namespace uth
 		/// Consider using the UTH ResourceManager, example: uthRS.DeleteTexture(filePath)
 		void Delete();
 
-        bool Create(const umath::vector2& size, const bool smooth = false, const bool repeated = false);
+        bool Create(const pmath::Vec2& size, const bool smooth = false, const bool repeated = false);
 		
 		/// Consider using the UTH ResourceManager, example: uthRS.LoadTexture(filePath)
         bool LoadFromFile(const std::string& filePath, const bool smooth = false, const bool repeated = false);
@@ -38,7 +38,7 @@ namespace uth
 
         bool SetRepeated(const bool value);
 
-        const umath::vector2& GetSize() const;
+        const pmath::Vec2& GetSize() const;
 
         bool IsValid() const;
 
@@ -52,7 +52,7 @@ namespace uth
     private:
 
         unsigned int m_textureID;
-        umath::vector2 m_size;
+        pmath::Vec2 m_size;
         bool m_smooth, m_repeated;
 
     };

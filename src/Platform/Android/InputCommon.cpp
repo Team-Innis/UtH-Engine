@@ -11,7 +11,7 @@ const InputEvent& CommonInput::Event() const
 {
 	return m_event;
 }
-const umath::vector2 CommonInput::Position() const
+const pmath::Vec2 CommonInput::Position() const
 {
 	return m_position;
 }
@@ -24,7 +24,7 @@ void CommonInput::Update()
 	{
 	case TouchMotion::NONE:
 		m_event = InputEvent::NONE;
-		m_position = umath::vector2();
+		m_position = pmath::Vec2();
 		break;
 	case TouchMotion::STATIONARY:
 		m_event = InputEvent::STATIONARY;

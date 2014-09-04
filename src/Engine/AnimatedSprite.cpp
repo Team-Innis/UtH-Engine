@@ -7,7 +7,7 @@
 using namespace uth;
 
 AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
-	const umath::vector2& frameSize,
+	const pmath::Vec2& frameSize,
 	const float fps, const unsigned int firstFrame,
 	const bool reversed, const bool loop)
 	: Sprite(texture, "AnimatedSprite"),
@@ -19,7 +19,7 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 		m_reversed(reversed),
 		m_loop(loop)
 {
-	const umath::vector2 texSize = texture->GetSize();
+	const pmath::Vec2 texSize = texture->GetSize();
 #ifndef NDEBUG
 	if(int(texSize.x) % int(frameSize.x) != 0 || int(texSize.y) % int(frameSize.y) != 0)
 	{
@@ -64,11 +64,11 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 	}
 #endif
 	// frame size in pixels
-	m_frameSize.x = static_cast<const float>(texSizeX / frameCountX);
-	m_frameSize.y = static_cast<const float>(texSizeY / frameCountY);
+	m_frameSize.position.x = static_cast<const float>(texSizeX / frameCountX);
+	m_frameSize.position.y = static_cast<const float>(texSizeY / frameCountY);
 	// frame size in texcoord float
-	m_frameSize.width = 1.0f / frameCountX;
-	m_frameSize.height = 1.0f / frameCountY;
+	m_frameSize.size.x = 1.0f / frameCountX;
+	m_frameSize.size.y = 1.0f / frameCountY;
 }
 
 AnimatedSprite::~AnimatedSprite()
@@ -104,7 +104,7 @@ void AnimatedSprite::Init()
 {
 	ChangeAnimation(m_firstFrame,m_frames,m_firstFrame, m_fps, m_loop, m_reversed);
 
-	const umath::vector2 size = umath::vector2(m_frameSize.x, m_frameSize.y);
+	const pmath::Vec2 size = pmath::Vec2(m_frameSize.position.x, m_frameSize.position.y);
 	parent->transform.SetSize(size);
 
 	loopEnd = false;
@@ -153,28 +153,28 @@ void AnimatedSprite::genererateBuffer()
 	const int X = m_curFrame % m_frameCountX;
 	const int Y = m_curFrame/m_frameCountX;
 
-	frame.x = X * m_frameSize.width;
-	frame.width = m_frameSize.width;
-	frame.y = 1.0f - Y * m_frameSize.height;
-	frame.height = -m_frameSize.height;
+	frame.position.x = X * m_frameSize.size.x;
+	frame.size.x = m_frameSize.size.x;
+	frame.position.y = 1.0f - Y * m_frameSize.size.y;
+	frame.size.y = -m_frameSize.size.y;
 
 	m_vertexBuffer.clear();
 
 	m_vertexBuffer.addVertex(Vertex(
-		umath::vector3(-0.5f, -0.5f, 0),
-		umath::vector2(frame.x, frame.y),
+		pmath::Vec3(-0.5f, -0.5f, 0),
+		pmath::Vec2(frame.getLeft(), frame.getTop()),
 		m_color));
 	m_vertexBuffer.addVertex(Vertex(
-		umath::vector3(0.5f, -0.5f, 0),
-		umath::vector2(frame.getRight(), frame.y),
+		pmath::Vec3(0.5f, -0.5f, 0),
+		pmath::Vec2(frame.getRight(), frame.getTop()),
 		m_color));
 	m_vertexBuffer.addVertex(Vertex(
-		umath::vector3(-0.5f, 0.5f, 0),
-		umath::vector2(frame.x, frame.getBottom()),
+		pmath::Vec3(-0.5f, 0.5f, 0),
+		pmath::Vec2(frame.getLeft(), frame.getBottom()),
 		m_color));
 	m_vertexBuffer.addVertex(Vertex(
-		umath::vector3(0.5f, 0.5f, 0),
-		umath::vector2(frame.getRight(), frame.getBottom()),
+		pmath::Vec3(0.5f, 0.5f, 0),
+		pmath::Vec2(frame.getRight(), frame.getBottom()),
 		m_color));
 
 

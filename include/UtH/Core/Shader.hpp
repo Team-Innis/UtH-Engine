@@ -1,7 +1,7 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include <UtH/Math/Math.hpp>
+#include <pmath/PMath.hpp>
 #include <UtH/Platform/Enums.hpp>
 #include <string>
 
@@ -27,11 +27,11 @@ namespace uth
         bool SetUniform(const std::string& name, const float x, const float y);
         bool SetUniform(const std::string& name, const float x, const float y, const float z);
         bool SetUniform(const std::string& name, const float x, const float y, const float z, const float w);
-		bool SetUniform(const std::string& name, const umath::vector2& vector);
-		bool SetUniform(const std::string& name, const umath::vector3& vector);
-		bool SetUniform(const std::string& name, const umath::vector4& vector);
-		bool SetUniform(const std::string& name, const umath::matrix3& matrix);
-		bool SetUniform(const std::string& name, const umath::matrix4& matrix);
+		bool SetUniform(const std::string& name, const pmath::Vec2& vector);
+		bool SetUniform(const std::string& name, const pmath::Vec3& vector);
+		bool SetUniform(const std::string& name, const pmath::Vec4& vector);
+		bool SetUniform(const std::string& name, const pmath::Mat3& matrix);
+		bool SetUniform(const std::string& name, const pmath::Mat4& matrix);
 	private:
 
 		unsigned int m_program;

@@ -25,7 +25,7 @@ namespace uth
     }
 
 
-    bool RenderTexture::Initialize(const umath::vector2& size, const bool depthBuffer)
+    bool RenderTexture::Initialize(const pmath::Vec2& size, const bool depthBuffer)
     {
         if (!m_texture.Create(size, false, false))
         {
@@ -77,7 +77,7 @@ namespace uth
         return true;
     }
 
-    umath::vector2 RenderTexture::GetSize() const
+    pmath::Vec2 RenderTexture::GetSize() const
     {
         return m_texture.GetSize();
     }
@@ -98,11 +98,11 @@ namespace uth
         {
             uth::Graphics::BindFrameBuffer(m_frameBuffer);
 
-            const umath::rectangle& vp = GetViewport();
-            uth::Graphics::SetViewport(static_cast<int>(vp.x + 0.5f),
-                                       static_cast<int>(vp.y + 0.5f),
-                                       static_cast<int>(vp.width + 0.5f),
-                                       static_cast<int>(vp.height + 0.5f));
+            const pmath::Rect& vp = GetViewport();
+            uth::Graphics::SetViewport(static_cast<int>(vp.position.x + 0.5f),
+                                       static_cast<int>(vp.position.y + 0.5f),
+                                       static_cast<int>(vp.size.x + 0.5f),
+                                       static_cast<int>(vp.size.y + 0.5f));
             return true;
         }
 

@@ -33,20 +33,20 @@ const int TouchInput::TouchUnit::GetStartIndex() const
 	return 0;
 }
 
-const umath::vector2 TouchInput::TouchUnit::GetStartPosition() const
+const pmath::Vec2 TouchInput::TouchUnit::GetStartPosition() const
 {
 	WriteLog("Touch not defined on computer.");
-	return umath::vector2();
+	return pmath::Vec2();
 }
 
-const umath::vector2 TouchInput::TouchUnit::GetPosition() const
+const pmath::Vec2 TouchInput::TouchUnit::GetPosition() const
 {
 	WriteLog("Touch not defined on computer.");
-	return umath::vector2();
+	return pmath::Vec2();
 }
 
-const umath::vector2 TouchInput::TouchUnit::GetEndPosition() const
+const pmath::Vec2 TouchInput::TouchUnit::GetEndPosition() const
 {
 	WriteLog("Touch not defined on computer.");
-	return umath::vector2();
+	return pmath::Vec2();
 }

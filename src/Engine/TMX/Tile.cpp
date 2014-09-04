@@ -6,12 +6,12 @@ using namespace TMX;
 Tile::Tile()
 { }
 
-Tile::Tile(const umath::rectangle& tile)
+Tile::Tile(const pmath::Rect& tile)
 {
 	tileRectangle = tile;
 
-	transform.SetPosition(tile.x, tile.y);
-	transform.SetSize(tile.width, tile.height);
+	transform.SetPosition(tile.position.x, tile.position.y);
+	transform.SetSize(tile.size.x, tile.size.y);
 }
 
 

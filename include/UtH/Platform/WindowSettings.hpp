@@ -4,7 +4,7 @@
 
 #include <string>
 #include <UtH/Platform/Configuration.hpp>
-#include <UtH/Math/Vector2.hpp>
+#include <pmath/Vector2.hpp>
 
 
 namespace uth
@@ -41,8 +41,8 @@ namespace uth
 
 		int antialiasingSamples;
 
-		umath::vector2 position;
-		umath::vector2 size;
+		pmath::Vec2 position;
+		pmath::Vec2 size;
 
 		std::string title;
 	};
