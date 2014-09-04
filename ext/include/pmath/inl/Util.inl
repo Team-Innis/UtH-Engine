@@ -6,9 +6,9 @@
 namespace pmath
 {
     template<typename T>
-#if _MSC_VER > 1600
+#if _MSC_VER > 1600 || !defined(_MSC_VER)
     inline bool equals(const T a, const T b, const T tolerance)
-#elif _MSC_VER <= 1600
+#elif MSC_VER <= 1600
     inline bool equals(const T a, const T b, const T tolerance = T(0.001))
 #endif
     {
@@ -18,13 +18,13 @@ namespace pmath
     template<typename T>
     inline T degreesToRadians(const T& degrees)
     {
-        return (degrees / 180) * pi<T>();
+        return T(degrees / 180 * pi);
     }
 
     template<typename T>
     inline T radiansToDegrees(const T& radians)
     {
-        return (radians * 180) / pi<T>();
+        return T(radians * 180/ pi);
     }
 
     template<typename T>

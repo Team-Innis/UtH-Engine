@@ -4,12 +4,9 @@
 
 namespace pmath
 {
-    template<typename T>
-    T pi();
+    const double tau = 6.28318530717958647692528676655900577;
+    const double pi = 3.14159265358979323846264338327950288;
 
-    template<typename T>
-    T e();
+    const double e = 2.71828182845904523536028747135266249776;
 }
-
-#include "inl/Constants.inl"
 #endif

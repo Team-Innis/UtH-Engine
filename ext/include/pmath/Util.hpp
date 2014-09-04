@@ -7,7 +7,7 @@ namespace pmath
     // Test the equality of 2 variables
     // Mostly needed for floating point values
 
-#if _MSC_VER > 1600
+#if _MSC_VER > 1600 || !defined(_MSC_VER)
     template<typename T>
     bool equals(const T a, const T b, const T tolerance = T(0.001));
 #elif _MSC_VER <= 1600

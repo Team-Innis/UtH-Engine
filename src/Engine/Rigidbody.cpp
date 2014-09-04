@@ -174,13 +174,13 @@ const pmath::Vec2 Rigidbody::GetPosition()
 
 void Rigidbody::SetAngle(const float angle)
 {
-	float ang = -angle * pmath::pi<float>() / 180.f;
+	float ang = -angle * static_cast<float>(pmath::pi) / 180.f;
 	m_body->SetTransform(m_body->GetPosition(), ang);
 }
 
 float Rigidbody::GetAngle() const
 {
-	return -m_body->GetAngle() * 180.f / pmath::pi<float>();
+	return -m_body->GetAngle() * 180.f / static_cast<float>(pmath::pi);
 }
 
 void Rigidbody::SetFixedRotation(bool value)

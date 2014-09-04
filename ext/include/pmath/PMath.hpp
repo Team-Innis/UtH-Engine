@@ -24,5 +24,7 @@
 #include "Matrix.hpp"
 #include "Quaternion.hpp"
 
+#include "Rectangle.hpp"
+
 #include "Constants.hpp"
 #include "Util.hpp"

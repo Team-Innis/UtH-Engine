@@ -175,7 +175,7 @@ void Transform::updateTransform()
 	if (!m_transformNeedsUpdate)
 		return;
 
-	const float ang = -angle * pi<float>() / 180.f;
+	const float ang = -angle * static_cast<float>(pi) / 180.f;
 	const float cosine = std::cos(ang);
 	const float sine = std::sin(ang);
 
