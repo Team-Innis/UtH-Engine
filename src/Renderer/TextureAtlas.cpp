@@ -35,8 +35,10 @@ namespace uth
 			return false;
 
 		const tinyxml2::XMLElement* element = doc.FirstChildElement();
-		std::string s(element->FindAttribute("imagePath")->Value());
-		m_texture = &uthRS.LoadTexture(element->FindAttribute("imagePath")->Value());
+		m_texture = uthRS.LoadTexture(element->FindAttribute("imagePath")->Value());
+
+        if (!m_texture)
+            return false;
 
 		for (const tinyxml2::XMLElement* child = element->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
 		{
