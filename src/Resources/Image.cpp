@@ -38,7 +38,7 @@ namespace uth
         m_pixels.clear();
 
         int width, height, depth;
-        BYTE* pointer = stbi_load(("assets/" + filePath).c_str(), &width, &height, &depth, STBI_rgb);
+        BYTE* pointer = stbi_load(("assets/" + filePath).c_str(), &width, &height, &depth, NULL);
         
         if (pointer && width && height)
         {

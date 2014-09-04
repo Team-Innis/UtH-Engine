@@ -77,7 +77,7 @@ namespace uth
 		SetSmooth(smooth);
         SetRepeated(repeated);
 
-		ImageFormat format = img->GetDepth() == 32 ? RGBA_FORMAT : RGB_FORMAT;
+		ImageFormat format = img->GetDepth() == 4 ? RGBA_FORMAT : RGB_FORMAT;
 
         uth::Graphics::SetTextureImage2D(TEXTURE_2D, 0, format,
 			static_cast<unsigned int>(m_size.x), static_cast<unsigned int>(m_size.y),
