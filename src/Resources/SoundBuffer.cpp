@@ -50,7 +50,7 @@ namespace uth
 
 			pInfo = ov_info(&oggFile, -1);
 
-			m_soundInfo.channels = pInfo->channels;
+			m_soundInfo.channels = static_cast<short>(pInfo->channels);
 			m_soundInfo.sampleRate = pInfo->rate;
 			m_soundInfo.bitsPerSample = 16;
 
