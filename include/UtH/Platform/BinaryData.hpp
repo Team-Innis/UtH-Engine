@@ -27,7 +27,10 @@ public:
 		m_size = binary_data.m_size;
 		m_data = binary_data.m_data;
 	}
-	~BINARY_DATA(){}
+	~BINARY_DATA()
+    {
+        
+    }
 	void setData(void* data, const size_t size)
 	{
 		m_data = reinterpret_cast<unsigned char*>(data);
@@ -43,8 +46,12 @@ public:
 	}
 	void clear()
 	{
-		delete[] m_data;
-		m_size = 0;
+        if (m_data)
+        {
+            delete[] m_data;
+            m_data = nullptr;
+            m_size = 0;
+        }
 	}
 
 };

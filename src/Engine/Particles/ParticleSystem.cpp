@@ -75,7 +75,6 @@ void ParticleSystem::update(float dt)
 	};
 
 	const unsigned int size = m_particles.size();
-    std::cout << size << std::endl;
 
 	m_particles.erase(std::remove_if(m_particles.begin(), m_particles.end(), Eraser(m_template.lifetime, dt)), m_particles.end());
 
