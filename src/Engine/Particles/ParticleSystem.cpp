@@ -1,34 +1,40 @@
 #include <UtH/Engine/Particles/ParticleSystem.hpp>
 #include <UtH/Core/Randomizer.hpp>
 #include <algorithm>
+#include <iostream>
 
 using namespace uth;
 
 
-ParticleSystem::ParticleSystem()
+ParticleSystem::ParticleSystem(const size_t reserve)
 	: GameObject(),
-	m_batch(false)
+	  m_batch(false)
 {
-
+    m_particles.reserve(reserve);
 }
 
 void ParticleSystem::Emit(const unsigned int amount)
 {
-	for (unsigned int i = 0; i < amount; ++i)
+	for (size_t i = 0; i < amount; ++i)
 	{
-        Particle* p = new Particle();
-	    p->transform = this->transform;
-	    p->color = m_template.color;
+        if (m_particles.size() < m_particles.capacity())
+            m_particles.emplace_back(this->transform);
+        else
+            return;
 
-		m_template.m_pInitFunc(*p, m_template);
+        auto& p = m_particles.back();
+	    p.color = m_template.color;
 
-		AddParticles(1, p);
+		m_template.m_pInitFunc(p, m_template);
+
+        p.lifetime = 0;
+        m_batch.AddSprite(&p);
 	}
 }
 
 
 
-void ParticleSystem::AddAffector(Affector* affector)
+void ParticleSystem::AddAffector(const Affector& affector)
 {
 	m_affectors.emplace_back(affector);
 }
@@ -54,37 +60,40 @@ void ParticleSystem::update(float dt)
 {
 	struct Eraser
 	{
-		Eraser(double maxLT)
-			: maxLifetime(maxLT)
+		Eraser(float maxLT, float delta)
+			: maxLifetime(maxLT),
+              deltaTime(delta)
 		{}
 
-		double maxLifetime;
+		float maxLifetime;
+        float deltaTime;
 
-		bool operator()(const std::unique_ptr<Particle>& particle)
+		bool operator()(Particle& particle)
 		{
-			return particle.get()->lifetime.CurTime() >= maxLifetime;
+			return (particle.lifetime += deltaTime) >= maxLifetime;
 		}
 	};
 
 	const unsigned int size = m_particles.size();
+    std::cout << size << std::endl;
 
-	m_particles.erase(std::remove_if(m_particles.begin(), m_particles.end(), Eraser(m_template.lifetime)), m_particles.end());
+	m_particles.erase(std::remove_if(m_particles.begin(), m_particles.end(), Eraser(m_template.lifetime, dt)), m_particles.end());
 
-	//if (size > m_particles.size())
-	if (true)
+	if (size > m_particles.size())
+	//if (true)
 	{
 		m_batch.Clear();
-		for (auto itr = m_particles.begin(); itr != m_particles.end(); ++itr)
-		{
-			m_batch.AddSprite(itr->get(), "", itr->get()->color);
+		for (auto& i : m_particles)
+        {
+			m_batch.AddSprite(&i, "", i.color);
 		}
 	}
 
-	for (auto itr = m_particles.begin(); itr != m_particles.end(); ++itr)
+	for (auto& p : m_particles)
 	{
-		for (auto itr2 = m_affectors.begin(); itr2 != m_affectors.end(); ++itr2)
+		for (auto& a : m_affectors)
 		{
-			itr2->get()->UpdateParticle(*itr->get(), m_template, dt);
+			a.UpdateParticle(p, m_template, dt);
 		}
 	}
 }
@@ -92,15 +101,4 @@ void ParticleSystem::update(float dt)
 void ParticleSystem::draw(RenderTarget& target)
 {
 	m_batch.Draw(target);
-}
-
-void ParticleSystem::AddParticles(const unsigned int amount, Particle* particle)
-{
-	particle->lifetime.Reset();
-
-	for (unsigned int i = 0; i < amount; ++i)
-	{
-		m_particles.emplace_back(particle);
-		m_batch.AddSprite(m_particles.back().get());
-	}
 }

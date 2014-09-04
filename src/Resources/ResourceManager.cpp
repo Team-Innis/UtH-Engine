@@ -11,68 +11,84 @@ ResourceManager::~ResourceManager()
 {
 }
 
-SoundBuffer& ResourceManager::LoadWAV(const std::string& filePath)
+SoundBuffer* uth::ResourceManager::LoadSoundBuffer(const std::string& filePath)
 {
     auto itr = m_soundBuffers.find(filePath);
 
     if (itr != m_soundBuffers.end())
-        return *itr->second;
+        return itr->second.get();
 
-    SoundBuffer* temp = new SoundBuffer;
+    std::unique_ptr<SoundBuffer> temp(new SoundBuffer());
 	const bool result = temp->LoadFromFile(filePath);
-    assert(result);
 
-    m_soundBuffers[filePath] = std::unique_ptr<SoundBuffer>(temp);
+    if (result)
+    {
+        auto tempPtr = temp.get();
+        m_soundBuffers[filePath] = std::unique_ptr<SoundBuffer>(temp.release());
+        return tempPtr;
+    }
 
-    return *temp;
+    return nullptr;
 }
 
-Image& ResourceManager::LoadTGA(const std::string& filePath)
+Image* uth::ResourceManager::LoadImage(const std::string& filePath)
 {
 	auto itr = m_images.find(filePath);
 
     if (itr != m_images.end())
-        return *itr->second;
+        return itr->second.get();
 
-    Image* temp = new Image();
+    std::unique_ptr<Image> temp(new Image());
     const bool result = temp->LoadFromFile(filePath);
-	assert(result);
 
-    m_images[filePath] = std::unique_ptr<Image>(temp);
+    if (result)
+    {
+        auto tempPtr = temp.get();
+        m_images[filePath] = std::unique_ptr<Image>(temp.release());
+        return tempPtr;
+    }
 
-    return *temp;
+    return nullptr;
 }
 
-Texture& ResourceManager::LoadTexture(const std::string& filePath)
+Texture* uth::ResourceManager::LoadTexture(const std::string& filePath)
 {
     auto itr = m_textures.find(filePath);
 
     if (itr != m_textures.end())
-        return *itr->second;
+        return itr->second.get();
 
-    Texture* temp = new Texture();
+    std::unique_ptr<Texture> temp(new Texture());
     const bool result = temp->LoadFromFile(filePath);
-	assert(result);
 
-    m_textures[filePath] = std::unique_ptr<Texture>(temp);
+    if (result)
+    {
+        auto tempPtr = temp.get();
+        m_textures[filePath] = std::unique_ptr<Texture>(temp.release());
+        return tempPtr;
+    }
 
-    return *temp;
+    return nullptr;
 }
 
-Font& ResourceManager::LoadFont(const std::string& filePath)
+Font* ResourceManager::LoadFont(const std::string& filePath)
 {
     auto itr = m_fonts.find(filePath);
 
     if (itr != m_fonts.end())
-        return *itr->second;
+        return itr->second.get();
 
-    Font* temp = new Font();
+    std::unique_ptr<Font> temp(new Font());
     const bool result = temp->LoadFromFile(filePath);
-	assert(result);
 
-    m_fonts[filePath] = std::unique_ptr<Font>(temp);
+    if (result)
+    {
+        auto tempPtr = temp.get();
+        m_fonts[filePath] = std::unique_ptr<Font>(temp.release());
+        return tempPtr;
+    }
 
-    return *temp;
+    return nullptr;
 }
 
 void ResourceManager::Clear(const unsigned int flags)

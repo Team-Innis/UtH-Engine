@@ -5,12 +5,12 @@
 using namespace uth;
 
 ParticleTemplate::ParticleTemplate()
-    : lifetime(0),
+    : lifetime(0.f),
       m_texture(nullptr),
       minSpeed(1.f),
       maxSpeed(0.f),
       color(1, 1, 1, 1),
-      m_pInitFunc([](Particle& particle, ParticleTemplate& pTemplate)
+      m_pInitFunc([](Particle& particle, const ParticleTemplate& pTemplate)
                   {
                       // Default init function. Will distribute particles to random directions at speeds defined by the template.
 
@@ -29,7 +29,7 @@ void ParticleTemplate::SetTexture(Texture* texture, const umath::rectangle& texC
     m_texCoords = texCoords;
 }
 
-void ParticleTemplate::SetLifetime(const double seconds)
+void ParticleTemplate::SetLifetime(const float seconds)
 {
     lifetime = seconds;
 }
@@ -46,7 +46,7 @@ void ParticleTemplate::SetSpeed(const float pixelsPerSecondMin, const float pixe
     maxSpeed = pixelsPerSecondMax;
 }
 
-void ParticleTemplate::SetInitFunction(std::function<void(Particle&, ParticleTemplate&)> func)
+void ParticleTemplate::SetInitFunction(ParticleInitFunc func)
 {
     m_pInitFunc = func;
 }

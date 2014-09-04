@@ -33,7 +33,7 @@
     <ClCompile Include="..\..\src\Renderer\RenderTexture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\extlibs\tinyxml2\src\tinyxml2.cpp">
+    <ClCompile Include="..\..\ext\lib\tinyxml2\src\tinyxml2.cpp">
       <Filter>Source Files\tinyxlm2</Filter>
     </ClCompile>
   </ItemGroup>

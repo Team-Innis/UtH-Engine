@@ -141,7 +141,7 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 				const umath::rectangle texCoords = tileset->GetTile(gid - tileset->GetFirstGID());
 
 				m_tiles.push_back(tile);
-				m_spriteBatches.at(tileset->GetTexture())->AddSprite(tile, "", umath::vector4(1,1,1,1),  texCoords);
+				m_spriteBatches.at(tileset->GetTexture())->AddSprite(&tile->transform, "", umath::vector4(1,1,1,1),  texCoords);
 				x++;
 				break;
 			}

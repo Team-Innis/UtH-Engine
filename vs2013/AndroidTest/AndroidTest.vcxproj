@@ -24,6 +24,7 @@
     <ClCompile Include="..\..\src\Platform\Android\InputCommon.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputKeyboard.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputMouse.cpp" />
+    <ClCompile Include="..\..\src\Platform\Android\InputSensor.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputTouch.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +34,7 @@
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputCommon.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputKeyboard.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputMouse.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Android\InputSensor.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputTouch.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

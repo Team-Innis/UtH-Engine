@@ -14,6 +14,7 @@
     <ClInclude Include="..\..\include\UtH\Platform\BinaryData.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Common\CommonWindowImpl.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Common\FileReader.h" />
+    <ClInclude Include="..\..\include\UtH\Platform\Common\InputSensor.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Configuration.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Debug.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Enums.hpp" />
@@ -38,6 +39,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\Platform\Common\CommonWindowImpl.cpp" />
     <ClCompile Include="..\..\src\Platform\Common\FileReader.cpp" />
+    <ClCompile Include="..\..\src\Platform\Common\InputSensor.cpp" />
     <ClCompile Include="..\..\src\Platform\Debug.cpp" />
     <ClCompile Include="..\..\src\Platform\Graphics.cpp" />
     <ClCompile Include="..\..\src\Platform\HiResTimer.cpp" />
@@ -97,8 +99,8 @@
       </PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>GLEW_STATIC;FREEGLUT_STATIC;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\extlibs\glfw\include;$(SolutionDir)..\src;$(SolutionDir)..\extlibs\glew\include;$(SolutionDir)..\extlibs\openal\include;$(SolutionDir)..\extlibs\physfs\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;FREEGLUT_STATIC;WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\ext\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -108,7 +110,7 @@
       <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;physfs.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\physfs\lib\Win32;$(SolutionDir)..\extlibs\glfw\lib\Win32;$(SolutionDir)..\extlibs\glew\lib\Win32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\ext\lib\physfs\lib\Win32;$(SolutionDir)..\ext\lib\glfw\lib\Win32;$(SolutionDir)..\ext\lib\glew\lib\Win32</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -119,8 +121,8 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>GLEW_STATIC;FREEGLUT_STATIC;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\extlibs\glfw\include;$(SolutionDir)..\src;$(SolutionDir)..\extlibs\glew\include;$(SolutionDir)..\extlibs\openal\include;$(SolutionDir)..\extlibs\physfs\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;FREEGLUT_STATIC;WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include;$(SolutionDir)..\ext\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -132,7 +134,7 @@
       <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;physfs.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\physfs\lib\Win32;$(SolutionDir)..\extlibs\glfw\lib\Win32;$(SolutionDir)..\extlibs\glew\lib\Win32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\ext\lib\physfs\lib\Win32;$(SolutionDir)..\ext\lib\glfw\lib\Win32;$(SolutionDir)..\ext\lib\glew\lib\Win32</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

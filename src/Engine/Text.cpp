@@ -25,9 +25,14 @@ Text::Text(const std::string& fontPath, const float fontSize, const std::string&
 
 	m_atlas = texture_atlas_new(1024, 1024, 1);
 
-	auto& data = uthRS.LoadFont(fontPath).GetFontData();
+    const Font* font = uthRS.LoadFont(fontPath);
 
-	m_font = texture_font_new_from_memory(m_atlas, fontSize, data.ptr(), data.size());
+    if (font)
+    {
+        auto& data = font->GetFontData();
+
+        m_font = texture_font_new_from_memory(m_atlas, fontSize, data.ptr(), data.size());
+    }
 }
 
 Text::~Text()
