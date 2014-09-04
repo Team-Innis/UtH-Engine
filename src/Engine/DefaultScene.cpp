@@ -41,7 +41,7 @@ bool DefaultScene::Init()
 	text = new GameObject();
 	fade = new GameObject();
 
-	logo->AddComponent(new AnimatedSprite(&uthRS.LoadTexture("EngineAnimation.tga"),60,6,10,20));
+	logo->AddComponent(new AnimatedSprite(uthRS.LoadTexture("EngineAnimation.tga"),60,6,10,20));
     logo->transform.SetPosition(0, 80);
 	logo->transform.SetScale(1.5f);
 

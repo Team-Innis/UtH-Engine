@@ -25,7 +25,7 @@ bool Font::LoadFromFile(const std::string& filePath)
 	fr.OpenFile(filePath);
 	m_fontData = fr.ReadBinary();
 
-	if(m_fontData.ptr() == nullptr)
+	if (!m_fontData.ptr())
 		return false;
 
 	return true;

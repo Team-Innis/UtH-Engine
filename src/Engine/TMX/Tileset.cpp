@@ -134,7 +134,7 @@ void Tileset::parseTileset(tinyxml2::XMLElement* tilesetElement, const std::stri
 		imagePath.replace(imagePath.length() - 4, 4,".tga");
 	}
 
-	m_texture = &uthRS.LoadTexture(imagePath);
+	m_texture = uthRS.LoadTexture(imagePath);
 }
 
 

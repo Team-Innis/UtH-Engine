@@ -18,7 +18,7 @@ Sprite::Sprite(Texture* texture, const std::string& name)
 Sprite::Sprite(const std::string& filePath, const std::string& name)
 	: Component(name)
 {
-	SetTexture(&uthRS.LoadTexture(filePath));
+	SetTexture(uthRS.LoadTexture(filePath));
 
 	defaults();
 }
@@ -116,7 +116,11 @@ const umath::vector4& Sprite::GetColor() const
 // Private
 void Sprite::defaults()
 {
-	m_size = m_texture->GetSize();
+    if (m_texture)
+	    m_size = m_texture->GetSize();
+    else
+        m_size = umath::vector2();
+
 	m_color = umath::vector4(1.f, 1.f, 1.f, 1.f);
 }
 
