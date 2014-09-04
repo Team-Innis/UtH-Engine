@@ -15,7 +15,7 @@ ParticleTemplate::ParticleTemplate()
                       // Default init function. Will distribute particles to random directions at speeds defined by the template.
 
                       pmath::Vec2 tvec(Randomizer::InsideCircle());
-                      tvec /= tvec.length();
+                      tvec /= static_cast<float>(tvec.length());
                       particle.direction = (pTemplate.maxSpeed == 0.f ? pTemplate.minSpeed : (Randomizer::GetFloat(pTemplate.minSpeed, pTemplate.maxSpeed))) * tvec;
                   })
 {
