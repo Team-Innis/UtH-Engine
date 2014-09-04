@@ -12,23 +12,27 @@ namespace uth
 
     class Affector
     {
+    private:
+
+        typedef std::function<void(Particle&, const ParticleTemplate&, float)> ParticleUpdateFunc;
+
+
     public:
 
         Affector();
 
-        Affector(std::function<void(Particle&, ParticleTemplate&, float)> func);
+        Affector(ParticleUpdateFunc func);
 
         virtual ~Affector(){};
 
 
+        virtual void UpdateParticle(Particle& particle, const ParticleTemplate&, float dt);
 
-        virtual void UpdateParticle(Particle& particle, ParticleTemplate&, float dt);
-
-        void SetUpdateFunc(std::function<void(Particle&, ParticleTemplate&, float)> func);
+        void SetUpdateFunc(ParticleUpdateFunc func);
 
     private:
      
-        std::function<void(Particle&, ParticleTemplate&, float)> m_func;
+        ParticleUpdateFunc m_func;
 
     };
 }

@@ -14,8 +14,9 @@ void Input::SetWindow(void *windowHandle)
 }
 void Input::Update(float deltaTime)
 {
-	Mouse.Update();
-	Keyboard.Update();
-	Touch.Update(deltaTime);
-	Common.Update();
+    Mouse.Update();
+    Keyboard.Update();
+    Touch.Update(deltaTime);
+    Common.Update();
+    Sensor.Update();
 }

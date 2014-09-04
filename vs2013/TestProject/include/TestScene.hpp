@@ -5,6 +5,7 @@
 #include <UtH/Engine/Scene.hpp>
 #include <UtH/Core/Shader.hpp>
 #include <UtH/Engine/GameObject.hpp>
+#include <UtH/Engine/Particles/ParticleSystem.hpp>
 
 
 namespace uth
@@ -24,6 +25,8 @@ namespace uth
 		Shader* shader;
 
 		GameObject *test;
+
+        ParticleSystem ps;
 
 	};
 }

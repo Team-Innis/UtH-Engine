@@ -2,6 +2,7 @@
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Platform/HiResTimer.hpp>
+#include <cassert>
 
 using namespace uth;
 

@@ -51,6 +51,9 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
+    <ProjectReference Include="..\UMath\UMath.vcxproj">
+      <Project>{d16755ab-9f02-42c3-849d-acdd08e550ca}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Engine\AnimatedSprite.cpp" />
@@ -157,14 +160,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\include\;$(SolutionDir)..\extlibs\tinyxml2\include\;$(SolutionDir)..\extlibs\Box2D\include\;$(SolutionDir)..\extlibs\freetype\include\;$(SolutionDir)..\extlibs\freetype-gl\include\;$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\glfw\include\;$(SolutionDir)..\extlibs\physfs\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include\;$(SolutionDir)..\ext\include\;$(SolutionDir)..\ext\include\freetype_include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\freetype\lib\Win32;$(SolutionDir)..\extlibs\freetype-gl\lib\Win32;$(SolutionDir)..\extlibs\Box2D\lib\Win32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\ext\lib\freetype\lib\Win32;$(SolutionDir)..\ext\lib\freetype-gl\lib\Win32;$(SolutionDir)..\ext\lib\Box2D\lib\Win32</AdditionalLibraryDirectories>
       <AdditionalDependencies>Box2D-d.lib;freetype253_D.lib;freetype-gl-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
@@ -177,7 +180,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\include\;$(SolutionDir)..\extlibs\tinyxml2\include\;$(SolutionDir)..\extlibs\Box2D\include\;$(SolutionDir)..\extlibs\freetype\include\;$(SolutionDir)..\extlibs\freetype-gl\include\;$(SolutionDir)..\extlibs\openal\include\;$(SolutionDir)..\extlibs\glew\include\;$(SolutionDir)..\extlibs\glfw\include\;$(SolutionDir)..\extlibs\physfs\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\include\;$(SolutionDir)..\ext\include\;$(SolutionDir)..\ext\include\freetype_include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -186,7 +189,7 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\extlibs\freetype\lib\Win32;$(SolutionDir)..\extlibs\freetype-gl\lib\Win32;$(SolutionDir)..\extlibs\Box2D\lib\Win32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\ext\lib\freetype\lib\Win32;$(SolutionDir)..\ext\lib\freetype-gl\lib\Win32;$(SolutionDir)..\ext\lib\Box2D\lib\Win32</AdditionalLibraryDirectories>
       <AdditionalDependencies>Box2D.lib;freetype253.lib;freetype-gl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>

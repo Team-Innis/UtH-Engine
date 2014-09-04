@@ -6,12 +6,15 @@
 #include <UtH/Engine/Rigidbody.hpp>
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Debug.hpp>
+#include <UtH/Engine/Particles/ParticleTemplate.hpp>
+#include <UtH/Engine/Particles/Affector.hpp>
 
 using namespace uth;
 
 const unsigned int sprites = 40;
 
 TestScene::TestScene()
+    : ps(100)
 {}
 TestScene::~TestScene()
 {}
@@ -27,6 +30,21 @@ bool TestScene::Init()
 	test = new GameObject();
 	test->AddComponent(new Sprite(umath::vector4(1,0,0,1),umath::vector2(128,128)));
 
+    ParticleTemplate pt;
+    pt.SetLifetime(1.f);
+    pt.SetSpeed(10.f, 150.f);
+    pt.SetTexture(uthRS.LoadTexture("particle.tga"));
+
+    ps.SetTemplate(pt);
+    
+
+    Affector aff([](Particle& part, const ParticleTemplate& ptemp, float dt)
+    {
+        part.Move(part.direction * dt);
+    });
+    
+    ps.AddAffector(aff);
+
 	return true;
 }
 bool TestScene::DeInit()
@@ -36,11 +54,14 @@ bool TestScene::DeInit()
 
 bool TestScene::Update(float dt)
 {
-    
+    ps.Emit(1);
+    ps.Update(dt);
+
 	return true;
 }
 bool TestScene::Draw()
 {
 	test->Draw(uthEngine.GetWindow());
+    ps.Draw(uthEngine.GetWindow());
 	return true;
 }

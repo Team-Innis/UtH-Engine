@@ -59,9 +59,12 @@ namespace uth
 
     bool Texture::LoadFromFile(const std::string& filePath, const bool smooth, const bool repeated)
     {
-        const Image& img = uthRS.LoadTGA(filePath);
+        const Image* img = uthRS.LoadImage(filePath);
 
-        m_size = img.GetSize();
+        if (!img)
+            return false;
+
+        m_size = img->GetSize();
 
         if (m_size.x == 0 || m_size.y == 0)
             return false;
@@ -74,11 +77,11 @@ namespace uth
 		SetSmooth(smooth);
         SetRepeated(repeated);
 
-		ImageFormat format = img.GetDepth() == 32 ? RGBA_FORMAT : RGB_FORMAT;
+		ImageFormat format = img->GetDepth() == 4 ? RGBA_FORMAT : RGB_FORMAT;
 
         uth::Graphics::SetTextureImage2D(TEXTURE_2D, 0, format,
 			static_cast<unsigned int>(m_size.x), static_cast<unsigned int>(m_size.y),
-			format, UNSIGNED_BYTE_TYPE, img.m_pixels);
+			format, UNSIGNED_BYTE_TYPE, &img->m_pixels[0]);
 		
 		return true;
     }

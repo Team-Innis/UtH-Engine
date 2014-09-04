@@ -12,7 +12,7 @@ namespace uth
     {
         struct SoundStruct
         {
-            short *soundBuffer;
+            char *soundBuffer;
 			short bitsPerSample;
 			short channels;
 			int frames;

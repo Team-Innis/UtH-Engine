@@ -34,11 +34,10 @@ namespace uth
             All = SoundBuffers | Images | Textures | Fonts
         };
 
-		SoundBuffer& LoadWAV(const std::string& filePath);
-		Image& LoadTGA(const std::string& filePath);
-		/// Only supports uncompressed .tga for now	
-        Texture& LoadTexture(const std::string& filePath);
-        Font& LoadFont(const std::string& filePath);
+		SoundBuffer* LoadSoundBuffer(const std::string& filePath);
+		Image* LoadImage(const std::string& filePath);
+        Texture* LoadTexture(const std::string& filePath);
+        Font* LoadFont(const std::string& filePath);
 
         void Clear(const unsigned int flags);
         bool DeleteSoundBuffer(const std::string& filePath);
