@@ -2,12 +2,14 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-#include <vector>
-#include <string>
-
 #include <UtH/Engine/Component.hpp>
 #include <UtH/Math/Math.hpp>
 #include <UtH/Engine/Transform.hpp>
+
+#include <vector>
+#include <string>
+#include <memory>
+
 
 namespace uth
 {
@@ -23,7 +25,8 @@ namespace uth
 		const bool IsActive() const;
 
 		void AddComponent(Component* component);
-		Component* GetComponent(const std::string& name);
+        template<typename T>
+        T* GetComponent(const std::string& name);
 		// Will actually delete the component
 		void RemoveComponent(Component* component);
 		void RemoveComponent(const std::string& name);
@@ -41,9 +44,24 @@ namespace uth
         virtual void update(float){};
         virtual void draw(RenderTarget& target);
 
-		std::vector<Component*> components;
+		std::vector<std::unique_ptr<Component>> components;
 
 		bool m_active;
 	};
+
+
+    template<typename T>
+    T* GameObject::GetComponent(const std::string& name)
+    {
+        for (size_t i = 0; i < components.size(); ++i)
+        {
+            if (components.at(i)->GetName() == name)
+            {
+                return dynamic_cast<T*>(components[i].get());
+            }
+        }
+
+        return nullptr;
+    }
 }
 #endif

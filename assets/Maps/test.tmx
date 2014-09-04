@@ -17,4 +17,27 @@
    <tile gid="30"/>
   </data>
  </layer>
+ <objectgroup name="Object Layer 1" width="3" height="3">
+  <properties>
+   <property name="test2" value="2"/>
+   <property name="testname" value="testvalue"/>
+  </properties>
+  <object name="laatikko" type="rectangle" x="0" y="2" width="42" height="27">
+   <properties>
+    <property name="asdf" value="sdfa"/>
+   </properties>
+  </object>
+  <object name="viiva" type="line" x="6" y="91">
+   <properties>
+    <property name="hur" value="dur"/>
+   </properties>
+   <polyline points="0,0 19,-2 21,-18 38,-19 38,-4 52,-3"/>
+  </object>
+  <object name="kolmio" type="polygon" x="68" y="19">
+   <properties>
+    <property name="derp" value="durp"/>
+   </properties>
+   <polygon points="0,0 -10,24 17,25"/>
+  </object>
+ </objectgroup>
 </map>

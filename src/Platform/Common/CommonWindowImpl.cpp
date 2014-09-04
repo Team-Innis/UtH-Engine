@@ -3,6 +3,8 @@
 #include <UtH/Platform/OGLCheck.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/Graphics.hpp>
+#include <iostream>
+#include <cassert>
 
 
 namespace
@@ -131,8 +133,8 @@ namespace uth
 		const float g,
 		const float b,
 		const float a,
-		const bool clearDepth,
-		const bool clearStencil
+		const bool,
+		const bool
 		)
 	{
 		uth::Graphics::Clear(r, g, b, a);

@@ -33,9 +33,8 @@ void UTHEngine::Update()
 {
 	const float deltaTime = static_cast<float>(m_timer.DeltaTime());
 	uthInput.Update(deltaTime);
-	uthSceneM.Update(deltaTime);
 	
-	if(m_wndw->processMessages())
+	if(!uthSceneM.Update(deltaTime) || m_wndw->processMessages())
 	{
 		m_running = false;
 	}
@@ -43,9 +42,19 @@ void UTHEngine::Update()
 
 void UTHEngine::Draw()
 {
-	m_wndw->Clear(0.f, 1.f, 0.f);
+	m_wndw->Clear(m_clearColor.x, m_clearColor.y, m_clearColor.z, m_clearColor.w);
 	uthSceneM.Draw();
     m_wndw->swapBuffers();
+}
+
+void UTHEngine::SetClearColor(const umath::vector4& color)
+{
+    m_clearColor = color;
+}
+
+void UTHEngine::SetClearColor(float r, float g, float b, float a)
+{
+    SetClearColor(umath::vector4(r, g, b, a));
 }
 
 Window& UTHEngine::GetWindow()

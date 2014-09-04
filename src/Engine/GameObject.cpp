@@ -13,7 +13,7 @@ GameObject::GameObject()
 
 GameObject::~GameObject()
 {
-	RemoveComponents();
+	
 }
 
 void GameObject::SetActive(bool value)
@@ -28,31 +28,17 @@ const bool GameObject::IsActive() const
 
 void GameObject::AddComponent(Component* component)
 {
-	components.push_back(component);
+	components.emplace_back(component);
 	component->parent = this;
 	component->Init();
-}
-
-Component* GameObject::GetComponent(const std::string& name)
-{
-	for (size_t i = 0; i < components.size(); ++i)
-	{
-		if (components.at(i)->GetName() == name)
-		{
-			return components.at(i);
-		}
-	}
-
-	return nullptr;
 }
 
 void GameObject::RemoveComponent(Component* component)
 {
 	for(size_t i = 0; i < components.size(); ++i)
 	{
-		if(components.at(i) == component)
+		if(components.at(i).get() == component)
 		{
-			delete components.at(i);
 			components.erase(components.begin() + i);
 		}
 	}
@@ -64,7 +50,6 @@ void GameObject::RemoveComponent(const std::string& name)
 	{
 		if(components.at(i)->GetName() == name)
 		{
-			delete components.at(i);
 			components.erase(components.begin() + i);
 		}
 	}
@@ -72,9 +57,6 @@ void GameObject::RemoveComponent(const std::string& name)
 
 void GameObject::RemoveComponents()
 {
-	for(size_t i = 0; i < components.size(); ++i)
-		delete components.at(i);
-
 	components.clear();
 }
 
@@ -87,10 +69,10 @@ void GameObject::Draw(RenderTarget& target)
 
 	draw(target);
 
-	for (auto it = components.begin(); it != components.end(); ++it)
+	for (auto itr = components.begin(); itr != components.end(); ++itr)
 	{
 		target.GetShader().Use();
-		auto component = (*it);
+		auto component = itr->get();
 		if (component->IsActive())
 			component->Draw(target);
 	}
@@ -103,9 +85,9 @@ void GameObject::Update(float dt)
 
 	update(dt);
 
-	for (auto i = components.begin(); i != components.end(); ++i)
+	for (auto itr = components.begin(); itr != components.end(); ++itr)
 	{
-		auto component = (*i);
+		auto component = itr->get();
 		if (component->IsActive())
 			component->Update(dt);
 	}

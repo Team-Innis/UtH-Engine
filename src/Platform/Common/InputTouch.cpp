@@ -15,7 +15,7 @@ const TouchMotion::TouchMotion TouchInput::Motion() const
 	return ID[0].Motion();
 }
 
-void TouchInput::Update(float dt)
+void TouchInput::Update(float)
 {
 
 }

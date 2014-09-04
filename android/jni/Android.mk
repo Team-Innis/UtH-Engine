@@ -18,23 +18,36 @@ include $(LOCAL_PATH)/Platform.mk
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := libopenal
-LOCAL_SRC_FILES := ../libs/libopenal.so
+LOCAL_SRC_FILES := ../../ext/lib/android/libopenal.so
+include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := libogg
+LOCAL_SRC_FILES := ../../ext/lib/android/libogg.so
+include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := libvorbis
+LOCAL_SRC_FILES := ../../ext/lib/android/libvorbis.so
+include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := libvorbis-jni
+LOCAL_SRC_FILES := ../../ext/lib/android/libvorbis-jni.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 
 LOCAL_MODULE    := uthengine
 LOCAL_SRC_FILES := main.cpp \
-../../vs2010/TestProject/source/TestScene.cpp
+../../vs2013/TestProject/source/TestScene.cpp
 LOCAL_LDLIBS    := -llog -landroid -lEGL -lGLESv2 -lOpenSLES
 LOCAL_STATIC_LIBRARIES := android_native_app_glue engine
 LOCAL_SHARED_LIBRARIES :=
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../vs2010/TestProject/include/
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../vs2013/TestProject/include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../include/
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/openal/include/
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/Box2D/include/
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/freetype/include/
-LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../extlibs/freetype-gl/include/
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../ext/include/
+LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../ext/include/freetype_include/
 
 include $(BUILD_SHARED_LIBRARY)
 

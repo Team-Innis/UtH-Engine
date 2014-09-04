@@ -24,6 +24,7 @@
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Input.hpp>
+#include <UtH/Platform/Android/InputSensor.hpp>
 
 #include <UtH/Engine/DefaultScene.hpp>
 #include "TestScene.hpp"
@@ -74,6 +75,10 @@ void android_main(android_app* state)
 {
 	app_dummy();
 
+    ALooper* looper = ALooper_forThread();
+    if (looper == NULL)
+        looper = ALooper_prepare(ALOOPER_PREPARE_ALLOW_NON_CALLBACKS);
+
 	uthAndroidEngine.initialized = false;
 
 	uth::Window wndw;
@@ -81,6 +86,15 @@ void android_main(android_app* state)
 
 	state->onAppCmd = handle_cmd;
 	state->onInputEvent = uth::TouchInput::DroidMessage;
+
+    uth::SensorInput::sensorManager = ASensorManager_getInstance();
+    uth::SensorInput::sensorEventQueue = ASensorManager_createEventQueue(
+        uth::SensorInput::sensorManager,
+        looper, LOOPER_ID_USER, uth::SensorInput::getSensorEvents, NULL);
+    uth::SensorInput::accelerometer = ASensorManager_getDefaultSensor(
+        uth::SensorInput::sensorManager, ASENSOR_TYPE_ACCELEROMETER);
+    uth::SensorInput::gyroscope = ASensorManager_getDefaultSensor(
+        uth::SensorInput::sensorManager, ASENSOR_TYPE_GYROSCOPE);
 
 	uthAndroidEngine.app = state;
 

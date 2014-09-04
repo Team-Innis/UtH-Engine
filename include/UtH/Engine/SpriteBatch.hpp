@@ -16,14 +16,12 @@ namespace uth
     {
     public:
 
-        void reserve(const unsigned int amount);
-
         SpriteBatch(const bool adoptPointers = true);
 
         ~SpriteBatch();
 
 
-        GameObject* AddSprite(GameObject* object, const std::string& atlasName = "", const umath::vector4& color = umath::vector4(1, 1, 1, 1),
+        void AddSprite(Transform* object, const std::string& atlasName = "", const umath::vector4& color = umath::vector4(1, 1, 1, 1),
                               const umath::rectangle& texCoords = umath::rectangle(0, 0, 0, 0));
 
         void SetTextureAtlas(TextureAtlas* atlas);
@@ -38,7 +36,7 @@ namespace uth
         virtual void draw(RenderTarget& target);
 
 
-        std::vector<std::unique_ptr<GameObject>> m_objects;
+        std::vector<std::unique_ptr<Transform>> m_objects;
         TextureAtlas* m_atlas;
         Texture* m_texture;
 

@@ -51,8 +51,8 @@ unsigned int Tileset::GetTileHeight() const
 
 const umath::rectangle Tileset::GetTile(unsigned int localId) const
 {
-	const int wTiles = m_texture->GetSize().x / m_tileWidth;
-	const int hTiles = m_texture->GetSize().y / m_tileHeight;
+	const unsigned int wTiles = static_cast<unsigned int>(m_texture->GetSize().x) / m_tileWidth;
+    const unsigned int hTiles = static_cast<unsigned int>(m_texture->GetSize().y) / m_tileHeight;
 
 	int x = localId % wTiles * m_tileWidth;
 	int y = localId / wTiles * m_tileHeight;
@@ -134,7 +134,7 @@ void Tileset::parseTileset(tinyxml2::XMLElement* tilesetElement, const std::stri
 		imagePath.replace(imagePath.length() - 4, 4,".tga");
 	}
 
-	m_texture = &uthRS.LoadTexture(imagePath);
+	m_texture = uthRS.LoadTexture(imagePath);
 }
 
 

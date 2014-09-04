@@ -3,6 +3,7 @@
 #include <UtH/Platform/Debug.hpp>
 
 #include <tinyxml2.h>
+#include <cassert>
 
 using namespace uth;
 using namespace TMX;
@@ -60,6 +61,12 @@ bool Map::LoadFromFile(const std::string& path)
 	}
 
 	// Parse objectgroups
+	auto objectgroup = map->FirstChildElement("objectgroup");
+	while(objectgroup != 0)
+	{
+		objectGroups.push_back(new ObjectGroup(objectgroup));
+		objectgroup = objectgroup->NextSiblingElement("objectgroup");
+	}
 
 	return true;
 }
@@ -94,6 +101,18 @@ TileLayer* Map::GetLayer(const std::string& name)
 	}
 
 	return nullptr;
+}
+
+ObjectGroup* Map::GetObjectGroup(const std::string& name)
+{
+    for (auto it = objectGroups.begin(); it != objectGroups.end(); ++it)
+    {
+        auto objectgroup = (*it);
+        if (objectgroup->GetName() == name)
+            return objectgroup;
+    }
+
+    return nullptr;
 }
 
 

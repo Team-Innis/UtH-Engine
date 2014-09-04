@@ -1,8 +1,15 @@
 #include <UtH/Resources/Image.hpp>
-#include <UtH/Platform/FileReader.h>
 #include <UtH/Platform/Debug.hpp>
+#include <UtH/Platform/BinaryData.hpp>
+#include <UtH/Platform/FileReader.h>
 #include <cassert>
+#include <cstring>
 #include <vector>
+#include <algorithm>
+
+#pragma warning(push, 1)
+#include "external/stb_image.h"
+#pragma warning(pop)
 
 
 namespace uth
@@ -10,13 +17,13 @@ namespace uth
 
     Image::Image()
         : m_size(),
-          m_pixels(nullptr),
+          m_pixels(),
           m_depth(0)
     {}
 
     Image::Image(const std::string& filePath)
         : m_size(),
-          m_pixels(nullptr),
+          m_pixels(),
           m_depth(0)
     {
         LoadFromFile(filePath);
@@ -24,63 +31,42 @@ namespace uth
 
     Image::~Image()
     {
-        delete[] m_pixels;
+        
     }
 
 
     bool Image::LoadFromFile(const std::string& filePath)
     {
-        FileReader FR(filePath.c_str());
+        m_pixels.clear();
 
-		std::vector<BYTE> buffer;
+        int width, height, depth;
+        FileReader fr(filePath);
+        BINARY_DATA data = fr.ReadBinary();
+        BYTE* pointer = stbi_load_from_memory(static_cast<stbi_uc*>(data.ptr()), data.size(), &width, &height, &depth, NULL);
+        data.clear();
 
-		// Check image type
-		FR.FileSeek(2);
-		BYTE imageType;
-		FR.ReadBytes(&imageType, 1);
-		assert(imageType == 2); // Uncompressed true-color
+        if (pointer && width && height)
+        {
+            m_size.x = static_cast<float>(width);
+            m_size.y = static_cast<float>(height);
+            m_depth = static_cast<BYTE>(depth);
 
-		buffer.resize(4);
-		FR.FileSeek(12, 0);
-		FR.ReadBytes(&buffer.front(), 4);
-		m_size.x = static_cast<float>((buffer[0] + buffer[1] * 256));
-		m_size.y = static_cast<float>((buffer[2] + buffer[3] * 256));
-		buffer.clear();
+            m_pixels.resize(width * height * depth);
 
-		//bpp
-		BYTE colorDepth;
-		FR.FileSeek(16, 0);
-		FR.ReadBytes(&colorDepth, 1);
-		m_depth = colorDepth;
-		assert(m_depth == 24 || m_depth == 32);
+            // Flip the pixels horizontally into OpenGL format.
+            for (int i = 0; i < height; ++i)
+            {
+                std::memcpy(&m_pixels[i * width * depth],
+                            &pointer[m_pixels.size() - (i * width * depth) - width * depth],
+                            width * depth);
+            }
 
-		//data
-		int datasize = static_cast<int>(m_size.x * m_size.y * m_depth / 8);
-		m_pixels = new BYTE[datasize];
-		buffer.resize(datasize);
-		FR.FileSeek(18, 0);
-		FR.ReadBytes(&buffer.front(), datasize);
-
-		//(pixels) rgb = bgr(tga)
-		if(m_depth == 32)
-		{
-			for(int i = 0; i < datasize - 1; i += 4)
-			{
-				m_pixels[i+0] = buffer[i+2];
-				m_pixels[i+1] = buffer[i+1];
-				m_pixels[i+2] = buffer[i+0];
-				m_pixels[i+3] = buffer[i+3];
-			}
-		}
-		else
-		{
-			for(int i = 0; i < datasize - 1; i += 3)
-			{
-				m_pixels[i+0] = buffer[i+2];
-				m_pixels[i+1] = buffer[i+1];
-				m_pixels[i+2] = buffer[i+0];
-			}
-		}
+            stbi_image_free(pointer);
+        }
+        else
+        {
+            return false;
+        }
 
         return true;
     }
@@ -98,7 +84,7 @@ namespace uth
 
     umath::vector4 Image::GetPixel(unsigned int x, unsigned int y) const
     {
-        assert(x > m_size.x || y > m_size.y);
+        assert(x < m_size.x && y < m_size.y);
 
         const unsigned int start = static_cast<unsigned int>(4 * ((y * m_size.x) + x));
 
@@ -108,4 +94,44 @@ namespace uth
                               static_cast<float>(m_pixels[start + 3]));
     }
 
+    void Image::flipVertical()
+    {
+        if (!m_pixels.empty())
+        {
+            std::size_t rowSize = static_cast<std::size_t>(m_size.x) * 4;
+
+            std::vector<BYTE>::iterator top = m_pixels.begin();
+            std::vector<BYTE>::iterator bottom = m_pixels.end() - rowSize;
+
+            for (std::size_t y = 0; y < m_size.y / 2; ++y)
+            {
+                std::swap_ranges(top, top + rowSize, bottom);
+
+                top += rowSize;
+                bottom -= rowSize;
+            }
+        }
+    }
+
+    void Image::flipHorizontal()
+    {
+        if (!m_pixels.empty())
+        {
+            std::size_t rowSize = static_cast<std::size_t>(m_size.x) * m_depth;
+
+            for (std::size_t y = 0; y < m_size.y; ++y)
+            {
+                std::vector<BYTE>::iterator left = m_pixels.begin() + y * rowSize;
+                std::vector<BYTE>::iterator right = m_pixels.begin() + (y + 1) * rowSize - m_depth;
+
+                for (std::size_t x = 0; x < m_size.x / 2; ++x)
+                {
+                    std::swap_ranges(left, left + m_depth, right);
+
+                    left += m_depth;
+                    right -= m_depth;
+                }
+            }
+        }
+    }
 }

@@ -4,6 +4,8 @@
 
 #include <UtH/Engine/Scene.hpp>
 #include <UtH/Engine/GameObject.hpp>
+#include <UtH/Engine/Text.hpp>
+#include <UtH/Engine/Sprite.hpp>
 
 namespace uth
 {
@@ -22,7 +24,18 @@ namespace uth
 	protected:
 		Shader* shader;
 		float totalTime;
+
 		GameObject* logo;
+
+		GameObject* textU;
+		GameObject* textT;
+		GameObject* textH;
+		GameObject* text;
+
+		GameObject* fade;
+		Sprite* fadeSprite;
+
+		Text* newestText;
 	};
 }
 

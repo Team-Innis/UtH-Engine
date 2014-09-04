@@ -6,6 +6,7 @@
 #include <UtH/Engine/TMX/TileHackBatch.hpp>
 
 #include <string>
+#include <vector>
 #include <map>
 
 // Forward declaration
