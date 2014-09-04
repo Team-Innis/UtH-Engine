@@ -22,6 +22,21 @@ LOCAL_SRC_FILES := ../../ext/lib/android/libopenal.so
 include $(PREBUILT_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
+LOCAL_MODULE := libogg
+LOCAL_SRC_FILES := ../../ext/lib/android/libogg.so
+include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := libvorbis
+LOCAL_SRC_FILES := ../../ext/lib/android/libvorbis.so
+include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
+LOCAL_MODULE := libvorbis-jni
+LOCAL_SRC_FILES := ../../ext/lib/android/libvorbis-jni.so
+include $(PREBUILT_SHARED_LIBRARY)
+
+include $(CLEAR_VARS)
 
 LOCAL_MODULE    := uthengine
 LOCAL_SRC_FILES := main.cpp \

@@ -20,7 +20,7 @@ include $(PREBUILT_STATIC_LIBRARY)
 
 LOCAL_MODULE    := engine
 LOCAL_STATIC_LIBRARIES := android_native_app_glue engine libbox2d libfreetypegl freetype
-LOCAL_SHARED_LIBRARIES := libopenal
+LOCAL_SHARED_LIBRARIES := libopenal libogg libvorbis libvorbis-jni
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../ext/include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../ext/include/freetype_include/
