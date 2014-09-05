@@ -21,7 +21,20 @@ namespace uth
             ThumbRight,
             L1,
             R1,
-            COUNT
+            BUTTON_COUNT
+        };
+
+        enum Axis
+        {
+            HatY,
+            HatX,
+            LeftTrigger,
+            RightTrigger,
+            LeftThumbY,
+            LeftThumbX,
+            RightThumbY,
+            RightThumbX,
+            AXIS_COUNT
         };
     }
 }

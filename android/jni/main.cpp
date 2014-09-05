@@ -25,6 +25,7 @@
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Input.hpp>
 #include <UtH/Platform/Android/InputSensor.hpp>
+#include <UtH/Platform/Android/InputController.hpp>
 
 #include <UtH/Engine/DefaultScene.hpp>
 #include "TestScene.hpp"
@@ -71,13 +72,15 @@ void handle_input(android_app* app, AInputEvent* inputEvent)
     switch (AInputEvent_getType(inputEvent))
     {
     case AINPUT_EVENT_TYPE_KEY:
+        uth::ControllerInput::HandleInput(inputEvent);
         break;
     case AINPUT_EVENT_TYPE_MOTION:
         switch (AInputEvent_getSource(inputEvent))
         {
         case AINPUT_SOURCE_DPAD:
+        case AINPUT_SOURCE_GAMEPAD:
         case AINPUT_SOURCE_JOYSTICK:
-
+            uth::ControllerInput::HandleInput(inputEvent);
             break;
         case AINPUT_SOURCE_TOUCHSCREEN:
             uth::TouchInput::DroidMessage(app, inputEvent);
