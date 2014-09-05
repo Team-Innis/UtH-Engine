@@ -25,14 +25,14 @@ namespace uth
         bool IsButtonPressed(Controller::Button button);
         bool IsButtonReleased(Controller::Button button);
 
-        static void HandleInput(AInputEvent* inputEvent);
+        void HandleInput(AInputEvent* inputEvent);
 
     private:
-        static void handleKeys(AInputEvent* inputEvent);
-        static void handleAxes(AInputEvent* inputEvent);
+        void handleKeys(AInputEvent* inputEvent);
+        void handleAxes(AInputEvent* inputEvent);
 
-        std::vector<bool> m_buttons;
-        std::vector<bool> m_PrevButtons;
+        std::vector<int> m_buttons;
+        std::vector<int> m_prevButtons;
         std::vector<pmath::Vec2> m_axes;
     };
 }

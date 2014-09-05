@@ -57,7 +57,7 @@ namespace uth
         {
             if (components.at(i)->GetName() == name)
             {
-                return dynamic_cast<T*>(components[i].get());
+                return static_cast<T*>(components[i].get());
             }
         }
 

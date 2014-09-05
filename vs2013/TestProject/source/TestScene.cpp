@@ -8,10 +8,13 @@
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Engine/Particles/ParticleTemplate.hpp>
 #include <UtH/Engine/Particles/Affector.hpp>
+#include <UtH/Platform/Input.hpp>
 
 using namespace uth;
 
 const unsigned int sprites = 40;
+
+GameObject text;
 
 TestScene::TestScene()
     : ps(100)
@@ -45,6 +48,9 @@ bool TestScene::Init()
     
     ps.AddAffector(aff);
 
+    text.AddComponent(new Text("8bitoperator.ttf", 16));
+    text.transform.Move(-300, 0);
+
 	return true;
 }
 bool TestScene::DeInit()
@@ -56,6 +62,19 @@ bool TestScene::Update(float dt)
 {
     ps.Emit(1);
     ps.Update(dt);
+    auto t = text.GetComponent<Text>("Text");
+    t->SetText("Buttons:\n");
+    for (int i = 0; i < Controller::BUTTON_COUNT; ++i)
+    {
+        if (uthInput.Controller.IsButtonDown(static_cast<Controller::Button>(i)))
+        {
+            char temp[5];
+            sprintf(temp, "%d\n", i);
+
+            t->AddText(temp);
+        }
+    }
+
 
 	return true;
 }
@@ -63,5 +82,6 @@ bool TestScene::Draw()
 {
 	test->Draw(uthEngine.GetWindow());
     ps.Draw(uthEngine.GetWindow());
+    text.Draw(uthEngine.GetWindow());
 	return true;
 }

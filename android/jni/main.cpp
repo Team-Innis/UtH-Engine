@@ -25,6 +25,7 @@
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Input.hpp>
 #include <UtH/Platform/Android/InputSensor.hpp>
+#include <Uth/Platform/Input.hpp>
 #include <UtH/Platform/Android/InputController.hpp>
 
 #include <UtH/Engine/DefaultScene.hpp>
@@ -67,12 +68,13 @@ void handle_cmd(android_app* app, int cmd)
 	((uth::Window*)app->userData)->processMessages();
 }
 
-void handle_input(android_app* app, AInputEvent* inputEvent)
+int handle_input(android_app* app, AInputEvent* inputEvent)
 {
     switch (AInputEvent_getType(inputEvent))
     {
     case AINPUT_EVENT_TYPE_KEY:
-        uth::ControllerInput::HandleInput(inputEvent);
+        WriteLog("handlekeys");
+        uthInput.Controller.HandleInput(inputEvent);
         break;
     case AINPUT_EVENT_TYPE_MOTION:
         switch (AInputEvent_getSource(inputEvent))
@@ -80,7 +82,7 @@ void handle_input(android_app* app, AInputEvent* inputEvent)
         case AINPUT_SOURCE_DPAD:
         case AINPUT_SOURCE_GAMEPAD:
         case AINPUT_SOURCE_JOYSTICK:
-            uth::ControllerInput::HandleInput(inputEvent);
+            uthInput.Controller.HandleInput(inputEvent);
             break;
         case AINPUT_SOURCE_TOUCHSCREEN:
             uth::TouchInput::DroidMessage(app, inputEvent);
@@ -91,6 +93,8 @@ void handle_input(android_app* app, AInputEvent* inputEvent)
         }
         break;
     }
+
+    return 0;
 }
 
 void windowEventHandler(void* handle)
