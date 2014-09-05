@@ -13,7 +13,9 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Platform\BinaryData.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Common\CommonWindowImpl.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Common\ControllerEnums.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Common\FileReader.h" />
+    <ClInclude Include="..\..\include\UtH\Platform\Common\InputController.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Common\InputSensor.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Configuration.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Debug.hpp" />
@@ -39,6 +41,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\Platform\Common\CommonWindowImpl.cpp" />
     <ClCompile Include="..\..\src\Platform\Common\FileReader.cpp" />
+    <ClCompile Include="..\..\src\Platform\Common\InputController.cpp" />
     <ClCompile Include="..\..\src\Platform\Common\InputSensor.cpp" />
     <ClCompile Include="..\..\src\Platform\Debug.cpp" />
     <ClCompile Include="..\..\src\Platform\Graphics.cpp" />
