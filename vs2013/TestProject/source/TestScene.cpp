@@ -38,7 +38,7 @@ bool TestScene::Init()
     ps.SetTemplate(pt);
     
 
-    Affector aff([](Particle& part, const ParticleTemplate& ptemp, float dt)
+    Affector* aff = new Affector([](Particle& part, const ParticleTemplate& ptemp, float dt)
     {
         part.Move(part.direction * dt);
     });
