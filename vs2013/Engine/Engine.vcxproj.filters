@@ -96,6 +96,9 @@
     <ClCompile Include="..\..\src\Engine\TMX\ObjectGroup.cpp">
       <Filter>Source Files\TMX</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\PhysicsContactListener.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Engine\Scene.hpp">
@@ -172,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\TMX\TileHackBatch.hpp">
       <Filter>Header Files\TMX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\PhysicsContactListener.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
