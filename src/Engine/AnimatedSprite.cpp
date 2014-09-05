@@ -64,11 +64,11 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 	}
 #endif
 	// frame size in pixels
-	m_frameSize.position.x = static_cast<const float>(texSizeX / frameCountX);
-	m_frameSize.position.y = static_cast<const float>(texSizeY / frameCountY);
+	m_sizePx.x = static_cast<const float>(texSizeX / frameCountX);
+	m_sizePx.y = static_cast<const float>(texSizeY / frameCountY);
 	// frame size in texcoord float
-	m_frameSize.size.x = 1.0f / frameCountX;
-	m_frameSize.size.y = 1.0f / frameCountY;
+	m_sizeTc.x = 1.0f / frameCountX;
+	m_sizeTc.y = 1.0f / frameCountY;
 }
 
 AnimatedSprite::~AnimatedSprite()
@@ -104,7 +104,7 @@ void AnimatedSprite::Init()
 {
 	ChangeAnimation(m_firstFrame,m_frames,m_firstFrame, m_fps, m_loop, m_reversed);
 
-	const pmath::Vec2 size = pmath::Vec2(m_frameSize.position.x, m_frameSize.position.y);
+	const pmath::Vec2 size = pmath::Vec2(m_sizePx.x, m_sizePx.y);
 	parent->transform.SetSize(size);
 
 	loopEnd = false;
@@ -153,28 +153,33 @@ void AnimatedSprite::genererateBuffer()
 	const int X = m_curFrame % m_frameCountX;
 	const int Y = m_curFrame/m_frameCountX;
 
-	frame.position.x = X * m_frameSize.size.x;
-	frame.size.x = m_frameSize.size.x;
-	frame.position.y = 1.0f - Y * m_frameSize.size.y;
-	frame.size.y = -m_frameSize.size.y;
+	const float w = m_sizePx.x;
+	const float h = m_sizePx.y;
+
+	const pmath::Rect texCoord(
+		X * m_sizeTc.x,
+		1.0f - Y * m_sizeTc.y,
+		m_sizeTc.x,
+		-m_sizeTc.y);
+
 
 	m_vertexBuffer.clear();
 
 	m_vertexBuffer.addVertex(Vertex(
-		pmath::Vec3(-0.5f, -0.5f, 0),
-		pmath::Vec2(frame.getLeft(), frame.getTop()),
+		pmath::Vec3(-0.5f * m_sizePx.x, -0.5f * m_sizePx.y, 0),
+		pmath::Vec2(texCoord.getLeft(), texCoord.getTop()),
 		m_color));
 	m_vertexBuffer.addVertex(Vertex(
-		pmath::Vec3(0.5f, -0.5f, 0),
-		pmath::Vec2(frame.getRight(), frame.getTop()),
+		pmath::Vec3(0.5f * m_sizePx.x, -0.5f * m_sizePx.y, 0),
+		pmath::Vec2(texCoord.getRight(), texCoord.getTop()),
 		m_color));
 	m_vertexBuffer.addVertex(Vertex(
-		pmath::Vec3(-0.5f, 0.5f, 0),
-		pmath::Vec2(frame.getLeft(), frame.getBottom()),
+		pmath::Vec3(-0.5f * m_sizePx.x, 0.5f * m_sizePx.y, 0),
+		pmath::Vec2(texCoord.getLeft(), texCoord.getBottom()),
 		m_color));
 	m_vertexBuffer.addVertex(Vertex(
-		pmath::Vec3(0.5f, 0.5f, 0),
-		pmath::Vec2(frame.getRight(), frame.getBottom()),
+		pmath::Vec3(0.5f * m_sizePx.x, 0.5f * m_sizePx.y, 0),
+		pmath::Vec2(texCoord.getRight(), texCoord.getBottom()),
 		m_color));
 
 

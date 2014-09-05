@@ -41,6 +41,11 @@ Text::~Text()
 	texture_atlas_delete(m_atlas);
 }
 
+void Text::Init()
+{
+	parent->transform.SetSize(m_size);
+}
+
 
 // Public
 
@@ -128,11 +133,13 @@ void Text::AddText(const std::wstring& text, const pmath::Vec4 color)
 		}
 	}
 
-	parent->transform.SetSize(m_size);
-	m_matrix[0][0] = 1/m_size.x;
-	m_matrix[1][1] = 1/m_size.y;
-	m_matrix[0][3] = (-0.5f);
-	m_matrix[1][3] = (-0.5f);
+	if (parent)
+		parent->transform.SetSize(m_size);
+
+	m_matrix[0][0] = 1;
+	m_matrix[1][1] = 1;
+	m_matrix[0][3] = (-0.5f) * m_size.x;
+	m_matrix[1][3] = (-0.5f) * m_size.y;
 
 	m_lastPos = pos;
 }

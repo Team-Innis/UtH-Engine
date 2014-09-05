@@ -49,19 +49,19 @@ bool DefaultScene::Init()
 	fade->AddComponent(fadeSprite);
 
 	textU->AddComponent(newestText = new Text("8bitoperator.ttf",64));
-	textU->transform.SetOrigin(pmath::Vec2(0.7f,0.8f));
+	textU->transform.SetOrigin(pmath::Vec2(0.7f * 64.f, 0.8f * 64.f));
 	textU->transform.SetPosition(-50,-80);
 	textU->transform.SetScale(0);
 	newestText->SetText("U");
 
 	textT->AddComponent(newestText = new Text("8bitoperator.ttf",64));
-	textT->transform.SetOrigin(pmath::Vec2(0.0f,0.8f));
+	textT->transform.SetOrigin(pmath::Vec2(0.0f * 64.f, 0.8f * 64.f));
 	textT->transform.SetPosition(0,-80);
 	textT->transform.SetScale(0);
 	newestText->SetText("T");
 
 	textH->AddComponent(newestText = new Text("8bitoperator.ttf",64));
-	textH->transform.SetOrigin(pmath::Vec2(-0.7f,0.8f));
+	textH->transform.SetOrigin(pmath::Vec2(-0.7f * 64.f, 0.8f * 64.f));
 	textH->transform.SetPosition(50,-80);
 	textH->transform.SetScale(0);
 	newestText->SetText("H");
