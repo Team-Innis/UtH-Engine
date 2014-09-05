@@ -39,6 +39,15 @@ namespace uth
 		const std::string ReadText();
 
 		static AAssetManager* m_manager;
+		
+		
+		static AAsset* loadSound(const std::string& fileName);
+
+		static int64_t getAssetLength(void* asset);
+		static int64_t seekAsset(int64_t offset, int whence, void* asset);
+		static int64_t readAsset(void* buffer, int64_t count, void* asset);
+		static int64_t tellAsset(void* asset);
+		
 	private:
 		//FILE* file;
 		AAsset* m_asset;

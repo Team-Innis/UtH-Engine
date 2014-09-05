@@ -2,6 +2,7 @@
 #include <UtH/Platform/Typedefs.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Resources/ResourceManager.h>
+#include <UtH/Audio/SoundDevice.hpp>
 
 using namespace uth;
 
@@ -34,12 +35,11 @@ Sound* Sound::Load(const char* fileName)
 {
 	return new Sound(fileName);
 }
-// Plays source
 void Sound::Play()
 {
 	alSourcePlay(source);
 }
-// Plays from specific second
+
 void Sound::Play(float offset)
 {
 	if(offset >= duration)
@@ -50,9 +50,7 @@ void Sound::Play(float offset)
 		alSourcePlay(source);
 	}
 }
-// Intented for soundeffects.
-// This function copies sound source and starts
-// to play new source.
+
 void Sound::PlayEffect()
 {
 	if(Status() != AL_PLAYING)
@@ -60,12 +58,12 @@ void Sound::PlayEffect()
 	else
 		Copy();
 }
-// Stops source from playing.
+
 void Sound::Stop()
 {
 	alSourceStop(source);
 }
-// Toggles between playing and paused.
+
 void Sound::Pause()
 {
 	if(Status() == AL_PLAYING)
@@ -73,7 +71,7 @@ void Sound::Pause()
 	else
 		alSourcePlay(source);
 }
-// Toggles loop on or off
+
 void Sound::Loop()
 {
 	if(loop)
@@ -87,7 +85,7 @@ void Sound::Loop()
 		loop = true;
 	}
 }
-// Sets loop true or false
+
 void Sound::Loop(bool looping)
 {
 	if(looping == 0)
@@ -98,21 +96,21 @@ void Sound::Loop(bool looping)
 	alSourcei(source, AL_LOOPING, looping);
 	CheckALError("al_sourcei AL_LOOPING");
 }
-// Adjust volume
+
 void Sound::SetVolume(int volumePercent)
 {
 	float newVolume = float(volumePercent) / 100.0f;
 	alSourcef(source, AL_GAIN, newVolume);
 	CheckALError("al_sourcef AL_GAIN");
 }
-// Adjust pitch
+
 void Sound::SetPitch(int pitchPercent)
 {
 	float newPitch = float(pitchPercent) / 100.0f;
 	alSourcef(source, AL_PITCH, newPitch);
 	CheckALError("al_sourcef AL_PITCH");
 }
-// Adjust source position
+
 void Sound::SetSourcePosition(float x, float y, float z)
 {
 	_posX = x; _posY = y; _posZ = z;
@@ -129,7 +127,7 @@ void Sound::SetSourcePosition(pmath::Vec3 position)
 	alSource3f(source, AL_VELOCITY, _posX, _posY, _posZ);
 	CheckALError("al_source3f AL_VELOCITY");
 }
-// Adjust listener position
+
 void Sound::SetListenerPosition(float x, float y, float z)
 {
 	_posX = x; _posY = y; _posZ = z;
@@ -151,6 +149,8 @@ void Sound::SetListenerPosition(pmath::Vec3 position)
 
 void Sound::Initialize(const char* fileName)
 {
+	uth::SoundDevice::getInstance();
+
 	const SoundBuffer* buf = uthRS.LoadSoundBuffer(fileName);
 
 	if (!buf)
@@ -162,20 +162,12 @@ void Sound::Initialize(const char* fileName)
 	CheckALError("alGenBuffers");
 
 	short channels = buf->GetSoundInfo().channels;
-	if(buf->GetSoundInfo().bitsPerSample == 16)
-	{
-		alBufferData(buffer, channels == 2 ? AL_FORMAT_STEREO16:AL_FORMAT_MONO16 ,
-			buf->GetSoundInfo().soundBuffer,
-			buf->GetSoundInfo().frames * sizeof(short) * channels,
-			buf->GetSoundInfo().sampleRate);
-	}
-	else if(buf->GetSoundInfo().bitsPerSample == 8)
-	{
-		alBufferData(buffer, channels == 2 ? AL_FORMAT_STEREO8:AL_FORMAT_MONO8,
-			buf->GetSoundInfo().soundBuffer,
-			buf->GetSoundInfo().frames * sizeof(char) * channels,
-			buf->GetSoundInfo().sampleRate);
-	}
+
+	alBufferData(buffer, channels == 2 ? AL_FORMAT_STEREO16:AL_FORMAT_MONO16 ,
+		buf->GetSoundInfo().soundBuffer,
+		buf->GetSoundInfo().frames * sizeof(short),
+		buf->GetSoundInfo().sampleRate);
+
 	
 
 	CheckALError("alBufferData");
@@ -183,7 +175,9 @@ void Sound::Initialize(const char* fileName)
 	alSourcei(source, AL_BUFFER, buffer);
 	CheckALError("alSourcei");
 
-	duration = static_cast<float>(buf->GetSoundInfo().frames) / static_cast<float>(buf->GetSoundInfo().sampleRate);
+	duration = static_cast<float>(buf->GetSoundInfo().frames)
+		/ static_cast<float>(buf->GetSoundInfo().sampleRate)
+		/ static_cast<float>(buf->GetSoundInfo().channels);
 	WriteLog("duration: %f\n", duration);
 }
 

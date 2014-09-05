@@ -9,6 +9,7 @@
 #include <UtH/Engine/Particles/ParticleTemplate.hpp>
 #include <UtH/Engine/Particles/Affector.hpp>
 
+
 using namespace uth;
 
 const unsigned int sprites = 40;
@@ -44,6 +45,12 @@ bool TestScene::Init()
     });
     
     ps.AddAffector(aff);
+
+	//music = Sound::Load("media/music.ogg");
+	//music->Play();
+	//music->Loop(true);
+
+	
 
 	return true;
 }
