@@ -6,30 +6,16 @@
 
 namespace uth
 {
-	void defaultNewSceneFunc(int SceneID, Scene* &CurScene)
+	Scene* defaultNewSceneFunc(int SceneID)
 	{
-		switch (SceneID)
-		{
-		case 0:
-			CurScene = new /*Menu*/DefaultScene();
-			break;
-		case 1:
-			CurScene = new /*Game*/DefaultScene();
-			break;
-		case 2:
-			CurScene = new /*Credits*/DefaultScene();
-			break;
-		default:
-			CurScene = new /*Menu*/DefaultScene();
-			break;
-		}
+		return nullptr;
 	}
 
 	SceneManager::SceneManager()
 		: m_nextScene(UTHDefaultScene),
 		  m_pendingSceneSwitch(true)
 	{
-		registerNewSceneFunc(defaultNewSceneFunc, 3);
+		registerNewSceneFunc(defaultNewSceneFunc, 0);
 	}
 	SceneManager::~SceneManager()
 	{
@@ -37,8 +23,9 @@ namespace uth
 		delete curScene;
 	}
 	
-	void SceneManager::GoToScene(int SceneID)
+	void SceneManager::GoToScene(int SceneID, bool disposeCurrent)
 	{
+		disposeCurrent;
 		if (!(UTHDefaultScene <= SceneID && SceneID < sceneCount))
 		{
 			WriteError("Error when scene %d switching to %d, number out of range, switching to default scene",m_sceneID, m_nextScene);
@@ -71,7 +58,7 @@ namespace uth
 		return true;
 	}
 	
-	void SceneManager::registerNewSceneFunc(void (*newSceneFunc)(int SceneID, Scene* &CurScene), int SceneCount)
+	void SceneManager::registerNewSceneFunc(Scene* (*newSceneFunc)(int SceneID), int SceneCount)
 	{
 		makeActiveScene = newSceneFunc;
 		sceneCount = SceneCount;
@@ -100,7 +87,11 @@ namespace uth
 	{
 		if (curScene != nullptr)
 			endScene();
-		makeActiveScene(m_nextScene,curScene);
+		Scene* newScene = makeActiveScene(m_nextScene);
+		if (newScene)
+			curScene = newScene;
+		else
+			curScene = new uth::DefaultScene();
 		startScene();
 		m_pendingSceneSwitch = false;
 	}
