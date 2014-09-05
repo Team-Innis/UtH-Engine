@@ -96,18 +96,9 @@ void WriteLog(const char* text, ...)
 
 void PrintGLString(const char* name, GLenum s)
 {
-    #if defined(UTH_SYSTEM_OPENGL) 
+	const char *v = (const char *)glGetString(s);
 
-        const char *v = (const char *)glGetString(s);
-
-        WriteLog("GL %s = %s\n", name, v);
-
-    #else
-
-        name;
-        s;
-
-    #endif
+	WriteLog("GL %s = %s\n", name, v);
 }
 
 void CheckGLError(const char* op)
