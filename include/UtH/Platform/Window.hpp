@@ -23,7 +23,7 @@ namespace uth
 		void swapBuffers();
 
 		const WindowSettings& getWindowSettings() const;
-		umath::vector2 GetSize() const;
+		pmath::Vec2 GetSize() const;
 
 		void* m_windowHandle;
 

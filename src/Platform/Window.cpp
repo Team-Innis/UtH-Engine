@@ -61,7 +61,7 @@ namespace uth
 	{
 		return m_windowSettings;
 	}
-	umath::vector2 Window::GetSize() const
+	pmath::Vec2 Window::GetSize() const
 	{
 		return m_windowSettings.size;
 	}
@@ -70,12 +70,12 @@ namespace uth
 	{
 		uth::Graphics::BindFrameBuffer(0);
 
-		const umath::rectangle& vp = GetViewport();
+		const pmath::Rect& vp = GetViewport();
 		uth::Graphics::SetViewport(
-			static_cast<int>(vp.x + 0.5f),
-			static_cast<int>(vp.y + 0.5f),
-			static_cast<int>(vp.width + 0.5f),
-			static_cast<int>(vp.height + 0.5f)
+			static_cast<int>(vp.position.x + 0.5f),
+			static_cast<int>(vp.position.y + 0.5f),
+			static_cast<int>(vp.size.x + 0.5f),
+			static_cast<int>(vp.size.y + 0.5f)
 			);
 
 		return true;

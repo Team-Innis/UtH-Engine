@@ -13,8 +13,8 @@ UTHEngine::UTHEngine()
 
 bool UTHEngine::Init()
 {
-    m_wsettings.size = umath::vector2(1280, 720);
-    m_wsettings.position = umath::vector2(100, 100);
+    m_wsettings.size = pmath::Vec2(1280, 720);
+    m_wsettings.position = pmath::Vec2(100, 100);
 	m_wsettings.contextVersionMajor = 3;
 	m_wsettings.contextVersionMinor = 3;
     m_wsettings.fullScreen = false;
@@ -47,14 +47,14 @@ void UTHEngine::Draw()
     m_wndw->swapBuffers();
 }
 
-void UTHEngine::SetClearColor(const umath::vector4& color)
+void UTHEngine::SetClearColor(const pmath::Vec4& color)
 {
     m_clearColor = color;
 }
 
 void UTHEngine::SetClearColor(float r, float g, float b, float a)
 {
-    SetClearColor(umath::vector4(r, g, b, a));
+    SetClearColor(pmath::Vec4(r, g, b, a));
 }
 
 Window& UTHEngine::GetWindow()
@@ -77,7 +77,7 @@ const Timer UTHEngine::timer() const
 	return m_timer;
 }
 
-const umath::vector2 UTHEngine::GetWindowResolution() const
+const pmath::Vec2 UTHEngine::GetWindowResolution() const
 {
 	return m_wsettings.size;
 }

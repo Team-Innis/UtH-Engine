@@ -4,8 +4,8 @@
 
 // Helper functions
 ////////////////////////////////////
-b2Vec2 umathToBox2D(const umath::vector2& vec);
-umath::vector2 box2DToUmath(const b2Vec2& vec);
+b2Vec2 umathToBox2D(const pmath::Vec2& vec);
+pmath::Vec2 box2DToUmath(const b2Vec2& vec);
 ////////////////////////////////////
 
 using namespace uth;
@@ -18,7 +18,7 @@ Rigidbody::Rigidbody(b2World* world, const COLLIDER_TYPE collider, const std::st
 	defaults();
 }
 
-Rigidbody::Rigidbody(b2World* world, const COLLIDER_TYPE collider, const umath::vector2& size, const std::string& name)
+Rigidbody::Rigidbody(b2World* world, const COLLIDER_TYPE collider, const pmath::Vec2& size, const std::string& name)
 	: Component(name),
 	  m_world(world),
 	  m_collider(collider),
@@ -48,7 +48,7 @@ void Rigidbody::Update(float)
 	parent->transform.SetRotation(angDegrees);
 
 	b2Vec2 pos = m_body->GetPosition();
-	umath::vector2 tpos(pos.x, pos.y);
+	pmath::Vec2 tpos(pos.x, pos.y);
 	tpos *= PIXELS_PER_METER;
 	parent->transform.SetPosition(tpos);
 }
@@ -56,23 +56,23 @@ void Rigidbody::Update(float)
 
 // Apply forces
 
-void Rigidbody::ApplyForce(const umath::vector2& force)
+void Rigidbody::ApplyForce(const pmath::Vec2& force)
 {
 	m_body->ApplyForceToCenter(umathToBox2D(force), true);
 }
 
-void Rigidbody::ApplyForce(const umath::vector2& force, const umath::vector2& point)
+void Rigidbody::ApplyForce(const pmath::Vec2& force, const pmath::Vec2& point)
 {
 	b2Vec2 p = umathToBox2D(point / PIXELS_PER_METER) + m_body->GetPosition();
 	m_body->ApplyForce(umathToBox2D(force), p, true);
 }
 
-void Rigidbody::ApplyImpulse(const umath::vector2& impulse)
+void Rigidbody::ApplyImpulse(const pmath::Vec2& impulse)
 {
 	m_body->ApplyLinearImpulse(umathToBox2D(impulse), m_body->GetPosition(), true);
 }
 
-void Rigidbody::ApplyImpulse(const umath::vector2& impulse, const umath::vector2& point)
+void Rigidbody::ApplyImpulse(const pmath::Vec2& impulse, const pmath::Vec2& point)
 {
 	b2Vec2 p = umathToBox2D(point / PIXELS_PER_METER) + m_body->GetPosition();
 	m_body->ApplyLinearImpulse(umathToBox2D(impulse), p, true);
@@ -86,22 +86,22 @@ void Rigidbody::ApplyTorque(const float torque)
 
 // Setters/Getters
 
-void Rigidbody::SetVelocity(const umath::vector2& velocity)
+void Rigidbody::SetVelocity(const pmath::Vec2& velocity)
 {
 	m_body->SetLinearVelocity(umathToBox2D(velocity));
 }
 
-const umath::vector2 Rigidbody::GetVelocity() const
+const pmath::Vec2 Rigidbody::GetVelocity() const
 {
 	return box2DToUmath(m_body->GetLinearVelocity());
 }
 
-void Rigidbody::SetSize(const umath::vector2& size)
+void Rigidbody::SetSize(const pmath::Vec2& size)
 {
 	SetUnitSize(size / PIXELS_PER_METER);
 }
 
-void Rigidbody::SetUnitSize(const umath::vector2& size)
+void Rigidbody::SetUnitSize(const pmath::Vec2& size)
 {
 	// This function is kinda ugly but what can you do
 
@@ -149,23 +149,23 @@ void Rigidbody::SetUnitSize(const float radius)
 	m_size.y = radius*2;
 }
 
-const umath::vector2 Rigidbody::GetSize()
+const pmath::Vec2 Rigidbody::GetSize()
 {
 	return m_size * PIXELS_PER_METER;
 }
 
-const umath::vector2 Rigidbody::GetUnitSize()
+const pmath::Vec2 Rigidbody::GetUnitSize()
 {
 	return m_size;
 }
 
-void Rigidbody::SetPosition(const umath::vector2& position)
+void Rigidbody::SetPosition(const pmath::Vec2& position)
 {
 	b2Vec2 p = umathToBox2D(position / PIXELS_PER_METER);
 	m_body->SetTransform(p, m_body->GetAngle());
 }
 
-const umath::vector2 Rigidbody::GetPosition()
+const pmath::Vec2 Rigidbody::GetPosition()
 {
 	b2Vec2 pos = m_body->GetPosition();
 	pos *= PIXELS_PER_METER;
@@ -174,13 +174,13 @@ const umath::vector2 Rigidbody::GetPosition()
 
 void Rigidbody::SetAngle(const float angle)
 {
-	float ang = -angle * PI / 180.f;
+	float ang = -angle * static_cast<float>(pmath::pi) / 180.f;
 	m_body->SetTransform(m_body->GetPosition(), ang);
 }
 
 float Rigidbody::GetAngle() const
 {
-	return -m_body->GetAngle() * 180.f / PI;
+	return -m_body->GetAngle() * 180.f / static_cast<float>(pmath::pi);
 }
 
 void Rigidbody::SetFixedRotation(bool value)
@@ -242,13 +242,13 @@ void Rigidbody::init()
 {
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
-	umath::vector2 pos = parent->transform.position;
+	pmath::Vec2 pos = parent->transform.position;
 	pos /= PIXELS_PER_METER;
 	bodyDef.position.Set(pos.x, pos.y);
 
 	m_body = m_world->CreateBody(&bodyDef);
 
-	if(!(m_size.getLengthSquared() > 0))
+	if(!(m_size.lengthSquared() > 0))
 		m_size = parent->transform.size;
 
 
@@ -286,12 +286,12 @@ void Rigidbody::init()
 	}
 }
 
-b2Vec2 umathToBox2D(const umath::vector2& vec)
+b2Vec2 umathToBox2D(const pmath::Vec2& vec)
 {
 	return b2Vec2(vec.x, vec.y);
 }
 
-umath::vector2 box2DToUmath(const b2Vec2& vec)
+pmath::Vec2 box2DToUmath(const b2Vec2& vec)
 {
-	return umath::vector2(vec.x, vec.y);
+	return pmath::Vec2(vec.x, vec.y);
 }

@@ -3,7 +3,7 @@
 #define RIGIDBODY_H_UTH
 
 #include <Box2D/Box2D.h>
-#include <UtH/Math/Vector.hpp>
+#include <pmath/Vector.hpp>
 #include <UtH/Engine/Component.hpp>
 
 namespace uth
@@ -26,7 +26,7 @@ namespace uth
 		// Create a rigidibody with a bit more control
 		// If creating a ball put diameter in size.x
 		Rigidbody(b2World* world, const COLLIDER_TYPE collider,
-			const umath::vector2& size, const std::string& name = "Rigidbody");
+			const pmath::Vec2& size, const std::string& name = "Rigidbody");
 
 		~Rigidbody();
 
@@ -38,17 +38,17 @@ namespace uth
 
 		// Applies force to the center of the object
 		// Force is usually considered to be in Newtons(N)
-		void ApplyForce(const umath::vector2& force);
+		void ApplyForce(const pmath::Vec2& force);
 		// Applies force to a point on the object (offset from the center of the object)
 		// This means applying force to the point (0, 0) is the same as center of object
 		// Point is expected to be a pixel offset (not Box2D meter offset)
-		void ApplyForce(const umath::vector2& force, const umath::vector2& point);
+		void ApplyForce(const pmath::Vec2& force, const pmath::Vec2& point);
 
 		// Applies impulse to the center of the object
 		// Force is usually considered to be in Newton seconds(Ns)
-		void ApplyImpulse(const umath::vector2& impulse);
+		void ApplyImpulse(const pmath::Vec2& impulse);
 		// Applies impulse to a point on the object (offset from the center of the object)
-		void ApplyImpulse(const umath::vector2& impulse, const umath::vector2& point);
+		void ApplyImpulse(const pmath::Vec2& impulse, const pmath::Vec2& point);
 
 		// Applies torque to the object
 		// Force is usually considered to be in Newton metres(Nm)
@@ -57,27 +57,27 @@ namespace uth
 
 		// Sets the raw velocity of the object
 		// Velocity in pixels per second
-		void SetVelocity(const umath::vector2& velocity);
-		const umath::vector2 GetVelocity() const;
+		void SetVelocity(const pmath::Vec2& velocity);
+		const pmath::Vec2 GetVelocity() const;
 
 		// Sets the size of the object(hitbox) in pixels
-		void SetSize(const umath::vector2& size);
+		void SetSize(const pmath::Vec2& size);
 		// Sets the size of the object(hitbox) in Box2D units(meters)
-		void SetUnitSize(const umath::vector2& size);
+		void SetUnitSize(const pmath::Vec2& size);
 		// Same as above
 		void SetSize(const float radius);
 		void SetUnitSize(const float radius);
 
 		// Returns the size of the object(hitbox) in pixels
 		// Returns as a box size so diameter of a ball can be found in vector.x
-		const umath::vector2 GetSize();
+		const pmath::Vec2 GetSize();
 		// Returns the size of the object(hitbox) in Box2D units(meters)
-		const umath::vector2 GetUnitSize();
+		const pmath::Vec2 GetUnitSize();
 		
 		// Sets the position of the object in pixels
-		void SetPosition(const umath::vector2& position);
+		void SetPosition(const pmath::Vec2& position);
 		// Get the position in pixels
-		const umath::vector2 GetPosition();
+		const pmath::Vec2 GetPosition();
 		// Set the angle of the object in degrees
 		void SetAngle(const float angle);
 		// Get the angle of the object in degrees
@@ -121,7 +121,7 @@ namespace uth
 		// For resizing etc...
 		b2FixtureDef m_fixtureDef;
 		COLLIDER_TYPE m_collider;
-		umath::vector2 m_size;
+		pmath::Vec2 m_size;
 	};
 }
 

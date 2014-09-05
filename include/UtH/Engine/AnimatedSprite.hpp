@@ -3,7 +3,7 @@
 #define ANIMATEDSPRITE_H_UTH
 
 #include <UtH/Engine/Sprite.hpp>
-#include <UtH/Math/Rectangle.hpp>
+#include <pmath/Rectangle.hpp>
 
 namespace uth
 {
@@ -13,7 +13,7 @@ namespace uth
 		~AnimatedSprite();
 
 		AnimatedSprite(Texture* texture, const unsigned int frames,
-			const umath::vector2& frameSize,
+			const pmath::Vec2& frameSize,
 			const float fps = 5.0f, const unsigned int firstFrame = 0,
 			const bool reversed = false, const bool loop = true);
 		AnimatedSprite(Texture* texture, const unsigned int frames,
@@ -39,7 +39,7 @@ namespace uth
 		unsigned int m_curFrame;
 		unsigned int m_frameCount;
 
-		umath::rectangle m_frameSize;
+		pmath::Rect m_frameSize;
 		float m_fps;
 		float m_delay;
 
@@ -50,7 +50,7 @@ namespace uth
 		unsigned int m_frameCountX;
 		unsigned int m_frameCountY;
 
-		umath::rectangle frame;
+		pmath::Rect frame;
 	};
 }
 #endif

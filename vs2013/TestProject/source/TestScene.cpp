@@ -24,11 +24,11 @@ bool TestScene::Init()
 	shader = new Shader();
 	shader->LoadShader("Shaders/Default.vert", "Shaders/Default.frag");
 	shader->Use();
-    uthEngine.GetWindow().SetViewport(umath::rectangle(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
+    uthEngine.GetWindow().SetViewport(pmath::Rect(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
     uthEngine.GetWindow().SetShader(shader);
 
 	test = new GameObject();
-	test->AddComponent(new Sprite(umath::vector4(1,0,0,1),umath::vector2(128,128)));
+	test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
 
     ParticleTemplate pt;
     pt.SetLifetime(1.f);

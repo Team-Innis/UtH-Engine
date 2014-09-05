@@ -4,7 +4,7 @@
 
 #include <UtH/Platform/WindowSettings.hpp>
 #include <UtH/Platform/Enums.hpp>
-#include <UtH/Math/Math.hpp>
+#include <pmath/PMath.hpp>
 
 namespace uth
 {
@@ -43,15 +43,15 @@ namespace uth
 
 		static void SetUniform(const int location, const float x, const float y, const float z, const float w);
 
-		static void SetUniform(const int location, const umath::vector2& vector);
+		static void SetUniform(const int location, const pmath::Vec2& vector);
 
-		static void SetUniform(const int location, const umath::vector3& vector);
+		static void SetUniform(const int location, const pmath::Vec3& vector);
 
-		static void SetUniform(const int location, const umath::vector4& vector);
+		static void SetUniform(const int location, const pmath::Vec4& vector);
 
-		static void SetUniform(const int location, const umath::matrix3& matrix);
+		static void SetUniform(const int location, const pmath::Mat3& matrix);
 
-		static void SetUniform(const int location, const umath::matrix4& matrix);
+		static void SetUniform(const int location, const pmath::Mat4& matrix);
 
 		static void EnableVertexAttribArray(const int location);
 

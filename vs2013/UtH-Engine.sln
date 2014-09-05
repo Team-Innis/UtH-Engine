@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestProject", "TestProject\TestProject.vcxproj", "{8FBE26B8-AD9D-4D1D-9D40-94E1EAD029C4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Platform", "Platform\Platform.vcxproj", "{18249A2B-04BC-4CC3-88DF-CD8C3E945692}"
@@ -15,8 +17,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Renderer", "Renderer\Render
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{07326890-84B7-46AD-9CA3-2ACBD1EE3B26}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UMath", "UMath\UMath.vcxproj", "{D16755AB-9F02-42C3-849D-ACDD08E550CA}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AndroidTest", "AndroidTest\AndroidTest.vcxproj", "{4C267BE7-7BF8-4967-A71F-ABA1199D48BA}"
 EndProject
 Global
@@ -25,6 +25,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8FBE26B8-AD9D-4D1D-9D40-94E1EAD029C4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8FBE26B8-AD9D-4D1D-9D40-94E1EAD029C4}.Debug|Win32.Build.0 = Debug|Win32
+		{8FBE26B8-AD9D-4D1D-9D40-94E1EAD029C4}.Release|Win32.ActiveCfg = Release|Win32
+		{8FBE26B8-AD9D-4D1D-9D40-94E1EAD029C4}.Release|Win32.Build.0 = Release|Win32
 		{18249A2B-04BC-4CC3-88DF-CD8C3E945692}.Debug|Win32.ActiveCfg = Debug|Win32
 		{18249A2B-04BC-4CC3-88DF-CD8C3E945692}.Debug|Win32.Build.0 = Debug|Win32
 		{18249A2B-04BC-4CC3-88DF-CD8C3E945692}.Release|Win32.ActiveCfg = Release|Win32
@@ -49,14 +53,6 @@ Global
 		{07326890-84B7-46AD-9CA3-2ACBD1EE3B26}.Debug|Win32.Build.0 = Debug|Win32
 		{07326890-84B7-46AD-9CA3-2ACBD1EE3B26}.Release|Win32.ActiveCfg = Release|Win32
 		{07326890-84B7-46AD-9CA3-2ACBD1EE3B26}.Release|Win32.Build.0 = Release|Win32
-		{8FBE26B8-AD9D-4D1D-9D40-94E1EAD029C4}.Debug|Win32.ActiveCfg = Debug|Win32
-		{8FBE26B8-AD9D-4D1D-9D40-94E1EAD029C4}.Debug|Win32.Build.0 = Debug|Win32
-		{8FBE26B8-AD9D-4D1D-9D40-94E1EAD029C4}.Release|Win32.ActiveCfg = Release|Win32
-		{8FBE26B8-AD9D-4D1D-9D40-94E1EAD029C4}.Release|Win32.Build.0 = Release|Win32
-		{D16755AB-9F02-42C3-849D-ACDD08E550CA}.Debug|Win32.ActiveCfg = Debug|Win32
-		{D16755AB-9F02-42C3-849D-ACDD08E550CA}.Debug|Win32.Build.0 = Debug|Win32
-		{D16755AB-9F02-42C3-849D-ACDD08E550CA}.Release|Win32.ActiveCfg = Release|Win32
-		{D16755AB-9F02-42C3-849D-ACDD08E550CA}.Release|Win32.Build.0 = Release|Win32
 		{4C267BE7-7BF8-4967-A71F-ABA1199D48BA}.Debug|Win32.ActiveCfg = Debug|Win32
 		{4C267BE7-7BF8-4967-A71F-ABA1199D48BA}.Release|Win32.ActiveCfg = Release|Win32
 	EndGlobalSection

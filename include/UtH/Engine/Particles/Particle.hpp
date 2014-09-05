@@ -17,8 +17,8 @@ namespace uth
         {}
 
         float lifetime;
-        umath::vector2 direction;
-        umath::vector4 color;
+        pmath::Vec2 direction;
+        pmath::Vec4 color;
 
     };
 }

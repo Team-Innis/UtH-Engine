@@ -35,7 +35,7 @@ namespace uth
 	}
 
 
-    bool Texture::Create(const umath::vector2& size, const bool smooth, const bool repeated)
+    bool Texture::Create(const pmath::Vec2& size, const bool smooth, const bool repeated)
     {
         if (size.x == 0 || size.y == 0)
             return false;
@@ -130,7 +130,7 @@ namespace uth
         return true;
     }
 
-    const umath::vector2& Texture::GetSize() const
+    const pmath::Vec2& Texture::GetSize() const
     {
         return m_size;
     }

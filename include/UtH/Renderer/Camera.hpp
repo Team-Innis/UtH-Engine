@@ -3,9 +3,9 @@
 #define CAMERA_H_UTH
 
 
-#include <UtH/Math/Vector2.hpp>
-#include <UtH/Math/Matrix4.hpp>
-#include <UtH/Math/Rectangle.hpp>
+#include <pmath/Vector2.hpp>
+#include <pmath/Matrix4.hpp>
+#include <pmath/Rectangle.hpp>
 #include <UtH/Engine/GameObject.hpp>
 
 
@@ -17,17 +17,17 @@ namespace uth
 
         Camera();
 
-        Camera(const umath::vector2& position, const umath::vector2& size);
+        Camera(const pmath::Vec2& position, const pmath::Vec2& size);
 
         ~Camera();
 
 
         /// Position is the CENTER position of the camera.
-        Camera& SetPosition(const umath::vector2& position);
+        Camera& SetPosition(const pmath::Vec2& position);
 
         Camera& SetPosition(const float x, const float y);
 
-        Camera& SetSize(const umath::vector2& size);
+        Camera& SetSize(const pmath::Vec2& size);
 
         Camera& SetSize(const float x, const float y);
 
@@ -35,27 +35,27 @@ namespace uth
 
         Camera& SetZoom(const float factor);
 
-        Camera& Scroll(const umath::vector2& offset);
+        Camera& Scroll(const pmath::Vec2& offset);
 
         Camera& Scroll(const float x, const float y);
 
         Camera& Rotate(const float offset);
 
-        const umath::vector2& GetPosition() const;
+        const pmath::Vec2& GetPosition() const;
 
-        const umath::vector2& GetSize() const;
+        const pmath::Vec2& GetSize() const;
 
         float GetRotation() const;
 
-        const umath::matrix4& GetProjectionTransform() const;
+        const pmath::Mat4& GetProjectionTransform() const;
 
 
 
     private:
 
-        umath::vector2 m_size;
+        pmath::Vec2 m_size;
         float m_zoom;
-        mutable umath::matrix4 m_viewMatrix;
+        mutable pmath::Mat4 m_viewMatrix;
         mutable bool m_transformNeedsUpdate;
 
     };

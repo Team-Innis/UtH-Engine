@@ -8,8 +8,8 @@ ASensorEventQueue* SensorInput::sensorEventQueue = nullptr;
 const ASensor* SensorInput::accelerometer = nullptr;
 const ASensor* SensorInput::gyroscope = nullptr;
 
-umath::vector3 SensorInput::m_accelerometer = umath::vector3();
-umath::vector3 SensorInput::m_gyroscope = umath::vector3();
+pmath::Vec3 SensorInput::m_accelerometer = pmath::Vec3();
+pmath::Vec3 SensorInput::m_gyroscope = pmath::Vec3();
 
 bool SensorInput::m_enabled = false;
 
@@ -24,11 +24,11 @@ int SensorInput::getSensorEvents(int fd, int events, void* data)
             switch (e.type)
             {
             case ASENSOR_TYPE_ACCELEROMETER:
-                m_accelerometer = umath::vector3(e.acceleration.x, e.acceleration.y,
+                m_accelerometer = pmath::Vec3(e.acceleration.x, e.acceleration.y,
                     e.acceleration.z);
                 break;
             case ASENSOR_TYPE_GYROSCOPE:
-                m_gyroscope = umath::vector3(e.vector.x, e.vector.y, e.vector.z);
+                m_gyroscope = pmath::Vec3(e.vector.x, e.vector.y, e.vector.z);
                 break;
             default:
                 break;
@@ -36,19 +36,16 @@ int SensorInput::getSensorEvents(int fd, int events, void* data)
         }
     }
 
-    WriteLog("acc: %f, %f, %f", m_accelerometer.x, m_accelerometer.y, m_accelerometer.z);
-    WriteLog("gyr: %f, %f, %f", m_gyroscope.x, m_gyroscope.y, m_gyroscope.z);
-
     return 1;
 }
 
-umath::vector3 SensorInput::getAccelerometerInput()
+pmath::Vec3 SensorInput::getAccelerometerInput()
 {
     return m_accelerometer;
 }
 
 
-umath::vector3 SensorInput::getGyroscopeInput()
+pmath::Vec3 SensorInput::getGyroscopeInput()
 {
     return m_gyroscope;
 }
