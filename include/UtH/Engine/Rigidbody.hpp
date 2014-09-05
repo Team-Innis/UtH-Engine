@@ -109,6 +109,8 @@ namespace uth
 		void SetBullet(bool value);
 		const bool IsBullet() const;
 
+		void SetKinematic(bool value);
+
 	private:
 		void defaults();
 		void init();

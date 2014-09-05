@@ -230,6 +230,10 @@ const bool Rigidbody::IsBullet() const
 	return m_body->IsBullet();
 }
 
+void Rigidbody::SetKinematic(bool value)
+{
+	value ? m_body->SetType(b2_kinematicBody) : m_body->SetType(b2_dynamicBody);
+}
 
 // Private
 
@@ -247,6 +251,7 @@ void Rigidbody::init()
 	bodyDef.position.Set(pos.x, pos.y);
 
 	m_body = m_world->CreateBody(&bodyDef);
+	m_body->SetUserData(parent);
 
 	if(!(m_size.lengthSquared() > 0))
 		m_size = parent->transform.size;
