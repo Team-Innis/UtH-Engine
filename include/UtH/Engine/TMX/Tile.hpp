@@ -2,7 +2,7 @@
 #ifndef TILE_TMX_UTH_H
 #define TILE_TMX_UTH_H
 
-#include <UtH/Math/Rectangle.hpp>
+#include <pmath/Rectangle.hpp>
 #include <UtH/Engine/GameObject.hpp>
 
 namespace uth
@@ -13,10 +13,10 @@ namespace uth
 		{
 		public:
 			Tile();
-			Tile(const umath::rectangle& tile);
+			Tile(const pmath::Rect& tile);
 			~Tile();
 
-			umath::rectangle tileRectangle;
+			pmath::Rect tileRectangle;
 		};
 	}
 }

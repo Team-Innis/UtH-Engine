@@ -4,7 +4,7 @@
 #define VERTEXBUFFER_H
 
 #include <vector>
-#include <UtH/Math/Vector.hpp>
+#include <pmath/Vector.hpp>
 #include <UtH/Core/Vertex.hpp>
 #include <UtH/Core/Shader.hpp>
 

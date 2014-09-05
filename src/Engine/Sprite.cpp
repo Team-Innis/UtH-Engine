@@ -1,8 +1,8 @@
 #include <UtH/Engine/Sprite.hpp>
-#include <UtH/Math/Vector3.hpp>
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Renderer/RenderTarget.hpp>
 #include <UtH/Platform/Graphics.hpp>
+#include <pmath/Vector3.hpp>
 
 using namespace uth;
 
@@ -23,7 +23,7 @@ Sprite::Sprite(const std::string& filePath, const std::string& name)
 	defaults();
 }
 
-Sprite::Sprite(const umath::vector4& fillColor, const umath::vector2& size, const std::string& name)
+Sprite::Sprite(const pmath::Vec4& fillColor, const pmath::Vec2& size, const std::string& name)
 	: Component(name),
 	  m_texture(nullptr)
 {
@@ -89,12 +89,12 @@ Texture* Sprite::GetTexture() const
 	return m_texture;
 }
 
-const umath::vector2& Sprite::GetSize() const
+const pmath::Vec2& Sprite::GetSize() const
 {
 	return m_size;
 }
 
-void Sprite::SetColor(const umath::vector4& color)
+void Sprite::SetColor(const pmath::Vec4& color)
 {
 	m_color = color;
 	m_vertexBuffer.clear();
@@ -103,11 +103,11 @@ void Sprite::SetColor(const umath::vector4& color)
 
 void Sprite::SetColor(float r, float g, float b, float a)
 {
-	SetColor(umath::vector4(r,g,b,a));
+	SetColor(pmath::Vec4(r,g,b,a));
 }
 
 
-const umath::vector4& Sprite::GetColor() const
+const pmath::Vec4& Sprite::GetColor() const
 {
 	return m_color;
 }
@@ -119,9 +119,9 @@ void Sprite::defaults()
     if (m_texture)
 	    m_size = m_texture->GetSize();
     else
-        m_size = umath::vector2();
+        m_size = pmath::Vec2();
 
-	m_color = umath::vector4(1.f, 1.f, 1.f, 1.f);
+	m_color = pmath::Vec4(1.f, 1.f, 1.f, 1.f);
 }
 
 
@@ -130,14 +130,14 @@ void Sprite::generateBuffer()
 {
 	m_vertexBuffer.clear();
 
-	m_vertexBuffer.addVertex(Vertex(umath::vector3(-0.5f, -0.5f, 0),
-		umath::vector2(0.0f, 1.0f), m_color));
-	m_vertexBuffer.addVertex(Vertex(umath::vector3(0.5f, -0.5f, 0),
-		umath::vector2(1.0f, 1.0f), m_color));
-	m_vertexBuffer.addVertex(Vertex(umath::vector3(-0.5f, 0.5f, 0),
-		umath::vector2(0.0f, 0.0f), m_color));
-	m_vertexBuffer.addVertex(Vertex(umath::vector3(0.5f, 0.5f, 0),
-		umath::vector2(1.0f, 0.0f), m_color));
+	m_vertexBuffer.addVertex(Vertex(pmath::Vec3(-0.5f, -0.5f, 0),
+		pmath::Vec2(0.0f, 1.0f), m_color));
+	m_vertexBuffer.addVertex(Vertex(pmath::Vec3(0.5f, -0.5f, 0),
+		pmath::Vec2(1.0f, 1.0f), m_color));
+	m_vertexBuffer.addVertex(Vertex(pmath::Vec3(-0.5f, 0.5f, 0),
+		pmath::Vec2(0.0f, 0.0f), m_color));
+	m_vertexBuffer.addVertex(Vertex(pmath::Vec3(0.5f, 0.5f, 0),
+		pmath::Vec2(1.0f, 0.0f), m_color));
 
 
 	m_vertexBuffer.addIndex(0);

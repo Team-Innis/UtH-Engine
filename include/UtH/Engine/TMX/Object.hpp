@@ -2,8 +2,8 @@
 #ifndef OBJECT_TMX_UTH_H
 #define OBJECT_TMX_UTH_H
 
-#include <UtH/Math/Rectangle.hpp>
-#include <UtH/Math/Vector2.hpp>
+#include <pmath/Rectangle.hpp>
+#include <pmath/Vector2.hpp>
 
 #include <vector>
 #include <map>
@@ -33,12 +33,12 @@ namespace uth
             Object(tinyxml2::XMLElement* objectElement);
             ~Object();
 
-            const umath::rectangle& GetRectangle() const;
+            const pmath::Rect& GetRectangle() const;
 			// Returns the points for polygon and line
-            const std::vector<umath::vector2>& GetPoints() const;
+            const std::vector<pmath::Vec2>& GetPoints() const;
 			// Return the position of the object
 			// Is also the start position for line and polygon
-			const umath::vector2 GetPosition() const;
+			const pmath::Vec2 GetPosition() const;
 
             std::string GetProperty(const std::string& name) const;
 
@@ -55,8 +55,8 @@ namespace uth
             std::string m_name;
             std::string m_typeString;
 
-            umath::rectangle m_rectangle;
-            std::vector<umath::vector2> m_points;
+            pmath::Rect m_rectangle;
+            std::vector<pmath::Vec2> m_points;
 
 			std::map<std::string, std::string> m_properties;
         };

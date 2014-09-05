@@ -67,16 +67,16 @@ namespace uth
 	{
 		return !m_buttons.at(Button) && m_Lbuttons.at(Button);
 	}
-	umath::vector2 MouseInput::Position()
+	pmath::Vec2 MouseInput::Position()
 	{
 		return m_pos;
 	}
-	umath::vector2 MouseInput::Movement()
+	pmath::Vec2 MouseInput::Movement()
 	{
 		return m_pos - m_Lpos;
 	}
 
-	umath::vector2 MouseInput::Wheel()
+	pmath::Vec2 MouseInput::Wheel()
 	{
 		return m_scroll;
 	}

@@ -29,7 +29,7 @@ namespace uth
 
 
 
-	void SpriteBatch::AddSprite(Transform* object, const std::string& atlasName, const umath::vector4& color, const umath::rectangle& texCoords)
+	void SpriteBatch::AddSprite(Transform* object, const std::string& atlasName, const pmath::Vec4& color, const pmath::Rect& texCoords)
 	{
 		if ((!m_atlas && !m_texture) || !object)
 		{
@@ -46,34 +46,34 @@ namespace uth
 
 		m_objects.emplace_back(object);
 
-		umath::rectangle tex;
-		if(texCoords.width != 0 && texCoords.height != 0)
+		pmath::Rect tex;
+		if(texCoords.size.x != 0 && texCoords.size.y != 0)
 			tex = texCoords;
 		else
-			tex = (atlasName.empty() || !m_atlas) ? umath::rectangle(0.f, 0.f, 1.f, 1.f) : m_atlas->getTextureCoords(atlasName.c_str());
+			tex = (atlasName.empty() || !m_atlas) ? pmath::Rect(0.f, 0.f, 1.f, 1.f) : m_atlas->getTextureCoords(atlasName.c_str());
 
 
-		float width = ((m_atlas ? m_atlas->GetSize().x : m_texture->GetSize().x) * tex.width),
-			height = ((m_atlas ? m_atlas->GetSize().y : m_texture->GetSize().y) * tex.height);
+		float width = ((m_atlas ? m_atlas->GetSize().x : m_texture->GetSize().x) * tex.size.x),
+			height = ((m_atlas ? m_atlas->GetSize().y : m_texture->GetSize().y) * tex.size.y);
 
 		m_vertexData.push_back(Vertex(
-			umath::vector3(-width / 2.f, -height / 2.f, 1.f),
-			umath::vector2(tex.x, 1.f - tex.y),
+			pmath::Vec3(-width / 2.f, -height / 2.f, 1.f),
+			pmath::Vec2(tex.position.x, 1.f - tex.position.y),
 			color
 			));
 		m_vertexData.push_back(Vertex(
-			umath::vector3(width / 2.f, -height / 2.f, 1.f),
-			umath::vector2(tex.getRight(), 1.f - tex.y),
+			pmath::Vec3(width / 2.f, -height / 2.f, 1.f),
+			pmath::Vec2(tex.getRight(), 1.f - tex.position.y),
 			color
 			));
 		m_vertexData.push_back(Vertex(
-			umath::vector3(-width / 2.f, height / 2.f, 1.f),
-			umath::vector2(tex.x, 1.f - (tex.y + tex.height)),
+			pmath::Vec3(-width / 2.f, height / 2.f, 1.f),
+			pmath::Vec2(tex.position.x, 1.f - (tex.position.y + tex.size.y)),
 			color
 			));
 		m_vertexData.push_back(Vertex(
-			umath::vector3(width / 2.f, height / 2.f, 1.f),
-			umath::vector2(tex.getRight(), 1.f - (tex.y + tex.height)),
+			pmath::Vec3(width / 2.f, height / 2.f, 1.f),
+			pmath::Vec2(tex.getRight(), 1.f - (tex.position.y + tex.size.y)),
 			color
 			));
 		m_spriteBuffer.addIndex(0 + mod);
@@ -126,7 +126,7 @@ namespace uth
 
 		for (size_t i = 0; i < m_vertexData.size() / 4; ++i)
 		{
-			umath::matrix3 m = m_objects[i]->GetTransform().getMatrix3();
+			pmath::Mat3 m = m_objects[i]->GetTransform().getMatrix3();
 			// NOTE: this will cause the map to draw correctly.
 			// TODO: figure out a real solution
 			//m[0][0] = m[0][0] > 0 ? 1 : -1;

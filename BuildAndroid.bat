@@ -2,7 +2,7 @@
 
 start CopyAssets.bat
 
-set NDK_PROJECT_PATH=C:\Users\tti12smatiask\Documents\UtH-Engine\android
+set NDK_PROJECT_PATH=C:\Users\tti12sjuhos\Desktop\Git\UtH-Engine\android
 
-start C:\Users\Public\ndk\ndk-build.cmd
+start C:\Users\Public\android-ndk-r10\ndk-build.cmd
 exit

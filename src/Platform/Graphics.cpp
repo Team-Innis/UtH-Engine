@@ -232,27 +232,27 @@ namespace uth
 		oglCheck(glUniform4f(location, x, y, z, w));
 	}
 
-	void Graphics::SetUniform(const int location, const umath::vector2& vector)
+	void Graphics::SetUniform(const int location, const pmath::Vec2& vector)
 	{
 		oglCheck(glUniform2fv(location, 1, &vector.x));
 	}
 
-	void Graphics::SetUniform(const int location, const umath::vector3& vector)
+	void Graphics::SetUniform(const int location, const pmath::Vec3& vector)
 	{
 		oglCheck(glUniform3fv(location, 1, &vector.x));
 	}
 
-	void Graphics::SetUniform(const int location, const umath::vector4& vector)
+	void Graphics::SetUniform(const int location, const pmath::Vec4& vector)
 	{
 		oglCheck(glUniform4fv(location, 1, &vector.x));
 	}
 
-	void Graphics::SetUniform(const int location, const umath::matrix3& matrix)
+	void Graphics::SetUniform(const int location, const pmath::Mat3& matrix)
 	{
 		oglCheck(glUniformMatrix3fv(location, 1, GL_FALSE, matrix.ptr()));
 	}
 
-	void Graphics::SetUniform(const int location, const umath::matrix4& matrix)
+	void Graphics::SetUniform(const int location, const pmath::Mat4& matrix)
 	{
 		oglCheck(glUniformMatrix4fv(location, 1, GL_FALSE, matrix.ptr()));
 	}

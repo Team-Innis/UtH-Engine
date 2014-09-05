@@ -121,7 +121,7 @@ void Sound::SetSourcePosition(float x, float y, float z)
 	alSource3f(source, AL_VELOCITY, _posX, _posY, _posZ);
 	CheckALError("al_source3f AL_VELOCITY");
 }
-void Sound::SetSourcePosition(umath::vector3 position)
+void Sound::SetSourcePosition(pmath::Vec3 position)
 {
 	_posX = position.x; _posY = position.y; _posZ = position.z;
 	alSource3f(source, AL_POSITION, _posX, _posY, _posZ);
@@ -138,7 +138,7 @@ void Sound::SetListenerPosition(float x, float y, float z)
 	alListener3f(AL_VELOCITY, _posX, _posY, _posZ);
 	CheckALError("al_listener3f AL_VELOCITY");
 }
-void Sound::SetListenerPosition(umath::vector3 position)
+void Sound::SetListenerPosition(pmath::Vec3 position)
 {
 	_posX = position.x; _posY = position.y; _posZ = position.z;
 	alListener3f(AL_POSITION, _posX, _posY, _posZ);

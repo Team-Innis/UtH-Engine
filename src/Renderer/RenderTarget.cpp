@@ -98,12 +98,12 @@ namespace uth
         return m_defaultShader;
     }
 
-    void RenderTarget::SetViewport(const umath::rectangle& rect)
+    void RenderTarget::SetViewport(const pmath::Rect& rect)
     {
         m_viewport = rect;
     }
 
-    const umath::rectangle& RenderTarget::GetViewport() const
+    const pmath::Rect& RenderTarget::GetViewport() const
     {
         return m_viewport;
     }

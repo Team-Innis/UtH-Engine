@@ -3,7 +3,7 @@
 #define COMMONINPUT_H_UTH
 //Android
 #include <UtH/Platform/Common/InputBase.hpp>
-#include <UtH/Math/Vector2.hpp>
+#include <pmath/Vector2.hpp>
 
 namespace uth
 {
@@ -22,10 +22,10 @@ namespace uth
 	{
 	private:
 		InputEvent m_event;
-		umath::vector2 m_position;
+		pmath::Vec2 m_position;
 	public:
 		const InputEvent& Event() const;
-		const umath::vector2 Position() const;
+		const pmath::Vec2 Position() const;
 		
 		void Update();
 		

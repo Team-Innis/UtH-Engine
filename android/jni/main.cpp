@@ -14,8 +14,8 @@
  * limitations under the License.
  *
  */
+#include <pmath/PMath.hpp>
 #include <UtH/Platform/OpenGL.hpp>
-#include <UtH/Math/Math.hpp>
 #include <UtH/Platform/Android/AndroidEngine.hpp>
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/WindowSettings.hpp>
@@ -122,7 +122,7 @@ void android_main(android_app* state)
 
 	uthAndroidEngine.app = state;
 
-    uthAndroidEngine.settings.position = umath::vector2(0, 0);
+    uthAndroidEngine.settings.position = pmath::Vec2(0, 0);
 	uthAndroidEngine.settings.contextVersionMajor = 2;
 	uthAndroidEngine.settings.contextVersionMinor = 0;
     uthAndroidEngine.settings.fullScreen = true;

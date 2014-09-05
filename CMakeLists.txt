@@ -11,14 +11,6 @@ include_directories(${INCLUDE_DIRS})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall")
 
-add_library(math STATIC
-src/Math/Matrix3.cpp
-src/Math/Matrix4.cpp
-src/Math/Rectangle.cpp
-src/Math/Vector2.cpp
-src/Math/Vector3.cpp
-src/Math/Vector4.cpp)
-
 add_library(platform STATIC
 src/Platform/Graphics.cpp
 src/Platform/OGLCheck.cpp
@@ -61,7 +53,7 @@ src/Renderer/TextureAtlas.cpp
 src/Renderer/SpriteBatch.cpp
 src/Renderer/RenderTarget.cpp
 src/Renderer/RenderTexture.cpp)
-target_link_libraries(renderer resources math)
+target_link_libraries(renderer resources)
 
 add_library(engine STATIC
 src/Engine/UtHEngine.cpp
@@ -105,7 +97,7 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
     target_link_libraries(engine ${CMAKE_SOURCE_DIR}/ext/lib/Box2D/lib/Linux/libBox2D.a)
 endif(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
 
-target_link_libraries(engine math platform core resources audio renderer)
+target_link_libraries(engine platform core resources audio renderer)
 
 add_executable(testproject
 vs2013/TestProject/source/main.cpp

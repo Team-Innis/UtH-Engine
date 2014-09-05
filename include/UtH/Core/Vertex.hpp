@@ -2,7 +2,7 @@
 #ifndef VERTEX_H_UTH
 #define VERTEX_H_UTH
 
-#include <UtH/Math/Vector.hpp>
+#include <pmath/Vector.hpp>
 
 namespace uth
 {
@@ -12,17 +12,17 @@ namespace uth
 
         Vertex();
 
-        Vertex(const umath::vector3& pos, const umath::vector2& uv,
-			const umath::vector4& col = umath::vector4(1, 1, 1, 1))
+        Vertex(const pmath::Vec3& pos, const pmath::Vec2& uv,
+			const pmath::Vec4& col = pmath::Vec4(1, 1, 1, 1))
             : position(pos),
               texCoords(uv),
 			  color(col)
         {}
 
 
-        umath::vector3 position;
-        umath::vector2 texCoords;
-		umath::vector4 color;
+        pmath::Vec3 position;
+        pmath::Vec2 texCoords;
+		pmath::Vec4 color;
 
     };
 }

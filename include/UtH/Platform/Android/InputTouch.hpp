@@ -2,7 +2,7 @@
 #ifndef TOUCHINPUT_H_UTH
 #define TOUCHINPUT_H_UTH
 
-#include <UtH/Math/Vector2.hpp>
+#include <pmath/Vector2.hpp>
 #include <UtH/Platform/Common/InputBase.hpp>
 #include <UtH/Platform/InputEnums.hpp>
 #include <UtH/Platform/Debug.hpp>
@@ -32,17 +32,17 @@ namespace uth
 			friend class TouchInput;
 		private:
 			int m_startIndex;
-			umath::vector2 m_startPos;
-			umath::vector2 m_curPos;
+			pmath::Vec2 m_startPos;
+			pmath::Vec2 m_curPos;
 			float m_downTime;
 			TouchMotion m_motion;
 			bool m_tapped;
 		public:
 			const TouchMotion Motion() const;
 			const int GetStartIndex() const;
-			const umath::vector2 GetStartPosition() const;
-			const umath::vector2 GetPosition() const;
-			const umath::vector2 GetEndPosition() const;
+			const pmath::Vec2 GetStartPosition() const;
+			const pmath::Vec2 GetPosition() const;
+			const pmath::Vec2 GetEndPosition() const;
 		};	
 		static const int m_maxInputs = 10;
 		static TouchMotion m_motion;

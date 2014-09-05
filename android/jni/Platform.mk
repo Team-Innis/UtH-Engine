@@ -25,16 +25,6 @@ LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../ext/include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../ext/include/freetype_include/
 
-#Math
-LOCAL_SRC_FILES := \
-$(SRC_PATH)Math/Matrix3.cpp \
-$(SRC_PATH)Math/Matrix4.cpp \
-$(SRC_PATH)Math/Vector2.cpp \
-$(SRC_PATH)Math/Vector3.cpp \
-$(SRC_PATH)Math/Vector4.cpp \
-$(SRC_PATH)Math/Math.cpp \
-$(SRC_PATH)Math/Rectangle.cpp
-
 #Audio
 LOCAL_SRC_FILES += \
 $(SRC_PATH)Audio/Audio.cpp \

@@ -3,8 +3,8 @@
 #define PARTICLETEMPLATE_H_UTH
 
 #include <UtH/Renderer/Texture.hpp>
-#include <UtH/Math/Rectangle.hpp>
-#include <UtH/Math/Vector4.hpp>
+#include <pmath/Rectangle.hpp>
+#include <pmath/Vector4.hpp>
 #include <string>
 #include <functional>
 
@@ -25,7 +25,7 @@ namespace uth
         ParticleTemplate();
 
 
-        void SetTexture(Texture* texture, const umath::rectangle& texCoords = umath::rectangle(0.f, 0.f, 1.f, 1.f));
+        void SetTexture(Texture* texture, const pmath::Rect& texCoords = pmath::Rect(0.f, 0.f, 1.f, 1.f));
 
         void SetLifetime(const float seconds);
 
@@ -43,12 +43,12 @@ namespace uth
         float minSpeed,
               maxSpeed;
      
-        umath::vector4 color;
+        pmath::Vec4 color;
 
     private:
 
         Texture* m_texture;
-        umath::rectangle m_texCoords;
+        pmath::Rect m_texCoords;
 
         ParticleInitFunc m_pInitFunc;
 

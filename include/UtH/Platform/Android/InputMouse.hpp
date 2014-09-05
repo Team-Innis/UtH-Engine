@@ -4,7 +4,7 @@
 
 #include <UtH/Platform/Common/InputBase.hpp>
 
-#include <UtH/Math/Vector2.hpp>
+#include <pmath/Vector2.hpp>
 
 namespace uth
 {
@@ -31,9 +31,9 @@ namespace uth
 		bool IsButtonPressed(Mouse Button);
 		bool IsButtonReleased(Mouse Button);
 
-		umath::vector2 Position();
-		umath::vector2 Movement();
-		umath::vector2 Wheel();
+		pmath::Vec2 Position();
+		pmath::Vec2 Movement();
+		pmath::Vec2 Wheel();
 	};
 }
 

@@ -71,7 +71,7 @@ namespace uth
         return true;
     }
 
-    const umath::vector2& Image::GetSize() const
+    const pmath::Vec2& Image::GetSize() const
     {
         return m_size;
     }
@@ -82,13 +82,13 @@ namespace uth
 	}
 
 
-    umath::vector4 Image::GetPixel(unsigned int x, unsigned int y) const
+    pmath::Vec4 Image::GetPixel(unsigned int x, unsigned int y) const
     {
         assert(x < m_size.x && y < m_size.y);
 
         const unsigned int start = static_cast<unsigned int>(4 * ((y * m_size.x) + x));
 
-        return umath::vector4(static_cast<float>(m_pixels[start]),
+        return pmath::Vec4(static_cast<float>(m_pixels[start]),
                               static_cast<float>(m_pixels[start + 1]),
                               static_cast<float>(m_pixels[start + 2]),
                               static_cast<float>(m_pixels[start + 3]));

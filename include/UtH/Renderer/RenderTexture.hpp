@@ -17,9 +17,9 @@ namespace uth
         ~RenderTexture();
 
 
-        bool Initialize(const umath::vector2& size, const bool depthBuffer = false);
+        bool Initialize(const pmath::Vec2& size, const bool depthBuffer = false);
 
-        umath::vector2 GetSize() const;
+        pmath::Vec2 GetSize() const;
 
         Texture& GetTexture();
 

@@ -3,8 +3,8 @@
 #define GAMEOBJECT_H
 
 #include <UtH/Engine/Component.hpp>
-#include <UtH/Math/Math.hpp>
 #include <UtH/Engine/Transform.hpp>
+#include <pmath/PMath.hpp>
 
 #include <vector>
 #include <string>
