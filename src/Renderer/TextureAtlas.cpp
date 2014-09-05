@@ -63,10 +63,10 @@ namespace uth
 		m_texture->Bind();
 	}
 
-	unsigned int TextureAtlas::GetTextureID() const
+	/*unsigned int TextureAtlas::GetTextureID() const
 	{
 		return m_texture->GetTextureID();
-	}
+	}*/
 
 	bool TextureAtlas::SetSmooth(const bool value)
 	{

@@ -15,19 +15,20 @@ namespace uth
 
     class Image
     {
+    private:
+
+        struct Deleter
+        {
+            void operator()(Image* file) const
+            {
+                delete file;
+            }
+        };
 
         friend class Texture;
+        friend class ResourceManager;
 
     public:
-
-        Image();
-
-        Image(const std::string& filePath);
-
-        ~Image();
-
-
-        bool LoadFromFile(const std::string& filePath);
 
         const pmath::Vec2& GetSize() const;
 
@@ -41,6 +42,16 @@ namespace uth
 
 
     private:
+
+        Image();
+
+        ~Image();
+
+
+        bool LoadFromFile(const std::string& filePath);
+
+
+        // Member data
 
         pmath::Vec2 m_size;
         std::vector<BYTE> m_pixels;

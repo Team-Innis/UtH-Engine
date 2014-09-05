@@ -13,11 +13,6 @@ namespace uth
 
     }
 
-    SoundBuffer::SoundBuffer(const std::string& filePath)
-    {
-        LoadFromFile(filePath);
-    }
-
     SoundBuffer::~SoundBuffer()
     {
 

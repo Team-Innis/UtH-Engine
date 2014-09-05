@@ -29,7 +29,7 @@ bool TestScene::Init()
 
 	test = new GameObject();
 	test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
-
+    
     ParticleTemplate pt;
     pt.SetLifetime(1.f);
     pt.SetSpeed(10.f, 150.f);

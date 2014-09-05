@@ -24,7 +24,7 @@ namespace uth
 
         void Bind();
 
-        unsigned int GetTextureID() const;
+        //unsigned int GetTextureID() const;
 
         bool SetSmooth(const bool value);
 

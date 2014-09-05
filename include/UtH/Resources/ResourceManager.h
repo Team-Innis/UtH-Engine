@@ -49,10 +49,10 @@ namespace uth
 		ResourceManager();
 		~ResourceManager();
 
-        std::unordered_map<std::string, std::unique_ptr<SoundBuffer>> m_soundBuffers;
-		std::unordered_map<std::string, std::unique_ptr<Image>> m_images;
-        std::unordered_map<std::string, std::unique_ptr<Texture>> m_textures;
-        std::unordered_map<std::string, std::unique_ptr<Font>> m_fonts;
+        std::unordered_map<std::string, std::unique_ptr<SoundBuffer, SoundBuffer::Deleter>> m_soundBuffers;
+		std::unordered_map<std::string, std::unique_ptr<Image, Image::Deleter>> m_images;
+        std::unordered_map<std::string, std::unique_ptr<Texture, Texture::Deleter>> m_textures;
+        std::unordered_map<std::string, std::unique_ptr<Font, Font::Deleter>> m_fonts;
 	};
 }
 
