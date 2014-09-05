@@ -7,7 +7,7 @@
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Engine/Particles/ParticleSystem.hpp>
 
-#include <UtH/Audio/Audio.hpp>
+#include <UtH/Audio/Sound.hpp>
 
 namespace uth
 {
