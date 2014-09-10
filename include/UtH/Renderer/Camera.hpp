@@ -43,7 +43,7 @@ namespace uth
 
         const pmath::Vec2& GetPosition() const;
 
-        const pmath::Vec2& GetSize() const;
+        pmath::Vec2 GetSize() const;
 
         float GetRotation() const;
 

@@ -63,7 +63,7 @@ namespace uth
         m_camera = camera;
     }
 
-    Camera& RenderTarget::GetCamera()
+    Camera& RenderTarget::GetCamera() const
     {
         if (!m_set)
         {
@@ -103,6 +103,11 @@ namespace uth
         m_viewport = rect;
     }
 
+    const pmath::Rect& RenderTarget::getViewport() const
+    {
+        return m_viewport;
+    }
+
     const pmath::Rect& RenderTarget::GetViewport() const
     {
         return m_viewport;
@@ -119,4 +124,23 @@ namespace uth
             m_defaultShader.SetUniform("unifProjection", m_camera ? m_camera->GetProjectionTransform() : m_defaultCamera.GetProjectionTransform());
         }
     }
+
+    pmath::Vec2 RenderTarget::pixelToCoords(const pmath::Vec2& pixel) const
+    {
+        pmath::Vec2 normalized;
+        auto viewport = getViewport();
+        normalized.x = -1.f + 2.f * (pixel.x - viewport.getLeft()) / viewport.size.x;
+        normalized.y = -1.f + 2.f * (pixel.y - viewport.getTop()) / viewport.size.y;
+
+        normalized = GetCamera().transform.GetTransform().inverse() * normalized;
+        normalized.x *= (GetCamera().GetSize().x / 2.f);
+        normalized.y *= (GetCamera().GetSize().y / 2.f);
+        return normalized;
+    }
+
+    pmath::Vec2 RenderTarget::coordsToPixel(const pmath::Vec2& point) const
+    {
+        return point;
+    }
+
 }

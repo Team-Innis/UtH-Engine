@@ -117,9 +117,9 @@ namespace uth
         return transform.GetPosition();
     }
 
-    const pmath::Vec2& Camera::GetSize() const
+    pmath::Vec2 Camera::GetSize() const
     {
-        return m_size;
+        return pmath::Vec2(m_size.x / m_zoom, m_size.y / m_zoom);
     }
 
     float Camera::GetRotation() const
