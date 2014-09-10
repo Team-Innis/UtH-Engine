@@ -49,15 +49,17 @@ namespace uth
 
         const pmath::Mat4& GetProjectionTransform() const;
 
+        const pmath::Mat4& GetInverseProjectionTransform() const;
 
 
     private:
 
         pmath::Vec2 m_size;
         float m_zoom;
-        mutable pmath::Mat4 m_viewMatrix;
-        mutable bool m_transformNeedsUpdate;
-
+        mutable pmath::Mat4 m_projMatrix,
+                            m_invProjMatrix;
+        mutable bool m_transformNeedsUpdate,
+                     m_inverseTransformNeedsUpdate;
     };
 }
 

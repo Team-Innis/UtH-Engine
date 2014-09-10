@@ -8,17 +8,21 @@ namespace uth
     Camera::Camera()
         : m_size(),
           m_zoom(1.f),
-          m_viewMatrix(),
-          m_transformNeedsUpdate(true)
+          m_projMatrix(),
+          m_invProjMatrix(),
+          m_transformNeedsUpdate(true),
+          m_inverseTransformNeedsUpdate(true)
     {
 
     }
 
     Camera::Camera(const pmath::Vec2& position, const pmath::Vec2& size)
         : m_size(size),
-          m_zoom(1.f),
-          m_viewMatrix(),
-          m_transformNeedsUpdate(true)
+        m_zoom(1.f),
+        m_projMatrix(),
+        m_invProjMatrix(),
+        m_transformNeedsUpdate(true),
+        m_inverseTransformNeedsUpdate(true)
     {
 		transform.SetPosition(position);
     }
@@ -148,7 +152,7 @@ namespace uth
             const float c = -a * position.x;
             const float d = -b * position.y;
 
-            m_viewMatrix = pmath::Mat4( a * cosine, a * sine,   0.f, a * tx + c,
+            m_projMatrix = pmath::Mat4( a * cosine, a * sine,   0.f, a * tx + c,
                                           -b * sine,   b * cosine, 0.f, b * ty + d,
                                            0.f,        0.f,        1.f, 0.f,
                                            0.f,        0.f,        0.f, 1.f);
@@ -156,6 +160,18 @@ namespace uth
             m_transformNeedsUpdate = false;
         }
 
-        return m_viewMatrix;
+        return m_projMatrix;
     }
+
+    const pmath::Mat4& Camera::GetInverseProjectionTransform() const
+    {
+        if (m_inverseTransformNeedsUpdate)
+        {
+            m_invProjMatrix = GetProjectionTransform().inverse();
+            m_inverseTransformNeedsUpdate = false;
+        }
+
+        return m_invProjMatrix;
+    }
+
 }

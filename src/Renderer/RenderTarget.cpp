@@ -128,19 +128,21 @@ namespace uth
     pmath::Vec2 RenderTarget::pixelToCoords(const pmath::Vec2& pixel) const
     {
         pmath::Vec2 normalized;
-        auto viewport = getViewport();
-        normalized.x = -1.f + 2.f * (pixel.x - viewport.getLeft()) / viewport.size.x;
-        normalized.y = -1.f + 2.f * (pixel.y - viewport.getTop()) / viewport.size.y;
+        normalized.x = -1.f + 2.f * (pixel.x - m_viewport.getLeft()) / m_viewport.size.x;
+        normalized.y = 1.f - 2.f * (pixel.y - m_viewport.getTop()) / m_viewport.size.y;
 
-        normalized = GetCamera().transform.GetTransform().inverse() * normalized;
-        normalized.x *= (GetCamera().GetSize().x / 2.f);
-        normalized.y *= (GetCamera().GetSize().y / 2.f);
-        return normalized;
+        return (GetCamera().GetInverseProjectionTransform() * normalized);
     }
 
     pmath::Vec2 RenderTarget::coordsToPixel(const pmath::Vec2& point) const
     {
-        return point;
+        pmath::Vec2 normalized = (GetCamera().GetProjectionTransform() * point);
+
+        pmath::Vec2 pixel;
+        pixel.x = (normalized.x + 1.f) / 2.f * m_viewport.size.x + m_viewport.getLeft();
+        pixel.y = (-normalized.y + 1.f) / 2.f * m_viewport.size.y + m_viewport.getTop();
+
+        return pixel;
     }
 
 }
