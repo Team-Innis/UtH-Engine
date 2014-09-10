@@ -1,4 +1,6 @@
-#include <UtH/UtHEngine.hpp>
+#include <UtH/Engine/DefaultScene.hpp>
+#include <UtH/Engine/Engine.hpp>
+#include <UtH/Platform/Input.hpp>
 
 using namespace uth;
 

@@ -1,6 +1,6 @@
 #include <UtH/Core/Shader.hpp>
 #include <UtH/Platform/Graphics.hpp>
-#include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/FileReader.hpp>
 #include <UtH/Platform/Configuration.hpp>
 #include <UtH/Platform/Debug.hpp>
 

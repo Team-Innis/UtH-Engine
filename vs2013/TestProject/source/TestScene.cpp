@@ -1,7 +1,5 @@
 #include "TestScene.hpp"
 
-#include <UtH/uthEngine.hpp>
-
 using namespace uth;
 
 const unsigned int sprites = 40;

@@ -1,7 +1,7 @@
 #include <UtH/Resources/Image.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/BinaryData.hpp>
-#include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/FileReader.hpp>
 #include <cassert>
 #include <cstring>
 #include <vector>

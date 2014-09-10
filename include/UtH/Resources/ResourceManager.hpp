@@ -2,12 +2,14 @@
 #ifndef RESOURCEMANAGER_H_UTH
 #define RESOURCEMANAGER_H_UTH
 
-#include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/FileReader.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/Singleton.hpp>
+
+#include <UtH/Resources/Font.hpp>
 #include <UtH/Resources/Image.hpp>
 #include <UtH/Resources/SoundBuffer.hpp>
-#include <UtH/Resources/Font.hpp>
+
 #include <UtH/Renderer/Texture.hpp>
 
 #include <unordered_map>

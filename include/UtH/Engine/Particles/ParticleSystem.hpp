@@ -2,10 +2,12 @@
 #ifndef PARTICLESYSTEM_H_UTH
 #define PARTICLESYSTEM_H_UTH
 
+#include <UtH/Platform/HiResTimer.hpp>
+
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Engine/SpriteBatch.hpp>
+
 #include <UtH/Engine/Particles/ParticleTemplate.hpp>
-#include <UtH/Platform/HiResTimer.hpp>
 #include <UtH/Engine/Particles/Affector.hpp>
 #include <UtH/Engine/Particles/Particle.hpp>
 

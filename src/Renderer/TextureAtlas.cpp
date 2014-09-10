@@ -1,6 +1,6 @@
 #include <UtH/Renderer/TextureAtlas.hpp>
-#include <UtH/Platform/FileReader.h>
-#include <UtH/Resources/ResourceManager.h>
+#include <UtH/Platform/FileReader.hpp>
+#include <UtH/Resources/ResourceManager.hpp>
 #include <string>
 #include <tinyxml2.h>
 

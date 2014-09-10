@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Renderer\Camera.hpp" />
+    <ClInclude Include="..\..\include\UtH\Renderer\Renderer.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\RenderTarget.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\RenderTexture.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\Texture.hpp" />

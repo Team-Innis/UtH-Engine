@@ -30,9 +30,6 @@
     <ClCompile Include="..\..\src\Engine\Scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Engine\UtHEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Engine\SceneManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -95,6 +92,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Engine\TMX\ObjectGroup.cpp">
       <Filter>Source Files\TMX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Engine.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -176,10 +176,5 @@
     <ClInclude Include="..\..\include\UtH\UtHEngine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\include\UtH\Engine\Scenes.inl">
-      <Filter>Header Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

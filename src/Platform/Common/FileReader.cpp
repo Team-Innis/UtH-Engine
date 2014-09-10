@@ -1,4 +1,4 @@
-#include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/FileReader.hpp>
 #include <UtH/Platform/Debug.hpp>
 
 #include <cassert>

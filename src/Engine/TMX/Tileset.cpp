@@ -1,6 +1,6 @@
 #include <UtH/Engine/TMX/Tileset.hpp>
 #include <UtH/Engine/TMX/Map.hpp>
-#include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/FileReader.hpp>
 
 #include <UtH/Platform/Debug.hpp>
 

@@ -75,7 +75,7 @@
     <ClCompile Include="..\..\src\Engine\TMX\Tile.cpp" />
     <ClCompile Include="..\..\src\Engine\TMX\Tileset.cpp" />
     <ClCompile Include="..\..\src\Engine\Transform.cpp" />
-    <ClCompile Include="..\..\src\Engine\UtHEngine.cpp" />
+    <ClCompile Include="..\..\src\Engine\Engine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Engine\AnimatedSprite.hpp" />
@@ -104,9 +104,6 @@
     <ClInclude Include="..\..\include\UtH\Engine\Transform.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Engine.hpp" />
     <ClInclude Include="..\..\include\UtH\UtHEngine.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\include\UtH\Engine\Scenes.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{07326890-84B7-46AD-9CA3-2ACBD1EE3B26}</ProjectGuid>
@@ -157,7 +154,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)..\include\;$(SolutionDir)..\ext\include\;$(SolutionDir)..\ext\include\freetype_include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -177,7 +174,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NOMINMAX;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)..\include\;$(SolutionDir)..\ext\include\;$(SolutionDir)..\ext\include\freetype_include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>

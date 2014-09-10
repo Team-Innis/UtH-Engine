@@ -3,7 +3,7 @@
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Renderer/RenderTarget.hpp>
-#include <UtH/Resources/ResourceManager.h>
+#include <UtH/Resources/ResourceManager.hpp>
 #include <UtH/Platform/Configuration.hpp>
 
 #include <freetype-gl/freetype-gl.h>

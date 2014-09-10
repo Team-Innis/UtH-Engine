@@ -1,6 +1,6 @@
 #pragma once
-#ifndef MAP_TMX_UTH_H
-#define MAP_TMX_UTH_H
+#ifndef MAP_TMX_H_UTH
+#define MAP_TMX_H_UTH
 
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Engine/SpriteBatch.hpp>

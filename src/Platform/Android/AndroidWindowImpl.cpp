@@ -4,7 +4,7 @@
 #include <UtH/Platform/Android/AndroidEngine.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/Window.hpp>
-#include <UtH/Engine/UtHEngine.h>
+#include <UtH/Engine/Engine.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Platform/Android/InputSensor.hpp>
 

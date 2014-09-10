@@ -4,7 +4,7 @@
 
 #include <UtH/Engine/Component.hpp>
 #include <UtH/Core/VertexBuffer.hpp>
-#include <UtH/Resources/ResourceManager.h>
+#include <UtH/Resources/ResourceManager.hpp>
 #include <pmath/Vector.hpp>
 
 // Forward declaration so we dont need to include the ugly C headers
