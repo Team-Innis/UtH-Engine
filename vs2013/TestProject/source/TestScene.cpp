@@ -8,7 +8,6 @@
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Engine/Particles/ParticleTemplate.hpp>
 #include <UtH/Engine/Particles/Affector.hpp>
-#include <UtH/Platform/Input.hpp>
 
 
 using namespace uth;
@@ -28,7 +27,6 @@ bool TestScene::Init()
 	shader->Use();
     uthEngine.GetWindow().SetViewport(pmath::Rect(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
     uthEngine.GetWindow().SetShader(shader);
-    uthEngine.GetWindow().GetCamera().Scroll(0, -200);
 
 	test = new GameObject();
 	test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
@@ -48,7 +46,7 @@ bool TestScene::Init()
     
     ps.AddAffector(aff);
 
-	//music = Sound::Load("media/music.ogg");
+	//music = Sound::Load("media/music2.wav");
 	//music->Play();
 	//music->Loop(true);
 
@@ -66,13 +64,24 @@ bool TestScene::Update(float dt)
     ps.Emit(1);
     ps.Update(dt);
 
-    if (uthInput.Mouse.IsButtonDown(uth::Mouse::LEFT))
-    {
-        auto pix = uthInput.Mouse.Position();
-        auto vec1 = uthEngine.GetWindow().pixelToCoords(pix);
-        auto vec2 = uthEngine.GetWindow().coordsToPixel(vec1);
-        std::cout << pix.x << ", " << pix.y << "; " << vec1.x << ", " << vec1.y << "; " << vec2.x << ", " << vec2.y << std::endl;
-    }
+
+	if (uthInput.Touch.Motion() == TouchMotion::TAP)
+	{ 
+		WriteLog("TAP");
+	}
+	else if (uthInput.Touch.Motion() == TouchMotion::DRAG)
+	{
+		WriteLog("DRAG");
+	}
+	else if (uthInput.Touch.Motion() == TouchMotion::PINCH_IN)
+	{
+		WriteLog("PINCH IN");
+	}
+	else if (uthInput.Touch.Motion() == TouchMotion::PINCH_OUT)
+	{
+		WriteLog("PINCH OUT");
+	}
+	
 
 	return true;
 }
