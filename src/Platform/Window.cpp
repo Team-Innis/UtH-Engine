@@ -27,10 +27,10 @@ namespace uth
 	Window::Window(const WindowSettings& settings)
 		: m_windowHandle(nullptr)
 	{
-        // This is patchy. Multiple windows aren't rupported.
+        // This is patchy. Multiple windows aren't supported.
         WindowImpl::setResizeCallback([this](int x, int y)
         {
-            SetViewport(pmath::Rect(0, 0, x, y));
+            SetViewport(pmath::Recti(0, 0, x, y));
             //SetCamera(&GetCamera());
         });
 		create(settings);

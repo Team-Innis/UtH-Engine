@@ -24,11 +24,11 @@ namespace uth
 
         Shader& GetShader();
 
-        void SetViewport(const pmath::Rect& rect);
+        void SetViewport(const pmath::Recti& rect);
 
-        const pmath::Rect& getViewport() const;
+        const pmath::Recti& getViewport() const;
 
-        const pmath::Rect& GetViewport() const;
+        const pmath::Recti& GetViewport() const;
 
         bool Bind();
 
@@ -53,7 +53,7 @@ namespace uth
         mutable Camera m_defaultCamera;
         Shader m_defaultShader;
 
-        pmath::Rect m_viewport;
+        pmath::Recti m_viewport;
 
 
         mutable bool m_loaded, m_set;
