@@ -6,10 +6,20 @@ using namespace uth;
 
 GameObject::GameObject()
 	: m_active(true),
+	m_name(""),
 	parent(nullptr)
 {
 	transform.parent = this;
 }
+
+GameObject::GameObject(const std::string &name)
+	: m_active(true),
+	m_name(name),
+	parent(nullptr)
+{
+	transform.parent = this;
+}
+
 
 GameObject::~GameObject()
 {
@@ -31,6 +41,11 @@ void GameObject::AddComponent(Component* component)
 	components.emplace_back(component);
 	component->parent = this;
 	component->Init();
+}
+
+const std::string GameObject::GetName() const
+{
+	return m_name;
 }
 
 void GameObject::RemoveComponent(Component* component)

@@ -19,6 +19,7 @@ namespace uth
 	{
 	public:
 		GameObject();
+		GameObject(const std::string &name);
 		virtual ~GameObject();
 
 		void SetActive(bool value);
@@ -27,6 +28,7 @@ namespace uth
 		void AddComponent(Component* component);
         template<typename T>
         T* GetComponent(const std::string& name);
+		const std::string GetName() const;
 		// Will actually delete the component
 		void RemoveComponent(Component* component);
 		void RemoveComponent(const std::string& name);
@@ -45,6 +47,7 @@ namespace uth
         virtual void draw(RenderTarget& target);
 
 		std::vector<std::unique_ptr<Component>> components;
+		std::string m_name;
 
 		bool m_active;
 	};
