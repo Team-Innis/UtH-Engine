@@ -54,7 +54,6 @@ namespace uth
 
     private:
 
-        pmath::Vec2 m_size;
         float m_zoom;
         mutable pmath::Mat4 m_projMatrix,
                             m_invProjMatrix;
