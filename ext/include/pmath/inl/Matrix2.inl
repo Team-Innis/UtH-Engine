@@ -201,20 +201,26 @@ namespace pmath
     {
         const T L[ROWS][COLUMNS] =
         {
-            (*this)[0][0],
-            (*this)[0][1],
-
-            (*this)[1][0],
-            (*this)[1][1]
+            {
+                (*this)[0][0],
+                (*this)[0][1]
+            },
+            {
+                (*this)[1][0],
+                (*this)[1][1]
+            }
         };
 
         const T R[ROWS][COLUMNS] =
         {
-            right[0][0],
-            right[0][1],
-
-            right[1][0],
-            right[1][1]
+            {
+                right[0][0],
+                right[0][1]
+            },
+            {
+                right[1][0],
+                right[1][1]
+            }
         };
 
         return Matrix2<T>

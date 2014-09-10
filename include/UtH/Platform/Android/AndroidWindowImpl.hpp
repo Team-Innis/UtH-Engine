@@ -3,6 +3,7 @@
 #define WINDOWIMPL_H_UTH
 
 #include <UtH/Platform/WindowSettings.hpp>
+#include <functional>
 
 
 namespace uth
@@ -10,6 +11,7 @@ namespace uth
 	class AndroidWindowImpl
 	{
 	public:
+        typedef std::function<void(int, int)> ResizeFunc;
 
 		AndroidWindowImpl();
 		~AndroidWindowImpl();
@@ -31,6 +33,7 @@ namespace uth
 		// return true while window should remain open
 		static bool processMessages(void* handle);
 
+        static void setResizeCallback(ResizeFunc func);
 	};
 }
 

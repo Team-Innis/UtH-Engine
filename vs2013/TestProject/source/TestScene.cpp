@@ -12,8 +12,6 @@
 
 using namespace uth;
 
-const unsigned int sprites = 40;
-
 TestScene::TestScene()
     : ps(100)
 {}

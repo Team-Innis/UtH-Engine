@@ -9,7 +9,8 @@ namespace uth
 	class InputBase
 	{
 	public:
-		virtual void Update(){}
+        virtual void Update(){}
+        virtual void Update(float dt){}
 		virtual void Initiate(){}
 		static void setWindowHandle(void* WindowHandle);
 	protected:

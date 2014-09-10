@@ -6,10 +6,10 @@ using namespace uth;
 
 ParticleTemplate::ParticleTemplate()
     : lifetime(0.f),
-      m_texture(nullptr),
       minSpeed(1.f),
       maxSpeed(0.f),
-      color(1, 1, 1, 1),
+      color(1),
+      m_texture(nullptr),
       m_pInitFunc([](Particle& particle, const ParticleTemplate& pTemplate)
                   {
                       // Default init function. Will distribute particles to random directions at speeds defined by the template.

@@ -5,8 +5,6 @@
 
 using namespace uth;
 
-const float PI = 3.14159265358979323846264f;
-
 float Randomizer::GetFloat(const float min, const float max)
 {
     return min + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX/(max-min)));

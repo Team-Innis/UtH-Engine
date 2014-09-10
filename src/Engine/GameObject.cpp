@@ -5,17 +5,17 @@
 using namespace uth;
 
 GameObject::GameObject()
-	: m_active(true),
-	m_name(""),
-	parent(nullptr)
+	: parent(nullptr),
+      m_name(""),
+      m_active(true)
 {
 	transform.parent = this;
 }
 
 GameObject::GameObject(const std::string &name)
-	: m_active(true),
-	m_name(name),
-	parent(nullptr)
+    : parent(nullptr),
+      m_name(name),
+      m_active(true)
 {
 	transform.parent = this;
 }

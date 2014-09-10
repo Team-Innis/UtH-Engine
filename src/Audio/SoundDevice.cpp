@@ -8,9 +8,9 @@ using namespace uth;
 //ALCcontext* SoundDevice::context = 0;
 
 SoundDevice::SoundDevice()
-	: initialized(false),
-	device(0),
-	context(0)
+	: device(0),
+	context(0),
+    initialized(false)
 {
 	CreateContext();
 }
