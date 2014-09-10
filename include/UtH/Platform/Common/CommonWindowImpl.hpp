@@ -3,12 +3,16 @@
 #define WINDOWIMPL_H_UTH
 
 #include <UtH/Platform/WindowSettings.hpp>
-
+#include <functional>
 
 namespace uth
 {
 	class CommonWindowImpl
 	{
+    public:
+
+        typedef std::function<void(int, int)> ResizeFunc;
+
 	public:
 
 		CommonWindowImpl();
@@ -31,6 +35,7 @@ namespace uth
 		// return true while window should remain open
 		static bool processMessages(void* handle);
 
+        static void setResizeCallback(ResizeFunc func);
 	};
 }
 

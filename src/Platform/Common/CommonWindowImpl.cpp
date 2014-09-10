@@ -30,7 +30,9 @@ namespace
 
 			initialized = true;
 		}
-	}
+    }
+
+    uth::CommonWindowImpl::ResizeFunc ns_resizeFunc;
 }
 
 
@@ -48,7 +50,7 @@ namespace uth
 		glfwWindowHint(GLFW_STENCIL_BITS, settings.useStencilBuffer ? 8 : 0);
 		glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
 		glfwWindowHint(GLFW_SAMPLES, settings.antialiasingSamples);
-
+        
 		int majorVer = settings.contextVersionMajor == 0 ? 4 : settings.contextVersionMajor,
 			minorVer = settings.contextVersionMajor == 0 ? 4 : settings.contextVersionMinor;
 
@@ -85,6 +87,14 @@ namespace uth
 		glfwSetWindowPos(wndwHandle, (int)settings.position.x, (int)settings.position.y);
 		glfwSwapInterval(settings.useVsync ? 1 : 0);
 
+        if (ns_resizeFunc)
+        {
+            glfwSetWindowSizeCallback(wndwHandle, [](GLFWwindow*, int x, int y)
+            {
+                ns_resizeFunc(x, y);
+            });
+        }
+        
 		glewExperimental = GL_TRUE;
 
 		/////////////////////////////
@@ -155,4 +165,10 @@ namespace uth
 
 		return glfwWindowShouldClose(static_cast<GLFWwindow*>(handle)) != 0;
 	}
+
+    void CommonWindowImpl::setResizeCallback(ResizeFunc func)
+    {
+        ns_resizeFunc = func;
+    }
+
 }

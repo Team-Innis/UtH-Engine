@@ -16,6 +16,7 @@ typedef uth::AndroidWindowImpl WindowImpl;
 
 #endif
 
+
 namespace uth
 {
 	Window::Window()
@@ -26,6 +27,12 @@ namespace uth
 	Window::Window(const WindowSettings& settings)
 		: m_windowHandle(nullptr)
 	{
+        // This is patchy. Multiple windows aren't rupported.
+        WindowImpl::setResizeCallback([this](int x, int y)
+        {
+            SetViewport(pmath::Rect(0, 0, x, y));
+            //SetCamera(&GetCamera());
+        });
 		create(settings);
 		m_windowSettings = settings;
 	}
