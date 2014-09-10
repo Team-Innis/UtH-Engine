@@ -102,7 +102,8 @@
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Tile.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Tileset.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Transform.hpp" />
-    <ClInclude Include="..\..\include\UtH\Engine\UtHEngine.h" />
+    <ClInclude Include="..\..\include\UtH\Engine\Engine.hpp" />
+    <ClInclude Include="..\..\include\UtH\UtHEngine.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\include\UtH\Engine\Scenes.inl" />

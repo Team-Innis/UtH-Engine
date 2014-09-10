@@ -1,13 +1,6 @@
 #include "TestScene.hpp"
 
-#include <UtH/Engine/Sprite.hpp>
-#include <UtH/Engine/AnimatedSprite.hpp>
-#include <UtH/Engine/Text.hpp>
-#include <UtH/Engine/Rigidbody.hpp>
-#include <UtH/Engine/UtHEngine.h>
-#include <UtH/Platform/Debug.hpp>
-#include <UtH/Engine/Particles/ParticleTemplate.hpp>
-#include <UtH/Engine/Particles/Affector.hpp>
+#include <UtH/uthEngine.hpp>
 
 using namespace uth;
 

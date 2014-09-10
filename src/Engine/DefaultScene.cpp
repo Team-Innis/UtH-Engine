@@ -1,14 +1,4 @@
-#include <UtH/Engine/DefaultScene.hpp>
-#include <UtH/Engine/Sprite.hpp>
-#include <UtH/Engine/AnimatedSprite.hpp>
-#include <UtH/Engine/Text.hpp>
-#include <UtH/Engine/Rigidbody.hpp>
-#include <UtH/Engine/UtHEngine.h>
-#include <UtH/Platform/Input.hpp>
-#include <UtH/Renderer/TextureAtlas.hpp>
-#include <UtH/Platform/Configuration.hpp>
-
-#include <UtH/Platform/Debug.hpp>
+#include <UtH/UtHEngine.hpp>
 
 using namespace uth;
 

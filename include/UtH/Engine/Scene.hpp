@@ -2,6 +2,8 @@
 #ifndef SCENE_H_UTH
 #define SCENE_H_UTH
 
+#define UTHDefaultScene -1
+
 #include <UtH/Core/Shader.hpp>
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Engine/Layer.hpp>
