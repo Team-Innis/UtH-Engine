@@ -8,6 +8,7 @@
 #include <UtH/Engine/Particles/ParticleSystem.hpp>
 
 #include <UtH/Audio/Sound.hpp>
+#include <UtH/Platform/Input.hpp>
 
 namespace uth
 {
