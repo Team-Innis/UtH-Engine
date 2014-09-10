@@ -11,12 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\src\Audio\Audio.cpp" />
     <ClCompile Include="..\..\src\Audio\Sound.cpp" />
     <ClCompile Include="..\..\src\Audio\SoundDevice.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\UtH\Audio\Audio.hpp" />
     <ClInclude Include="..\..\include\UtH\Audio\Sound.hpp" />
     <ClInclude Include="..\..\include\UtH\Audio\SoundDevice.hpp" />
   </ItemGroup>

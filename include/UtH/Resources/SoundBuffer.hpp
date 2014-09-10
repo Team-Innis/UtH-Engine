@@ -12,8 +12,7 @@ namespace uth
     {
         struct SoundStruct
         {
-            char *soundBuffer;
-			short bitsPerSample;
+            short *soundBuffer;
 			short channels;
 			int frames;
 			DWORD sampleRate;
@@ -33,12 +32,9 @@ namespace uth
 
         ~SoundBuffer();
 
-
         bool LoadFromFile(const std::string& filePath);
 
-
         const SoundStruct& GetSoundInfo() const;
-
     };
 }
 

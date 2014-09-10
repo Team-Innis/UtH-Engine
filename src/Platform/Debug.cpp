@@ -18,124 +18,116 @@
 
 #endif
 
-
-void WriteError(const char* text, ...)
+namespace uth
 {
-    #if defined(UTH_SYSTEM_ANDROID)
+	void WriteError(const char* text, ...)
+	{
+#if defined(UTH_SYSTEM_ANDROID)
 
-        va_list v;
-        va_start(v, text);
-        __android_log_vprint(ANDROID_LOG_ERROR, LOG_TAG, text, v);
-        va_end(v);
+		va_list v;
+		va_start(v, text);
+		__android_log_vprint(ANDROID_LOG_ERROR, LOG_TAG, text, v);
+		va_end(v);
 
-    #else
+#else
 
-        printf(
-            "\n********ERROR********"
-            "\n");
+		printf(
+			"\n********ERROR********"
+			"\n");
 
-        va_list v;
-        va_start(v, text);
-        vprintf(text, v);
-        va_end(v);
+		va_list v;
+		va_start(v, text);
+		vprintf(text, v);
+		va_end(v);
 
-        printf(
-            "\n*********************"
-            "\n\n");
+		printf(
+			"\n*********************"
+			"\n\n");
 
-        //assert(false);  //GL_INVALID_ENUM would crash
+		//assert(false);  //GL_INVALID_ENUM would crash
 
-    #endif
+#endif
 }
 
-void WriteWarning(const char* text, ...)
-{
-    #if defined (UTH_SYSTEM_ANDROID)
+	void WriteWarning(const char* text, ...)
+	{
+#if defined (UTH_SYSTEM_ANDROID)
 
-        va_list v;
-        va_start(v, text);
-        __android_log_vprint(ANDROID_LOG_WARN, LOG_TAG, text, v);
-        va_end(v);
+		va_list v;
+		va_start(v, text);
+		__android_log_vprint(ANDROID_LOG_WARN, LOG_TAG, text, v);
+		va_end(v);
 
-    #else
+#else
 
-        printf(
-            "\n-------WARNING-------"
-            "\n");
+		printf(
+			"\n-------WARNING-------"
+			"\n");
 
-        va_list v;
-        va_start(v, text);
-        vprintf(text, v);
-        va_end(v);
+		va_list v;
+		va_start(v, text);
+		vprintf(text, v);
+		va_end(v);
 
-        printf(
-            "\n---------------------"
-            "\n\n");
+		printf(
+			"\n---------------------"
+			"\n\n");
 
-    #endif
+#endif
 }
 
-void WriteLog(const char* text, ...)
-{
-    #if defined (UTH_SYSTEM_ANDROID)
+	void WriteLog(const char* text, ...)
+	{
+#if defined (UTH_SYSTEM_ANDROID)
 
-        va_list v;
-        va_start(v, text);
-        __android_log_vprint(ANDROID_LOG_INFO, LOG_TAG, text, v);
-        va_end(v);
+		va_list v;
+		va_start(v, text);
+		__android_log_vprint(ANDROID_LOG_INFO, LOG_TAG, text, v);
+		va_end(v);
 
-    #else
+#else
 
-        va_list v;
-        va_start(v, text);
-        vprintf(text, v);
-        va_end(v);
+		va_list v;
+		va_start(v, text);
+		vprintf(text, v);
+		va_end(v);
 
-    #endif
+#endif
 }
 
-void PrintGLString(const char* name, GLenum s)
-{
-    #if defined(UTH_SYSTEM_OPENGL) 
+	void PrintGLString(const char* name, GLenum s)
+	{
+		const char *v = (const char *)glGetString(s);
 
-        const char *v = (const char *)glGetString(s);
+		WriteLog("GL %s = %s\n", name, v);
+	}
 
-        WriteLog("GL %s = %s\n", name, v);
+	void CheckGLError(const char* op)
+	{
+#if defined (UTH_SYSTEM_ANDROID)
 
-    #else
+		EGLint error = eglGetError();
+		if (error != EGL_SUCCESS)
+		{
+			WriteWarning("EGL Function Failed: %d\n", error);
+		}
 
-        name;
-        s;
+#else
 
-    #endif
+		for (GLint error = glGetError(); error; error
+			= glGetError()) {
+
+			WriteError("after %s() glError (0x%x)", op, error);
+		}
+
+#endif
 }
 
-void CheckGLError(const char* op)
-{
-    #if defined (UTH_SYSTEM_ANDROID)
-
-        EGLint error = eglGetError();
-        if (error != EGL_SUCCESS)
-        {
-            WriteWarning("EGL Function Failed: %d\n", error);
-        }
-
-    #else
-
-        for (GLint error = glGetError(); error; error
-             = glGetError()) {
-
-            WriteError("after %s() glError (0x%x)", op, error);
-        }
-
-    #endif
+	void CheckALError(const char* op)
+	{
+		for (ALCenum error = alGetError(); error != ALC_NO_ERROR; error = alGetError())
+		{
+			WriteError("after %s() alError (0x%x)", op, error);
+		}
+	}
 }
-
-void CheckALError(const char* op)
-{
-    for (ALCenum error = alGetError(); error != ALC_NO_ERROR; error = alGetError())
-    {
-        WriteError("after %s() alError (0x%x)", op, error);
-    }
-}
-

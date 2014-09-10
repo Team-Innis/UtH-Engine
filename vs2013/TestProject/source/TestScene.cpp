@@ -19,6 +19,8 @@ bool TestScene::Init()
 	shader->Use();
     uthEngine.GetWindow().SetViewport(pmath::Rect(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
     uthEngine.GetWindow().SetShader(shader);
+    uthEngine.GetWindow().GetCamera().Scroll(0, -200);
+    uthEngine.GetWindow().GetCamera().SetSize(uthEngine.GetWindow().GetSize() * 1.5f);
 
 	test = new GameObject();
 	test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
@@ -31,12 +33,18 @@ bool TestScene::Init()
     ps.SetTemplate(pt);
     
 
-    Affector aff([](Particle& part, const ParticleTemplate& ptemp, float dt)
+    Affector* aff = new Affector([](Particle& part, const ParticleTemplate& ptemp, float dt)
     {
         part.Move(part.direction * dt);
     });
     
     ps.AddAffector(aff);
+
+	//music = Sound::Load("media/music.ogg");
+	//music->Play();
+	//music->Loop(true);
+
+	
 
 	return true;
 }
@@ -49,6 +57,14 @@ bool TestScene::Update(float dt)
 {
     ps.Emit(1);
     ps.Update(dt);
+
+    if (uthInput.Mouse.IsButtonDown(uth::Mouse::LEFT))
+    {
+        auto pix = uthInput.Mouse.Position();
+        auto vec1 = uthEngine.GetWindow().pixelToCoords(pix);
+        auto vec2 = uthEngine.GetWindow().coordsToPixel(vec1);
+        std::cout << pix.x << ", " << pix.y << "; " << vec1.x << ", " << vec1.y << "; " << vec2.x << ", " << vec2.y << std::endl;
+    }
 
 	return true;
 }

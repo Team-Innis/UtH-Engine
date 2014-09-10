@@ -29,7 +29,7 @@ namespace uth
 
 
 
-	void SpriteBatch::AddSprite(Transform* object, const std::string& atlasName, const pmath::Vec4& color, const pmath::Rect& texCoords)
+	Transform* SpriteBatch::AddSprite(Transform* object, const std::string& atlasName, const pmath::Vec4& color, const pmath::Rect& texCoords)
 	{
 		if ((!m_atlas && !m_texture) || !object)
 		{
@@ -39,7 +39,7 @@ namespace uth
                 delete object;
             }
 
-			return;
+			return nullptr;
 		}
 
 		unsigned short mod = static_cast<unsigned short>(m_objects.size()) * 4;
@@ -82,6 +82,8 @@ namespace uth
 		m_spriteBuffer.addIndex(1 + mod);
 		m_spriteBuffer.addIndex(3 + mod);
 		m_spriteBuffer.addIndex(2 + mod);
+
+        return object;
 	}
 
 	void SpriteBatch::SetTextureAtlas(TextureAtlas* atlas)

@@ -41,9 +41,8 @@ src/Resources/Font.cpp)
 target_link_libraries(resources tinyxml2)
 
 add_library(audio STATIC
-src/Audio/SoundManager.cpp
-src/Audio/Sound.cpp
-src/Audio/Audio.cpp)
+src/Audio/SoundDevice.cpp
+src/Audio/Sound.cpp)
 #target_link_libraries(audio resources)
 
 add_library(renderer STATIC
