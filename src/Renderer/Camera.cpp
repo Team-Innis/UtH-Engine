@@ -38,6 +38,7 @@ namespace uth
         transform.SetPosition(position);
 
         m_transformNeedsUpdate = true;
+        m_inverseTransformNeedsUpdate = true;
 
         return *this;
     }
@@ -47,6 +48,7 @@ namespace uth
         transform.SetPosition(x, y);
 
         m_transformNeedsUpdate = true;
+        m_inverseTransformNeedsUpdate = true;
 
         return *this;
     }
@@ -56,6 +58,7 @@ namespace uth
         m_size = size;
 
         m_transformNeedsUpdate = true;
+        m_inverseTransformNeedsUpdate = true;
 
         return *this;
     }
@@ -65,6 +68,7 @@ namespace uth
         m_size = pmath::Vec2(x, y);
 
         m_transformNeedsUpdate = true;
+        m_inverseTransformNeedsUpdate = true;
 
         return *this;
     }
@@ -74,6 +78,7 @@ namespace uth
         transform.SetRotation(degrees);
 
         m_transformNeedsUpdate = true;
+        m_inverseTransformNeedsUpdate = true;
 
         return *this;
     }
@@ -85,6 +90,7 @@ namespace uth
         m_zoom = factor;
 
         m_transformNeedsUpdate = true;
+        m_inverseTransformNeedsUpdate = true;
 
         return *this;
     }
@@ -94,6 +100,7 @@ namespace uth
         transform.Move(offset);
 
         m_transformNeedsUpdate = true;
+        m_inverseTransformNeedsUpdate = true;
 
         return *this;
     }
@@ -103,6 +110,7 @@ namespace uth
         transform.Move(x, y);
 
         m_transformNeedsUpdate = true;
+        m_inverseTransformNeedsUpdate = true;
 
         return *this;
     }
@@ -112,6 +120,7 @@ namespace uth
         transform.Rotate(offset);
 
         m_transformNeedsUpdate = true;
+        m_inverseTransformNeedsUpdate = true;
 
         return *this;
     }

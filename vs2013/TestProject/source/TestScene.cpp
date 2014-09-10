@@ -29,6 +29,7 @@ bool TestScene::Init()
     uthEngine.GetWindow().SetViewport(pmath::Rect(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
     uthEngine.GetWindow().SetShader(shader);
     uthEngine.GetWindow().GetCamera().Scroll(0, -200);
+    uthEngine.GetWindow().GetCamera().SetSize(uthEngine.GetWindow().GetSize() * 1.5f);
 
 	test = new GameObject();
 	test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
