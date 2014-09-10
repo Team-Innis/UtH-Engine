@@ -23,6 +23,7 @@ namespace uth
         m_inverseTransformNeedsUpdate(true)
     {
 		transform.SetPosition(position);
+        transform.SetSize(size);
     }
 
     Camera::~Camera()

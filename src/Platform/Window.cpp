@@ -31,7 +31,7 @@ namespace uth
         WindowImpl::setResizeCallback([this](int x, int y)
         {
             SetViewport(pmath::Recti(0, 0, x, y));
-            m_windowSettings.size = pmath::Vec2(x, y);
+            m_windowSettings.size = pmath::Vec2i(x, y);
         });
 		create(settings);
 		m_windowSettings = settings;
