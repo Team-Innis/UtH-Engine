@@ -8,6 +8,7 @@
 #include <algorithm>
 
 #pragma warning(push, 1)
+#define STB_IMAGE_IMPLEMENTATION
 #include "external/stb_image.h"
 #pragma warning(pop)
 

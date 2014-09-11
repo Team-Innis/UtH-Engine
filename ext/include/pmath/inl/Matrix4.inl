@@ -97,25 +97,31 @@ namespace pmath
     {
         const T D[ROWS][COLUMNS] =
         {
-            (*this)[0][0],
-            (*this)[0][1],
-            (*this)[0][2],
-            (*this)[0][3],
-
-            (*this)[1][0],
-            (*this)[1][1],
-            (*this)[1][2],
-            (*this)[1][3],
-
-            (*this)[2][0],
-            (*this)[2][1],
-            (*this)[2][2],
-            (*this)[2][3],
-
-            (*this)[3][0],
-            (*this)[3][1],
-            (*this)[3][2],
-            (*this)[3][3]
+            
+            {
+                (*this)[0][0],
+                (*this)[0][1],
+                (*this)[0][2],
+                (*this)[0][3]
+            },
+            {
+                (*this)[1][0],
+                (*this)[1][1],
+                (*this)[1][2],
+                (*this)[1][3]
+            },
+            {
+                (*this)[2][0],
+                (*this)[2][1],
+                (*this)[2][2],
+                (*this)[2][3]
+            },
+            {
+                (*this)[3][0],
+                (*this)[3][1],
+                (*this)[3][2],
+                (*this)[3][3]
+            }
         };
 
         return D[0][0] * (D[1][1] * (D[2][2] * D[3][3] - D[2][3] * D[3][2]) 
@@ -160,25 +166,30 @@ namespace pmath
     {
         const T C[ROWS][COLUMNS] =
         {
-            (*this)[0][0],
-            (*this)[0][1],
-            (*this)[0][2],
-            (*this)[0][3],
-
-            (*this)[1][0],
-            (*this)[1][1],
-            (*this)[1][2],
-            (*this)[1][3],
-
-            (*this)[2][0],
-            (*this)[2][1],
-            (*this)[2][2],
-            (*this)[2][3],
-
-            (*this)[3][0],
-            (*this)[3][1],
-            (*this)[3][2],
-            (*this)[3][3]
+            {
+                (*this)[0][0],
+                (*this)[0][1],
+                (*this)[0][2],
+                (*this)[0][3]
+            },
+            {
+                (*this)[1][0],
+                (*this)[1][1],
+                (*this)[1][2],
+                (*this)[1][3]
+            },
+            {
+                (*this)[2][0],
+                (*this)[2][1],
+                (*this)[2][2],
+                (*this)[2][3]
+            },
+            {
+                (*this)[3][0],
+                (*this)[3][1],
+                (*this)[3][2],
+                (*this)[3][3]
+            }
         };
 
         // Yes it actually works. never edit this. ever
@@ -324,7 +335,7 @@ namespace pmath
     }
 
 
-    // Assingment
+    // Assignment
     template<typename T>
     inline Matrix4<T>& Matrix4<T>::operator =(const Matrix4<T>& right)
     {
@@ -398,48 +409,58 @@ namespace pmath
         // Using arrays is faster for some reason. works for me
         const T L[ROWS][COLUMNS] =
         {
-            (*this)[0][0],
-            (*this)[0][1],
-            (*this)[0][2],
-            (*this)[0][3],
-
-            (*this)[1][0],
-            (*this)[1][1],
-            (*this)[1][2],
-            (*this)[1][3],
-
-            (*this)[2][0],
-            (*this)[2][1],
-            (*this)[2][2],
-            (*this)[2][3],
-
-            (*this)[3][0],
-            (*this)[3][1],
-            (*this)[3][2],
-            (*this)[3][3]
+            {
+                (*this)[0][0],
+                (*this)[0][1],
+                (*this)[0][2],
+                (*this)[0][3]
+            },
+            {
+                (*this)[1][0],
+                (*this)[1][1],
+                (*this)[1][2],
+                (*this)[1][3]
+            },
+            {
+                (*this)[2][0],
+                (*this)[2][1],
+                (*this)[2][2],
+                (*this)[2][3]
+            },
+            {
+                (*this)[3][0],
+                (*this)[3][1],
+                (*this)[3][2],
+                (*this)[3][3]
+            }
         };
 
         const T R[ROWS][COLUMNS] =
         {
-            right[0][0],
-            right[0][1],
-            right[0][2],
-            right[0][3],
-
-            right[1][0],
-            right[1][1],
-            right[1][2],
-            right[1][3],
-
-            right[2][0],
-            right[2][1],
-            right[2][2],
-            right[2][3],
-
-            right[3][0],
-            right[3][1],
-            right[3][2],
-            right[3][3]
+            {
+                right[0][0],
+                right[0][1],
+                right[0][2],
+                right[0][3]
+            },
+            {
+                right[1][0],
+                right[1][1],
+                right[1][2],
+                right[1][3]
+            },
+            {
+                right[2][0],
+                right[2][1],
+                right[2][2],
+                right[2][3]
+            },
+            {
+                right[3][0],
+                right[3][1],
+                right[3][2],
+                right[3][3]
+            }
         };
 
         return Matrix4<T>

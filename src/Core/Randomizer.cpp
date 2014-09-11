@@ -1,10 +1,9 @@
 #include <UtH/Core/Randomizer.hpp>
+#include <pmath/Constants.hpp>
 #include <cmath>
 
 
 using namespace uth;
-
-const float PI = 3.14159265358979323846264f;
 
 float Randomizer::GetFloat(const float min, const float max)
 {
@@ -23,7 +22,7 @@ void Randomizer::SetSeed(const unsigned int seed)
 
 pmath::Vec2 Randomizer::InsideCircle(const float radius)
 {
-    const float angle = GetFloat(0.f, 2 * PI);
+    const float angle = GetFloat(0.f, static_cast<float>(pmath::tau));
     const float rad = std::sqrt(GetFloat()) * radius;
 
     return pmath::Vec2(rad * std::cos(angle), rad * std::sin(angle));

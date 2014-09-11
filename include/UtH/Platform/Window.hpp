@@ -4,6 +4,7 @@
 
 #include <UtH/Platform/WindowSettings.hpp>
 #include <UtH/Renderer/RenderTarget.hpp>
+#include <functional>
 
 namespace uth
 {

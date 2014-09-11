@@ -65,3 +65,27 @@ const std::string FileReader::ReadText()
 	return str;
 }
 
+AAsset* FileReader::loadSound(const std::string& fileName)
+{
+	return AAssetManager_open(m_manager, fileName.c_str(), AASSET_MODE_UNKNOWN);
+}
+
+int64_t FileReader::getAssetLength(void* asset)
+{
+	return AAsset_getLength((AAsset*)asset);
+}
+
+int64_t FileReader::seekAsset(int64_t offset, int whence, void* asset)
+{
+	return AAsset_seek((AAsset*)asset, offset, whence);
+}
+
+int64_t FileReader::readAsset(void* buffer, int64_t count, void* asset)
+{
+	return AAsset_read((AAsset*)asset, buffer, count);
+}
+
+int64_t FileReader::tellAsset(void* asset)
+{
+	return AAsset_seek((AAsset*)asset, 0, SEEK_CUR);
+}

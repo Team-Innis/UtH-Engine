@@ -7,6 +7,8 @@
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Engine/Particles/ParticleSystem.hpp>
 
+#include <UtH/Audio/Sound.hpp>
+#include <UtH/Platform/Input.hpp>
 
 namespace uth
 {
@@ -27,6 +29,9 @@ namespace uth
 		GameObject *test;
 
         ParticleSystem ps;
+
+		
+		Sound* music;
 
 	};
 }

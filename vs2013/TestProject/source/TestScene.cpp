@@ -10,9 +10,8 @@
 #include <UtH/Engine/Particles/Affector.hpp>
 #include <UtH/Platform/Input.hpp>
 
-using namespace uth;
 
-const unsigned int sprites = 40;
+using namespace uth;
 
 GameObject text;
 
@@ -41,7 +40,7 @@ bool TestScene::Init()
     ps.SetTemplate(pt);
     
 
-    Affector aff([](Particle& part, const ParticleTemplate& ptemp, float dt)
+    Affector* aff = new Affector([](Particle& part, const ParticleTemplate& ptemp, float dt)
     {
         part.Move(part.direction * dt);
     });
@@ -50,6 +49,9 @@ bool TestScene::Init()
 
     text.AddComponent(new Text("8bitoperator.ttf", 16));
     text.transform.Move(-300, 0);
+
+
+	
 
 	return true;
 }
@@ -75,6 +77,25 @@ bool TestScene::Update(float dt)
         }
     }
 
+
+
+	if (uthInput.Touch.Motion() == TouchMotion::TAP)
+	{ 
+		WriteLog("TAP");
+	}
+	else if (uthInput.Touch.Motion() == TouchMotion::DRAG)
+	{
+		WriteLog("DRAG");
+	}
+	else if (uthInput.Touch.Motion() == TouchMotion::PINCH_IN)
+	{
+		WriteLog("PINCH IN");
+	}
+	else if (uthInput.Touch.Motion() == TouchMotion::PINCH_OUT)
+	{
+		WriteLog("PINCH OUT");
+	}
+	
 
 	return true;
 }

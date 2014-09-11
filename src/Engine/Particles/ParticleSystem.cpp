@@ -34,7 +34,7 @@ void ParticleSystem::Emit(const unsigned int amount)
 
 
 
-void ParticleSystem::AddAffector(const Affector& affector)
+void ParticleSystem::AddAffector(Affector* affector)
 {
 	m_affectors.emplace_back(affector);
 }
@@ -92,7 +92,7 @@ void ParticleSystem::update(float dt)
 	{
 		for (auto& a : m_affectors)
 		{
-			a.UpdateParticle(p, m_template, dt);
+			a->UpdateParticle(p, m_template, dt);
 		}
 	}
 }

@@ -15,13 +15,21 @@ namespace pmath
     public:
         Vector4();
         Vector4(const T& x, const T& y, const T& z, const T& w);
-        explicit Vector4(T value);
+        explicit Vector4(const T& value);
         Vector4(const Vector2<T>& vector, const T& z, const T& w);
         Vector4(const Vector3<T>& vector, const T& w);
         Vector4(const Vector4& vector);
         template<typename T2>
         Vector4(const Vector4<T2>& vector);
         ~Vector4();
+
+        // Scales(multiplies) respective component with scaleVector component
+        Vector4& scale(const Vector4& scaleVector);
+        // Scales(multiplies) respective component with given component
+        Vector4& scale(const T& x, const T& y, const T& z, const T& w);
+        // Scales the whole vector with the number
+        Vector4& scale(const T& scale);
+
 
         T dot(const Vector4& other) const;
         static T dot(const Vector4& vec1, const Vector4& vec2);
@@ -48,7 +56,7 @@ namespace pmath
         bool operator >=(const Vector4& right) const;
         bool operator <=(const Vector4& right) const;
 
-        // Assingment
+        // Assignment
         Vector4& operator  =(const Vector4& right);
         Vector4& operator +=(const Vector4& right);
         Vector4& operator -=(const Vector4& right);

@@ -110,7 +110,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;OpenGL32.lib;physfs.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3d.lib;glew32sd.lib;OpenGL32.lib;physfs.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)..\ext\lib\physfs\lib\Win32;$(SolutionDir)..\ext\lib\glfw\lib\Win32;$(SolutionDir)..\ext\lib\glew\lib\Win32</AdditionalLibraryDirectories>

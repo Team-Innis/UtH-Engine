@@ -108,7 +108,8 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 		// Read out the flags
 		bool flipped_horizontally = (gid & FLIPPED_HORIZONTALLY_FLAG) != 0;
 		bool flipped_vertically = (gid & FLIPPED_VERTICALLY_FLAG) != 0;
-		bool flipped_diagonally = (gid & FLIPPED_DIAGONALLY_FLAG) != 0; // TODO: implement this
+        // TODO: implement this
+		//bool flipped_diagonally = (gid & FLIPPED_DIAGONALLY_FLAG) != 0;
 
 		// Clear the flags
 		gid &= ~(FLIPPED_HORIZONTALLY_FLAG | FLIPPED_VERTICALLY_FLAG

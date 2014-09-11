@@ -9,7 +9,9 @@ namespace uth
 	class InputBase
 	{
 	public:
-		virtual void Update(){}
+        virtual void Update(){}
+        // For updates that need delta time
+        virtual void Update(float){}
 		virtual void Initiate(){}
 		static void setWindowHandle(void* WindowHandle);
 	protected:

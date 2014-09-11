@@ -52,7 +52,7 @@ unsigned int Tileset::GetTileHeight() const
 const pmath::Rect Tileset::GetTile(unsigned int localId) const
 {
 	const unsigned int wTiles = static_cast<unsigned int>(m_texture->GetSize().x) / m_tileWidth;
-    const unsigned int hTiles = static_cast<unsigned int>(m_texture->GetSize().y) / m_tileHeight;
+    //const unsigned int hTiles = static_cast<unsigned int>(m_texture->GetSize().y) / m_tileHeight;
 
 	int x = localId % wTiles * m_tileWidth;
 	int y = localId / wTiles * m_tileHeight;

@@ -42,22 +42,14 @@ enum SceneName
 };
 
 // Create function for a new scene, having a case for every user made scene
-void NewSceneFunc(int SceneID, uth::Scene* &CurScene)
+uth::Scene* NewSceneFunc(int SceneID)
 {
     switch (SceneID)
     {
-    case MENU:
-        CurScene = new /*Menu*/uth::TestScene();
-        break;
-    case GAME:
-        CurScene = new /*Game*/uth::TestScene();
-        break;
-    case CREDITS:
-        CurScene = new /*Credits*/uth::TestScene();
-        break;
-    default:
-        CurScene = new /*Menu*/uth::DefaultScene();
-        break;
+    case MENU:		return new /*Menu*/uth::TestScene();
+    case GAME:		return new /*Game*/uth::TestScene();
+    case CREDITS:	return new /*Credits*/uth::TestScene();
+	default:		return nullptr;
     }
 }
 

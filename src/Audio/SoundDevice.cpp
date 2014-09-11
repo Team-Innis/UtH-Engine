@@ -3,11 +3,14 @@
 
 using namespace uth;
 
-bool SoundDevice::initialized = false;
-ALCdevice* SoundDevice::device = 0;
-ALCcontext* SoundDevice::context = 0;
+//bool SoundDevice::initialized = false;
+//ALCdevice* SoundDevice::device = 0;
+//ALCcontext* SoundDevice::context = 0;
 
 SoundDevice::SoundDevice()
+	: device(0),
+	context(0),
+    initialized(false)
 {
 	CreateContext();
 }
