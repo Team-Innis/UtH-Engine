@@ -8,7 +8,12 @@ using namespace uth;
 
 ParticleSystem::ParticleSystem(const size_t reserve)
 	: GameObject(),
-	  m_batch(false)
+	  m_batch(false),
+      m_emitAmount(1, 1),
+      m_emitFreq(0.f, 1.f),
+      m_emitTimer(0.f),
+      m_emitTimeLimit(0.f),
+      m_autoEmit(false)
 {
     m_particles.reserve(reserve);
 }
@@ -32,7 +37,29 @@ void ParticleSystem::Emit(const unsigned int amount)
 	}
 }
 
+bool ParticleSystem::ReadyToEmit() const
+{
+    bool ready = m_emitTimer >= m_emitTimeLimit;
+    
+    if (ready)
+    {
+        m_emitTimer = 0.f;
+        m_emitTimeLimit = Randomizer::GetFloat(m_emitFreq.x, m_emitFreq.y);
+    }
 
+    return ready;
+}
+
+void ParticleSystem::SetEmitProperties(const bool autoEmit, const float min, const float max, const int minAmount, const int maxAmount)
+{
+    m_autoEmit = autoEmit;
+
+    m_emitFreq.x = min;
+    m_emitFreq.y = max;
+
+    m_emitAmount.x = minAmount;
+    m_emitAmount.y = maxAmount;
+}
 
 void ParticleSystem::AddAffector(Affector* affector)
 {
@@ -58,6 +85,13 @@ void ParticleSystem::Clear(const bool particles, const bool affectors)
 
 void ParticleSystem::update(float dt)
 {
+    m_emitTimer += dt;
+
+    if (m_autoEmit && ReadyToEmit())
+    {
+        Emit(std::max(0, Randomizer::GetInt(m_emitAmount.x, m_emitAmount.y)));
+    }
+
 	struct Eraser
 	{
 		Eraser(float maxLT, float delta)
