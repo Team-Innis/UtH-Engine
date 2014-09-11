@@ -1,15 +1,5 @@
 #include "TestScene.hpp"
 
-#include <UtH/Engine/Sprite.hpp>
-#include <UtH/Engine/AnimatedSprite.hpp>
-#include <UtH/Engine/Text.hpp>
-#include <UtH/Engine/Rigidbody.hpp>
-#include <UtH/Engine/UtHEngine.h>
-#include <UtH/Platform/Debug.hpp>
-#include <UtH/Engine/Particles/ParticleTemplate.hpp>
-#include <UtH/Engine/Particles/Affector.hpp>
-
-
 using namespace uth;
 
 TestScene::TestScene()
@@ -61,25 +51,6 @@ bool TestScene::Update(float dt)
 {
     ps.Emit(1);
     ps.Update(dt);
-
-
-	if (uthInput.Touch.Motion() == TouchMotion::TAP)
-	{ 
-		WriteLog("TAP");
-	}
-	else if (uthInput.Touch.Motion() == TouchMotion::DRAG)
-	{
-		WriteLog("DRAG");
-	}
-	else if (uthInput.Touch.Motion() == TouchMotion::PINCH_IN)
-	{
-		WriteLog("PINCH IN");
-	}
-	else if (uthInput.Touch.Motion() == TouchMotion::PINCH_OUT)
-	{
-		WriteLog("PINCH OUT");
-	}
-	
 
 	return true;
 }

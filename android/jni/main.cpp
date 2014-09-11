@@ -20,9 +20,9 @@
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/WindowSettings.hpp>
 #include <UtH/Platform/Graphics.hpp>
-#include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/FileReader.hpp>
 #include <UtH/Platform/Debug.hpp>
-#include <UtH/Engine/UtHEngine.h>
+#include <UtH/Engine/Engine.hpp>
 #include <UtH/Platform/Input.hpp>
 #include <UtH/Platform/Android/InputSensor.hpp>
 

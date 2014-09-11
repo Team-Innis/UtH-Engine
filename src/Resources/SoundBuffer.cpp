@@ -1,6 +1,6 @@
 #include <UtH/Resources/SoundBuffer.hpp>
 #include <UtH/Platform/Debug.hpp>
-#include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/FileReader.hpp>
 
 #include <sndfile/sndfile.h>
 

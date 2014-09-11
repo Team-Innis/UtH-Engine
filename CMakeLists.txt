@@ -55,7 +55,7 @@ src/Renderer/RenderTexture.cpp)
 target_link_libraries(renderer resources)
 
 add_library(engine STATIC
-src/Engine/UtHEngine.cpp
+src/Engine/Engine.cpp
 src/Engine/Transform.cpp
 src/Engine/Sprite.cpp
 src/Engine/SceneManager.cpp

@@ -40,7 +40,8 @@ Sprite::~Sprite()
 void Sprite::Init()
 {
 	generateBuffer();
-	parent->transform.SetSize(m_size);
+	if (parent)
+		parent->transform.SetSize(m_size);
 }
 
 void Sprite::Draw(RenderTarget& target)
@@ -82,6 +83,7 @@ void Sprite::SetTexture(Texture* texture)
 {
 	m_texture = texture;
 	m_size = texture->GetSize();
+	Init();
 }
 
 Texture* Sprite::GetTexture() const
@@ -97,7 +99,6 @@ const pmath::Vec2& Sprite::GetSize() const
 void Sprite::SetColor(const pmath::Vec4& color)
 {
 	m_color = color;
-	m_vertexBuffer.clear();
 	generateBuffer();
 }
 
@@ -130,13 +131,13 @@ void Sprite::generateBuffer()
 {
 	m_vertexBuffer.clear();
 
-	m_vertexBuffer.addVertex(Vertex(pmath::Vec3(-0.5f, -0.5f, 0),
+	m_vertexBuffer.addVertex(Vertex(pmath::Vec3(-0.5f * m_size.x, -0.5f * m_size.y, 0),
 		pmath::Vec2(0.0f, 1.0f), m_color));
-	m_vertexBuffer.addVertex(Vertex(pmath::Vec3(0.5f, -0.5f, 0),
+	m_vertexBuffer.addVertex(Vertex(pmath::Vec3(0.5f * m_size.x, -0.5f * m_size.y, 0),
 		pmath::Vec2(1.0f, 1.0f), m_color));
-	m_vertexBuffer.addVertex(Vertex(pmath::Vec3(-0.5f, 0.5f, 0),
+	m_vertexBuffer.addVertex(Vertex(pmath::Vec3(-0.5f * m_size.x, 0.5f * m_size.y, 0),
 		pmath::Vec2(0.0f, 0.0f), m_color));
-	m_vertexBuffer.addVertex(Vertex(pmath::Vec3(0.5f, 0.5f, 0),
+	m_vertexBuffer.addVertex(Vertex(pmath::Vec3(0.5f * m_size.x, 0.5f * m_size.y, 0),
 		pmath::Vec2(1.0f, 0.0f), m_color));
 
 

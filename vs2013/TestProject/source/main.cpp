@@ -1,8 +1,5 @@
-#include <UtH/Engine/UtHEngine.h>
-#include <UtH/Engine/SceneManager.hpp>
-#include <UtH/Platform/Debug.hpp>
-
-#include <UtH/Engine/DefaultScene.hpp>
+#include <UtH/uthEngine.hpp>
+#include <UtH/Scenes.hpp>
 
 #include "TestScene.hpp"
 

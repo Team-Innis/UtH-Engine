@@ -1,17 +1,17 @@
-#include "UtH/Engine/UtHEngine.h"
+#include "UtH/Engine/Engine.hpp"
 
 
+#include <UtH/Engine/SceneManager.hpp>
 #include <UtH/Platform/Graphics.hpp>
-#include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/Input.hpp>
 
 using namespace uth;
 
-UTHEngine::UTHEngine()
+Engine::Engine()
     : m_running(false)
 { }
 
-bool UTHEngine::Init()
+bool Engine::Init()
 {
     m_wsettings.size = pmath::Vec2(1280, 720);
     m_wsettings.position = pmath::Vec2(100, 100);
@@ -23,13 +23,13 @@ bool UTHEngine::Init()
 	return initialize();
 }
 
-bool UTHEngine::Init(const uth::WindowSettings &wsettings)
+bool Engine::Init(const uth::WindowSettings &wsettings)
 {
 	m_wsettings = wsettings;
 	return initialize();
 }
 
-void UTHEngine::Update()
+void Engine::Update()
 {
 	const float deltaTime = static_cast<float>(m_timer.DeltaTime());
 	uthInput.Update(deltaTime);
@@ -40,29 +40,29 @@ void UTHEngine::Update()
 	}
 }
 
-void UTHEngine::Draw()
+void Engine::Draw()
 {
 	m_wndw->Clear(m_clearColor.x, m_clearColor.y, m_clearColor.z, m_clearColor.w);
 	uthSceneM.Draw();
     m_wndw->swapBuffers();
 }
 
-void UTHEngine::SetClearColor(const pmath::Vec4& color)
+void Engine::SetClearColor(const pmath::Vec4& color)
 {
     m_clearColor = color;
 }
 
-void UTHEngine::SetClearColor(float r, float g, float b, float a)
+void Engine::SetClearColor(float r, float g, float b, float a)
 {
     SetClearColor(pmath::Vec4(r, g, b, a));
 }
 
-Window& UTHEngine::GetWindow()
+Window& Engine::GetWindow()
 {
     return *m_wndw;
 }
 
-bool UTHEngine::initialize()
+bool Engine::initialize()
 {
 	m_wndw = new Window(m_wsettings);
 	uth::Graphics::SetBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
@@ -72,22 +72,22 @@ bool UTHEngine::initialize()
 	return true;
 }
 
-const Timer UTHEngine::timer() const
+const Timer Engine::timer() const
 {
 	return m_timer;
 }
 
-const pmath::Vec2 UTHEngine::GetWindowResolution() const
+const pmath::Vec2 Engine::GetWindowResolution() const
 {
 	return m_wsettings.size;
 }
 
-const bool UTHEngine::Running() const
+const bool Engine::Running() const
 {
 	return m_running;
 }
 
-void UTHEngine::SetWindow(void* handle)
+void Engine::SetWindow(void* handle)
 {
 	m_wndw = (Window*)handle;
 }

@@ -1,6 +1,6 @@
 #pragma once
-#ifndef SoundDevice_H
-#define SoundDevice_H
+#ifndef SoundDevice_H_UTH
+#define SoundDevice_H_UTH
 
 #include <AL/al.h>
 #include <AL/alc.h>

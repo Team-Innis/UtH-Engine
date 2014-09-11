@@ -3,7 +3,7 @@
 #define TILESET_TMX_UTH_H
 
 #include <pmath/Rectangle.hpp>
-#include <UtH/Resources/ResourceManager.h>
+#include <UtH/Resources/ResourceManager.hpp>
 #include <UtH/Engine/TMX/Tile.hpp>
 // For some "reason" you can't include this here
 //#include <tinyxml2.h>

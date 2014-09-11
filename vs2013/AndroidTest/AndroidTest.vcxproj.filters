@@ -57,9 +57,6 @@
     <ClInclude Include="..\..\include\UtH\Platform\Android\AndroidEngine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Android\FileReader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputKeyboard.hpp">
       <Filter>Header Files\Input</Filter>
     </ClInclude>
@@ -77,6 +74,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputSensor.hpp">
       <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Android\FileReader.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

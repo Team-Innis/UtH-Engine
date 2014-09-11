@@ -1,13 +1,13 @@
 #pragma once
-#ifndef SOUND_H
-#define SOUND_H
+#ifndef SOUND_H_UTH
+#define SOUND_H_UTH
 
 #include <string>
 #include <AL/al.h>
 #include <AL/alc.h>
 
 #include <vector>
-#include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/FileReader.hpp>
 #include <pmath/Vector3.hpp>
 
 namespace uth

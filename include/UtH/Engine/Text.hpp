@@ -4,7 +4,7 @@
 
 #include <UtH/Engine/Component.hpp>
 #include <UtH/Core/VertexBuffer.hpp>
-#include <UtH/Resources/ResourceManager.h>
+#include <UtH/Resources/ResourceManager.hpp>
 #include <pmath/Vector.hpp>
 
 // Forward declaration so we dont need to include the ugly C headers
@@ -19,6 +19,8 @@ namespace uth
 		Text(const std::string& fontPath, const float fontSize, const std::string& name = "Text");
 		~Text();
 
+		void Init();
+
 		// Sets the text
 		void SetText(const std::string& text, const pmath::Vec4 color = pmath::Vec4(1, 1, 1, 1));
 		void SetText(const std::wstring& text, const pmath::Vec4 color = pmath::Vec4(1, 1, 1, 1));
@@ -31,7 +33,8 @@ namespace uth
 		void Draw(RenderTarget& target);
 
 	private:
-		Text();
+		//Text();
+		Text(/*"text", path = "font", size = 32, name = "Text"*/);
 
 		Shader m_textShader;
 

@@ -1,4 +1,4 @@
-#include <UtH/Resources/ResourceManager.h>
+#include <UtH/Resources/ResourceManager.hpp>
 #include <cassert>
 
 using namespace uth;

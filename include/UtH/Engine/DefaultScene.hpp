@@ -5,7 +5,7 @@
 #include <UtH/Engine/Scene.hpp>
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Engine/Text.hpp>
-#include <UtH/Engine/Sprite.hpp>
+#include <UtH/Engine/AnimatedSprite.hpp>
 
 namespace uth
 {

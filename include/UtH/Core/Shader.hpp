@@ -1,5 +1,5 @@
-#ifndef SHADER_H
-#define SHADER_H
+#ifndef SHADER_H_UTH
+#define SHADER_H_UTH
 
 #include <pmath/PMath.hpp>
 #include <UtH/Platform/Enums.hpp>

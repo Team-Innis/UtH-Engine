@@ -1,6 +1,6 @@
 #pragma once
-#ifndef DEBUG_H
-#define DEBUG_H
+#ifndef DEBUG_H_UTH
+#define DEBUG_H_UTH
 
 #include <cstdarg>
 
