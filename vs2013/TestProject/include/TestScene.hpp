@@ -10,19 +10,17 @@ namespace uth
 	{
 	public:
 		TestScene();
-		~TestScene();
+		~TestScene() override;
 	
-		virtual bool Init();
-		virtual bool DeInit();
+        bool Init() override;
+        bool DeInit() override;
 	
-		virtual bool Update(float dt);
-		virtual bool Draw();
-	protected:
-		Shader* shader;
+        bool Update(float dt) override;
+        bool Draw() override;
+
+    private:
 	
-		GameObject *test;
-	
-		ParticleSystem ps;
+		ParticleSystem* ps;
 	
 	
 		Sound* music;

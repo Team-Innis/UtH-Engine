@@ -2,190 +2,103 @@
 #include <UtH/Engine/Sprite.hpp>
 
 #include <UtH/Platform/Debug.hpp>
+#include <Box2D/Dynamics/b2World.h>
 
 using namespace uth;
 
-bool sortFunc(Layer* a,Layer* b)
-{
-	return a->GetLayerId() < b->GetLayerId();
-}
-
 Scene::Scene()
-	: layersCount(0),
-	  world(b2Vec2(0.0f, GRAVITY))
-{ }
+	: m_world(new b2World(b2Vec2(0.0f, GRAVITY)))
+{
+
+}
 
 Scene::~Scene()
 {
-	for(size_t i = 0; i < layers.size(); i++)
-		delete layers.at(i);
+
 }
 
 
 // Protected
 
-bool Scene::CreateLayer(const int layerId)
+Layer* Scene::CreateLayer(const int layerId, const bool adoptObjects)
 {
-	for(size_t i = 0; i < layers.size(); i++)
-	{
-		if(layerId == layers.at(i)->GetLayerId())
-		{
-			WriteError("Layer with id#%d exists already.\nProceeding to create new LayerID", layerId);
-			CreateLayer(nextAvailableID());
-			return true;
-		}
-	}
+	auto itr = m_layers.find(layerId);
 
-	layers.push_back(new Layer(layerId));
-	
-	if(layers.size() < layersCount)
-		return false;
+    if (itr != m_layers.end())
+    {
+        WriteError("Layer with id#%d exists already. Returning it.", layerId);
+        return itr->second.get();
+    }
 
-	layersCount++;
-	arrangeLayers();
-	return true;
+    Layer* ptr = new Layer(layerId, adoptObjects);
+	m_layers[layerId] = std::unique_ptr<Layer>(ptr);
+
+	return ptr;
 }
 
-bool Scene::CreateLayer(const char* layerName, const int layerId)
+Layer* uth::Scene::GetLayer(const int layerID)
 {
-	for(size_t i = 0; i < layers.size(); i++)
-	{
-		if(layerId == layers.at(i)->GetLayerId())
-		{
-			WriteError("Layer with ID#%d exists already.\nProceeding to create new layerID", layerId);
-			CreateLayer(layerName, nextAvailableID());
-			return true;
-		}
-		if(layerName == layers.at(i)->GetLayerName())
-		{
-			WriteWarning(
-				"Layer with name '%s' already exists.\n"
-				"Use layer ID(%d) to remove gameobjects."
-				, layerName, layerId);
-		}
-	}
+    auto itr = m_layers.find(layerID);
 
-	layers.push_back(new Layer(layerName, layerId));
-	
-	if(layers.size() < layersCount)
-		return false;
+    if (itr != m_layers.end())
+        return itr->second.get();
 
-	arrangeLayers();
-	layersCount++;
-	return true;
+    return nullptr;
 }
 
-void Scene::SetLayerActive(const char* layerName,bool active)
+bool Scene::AddGameObjectToLayer(const int layerId, GameObject* gameObject)
 {
-	for(size_t i = 0; i < layers.size(); i++)
-	{
-		if(layers.at(i)->GetLayerName() == layerName)
-		{
-			layers.at(i)->SetObjectsActive(active);
-		}
-	}
-}
+    auto itr = m_layers.find(layerId);
 
-void Scene::SetLayerActive(const int layerId,bool active)
-{
-	for(size_t i = 0; i < layers.size(); i++)
-	{
-		if(layers.at(i)->GetLayerId() == layerId)
-		{
-			layers.at(i)->SetObjectsActive(active);
-		}
-	}
-}
-
-bool Scene::AddGameObjectToLayer(const char* layerName, GameObject* gameObject)
-{
-	for(size_t i = 0; i < layers.size(); i++)
-	{
-		if(layers.at(i)->GetLayerName() == layerName)
-		{
-			layers.at(i)->AddGameObject(gameObject);
-			return true;
-		}
-	}
+    if (itr != m_layers.end())
+    {
+        itr->second->AddGameObject(gameObject);
+        return true;
+    }
 
 	return false;
 }
 
-bool Scene::AddGameObjectToLayer(int layerId, GameObject* gameObject)
+bool Scene::RemoveGameObjectFromLayer(const int layerId, GameObject* gameObject)
 {
-	for(size_t i = 0; i < layers.size(); i++)
-	{
-		if(layers.at(i)->GetLayerId() == layerId)
-		{
-			layers.at(i)->AddGameObject(gameObject);
-			return true;
-		}
-	}
+    auto itr = m_layers.find(layerId);
+
+    if (itr != m_layers.end())
+    {
+        itr->second->RemoveGameObject(gameObject);
+    }
 
 	return false;
 }
 
-bool Scene::RemoveGameObjectFromLayer(const char* layerName, GameObject* gameObject)
+void uth::Scene::UpdateLayers(float dt, const int id)
 {
-	for(size_t i = 0; i < layers.size(); i++)
-	{
-		if(layers.at(i)->GetLayerName() == layerName)
-		{
-			layers.at(i)->RemoveGameObject(gameObject);
-			return true;
-		}
-	}
+    if (id < 0)
+    {
+        for (auto& i : m_layers)
+            i.second->Update(dt);
+    }
+    else
+    {
+        auto itr = m_layers.find(id);
 
-	return false;
+        if (itr != m_layers.end())
+            itr->second->Update(dt);
+    }
 }
 
-bool Scene::RemoveGameObjectFromLayer(int layerId, GameObject* gameObject)
+void uth::Scene::DrawLayers(RenderTarget& target, const int id)
 {
-	for(size_t i = 0; i < layers.size(); i++)
-	{
-		if(layers.at(i)->GetLayerId() == layerId)
-		{
-			layers.at(i)->RemoveGameObject(gameObject);
-			return true;
-		}
-	}
+    if (id < 0)
+    {
+        for (auto& i : m_layers)
+            i.second->Draw(target);
+    }
+    else
+    {
+        auto itr = m_layers.find(id);
 
-	return false;
-}
-
-
-// Private
-
-int Scene::nextAvailableID()
-{
-	size_t retVal;
-	for(retVal = 0; retVal < layers.size(); ++retVal)
-	{
-		if (layers.at(retVal)->GetLayerId() != retVal)
-			break;
-	}
-	return retVal;
-
-
-	bool newID = true;
-	for(int i = 0; i < 9; i++)
-	{
-		for(size_t j = 0; j < layers.size(); j++)
-		{
-			if(layers.at(j)->GetLayerId() == i)
-				newID = false;
-		}
-		if(newID)
-		{
-			WriteLog("Creating layer with id#%d\n", i);
-			return i;
-		}
-		newID = true;
-	}
-	return -1;
-}
-
-void Scene::arrangeLayers()
-{
-	std::sort(layers.begin(),layers.end(),sortFunc);
+        if (itr != m_layers.end())
+            itr->second->Draw(target);
+    }
 }

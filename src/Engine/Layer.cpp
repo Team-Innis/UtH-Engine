@@ -2,111 +2,76 @@
 
 using namespace uth;
 
-Layer::Layer()
-	: layerName(""),
-	  layerId(0),
-	  objectCount(0)
-{
-}
 
-Layer::Layer(const int layerId)
-	: layerName(""),
-	  layerId(layerId),
-	  objectCount(0)
+Layer::Layer(const int layerId, const bool adoptObjects)
+	: layerId(layerId),
+      m_adopt(adoptObjects),
+      m_active(true)
 {
-}
 
-Layer::Layer(const char* layerName, const int layerId)
-	: layerName(layerName),
-	  layerId(layerId),
-	  objectCount(0)
-{
 }
 
 Layer::~Layer()
 {
-	m_objects.clear();
+    if (m_adopt)
+    {
+        for (auto i : m_objects)
+            delete i;
+    }
 }
 
-void Layer::SetLayerName(const char* layerName)
-{
-	this->layerName = layerName;
-}
 
-const char* Layer::GetLayerName()
-{
-	return layerName;
-}
-
-const int Layer::GetLayerId()
+int Layer::GetLayerId() const
 {
 	return layerId;
 }
 
+void uth::Layer::SetActive(const bool active)
+{
+    m_active = active;
+}
+
+bool uth::Layer::IsActive() const
+{
+    return m_active;
+}
+
 bool Layer::AddGameObject(GameObject* gameObject)
 {
-	m_objects.push_back(gameObject);
+	m_objects.emplace(gameObject);
 
-	if(m_objects.size() < objectCount)
-		return false;
-	
-	objectCount++;
 	return true;
 }
 
-bool Layer::RemoveGameObject(GameObject* gameObject)
+GameObject* Layer::RemoveGameObject(GameObject* gameObject)
 {
-	std::vector<GameObject*>::iterator it;
-	for(it = m_objects.begin(); it != m_objects.end(); ++it)
-	{
-		if((*it) == gameObject)
-		{
-			m_objects.erase(it);
-			objectCount--;
-			return true;
-		}
-	}
-	return false;
+	auto itr = m_objects.find(gameObject);
+
+    if (itr != m_objects.end())
+        return *itr;
+
+	return nullptr;
 }
 
 void Layer::Update(float dt)
 {
-	for(size_t i = 0; i < m_objects.size(); ++i)
-	{
-		m_objects.at(i)->Update(dt);
-	}
-
-	UpdateTransform();
+    if (IsActive())
+    {
+        for (auto& i : m_objects)
+        {
+            i->Update(dt);
+        }
+    }
 }
 
 void Layer::Draw(RenderTarget& target)
 {
-    for(size_t i = 0; i < m_objects.size(); ++i)
-	{
-		if(m_objects.at(i)->transform.IsActive())
-			m_objects.at(i)->Draw(target);
-	}
-}
-
-void Layer::SetObjectsActive(bool value)
-{
-	for(size_t i = 0; i < m_objects.size(); ++i)
-	{
-		m_objects.at(i)->transform.SetActive(value);
-		//m_objects.at(i)->transform.SetDrawable(value);
-	}
-}
-
-void Layer::UpdateTransform()
-{
-	
-	for(size_t i = 0; i < m_objects.size(); ++i)
-	{
-		m_objects.at(i)->transform.AddTransform(transform.GetTransform());
-		/*
-		m_objects.at(i)->transform.SetTransform(transform.GetTransform() *
-			m_objects.at(i)->transform.GetTransform());
-			*/
-	}
-	
+    if (IsActive())
+    {
+        for (auto& i : m_objects)
+        {
+            if (i->IsActive())
+                i->Draw(target);
+        }
+    }
 }
