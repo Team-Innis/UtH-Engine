@@ -20,14 +20,8 @@ namespace uth
         : m_size(),
           m_pixels(),
           m_depth(0)
-    {}
-
-    Image::Image(const std::string& filePath)
-        : m_size(),
-          m_pixels(),
-          m_depth(0)
     {
-        LoadFromFile(filePath);
+    
     }
 
     Image::~Image()

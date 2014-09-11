@@ -62,7 +62,7 @@ namespace uth
             uth::Graphics::BindRenderBufferToFrameBuffer(m_frameBuffer, m_depthBuffer);
         }
 
-        uth::Graphics::BindTextureToFrameBuffer(m_frameBuffer, m_texture.GetTextureID());
+        uth::Graphics::BindTextureToFrameBuffer(m_frameBuffer, m_texture.m_textureID);
 
         if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
         {

@@ -5,34 +5,33 @@
 #include <UtH/Platform/Uncopyable.hpp>
 #include <pmath/Vector2.hpp>
 #include <string>
-
+#include <unordered_map>
+#include <memory>
 
 
 namespace uth
 {
     class Texture : private uth::Uncopyable
     {
+    private:
+
+        struct Deleter
+        {
+            void operator()(Texture* file) const
+            {
+                delete file;
+            }
+        };
+
+
+        friend class RenderTexture;
+        friend class ResourceManager;
+
     public:
-
-        Texture();
-
-        Texture(const std::string& filePath);
-
-        ~Texture();
-
-		/// Consider using the UTH ResourceManager, example: uthRS.DeleteTexture(filePath)
-		void Delete();
-
-        bool Create(const pmath::Vec2& size, const bool smooth = false, const bool repeated = false);
-		
-		/// Consider using the UTH ResourceManager, example: uthRS.LoadTexture(filePath)
-        bool LoadFromFile(const std::string& filePath, const bool smooth = false, const bool repeated = false);
 
         void Bind() const;
 
         static void Unbind();
-
-        unsigned int GetTextureID() const;
 
         bool SetSmooth(const bool value);
 
@@ -50,6 +49,20 @@ namespace uth
 
 
     private:
+
+        // Only friend classes can construct a texture.
+        Texture();
+
+        ~Texture();
+
+        // These functions are only used by ResourceManager and RenderTexture.
+        bool Create(const pmath::Vec2& size, const bool smooth = false, const bool repeated = false);
+
+        bool LoadFromFile(const std::string& filePath, const bool smooth = false, const bool repeated = false);
+
+
+        
+        // Member data
 
         unsigned int m_textureID;
         pmath::Vec2 m_size;
