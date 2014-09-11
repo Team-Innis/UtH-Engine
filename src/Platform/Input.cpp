@@ -11,6 +11,7 @@ void Input::SetWindow(void *windowHandle)
 	InputBase::setWindowHandle(windowHandle);
 	Mouse.Initiate();
 	Keyboard.Initiate();
+    Controller.Initiate();
 }
 void Input::Update(float deltaTime)
 {

@@ -15,6 +15,30 @@ ControllerInput::~ControllerInput()
 
 // Public
 
+
+void ControllerInput::Initiate()
+{
+    Axis axis;
+
+    axis.mappedAxis = AMOTION_EVENT_AXIS_HAT_X;
+    m_axes.push_back(axis);
+    axis.mappedAxis = AMOTION_EVENT_AXIS_HAT_Y;
+    m_axes.push_back(axis);
+    axis.mappedAxis = AMOTION_EVENT_AXIS_LTRIGGER;
+    m_axes.push_back(axis);
+    axis.mappedAxis = AMOTION_EVENT_AXIS_RTRIGGER;
+    m_axes.push_back(axis);
+    axis.mappedAxis = AMOTION_EVENT_AXIS_X;
+    m_axes.push_back(axis);
+    axis.mappedAxis = AMOTION_EVENT_AXIS_Y;
+    m_axes.push_back(axis);
+    axis.mappedAxis = AMOTION_EVENT_AXIS_Z;
+    m_axes.push_back(axis);
+    axis.mappedAxis = AMOTION_EVENT_AXIS_RZ;
+    m_axes.push_back(axis);
+}
+
+
 void ControllerInput::Update()
 {
     m_prevButtons = m_buttons;
@@ -40,6 +64,12 @@ bool ControllerInput::IsButtonReleased(Controller::Button button)
 {
     return m_buttons.at(button) == AKEY_EVENT_ACTION_UP
         && m_prevButtons.at(button) == AKEY_EVENT_ACTION_DOWN;
+}
+
+
+float ControllerInput::GetAxis(Controller::Axis axis)
+{
+    return m_axes.at(axis).value;
 }
 
 void ControllerInput::HandleInput(AInputEvent* inputEvent)
@@ -114,5 +144,20 @@ void ControllerInput::handleKeys(AInputEvent* inputEvent)
 
 void ControllerInput::handleAxes(AInputEvent* inputEvent)
 {
+    for (int i = 0; i < m_axes.size(); ++i)
+    {
+        m_axes.at(i).update(inputEvent);
+    }
+}
 
+
+ControllerInput::Axis::Axis()
+    : mappedAxis(-1),
+      value(0)
+{ }
+
+
+void ControllerInput::Axis::update(AInputEvent* inputEvent)
+{
+    value = AMotionEvent_getAxisValue(inputEvent, mappedAxis, 0);
 }

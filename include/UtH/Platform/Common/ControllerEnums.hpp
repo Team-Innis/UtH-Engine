@@ -28,14 +28,14 @@ namespace uth
 
         enum Axis
         {
-            HatY,
-            HatX,
+            DpadX,
+            DpadY,
             LeftTrigger,
             RightTrigger,
-            LeftThumbY,
             LeftThumbX,
-            RightThumbY,
+            LeftThumbY,
             RightThumbX,
+            RightThumbY,
             AXIS_COUNT
         };
     }

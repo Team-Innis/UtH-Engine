@@ -11,13 +11,14 @@
 
 namespace uth
 {
-
     class ControllerInput : public InputBase
     {
     public:
         ControllerInput();
         ~ControllerInput();
 
+
+        void Initiate();
         void Update();
 
         bool IsButtonDown(Controller::Button button);
@@ -25,15 +26,26 @@ namespace uth
         bool IsButtonPressed(Controller::Button button);
         bool IsButtonReleased(Controller::Button button);
 
+        float GetAxis(Controller::Axis axis);
+
         void HandleInput(AInputEvent* inputEvent);
 
     private:
+        class Axis
+        {
+        public:
+            Axis();
+            int mappedAxis;
+            float value;
+            void update(AInputEvent* inputEvent);
+        };
+
         void handleKeys(AInputEvent* inputEvent);
         void handleAxes(AInputEvent* inputEvent);
 
         std::vector<int> m_buttons;
         std::vector<int> m_prevButtons;
-        std::vector<pmath::Vec2> m_axes;
+        std::vector<Axis> m_axes;
     };
 }
 
