@@ -166,19 +166,19 @@ void AnimatedSprite::genererateBuffer()
 	m_vertexBuffer.clear();
 
 	m_vertexBuffer.addVertex(Vertex(
-		pmath::Vec3(-0.5f * m_sizePx.x, -0.5f * m_sizePx.y, 0),
+		pmath::Vec3(-0.5f * w, -0.5f * h, 0),
 		pmath::Vec2(texCoord.getLeft(), texCoord.getTop()),
 		m_color));
 	m_vertexBuffer.addVertex(Vertex(
-		pmath::Vec3(0.5f * m_sizePx.x, -0.5f * m_sizePx.y, 0),
+		pmath::Vec3(0.5f * w, -0.5f * h, 0),
 		pmath::Vec2(texCoord.getRight(), texCoord.getTop()),
 		m_color));
 	m_vertexBuffer.addVertex(Vertex(
-		pmath::Vec3(-0.5f * m_sizePx.x, 0.5f * m_sizePx.y, 0),
+		pmath::Vec3(-0.5f * w, 0.5f * h, 0),
 		pmath::Vec2(texCoord.getLeft(), texCoord.getBottom()),
 		m_color));
 	m_vertexBuffer.addVertex(Vertex(
-		pmath::Vec3(0.5f * m_sizePx.x, 0.5f * m_sizePx.y, 0),
+		pmath::Vec3(0.5f * w, 0.5f * h, 0),
 		pmath::Vec2(texCoord.getRight(), texCoord.getBottom()),
 		m_color));
 
