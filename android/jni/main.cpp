@@ -21,7 +21,6 @@
 #include <UtH/Platform/WindowSettings.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Platform/FileReader.h>
-#include <UtH/Platform/Debug.hpp>
 #include <UtH/Engine/UtHEngine.h>
 #include <UtH/Platform/Input.hpp>
 #include <UtH/Platform/Android/InputSensor.hpp>
@@ -62,28 +61,26 @@ void handle_cmd(android_app* app, int cmd)
 
 int handle_input(android_app* app, AInputEvent* inputEvent)
 {
-    switch (AInputEvent_getType(inputEvent))
+    int32_t eventType = AInputEvent_getType(inputEvent);
+
+    if (eventType == AINPUT_EVENT_TYPE_KEY)
     {
-    case AINPUT_EVENT_TYPE_KEY:
-        WriteLog("handlekeys");
         uthInput.Controller.HandleInput(inputEvent);
-        break;
-    case AINPUT_EVENT_TYPE_MOTION:
-        switch (AInputEvent_getSource(inputEvent))
+        return 1;
+    }
+    else if (eventType == AINPUT_EVENT_TYPE_MOTION)
+    {
+        int32_t source = AInputEvent_getSource(inputEvent);
+        if (source == AINPUT_SOURCE_JOYSTICK)
         {
-        case AINPUT_SOURCE_DPAD:
-        case AINPUT_SOURCE_GAMEPAD:
-        case AINPUT_SOURCE_JOYSTICK:
             uthInput.Controller.HandleInput(inputEvent);
-            break;
-        case AINPUT_SOURCE_TOUCHSCREEN:
-            uth::TouchInput::DroidMessage(app, inputEvent);
-            break;
-        default:
-            // Not supported
-            break;
         }
-        break;
+        else if (source == AINPUT_SOURCE_TOUCHSCREEN)
+        {
+            uth::TouchInput::DroidMessage(app, inputEvent);
+        }
+
+        return 1;
     }
 
     return 0;
@@ -108,7 +105,7 @@ void android_main(android_app* state)
 	uth::FileReader::m_manager = state->activity->assetManager;
 
 	state->onAppCmd = handle_cmd;
-	state->onInputEvent = uth::TouchInput::DroidMessage;
+	state->onInputEvent = handle_input;
 
     uth::SensorInput::sensorManager = ASensorManager_getInstance();
     uth::SensorInput::sensorEventQueue = ASensorManager_createEventQueue(

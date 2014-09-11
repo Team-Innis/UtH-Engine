@@ -12,22 +12,22 @@ ControllerInput::~ControllerInput()
 
 // Public
 
-bool ControllerInput::IsButtonDown(Controller::Button button)
+bool ControllerInput::IsButtonDown(Controller::Button /*button*/)
 {
     return false;
 }
 
-bool ControllerInput::IsButtonUp(Controller::Button button)
+bool ControllerInput::IsButtonUp(Controller::Button /*button*/)
 {
     return false;
 }
 
-bool ControllerInput::IsButtonPressed(Controller::Button button)
+bool ControllerInput::IsButtonPressed(Controller::Button /*button*/)
 {
     return false;
 }
 
-bool ControllerInput::IsButtonReleased(Controller::Button button)
+bool ControllerInput::IsButtonReleased(Controller::Button /*button*/)
 {
     return false;
 }

@@ -44,15 +44,10 @@ bool ControllerInput::IsButtonReleased(Controller::Button button)
 
 void ControllerInput::HandleInput(AInputEvent* inputEvent)
 {
-    switch (AInputEvent_getType(inputEvent))
-    {
-    case AINPUT_EVENT_TYPE_KEY:
+    if (AInputEvent_getType(inputEvent) == AINPUT_EVENT_TYPE_KEY)
         handleKeys(inputEvent);
-        break;
-    case AINPUT_EVENT_TYPE_MOTION:
+    else
         handleAxes(inputEvent);
-        break;
-    }
 }
 
 
@@ -114,7 +109,6 @@ void ControllerInput::handleKeys(AInputEvent* inputEvent)
         return;
 
     int action = AKeyEvent_getAction(inputEvent);
-
     m_buttons.at(button) = action;
 }
 

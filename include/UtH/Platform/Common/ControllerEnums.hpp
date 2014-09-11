@@ -21,6 +21,8 @@ namespace uth
             ThumbRight,
             L1,
             R1,
+            LB = L1,
+            RB = R1,
             BUTTON_COUNT
         };
 

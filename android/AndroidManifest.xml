@@ -12,8 +12,8 @@
     <activity android:name="com.android.uth.GameActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
           android:launchMode="singleTask"
-    android:screenOrientation="landscape"
-          android:configChanges="orientation|keyboardHidden">
+    android:screenOrientation="sensorLandscape"
+          android:configChanges="orientation|keyboard|keyboardHidden">
 
       <meta-data android:name="android.app.lib_name" android:value="uthengine" />
 
