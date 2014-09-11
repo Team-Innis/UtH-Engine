@@ -31,7 +31,7 @@ Layer* Scene::CreateLayer(const int layerId, const bool adoptObjects)
     }
 
     Layer* ptr = new Layer(layerId, adoptObjects);
-	m_layers[layerId] = std::unique_ptr<Layer>(ptr);
+    m_layers[layerId] = std::unique_ptr<Layer, LayerDeleter>(ptr);
 
 	return ptr;
 }

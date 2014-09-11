@@ -45,7 +45,15 @@ namespace uth
 
     private:
 
-		std::map<int, std::unique_ptr<Layer>> m_layers;
+        struct LayerDeleter
+        {
+            void operator ()(Layer* layer)
+            {
+                delete layer;
+            }
+        };
+
+        std::map<int, std::unique_ptr<Layer, LayerDeleter>> m_layers;
 
 		std::unique_ptr<b2World> m_world;
 

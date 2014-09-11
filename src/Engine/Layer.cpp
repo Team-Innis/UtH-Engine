@@ -1,7 +1,8 @@
 #include <UtH/Engine/Layer.hpp>
+#include <UtH/Engine/GameObject.hpp>
+
 
 using namespace uth;
-
 
 Layer::Layer(const int layerId, const bool adoptObjects)
 	: layerId(layerId),

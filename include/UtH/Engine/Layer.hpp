@@ -3,18 +3,19 @@
 #define LAYER_H_UTH
 
 #include <UtH/Platform/Uncopyable.hpp>
-#include <UtH/Engine/GameObject.hpp>
-
 #include <set>
 
 namespace uth
 {
+    class GameObject;
+    class RenderTarget;
+
 	class Layer : private Uncopyable
 	{
-	public:
 
-		Layer(const int layerId, const bool adoptObjects = true);
-		~Layer();
+        friend class Scene;
+
+	public:
 
 		int GetLayerId() const;
 
@@ -27,7 +28,10 @@ namespace uth
 		void Update(float dt);
 		void Draw(RenderTarget& target);
 
-	private:
+    private:
+
+        Layer(const int layerId, const bool adoptObjects = true);
+        ~Layer();
 
 		std::set<GameObject*> m_objects;
 
