@@ -28,9 +28,9 @@ bool TestScene::Init()
     // Objects
     // First
 	{
-	    auto test = new GameObject();
-		test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
-	    AddGameObjectToLayer(Default, test);
+	    //auto test = new GameObject();
+		//test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
+	    //AddGameObjectToLayer(Default, test);
     }
 
     // Second (ParticleSystem)
@@ -56,8 +56,6 @@ bool TestScene::Init()
 }
 bool TestScene::DeInit()
 {
-	delete shader;
-	delete test;
 	return true;
 }
 

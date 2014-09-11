@@ -22,9 +22,6 @@ namespace uth
 	
 		ParticleSystem* ps;
 	
-	
-		Sound* music;
-	
 	};
 }
 
