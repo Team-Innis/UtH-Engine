@@ -44,12 +44,23 @@ bool Layer::AddGameObject(GameObject* gameObject)
 	return true;
 }
 
-GameObject* Layer::RemoveGameObject(GameObject* gameObject)
+GameObject* Layer::RemoveGameObject(GameObject* gameObject, const bool deleteObject)
 {
 	auto itr = m_objects.find(gameObject);
 
     if (itr != m_objects.end())
-        return *itr;
+    {
+        GameObject* ptr = *itr;
+        m_objects.erase(itr);
+
+        if (deleteObject)
+        {
+            delete ptr;
+            return nullptr;
+        }
+
+        return ptr;
+    }
 
 	return nullptr;
 }

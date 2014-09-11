@@ -23,7 +23,7 @@ namespace uth
         bool IsActive() const;
 
 		bool AddGameObject(GameObject* gameObject);
-		GameObject* RemoveGameObject(GameObject* gameObject);
+		GameObject* RemoveGameObject(GameObject* gameObject, const bool deleteObject = true);
 
 		void Update(float dt);
 		void Draw(RenderTarget& target);

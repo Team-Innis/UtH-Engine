@@ -61,9 +61,13 @@ bool TestScene::DeInit()
 bool TestScene::Update(float dt)
 {
     if (uthInput.Mouse.IsButtonPressed(uth::Mouse::RIGHT))
-        GetLayer(Other)->SetActive(false);
+    {
+        RemoveGameObjectFromLayer(Other, ps);
+        ps = nullptr;
+    }
 
-    ps->Emit(1);
+    if (ps)
+        ps->Emit(1);
     
     UpdateLayers(dt, -1);
 

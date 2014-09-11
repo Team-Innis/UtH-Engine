@@ -36,6 +36,19 @@ Layer* Scene::CreateLayer(const int layerId, const bool adoptObjects)
 	return ptr;
 }
 
+bool uth::Scene::DeleteLayer(const int layerID)
+{
+    auto itr = m_layers.find(layerID);
+
+    if (itr != m_layers.end())
+    {
+        m_layers.erase(itr);
+        return true;
+    }
+
+    return false;
+}
+
 Layer* uth::Scene::GetLayer(const int layerID)
 {
     auto itr = m_layers.find(layerID);
@@ -59,16 +72,16 @@ bool Scene::AddGameObjectToLayer(const int layerId, GameObject* gameObject)
 	return false;
 }
 
-bool Scene::RemoveGameObjectFromLayer(const int layerId, GameObject* gameObject)
+GameObject* Scene::RemoveGameObjectFromLayer(const int layerId, GameObject* gameObject, const bool deleteObject)
 {
     auto itr = m_layers.find(layerId);
 
     if (itr != m_layers.end())
     {
-        itr->second->RemoveGameObject(gameObject);
+        return itr->second->RemoveGameObject(gameObject, deleteObject);
     }
 
-	return false;
+	return nullptr;
 }
 
 void uth::Scene::UpdateLayers(float dt, const int id)
