@@ -99,8 +99,8 @@
     <ClCompile Include="source\TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\UtH\Scenes.hpp" />
     <ClInclude Include="include\MoveAffector.hpp" />
+    <ClInclude Include="include\Scenes.hpp" />
     <ClInclude Include="include\TestScene.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

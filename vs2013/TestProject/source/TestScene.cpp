@@ -1,4 +1,5 @@
-#include "TestScene.hpp"
+#include <TestScene.hpp>
+#include <Scenes.hpp>
 
 using namespace uth;
 

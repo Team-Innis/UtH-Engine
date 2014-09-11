@@ -11,6 +11,4 @@
 
 #include <pmath/PMath.hpp>
 
-#include <UtH/Scenes.hpp>
-
 #endif //UTHENGINE_H_UTH
