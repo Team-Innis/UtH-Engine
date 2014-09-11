@@ -7,11 +7,17 @@ using namespace uth;
 
 float Randomizer::GetFloat(const float min, const float max)
 {
+    if (min == max)
+        return min;
+
     return min + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX/(max-min)));
 }
 
 int Randomizer::GetInt(const int min, const int max)
 {
+    if (min == max)
+        return min;
+
     return min + static_cast<int>(rand()) / (static_cast<int>(RAND_MAX/(max-min)));
 }
 

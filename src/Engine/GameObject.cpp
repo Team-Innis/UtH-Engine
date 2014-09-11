@@ -23,7 +23,7 @@ GameObject::GameObject(const std::string &name)
 
 GameObject::~GameObject()
 {
-	
+	RemoveComponents();
 }
 
 void GameObject::SetActive(bool value)

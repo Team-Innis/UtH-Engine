@@ -74,6 +74,8 @@ bool DefaultScene::DeInit()
 	delete textT;
 	delete textH;
 	delete text;
+	delete shader;
+	delete fade;
 
     return true;
 }

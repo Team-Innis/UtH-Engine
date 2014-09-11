@@ -45,6 +45,8 @@ bool TestScene::Init()
 }
 bool TestScene::DeInit()
 {
+	delete shader;
+	delete test;
 	return true;
 }
 

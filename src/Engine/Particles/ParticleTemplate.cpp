@@ -16,7 +16,7 @@ ParticleTemplate::ParticleTemplate()
 
                       pmath::Vec2 tvec(Randomizer::InsideCircle());
                       tvec /= static_cast<float>(tvec.length());
-                      particle.direction = (pTemplate.maxSpeed == 0.f ? pTemplate.minSpeed : (Randomizer::GetFloat(pTemplate.minSpeed, pTemplate.maxSpeed))) * tvec;
+                      particle.direction = Randomizer::GetFloat(pTemplate.minSpeed, pTemplate.maxSpeed) * tvec;
                   })
 {
 
@@ -37,7 +37,7 @@ void ParticleTemplate::SetLifetime(const float seconds)
 void ParticleTemplate::SetSpeed(const float pixelsPerSecond)
 {
     minSpeed = pixelsPerSecond;
-    maxSpeed = 0.f;
+    maxSpeed = pixelsPerSecond;
 }
 
 void ParticleTemplate::SetSpeed(const float pixelsPerSecondMin, const float pixelsPerSecondMax)
