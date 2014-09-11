@@ -120,10 +120,14 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 
 void TouchInput::Update(float deltaTime)
 {
+	if(m_motion != TouchMotion::NONE && m_motion == TouchMotion::TAP)
+		m_motion = TouchMotion::NONE;
+		
 	for(int i = 0; i < m_maxInputs; i++)
 	{
 		if(!ID[i].m_tapped)
 		{
+			
 			switch(ID[i].Motion())
 			{
 			case TouchMotion::STATIONARY:
@@ -149,16 +153,26 @@ void TouchInput::Update(float deltaTime)
 			m_motion = TouchMotion::TAP;
 		}
 	}
+	if(m_touchCount == 1)
+	{
+		if(ID[0].Motion() == TouchMotion::DRAG)
+		{
+			m_motion = TouchMotion::DRAG;
+		}
+		if(m_tempPos == ID[0].m_curPos)
+			m_motion = TouchMotion::STATIONARY;
+	}
 
 	if(Motion() == TouchMotion::MULTIPLE || Motion() == TouchMotion::PINCH_IN || Motion() == TouchMotion::PINCH_OUT)
 	{
-		if((ID[0].Motion() == TouchMotion::DRAG && ID[1].Motion() == TouchMotion::DRAG) ||
+		if(((ID[0].Motion() == TouchMotion::DRAG || ID[0].Motion() == TouchMotion::STATIONARY) 
+		&& (ID[1].Motion() == TouchMotion::DRAG || ID[1].Motion() == TouchMotion::STATIONARY)) ||
 			(ID[0].Motion() == TouchMotion::PINCH_IN && ID[1].Motion() == TouchMotion::PINCH_IN) ||
 			(ID[0].Motion() == TouchMotion::PINCH_OUT && ID[1].Motion() == TouchMotion::PINCH_OUT))
 		{
 			m_prevLength = m_curLength;
 			m_curLength = (ID[0].GetPosition()-ID[1].GetPosition()).length();
-
+			
 			if(m_curLength < m_prevLength)
 			{
 				m_motion = TouchMotion::PINCH_IN;
@@ -180,6 +194,7 @@ void TouchInput::Update(float deltaTime)
 			ID[1].m_motion = TouchMotion::STATIONARY;
 		}
 	}
+	m_tempPos = ID[0].m_curPos;
 }
 
 const TouchInput::TouchUnit& TouchInput::operator[](unsigned int id) const

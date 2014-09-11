@@ -23,9 +23,10 @@ namespace uth
 		delete curScene;
 	}
 	
-	void SceneManager::GoToScene(int SceneID, bool disposeCurrent)
+	void SceneManager::GoToScene(int SceneID, bool /*disposeCurrent*/)
 	{
-		disposeCurrent;
+		// TODO:
+        // disposeCurrent;
 		if (!(UTHDefaultScene <= SceneID && SceneID < sceneCount))
 		{
 			WriteError("Error when scene %d switching to %d, number out of range, switching to default scene",m_sceneID, m_nextScene);

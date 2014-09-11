@@ -8,10 +8,8 @@
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Platform/Android/InputSensor.hpp>
 
-
 namespace uth
 {
-
 	void* AndroidWindowImpl::create(const WindowSettings& settings)
 	{
 
@@ -195,4 +193,7 @@ namespace uth
 
 		return false;
 	}
+
+    void AndroidWindowImpl::setResizeCallback(ResizeFunc)
+    { }
 }

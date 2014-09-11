@@ -161,7 +161,7 @@ void Sound::Initialize(const char* fileName)
 	alGenBuffers(1, &buffer);
 	CheckALError("alGenBuffers");
 
-	short channels = buf->GetSoundInfo().channels;
+	int channels = buf->GetSoundInfo().channels;
 
 	alBufferData(buffer, channels == 2 ? AL_FORMAT_STEREO16:AL_FORMAT_MONO16 ,
 		buf->GetSoundInfo().soundBuffer,

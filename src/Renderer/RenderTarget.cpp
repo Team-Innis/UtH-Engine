@@ -88,7 +88,11 @@ namespace uth
         if (!m_loaded)
         {
             const bool compiled = m_defaultShader.LoadShader("Shaders/Default.vert", "Shaders/Default.frag");
-            assert(compiled);
+            if (!compiled)
+            {
+                WriteError("Default shader compilation failed");
+                assert(false);
+            }
             m_loaded = true;
         }
 
@@ -98,17 +102,17 @@ namespace uth
         return m_defaultShader;
     }
 
-    void RenderTarget::SetViewport(const pmath::Rect& rect)
+    void RenderTarget::SetViewport(const pmath::Recti& rect)
     {
         m_viewport = rect;
     }
 
-    const pmath::Rect& RenderTarget::getViewport() const
+    const pmath::Recti& RenderTarget::getViewport() const
     {
         return m_viewport;
     }
 
-    const pmath::Rect& RenderTarget::GetViewport() const
+    const pmath::Recti& RenderTarget::GetViewport() const
     {
         return m_viewport;
     }

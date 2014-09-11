@@ -51,6 +51,9 @@ namespace uth
 
 		static float m_curLength;
 		static float m_prevLength;
+		
+		pmath::Vec2 m_tempPos;
+		
 	public:
 		const TouchMotion Motion() const;
 		static int DroidMessage(android_app* app, AInputEvent* droidInputEvent);

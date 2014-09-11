@@ -52,7 +52,7 @@ namespace uth
 		WriteLog("Format: %d\n"		, soundInfo.format);
 
 
-		m_soundInfo.frames			= soundInfo.frames * soundInfo.channels;
+		m_soundInfo.frames			= static_cast<int>(soundInfo.frames * soundInfo.channels);
 		m_soundInfo.channels		= soundInfo.channels;
 		m_soundInfo.sampleRate		= soundInfo.samplerate;
 
