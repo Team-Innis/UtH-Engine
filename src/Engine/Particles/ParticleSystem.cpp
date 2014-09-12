@@ -13,7 +13,8 @@ ParticleSystem::ParticleSystem(const size_t reserve)
       m_emitFreq(0.f, 1.f),
       m_emitTimer(0.f),
       m_emitTimeLimit(0.f),
-      m_autoEmit(false)
+      m_autoEmit(false),
+      m_currentParticle(0u)
 {
     m_particles.reserve(reserve);
 }
@@ -63,7 +64,11 @@ void ParticleSystem::SetEmitProperties(const bool autoEmit, const float min, con
 
 void ParticleSystem::AddAffector(Affector* affector)
 {
-	m_affectors.emplace_back(affector);
+    if (affector)
+    {
+        m_affectors.emplace_back(affector);
+        affector->m_system = this;
+    }
 }
 
 void ParticleSystem::SetTemplate(const ParticleTemplate& pTemplate)
@@ -122,16 +127,36 @@ void ParticleSystem::update(float dt)
 		}
 	}
 
-	for (auto& p : m_particles)
+    
+
+	for (auto& a : m_affectors)
 	{
-		for (auto& a : m_affectors)
+        a->Update(dt);
+		for (auto& p : m_particles)
 		{
 			a->UpdateParticle(p, m_template, dt);
+            ++m_currentParticle;
 		}
 	}
+    m_currentParticle = 0;
 }
 
 void ParticleSystem::draw(RenderTarget& target)
 {
 	m_batch.Draw(target);
+}
+
+unsigned int ParticleSystem::GetCurrentParticleNumber() const
+{
+    return m_currentParticle;
+}
+
+unsigned int ParticleSystem::GetParticleAmount() const
+{
+    return m_particles.size();
+}
+
+size_t ParticleSystem::GetParticleLimit() const
+{
+    return m_particles.capacity();
 }
