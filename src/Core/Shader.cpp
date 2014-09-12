@@ -3,11 +3,13 @@
 #include <UtH/Platform/FileReader.hpp>
 #include <UtH/Platform/Configuration.hpp>
 #include <UtH/Platform/Debug.hpp>
+#include <UtH/Renderer/RenderTarget.hpp>
 
 using namespace uth;
 
 Shader::Shader()
-    : m_program(0)
+    : m_program(0),
+      m_target(nullptr)
 {
 	//WriteLog("\nShaderProgram created: %d", program);
 }
@@ -15,6 +17,9 @@ Shader::Shader()
 Shader::~Shader()
 {
 	uth::Graphics::DestroyShaderProgram(m_program);
+
+    if (m_target)
+        m_target->SetShader(nullptr);
 }
 
 
