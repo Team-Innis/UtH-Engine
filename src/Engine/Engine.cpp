@@ -67,6 +67,7 @@ bool Engine::initialize()
 	m_wndw = new Window(m_wsettings);
 	uth::Graphics::SetBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 	uthInput.SetWindow(m_wndw->m_windowHandle);
+    m_wndw->SetViewport(pmath::Rect(0, 0, m_wsettings.size.x, m_wsettings.size.y));
 	m_running = true;
 
 	return true;
