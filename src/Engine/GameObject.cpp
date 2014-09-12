@@ -7,16 +7,20 @@ using namespace uth;
 GameObject::GameObject()
 	: parent(nullptr),
       m_name(""),
-      m_active(true)
+      m_active(true),
+	  transform(*(new Transform()))
 {
+	AddComponent(&transform);
 	transform.parent = this;
 }
 
 GameObject::GameObject(const std::string &name)
     : parent(nullptr),
       m_name(name),
-      m_active(true)
+	  m_active(true),
+	  transform(*(new Transform()))
 {
+	AddComponent(&transform);
 	transform.parent = this;
 }
 

@@ -38,7 +38,7 @@ namespace uth
 		void Update(float dt);
 
 		// Transform is a special component that every gameobject has
-		Transform transform;
+		Transform& transform;
 
 		GameObject* parent;
 

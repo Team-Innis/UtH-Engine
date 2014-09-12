@@ -75,7 +75,7 @@ void Object::parseObject(tinyxml2::XMLElement* element)
 	m_rectangle.position.x = element->FloatAttribute("x");
 	m_rectangle.position.y = element->FloatAttribute("y");
 
-	// There are only 3 possibilities here but use else if for future compability
+	// There are only 3 possibilities here but use else if for future compatibility
 	if(element->UnsignedAttribute("width") != 0)
 	{
 		// Rectangle
