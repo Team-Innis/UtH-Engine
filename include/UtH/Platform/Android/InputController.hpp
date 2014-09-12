@@ -21,12 +21,17 @@ namespace uth
         void Initiate();
         void Update();
 
-        bool IsButtonDown(Controller::Button button);
-        bool IsButtonUp(Controller::Button button);
-        bool IsButtonPressed(Controller::Button button);
-        bool IsButtonReleased(Controller::Button button);
+        bool IsButtonDown(const Controller::Button button) const;
+        bool IsButtonUp(const Controller::Button button) const;
+        bool IsButtonPressed(const Controller::Button button) const;
+        bool IsButtonReleased(const Controller::Button button) const;
 
-        float GetAxis(Controller::Axis axis);
+        // Depeding on the platform and the controller 
+        // the maximum value might be less than one.
+        // Deadzone removes values from the bottom end
+        // so you get a zero value when not touching the controller.
+        // Deadzone is inclusive
+        float GetAxis(Controller::Axis axis, const float deadzone = 0.001f) const;
 
         void HandleInput(AInputEvent* inputEvent);
 

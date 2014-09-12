@@ -44,32 +44,36 @@ void ControllerInput::Update()
     m_prevButtons = m_buttons;
 }
 
-bool ControllerInput::IsButtonDown(Controller::Button button)
+bool ControllerInput::IsButtonDown(const Controller::Button button) const
 {
     return m_buttons.at(button) == AKEY_EVENT_ACTION_DOWN;
 }
 
-bool ControllerInput::IsButtonUp(Controller::Button button)
+bool ControllerInput::IsButtonUp(const Controller::Button button) const
 {
     return !IsButtonDown(button);
 }
 
-bool ControllerInput::IsButtonPressed(Controller::Button button)
+bool ControllerInput::IsButtonPressed(const Controller::Button button) const
 {
     return m_buttons.at(button) == AKEY_EVENT_ACTION_DOWN
         && m_prevButtons.at(button) == AKEY_EVENT_ACTION_UP;
 }
 
-bool ControllerInput::IsButtonReleased(Controller::Button button)
+bool ControllerInput::IsButtonReleased(const Controller::Button button) const
 {
     return m_buttons.at(button) == AKEY_EVENT_ACTION_UP
         && m_prevButtons.at(button) == AKEY_EVENT_ACTION_DOWN;
 }
 
 
-float ControllerInput::GetAxis(Controller::Axis axis)
+float ControllerInput::GetAxis(const Controller::Axis axis, const float deadzone) const
 {
-    return m_axes.at(axis).value;
+    const float output = m_axes.at(axis).value;
+    if (std::abs(output) <= deadzone)
+        return 0;
+
+    return output;
 }
 
 void ControllerInput::HandleInput(AInputEvent* inputEvent)

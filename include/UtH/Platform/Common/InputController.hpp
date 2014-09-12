@@ -16,10 +16,24 @@ namespace uth
         ControllerInput();
         ~ControllerInput();
 
-        bool IsButtonDown(Controller::Button button);
-        bool IsButtonUp(Controller::Button button);
-        bool IsButtonPressed(Controller::Button button);
-        bool IsButtonReleased(Controller::Button button);
+        void Update();
+
+        bool IsButtonDown(const Controller::Button button) const;
+        bool IsButtonUp(const Controller::Button button) const;
+        bool IsButtonPressed(const Controller::Button button) const;
+        bool IsButtonReleased(const Controller::Button button) const;
+
+        // Depeding on the platform and the controller 
+        // the maximum value might be less than one.
+        // Deadzone removes values from the bottom end
+        // so you get a zero value when not touching the controller.
+        // Deadzone is inclusive
+        float GetAxis(const Controller::Axis axis, const float deadzone = 0.001f) const;
+
+    private:
+        std::vector<int> m_buttons;
+        std::vector<int> m_prevButtons;
+        std::vector<float> m_axes;
     };
 }
 
