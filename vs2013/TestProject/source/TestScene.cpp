@@ -61,11 +61,6 @@ bool TestScene::DeInit()
 
 bool TestScene::Update(float dt)
 {
-    if (uthInput.Mouse.IsButtonPressed(uth::Mouse::RIGHT))
-    {
-        RemoveGameObjectFromLayer(Other, ps);
-        ps = nullptr;
-    }
 
     if (ps)
         ps->Emit(1);
