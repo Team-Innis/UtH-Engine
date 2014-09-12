@@ -38,6 +38,13 @@ namespace uth
 		// Returns the content of the whole file as text
 		const std::string ReadText();
 
+		// Saves text to file.
+		// [PC] Relative to executable location.
+		// [Android] Relative to root of sdcard if such exists.
+		void WriteToFile(const std::string& filenameAndPath, const std::string& data);
+		// Saves binarydata to file.
+		void WriteToFile(const std::string& filenameAndPath, const BINARY_DATA& data);
+
 		static AAssetManager* m_manager;
 		
 		

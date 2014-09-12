@@ -1,6 +1,10 @@
 #include <UtH/Platform/FileManager.hpp>
-#include <cstdlib> //malloc
 #include <UtH/Platform/Debug.hpp>
+#include <UtH/Platform/Android/AndroidEngine.hpp>
+
+#include <cstdlib> //malloc
+#include <cstdio>
+#include <sys/stat.h>
 
 using namespace uth;
 
@@ -63,6 +67,41 @@ const std::string FileManager::ReadText()
 	std::string str(buffer, size);
 	delete[] buffer;
 	return str;
+}
+
+void FileManager::WriteToFile(const std::string& filename, const std::string& data)
+{
+	std::string dataPath(uthAndroidEngine.internalPath + "/");
+
+	struct stat sb;
+	int32_t res = stat(dataPath.c_str(), &sb);
+
+	if (0 == res && sb.st_mode & S_IFDIR)
+	{
+		WriteLog("%s dir already in app's internal data storage.", dataPath.c_str());
+	}
+	else if (ENOENT == errno)
+	{
+		res = mkdir(dataPath.c_str(), 0777);
+		if (!res)
+			uth::WriteLog("Creating data folder succeeded!");
+		else
+			uth::WriteError("Creating data folder failed with %d!", res);
+
+	}
+
+	dataPath += filename;
+	std::FILE* file = std::fopen(dataPath.c_str(), "w+");
+	if (file != NULL)
+	{
+		std::fputs(data.c_str(), file);
+		std::fflush(file);
+		std::fclose(file);
+	}
+	else
+	{
+		WriteError("Writing to file failed! File couldn't be opened for writing.");
+	}
 }
 
 AAsset* FileManager::loadSound(const std::string& fileName)

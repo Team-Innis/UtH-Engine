@@ -57,12 +57,12 @@ void android_main(android_app* state)
         uth::SensorInput::sensorManager, ASENSOR_TYPE_GYROSCOPE);
 
 	uthAndroidEngine.app = state;
-
     uthAndroidEngine.settings.position = pmath::Vec2(0, 0);
 	uthAndroidEngine.settings.contextVersionMajor = 2;
 	uthAndroidEngine.settings.contextVersionMinor = 0;
     uthAndroidEngine.settings.fullScreen = true;
-
+	ANativeActivity* natAct = state->activity;
+	uthAndroidEngine.internalPath = natAct->internalDataPath;
 	state->userData = &wndw;
 
 	uthAndroidEngine.winEveHand = windowEventHandler;
