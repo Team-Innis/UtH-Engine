@@ -1,4 +1,5 @@
 #include <UtH/Renderer/Camera.hpp>
+#include <UtH/Renderer/RenderTarget.hpp>
 #include <cmath>
 #include <cassert>
 
@@ -10,7 +11,8 @@ namespace uth
           m_projMatrix(),
           m_invProjMatrix(),
           m_transformNeedsUpdate(true),
-          m_inverseTransformNeedsUpdate(true)
+          m_inverseTransformNeedsUpdate(true),
+          m_target(nullptr)
     {
 
     }
@@ -28,7 +30,8 @@ namespace uth
 
     Camera::~Camera()
     {
-
+        if (m_target)
+            m_target->SetCamera(nullptr);
     }
 
 
