@@ -18,8 +18,6 @@ FileManager::FileManager()
 }
 FileManager::FileManager(const std::string& path)
 {
-
-
 	if(isCompressed)
 		PHYSFS_init(nullptr);
 
