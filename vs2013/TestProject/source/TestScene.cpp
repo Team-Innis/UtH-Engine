@@ -45,7 +45,8 @@ bool TestScene::Init()
         Affector* aff = new Affector([](Particle& part, const ParticleTemplate& ptemp, float dt)
         {
             part.Move(part.direction * dt);
-        });
+        },
+        [](float){});
 
         ps->AddAffector(aff);
         ps->SetEmitProperties(true, 0.05f, 0.1f, 1, 5);

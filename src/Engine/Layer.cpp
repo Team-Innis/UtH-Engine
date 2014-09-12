@@ -37,11 +37,12 @@ bool uth::Layer::IsActive() const
     return m_active;
 }
 
-bool Layer::AddGameObject(GameObject* gameObject)
+GameObject* Layer::AddGameObject(GameObject* gameObject)
 {
-	m_objects.emplace(gameObject);
+    if (gameObject)
+	    m_objects.emplace(gameObject);
 
-	return true;
+	return gameObject;
 }
 
 GameObject* Layer::RemoveGameObject(GameObject* gameObject, const bool deleteObject)

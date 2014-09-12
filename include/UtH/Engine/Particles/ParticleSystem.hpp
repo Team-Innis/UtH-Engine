@@ -35,6 +35,11 @@ namespace uth
 
         void Clear(const bool particles = true, const bool affectors = true);
 
+        unsigned int GetCurrentParticleNumber() const;
+
+        unsigned int GetParticleAmount() const;
+
+        size_t GetParticleLimit() const;
 
     private:
      
@@ -52,6 +57,7 @@ namespace uth
         mutable float m_emitTimer;
         mutable float m_emitTimeLimit;
         bool m_autoEmit;
+        unsigned int m_currentParticle;
 
     };
 
