@@ -5,22 +5,42 @@ using namespace uth;
 
 
 Affector::Affector()
-	: m_func()
+	: m_puFunc(),
+      m_uFunc()
 {
+
 }
 
-Affector::Affector(ParticleUpdateFunc func)
-	: m_func(func)
+Affector::Affector(ParticleUpdateFunc func, UpdateFunc uFunc)
+    : m_puFunc(func),
+      m_uFunc(uFunc)
 {
+
+}
+
+void uth::Affector::Update(float dt)
+{
+    if (m_uFunc)
+        m_uFunc(dt);
+}
+
+void uth::Affector::SetUpdateFunc(UpdateFunc func)
+{
+    m_uFunc = func;
+}
+
+const ParticleSystem* Affector::GetSystem() const
+{
+    return m_system;
 }
 
 void Affector::UpdateParticle(Particle& particle, const ParticleTemplate& pTemplate, float dt)
 {
-    if (m_func)
-	    m_func(particle, pTemplate, dt);
+    if (m_puFunc)
+	    m_puFunc(particle, pTemplate, dt);
 }
 
-void Affector::SetUpdateFunc(ParticleUpdateFunc func)
+void Affector::SetParticleUpdateFunc(ParticleUpdateFunc func)
 {
-	m_func = func;
+	m_puFunc = func;
 }

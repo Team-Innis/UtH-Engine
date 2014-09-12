@@ -7,6 +7,8 @@
 
 namespace uth
 {
+    class RenderTarget;
+
 	class Shader
 	{
 

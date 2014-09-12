@@ -16,6 +16,8 @@
  */
 #include <UtH/UtHEngine.hpp>
 #include <UtH/Platform/Android/AndroidEngine.hpp>
+#include <Uth/Platform/Input.hpp>
+#include <UtH/Platform/Android/InputController.hpp>
 
 #define NEWSCENEFUNC
 #include <Scenes.hpp>
@@ -24,6 +26,33 @@ void handle_cmd(android_app* app, int cmd)
 {
 	uthAndroidEngine.message = cmd;
 	((uth::Window*)app->userData)->processMessages();
+}
+
+int handle_input(android_app* app, AInputEvent* inputEvent)
+{
+    int32_t eventType = AInputEvent_getType(inputEvent);
+
+    if (eventType == AINPUT_EVENT_TYPE_KEY)
+    {
+        uthInput.Controller.HandleInput(inputEvent);
+        return 1;
+    }
+    else if (eventType == AINPUT_EVENT_TYPE_MOTION)
+    {
+        int32_t source = AInputEvent_getSource(inputEvent);
+        if (source == AINPUT_SOURCE_JOYSTICK)
+        {
+            uthInput.Controller.HandleInput(inputEvent);
+        }
+        else if (source == AINPUT_SOURCE_TOUCHSCREEN)
+        {
+            uth::TouchInput::DroidMessage(app, inputEvent);
+        }
+
+        return 1;
+    }
+
+    return 0;
 }
 
 void windowEventHandler(void* handle)
@@ -45,7 +74,7 @@ void android_main(android_app* state)
 	uth::FileReader::m_manager = state->activity->assetManager;
 
 	state->onAppCmd = handle_cmd;
-	state->onInputEvent = uth::TouchInput::DroidMessage;
+	state->onInputEvent = handle_input;
 
     uth::SensorInput::sensorManager = ASensorManager_getInstance();
     uth::SensorInput::sensorEventQueue = ASensorManager_createEventQueue(

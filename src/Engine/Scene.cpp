@@ -59,17 +59,16 @@ Layer* uth::Scene::GetLayer(const int layerID)
     return nullptr;
 }
 
-bool Scene::AddGameObjectToLayer(const int layerId, GameObject* gameObject)
+GameObject* Scene::AddGameObjectToLayer(const int layerId, GameObject* gameObject)
 {
     auto itr = m_layers.find(layerId);
 
     if (itr != m_layers.end())
     {
-        itr->second->AddGameObject(gameObject);
-        return true;
+        return itr->second->AddGameObject(gameObject);
     }
 
-	return false;
+	return nullptr;
 }
 
 GameObject* Scene::RemoveGameObjectFromLayer(const int layerId, GameObject* gameObject, const bool deleteObject)
