@@ -97,7 +97,7 @@ void AnimatedSprite::ChangeAnimation(int loopStartFrame, int loopFrames,
 	m_loop = loop;
 	m_frameCount = 0;
 	m_reversed = reversed;
-	genererateBuffer();
+	generateBuffer();
 }
 
 void AnimatedSprite::Init()
@@ -144,11 +144,11 @@ void AnimatedSprite::Update(float dt)
 				m_curFrame = m_firstFrame + m_frames;
 			}
 		}
-		genererateBuffer();
+		generateBuffer();
 	}
 }
 
-void AnimatedSprite::genererateBuffer()
+void AnimatedSprite::generateBuffer()
 {
 	const int X = m_curFrame % m_frameCountX;
 	const int Y = m_curFrame/m_frameCountX;
