@@ -38,6 +38,13 @@ namespace uth
 		// Returns the content of the whole file as text
 		const std::string ReadText();
 
+		// Saves text to file.
+		// NOTE: @Android Relative to private application data folder.
+		void WriteToFile(const std::string& filenameAndPath, const std::string& data);
+		// Saves binarydata to file.
+		// NOTE: @Android Relative to private application data folder.
+		void WriteToFile(const std::string& filenameAndPath, const BINARY_DATA& data);
+
 		static bool isCompressed;
 	private:
 		std::FILE* file;

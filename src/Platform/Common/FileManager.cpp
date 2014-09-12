@@ -51,6 +51,10 @@ void FileManager::OpenFile(const std::string& path)
 		std::string temp_path = "assets/";
 		temp_path += path;
 		file = std::fopen(temp_path.c_str(), "rb");
+		if (file == nullptr)
+		{
+			file = std::fopen(path.c_str(), "rb");
+		}
 		assert(file != nullptr);
 	}
 }
@@ -148,4 +152,35 @@ const std::string FileManager::ReadText()
 	std::string str(buffer, size);
 	delete[] buffer;
 	return str;
+}
+
+
+void FileManager::WriteToFile(const std::string& filename, const std::string& data)
+{
+	std::FILE* file = std::fopen(filename.c_str(), "w+");
+	if (file != NULL)
+	{
+		std::fputs(data.c_str(), file);
+		std::fflush(file);
+		std::fclose(file);
+	}
+	else
+	{
+		WriteError("Writing to file failed! File couldn't be opened for writing.");
+	}
+}
+
+void FileManager::WriteToFile(const std::string& filename, const BINARY_DATA& data)
+{
+	std::FILE* file = std::fopen(filename.c_str(), "w+");
+	if (file != NULL)
+	{
+		std::fwrite(&data, sizeof(unsigned char), data.size(), file);
+		std::fflush(file);
+		std::fclose(file);
+	}
+	else
+	{
+		WriteError("Writing to file failed! File couldn't be opened for writing.");
+	}
 }
