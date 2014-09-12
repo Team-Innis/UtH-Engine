@@ -19,12 +19,7 @@ DefaultScene::~DefaultScene()
 
 bool DefaultScene::Init()
 {
-    shader = new Shader();
-    shader->LoadShader("Shaders/Default.vert", "Shaders/Default.frag");
-    shader->Use();
-
     uthEngine.GetWindow().SetViewport(pmath::Rect(0, 0, uthEngine.GetWindowResolution().x, uthEngine.GetWindowResolution().y));
-    uthEngine.GetWindow().SetShader(shader);
 
     logo = new GameObject();
 	textU = new GameObject();
@@ -74,7 +69,6 @@ bool DefaultScene::DeInit()
 	delete textT;
 	delete textH;
 	delete text;
-	delete shader;
 	delete fade;
 
     return true;

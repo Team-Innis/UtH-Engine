@@ -22,7 +22,7 @@ namespace uth
 		virtual bool Update(float dt);
 		virtual bool Draw();
 	protected:
-		Shader* shader;
+
 		float totalTime;
 
 		GameObject* logo;

@@ -17,10 +17,6 @@ namespace uth
 	
         bool Update(float dt) override;
         bool Draw() override;
-
-    private:
-	
-		ParticleSystem* ps;
 	
 	};
 }

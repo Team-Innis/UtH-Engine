@@ -14,7 +14,6 @@ namespace
 }
 
 TestScene::TestScene()
-    : ps(nullptr)
 {}
 TestScene::~TestScene()
 {}
@@ -28,9 +27,9 @@ bool TestScene::Init()
     // Objects
     // First
 	{
-	    //auto test = new GameObject();
-		//test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
-	    //AddGameObjectToLayer(Default, test);
+	    auto test = new GameObject();
+		test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
+	    AddGameObjectToLayer(Default, test);
     }
 
     // Second (ParticleSystem)
@@ -40,7 +39,7 @@ bool TestScene::Init()
         pt.SetSpeed(10.f, 150.f);
         pt.SetTexture(uthRS.LoadTexture("particle.tga"));
 
-        ps = new ParticleSystem(100);
+        auto ps = new ParticleSystem(100);
         ps->SetTemplate(pt);
 
         Affector* aff = new Affector([](Particle& part, const ParticleTemplate& ptemp, float dt)
@@ -49,6 +48,7 @@ bool TestScene::Init()
         });
 
         ps->AddAffector(aff);
+        ps->SetEmitProperties(true, 0.05f, 0.1f, 1, 5);
         AddGameObjectToLayer(Other, ps);
     }
 
@@ -62,13 +62,7 @@ bool TestScene::DeInit()
 bool TestScene::Update(float dt)
 {
     if (uthInput.Mouse.IsButtonPressed(uth::Mouse::RIGHT))
-    {
-        RemoveGameObjectFromLayer(Other, ps);
-        ps = nullptr;
-    }
-
-    if (ps)
-        ps->Emit(1);
+        GetLayer(Other)->SetActive(false);
     
     UpdateLayers(dt, -1);
 
