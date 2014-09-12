@@ -10,111 +10,108 @@ float TouchInput::m_prevLength = 0.f;
 
 int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 {
-	if (AInputEvent_getType(droidInputEvent) == AINPUT_EVENT_TYPE_MOTION)
+	int32_t action = AMotionEvent_getAction(droidInputEvent);
+
+	switch(action & AMOTION_EVENT_ACTION_MASK)
 	{
-		int32_t action = AMotionEvent_getAction(droidInputEvent);
-
-		switch(action & AMOTION_EVENT_ACTION_MASK)
+	case AMOTION_EVENT_ACTION_DOWN:
+	case AMOTION_EVENT_ACTION_POINTER_DOWN:
+		//When Screen is touched
 		{
-		case AMOTION_EVENT_ACTION_DOWN:
-		case AMOTION_EVENT_ACTION_POINTER_DOWN:
-			//When Screen is touched
-			{
-			int index = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
-				>> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
+		int index = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
+			>> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
 
-			if(index >= m_maxInputs)
-				break;
+		if(index >= m_maxInputs)
+			break;
 			
-			m_touchCount++;
+		m_touchCount++;
 
-			if(m_touchCount == 1)
-			{
-				m_motion = TouchMotion::STATIONARY;
-			}
-			else if(m_touchCount > 1)
-			{
-				m_motion = TouchMotion::MULTIPLE;
-			}
-
-			ID[index].m_startPos.x = AMotionEvent_getX(droidInputEvent, index);
-			ID[index].m_startPos.y = AMotionEvent_getY(droidInputEvent, index);
-			ID[index].m_motion = TouchMotion::STATIONARY;
-			ID[index].m_startIndex = index;
-			ID[index].m_downTime = 0.f;
-			ID[index].m_tapped = false;
-			}
-			break;
-		case AMOTION_EVENT_ACTION_MOVE:
-			//When pointer is moved
-			{
-			const int pointerCount = AMotionEvent_getPointerCount(droidInputEvent);
-
-			for(int index = 0; index < pointerCount && index < m_maxInputs; index++)
-			{
-				ID[index].m_curPos.x = AMotionEvent_getX(droidInputEvent, index);
-				ID[index].m_curPos.y = AMotionEvent_getY(droidInputEvent, index);
-
-				if((ID[index].m_curPos - ID[index].m_startPos).lengthSquared() >= 625.f)
-				{
-					ID[index].m_motion = TouchMotion::DRAG;
-				}
-			}
-			}
-			break;
-		case AMOTION_EVENT_ACTION_UP:
-		case AMOTION_EVENT_ACTION_POINTER_UP:
-		case AMOTION_EVENT_ACTION_CANCEL:
-		case AMOTION_EVENT_ACTION_OUTSIDE:
-			//If touch ends by taking finger away from screen or by some other event
+		if(m_touchCount == 1)
 		{
-			int index = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
-				>> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
+			m_motion = TouchMotion::STATIONARY;
+		}
+		else if(m_touchCount > 1)
+		{
+			m_motion = TouchMotion::MULTIPLE;
+		}
 
-			if(index >= m_maxInputs)
-				break;
+		ID[index].m_startPos.x = AMotionEvent_getX(droidInputEvent, index);
+		ID[index].m_startPos.y = AMotionEvent_getY(droidInputEvent, index);
+		ID[index].m_motion = TouchMotion::STATIONARY;
+		ID[index].m_startIndex = index;
+		ID[index].m_downTime = 0.f;
+		ID[index].m_tapped = false;
+		}
+		break;
+	case AMOTION_EVENT_ACTION_MOVE:
+		//When pointer is moved
+		{
+		const int pointerCount = AMotionEvent_getPointerCount(droidInputEvent);
 
-			m_touchCount--;
-
-			if(m_touchCount == 0)
-			{
-				m_motion = TouchMotion::NONE;
-			}
-
-			if(index <= 1)
-			{
-				m_prevLength = 0.f;
-				m_curLength = 0.f;
-			}
-
-			if(action == AMOTION_EVENT_ACTION_UP || action == AMOTION_EVENT_ACTION_POINTER_UP)
-			{
-				if(ID[index].Motion() == TouchMotion::STATIONARY && ID[index].m_downTime <= 0.5f)
-				{
-					ID[index].m_tapped = true;
-				}
-			}
-
+		for(int index = 0; index < pointerCount && index < m_maxInputs; index++)
+		{
 			ID[index].m_curPos.x = AMotionEvent_getX(droidInputEvent, index);
 			ID[index].m_curPos.y = AMotionEvent_getY(droidInputEvent, index);
 
-			if(!ID[index].m_tapped)
+			if((ID[index].m_curPos - ID[index].m_startPos).lengthSquared() >= 625.f)
 			{
-				for (unsigned int i = index; i < m_maxInputs-1; i++)
-				{
-					ID[i].m_startIndex = ID[i+1].m_startIndex;
-					ID[i].m_startPos = ID[i+1].m_startPos;
-					ID[i].m_downTime = ID[i+1].m_downTime;
-					ID[i].m_motion = ID[i+1].Motion();
-				}
+				ID[index].m_motion = TouchMotion::DRAG;
 			}
-			}
-			break;
-		default:
-			break;
 		}
-		return 1;
+		}
+		break;
+	case AMOTION_EVENT_ACTION_UP:
+	case AMOTION_EVENT_ACTION_POINTER_UP:
+	case AMOTION_EVENT_ACTION_CANCEL:
+	case AMOTION_EVENT_ACTION_OUTSIDE:
+		//If touch ends by taking finger away from screen or by some other event
+	{
+		int index = (action & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK)
+			>> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
+
+		if(index >= m_maxInputs)
+			break;
+
+		m_touchCount--;
+
+		if(m_touchCount == 0)
+		{
+			m_motion = TouchMotion::NONE;
+		}
+
+		if(index <= 1)
+		{
+			m_prevLength = 0.f;
+			m_curLength = 0.f;
+		}
+
+		if(action == AMOTION_EVENT_ACTION_UP || action == AMOTION_EVENT_ACTION_POINTER_UP)
+		{
+			if(ID[index].Motion() == TouchMotion::STATIONARY && ID[index].m_downTime <= 0.5f)
+			{
+				ID[index].m_tapped = true;
+			}
+		}
+
+		ID[index].m_curPos.x = AMotionEvent_getX(droidInputEvent, index);
+		ID[index].m_curPos.y = AMotionEvent_getY(droidInputEvent, index);
+
+		if(!ID[index].m_tapped)
+		{
+			for (unsigned int i = index; i < m_maxInputs-1; i++)
+			{
+				ID[i].m_startIndex = ID[i+1].m_startIndex;
+				ID[i].m_startPos = ID[i+1].m_startPos;
+				ID[i].m_downTime = ID[i+1].m_downTime;
+				ID[i].m_motion = ID[i+1].Motion();
+			}
+		}
+		}
+		break;
+	default:
+		break;
 	}
+	return 1;
 	return 0;
 }
 
