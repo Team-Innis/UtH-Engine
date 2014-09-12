@@ -4,22 +4,31 @@
 
 #include <vector>
 #include <UtH/Platform/Singleton.hpp>
-
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/HiResTimer.hpp>
-#include <UtH/Resources/ResourceManager.h>
-#include <UtH/Engine/SceneManager.hpp>
 #include <pmath/Vector4.hpp>
 
-#define uthEngine uth::UTHEngine::getInstance()
+#include <UtH/Engine/Particles/ParticleSystem.hpp>
+#include <UtH/Engine/TMX/Map.hpp>
+#include <UtH/Engine/TMX/ObjectGroup.hpp>
+
+#include <UtH/Engine/SceneManager.hpp>
+#include <UtH/Engine/DefaultScene.hpp>
+#include <UtH/Engine/Rigidbody.hpp>
+#include <UtH/Engine/SceneManager.hpp>
+#include <UtH/Engine/SpriteBatch.hpp>
+
+//#include <UtH/Resources/ResourceManager.hpp>
+
+#define uthEngine uth::Engine::getInstance()
 
 namespace uth
 {
-	class UTHEngine : public Singleton<UTHEngine>
+	class Engine : public Singleton<Engine>
 	{
-		friend class Singleton<UTHEngine>;
+		friend class Singleton<Engine>;
 	private:
-		UTHEngine();
+		Engine();
 
 		uth::WindowSettings m_wsettings;
 		uth::Window* m_wndw;

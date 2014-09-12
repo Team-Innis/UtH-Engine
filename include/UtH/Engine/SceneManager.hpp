@@ -1,11 +1,10 @@
-#ifndef SCENEMANAGER_HPP_UTH
-#define SCENEMANAGER_HPP_UTH
+#ifndef SCENEMANAGER_H_UTH
+#define SCENEMANAGER_H_UTH
 
-#include "UtH/Engine/Scene.hpp"
+#include <UtH/Engine/Scene.hpp>
 #include <UtH/Platform/Singleton.hpp>
 
 #define uthSceneM uth::SceneManager::getInstance()
-#define UTHDefaultScene -1
 
 namespace uth
 {

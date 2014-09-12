@@ -56,10 +56,15 @@ namespace uth
 		void SetDepth(const float depth);
 		const float GetDepth() const;
 
+        pmath::Rect GetBounds() const;
+
 		void SetTransform(const pmath::Mat4& modelTransform);
 		// Adds to the current transform(multiplies). Mostly needed for layer transformation
 		void AddTransform(const pmath::Mat4& modelTransform);
 		const pmath::Mat4& GetTransform();
+
+
+    private:
 
 		pmath::Vec2 position;
 		pmath::Vec2 size;

@@ -53,5 +53,8 @@
     <ClInclude Include="..\..\include\UtH\Renderer\RenderTexture.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Renderer\Renderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

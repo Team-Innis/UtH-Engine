@@ -31,7 +31,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Platform\Android\AndroidEngine.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\AndroidWindowImpl.hpp" />
-    <ClInclude Include="..\..\include\UtH\Platform\Android\FileReader.h" />
+    <ClInclude Include="..\..\include\UtH\Platform\Android\FileReader.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputCommon.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputController.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputKeyboard.hpp" />

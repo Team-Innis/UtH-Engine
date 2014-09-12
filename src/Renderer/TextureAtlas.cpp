@@ -1,6 +1,6 @@
 #include <UtH/Renderer/TextureAtlas.hpp>
-#include <UtH/Platform/FileReader.h>
-#include <UtH/Resources/ResourceManager.h>
+#include <UtH/Platform/FileReader.hpp>
+#include <UtH/Resources/ResourceManager.hpp>
 #include <string>
 #include <tinyxml2.h>
 
@@ -63,10 +63,10 @@ namespace uth
 		m_texture->Bind();
 	}
 
-	unsigned int TextureAtlas::GetTextureID() const
+	/*unsigned int TextureAtlas::GetTextureID() const
 	{
 		return m_texture->GetTextureID();
-	}
+	}*/
 
 	bool TextureAtlas::SetSmooth(const bool value)
 	{

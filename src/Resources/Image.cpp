@@ -1,7 +1,7 @@
 #include <UtH/Resources/Image.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/BinaryData.hpp>
-#include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/FileReader.hpp>
 #include <cassert>
 #include <cstring>
 #include <vector>
@@ -20,14 +20,8 @@ namespace uth
         : m_size(),
           m_pixels(),
           m_depth(0)
-    {}
-
-    Image::Image(const std::string& filePath)
-        : m_size(),
-          m_pixels(),
-          m_depth(0)
     {
-        LoadFromFile(filePath);
+    
     }
 
     Image::~Image()

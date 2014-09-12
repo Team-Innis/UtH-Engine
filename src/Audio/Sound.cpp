@@ -1,7 +1,7 @@
 #include <UtH/Audio/Sound.hpp>
 #include <UtH/Platform/Typedefs.hpp>
 #include <UtH/Platform/Debug.hpp>
-#include <UtH/Resources/ResourceManager.h>
+#include <UtH/Resources/ResourceManager.hpp>
 #include <UtH/Audio/SoundDevice.hpp>
 
 using namespace uth;

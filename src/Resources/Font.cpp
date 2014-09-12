@@ -1,24 +1,19 @@
 #include <UtH/Resources/Font.hpp>
-#include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/FileReader.hpp>
 #include <cstdlib> // free
 
 using namespace uth;
 
 Font::Font()
-{ }
-
-Font::Font(const std::string& filePath)
 {
-	LoadFromFile(filePath);
-}
 
+}
 
 Font::~Font()
 {
 	m_fontData.clear();
 }
 
-// Public
 bool Font::LoadFromFile(const std::string& filePath)
 {
 	FileReader fr;

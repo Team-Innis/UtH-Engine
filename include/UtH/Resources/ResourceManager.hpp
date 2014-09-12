@@ -2,12 +2,14 @@
 #ifndef RESOURCEMANAGER_H_UTH
 #define RESOURCEMANAGER_H_UTH
 
-#include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/FileReader.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/Singleton.hpp>
+
+#include <UtH/Resources/Font.hpp>
 #include <UtH/Resources/Image.hpp>
 #include <UtH/Resources/SoundBuffer.hpp>
-#include <UtH/Resources/Font.hpp>
+
 #include <UtH/Renderer/Texture.hpp>
 
 #include <unordered_map>
@@ -49,10 +51,10 @@ namespace uth
 		ResourceManager();
 		~ResourceManager();
 
-        std::unordered_map<std::string, std::unique_ptr<SoundBuffer>> m_soundBuffers;
-		std::unordered_map<std::string, std::unique_ptr<Image>> m_images;
-        std::unordered_map<std::string, std::unique_ptr<Texture>> m_textures;
-        std::unordered_map<std::string, std::unique_ptr<Font>> m_fonts;
+        std::unordered_map<std::string, std::unique_ptr<SoundBuffer, SoundBuffer::Deleter>> m_soundBuffers;
+		std::unordered_map<std::string, std::unique_ptr<Image, Image::Deleter>> m_images;
+        std::unordered_map<std::string, std::unique_ptr<Texture, Texture::Deleter>> m_textures;
+        std::unordered_map<std::string, std::unique_ptr<Font, Font::Deleter>> m_fonts;
 	};
 }
 

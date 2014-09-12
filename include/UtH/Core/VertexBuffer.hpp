@@ -1,7 +1,7 @@
 #pragma once
 
-#ifndef VERTEXBUFFER_H
-#define VERTEXBUFFER_H
+#ifndef VERTEXBUFFER_H_UTH
+#define VERTEXBUFFER_H_UTH
 
 #include <vector>
 #include <pmath/Vector.hpp>

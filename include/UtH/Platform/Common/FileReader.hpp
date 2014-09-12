@@ -2,8 +2,8 @@
 * Filereader for linux and windows
 **/
 #pragma once
-#ifndef FILEREADER_H
-#define FILEREADER_H
+#ifndef FILEREADER_H_UTH
+#define FILEREADER_H_UTH
 
 #include <cstdio>
 #include <string>

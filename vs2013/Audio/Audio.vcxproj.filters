@@ -29,5 +29,8 @@
     <ClInclude Include="..\..\include\UtH\Audio\Sound.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Audio\Audio.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

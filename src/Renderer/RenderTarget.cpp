@@ -61,6 +61,9 @@ namespace uth
     void RenderTarget::SetCamera(Camera* camera)
     {
         m_camera = camera;
+
+        if (m_camera)
+            m_camera->m_target = this;
     }
 
     Camera& RenderTarget::GetCamera() const
@@ -81,6 +84,9 @@ namespace uth
     void RenderTarget::SetShader(Shader* shader)
     {
         m_shader = shader;
+
+        if (m_shader)
+            m_shader->m_target = this;
     }
 
     Shader& RenderTarget::GetShader()

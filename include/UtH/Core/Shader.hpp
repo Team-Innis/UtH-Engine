@@ -1,5 +1,5 @@
-#ifndef SHADER_H
-#define SHADER_H
+#ifndef SHADER_H_UTH
+#define SHADER_H_UTH
 
 #include <pmath/PMath.hpp>
 #include <UtH/Platform/Enums.hpp>
@@ -9,6 +9,9 @@ namespace uth
 {
 	class Shader
 	{
+
+        friend class RenderTarget;
+
 	public:
 		Shader();
 		~Shader();
@@ -35,6 +38,10 @@ namespace uth
 	private:
 
 		unsigned int m_program;
+
+        // Used for unbinding this shader from a render target automatically.
+        RenderTarget* m_target;
+
 	};
 }
 

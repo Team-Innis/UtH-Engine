@@ -1,6 +1,6 @@
 #pragma once
-#ifndef ENUMS_TMX_UTH_H
-#define ENUMS_TMX_UTH_H
+#ifndef ENUMS_TMX_H_UTH
+#define ENUMS_TMX_H_UTH
 
 namespace uth
 {

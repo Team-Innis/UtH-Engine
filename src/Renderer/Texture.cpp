@@ -1,6 +1,6 @@
 #include <UtH/Renderer/Texture.hpp>
 #include <UtH/Platform/Graphics.hpp>
-#include <UtH/Resources/ResourceManager.h>
+#include <UtH/Resources/ResourceManager.hpp>
 #include <cstdlib>
 
 
@@ -15,24 +15,11 @@ namespace uth
 
     }
 
-    Texture::Texture(const std::string& filePath)
-        : m_textureID(0),
-          m_size(),
-          m_smooth(false),
-          m_repeated(false)
-    {
-        LoadFromFile(filePath);
-    }
-
     Texture::~Texture()
     {
-		Delete();
+        if (m_textureID)
+            uth::Graphics::DeleteTextures(1, &m_textureID);
     }
-	
-	void Texture::Delete()
-	{
-		uth::Graphics::DeleteTextures(1,&m_textureID);
-	}
 
 
     bool Texture::Create(const pmath::Vec2& size, const bool smooth, const bool repeated)
@@ -97,10 +84,10 @@ namespace uth
         uth::Graphics::BindTexture(TEXTURE_2D, 0);
     }
 
-    unsigned int Texture::GetTextureID() const
+    /*unsigned int Texture::GetTextureID() const
     {
         return m_textureID;
-    }
+    }*/
 
     bool Texture::SetSmooth(const bool value)
     {

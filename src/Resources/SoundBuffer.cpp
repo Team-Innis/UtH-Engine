@@ -1,6 +1,6 @@
 #include <UtH/Resources/SoundBuffer.hpp>
 #include <UtH/Platform/Debug.hpp>
-#include <UtH/Platform/FileReader.h>
+#include <UtH/Platform/FileReader.hpp>
 
 #include <sndfile/sndfile.h>
 
@@ -9,11 +9,6 @@ namespace uth
     SoundBuffer::SoundBuffer()
     {
 
-    }
-
-    SoundBuffer::SoundBuffer(const std::string& filePath)
-    {
-        LoadFromFile(filePath);
     }
 
     SoundBuffer::~SoundBuffer()
@@ -63,7 +58,6 @@ namespace uth
 
 		return true;	
     }
-
 
     const SoundBuffer::SoundStruct& SoundBuffer::GetSoundInfo() const
     {

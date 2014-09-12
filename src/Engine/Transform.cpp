@@ -70,28 +70,28 @@ void Transform::SetOrigin(const int originPoint)
 	switch (originPoint)
 	{
 	case Origin::Point::BottomLeft:
-		SetOrigin(Vec2(size.x * scale.x * -0.5f,size.y * scale.y * 0.5f));
+		SetOrigin(Vec2(size.x * -0.5f,size.y * 0.5f));
 		break;
 	case Origin::Point::BottomCenter:
-		SetOrigin(Vec2(0.0f, size.y * scale.y * 0.5f));
+		SetOrigin(Vec2(0.0f, size.y * 0.5f));
 		break;
 	case Origin::Point::BottomRight:
-		SetOrigin(Vec2(size.x * scale.x * 0.5f, size.y * scale.y * 0.5f));
+		SetOrigin(Vec2(size.x * 0.5f, size.y * 0.5f));
 		break;
 	case Origin::Point::MidLeft:
-		SetOrigin(Vec2(size.x * scale.x * -0.5f, 0.f));
+		SetOrigin(Vec2(size.x * -0.5f, 0.f));
 		break;
 	case Origin::Point::MidRight:
-		SetOrigin(Vec2(size.x * scale.x * 0.5f, 0.f));
+		SetOrigin(Vec2(size.x * 0.5f, 0.f));
 		break;
 	case Origin::Point::TopLeft:
-		SetOrigin(Vec2(size.x * scale.x * -0.5f, size.y * scale.y * -0.5f));
+		SetOrigin(Vec2(size.x * -0.5f, size.y * -0.5f));
 		break;
 	case Origin::Point::TopCenter:
-		SetOrigin(Vec2(0.0f, size.y * scale.y * -0.5f));
+		SetOrigin(Vec2(0.0f, size.y * -0.5f));
 		break;
 	case Origin::Point::TopRight:
-		SetOrigin(Vec2(size.x * scale.x * 0.5f, size.y * scale.y * -0.5f));
+		SetOrigin(Vec2(size.x * 0.5f, size.y * -0.5f));
 		break;
 	case Origin::Point::Center:
 	default:
@@ -147,6 +147,16 @@ const float Transform::GetDepth() const
 	return depth;
 }
 
+pmath::Rect Transform::GetBounds() const
+{
+    Vec2 scaled = size;
+    scaled.scale(scale);
+    Vec2 sOrig = origin;
+    sOrig.scale(scale);
+
+    return pmath::Rect((position - sOrig) - scaled / 2.f, scaled);
+}
+
 void Transform::SetTransform(const pmath::Mat4& modelTransform)
 {
 	m_modelTransform = modelTransform;
@@ -194,8 +204,8 @@ void Transform::updateTransform()
 		);
 
 	const pmath::Mat4 scaleMatrix(
-		size.x * scale.x,   0,                  0,      0,
-		0,                  size.y * scale.y,   0,      0,
+		scale.x,   0,                  0,      0,
+		0,                  scale.y,   0,      0,
 		0,                  0,                  1.0f,   0,
 		0,                  0,                  0,      1.0f
 		);

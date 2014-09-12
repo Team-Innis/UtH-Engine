@@ -77,7 +77,7 @@ $(SRC_PATH)Engine/DefaultScene.cpp \
 $(SRC_PATH)Engine/Scene.cpp \
 $(SRC_PATH)Engine/SceneManager.cpp \
 $(SRC_PATH)Engine/Sprite.cpp \
-$(SRC_PATH)Engine/UtHEngine.cpp \
+$(SRC_PATH)Engine/Engine.cpp \
 $(SRC_PATH)Engine/Transform.cpp \
 $(SRC_PATH)Engine/Rigidbody.cpp \
 $(SRC_PATH)Engine/Layer.cpp \

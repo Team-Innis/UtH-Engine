@@ -1,6 +1,6 @@
 #pragma once
-#ifndef MOVEAFFECTOR_H
-#define MOVEAFFECTOR_H
+#ifndef MOVEAFFECTOR_H_UTH
+#define MOVEAFFECTOR_H_UTH
 
 #include <UtH/Engine/Particles/Affector.hpp>
 #include <UtH/Engine/Particles/Particle.hpp>

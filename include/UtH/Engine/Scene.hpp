@@ -2,23 +2,28 @@
 #ifndef SCENE_H_UTH
 #define SCENE_H_UTH
 
+#define UTHDefaultScene -1
+
 #include <UtH/Core/Shader.hpp>
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Engine/Layer.hpp>
-#include <Box2D/Box2D.h>
+#include <map>
 
-#include <vector>
+
+class b2World;
 
 namespace uth
 {
 	const float GRAVITY = 10.f;
 
 	class Scene
-	{
+    {
+        friend class SceneManager;
+
 	public:
-		friend class SceneManager;
+
 		Scene();
-		virtual ~Scene();
+		virtual ~Scene() = 0;
 
 		virtual bool Init() = 0;
 		virtual bool DeInit() = 0;
@@ -27,27 +32,32 @@ namespace uth
 		virtual bool Draw() = 0;	
 
 	protected:
+
 		//LAYERS
-		bool CreateLayer(const int layerId);
-		bool CreateLayer(const char* layerName, const int layerId);
-		void SetLayerActive(const char* layerName, bool active = true);
-		void SetLayerActive(const int layerId, bool active = true);
-		bool AddGameObjectToLayer(const char* layerName, GameObject* gameObject);
-		bool AddGameObjectToLayer(int layerId, GameObject* gameObject);
-		bool RemoveGameObjectFromLayer(const char* layerName, GameObject* gameObject);
-		bool RemoveGameObjectFromLayer(int LayerId, GameObject* gameObject);
+		Layer* CreateLayer(const int layerId, const bool adoptObjects = true);
+        bool DeleteLayer(const int layerID);
+        Layer* GetLayer(const int layerID);
+		bool AddGameObjectToLayer(const int layerId, GameObject* gameObject);
+		GameObject* RemoveGameObjectFromLayer(const int LayerId, GameObject* gameObject, const bool deleteObject = true);
 
-		std::vector<Layer*> layers;
-		unsigned int layersCount;
+        // If id < 0, all layers will be updated/drawn.
+        void UpdateLayers(float dt, const int id = -1);
+        void DrawLayers(RenderTarget& target, const int id = -1);
 
-		GameObject layer;
+    private:
 
-		b2World world;
+        struct LayerDeleter
+        {
+            void operator ()(Layer* layer)
+            {
+                delete layer;
+            }
+        };
 
-	private:
+        std::map<int, std::unique_ptr<Layer, LayerDeleter>> m_layers;
 
-		int nextAvailableID();
-		void arrangeLayers(); // Sort layers by their ID
+		std::unique_ptr<b2World> m_world;
+
 	};
 }
 

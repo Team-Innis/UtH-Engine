@@ -2,10 +2,12 @@
 #ifndef PARTICLESYSTEM_H_UTH
 #define PARTICLESYSTEM_H_UTH
 
+#include <UtH/Platform/HiResTimer.hpp>
+
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Engine/SpriteBatch.hpp>
+
 #include <UtH/Engine/Particles/ParticleTemplate.hpp>
-#include <UtH/Platform/HiResTimer.hpp>
 #include <UtH/Engine/Particles/Affector.hpp>
 #include <UtH/Engine/Particles/Particle.hpp>
 
@@ -21,7 +23,11 @@ namespace uth
         ~ParticleSystem(){};
 
 
-        virtual void Emit(const unsigned int amount);
+        void Emit(const unsigned int amount);
+
+        bool ReadyToEmit() const;
+
+        void SetEmitProperties(const bool autoEmit, const float min = 0.f, const float max = 1.f, const int minAmount = 1, const int maxAmount = 1);
 
         void AddAffector(Affector* affector);
 
@@ -40,6 +46,12 @@ namespace uth
 
         std::vector<std::unique_ptr<Affector>> m_affectors;
         std::vector<Particle> m_particles;
+
+        pmath::Vec2i m_emitAmount;
+        pmath::Vec2 m_emitFreq;
+        mutable float m_emitTimer;
+        mutable float m_emitTimeLimit;
+        bool m_autoEmit;
 
     };
 

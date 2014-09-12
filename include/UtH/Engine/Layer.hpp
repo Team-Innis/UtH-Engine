@@ -3,44 +3,41 @@
 #define LAYER_H_UTH
 
 #include <UtH/Platform/Uncopyable.hpp>
-#include <UtH/Engine/GameObject.hpp>
-
-#include <vector>
+#include <set>
 
 namespace uth
 {
+    class GameObject;
+    class RenderTarget;
+
 	class Layer : private Uncopyable
 	{
+
+        friend class Scene;
+
 	public:
-		Layer();
-		Layer(const int layerId);
-		Layer(const char* layerName, const int layerId);
-		~Layer();
 
-		void SetLayerName(const char* layerName);
-		const char* GetLayerName();
+		int GetLayerId() const;
 
-		void SetLayerId(const int layerId);
-		const int GetLayerId();
+        void SetActive(const bool active);
+        bool IsActive() const;
 
 		bool AddGameObject(GameObject* gameObject);
-		bool RemoveGameObject(GameObject* gameObject);
+		GameObject* RemoveGameObject(GameObject* gameObject, const bool deleteObject = true);
 
 		void Update(float dt);
 		void Draw(RenderTarget& target);
 
-		void SetObjectsActive(bool value);
+    private:
 
-		Transform transform;
+        Layer(const int layerId, const bool adoptObjects = true);
+        ~Layer();
 
-	private:
-		void UpdateTransform();
+		std::set<GameObject*> m_objects;
 
-		std::vector<GameObject*> m_objects;
-
-		const char* layerName;
 		const int layerId;
-		unsigned int objectCount;
+        const bool m_adopt;
+        bool m_active;
 	};
 }
 #endif
