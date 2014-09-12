@@ -37,7 +37,7 @@ namespace uth
 		Layer* CreateLayer(const int layerId, const bool adoptObjects = true);
         bool DeleteLayer(const int layerID);
         Layer* GetLayer(const int layerID);
-		bool AddGameObjectToLayer(const int layerId, GameObject* gameObject);
+		GameObject* AddGameObjectToLayer(const int layerId, GameObject* gameObject);
 		GameObject* RemoveGameObjectFromLayer(const int LayerId, GameObject* gameObject, const bool deleteObject = true);
 
         // If id < 0, all layers will be updated/drawn.
