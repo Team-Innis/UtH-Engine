@@ -82,7 +82,7 @@ void FileManager::WriteToFile(const std::string& filename, const std::string& da
 	}
 	else if (ENOENT == errno)
 	{
-		res = mkdir(dataPath.c_str(), 0777);
+		res = mkdir(dataPath.c_str(), 0770);
 		if (!res)
 			uth::WriteLog("Creating data folder succeeded!");
 		else
@@ -95,6 +95,41 @@ void FileManager::WriteToFile(const std::string& filename, const std::string& da
 	if (file != NULL)
 	{
 		std::fputs(data.c_str(), file);
+		std::fflush(file);
+		std::fclose(file);
+	}
+	else
+	{
+		WriteError("Writing to file failed! File couldn't be opened for writing.");
+	}
+}
+
+void FileManager::WriteToFile(const std::string& filename, const BINARY_DATA& data)
+{
+	std::string dataPath(uthAndroidEngine.internalPath + "/");
+
+	struct stat sb;
+	int32_t res = stat(dataPath.c_str(), &sb);
+
+	if (0 == res && sb.st_mode & S_IFDIR)
+	{
+		WriteLog("%s dir already in app's internal data storage.", dataPath.c_str());
+	}
+	else if (ENOENT == errno)
+	{
+		res = mkdir(dataPath.c_str(), 0770);
+		if (!res)
+			uth::WriteLog("Creating data folder succeeded!");
+		else
+			uth::WriteError("Creating data folder failed with %d!", res);
+
+	}
+
+	dataPath += filename;
+	std::FILE* file = std::fopen(dataPath.c_str(), "w+");
+	if (file != NULL)
+	{
+		std::fwrite(&data, sizeof(unsigned char), data.size(), file);
 		std::fflush(file);
 		std::fclose(file);
 	}

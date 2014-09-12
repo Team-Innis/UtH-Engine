@@ -40,9 +40,10 @@ namespace uth
 
 		// Saves text to file.
 		// [PC] Relative to executable location.
-		// [Android] Relative to root of sdcard if such exists.
+		// [Android] Relative to private application data folder.
 		void WriteToFile(const std::string& filenameAndPath, const std::string& data);
-		// Saves binarydata to file.
+		// [PC] Relative to executable location.
+		// [Android] Relative to private application data folder.
 		void WriteToFile(const std::string& filenameAndPath, const BINARY_DATA& data);
 
 		static AAssetManager* m_manager;
