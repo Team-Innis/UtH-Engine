@@ -58,8 +58,12 @@ const std::string& Object::GetType() const
 void Object::parseObject(tinyxml2::XMLElement* element)
 {
     // Parse properties
-	m_name = element->Attribute("name");
-	m_typeString = element->Attribute("type");
+	const char* name = element->Attribute("name");
+	if (name)
+		m_name = name;
+	const char* type = element->Attribute("type");
+	if (type)
+		m_typeString = type;
 
     auto properties = element->FirstChildElement("properties");
     if(properties != 0)
