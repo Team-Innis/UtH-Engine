@@ -57,7 +57,7 @@ namespace uth
 
     Camera& Camera::SetSize(const pmath::Vec2& size)
     {
-        transform.size = size;
+        transform.SetSize(size);
 
         m_transformNeedsUpdate = true;
         m_inverseTransformNeedsUpdate = true;
@@ -67,7 +67,7 @@ namespace uth
 
     Camera& Camera::SetSize(const float x, const float y)
     {
-        transform.size = pmath::Vec2(x, y);
+        transform.SetSize(pmath::Vec2(x, y));
 
         m_transformNeedsUpdate = true;
         m_inverseTransformNeedsUpdate = true;
@@ -134,7 +134,7 @@ namespace uth
 
     pmath::Vec2 Camera::GetSize() const
     {
-        return pmath::Vec2(transform.size.x / m_zoom, transform.size.y / m_zoom);
+        return pmath::Vec2(transform.GetSize().x / m_zoom, transform.GetSize().y / m_zoom);
     }
 
     float Camera::GetRotation() const
@@ -146,8 +146,8 @@ namespace uth
     {
         if (m_transformNeedsUpdate)
         {
-            const float rotation = transform.angle;
-            const pmath::Vec2 position = transform.position;
+            const float rotation = transform.GetRotation();
+            const pmath::Vec2 position = transform.GetPosition();
 
             const float angle  = rotation * 3.141592654f / 180.f;
             const float cosine = static_cast<float>(std::cos(angle));
@@ -155,8 +155,8 @@ namespace uth
             const float tx     = -position.x * cosine - position.y * sine + position.x;
             const float ty     =  position.x * sine - position.y * cosine + position.y;
 
-			const float sizeX = transform.size.x / m_zoom;
-			const float sizeY = transform.size.y / m_zoom;
+			const float sizeX = transform.GetSize().x / m_zoom;
+			const float sizeY = transform.GetSize().y / m_zoom;
 
             const float a =  2.f / sizeX;
             const float b = -2.f / sizeY;

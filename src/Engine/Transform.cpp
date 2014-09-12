@@ -147,6 +147,16 @@ const float Transform::GetDepth() const
 	return depth;
 }
 
+pmath::Rect Transform::GetBounds() const
+{
+    Vec2 scaled = size;
+    scaled.scale(scale);
+    Vec2 sOrig = origin;
+    sOrig.scale(scale);
+
+    return pmath::Rect((position - sOrig) - scaled / 2.f, scaled);
+}
+
 void Transform::SetTransform(const pmath::Mat4& modelTransform)
 {
 	m_modelTransform = modelTransform;
