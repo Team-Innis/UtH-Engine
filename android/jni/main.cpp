@@ -42,7 +42,7 @@ void android_main(android_app* state)
 	uthAndroidEngine.initialized = false;
 
 	uth::Window wndw;
-	uth::FileReader::m_manager = state->activity->assetManager;
+	uth::FileManager::m_manager = state->activity->assetManager;
 
 	state->onAppCmd = handle_cmd;
 	state->onInputEvent = uth::TouchInput::DroidMessage;

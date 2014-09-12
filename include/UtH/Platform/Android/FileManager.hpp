@@ -12,12 +12,12 @@
 
 namespace uth
 {
-	class FileReader
+	class FileManager
 	{
 	public:
-		FileReader();
-		FileReader(const std::string& path);
-		~FileReader();
+		FileManager();
+		FileManager(const std::string& path);
+		~FileManager();
 
 		void OpenFile(const std::string& path);
 		void CloseFile();

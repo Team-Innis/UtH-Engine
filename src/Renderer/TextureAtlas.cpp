@@ -1,5 +1,5 @@
 #include <UtH/Renderer/TextureAtlas.hpp>
-#include <UtH/Platform/FileReader.hpp>
+#include <UtH/Platform/FileManager.hpp>
 #include <UtH/Resources/ResourceManager.hpp>
 #include <string>
 #include <tinyxml2.h>
@@ -27,7 +27,7 @@ namespace uth
 
 	bool TextureAtlas::LoadFromFile(const std::string& filePath)
 	{
-		FileReader fr;
+		FileManager fr;
 		fr.OpenFile(filePath);
 
 		tinyxml2::XMLDocument doc;

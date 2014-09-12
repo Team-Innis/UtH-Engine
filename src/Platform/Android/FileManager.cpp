@@ -1,52 +1,52 @@
-#include <UtH/Platform/FileReader.hpp>
+#include <UtH/Platform/FileManager.hpp>
 #include <cstdlib> //malloc
 #include <UtH/Platform/Debug.hpp>
 
 using namespace uth;
 
-AAssetManager* FileReader::m_manager = nullptr;
+AAssetManager* FileManager::m_manager = nullptr;
 
-FileReader::FileReader()
+FileManager::FileManager()
 	: m_asset(nullptr)
 { }
-FileReader::FileReader(const std::string& path)
+FileManager::FileManager(const std::string& path)
 {
 	OpenFile(path);
 }
-FileReader::~FileReader()
+FileManager::~FileManager()
 {
 	CloseFile();
 }
 
-void FileReader::OpenFile(const std::string& path)
+void FileManager::OpenFile(const std::string& path)
 {
 	m_asset = AAssetManager_open(m_manager, path.c_str(),2);
 	m_length = AAsset_getLength(m_asset);
 }
-void FileReader::CloseFile()
+void FileManager::CloseFile()
 {
 	//AAsset_close(m_asset);
 }
-int FileReader::GetFileSize()
+int FileManager::GetFileSize()
 {
 	return m_length;
 }
 
-bool FileReader::FileSeek(int offset, int origin)
+bool FileManager::FileSeek(int offset, int origin)
 {
 	if(AAsset_seek(m_asset, offset, origin) != -1)
 		return true;
 	return false;
 }
 
-bool FileReader::ReadBytes(void* buffer, unsigned int count, unsigned int blockSize)
+bool FileManager::ReadBytes(void* buffer, unsigned int count, unsigned int blockSize)
 {
 	if(AAsset_read(m_asset, buffer, count * blockSize) >= 0)
 		return true;
 	return false;
 }
 
-const BINARY_DATA FileReader::ReadBinary()
+const BINARY_DATA FileManager::ReadBinary()
 {
 	BINARY_DATA retVal(GetFileSize());
 	if(!ReadBytes(retVal.ptr(),retVal.size()))
@@ -54,7 +54,7 @@ const BINARY_DATA FileReader::ReadBinary()
 	return retVal;
 }
 
-const std::string FileReader::ReadText()
+const std::string FileManager::ReadText()
 {
 	int size = GetFileSize();
 	char* buffer = new char[size];
@@ -65,27 +65,27 @@ const std::string FileReader::ReadText()
 	return str;
 }
 
-AAsset* FileReader::loadSound(const std::string& fileName)
+AAsset* FileManager::loadSound(const std::string& fileName)
 {
 	return AAssetManager_open(m_manager, fileName.c_str(), AASSET_MODE_UNKNOWN);
 }
 
-int64_t FileReader::getAssetLength(void* asset)
+int64_t FileManager::getAssetLength(void* asset)
 {
 	return AAsset_getLength((AAsset*)asset);
 }
 
-int64_t FileReader::seekAsset(int64_t offset, int whence, void* asset)
+int64_t FileManager::seekAsset(int64_t offset, int whence, void* asset)
 {
 	return AAsset_seek((AAsset*)asset, offset, whence);
 }
 
-int64_t FileReader::readAsset(void* buffer, int64_t count, void* asset)
+int64_t FileManager::readAsset(void* buffer, int64_t count, void* asset)
 {
 	return AAsset_read((AAsset*)asset, buffer, count);
 }
 
-int64_t FileReader::tellAsset(void* asset)
+int64_t FileManager::tellAsset(void* asset)
 {
 	return AAsset_seek((AAsset*)asset, 0, SEEK_CUR);
 }

@@ -13,12 +13,12 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Platform\BinaryData.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Common\CommonWindowImpl.hpp" />
-    <ClInclude Include="..\..\include\UtH\Platform\Common\FileReader.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Common\FileManager.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Common\InputSensor.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Configuration.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Debug.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Enums.hpp" />
-    <ClInclude Include="..\..\include\UtH\Platform\FileReader.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\FileManager.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Graphics.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\HiResTimer.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Input.hpp" />
@@ -39,7 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Platform\Common\CommonWindowImpl.cpp" />
-    <ClCompile Include="..\..\src\Platform\Common\FileReader.cpp" />
+    <ClCompile Include="..\..\src\Platform\Common\FileManager.cpp" />
     <ClCompile Include="..\..\src\Platform\Common\InputSensor.cpp" />
     <ClCompile Include="..\..\src\Platform\Debug.cpp" />
     <ClCompile Include="..\..\src\Platform\Graphics.cpp" />

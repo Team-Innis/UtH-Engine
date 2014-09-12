@@ -90,11 +90,11 @@
     <ClInclude Include="..\..\include\UtH\Platform\Platform.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\FileReader.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Common\FileReader.hpp">
+    <ClInclude Include="..\..\include\UtH\Platform\Common\FileManager.hpp">
       <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\FileManager.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -109,9 +109,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Window.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Platform\Common\FileReader.cpp">
-      <Filter>Source Files\Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Input.cpp">
       <Filter>Source Files</Filter>
@@ -142,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Debug.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Common\FileManager.cpp">
+      <Filter>Source Files\Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

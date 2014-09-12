@@ -1,7 +1,7 @@
 #include <UtH/Resources/Image.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/BinaryData.hpp>
-#include <UtH/Platform/FileReader.hpp>
+#include <UtH/Platform/FileManager.hpp>
 #include <cassert>
 #include <cstring>
 #include <vector>
@@ -35,7 +35,7 @@ namespace uth
         m_pixels.clear();
 
         int width, height, depth;
-        FileReader fr(filePath);
+        FileManager fr(filePath);
         BINARY_DATA data = fr.ReadBinary();
         BYTE* pointer = stbi_load_from_memory(static_cast<stbi_uc*>(data.ptr()), data.size(), &width, &height, &depth, NULL);
         data.clear();

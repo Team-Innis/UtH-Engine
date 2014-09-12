@@ -1,4 +1,4 @@
-#include <UtH/Platform/FileReader.hpp>
+#include <UtH/Platform/FileManager.hpp>
 #include <UtH/Platform/Debug.hpp>
 
 #include <cassert>
@@ -7,16 +7,16 @@
 
 using namespace uth;
 
-bool FileReader::isCompressed = false;
+bool FileManager::isCompressed = false;
 
-FileReader::FileReader()
+FileManager::FileManager()
 	: file(nullptr),
 	cFile(nullptr)
 {
 	if(isCompressed)
 		PHYSFS_init(nullptr);
 }
-FileReader::FileReader(const std::string& path)
+FileManager::FileManager(const std::string& path)
 {
 
 
@@ -25,14 +25,14 @@ FileReader::FileReader(const std::string& path)
 
 	OpenFile(path);
 }
-FileReader::~FileReader()
+FileManager::~FileManager()
 {
 	CloseFile();
 }
 
 
 // Public
-void FileReader::OpenFile(const std::string& path)
+void FileManager::OpenFile(const std::string& path)
 {
 	//CloseFile();
 
@@ -56,7 +56,7 @@ void FileReader::OpenFile(const std::string& path)
 		assert(file != nullptr);
 	}
 }
-void FileReader::CloseFile()
+void FileManager::CloseFile()
 {
 	if(PHYSFS_isInit())
 	{
@@ -69,7 +69,7 @@ void FileReader::CloseFile()
 		file = nullptr;
 	}
 }
-int FileReader::GetFileSize()
+int FileManager::GetFileSize()
 {
 	int size;
 	if(PHYSFS_isInit())
@@ -86,7 +86,7 @@ int FileReader::GetFileSize()
 	return size;
 }
 
-bool FileReader::FileSeek(int offset, int origin)
+bool FileManager::FileSeek(int offset, int origin)
 {
 	if(PHYSFS_isInit())
 	{
@@ -112,7 +112,7 @@ bool FileReader::FileSeek(int offset, int origin)
 	return false;
 }
 
-bool FileReader::ReadBytes(void* buffer, unsigned int count, unsigned int blockSize)
+bool FileManager::ReadBytes(void* buffer, unsigned int count, unsigned int blockSize)
 {
 	if(PHYSFS_isInit())
 	{
@@ -133,7 +133,7 @@ bool FileReader::ReadBytes(void* buffer, unsigned int count, unsigned int blockS
 	return false;
 }
 
-const BINARY_DATA FileReader::ReadBinary()
+const BINARY_DATA FileManager::ReadBinary()
 {
 	BINARY_DATA retVal(GetFileSize());
 	if(!ReadBytes(retVal.ptr(),retVal.size()))
@@ -141,7 +141,7 @@ const BINARY_DATA FileReader::ReadBinary()
 	return retVal;
 }
 
-const std::string FileReader::ReadText()
+const std::string FileManager::ReadText()
 {
 	int size = GetFileSize();
 	char* buffer = new char[size];
