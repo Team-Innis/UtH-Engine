@@ -24,6 +24,16 @@ GameObject::GameObject(const std::string &name)
 	transform.parent = this;
 }
 
+uth::GameObject::GameObject(const GameObject& other)
+    : parent(other.parent),
+      m_name(other.m_name),
+      m_active(other.m_active),
+      transform(*(new Transform(other.transform))),
+      components()
+{
+    AddComponent(&transform);
+    transform.parent = this;
+}
 
 GameObject::~GameObject()
 {
