@@ -58,6 +58,7 @@
     <ClCompile Include="..\..\src\Engine\DefaultScene.cpp" />
     <ClCompile Include="..\..\src\Engine\GameObject.cpp" />
     <ClCompile Include="..\..\src\Engine\Layer.cpp" />
+    <ClCompile Include="..\..\src\Engine\Object.cpp" />
     <ClCompile Include="..\..\src\Engine\Particles\Affector.cpp" />
     <ClCompile Include="..\..\src\Engine\Particles\ParticleSystem.cpp" />
     <ClCompile Include="..\..\src\Engine\Particles\ParticleTemplate.cpp" />
@@ -83,6 +84,7 @@
     <ClInclude Include="..\..\include\UtH\Engine\DefaultScene.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\GameObject.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Layer.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\Object.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Particles\Affector.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Particles\Particle.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Particles\ParticleSystem.hpp" />
