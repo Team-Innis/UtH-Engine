@@ -180,21 +180,13 @@ void Transform::updateTransform()
         m_modelTransform = m_modelTransform * pmath::Mat4::createTranslation(m_position.x, m_position.y, 0.f);
 
     if (m_angle != 0.f)
-    {
-        const float ang = -m_angle * static_cast<float>(pi) / 180.f;
-        const float cosine = std::cos(ang);
-        const float sine = std::sin(ang);
-
         m_modelTransform = m_modelTransform * pmath::Mat4::createRotationZ(m_angle);
-    }
 
     if (m_scale != pmath::Vec2(1.f, 1.f))
         m_modelTransform = m_modelTransform * pmath::Mat4::createScaling(m_scale.x, m_scale.y, 1.f);
     
     if (m_origin != pmath::Vec2(0.f, 0.f))
-    {
         m_modelTransform = m_modelTransform * pmath::Mat4::createTranslation(-m_origin.x, -m_origin.y, 0.f);
-    }
 
 	m_transformNeedsUpdate = false;
 }
