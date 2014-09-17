@@ -96,6 +96,16 @@ const pmath::Vec2 Rigidbody::GetVelocity() const
 	return box2DToUmath(m_body->GetLinearVelocity());
 }
 
+void Rigidbody::SetAngularVelocity(float velocity)
+{
+	m_body->SetAngularVelocity(velocity);
+}
+
+float Rigidbody::GetAngularVelocity() const
+{
+	return m_body->GetAngularVelocity();
+}
+
 void Rigidbody::SetSize(const pmath::Vec2& size)
 {
 	SetUnitSize(size / PIXELS_PER_METER);

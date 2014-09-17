@@ -60,6 +60,10 @@ namespace uth
 		void SetVelocity(const pmath::Vec2& velocity);
 		const pmath::Vec2 GetVelocity() const;
 
+		// Sets the angular velocity of the object
+		void SetAngularVelocity(float velocity);
+		float GetAngularVelocity() const;
+
 		// Sets the size of the object(hitbox) in pixels
 		void SetSize(const pmath::Vec2& size);
 		// Sets the size of the object(hitbox) in Box2D units(meters)
