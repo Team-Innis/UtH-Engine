@@ -17,6 +17,7 @@ namespace uth
 
         friend class ParticleSystem;
 
+        typedef std::function<void(Particle&, const ParticleTemplate&)> InitFunc;
         typedef std::function<void(Particle&, const ParticleTemplate&, float)> ParticleUpdateFunc;
         typedef std::function<void(float)> UpdateFunc;
 
@@ -25,14 +26,16 @@ namespace uth
 
         Affector();
 
-        Affector(ParticleUpdateFunc particleUpdateFunc, UpdateFunc updateFunc);
-
         virtual ~Affector(){};
 
+
+        virtual void InitParticle(Particle& particle, const ParticleTemplate& pt);
 
         virtual void Update(float dt);
 
         virtual void UpdateParticle(Particle& particle, const ParticleTemplate& pt, float dt);
+
+        void SetParticleInitFunc(InitFunc func);
 
         void SetParticleUpdateFunc(ParticleUpdateFunc func);
 
@@ -42,6 +45,7 @@ namespace uth
 
     private:
      
+        InitFunc m_initFunc;
         ParticleUpdateFunc m_puFunc;
         UpdateFunc m_uFunc;
         ParticleSystem* m_system;

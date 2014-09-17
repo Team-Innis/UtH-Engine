@@ -18,7 +18,6 @@ namespace uth
     {
  
         friend class ParticleSystem;
-        typedef std::function<void(Particle&, const ParticleTemplate&)> ParticleInitFunc;
 
     public:
 
@@ -33,9 +32,6 @@ namespace uth
 
         void SetSpeed(const float pixelsPerSecondMin, const float pixelsPerSecondMax);
 
-        /// Function for particle initialization. The initial transform will be copied from the ParticleSystem to which this template is bound.
-        void SetInitFunction(ParticleInitFunc func);
-
         void SetColor(const float r, const float g, const float b, const float a);
 
 
@@ -49,8 +45,6 @@ namespace uth
 
         Texture* m_texture;
         pmath::Rect m_texCoords;
-
-        ParticleInitFunc m_pInitFunc;
 
     };
 

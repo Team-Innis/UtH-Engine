@@ -13,8 +13,9 @@ ParticleSystem::ParticleSystem(const size_t reserve)
       m_emitFreq(0.f, 1.f),
       m_emitTimer(0.f),
       m_emitTimeLimit(0.f),
+      m_currentParticle(0u),
       m_autoEmit(false),
-      m_currentParticle(0u)
+      m_update(false)
 {
     m_particles.reserve(reserve);
 }
@@ -31,11 +32,22 @@ void ParticleSystem::Emit(const unsigned int amount)
         auto& p = m_particles.back();
 	    p.color = m_template.color;
 
-		m_template.m_pInitFunc(p, m_template);
+        for (auto& i : m_affectors)
+		    i->InitParticle(p, m_template);
 
         p.lifetime = 0;
         m_batch.AddSprite(&p);
 	}
+}
+
+void uth::ParticleSystem::WarmUp(const float time, const float step)
+{
+    float currTime = 0.f;
+
+    while ((currTime += step) <= time)
+    {
+        update(step);
+    }
 }
 
 bool ParticleSystem::ReadyToEmit() const
@@ -117,17 +129,15 @@ void ParticleSystem::update(float dt)
 
 	m_particles.erase(std::remove_if(m_particles.begin(), m_particles.end(), Eraser(m_template.lifetime, dt)), m_particles.end());
 
-	if (size > m_particles.size())
-	//if (true)
+	if (m_update || size > m_particles.size())
 	{
+        m_update = false;
 		m_batch.Clear();
 		for (auto& i : m_particles)
         {
 			m_batch.AddSprite(&i, "", i.color);
 		}
 	}
-
-    
 
 	for (auto& a : m_affectors)
 	{

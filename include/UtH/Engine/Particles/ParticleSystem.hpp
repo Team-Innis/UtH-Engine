@@ -25,6 +25,8 @@ namespace uth
 
         void Emit(const unsigned int amount);
 
+        void WarmUp(const float time, const float step = 1.f / 60.f);
+
         bool ReadyToEmit() const;
 
         void SetEmitProperties(const bool autoEmit, const float min = 0.f, const float max = 1.f, const int minAmount = 1, const int maxAmount = 1);
@@ -41,6 +43,8 @@ namespace uth
 
         size_t GetParticleLimit() const;
 
+        void RaiseUpdateFlag();
+
     private:
      
         void update(float dt);
@@ -56,8 +60,9 @@ namespace uth
         pmath::Vec2 m_emitFreq;
         mutable float m_emitTimer;
         mutable float m_emitTimeLimit;
-        bool m_autoEmit;
         unsigned int m_currentParticle;
+        bool m_autoEmit;
+        bool m_update;
 
     };
 
