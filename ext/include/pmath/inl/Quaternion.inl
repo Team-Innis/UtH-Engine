@@ -1,5 +1,6 @@
 #include "../Quaternion.hpp"
 #include "../Util.hpp"
+#include "../Trigonometry.hpp"
 
 namespace pmath
 {

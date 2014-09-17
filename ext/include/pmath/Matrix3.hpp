@@ -71,6 +71,7 @@ namespace pmath
         Matrix3& operator +=(const Matrix3& right);
         Matrix3& operator -=(const Matrix3& right);
         Matrix3& operator *=(const T& right);
+        Matrix3& operator *=(const Matrix3& right);
         Matrix3& operator /=(const T& right);
 
 

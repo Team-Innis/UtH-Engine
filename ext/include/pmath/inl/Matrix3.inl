@@ -1,4 +1,5 @@
 #include "../Matrix3.hpp"
+#include "../Trigonometry.hpp"
 
 #include <cassert>
 
@@ -282,6 +283,16 @@ namespace pmath
         r1 *= right;
         r2 *= right;
         r3 *= right;
+
+        return *this;
+    }
+
+    template<typename T>
+    inline Matrix3<T>& Matrix3<T>::operator *=(const Matrix3& right)
+    {
+        *this = *this * right;
+
+        return *this;
     }
 
     template<typename T>
