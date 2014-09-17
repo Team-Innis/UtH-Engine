@@ -52,6 +52,9 @@
     <ClCompile Include="..\..\src\Platform\Android\InputSensor.cpp">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Android\InputController.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Platform\Android\AndroidEngine.hpp">
@@ -77,6 +80,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Platform\Android\FileReader.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Android\InputController.hpp">
+      <Filter>Header Files\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
