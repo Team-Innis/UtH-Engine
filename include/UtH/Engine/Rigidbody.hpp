@@ -100,6 +100,8 @@ namespace uth
 		// Get the friction of the object
 		float GetFriction() const;
 
+		void SetRestituion(float restitution);
+		float GetRestitution() const;
 
 		// Sets if the object is active
 		// Inactive objects will unaffetec by all physics

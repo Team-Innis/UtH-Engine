@@ -301,6 +301,16 @@ void Rigidbody::init()
 	}
 }
 
+void Rigidbody::SetRestituion(float restitution)
+{
+	m_body->GetFixtureList()->SetRestitution(restitution);
+}
+
+float uth::Rigidbody::GetRestitution() const
+{
+	m_body->GetFixtureList()->GetRestitution();
+}
+
 b2Vec2 umathToBox2D(const pmath::Vec2& vec)
 {
 	return b2Vec2(vec.x, vec.y);
