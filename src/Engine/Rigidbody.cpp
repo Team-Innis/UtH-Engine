@@ -96,6 +96,16 @@ const pmath::Vec2 Rigidbody::GetVelocity() const
 	return box2DToUmath(m_body->GetLinearVelocity());
 }
 
+void Rigidbody::SetAngularVelocity(float velocity)
+{
+	m_body->SetAngularVelocity(velocity);
+}
+
+float Rigidbody::GetAngularVelocity() const
+{
+	return m_body->GetAngularVelocity();
+}
+
 void Rigidbody::SetSize(const pmath::Vec2& size)
 {
 	SetUnitSize(size / PIXELS_PER_METER);
@@ -230,6 +240,10 @@ const bool Rigidbody::IsBullet() const
 	return m_body->IsBullet();
 }
 
+void Rigidbody::SetKinematic(bool value)
+{
+	value ? m_body->SetType(b2_kinematicBody) : m_body->SetType(b2_dynamicBody);
+}
 
 // Private
 
@@ -247,6 +261,7 @@ void Rigidbody::init()
 	bodyDef.position.Set(pos.x, pos.y);
 
 	m_body = m_world->CreateBody(&bodyDef);
+	m_body->SetUserData(parent);
 
 	if(!(m_size.lengthSquared() > 0))
 		m_size = parent->transform.GetSize();
@@ -284,6 +299,16 @@ void Rigidbody::init()
 		WriteError("Collider type undefined\nThis is probably bad");
 		break;
 	}
+}
+
+void Rigidbody::SetRestituion(float restitution)
+{
+	m_body->GetFixtureList()->SetRestitution(restitution);
+}
+
+float uth::Rigidbody::GetRestitution() const
+{
+	return m_body->GetFixtureList()->GetRestitution();
 }
 
 b2Vec2 umathToBox2D(const pmath::Vec2& vec)
