@@ -14,7 +14,8 @@
 
 #include <UtH/Engine/SceneManager.hpp>
 #include <UtH/Engine/DefaultScene.hpp>
-#include <UtH/Engine/Rigidbody.hpp>
+#include <UtH/Engine/Physics/Rigidbody.hpp>
+#include <UtH/Engine/Physics/PhysicsContactListener.hpp>
 #include <UtH/Engine/SceneManager.hpp>
 #include <UtH/Engine/SpriteBatch.hpp>
 

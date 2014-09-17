@@ -269,8 +269,6 @@ void Rigidbody::init()
 
 	m_size /= PIXELS_PER_METER;
 
-	// TODO: remove pointless userdata
-
 	switch(m_collider)
 	{
 	case COLLIDER_BOX:
