@@ -3,6 +3,7 @@
 #define LAYER_H_UTH
 
 #include <UtH/Platform/Uncopyable.hpp>
+#include <UtH/Engine/GameObject.hpp>
 #include <set>
 
 namespace uth
@@ -15,7 +16,11 @@ namespace uth
 
         friend class Scene;
 
+        GameObject m_gameObject;
+
 	public:
+
+        void Clear();
 
 		int GetLayerId() const;
 
@@ -24,9 +29,14 @@ namespace uth
 
 		GameObject* AddGameObject(GameObject* gameObject);
 		GameObject* RemoveGameObject(GameObject* gameObject, const bool deleteObject = true);
+        GameObject* GetGameObject(const std::string& name);
+        bool HasGameObject(GameObject* gameObject);
 
 		void Update(float dt);
 		void Draw(RenderTarget& target);
+
+
+        Transform& transform;
 
     private:
 
