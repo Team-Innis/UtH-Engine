@@ -2,7 +2,7 @@
 #ifndef RIGIDBODY_H_UTH
 #define RIGIDBODY_H_UTH
 
-#include <Box2D/Box2D.h>
+#include <UtH/Engine/Physics/PhysicsWorld.hpp>
 #include <pmath/Vector.hpp>
 #include <UtH/Engine/Component.hpp>
 
@@ -14,18 +14,16 @@ namespace uth
 		COLLIDER_BALL
 	};
 
-	// Conversion from pixels to meters
-	const float PIXELS_PER_METER = 50.f;
 
 	class Rigidbody : public Component
 	{
 	public:
 		// Create a rigidbody with a default box collider
-		Rigidbody(b2World* world, const COLLIDER_TYPE collider = COLLIDER_BOX,
+		Rigidbody(PhysicsWorld& world, const COLLIDER_TYPE collider = COLLIDER_BOX,
 			const std::string& name = "Rigidbody");
 		// Create a rigidibody with a bit more control
 		// If creating a ball put diameter in size.x
-		Rigidbody(b2World* world, const COLLIDER_TYPE collider,
+		Rigidbody(PhysicsWorld& world, const COLLIDER_TYPE collider,
 			const pmath::Vec2& size, const std::string& name = "Rigidbody");
 
 		~Rigidbody();
@@ -51,7 +49,7 @@ namespace uth
 		void ApplyImpulse(const pmath::Vec2& impulse, const pmath::Vec2& point);
 
 		// Applies torque to the object
-		// Force is usually considered to be in Newton metres(Nm)
+		// Force is usually considered to be in Newton meters(Nm)
 		// Positive torque means counter-clockwise rotation
 		void ApplyTorque(const float torque);
 
@@ -104,7 +102,7 @@ namespace uth
 		float GetRestitution() const;
 
 		// Sets if the object is active
-		// Inactive objects will unaffetec by all physics
+		// Inactive objects will unaffected by all physics
 		void SetActive(bool value);
 		// Is object awake or sleeping
 		const bool IsAwake() const;
@@ -117,13 +115,15 @@ namespace uth
 
 		void SetKinematic(bool value);
 
+        b2Body* GetBox2dBody();
+
 	private:
 		void defaults();
 		void init();
 
 		Rigidbody();
 
-		b2World* m_world;
+		std::weak_ptr<b2World> m_world;
 		b2Body* m_body;
 
 		// For resizing etc...

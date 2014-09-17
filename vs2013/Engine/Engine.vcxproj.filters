@@ -102,6 +102,9 @@
     <ClCompile Include="..\..\src\Engine\Physics\PhysicsContactListener.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Physics\PhysicsWorld.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Engine\Physics\Rigidbody.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\UtHEngine.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\Physics\PhysicsWorld.hpp">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\Physics\Rigidbody.hpp">
       <Filter>Header Files\Physics</Filter>

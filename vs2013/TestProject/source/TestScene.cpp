@@ -13,6 +13,10 @@ namespace
     };
 }
 
+GameObject rbodytest;
+
+b2World world(b2Vec2(0, 10));
+
 TestScene::TestScene()
 {}
 TestScene::~TestScene()
@@ -60,6 +64,9 @@ bool TestScene::Init()
         AddGameObjectToLayer(Other, ps);
     }
 
+    rbodytest.AddComponent(new Sprite("test.tga"));
+    rbodytest.AddComponent(new Rigidbody(&world));
+
 	return true;
 }
 bool TestScene::DeInit()
@@ -74,11 +81,15 @@ bool TestScene::Update(float dt)
     
     UpdateLayers(dt, -1);
 
+    rbodytest.Update(dt);
+
 	return true;
 }
 bool TestScene::Draw()
 {
 	DrawLayers(uthEngine.GetWindow(), -1);
+
+    rbodytest.Draw(uthEngine.GetWindow());
 
 	return true;
 }

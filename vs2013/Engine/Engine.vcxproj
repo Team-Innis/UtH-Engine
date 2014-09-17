@@ -62,6 +62,7 @@
     <ClCompile Include="..\..\src\Engine\Particles\ParticleSystem.cpp" />
     <ClCompile Include="..\..\src\Engine\Particles\ParticleTemplate.cpp" />
     <ClCompile Include="..\..\src\Engine\Physics\PhysicsContactListener.cpp" />
+    <ClCompile Include="..\..\src\Engine\Physics\PhysicsWorld.cpp" />
     <ClCompile Include="..\..\src\Engine\Physics\Rigidbody.cpp" />
     <ClCompile Include="..\..\src\Engine\Scene.cpp" />
     <ClCompile Include="..\..\src\Engine\SceneManager.cpp" />
@@ -89,6 +90,7 @@
     <ClInclude Include="..\..\include\UtH\Engine\Particles\ParticleSystem.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Particles\ParticleTemplate.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Physics\PhysicsContactListener.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\Physics\PhysicsWorld.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Physics\Rigidbody.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Scene.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\SceneManager.hpp" />

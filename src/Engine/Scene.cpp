@@ -7,7 +7,6 @@
 using namespace uth;
 
 Scene::Scene()
-	: m_world(new b2World(b2Vec2(0.0f, GRAVITY)))
 {
 
 }
