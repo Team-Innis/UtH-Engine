@@ -134,9 +134,9 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 				auto tile = new Tile(t);
 
 				if(flipped_horizontally)
-					tile->transform.scale.x = -1;
+					tile->transform.SetScale(-1, tile->transform.GetScale().y);
 				if(flipped_vertically)
-					tile->transform.scale.y = -1;
+                    tile->transform.SetScale(tile->transform.GetScale().x, -1);
 
 				tile->parent = static_cast<GameObject*>(map);
 				const pmath::Rect texCoords = tileset->GetTile(gid - tileset->GetFirstGID());

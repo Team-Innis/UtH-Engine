@@ -71,11 +71,12 @@ namespace pmath
         bool operator !=(const Matrix4& right) const;
 
 
-        // Assingment
+        // Assignment
         Matrix4& operator  =(const Matrix4& right);
         Matrix4& operator +=(const Matrix4& right);
         Matrix4& operator -=(const Matrix4& right);
         Matrix4& operator *=(const T& right);
+        Matrix4& operator *=(const Matrix4& right);
         Matrix4& operator /=(const T& right);
 
 

@@ -14,48 +14,45 @@
  * limitations under the License.
  *
  */
-#include <pmath/PMath.hpp>
-#include <UtH/Platform/OpenGL.hpp>
+#include <UtH/UtHEngine.hpp>
 #include <UtH/Platform/Android/AndroidEngine.hpp>
-#include <UtH/Platform/Window.hpp>
-#include <UtH/Platform/WindowSettings.hpp>
-#include <UtH/Platform/Graphics.hpp>
-#include <UtH/Platform/FileReader.hpp>
-#include <UtH/Platform/Debug.hpp>
-#include <UtH/Engine/Engine.hpp>
-#include <UtH/Platform/Input.hpp>
-#include <UtH/Platform/Android/InputSensor.hpp>
+#include <Uth/Platform/Input.hpp>
+#include <UtH/Platform/Android/InputController.hpp>
 
-#include <UtH/Engine/DefaultScene.hpp>
-#include "TestScene.hpp"
-
-// Enumeration of scenes, giving name for each scene number
-enum SceneName
-{
-    DEFAULT = UTHDefaultScene,
-    MENU = 0,
-    GAME = 1,
-    CREDITS,
-    COUNT // Keep this last, it tells how many scenes there are
-};
-
-// Create function for a new scene, having a case for every user made scene
-uth::Scene* NewSceneFunc(int SceneID)
-{
-    switch (SceneID)
-    {
-    case MENU:		return new /*Menu*/uth::TestScene();
-    case GAME:		return new /*Game*/uth::TestScene();
-    case CREDITS:	return new /*Credits*/uth::TestScene();
-	default:		return nullptr;
-    }
-}
-
+#define NEWSCENEFUNC
+#include <Scenes.hpp>
 
 void handle_cmd(android_app* app, int cmd)
 {
 	uthAndroidEngine.message = cmd;
 	((uth::Window*)app->userData)->processMessages();
+}
+
+int handle_input(android_app* app, AInputEvent* inputEvent)
+{
+    int32_t eventType = AInputEvent_getType(inputEvent);
+
+    if (eventType == AINPUT_EVENT_TYPE_KEY)
+    {
+        uthInput.Controller.HandleInput(inputEvent);
+        return 1;
+    }
+    else if (eventType == AINPUT_EVENT_TYPE_MOTION)
+    {
+        int32_t source = AInputEvent_getSource(inputEvent);
+        if (source == AINPUT_SOURCE_JOYSTICK)
+        {
+            uthInput.Controller.HandleInput(inputEvent);
+        }
+        else if (source == AINPUT_SOURCE_TOUCHSCREEN)
+        {
+            uth::TouchInput::DroidMessage(app, inputEvent);
+        }
+
+        return 1;
+    }
+
+    return 0;
 }
 
 void windowEventHandler(void* handle)
@@ -77,7 +74,7 @@ void android_main(android_app* state)
 	uth::FileReader::m_manager = state->activity->assetManager;
 
 	state->onAppCmd = handle_cmd;
-	state->onInputEvent = uth::TouchInput::DroidMessage;
+	state->onInputEvent = handle_input;
 
     uth::SensorInput::sensorManager = ASensorManager_getInstance();
     uth::SensorInput::sensorEventQueue = ASensorManager_createEventQueue(

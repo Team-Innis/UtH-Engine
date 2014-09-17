@@ -53,22 +53,24 @@ namespace uth
 		const float GetRotation() const;
 		void Rotate(const float degrees);
 
-		void SetDepth(const float depth);
-		const float GetDepth() const;
+        pmath::Rect GetBounds() const;
 
 		void SetTransform(const pmath::Mat4& modelTransform);
 		// Adds to the current transform(multiplies). Mostly needed for layer transformation
 		void AddTransform(const pmath::Mat4& modelTransform);
 		const pmath::Mat4& GetTransform();
 
-		pmath::Vec2 position;
-		pmath::Vec2 size;
-		pmath::Vec2 scale;
-		pmath::Vec2 origin;
-		float angle;
-		float depth;
+
+    private:
+
+		pmath::Vec2 m_position;
+		pmath::Vec2 m_size;
+		pmath::Vec2 m_scale;
+		pmath::Vec2 m_origin;
+		float m_angle;
 
 	private:
+
 		void updateTransform();
 
 		pmath::Mat4 m_modelTransform;

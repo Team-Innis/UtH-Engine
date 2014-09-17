@@ -242,14 +242,14 @@ void Rigidbody::init()
 {
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
-	pmath::Vec2 pos = parent->transform.position;
+	pmath::Vec2 pos = parent->transform.GetPosition();
 	pos /= PIXELS_PER_METER;
 	bodyDef.position.Set(pos.x, pos.y);
 
 	m_body = m_world->CreateBody(&bodyDef);
 
 	if(!(m_size.lengthSquared() > 0))
-		m_size = parent->transform.size;
+		m_size = parent->transform.GetSize();
 
 
 	m_size /= PIXELS_PER_METER;

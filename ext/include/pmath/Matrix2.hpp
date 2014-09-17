@@ -53,6 +53,7 @@ namespace pmath
         Matrix2& operator +=(const Matrix2& right);
         Matrix2& operator -=(const Matrix2& right);
         Matrix2& operator *=(const T& right);
+        Matrix2& operator *=(const Matrix2& right);
         Matrix2& operator /=(const T& right);
 
 

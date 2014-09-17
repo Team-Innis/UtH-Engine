@@ -13,6 +13,9 @@ namespace uth
 {
     class Camera : public GameObject
     {
+
+        friend class RenderTarget;
+
     public:
 
         Camera();
@@ -59,6 +62,9 @@ namespace uth
                             m_invProjMatrix;
         mutable bool m_transformNeedsUpdate,
                      m_inverseTransformNeedsUpdate;
+
+        // This will be used for unbounding this camera from the target.
+        RenderTarget* m_target;
     };
 }
 

@@ -9,15 +9,7 @@ ParticleTemplate::ParticleTemplate()
       minSpeed(1.f),
       maxSpeed(0.f),
       color(1),
-      m_texture(nullptr),
-      m_pInitFunc([](Particle& particle, const ParticleTemplate& pTemplate)
-                  {
-                      // Default init function. Will distribute particles to random directions at speeds defined by the template.
-
-                      pmath::Vec2 tvec(Randomizer::InsideCircle());
-                      tvec /= static_cast<float>(tvec.length());
-                      particle.direction = (pTemplate.maxSpeed == 0.f ? pTemplate.minSpeed : (Randomizer::GetFloat(pTemplate.minSpeed, pTemplate.maxSpeed))) * tvec;
-                  })
+      m_texture(nullptr)
 {
 
 }
@@ -37,18 +29,13 @@ void ParticleTemplate::SetLifetime(const float seconds)
 void ParticleTemplate::SetSpeed(const float pixelsPerSecond)
 {
     minSpeed = pixelsPerSecond;
-    maxSpeed = 0.f;
+    maxSpeed = pixelsPerSecond;
 }
 
 void ParticleTemplate::SetSpeed(const float pixelsPerSecondMin, const float pixelsPerSecondMax)
 {
     minSpeed = pixelsPerSecondMin;
     maxSpeed = pixelsPerSecondMax;
-}
-
-void ParticleTemplate::SetInitFunction(ParticleInitFunc func)
-{
-    m_pInitFunc = func;
 }
 
 void ParticleTemplate::SetColor(const float r, const float g, const float b, const float a)

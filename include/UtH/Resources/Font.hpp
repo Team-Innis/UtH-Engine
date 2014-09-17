@@ -10,17 +10,30 @@ namespace uth
 	class Font
 	{
 	private:
-		BINARY_DATA m_fontData;
+
+        struct Deleter
+        {
+            void operator()(Font* file) const
+            {
+                delete file;
+            }
+        };
+
+        friend class ResourceManager;
+
+    public:
+
+        const BINARY_DATA& GetFontData() const;
 
 
-	public:
+    private:
+
 		Font();
-		Font(const std::string& filePath);
 		~Font();
 
-		bool LoadFromFile(const std::string& filePath);
+        bool LoadFromFile(const std::string& filePath);
 
-		const BINARY_DATA& GetFontData() const;
+        BINARY_DATA m_fontData;
 	};
 }
 

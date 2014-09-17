@@ -22,17 +22,17 @@ namespace uth
 		virtual bool Update(float dt);
 		virtual bool Draw();
 	protected:
-		Shader* shader;
+
 		float totalTime;
 
-		GameObject* logo;
+		GameObject logo;
 
-		GameObject* textU;
-		GameObject* textT;
-		GameObject* textH;
-		GameObject* text;
+		GameObject textU;
+		GameObject textT;
+		GameObject textH;
+		GameObject text;
 
-		GameObject* fade;
+		GameObject fade;
 		Sprite* fadeSprite;
 
 		Text* newestText;

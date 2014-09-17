@@ -22,6 +22,7 @@
     <ClCompile Include="..\..\src\Platform\Android\AndroidWindowImpl.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\FileReader.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputCommon.cpp" />
+    <ClCompile Include="..\..\src\Platform\Android\InputController.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputKeyboard.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputMouse.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputSensor.cpp" />
@@ -32,6 +33,7 @@
     <ClInclude Include="..\..\include\UtH\Platform\Android\AndroidWindowImpl.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\FileReader.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputCommon.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Android\InputController.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputKeyboard.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputMouse.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputSensor.hpp" />

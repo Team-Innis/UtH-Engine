@@ -10,8 +10,7 @@
 namespace uth
 {
 	class GameObject;
-	class Camera;
-    class RenderTarget;
+	class RenderTarget;
 
 	class Component
 	{
