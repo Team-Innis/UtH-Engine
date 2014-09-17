@@ -4,7 +4,6 @@
 #include <cmath>
 
 using namespace uth;
-using namespace pmath;
 
 Transform::Transform(const std::string& name)
 	: Component(name),
@@ -16,7 +15,9 @@ Transform::Transform(const std::string& name)
 	  m_transformNeedsUpdate(true)
 { }
 Transform::~Transform()
-{ }
+{
+
+}
 
 // Public
 
@@ -66,6 +67,8 @@ void Transform::SetOrigin(const pmath::Vec2& origin)
 }
 void Transform::SetOrigin(const int originPoint)
 {
+    using namespace pmath;
+
 	switch (originPoint)
 	{
 	case Origin::Point::BottomLeft:
@@ -138,9 +141,9 @@ void Transform::Rotate(const float degrees)
 
 pmath::Rect Transform::GetBounds() const
 {
-    Vec2 scaled = m_size;
+    pmath::Vec2 scaled = m_size;
     scaled.scale(m_scale);
-    Vec2 sOrig = m_origin;
+    pmath::Vec2 sOrig = m_origin;
     sOrig.scale(m_scale);
 
     return pmath::Rect((m_position - sOrig) - scaled / 2.f, scaled);
@@ -153,7 +156,7 @@ void Transform::SetTransform(const pmath::Mat4& modelTransform)
 
 void Transform::AddTransform(const pmath::Mat4& modelTransform)
 {
-	m_transformNeedsUpdate = true;
+	updateTransform();
 
 	m_modelTransform = m_modelTransform * modelTransform;
 }
@@ -161,7 +164,7 @@ const pmath::Mat4& Transform::GetTransform()
 {
 	updateTransform();
 
-	if(parent != nullptr && parent->parent != nullptr)
+	if (parent && parent->parent)
 		AddTransform(parent->parent->transform.GetTransform());
 
 	return m_modelTransform;
