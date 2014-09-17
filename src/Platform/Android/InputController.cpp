@@ -6,7 +6,8 @@ using namespace uth;
 
 ControllerInput::ControllerInput()
     : m_buttons(Controller::BUTTON_COUNT, 1),
-      m_prevButtons(Controller::BUTTON_COUNT, 1)
+    m_prevButtons(Controller::BUTTON_COUNT, 1),
+    m_hasChanged(false)
 { }
 
 ControllerInput::~ControllerInput()
@@ -41,7 +42,11 @@ void ControllerInput::Initiate()
 
 void ControllerInput::Update()
 {
-    m_prevButtons = m_buttons;
+    if (m_hasChanged)
+    {
+        m_prevButtons = m_buttons;
+        m_hasChanged = false;
+    }
 }
 
 bool ControllerInput::IsButtonDown(const Controller::Button button) const
@@ -144,6 +149,7 @@ void ControllerInput::handleKeys(AInputEvent* inputEvent)
 
     int action = AKeyEvent_getAction(inputEvent);
     m_buttons.at(button) = action;
+    m_hasChanged = true;
 }
 
 void ControllerInput::handleAxes(AInputEvent* inputEvent)

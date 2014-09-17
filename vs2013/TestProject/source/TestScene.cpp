@@ -42,11 +42,18 @@ bool TestScene::Init()
         auto ps = new ParticleSystem(100);
         ps->SetTemplate(pt);
 
-        Affector* aff = new Affector([](Particle& part, const ParticleTemplate& ptemp, float dt)
+        Affector* aff = new Affector();
+        aff->SetParticleInitFunc([](Particle& particle, const ParticleTemplate& pTemplate)
+        {
+            pmath::Vec2 tvec(Randomizer::InsideCircle());
+            tvec /= static_cast<float>(tvec.length());
+            particle.direction = Randomizer::GetFloat(pTemplate.minSpeed, pTemplate.maxSpeed) * tvec;
+        });
+
+        aff->SetParticleUpdateFunc([](Particle& part, const ParticleTemplate& ptemp, float dt)
         {
             part.Move(part.direction * dt);
-        },
-        [](float){});
+        });
 
         ps->AddAffector(aff);
         ps->SetEmitProperties(true, 0.05f, 0.1f, 1, 5);

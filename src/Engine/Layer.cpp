@@ -5,7 +5,9 @@
 using namespace uth;
 
 Layer::Layer(const int layerId, const bool adoptObjects)
-	: layerId(layerId),
+	: m_gameObject(),
+      transform(m_gameObject.transform),
+      layerId(layerId),
       m_adopt(adoptObjects),
       m_active(true)
 {
@@ -15,12 +17,17 @@ Layer::Layer(const int layerId, const bool adoptObjects)
 Layer::~Layer()
 {
     if (m_adopt)
-    {
-        for (auto i : m_objects)
-            delete i;
-    }
+        Clear();
 }
 
+
+void uth::Layer::Clear()
+{
+    for (auto i : m_objects)
+        delete i;
+
+    m_objects.clear();
+}
 
 int Layer::GetLayerId() const
 {
@@ -37,16 +44,41 @@ bool uth::Layer::IsActive() const
     return m_active;
 }
 
+GameObject* uth::Layer::GetGameObject(const std::string& name)
+{
+    for (auto& i : m_objects)
+    {
+        if (i->GetName() == name)
+            return i;
+    }
+
+    return nullptr;
+}
+
+bool uth::Layer::HasGameObject(GameObject* gameObject)
+{
+    return m_objects.find(gameObject) != m_objects.end();
+}
+
 GameObject* Layer::AddGameObject(GameObject* gameObject)
 {
     if (gameObject)
-	    m_objects.emplace(gameObject);
+    {
+        m_objects.emplace(gameObject);
+
+        // TODO: better solution
+        assert(!gameObject->parent);
+        gameObject->parent = &this->m_gameObject;
+    }
 
 	return gameObject;
 }
 
 GameObject* Layer::RemoveGameObject(GameObject* gameObject, const bool deleteObject)
 {
+    if (!gameObject)
+        return nullptr;
+
 	auto itr = m_objects.find(gameObject);
 
     if (itr != m_objects.end())
@@ -72,7 +104,8 @@ void Layer::Update(float dt)
     {
         for (auto& i : m_objects)
         {
-            i->Update(dt);
+            if (i->IsActive())
+                i->Update(dt);
         }
     }
 }

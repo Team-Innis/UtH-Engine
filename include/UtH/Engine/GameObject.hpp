@@ -20,6 +20,8 @@ namespace uth
 	public:
 		GameObject();
 		GameObject(const std::string &name);
+        GameObject(const GameObject& other);
+        void operator =(const GameObject&) = delete;
 		virtual ~GameObject();
 
 		void SetActive(bool value);

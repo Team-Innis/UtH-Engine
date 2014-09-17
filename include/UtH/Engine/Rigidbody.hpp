@@ -60,6 +60,10 @@ namespace uth
 		void SetVelocity(const pmath::Vec2& velocity);
 		const pmath::Vec2 GetVelocity() const;
 
+		// Sets the angular velocity of the object
+		void SetAngularVelocity(float velocity);
+		float GetAngularVelocity() const;
+
 		// Sets the size of the object(hitbox) in pixels
 		void SetSize(const pmath::Vec2& size);
 		// Sets the size of the object(hitbox) in Box2D units(meters)
@@ -96,6 +100,8 @@ namespace uth
 		// Get the friction of the object
 		float GetFriction() const;
 
+		void SetRestituion(float restitution);
+		float GetRestitution() const;
 
 		// Sets if the object is active
 		// Inactive objects will unaffetec by all physics
@@ -108,6 +114,8 @@ namespace uth
 		// (like a bullet should have)
 		void SetBullet(bool value);
 		const bool IsBullet() const;
+
+		void SetKinematic(bool value);
 
 	private:
 		void defaults();

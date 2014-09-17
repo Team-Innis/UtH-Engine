@@ -9,7 +9,7 @@ const TouchInput::TouchUnit& TouchInput::operator[](unsigned int id) const
 	return ID[id];
 }
 
-const TouchMotion::TouchMotion TouchInput::Motion() const
+const TouchMotion TouchInput::Motion() const
 {
 	WriteLog("Touch not defined on computer.");
 	return ID[0].Motion();
@@ -21,7 +21,7 @@ void TouchInput::Update(float)
 }
 
 
-const TouchMotion::TouchMotion TouchInput::TouchUnit::Motion() const
+const TouchMotion TouchInput::TouchUnit::Motion() const
 {
 	WriteLog("Touch not defined on computer.");
 	return m_motion;

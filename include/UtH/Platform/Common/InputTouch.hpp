@@ -7,19 +7,16 @@
 
 namespace uth
 {
-	namespace TouchMotion
+	enum class TouchMotion
 	{
-		enum TouchMotion
-		{
-			NONE = 0,
-			STATIONARY,
-			TAP,
-			DRAG,
-			PINCH_IN,
-			PINCH_OUT,
-			MULTIPLE
-		};
-	}
+		NONE = 0,
+		STATIONARY,
+		TAP,
+		DRAG,
+		PINCH_IN,
+		PINCH_OUT,
+		MULTIPLE
+	};
 
 	class TouchInput : public InputBase
 	{
@@ -28,9 +25,9 @@ namespace uth
 		{
 			friend class TouchInput;
 		private:
-			TouchMotion::TouchMotion m_motion;
+			TouchMotion m_motion;
 		public:
-			const TouchMotion::TouchMotion Motion() const;
+			const TouchMotion Motion() const;
 			const int GetStartIndex() const;
 			const pmath::Vec2 GetStartPosition() const;
 			const pmath::Vec2 GetPosition() const;
@@ -38,7 +35,7 @@ namespace uth
 		};
 		TouchUnit ID[10];
 	public:
-		const TouchMotion::TouchMotion Motion() const;
+		const TouchMotion Motion() const;
 		void Update(float dt);
 		const TouchUnit& operator[](unsigned int id) const;
 	};
