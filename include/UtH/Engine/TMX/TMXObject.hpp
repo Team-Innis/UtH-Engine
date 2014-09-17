@@ -19,7 +19,7 @@ namespace uth
 {
     namespace TMX
     {
-        class Object
+        class TMXObject
         {
         public:
 			enum Type
@@ -30,8 +30,8 @@ namespace uth
 				LINE
 			};
 
-            Object(tinyxml2::XMLElement* objectElement);
-            ~Object();
+            TMXObject(tinyxml2::XMLElement* objectElement);
+            ~TMXObject();
 
             const pmath::Rect& GetRectangle() const;
 			// Returns the points for polygon and line
@@ -46,7 +46,7 @@ namespace uth
             const std::string& GetType() const;
 
         private:
-            void parseObject(tinyxml2::XMLElement* element);
+            void parseTMXObject(tinyxml2::XMLElement* element);
             void parseProperties(tinyxml2::XMLElement* element);
 			void parsePoints(const std::string& points);
 

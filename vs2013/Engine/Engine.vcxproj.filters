@@ -87,9 +87,6 @@
     <ClCompile Include="..\..\src\Engine\TMX\TileHackBatch.cpp">
       <Filter>Source Files\TMX</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Engine\TMX\Object.cpp">
-      <Filter>Source Files\TMX</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Engine\TMX\ObjectGroup.cpp">
       <Filter>Source Files\TMX</Filter>
     </ClCompile>
@@ -98,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Engine\Object.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\TMX\TMXObject.cpp">
+      <Filter>Source Files\TMX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,9 +158,6 @@
     <ClInclude Include="..\..\include\UtH\Engine\Particles\Particle.hpp">
       <Filter>Header Files\Particles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Engine\TMX\Object.hpp">
-      <Filter>Header Files\TMX</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\TMX\ObjectGroup.hpp">
       <Filter>Header Files\TMX</Filter>
     </ClInclude>
@@ -181,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\Object.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\TMX\TMXObject.hpp">
+      <Filter>Header Files\TMX</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

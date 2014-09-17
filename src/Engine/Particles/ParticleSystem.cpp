@@ -127,7 +127,8 @@ void ParticleSystem::update(float dt)
 
 	const unsigned int size = m_particles.size();
 
-	m_particles.erase(std::remove_if(m_particles.begin(), m_particles.end(), Eraser(m_template.lifetime, dt)), m_particles.end());
+	m_particles.erase(std::remove_if(m_particles.begin(), m_particles.end(), 
+		Eraser(m_template.lifetime, dt)), m_particles.end());
 
 	if (m_update || size > m_particles.size())
 	{
