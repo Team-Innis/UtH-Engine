@@ -28,7 +28,7 @@ Sprite::Sprite(const pmath::Vec4& fillColor, const pmath::Vec2& size, const std:
 	  m_texture(nullptr)
 {
 	m_size = size;
-	SetColor(fillColor);
+    m_color = fillColor;
 }
 
 
@@ -39,7 +39,7 @@ Sprite::~Sprite()
 
 void Sprite::Init()
 {
-	generateBuffer();
+	generateBuffer(true);
 	if (parent)
 		parent->transform.SetSize(m_size);
 }
@@ -127,24 +127,44 @@ void Sprite::defaults()
 
 
 
-void Sprite::generateBuffer()
+void Sprite::generateBuffer(bool init)
 {
-	m_vertexBuffer.clear();
+    if (init) // Create the buffer for the first time
+    {
+        m_vertexBuffer.clear();
 
-	m_vertexBuffer.addVertex(Vertex(pmath::Vec3(-0.5f * m_size.x, -0.5f * m_size.y, 0),
-		pmath::Vec2(0.0f, 1.0f), m_color));
-	m_vertexBuffer.addVertex(Vertex(pmath::Vec3(0.5f * m_size.x, -0.5f * m_size.y, 0),
-		pmath::Vec2(1.0f, 1.0f), m_color));
-	m_vertexBuffer.addVertex(Vertex(pmath::Vec3(-0.5f * m_size.x, 0.5f * m_size.y, 0),
-		pmath::Vec2(0.0f, 0.0f), m_color));
-	m_vertexBuffer.addVertex(Vertex(pmath::Vec3(0.5f * m_size.x, 0.5f * m_size.y, 0),
-		pmath::Vec2(1.0f, 0.0f), m_color));
+        m_vertexBuffer.addVertex(Vertex(pmath::Vec3(-0.5f * m_size.x, -0.5f * m_size.y, 0),
+            pmath::Vec2(0.0f, 1.0f), m_color));
+        m_vertexBuffer.addVertex(Vertex(pmath::Vec3(0.5f * m_size.x, -0.5f * m_size.y, 0),
+            pmath::Vec2(1.0f, 1.0f), m_color));
+        m_vertexBuffer.addVertex(Vertex(pmath::Vec3(-0.5f * m_size.x, 0.5f * m_size.y, 0),
+            pmath::Vec2(0.0f, 0.0f), m_color));
+        m_vertexBuffer.addVertex(Vertex(pmath::Vec3(0.5f * m_size.x, 0.5f * m_size.y, 0),
+            pmath::Vec2(1.0f, 0.0f), m_color));
 
 
-	m_vertexBuffer.addIndex(0);
-	m_vertexBuffer.addIndex(1);
-	m_vertexBuffer.addIndex(2);
-	m_vertexBuffer.addIndex(1);
-	m_vertexBuffer.addIndex(3);
-	m_vertexBuffer.addIndex(2);
+        m_vertexBuffer.addIndex(0);
+        m_vertexBuffer.addIndex(1);
+        m_vertexBuffer.addIndex(2);
+        m_vertexBuffer.addIndex(1);
+        m_vertexBuffer.addIndex(3);
+        m_vertexBuffer.addIndex(2);
+
+        m_vertexBuffer.setData();
+    }
+    else // We are updating the buffer
+    {
+        std::vector<Vertex> vertices;
+        vertices.reserve(4);
+        vertices.push_back(Vertex(pmath::Vec3(-0.5f * m_size.x, -0.5f * m_size.y, 0),
+        pmath::Vec2(0.0f, 1.0f), m_color));
+        vertices.push_back(Vertex(pmath::Vec3(0.5f * m_size.x, -0.5f * m_size.y, 0),
+        pmath::Vec2(1.0f, 1.0f), m_color));
+        vertices.push_back(Vertex(pmath::Vec3(-0.5f * m_size.x, 0.5f * m_size.y, 0),
+        pmath::Vec2(0.0f, 0.0f), m_color));
+        vertices.push_back(Vertex(pmath::Vec3(0.5f * m_size.x, 0.5f * m_size.y, 0),
+        pmath::Vec2(1.0f, 0.0f), m_color));
+
+        m_vertexBuffer.changeBufferData(0, vertices);
+    }
 }

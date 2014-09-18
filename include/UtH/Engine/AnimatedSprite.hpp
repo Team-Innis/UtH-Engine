@@ -32,7 +32,7 @@ namespace uth
 
 	private:
 
-		void generateBuffer();
+		void generateBuffer(bool init = false);
 
 		unsigned int m_frames; // in the loop
 		unsigned int m_firstFrame; // of the loop

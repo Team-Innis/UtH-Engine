@@ -61,6 +61,20 @@ void VertexBuffer::addIndices(const std::vector<unsigned short>& indices)
     m_elementBufferNeedsUpdate = true;
 }
 
+void VertexBuffer::changeBufferData(const unsigned int offset, const std::vector<Vertex>& vertices) const
+{
+    unsigned int size = vertices.size() * sizeof(Vertex);
+    uth::Graphics::BindBuffer(ARRAY_BUFFER, m_arrayBuffer);
+    Graphics::SetBufferSubData(ARRAY_BUFFER, offset, size, &vertices.front());
+}
+
+void VertexBuffer::changeElementData(const unsigned int offset, const std::vector<unsigned int>& indices)
+{
+    unsigned int size = indices.size() * sizeof(unsigned int);
+    uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
+    Graphics::SetBufferSubData(ELEMENT_ARRAY_BUFFER, offset, size, &indices.front());
+}
+
 const std::vector<Vertex>& VertexBuffer::getVertices() const
 {
     return m_vertexData;
@@ -109,7 +123,7 @@ void VertexBuffer::init()
 
 void VertexBuffer::setData() const
 {
-	UsageType drawMode = DYNAMIC_DRAW;
+	UsageType drawMode = STATIC_DRAW;
 
     if (m_arrayBufferNeedsUpdate)
     {
