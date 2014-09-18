@@ -79,7 +79,9 @@ $(SRC_PATH)Engine/SceneManager.cpp \
 $(SRC_PATH)Engine/Sprite.cpp \
 $(SRC_PATH)Engine/Engine.cpp \
 $(SRC_PATH)Engine/Transform.cpp \
-$(SRC_PATH)Engine/Rigidbody.cpp \
+$(SRC_PATH)Engine/Physics/Rigidbody.cpp \
+$(SRC_PATH)Engine/Physics/PhysicsContactListener.cpp \
+$(SRC_PATH)Engine/Physics/PhysicsWorld.cpp \
 $(SRC_PATH)Engine/Layer.cpp \
 $(SRC_PATH)Engine/Text.cpp \
 $(SRC_PATH)Engine/SpriteBatch.cpp \
@@ -92,7 +94,6 @@ $(SRC_PATH)Engine/TMX/TileLayer.cpp \
 $(SRC_PATH)Engine/TMX/Tileset.cpp \
 $(SRC_PATH)Engine/TMX/TileHackBatch.cpp \
 $(SRC_PATH)Engine/AnimatedSprite.cpp \
-$(SRC_PATH)Engine/PhysicsContactListener.cpp
 
 #TinyXML2
 LOCAL_SRC_FILES += \
