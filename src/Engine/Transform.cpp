@@ -166,9 +166,8 @@ const pmath::Mat4& Transform::GetTransform()
 
     if (parent && parent->parent)
     {
-        //AddTransform(parent->parent->transform.GetTransform());
-        m_combinedTransform = m_modelTransform *
-            parent->parent->transform.GetTransform();
+        m_combinedTransform = parent->parent->transform.GetTransform() *
+            m_modelTransform;
 
         return m_combinedTransform;
     }
