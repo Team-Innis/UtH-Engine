@@ -21,6 +21,10 @@ namespace uth
 
 		virtual bool Update(float dt);
 		virtual bool Draw();
+
+		virtual bool PauseSounds();
+
+
 	protected:
 
 		float totalTime;

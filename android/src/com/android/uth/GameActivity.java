@@ -4,8 +4,12 @@ public class GameActivity extends android.app.NativeActivity
 {
 	static
 	{
-		//System.loadLibrary("sndfile");
-		//System.loadLibrary("openal");
+		System.loadLibrary("sndfile");
+		System.loadLibrary("openal");
 		System.loadLibrary("uthengine");
-	}	
+	}
 }
+
+
+
+

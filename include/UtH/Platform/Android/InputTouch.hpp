@@ -21,7 +21,8 @@ namespace uth
 		DRAG,
 		PINCH_IN,
 		PINCH_OUT,
-		MULTIPLE
+		MULTIPLE,
+		RELEASE
 	};
 
 	class TouchInput : public InputBase
@@ -37,6 +38,7 @@ namespace uth
 			float m_downTime;
 			TouchMotion m_motion;
 			bool m_tapped;
+			bool m_released;
 		public:
 			const TouchMotion Motion() const;
 			const int GetStartIndex() const;

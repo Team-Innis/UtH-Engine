@@ -20,6 +20,7 @@ TestScene::~TestScene()
 
 bool TestScene::Init()
 {
+	WriteLog("TESTSCENE INIT");
 	// Layers
     CreateLayer(Default);
     CreateLayer(Other);
@@ -61,83 +62,107 @@ bool TestScene::Init()
     }
 
 	
-	//music = Sound::Load("media/music.ogg");
+	//music = Sound::Load("media/music.wav");
 	//music->Play();
 	//music->Loop(true);
 
+	textObject.AddComponent(text = new Text("8bitoperator.ttf", 64));
+	textObject.transform.SetOrigin(pmath::Vec2(0.5f, 0.0f));
+	//textObject.transform.SetScale(0);
+	text->SetText("testi");
 
 	return true;
 }
 bool TestScene::DeInit()
 {
+	WriteLog("TESTSCENE DEINIT");
 	return true;
 }
 
 bool TestScene::Update(float dt)
 {
-	if (uthInput.Touch.Motion() == TouchMotion::TAP)
+	if (uthInput.Common == uth::InputEvent::CLICK)
 	{
-		WriteLog("TAP");
+		//uthSceneM.GoToScene(-1);
+		text->SetText("CLICK");
 	}
-	if (uthInput.Controller.IsButtonReleased(Controller::ButtonA))
-		music->Pause();
-	if (uthInput.Controller.IsButtonDown(Controller::ButtonB))
-		WriteLog("B");
-	if (uthInput.Controller.IsButtonDown(Controller::ButtonX))
-		WriteLog("X");
-	if (uthInput.Controller.IsButtonDown(Controller::ButtonY))
-		WriteLog("Y");
+	if (uthInput.Touch.Motion() == TouchMotion::RELEASE)
+	{
+		WriteLog("RELEASE");
+	}
 
 
-	if (uthInput.Controller.IsButtonDown(Controller::DpadDown))
-		WriteLog("DPAD DOWN");
-	if (uthInput.Controller.IsButtonDown(Controller::DpadLeft))
-		WriteLog("DPAD LEFT");
-	if (uthInput.Controller.IsButtonDown(Controller::DpadRight))
-		WriteLog("DPAD RIGHT");
-	if (uthInput.Controller.IsButtonDown(Controller::DpadUp))
-		WriteLog("DPAD UP");
+#pragma region Controller
+
+
+
+	if (uthInput.Controller.IsButtonDown(Controller::ButtonA))
+		text->SetText("A");
+	else if (uthInput.Controller.IsButtonDown(Controller::ButtonB))
+		text->SetText("B");
+	else if (uthInput.Controller.IsButtonDown(Controller::ButtonX))
+		text->SetText("X");
+	else if (uthInput.Controller.IsButtonDown(Controller::ButtonY))
+		text->SetText("Y");
+
+
+	else if (uthInput.Controller.IsButtonDown(Controller::DpadDown))
+		text->SetText("DPAD DOWN");
+	else if (uthInput.Controller.IsButtonDown(Controller::DpadLeft))
+		text->SetText("DPAD LEFT");
+	else if (uthInput.Controller.IsButtonDown(Controller::DpadRight))
+		text->SetText("DPAD RIGHT");
+	else if (uthInput.Controller.IsButtonDown(Controller::DpadUp))
+		text->SetText("DPAD UP");
 	
-	if (uthInput.Controller.IsButtonDown(Controller::L1))
-		WriteLog("L1");
-	if (uthInput.Controller.IsButtonDown(Controller::R1))
-		WriteLog("R1");
+	else if (uthInput.Controller.IsButtonDown(Controller::L1))
+		text->SetText("L1");
+	else if (uthInput.Controller.IsButtonDown(Controller::R1))
+		text->SetText("R1");
 
-	if (uthInput.Controller.IsButtonPressed(Controller::Select))
-		WriteLog("SELECT");
-	if (uthInput.Controller.IsButtonDown(Controller::Start))
-		WriteLog("START");
+	else if (uthInput.Controller.IsButtonDown(Controller::Select))
+		text->SetText("SELECT");
+	else if (uthInput.Controller.IsButtonDown(Controller::Start))
+		text->SetText("START");
 
-	if (uthInput.Controller.IsButtonDown(Controller::ThumbLeft))
-		WriteLog("THUMB LEFT");
-	if (uthInput.Controller.IsButtonDown(Controller::ThumbRight))
-		WriteLog("THUMB RIGHT");
+	else if (uthInput.Controller.IsButtonDown(Controller::ThumbLeft))
+		text->SetText("THUMB LEFT");
+	else if (uthInput.Controller.IsButtonDown(Controller::ThumbRight))
+		text->SetText("THUMB RIGHT");
 
-	if (uthInput.Controller.GetAxis(Controller::LeftTrigger, 0.7f))
-		WriteLog("Left Trigger");
-	if (uthInput.Controller.GetAxis(Controller::RightTrigger, 0.7f))
-		WriteLog("Right Trigger");
+	else if (uthInput.Controller.GetAxis(Controller::LeftTrigger) >= 0.2f)
+		text->SetText("Left Trigger");
+	else if (uthInput.Controller.GetAxis(Controller::RightTrigger) >= 0.2f)
+		text->SetText("Right Trigger");
 
-	if (uthInput.Controller.GetAxis(Controller::DpadX, 0.7f))
-		WriteLog("DPAD X?");
-	if (uthInput.Controller.GetAxis(Controller::DpadY, 0.7f))
-		WriteLog("DPAD Y?");
+	//else if (uthInput.Controller.GetAxis(Controller::DpadX) >= 0.2f)
+	//	text->SetText("DPAD X?");
+	//else if (uthInput.Controller.GetAxis(Controller::DpadY) >= 0.2f)
+	//	text->SetText("DPAD Y?");
 
-	if (uthInput.Controller.GetAxis(Controller::RightThumbX, 0.7f))
-		WriteLog("RIGHT THUMB X");
-	if (uthInput.Controller.GetAxis(Controller::RightThumbY, 0.7f))
-		WriteLog("RIGHT THUMB Y");
-	if (uthInput.Controller.GetAxis(Controller::LeftThumbX, 0.7f))
-		WriteLog("LEFT THUMB X");
-	if (uthInput.Controller.GetAxis(Controller::LeftThumbY, 0.7f))
-		WriteLog("LEFT THUMB Y");
+	else if (uthInput.Controller.GetAxis(Controller::RightThumbX) >= 0.2f)
+		text->SetText("RIGHT THUMB X");
+	else if (uthInput.Controller.GetAxis(Controller::RightThumbY) >= 0.2f)
+		text->SetText("RIGHT THUMB Y");
+	else if (uthInput.Controller.GetAxis(Controller::LeftThumbX) >= 0.2f)
+		text->SetText("LEFT THUMB X");
+	else if (uthInput.Controller.GetAxis(Controller::LeftThumbY) >= 0.2f)
+		text->SetText("LEFT THUMB Y");
+#pragma endregion
 
-
+	
 	return true;
 }
 bool TestScene::Draw()
 {
 	DrawLayers(uthEngine.GetWindow(), -1);
+	textObject.Draw(uthEngine.GetWindow());
 
+	return true;
+}
+
+bool TestScene::PauseSounds()
+{
+	//music->Pause();
 	return true;
 }

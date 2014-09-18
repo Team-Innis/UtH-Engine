@@ -15,7 +15,8 @@ namespace uth
 		DRAG,
 		PINCH_IN,
 		PINCH_OUT,
-		MULTIPLE
+		MULTIPLE,
+		RELEASE
 	};
 
 	class TouchInput : public InputBase

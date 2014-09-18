@@ -4,8 +4,6 @@
 
 #include <UtH/UtHEngine.hpp>
 
-#include <UtH/Audio/Audio.hpp>
-
 namespace uth
 {
 	class TestScene : public Scene
@@ -20,7 +18,13 @@ namespace uth
         bool Update(float dt) override;
         bool Draw() override;
 
-		uth::Sound* music;
+		bool PauseSounds() override;
+
+		Sound* music;
+
+		GameObject textObject;
+
+		Text* text;
 	
 	};
 }
