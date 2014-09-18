@@ -15,34 +15,28 @@ namespace uth
 	{
 		Object(const Object&) = delete;
 	public:
-		Object(Object* parent);
-		Object(Object* parent, const std::string& tag);
-		Object(Object* parent, const std::vector<std::string>& tags);
-		Object(Object& parent);
-		Object(Object& parent, const std::string& tag);
-		Object(Object& parent, const std::vector<std::string>& tags);
+		Object(std::weak_ptr<Object> parent);
+		Object(std::weak_ptr<Object> parent, const std::string& tag);
+		Object(std::weak_ptr<Object> parent, const std::vector<std::string>& tags);
 		virtual ~Object();
 
 		virtual void Update(float dt);
 		virtual void Draw(RenderTarget& target);
 
 		template <typename T>
-		T& AddChild(T* object = new T());
+		std::shared_ptr<T> AddChild(std::shared_ptr<T> object = new T());
 
-		void RemoveChild(Object* object);
-		void RemoveChild(Object& object);
+		void RemoveChild(std::shared_ptr<Object> object);
 		void RemoveChildren(const std::string& tag);
-		void RemoveChildren(const std::vector<Object*>& objects);
+		void RemoveChildren(const std::vector<std::shared_ptr<Object>>& objects);
 
 		template <typename T>
-		T* ExtractChild(T* object);
-		template <typename T>
-		T* ExtractChild(T& object);
+		std::shared_ptr<T> ExtractChild(std::shared_ptr<T> object);
 
-		std::vector<Object*> ExtractChildren(const std::string& tag);
+		std::vector<std::shared_ptr<Object>> ExtractChildren(const std::string& tag);
 
-		std::vector<Object*> Children() const;
-		std::vector<Object*> Children(const std::string& tag) const;
+		std::vector<std::shared_ptr<Object>> Children() const;
+		std::vector<std::shared_ptr<Object>> Children(const std::string& tag);
 
 		bool InWorld() const;
 
@@ -52,38 +46,33 @@ namespace uth
 		void RemoveTag(const std::string& tag);
 		std::vector<std::string> Tags() const;
 
-		Object* parent;
+		std::weak_ptr<Object> parent;
 		bool active;
 	private:
 		bool m_inWorld;
-		std::vector<std::unique_ptr<Object>> m_children;
+		std::vector<std::shared_ptr<Object>> m_children;
 		std::vector<std::string> m_tagList;
 	};
 
 	template <typename T>
-	T& Object::AddChild(T* object /*= new T()*/)
+	std::shared_ptr<T> Object::AddChild(std::shared_ptr<T> object /*= new T()*/)
 	{
 		m_children.emplace_back(object);
 		if (InWorld)
 			object->inWorld = true;
-		return *object;
+		return object;
 	}
 
 	template <typename T>
-	T* Object::ExtractChild(T* object)
+	std::shared_ptr<T> Object::ExtractChild(std::shared_ptr<T> object)
 	{
 		auto it = std::find(m_children.begin(), m_children.end(), object);
 		if (it-> == m_children.end())
 			return nullptr;
-		const Object* retVal = &*it;
+		const std::shared_ptr<Object> retVal = &*it;
 		it->release();
 		m_children.erase(it);
 		return retVal;
-	}
-	template <typename T>
-	T* Object::ExtractChild(T& object)
-	{
-		return ExtractChild(&object);
 	}
 }
 
