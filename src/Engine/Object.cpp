@@ -2,7 +2,7 @@
 
 namespace uth
 {
-	Object::Object(Object* p, const std::vector<std::string>& tags)
+	Object::Object(Object* p)
 		: parent(p),
 		m_inWorld(false)
 	{
@@ -13,30 +13,29 @@ namespace uth
 		: parent(p),
 		m_inWorld(false)
 	{
-
+		AddTag(tag);
 	}
 
-	Object::Object(Object* p)
+	Object::Object(Object* p, const std::vector<std::string>& tags)
 		: parent(p),
 		m_inWorld(false)
 	{
-
-	}
-
-	Object::Object(Object& p, const std::vector<std::string>& tags)
-		: Object(&p,tags)
-	{
-
-	}
-
-	Object::Object(Object& p, const std::string& tag)
-		: Object(&p, tag)
-	{
-
+		AddTags(tags);
 	}
 
 	Object::Object(Object& p)
 		: Object(&p)
+	{}
+
+	Object::Object(Object& p, const std::string& tag)
+		: Object(&p, tag)
+	{}
+
+	Object::Object(Object& p, const std::vector<std::string>& tags)
+		: Object(&p,tags)
+	{}
+
+	Object::~Object()
 	{
 
 	}
@@ -99,19 +98,32 @@ namespace uth
 
 	}
 
+	void Object::RemoveChildren(const std::vector<Object*>& objects)
+	{
+		for (auto o : objects)
+		{
+			RemoveChild(o);
+		}
+	}
+
 	std::vector<Object*> Object::ExtractChildren(const std::string& tag)
 	{
-
+		const auto it = std::remove_if(m_children.begin(), m_children.end(), childEraser(tag));
+		std::vector<Object*> retVal(it, m_children.end());
+		m_children.erase(it, m_children.end());
+		return retVal;
 	}
 
 	std::vector<Object*> Object::Children() const
 	{
-
+		return std::vector<Object*>(m_children.begin(),m_children.end());
 	}
 
 	std::vector<Object*> Object::Children(const std::string& tag) const
 	{
-
+		const auto it = std::remove_if(m_children.begin(), m_children.end(), childEraser(tag));
+		std::vector<Object*> retVal(it, m_children.end());
+		return retVal;
 	}
 
 	bool Object::InWorld() const
@@ -119,8 +131,32 @@ namespace uth
 		return m_inWorld;
 	}
 
+	void Object::AddTags(const std::vector<std::string>& tags)
+	{
+		for (auto tag : tags)
+		{
+			AddTag(tag);
+		}
+	}
+
+	void Object::AddTag(const std::string& tag)
+	{
+		if (std::find(m_tagList.begin(), m_tagList.end(), tag) == m_tagList.end())
+			m_tagList.push_back(tag);
+	}
+
 	bool Object::HasTag(const std::string& tag) const
 	{
+		return std::find(m_tagList.begin(), m_tagList.end(), tag) == m_tagList.end();
+	}
 
+	void Object::RemoveTag(const std::string& tag)
+	{
+		m_tagList.erase(std::find(m_tagList.begin(), m_tagList.end(), tag));
+	}
+
+	std::vector<std::string> Object::Tags() const
+	{
+		return m_tagList;
 	}
 }

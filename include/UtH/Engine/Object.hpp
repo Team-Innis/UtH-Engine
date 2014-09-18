@@ -15,12 +15,12 @@ namespace uth
 	{
 		Object(const Object&) = delete;
 	public:
-		Object(Object* parent, const std::vector<std::string>& tags);
-		Object(Object* parent, const std::string& tag);
 		Object(Object* parent);
-		Object(Object& parent, const std::vector<std::string>& tags);
-		Object(Object& parent, const std::string& tag);
+		Object(Object* parent, const std::string& tag);
+		Object(Object* parent, const std::vector<std::string>& tags);
 		Object(Object& parent);
+		Object(Object& parent, const std::string& tag);
+		Object(Object& parent, const std::vector<std::string>& tags);
 		virtual ~Object();
 
 		virtual void Update(float dt);
@@ -32,6 +32,7 @@ namespace uth
 		void RemoveChild(Object* object);
 		void RemoveChild(Object& object);
 		void RemoveChildren(const std::string& tag);
+		void RemoveChildren(const std::vector<Object*>& objects);
 
 		template <typename T>
 		T* ExtractChild(T* object);
@@ -45,7 +46,11 @@ namespace uth
 
 		bool InWorld() const;
 
+		void AddTags(const std::vector<std::string>& tags);
+		void AddTag(const std::string& tag);
 		bool HasTag(const std::string& tag) const;
+		void RemoveTag(const std::string& tag);
+		std::vector<std::string> Tags() const;
 
 		Object* parent;
 		bool active;
@@ -55,13 +60,13 @@ namespace uth
 		std::vector<std::string> m_tagList;
 	};
 
-	template<typename T>
-	T& Object::AddChild(T* o)
+	template <typename T>
+	T& Object::AddChild(T* object /*= new T()*/)
 	{
-		m_children.emplace_back(o);
+		m_children.emplace_back(object);
 		if (InWorld)
-			o->inWorld = true;
-		return *o;
+			object->inWorld = true;
+		return *object;
 	}
 
 	template <typename T>
