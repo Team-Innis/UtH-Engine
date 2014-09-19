@@ -113,14 +113,34 @@ namespace uth
         m_viewport = rect;
     }
 
-    const pmath::Recti& RenderTarget::getViewport() const
-    {
-        return m_viewport;
-    }
+    //const pmath::Recti& RenderTarget::getViewport() const
+    //{
+    //    return m_viewport;
+    //}
 
     const pmath::Recti& RenderTarget::GetViewport() const
     {
         return m_viewport;
+    }
+
+    pmath::Vec2 RenderTarget::PixelToCoords(const pmath::Vec2& pixel) const
+    {
+        pmath::Vec2 normalized;
+        normalized.x = -1.f + 2.f * (pixel.x - m_viewport.getLeft()) / m_viewport.size.x;
+        normalized.y = 1.f - 2.f * (pixel.y - m_viewport.getTop()) / m_viewport.size.y;
+
+        return (GetCamera().GetInverseProjectionTransform() * normalized);
+    }
+
+    pmath::Vec2 RenderTarget::CoordsToPixel(const pmath::Vec2& point) const
+    {
+        pmath::Vec2 normalized = (GetCamera().GetProjectionTransform() * point);
+
+        pmath::Vec2 pixel;
+        pixel.x = (normalized.x + 1.f) / 2.f * m_viewport.size.x + m_viewport.getLeft();
+        pixel.y = (-normalized.y + 1.f) / 2.f * m_viewport.size.y + m_viewport.getTop();
+
+        return pixel;
     }
 
     void RenderTarget::updateUniforms()
@@ -134,25 +154,4 @@ namespace uth
             m_defaultShader.SetUniform("unifProjection", m_camera ? m_camera->GetProjectionTransform() : m_defaultCamera.GetProjectionTransform());
         }
     }
-
-    pmath::Vec2 RenderTarget::pixelToCoords(const pmath::Vec2& pixel) const
-    {
-        pmath::Vec2 normalized;
-        normalized.x = -1.f + 2.f * (pixel.x - m_viewport.getLeft()) / m_viewport.size.x;
-        normalized.y = 1.f - 2.f * (pixel.y - m_viewport.getTop()) / m_viewport.size.y;
-
-        return (GetCamera().GetInverseProjectionTransform() * normalized);
-    }
-
-    pmath::Vec2 RenderTarget::coordsToPixel(const pmath::Vec2& point) const
-    {
-        pmath::Vec2 normalized = (GetCamera().GetProjectionTransform() * point);
-
-        pmath::Vec2 pixel;
-        pixel.x = (normalized.x + 1.f) / 2.f * m_viewport.size.x + m_viewport.getLeft();
-        pixel.y = (-normalized.y + 1.f) / 2.f * m_viewport.size.y + m_viewport.getTop();
-
-        return pixel;
-    }
-
 }

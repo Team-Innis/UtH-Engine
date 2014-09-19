@@ -16,6 +16,10 @@ namespace uth
     {
     public:
 
+        bool Bind();
+
+        void Clear(const float r = 0.f, const float g = 0.f, const float b = 0.f, const float a = 1.f);
+
         void SetCamera(Camera* camera);
 
         Camera& GetCamera() const;
@@ -26,19 +30,13 @@ namespace uth
 
         void SetViewport(const pmath::Recti& rect);
 
-        const pmath::Recti& getViewport() const;
-
         const pmath::Recti& GetViewport() const;
-
-        bool Bind();
 
         virtual pmath::Vec2 GetSize() const = 0;
 
-        void Clear(const float r = 0.f, const float g = 0.f, const float b = 0.f, const float a = 1.f);
+        pmath::Vec2 PixelToCoords(const pmath::Vec2& pixel) const;
 
-        pmath::Vec2 pixelToCoords(const pmath::Vec2& pixel) const;
-
-        pmath::Vec2 coordsToPixel(const pmath::Vec2& pixel) const;
+        pmath::Vec2 CoordsToPixel(const pmath::Vec2& coords) const;
 
 
     private:
