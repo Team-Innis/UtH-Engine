@@ -29,6 +29,7 @@ Sprite::Sprite(const pmath::Vec4& fillColor, const pmath::Vec2& size, const std:
 {
 	m_size = size;
     m_color = fillColor;
+	Init();
 }
 
 
