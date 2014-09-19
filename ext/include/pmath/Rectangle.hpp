@@ -5,6 +5,7 @@
 #include "Vector2.hpp"
 
 #include <iostream>
+#include <string>
 
 namespace pmath
 {
@@ -30,14 +31,16 @@ namespace pmath
         bool intersects(const Rectangle& other) const;
         bool contains(const Vector2<T>& point) const;
 
-#pragma region Operators
+        std::string toString() const;
+
+        #pragma region Operators
         // Comparison
         bool operator ==(const Rectangle& right) const;
         bool operator !=(const Rectangle& right) const;
 
         // Assignment
         Rectangle& operator =(const Rectangle& right);
-#pragma endregion
+        #pragma endregion
 
         Vector2<T> position;
         Vector2<T> size;

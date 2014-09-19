@@ -27,4 +27,5 @@
 #include "Rectangle.hpp"
 
 #include "Constants.hpp"
+#include "Trigonometry.hpp"
 #include "Util.hpp"

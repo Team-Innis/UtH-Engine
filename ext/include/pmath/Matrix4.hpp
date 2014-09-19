@@ -10,6 +10,7 @@
 #include "Matrix3.hpp"
 
 #include <iostream>
+#include <string>
 
 namespace pmath
 {
@@ -64,6 +65,7 @@ namespace pmath
         static Matrix4 createTranslation(const T& x, const T& y, const T& z);
         static Matrix4 createTranslation(const Vector3<T>& translation);
 
+        std::string toString() const;
 
         #pragma region Operators
         // Comparison

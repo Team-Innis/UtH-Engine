@@ -2,6 +2,7 @@
 #include "../Trigonometry.hpp"
 
 #include <cassert>
+#include <sstream>
 
 namespace pmath
 {
@@ -122,6 +123,14 @@ namespace pmath
         return createScaling(scale.x, scale.y);
     }
 
+    template<typename T>
+    inline std::string pmath::Matrix2<T>::toString() const
+    {
+        std::ostringstream stream;
+        stream << *this;
+
+        return stream.str();
+    }
 
     // Operators
     #pragma region Operators
@@ -139,7 +148,7 @@ namespace pmath
     }
 
 
-    // Assingment
+    // Assignment
     template<typename T>
     inline Matrix2<T>& Matrix2<T>::operator =(const Matrix2<T>& right)
     {

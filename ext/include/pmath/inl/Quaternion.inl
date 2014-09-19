@@ -1,6 +1,7 @@
 #include "../Quaternion.hpp"
 #include "../Util.hpp"
 #include "../Trigonometry.hpp"
+#include <sstream>
 
 namespace pmath
 {
@@ -223,6 +224,16 @@ namespace pmath
         return (std::sin((1 - t) * angle) / std::sin(angle)) * q1 + (std::sin(t*angle)/std::sin(angle)) * q2;
     }
 
+
+    template<typename T>
+    std::string pmath::Quaternion<T>::toString() const
+    {
+        std::ostringstream stream;
+        stream << *this;
+
+        return stream.str();
+    }
+
     // Operators
     #pragma region Operators
     // Comparison
@@ -276,7 +287,7 @@ namespace pmath
         return Quaternion<T>(w / right, vector / right);
     }
 
-    // Assingment
+    // Assignment
     template<typename T>
     inline Quaternion<T>& Quaternion<T>::operator =(const Quaternion<T>& right)
     {

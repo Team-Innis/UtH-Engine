@@ -3,6 +3,7 @@
 #define VECTOR2_PMATH_H
 
 #include <iostream>
+#include <string>
 
 namespace pmath
 {
@@ -45,6 +46,8 @@ namespace pmath
         bool isUnitVector() const;
 
         static Vector2 lerp(const Vector2& vec1, const Vector2& vec2, const T& t);
+
+        std::string toString() const;
 
         #pragma region Operators
         // Comparison

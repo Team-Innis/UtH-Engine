@@ -2,6 +2,7 @@
 #include "../Trigonometry.hpp"
 
 #include <cassert>
+#include <sstream>
 
 namespace pmath
 {
@@ -319,6 +320,16 @@ namespace pmath
         return createTranslation(translation.x, translation.y, translation.z);
     }
 
+
+
+    template<typename T>
+    inline std::string pmath::Matrix4<T>::toString() const
+    {
+        std::ostringstream stream;
+        stream << *this;
+
+        return stream.str();
+    }
 
     // Operators
     #pragma region Operators

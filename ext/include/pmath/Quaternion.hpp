@@ -9,6 +9,7 @@
 #include "Matrix4.hpp"
 
 #include <iostream>
+#include <string>
 
 namespace pmath
 {
@@ -52,6 +53,8 @@ namespace pmath
         static Quaternion createRotationZ(const T& angle);
 
         static Quaternion slerp(const Quaternion& q1, const Quaternion& q2, const T& t);
+
+        std::string toString() const;
 
         #pragma region Operators
         // Comparison

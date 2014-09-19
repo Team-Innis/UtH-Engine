@@ -1,4 +1,5 @@
 #include "../Rectangle.hpp"
+#include <sstream>
 
 namespace pmath
 {
@@ -84,6 +85,15 @@ namespace pmath
             getRight() < point.x ||
             getTop() > point.y ||
             getBottom() < point.y);
+    }
+
+    template<typename T>
+    inline std::string Rectangle<T>::toString() const
+    {
+        std::ostringstream stream;
+        stream << *this;
+
+        return stream.str();
     }
 
     // Operators
