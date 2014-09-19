@@ -1,40 +1,33 @@
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Renderer/Camera.hpp>
 #include <UtH/Renderer/RenderTarget.hpp>
+#include <UtH/Platform/Debug.hpp>
 
 using namespace uth;
 
 GameObject::GameObject()
-    : transform(*(new Transform())),
-      parent(nullptr),
-      m_name(""),
-      m_active(true)
-	  
+    : transform(*(new Transform()))
 {
 	AddComponent(&transform);
 	transform.parent = this;
 }
 
-GameObject::GameObject(const std::string &name)
-    : transform(*(new Transform())),
-      parent(nullptr),
-      m_name(name),
-	  m_active(true)
+GameObject::GameObject(const std::string &tag)
+    : GameObject()
 {
-	AddComponent(&transform);
-	transform.parent = this;
+	AddTag(tag);
 }
 
-uth::GameObject::GameObject(const GameObject& other)
-    : transform(*(new Transform(other.transform))),
-      parent(other.parent),
-      components(),
-      m_name(other.m_name),
-      m_active(other.m_active)
-{
-    AddComponent(&transform);
-    transform.parent = this;
-}
+//uth::GameObject::GameObject(const GameObject& other)
+//    : transform(*(new Transform(other.transform))),
+//      parent(other.parent),
+//      components(),
+//      m_name(other.m_name),
+//      m_active(other.m_active)
+//{
+//    AddComponent(&transform);
+//    transform.parent = this;
+//}
 
 GameObject::~GameObject()
 {
@@ -56,11 +49,6 @@ void GameObject::AddComponent(Component* component)
 	components.emplace_back(component);
 	component->parent = this;
 	component->Init();
-}
-
-const std::string GameObject::GetName() const
-{
-	return m_name;
 }
 
 void GameObject::RemoveComponent(Component* component)
@@ -92,7 +80,7 @@ void GameObject::RemoveComponents()
 
 void GameObject::Draw(RenderTarget& target)
 {
-	if(!m_active)
+	if (!m_active)
 		return;
 
 	target.Bind();
@@ -106,6 +94,8 @@ void GameObject::Draw(RenderTarget& target)
 		if (component->IsActive())
 			component->Draw(target);
 	}
+
+	Object::Draw(target);
 }
 
 void GameObject::Update(float dt)
@@ -121,6 +111,8 @@ void GameObject::Update(float dt)
 		if (component->IsActive())
 			component->Update(dt);
 	}
+
+	Object::Update(dt);
 }
 
 void GameObject::draw(RenderTarget& target)

@@ -4,6 +4,7 @@
 
 #include <UtH/Engine/Component.hpp>
 #include <UtH/Engine/Transform.hpp>
+#include <UtH/Engine/Object.hpp>
 #include <pmath/PMath.hpp>
 
 #include <vector>
@@ -15,12 +16,12 @@ namespace uth
 {
 	class Camera;
 
-	class GameObject
+	class GameObject : public Object
 	{
 	public:
 		GameObject();
-		GameObject(const std::string &name);
-        GameObject(const GameObject& other);
+		GameObject(const std::string &tag);
+        //GameObject(const GameObject& other);
         void operator =(const GameObject&) = delete;
 		virtual ~GameObject();
 
@@ -29,29 +30,23 @@ namespace uth
 
 		void AddComponent(Component* component);
         template<typename T>
-        T* GetComponent(const std::string& name);
-		const std::string GetName() const;
+		T* GetComponent(const std::string& name);
 		// Will actually delete the component
 		void RemoveComponent(Component* component);
 		void RemoveComponent(const std::string& name);
 		void RemoveComponents();
 
-		void Draw(RenderTarget& target);
-		void Update(float dt);
+		void Draw(RenderTarget& target) final;
+		void Update(float dt) final;
 
 		// Transform is a special component that every gameobject has
 		Transform& transform;
-
-		GameObject* parent;
 
 	protected:
         virtual void update(float){};
         virtual void draw(RenderTarget& target);
 
 		std::vector<std::unique_ptr<Component>> components;
-		std::string m_name;
-
-		bool m_active;
 	};
 
 
