@@ -113,11 +113,6 @@ namespace uth
         m_viewport = rect;
     }
 
-    //const pmath::Recti& RenderTarget::getViewport() const
-    //{
-    //    return m_viewport;
-    //}
-
     const pmath::Recti& RenderTarget::GetViewport() const
     {
         return m_viewport;
