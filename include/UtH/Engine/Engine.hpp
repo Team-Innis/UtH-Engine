@@ -42,8 +42,7 @@ namespace uth
 
         pmath::Vec4 m_clearColor;
 	public:
-		bool Init();
-		bool Init(const uth::WindowSettings &wsettings);
+		bool Init(const uth::WindowSettings &wsettings = uth::WindowSettings());
 		void Update();
 		void Draw();
 

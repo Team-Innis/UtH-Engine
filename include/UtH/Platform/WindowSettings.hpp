@@ -15,16 +15,16 @@ namespace uth
 			: useDepthBuffer(false),
 			useStencilBuffer(false),
 			useBlending(true),
-			useVsync(false),
+			useVsync(true),
 			fullScreen(false),
 
-			contextVersionMajor(0),
-			contextVersionMinor(0),
+			contextVersionMajor(3),
+			contextVersionMinor(3),
 
 			antialiasingSamples(0),
 
-			position(0, 0),
-			size(800, 600),
+			position(100, 100),
+			size(1280, 720),
 
 			title("Generic window title")
 		{}
