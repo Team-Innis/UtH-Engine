@@ -1,26 +1,41 @@
 #include <UtH/Engine/Object.hpp>
+#include <UtH/Renderer/RenderTarget.hpp>
 #include <cassert>
 
 namespace uth
 {
 	Object::Object()
+		: m_active(true)
 	{
 
 	}
 
 	Object::Object(std::weak_ptr<Object> p)
-		: m_parent(p)
+		: m_parent(p),
+		  m_active(true)
 	{
 
 	}
 
-	Object::Object(std::weak_ptr<Object> p, const std::string& tag)
+	Object::Object(const std::string& tag)
+		: Object()
+	{
+		AddTag(tag);
+	}
+
+	Object::Object(const std::string& tag, std::weak_ptr<Object> p)
 		: Object(p)
 	{
 		AddTag(tag);
 	}
 
-	Object::Object(std::weak_ptr<Object> p, const std::vector<std::string>& tags)
+	Object::Object(const std::vector<std::string>& tags)
+		: Object()
+	{
+		AddTags(tags);
+	}
+
+	Object::Object(const std::vector<std::string>& tags, std::weak_ptr<Object> p)
 		: Object(p)
 	{
 		AddTags(tags);
@@ -33,11 +48,11 @@ namespace uth
 
 	void Object::Update(float dt)
 	{
-		if (active)
+		if (m_active)
 		{
 			for (auto& i : m_children)
 			{
-				if (i->active)
+				if (i->m_active)
 					i->Update(dt);
 			}
 		}
@@ -45,14 +60,19 @@ namespace uth
 
 	void Object::Draw(RenderTarget& target)
 	{
-		if (active)
+		if (m_active)
 		{
 			for (auto& i : m_children)
 			{
-				if (i->active)
+				if (i->m_active)
 					i->Draw(target);
 			}
 		}
+	}
+
+	bool Object::HasChild(std::shared_ptr<Object> object)
+	{
+		return std::find(m_children.begin(), m_children.end(), object) != m_children.end();
 	}
 
 	void Object::RemoveChild(std::shared_ptr<Object> object)
@@ -135,20 +155,25 @@ namespace uth
 		m_tagList.erase(std::find(m_tagList.begin(), m_tagList.end(), tag));
 	}
 
-	std::vector<std::string> Object::Tags() const
+	const std::vector<std::string>& Object::Tags() const
 	{
 		return m_tagList;
 	}
 
 	std::shared_ptr<Object> Object::Parent()
 	{
-		assert(m_parent.expired());
+		assert(HasParent());
 		return m_parent.lock();
 	}
 
 	void Object::SetParent(std::weak_ptr<Object> p)
 	{
 		p.lock()->AddChild(std::shared_ptr<Object>(this));
+	}
+
+	bool Object::HasParent()
+	{
+		return !m_parent.expired();
 	}
 
 	void Object::setParent(std::weak_ptr<Object> p)

@@ -17,8 +17,10 @@ namespace uth
 	public:
 		Object();
 		Object(std::weak_ptr<Object> parent);
-		Object(std::weak_ptr<Object> parent, const std::string& tag);
-		Object(std::weak_ptr<Object> parent, const std::vector<std::string>& tags);
+		Object(const std::string& tag);
+		Object(const std::string& tag, std::weak_ptr<Object> parent);
+		Object(const std::vector<std::string>& tags);
+		Object(const std::vector<std::string>& tags, std::weak_ptr<Object> parent);
 		virtual ~Object();
 
 		virtual void Update(float dt);
@@ -26,6 +28,8 @@ namespace uth
 
 		template <typename T>
 		std::shared_ptr<T> AddChild(std::shared_ptr<T> object = new T());
+
+		bool HasChild(std::shared_ptr<Object> object);
 
 		void RemoveChild(std::shared_ptr<Object> object);
 		void RemoveChildren();
@@ -46,17 +50,22 @@ namespace uth
 		void AddTag(const std::string& tag);
 		bool HasTag(const std::string& tag) const;
 		void RemoveTag(const std::string& tag);
-		std::vector<std::string> Tags() const;
+		const std::vector<std::string>& Tags() const;
 
 		template <typename T>
 		std::shared_ptr<T> Parent();
 		std::shared_ptr<Object> Parent();
+
+		template <typename T>
+		bool HasParent();
+		bool HasParent();
+
 		void SetParent(std::weak_ptr<Object> p);
 
-		bool active;
 
 	protected:
 		std::weak_ptr<Object> m_parent;
+		bool m_active;
 
 	private:
 		void setParent(std::weak_ptr<Object> p);
@@ -66,17 +75,20 @@ namespace uth
 	};
 
 	template <typename T>
-	std::shared_ptr<T> Object::AddChild(std::shared_ptr<T> object /*= new T()*/)
+	inline std::shared_ptr<T> Object::AddChild(std::shared_ptr<T> object /*= new T()*/)
 	{
-		m_children.emplace_back(object);
-		object->setParent(std::shared_ptr<Object>(this));
-		//if (InWorld)
-		//	object->m_inWorld = true;
+		if (object != nullptr)
+		{
+			m_children.emplace_back(object);
+			object->setParent(std::shared_ptr<Object>(this));
+			//if (InWorld)
+			//	object->m_inWorld = true;
+		}
 		return object;
 	}
 
 	template <typename T>
-	std::shared_ptr<T> Object::ExtractChild(std::shared_ptr<T> object)
+	inline std::shared_ptr<T> Object::ExtractChild(std::shared_ptr<T> object)
 	{
 		auto it = std::find(m_children.begin(), m_children.end(), object);
 		if (it-> == m_children.end())
@@ -88,10 +100,16 @@ namespace uth
 	}
 
 	template <typename T>
-	std::shared_ptr<T> Parent()
+	inline std::shared_ptr<T> Object::Parent()
 	{
-		assert(dynamic_pointer_cast(Parent()));
-		return dynamic_pointer_cast(Parent());
+		assert(HasParent<T>());
+		return std::dynamic_pointer_cast<T>(Parent());
+	}
+
+	template <typename T>
+	inline bool Object::HasParent()
+	{
+		return std::dynamic_pointer_cast<T>(Parent()) != nullptr;
 	}
 }
 
