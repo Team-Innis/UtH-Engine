@@ -6,6 +6,7 @@
 
 #include <cstdio>
 #include <string>
+#include <fstream>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
 #include <UtH/Platform/BinaryData.hpp>
@@ -58,7 +59,8 @@ namespace uth
 		static int64_t tellAsset(void* asset);
 		
 	private:
-		std::FILE* m_file;
+		//std::FILE* m_file;
+		std::fstream m_stream;
 		AAsset* m_asset;
 		unsigned int m_length;
 	};
