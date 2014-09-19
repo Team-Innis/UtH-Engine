@@ -4,7 +4,7 @@
 #ifndef FILEREADER_H
 #define FILEREADER_H
 
-#include <stdio.h>
+#include <cstdio>
 #include <string>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
@@ -41,7 +41,8 @@ namespace uth
 		// Saves text to file.
 		// [PC] Relative to executable location.
 		// [Android] Relative to private application data folder.
-		void WriteToFile(const std::string& filenameAndPath, const std::string& data);
+		void WriteToFile(const std::string& filenameAndPath, const std::string& data,
+			bool toSDcard = false);
 		// [PC] Relative to executable location.
 		// [Android] Relative to private application data folder.
 		void WriteToFile(const std::string& filenameAndPath, const BINARY_DATA& data);
@@ -57,7 +58,7 @@ namespace uth
 		static int64_t tellAsset(void* asset);
 		
 	private:
-		//FILE* file;
+		std::FILE* m_file;
 		AAsset* m_asset;
 		unsigned int m_length;
 	};

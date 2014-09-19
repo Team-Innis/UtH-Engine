@@ -11,9 +11,14 @@ using namespace uth;
 AAssetManager* FileManager::m_manager = nullptr;
 
 FileManager::FileManager()
-	: m_asset(nullptr)
+	:m_file(nullptr),
+	 m_asset(nullptr),
+	 m_length(0)
 { }
 FileManager::FileManager(const std::string& path)
+	:m_file(nullptr),
+	 m_asset(nullptr),
+	 m_length(0)
 {
 	OpenFile(path);
 }
@@ -79,24 +84,38 @@ void FileManager::WriteToFile(const std::string& filename, const std::string& da
 	if (0 == res && sb.st_mode & S_IFDIR)
 	{
 		WriteLog("%s dir already in app's internal data storage.", dataPath.c_str());
+
 	}
-	else if (ENOENT == errno)
+	if (ENOENT == errno)
 	{
-		res = mkdir(dataPath.c_str(), 0770);
-		if (!res)
+		res = mkdir(dataPath.c_str(), 0777);
+		if (res == 0)
 			uth::WriteLog("Creating data folder succeeded!");
 		else
-			uth::WriteError("Creating data folder failed with %d!", res);
+			uth::WriteError("Creating data folder failed with %d!", strerror(errno));
 
 	}
 
-	dataPath += filename;
+	dataPath += splitName;
 	std::FILE* file = std::fopen(dataPath.c_str(), "w+");
-	if (file != NULL)
+	WriteLog("writing file to %s errno %s", dataPath.c_str(), strerror(errno));
+	if (file != nullptr)
 	{
-		std::fputs(data.c_str(), file);
-		std::fflush(file);
-		std::fclose(file);
+		int temp = 1;
+
+		if ((temp = std::fputs(data.c_str(), file)) < 0)
+		{
+			WriteLog("fputs failed %d", temp);
+		}
+		if ((temp = std::fflush(file)) < 0)
+		{
+			WriteLog("fflush failed %d", temp);
+		}
+		if ((temp = std::fclose(file)) < 0)
+		{
+			WriteLog("fclose failed %d", temp);
+		}
+		
 	}
 	else
 	{
