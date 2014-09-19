@@ -5,31 +5,32 @@
 using namespace uth;
 
 GameObject::GameObject()
-	: parent(nullptr),
+    : transform(*(new Transform())),
+      parent(nullptr),
       m_name(""),
-      m_active(true),
-	  transform(*(new Transform()))
+      m_active(true)
+	  
 {
 	AddComponent(&transform);
 	transform.parent = this;
 }
 
 GameObject::GameObject(const std::string &name)
-    : parent(nullptr),
+    : transform(*(new Transform())),
+      parent(nullptr),
       m_name(name),
-	  m_active(true),
-	  transform(*(new Transform()))
+	  m_active(true)
 {
 	AddComponent(&transform);
 	transform.parent = this;
 }
 
 uth::GameObject::GameObject(const GameObject& other)
-    : parent(other.parent),
+    : transform(*(new Transform(other.transform))),
+      parent(other.parent),
+      components(),
       m_name(other.m_name),
-      m_active(other.m_active),
-      transform(*(new Transform(other.transform))),
-      components()
+      m_active(other.m_active)
 {
     AddComponent(&transform);
     transform.parent = this;

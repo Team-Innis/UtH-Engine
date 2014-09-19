@@ -1,4 +1,4 @@
-#include <UtH/Engine/Rigidbody.hpp>
+#include <UtH/Engine/Physics/Rigidbody.hpp>
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Platform/Debug.hpp>
 
@@ -10,17 +10,17 @@ pmath::Vec2 box2DToUmath(const b2Vec2& vec);
 
 using namespace uth;
 
-Rigidbody::Rigidbody(b2World* world, const COLLIDER_TYPE collider, const std::string& name)
+Rigidbody::Rigidbody(PhysicsWorld& world, const COLLIDER_TYPE collider, const std::string& name)
 	: Component(name),
-	  m_world(world),
+	  m_world(world.GetBox2dWorldObject()),
 	  m_collider(collider)
 {
 	defaults();
 }
 
-Rigidbody::Rigidbody(b2World* world, const COLLIDER_TYPE collider, const pmath::Vec2& size, const std::string& name)
+Rigidbody::Rigidbody(PhysicsWorld& world, const COLLIDER_TYPE collider, const pmath::Vec2& size, const std::string& name)
 	: Component(name),
-	  m_world(world),
+	  m_world(world.GetBox2dWorldObject()),
 	  m_collider(collider),
 	  m_size(size)
 {
@@ -30,8 +30,8 @@ Rigidbody::Rigidbody(b2World* world, const COLLIDER_TYPE collider, const pmath::
 
 Rigidbody::~Rigidbody()
 {
-	if(m_body != nullptr)
-		m_world->DestroyBody(m_body);
+    if (m_body != nullptr && !m_world.expired())
+        m_world.lock()->DestroyBody(m_body);
 }
 
 
@@ -94,6 +94,16 @@ void Rigidbody::SetVelocity(const pmath::Vec2& velocity)
 const pmath::Vec2 Rigidbody::GetVelocity() const
 {
 	return box2DToUmath(m_body->GetLinearVelocity());
+}
+
+void Rigidbody::SetAngularVelocity(float velocity)
+{
+	m_body->SetAngularVelocity(velocity);
+}
+
+float Rigidbody::GetAngularVelocity() const
+{
+	return m_body->GetAngularVelocity();
 }
 
 void Rigidbody::SetSize(const pmath::Vec2& size)
@@ -230,6 +240,10 @@ const bool Rigidbody::IsBullet() const
 	return m_body->IsBullet();
 }
 
+void Rigidbody::SetKinematic(bool value)
+{
+	value ? m_body->SetType(b2_kinematicBody) : m_body->SetType(b2_dynamicBody);
+}
 
 // Private
 
@@ -246,15 +260,14 @@ void Rigidbody::init()
 	pos /= PIXELS_PER_METER;
 	bodyDef.position.Set(pos.x, pos.y);
 
-	m_body = m_world->CreateBody(&bodyDef);
+	m_body = m_world.lock()->CreateBody(&bodyDef);
+	m_body->SetUserData(parent);
 
 	if(!(m_size.lengthSquared() > 0))
 		m_size = parent->transform.GetSize();
 
 
 	m_size /= PIXELS_PER_METER;
-
-	// TODO: remove pointless userdata
 
 	switch(m_collider)
 	{
@@ -284,6 +297,16 @@ void Rigidbody::init()
 		WriteError("Collider type undefined\nThis is probably bad");
 		break;
 	}
+}
+
+void Rigidbody::SetRestituion(float restitution)
+{
+	m_body->GetFixtureList()->SetRestitution(restitution);
+}
+
+float uth::Rigidbody::GetRestitution() const
+{
+	return m_body->GetFixtureList()->GetRestitution();
 }
 
 b2Vec2 umathToBox2D(const pmath::Vec2& vec)

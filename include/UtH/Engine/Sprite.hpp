@@ -45,7 +45,7 @@ namespace uth
 	protected:
 		void defaults();
 
-		virtual void generateBuffer();
+		virtual void generateBuffer(bool init = false);
 
 		VertexBuffer m_vertexBuffer;
 

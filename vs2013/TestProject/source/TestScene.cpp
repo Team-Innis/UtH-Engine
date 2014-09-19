@@ -79,6 +79,5 @@ bool TestScene::Update(float dt)
 bool TestScene::Draw()
 {
 	DrawLayers(uthEngine.GetWindow(), -1);
-
 	return true;
 }

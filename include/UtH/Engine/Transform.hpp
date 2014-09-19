@@ -74,6 +74,7 @@ namespace uth
 		void updateTransform();
 
 		pmath::Mat4 m_modelTransform;
+        pmath::Mat4 m_combinedTransform;
 		bool m_transformNeedsUpdate;
 	};
 }

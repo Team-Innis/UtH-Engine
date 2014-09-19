@@ -10,7 +10,7 @@ namespace uth
     {
     public:
 
-        Vertex();
+        Vertex() {}
 
         Vertex(const pmath::Vec3& pos, const pmath::Vec2& uv,
 			const pmath::Vec4& col = pmath::Vec4(1, 1, 1, 1))

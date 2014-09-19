@@ -14,7 +14,9 @@
 
 #include <UtH/Engine/SceneManager.hpp>
 #include <UtH/Engine/DefaultScene.hpp>
-#include <UtH/Engine/Rigidbody.hpp>
+#include <UtH/Engine/Physics/Rigidbody.hpp>
+#include <UtH/Engine/Physics/PhysicsContactListener.hpp>
+#include <UtH/Engine/Physics/PhysicsWorld.hpp>
 #include <UtH/Engine/SceneManager.hpp>
 #include <UtH/Engine/SpriteBatch.hpp>
 
@@ -40,8 +42,7 @@ namespace uth
 
         pmath::Vec4 m_clearColor;
 	public:
-		bool Init();
-		bool Init(const uth::WindowSettings &wsettings);
+		bool Init(const uth::WindowSettings &wsettings = uth::WindowSettings());
 		void Update();
 		void Draw();
 

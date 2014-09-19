@@ -97,7 +97,7 @@ void AnimatedSprite::ChangeAnimation(int loopStartFrame, int loopFrames,
 	m_loop = loop;
 	m_frameCount = 0;
 	m_reversed = reversed;
-	generateBuffer();
+	generateBuffer(true);
 }
 
 void AnimatedSprite::Init()
@@ -148,7 +148,7 @@ void AnimatedSprite::Update(float dt)
 	}
 }
 
-void AnimatedSprite::generateBuffer()
+void AnimatedSprite::generateBuffer(bool init)
 {
 	const int X = m_curFrame % m_frameCountX;
 	const int Y = m_curFrame/m_frameCountX;
@@ -162,31 +162,57 @@ void AnimatedSprite::generateBuffer()
 		m_sizeTc.x,
 		-m_sizeTc.y);
 
+    if (init)
+    {
+        m_vertexBuffer.clear();
 
-	m_vertexBuffer.clear();
-
-	m_vertexBuffer.addVertex(Vertex(
-		pmath::Vec3(-0.5f * w, -0.5f * h, 0),
-		pmath::Vec2(texCoord.getLeft(), texCoord.getTop()),
-		m_color));
-	m_vertexBuffer.addVertex(Vertex(
-		pmath::Vec3(0.5f * w, -0.5f * h, 0),
-		pmath::Vec2(texCoord.getRight(), texCoord.getTop()),
-		m_color));
-	m_vertexBuffer.addVertex(Vertex(
-		pmath::Vec3(-0.5f * w, 0.5f * h, 0),
-		pmath::Vec2(texCoord.getLeft(), texCoord.getBottom()),
-		m_color));
-	m_vertexBuffer.addVertex(Vertex(
-		pmath::Vec3(0.5f * w, 0.5f * h, 0),
-		pmath::Vec2(texCoord.getRight(), texCoord.getBottom()),
-		m_color));
+        m_vertexBuffer.addVertex(Vertex(
+            pmath::Vec3(-0.5f * w, -0.5f * h, 0),
+            pmath::Vec2(texCoord.getLeft(), texCoord.getTop()),
+            m_color));
+        m_vertexBuffer.addVertex(Vertex(
+            pmath::Vec3(0.5f * w, -0.5f * h, 0),
+            pmath::Vec2(texCoord.getRight(), texCoord.getTop()),
+            m_color));
+        m_vertexBuffer.addVertex(Vertex(
+            pmath::Vec3(-0.5f * w, 0.5f * h, 0),
+            pmath::Vec2(texCoord.getLeft(), texCoord.getBottom()),
+            m_color));
+        m_vertexBuffer.addVertex(Vertex(
+            pmath::Vec3(0.5f * w, 0.5f * h, 0),
+            pmath::Vec2(texCoord.getRight(), texCoord.getBottom()),
+            m_color));
 
 
-	m_vertexBuffer.addIndex(0);
-	m_vertexBuffer.addIndex(1);
-	m_vertexBuffer.addIndex(2);
-	m_vertexBuffer.addIndex(1);
-	m_vertexBuffer.addIndex(3);
-	m_vertexBuffer.addIndex(2);
+        m_vertexBuffer.addIndex(0);
+        m_vertexBuffer.addIndex(1);
+        m_vertexBuffer.addIndex(2);
+        m_vertexBuffer.addIndex(1);
+        m_vertexBuffer.addIndex(3);
+        m_vertexBuffer.addIndex(2);
+
+        m_vertexBuffer.setData();
+    }
+    else // We are updating the buffer
+    {
+        std::vector<Vertex> vertices;
+        vertices.push_back(Vertex(
+            pmath::Vec3(-0.5f * w, -0.5f * h, 0),
+            pmath::Vec2(texCoord.getLeft(), texCoord.getTop()),
+            m_color));
+        vertices.push_back(Vertex(
+            pmath::Vec3(0.5f * w, -0.5f * h, 0),
+            pmath::Vec2(texCoord.getRight(), texCoord.getTop()),
+            m_color));
+        vertices.push_back(Vertex(
+            pmath::Vec3(-0.5f * w, 0.5f * h, 0),
+            pmath::Vec2(texCoord.getLeft(), texCoord.getBottom()),
+            m_color));
+        vertices.push_back(Vertex(
+            pmath::Vec3(0.5f * w, 0.5f * h, 0),
+            pmath::Vec2(texCoord.getRight(), texCoord.getBottom()),
+            m_color));
+
+        m_vertexBuffer.changeBufferData(0, vertices);
+    }
 }

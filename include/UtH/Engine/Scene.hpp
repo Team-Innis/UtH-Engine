@@ -9,13 +9,8 @@
 #include <UtH/Engine/Layer.hpp>
 #include <map>
 
-
-class b2World;
-
 namespace uth
 {
-	const float GRAVITY = 10.f;
-
 	class Scene
     {
         friend class SceneManager;
@@ -55,9 +50,6 @@ namespace uth
         };
 
         std::map<int, std::unique_ptr<Layer, LayerDeleter>> m_layers;
-
-		std::unique_ptr<b2World> m_world;
-
 	};
 }
 

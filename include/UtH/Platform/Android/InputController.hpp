@@ -51,6 +51,7 @@ namespace uth
         std::vector<int> m_buttons;
         std::vector<int> m_prevButtons;
         std::vector<Axis> m_axes;
+        bool m_hasChanged;
     };
 }
 

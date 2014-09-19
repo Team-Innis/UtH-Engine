@@ -11,18 +11,6 @@ Engine::Engine()
     : m_running(false)
 { }
 
-bool Engine::Init()
-{
-    m_wsettings.size = pmath::Vec2(1280, 720);
-    m_wsettings.position = pmath::Vec2(100, 100);
-	m_wsettings.contextVersionMajor = 3;
-	m_wsettings.contextVersionMinor = 3;
-    m_wsettings.fullScreen = false;
-	m_wsettings.useVsync = true;
-
-	return initialize();
-}
-
 bool Engine::Init(const uth::WindowSettings &wsettings)
 {
 	m_wsettings = wsettings;

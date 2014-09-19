@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Particles">
       <UniqueIdentifier>{027d4475-81ca-4dec-9081-2a57d01e9f66}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Physics">
+      <UniqueIdentifier>{34aae22b-6799-4bb4-8d36-7770677664f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Physics">
+      <UniqueIdentifier>{a880fa1f-8b8b-400c-901f-d866c19878b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Engine\Scene.cpp">
@@ -52,9 +58,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Engine\Layer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Engine\Rigidbody.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Engine\AnimatedSprite.cpp">
@@ -96,8 +99,17 @@
     <ClCompile Include="..\..\src\Engine\Object.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Physics\PhysicsContactListener.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Engine\TMX\TMXObject.cpp">
       <Filter>Source Files\TMX</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Physics\PhysicsWorld.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Physics\Rigidbody.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -126,9 +138,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\Layer.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Engine\Rigidbody.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\AnimatedSprite.hpp">
@@ -179,8 +188,17 @@
     <ClInclude Include="..\..\include\UtH\Engine\Object.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\Physics\PhysicsWorld.hpp">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\TMX\TMXObject.hpp">
       <Filter>Header Files\TMX</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\Physics\Rigidbody.hpp">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\Physics\PhysicsContactListener.hpp">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
