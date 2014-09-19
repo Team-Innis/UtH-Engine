@@ -3,21 +3,21 @@
 namespace uth
 {
 	Object::Object(std::weak_ptr<Object> p)
-		: parent(p),
+		: m_parent(p),
 		m_inWorld(false)
 	{
 
 	}
 
 	Object::Object(std::weak_ptr<Object> p, const std::string& tag)
-		: parent(p),
+		: m_parent(p),
 		m_inWorld(false)
 	{
 		AddTag(tag);
 	}
 
 	Object::Object(std::weak_ptr<Object> p, const std::vector<std::string>& tags)
-		: parent(p),
+		: m_parent(p),
 		m_inWorld(false)
 	{
 		AddTags(tags);
@@ -58,6 +58,11 @@ namespace uth
 		m_children.erase(o);
 	}
 
+	void Object::RemoveChildren()
+	{
+		m_children.clear();
+	}
+
 	void Object::RemoveChildren(const std::string& tag)
 	{
 		m_children.erase(
@@ -66,7 +71,6 @@ namespace uth
 			),
 			m_children.end()
 		);
-
 	}
 
 	void Object::RemoveChildren(const std::vector<std::shared_ptr<Object>>& objects)
@@ -106,30 +110,40 @@ namespace uth
 
 	void Object::AddTags(const std::vector<std::string>& tags)
 	{
-		//for (auto tag : tags)
-		//{
-		//	AddTag(tag);
-		//}
+		for (auto tag : tags)
+		{
+			AddTag(tag);
+		}
 	}
 
 	void Object::AddTag(const std::string& tag)
 	{
-		//if (std::find(m_tagList.begin(), m_tagList.end(), tag) == m_tagList.end())
-		//	m_tagList.push_back(tag);
+		if (!HasTag(tag))
+			m_tagList.push_back(tag);
 	}
 
 	bool Object::HasTag(const std::string& tag) const
 	{
-		return true;// std::find(m_tagList.begin(), m_tagList.end(), tag) == m_tagList.end();
+		return std::find(m_tagList.begin(), m_tagList.end(), tag) == m_tagList.end();
 	}
 
 	void Object::RemoveTag(const std::string& tag)
 	{
-		//m_tagList.erase(std::find(m_tagList.begin(), m_tagList.end(), tag));
+		m_tagList.erase(std::find(m_tagList.begin(), m_tagList.end(), tag));
 	}
 
 	std::vector<std::string> Object::Tags() const
 	{
 		return m_tagList;
+	}
+
+	std::shared_ptr<Object> Object::Parent()
+	{
+		return m_parent.lock();
+	}
+
+	void Object::SetParent(std::weak_ptr<Object> p)
+	{
+		m_parent = p;
 	}
 }

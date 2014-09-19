@@ -27,6 +27,7 @@ namespace uth
 		std::shared_ptr<T> AddChild(std::shared_ptr<T> object = new T());
 
 		void RemoveChild(std::shared_ptr<Object> object);
+		void RemoveChildren();
 		void RemoveChildren(const std::string& tag);
 		void RemoveChildren(const std::vector<std::shared_ptr<Object>>& objects);
 
@@ -46,8 +47,14 @@ namespace uth
 		void RemoveTag(const std::string& tag);
 		std::vector<std::string> Tags() const;
 
-		std::weak_ptr<Object> parent;
+		std::shared_ptr<Object> Parent();
+		void SetParent(std::weak_ptr<Object> p);
+
 		bool active;
+
+	protected:
+		std::weak_ptr<Object> m_parent;
+
 	private:
 		bool m_inWorld;
 		std::vector<std::shared_ptr<Object>> m_children;
