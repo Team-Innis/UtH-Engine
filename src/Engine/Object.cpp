@@ -182,4 +182,15 @@ namespace uth
 	{
 		m_parent = p;
 	}
+
+	void Object::SetActive(bool value)
+	{
+		m_active = value;
+	}
+
+	bool Object::IsActive() const
+	{
+		return m_active;
+	}
+
 }

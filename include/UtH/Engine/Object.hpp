@@ -63,6 +63,9 @@ namespace uth
 
 		void SetParent(std::weak_ptr<Object> p);
 
+		void SetActive(bool value);
+		bool IsActive() const;
+
 		Transform transform;
 
 	protected:

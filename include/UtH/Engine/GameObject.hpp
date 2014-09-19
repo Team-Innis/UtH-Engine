@@ -25,9 +25,6 @@ namespace uth
         void operator =(const GameObject&) = delete;
 		virtual ~GameObject();
 
-		void SetActive(bool value);
-		const bool IsActive() const;
-
 		void AddComponent(Component* component);
         template<typename T>
 		T* GetComponent(const std::string& name);

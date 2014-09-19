@@ -32,16 +32,6 @@ GameObject::~GameObject()
 	RemoveComponents();
 }
 
-void GameObject::SetActive(bool value)
-{
-	m_active = value;
-}
-
-const bool GameObject::IsActive() const
-{
-	return m_active;
-}
-
 void GameObject::AddComponent(Component* component)
 {
 	components.emplace_back(component);
