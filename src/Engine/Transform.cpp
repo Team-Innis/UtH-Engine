@@ -1,12 +1,13 @@
 #include <UtH/Engine/Transform.hpp>
 #include <UtH/Engine/GameObject.hpp>
+#include <UtH/Engine/Layer.hpp>
 
 #include <cmath>
 
 using namespace uth;
 
-Transform::Transform(const std::string& name)
-	: Component(name),
+Transform::Transform(Object* p)
+	: parent(p),
 	  m_position(0, 0),
 	  m_size(1, 1),
 	  m_scale(1, 1),
@@ -164,13 +165,20 @@ const pmath::Mat4& Transform::GetTransform()
 {
 	updateTransform();
 
-    if (parent && parent->parent)
-    {
-        m_combinedTransform = parent->parent->transform.GetTransform() *
-            m_modelTransform;
+	if (parent && (parent->HasParent<GameObject>()))
+	{
+		m_combinedTransform = parent->Parent<GameObject>()->transform.GetTransform() *
+			m_modelTransform;
 
-        return m_combinedTransform;
-    }
+		return m_combinedTransform;
+	}
+	else if (parent && parent->HasParent<Layer>())
+	{
+		m_combinedTransform = parent->Parent<Layer>()->transform.GetTransform() *
+			m_modelTransform;
+
+		return m_combinedTransform;
+	}
 
 	return m_modelTransform;
 }
