@@ -40,7 +40,6 @@ namespace uth
 		void Update(float dt) final;
 
 		// Transform is a special component that every gameobject has
-		Transform& transform;
 
 	protected:
         virtual void update(float){};

@@ -5,13 +5,15 @@
 namespace uth
 {
 	Object::Object()
-		: m_active(true)
+		: transform(this),
+		m_active(true)
 	{
 
 	}
 
 	Object::Object(std::weak_ptr<Object> p)
-		: m_parent(p),
+		: transform(this), 
+		  m_parent(p),
 		  m_active(true)
 	{
 

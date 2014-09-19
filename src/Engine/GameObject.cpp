@@ -6,10 +6,8 @@
 using namespace uth;
 
 GameObject::GameObject()
-    : transform(*(new Transform()))
 {
-	AddComponent(&transform);
-	transform.parent = this;
+
 }
 
 GameObject::GameObject(const std::string &tag)

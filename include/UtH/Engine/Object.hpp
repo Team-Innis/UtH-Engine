@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <UtH/Engine/Transform.hpp>
 
 namespace uth
 {
@@ -62,6 +63,7 @@ namespace uth
 
 		void SetParent(std::weak_ptr<Object> p);
 
+		Transform transform;
 
 	protected:
 		std::weak_ptr<Object> m_parent;
