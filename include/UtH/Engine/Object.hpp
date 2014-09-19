@@ -15,6 +15,7 @@ namespace uth
 	{
 		Object(const Object&) = delete;
 	public:
+		Object();
 		Object(std::weak_ptr<Object> parent);
 		Object(std::weak_ptr<Object> parent, const std::string& tag);
 		Object(std::weak_ptr<Object> parent, const std::vector<std::string>& tags);
@@ -59,7 +60,7 @@ namespace uth
 
 	private:
 		void setParent(std::weak_ptr<Object> p);
-		bool m_inWorld;
+		//bool m_inWorld;
 		std::vector<std::shared_ptr<Object>> m_children;
 		std::vector<std::string> m_tagList;
 	};

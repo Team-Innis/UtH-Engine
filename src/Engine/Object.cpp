@@ -3,23 +3,25 @@
 
 namespace uth
 {
+	Object::Object()
+	{
+
+	}
+
 	Object::Object(std::weak_ptr<Object> p)
-		: m_parent(p),
-		m_inWorld(false)
+		: m_parent(p)
 	{
 
 	}
 
 	Object::Object(std::weak_ptr<Object> p, const std::string& tag)
-		: m_parent(p),
-		m_inWorld(false)
+		: Object(p)
 	{
 		AddTag(tag);
 	}
 
 	Object::Object(std::weak_ptr<Object> p, const std::vector<std::string>& tags)
-		: m_parent(p),
-		m_inWorld(false)
+		: Object(p)
 	{
 		AddTags(tags);
 	}
