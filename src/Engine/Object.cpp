@@ -1,4 +1,5 @@
 #include <UtH/Engine/Object.hpp>
+#include <cassert>
 
 namespace uth
 {
@@ -25,7 +26,7 @@ namespace uth
 
 	Object::~Object()
 	{
-
+		RemoveChildren();
 	}
 
 	void Object::Update(float dt)
@@ -103,10 +104,10 @@ namespace uth
 		return retVal;
 	}
 
-	bool Object::InWorld() const
-	{
-		return m_inWorld;
-	}
+	//bool Object::InWorld() const
+	//{
+	//	return m_inWorld;
+	//}
 
 	void Object::AddTags(const std::vector<std::string>& tags)
 	{
@@ -139,10 +140,16 @@ namespace uth
 
 	std::shared_ptr<Object> Object::Parent()
 	{
+		assert(m_parent.expired());
 		return m_parent.lock();
 	}
 
 	void Object::SetParent(std::weak_ptr<Object> p)
+	{
+		p.lock()->AddChild(std::shared_ptr<Object>(this));
+	}
+
+	void Object::setParent(std::weak_ptr<Object> p)
 	{
 		m_parent = p;
 	}
