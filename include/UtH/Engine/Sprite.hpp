@@ -29,7 +29,7 @@ namespace uth
 		virtual ~Sprite();
 
 		virtual void Init();
-		void Draw(RenderTarget& target);
+		void Draw(RenderTarget& target) override;
 
 		void SetTexture(Texture* texture);
 		Texture* GetTexture() const;
