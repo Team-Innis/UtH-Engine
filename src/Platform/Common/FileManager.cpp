@@ -16,12 +16,12 @@ FileManager::FileManager()
 	if(isCompressed)
 		PHYSFS_init(nullptr);
 }
-FileManager::FileManager(const std::string& path)
+FileManager::FileManager(const std::string& path, const Location loca /*= Location::ASSET*/)
 {
 	if(isCompressed)
 		PHYSFS_init(nullptr);
 
-	OpenFile(path);
+	OpenFile(path, loca);
 }
 FileManager::~FileManager()
 {
@@ -30,7 +30,7 @@ FileManager::~FileManager()
 
 
 // Public
-void FileManager::OpenFile(const std::string& path)
+void FileManager::OpenFile(const std::string& path, const Location loca /*=LOCATION::ASSET*/)
 {
 	//CloseFile();
 
@@ -48,12 +48,24 @@ void FileManager::OpenFile(const std::string& path)
 	}
 	else
 	{
-		std::string temp_path = "assets/";
+		std::string temp_path;
+		if (loca == Location::ASSET)
+			temp_path = "assets/";
+		else if (loca == Location::EXTERNAL)
+			temp_path = "external/";
+		else if (loca == Location::INTERNAL)
+			temp_path = "internal/";
+		else
+			WriteError("No such file location available %d", loca);
+
 		temp_path += path;
 		file = std::fopen(temp_path.c_str(), "rb");
 		if (file == nullptr)
 		{
+			WriteLog("file not found from %s", temp_path.c_str());
 			file = std::fopen(path.c_str(), "rb");
+			if (file == nullptr)
+				WriteLog("file not found from %s", path.c_str());
 		}
 		assert(file != nullptr);
 	}
@@ -155,9 +167,19 @@ const std::string FileManager::ReadText()
 }
 
 
-void FileManager::WriteToFile(const std::string& filename, const std::string& data)
+void FileManager::WriteToFile(const std::string& filename, const std::string& data,
+	const Location loca /*=Location::INTERNAL*/)
 {
-	std::FILE* file = std::fopen(filename.c_str(), "w+");
+	std::string temp_path;
+	if (loca == Location::EXTERNAL)
+		temp_path = "external/";
+	else if (loca == Location::INTERNAL)
+		temp_path = "internal/";
+	else
+		WriteError("No such file location available %d", loca);
+	temp_path += filename;
+
+	std::FILE* file = std::fopen(temp_path.c_str(), "w+");
 	if (file != NULL)
 	{
 		std::fputs(data.c_str(), file);

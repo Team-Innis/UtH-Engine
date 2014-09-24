@@ -17,31 +17,41 @@ FileManager::FileManager()
 	 m_asset(nullptr),
 	 m_length(0)
 { }
-FileManager::FileManager(const std::string& path)
+FileManager::FileManager(const std::string& path, const Location loca /*= Location::ASSET*/)
 	//:m_file(nullptr),
 	: m_stream(NULL),
 	 m_asset(nullptr),
 	 m_length(0)
 {
-	OpenFile(path);
+	OpenFile(path,loca);
 }
 FileManager::~FileManager()
 {
 	CloseFile();
 }
 
-void FileManager::OpenFile(const std::string& path)
+void FileManager::OpenFile(const std::string& path, const Location loca /*= Location::ASSET*/)
 {
 	errno = 0;
-	m_asset = AAssetManager_open(m_manager, path.c_str(),2);
-	if (m_asset != nullptr)
+	if (loca == Location::ASSET)
 	{
-		m_length = AAsset_getLength(m_asset);
+		m_asset = AAssetManager_open(m_manager, path.c_str(), 2);
+		if (m_asset != nullptr)
+		{
+			m_length = AAsset_getLength(m_asset);
+		}
 	}
-	else
+	else if (loca == Location::INTERNAL || loca == Location::EXTERNAL)
 	{
-		std::string truePath = "/sdcard/" + path;
-		//std::string truePath = uthAndroidEngine.internalPath + "/" + path;
+		std::string truePath;
+
+		if (loca == Location::INTERNAL)
+		{
+			//TODO find which sdcard
+			truePath = "/sdcard/" + path;
+		}
+		else
+			truePath = uthAndroidEngine.internalPath + "/" + path;
 
 		m_stream.open(truePath, std::ios::in | std::ios::ate);
 		if (m_stream.is_open())
@@ -81,7 +91,6 @@ bool FileManager::FileSeek(int offset, int origin)
 bool FileManager::ReadBytes(void* b, unsigned int count, unsigned int blockSize)
 {
 	char* buffer = (char*)b;
-	errno = 0;
 
 	if (m_asset && AAsset_read(m_asset, buffer, count * blockSize) >= 0)
 	{
@@ -92,10 +101,6 @@ bool FileManager::ReadBytes(void* b, unsigned int count, unsigned int blockSize)
 		std::vector<char> data;
 		data.resize(count*blockSize);
 		m_stream.read(&data[0], data.size());
-		
-		for (int i = 0; i < data.size(); ++i )
-			WriteLog("test stream 0x%2.2X", data[i]);
-
 		memcpy(buffer, &data[0], data.size());
 		return true;
 	}
@@ -126,17 +131,17 @@ const std::string FileManager::ReadText()
 }
 
 void FileManager::WriteToFile(const std::string& filename, const std::string& data,
-	bool toSDcard)
+	const Location loca /*= Location::INTERNAL*/)
 {
 	errno = 0;
-	//TODO WRITE ONLY TO EXTERAL MEMORY
 	std::string dataPath;
 	std::string splitName;
-	if (toSDcard)
+	if (loca == Location::EXTERNAL)
 	{
 		size_t temp = filename.rfind("/");
 		if (temp != -1)
 		{
+			// find correct sdcard
 			dataPath = ("/sdcard/") + filename.substr(0, temp+1);
 			splitName = filename.substr(temp+1, filename.length() - temp);
 		}
@@ -146,7 +151,7 @@ void FileManager::WriteToFile(const std::string& filename, const std::string& da
 			splitName = filename;
 		}
 	}
- 	else
+	else if (loca == Location::INTERNAL)
  	{
 		size_t temp = filename.rfind("/");
 		if (temp != -1)
@@ -160,6 +165,10 @@ void FileManager::WriteToFile(const std::string& filename, const std::string& da
 			splitName = filename;
 		}
  	}
+	else
+	{
+		WriteError("Couldn't write to %d", loca);
+	}
 
 	struct stat sb;
 	int32_t res = stat(dataPath.c_str(), &sb);
@@ -194,32 +203,6 @@ void FileManager::WriteToFile(const std::string& filename, const std::string& da
 	}
 	else
 		WriteError("File stream error: %s", strerror(errno));
-
-
-// 	std::FILE* file = std::fopen(dataPath.c_str(), "w+");
-// 	WriteLog("writing file to %s errno %s", dataPath.c_str(), strerror(errno));
-// 	if (file != nullptr)
-// 	{
-// 		int temp = 1;
-// 
-// 		if ((temp = std::fputs(data.c_str(), file)) < 0)
-// 		{
-// 			WriteLog("fputs failed %d", temp);
-// 		}
-// 		if ((temp = std::fflush(file)) < 0)
-// 		{
-// 			WriteLog("fflush failed %d", temp);
-// 		}
-// 		if ((temp = std::fclose(file)) < 0)
-// 		{
-// 			WriteLog("fclose failed %d", temp);
-// 		}
-// 		
-// 	}
-// 	else
-// 	{
-// 		WriteError("Writing to file failed! File couldn't be opened for writing.");
-// 	}
 }
 
 void FileManager::WriteToFile(const std::string& filename, const BINARY_DATA& data)

@@ -15,11 +15,18 @@ namespace uth
 	class FileManager
 	{
 	public:
+		enum class Location
+		{
+			ASSET = 0,
+			EXTERNAL = 1,
+			INTERNAL = 2,
+		};
+
 		FileManager();
-		FileManager(const std::string& path);
+		FileManager(const std::string& path, const Location = Location::ASSET);
 		~FileManager();
 
-		void OpenFile(const std::string& path);
+		void OpenFile(const std::string& path, const Location = Location::ASSET);
 		void CloseFile();
 		int GetFileSize();
 
@@ -39,10 +46,11 @@ namespace uth
 		const std::string ReadText();
 
 		// Saves text to file.
-		// NOTE: @Android Relative to private application data folder.
-		void WriteToFile(const std::string& filenameAndPath, const std::string& data);
+		// Location::ASSET not available
+		void WriteToFile(const std::string& filenameAndPath, const std::string& data,
+			const Location = Location::INTERNAL);
 		// Saves binarydata to file.
-		// NOTE: @Android Relative to private application data folder.
+		// Location::ASSET not available
 		void WriteToFile(const std::string& filenameAndPath, const BINARY_DATA& data);
 
 		static bool isCompressed;
