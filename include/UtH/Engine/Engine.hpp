@@ -46,6 +46,8 @@ namespace uth
 		void Update();
 		void Draw();
 
+		void Exit();
+
         void SetClearColor(const pmath::Vec4& color);
         void SetClearColor(float r, float g, float b, float a = 1.0f);
 

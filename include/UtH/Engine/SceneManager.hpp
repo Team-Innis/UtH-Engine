@@ -16,8 +16,8 @@ namespace uth
 	public:
 		void GoToScene(int SceneNumber, bool disposeCurrent = true);
 
-		bool Update(float dt);
-		bool Draw();
+		void Update(float dt);
+		void Draw();
 
 		void DisposeScene(int SceneNumber);
 
