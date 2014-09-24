@@ -45,7 +45,7 @@ void FileManager::OpenFile(const std::string& path, const Location loca /*= Loca
 	{
 		std::string truePath;
 
-		if (loca == Location::INTERNAL)
+		if (loca == Location::EXTERNAL)
 		{
 			//TODO find which sdcard
 			truePath = "/sdcard/" + path;
@@ -142,7 +142,31 @@ void FileManager::WriteToFile(const std::string& filename, const std::string& da
 		if (temp != -1)
 		{
 			// find correct sdcard
-			dataPath = ("/sdcard/") + filename.substr(0, temp+1);
+			std::string externalPath;
+			struct stat sb;
+			int32_t res = stat("/sdcard/", &sb);
+			if (0 == res && sb.st_mode & S_IFDIR)
+			{
+				externalPath = "/sdcard/";
+				WriteLog("found sdcard");
+			}
+			else
+			{
+				res = stat("/sdcard0/", &sb);
+				if (0 == res && sb.st_mode & S_IFDIR)
+				{
+					externalPath = "/sdcard0/";
+					WriteLog("found sdcard0");
+				}
+				else
+				{
+					externalPath = "/sdcard1/";
+					WriteLog("using sdcard1");
+				}
+			}
+
+
+			dataPath = externalPath + filename.substr(0, temp+1);
 			splitName = filename.substr(temp+1, filename.length() - temp);
 		}
 		else
