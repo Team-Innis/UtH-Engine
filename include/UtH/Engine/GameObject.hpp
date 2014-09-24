@@ -36,7 +36,7 @@ namespace uth
 		void RemoveComponent(const std::string& name);
 		void RemoveComponents();
 
-		void Draw(RenderTarget& target);
+		void Draw(RenderTarget& target, RenderAttributes attributes = RenderAttributes());
 		void Update(float dt);
 
 		// Transform is a special component that every gameobject has
@@ -45,10 +45,10 @@ namespace uth
 		GameObject* parent;
 
 	protected:
-        virtual void update(float){};
-        virtual void draw(RenderTarget& target);
+        virtual void update(float){}
+        virtual void draw(RenderTarget&){}
 
-		std::vector<std::unique_ptr<Component>> components;
+		std::vector<std::unique_ptr<Component>> m_components;
 		std::string m_name;
 
 		bool m_active;
