@@ -7,9 +7,10 @@
 #include <cstdio>
 #include <string>
 #include <fstream>
-#include <android/asset_manager.h>
-#include <android/asset_manager_jni.h>
 #include <UtH/Platform/BinaryData.hpp>
+
+struct AAssetManager;
+struct AAsset;
 
 namespace uth
 {
@@ -47,12 +48,16 @@ namespace uth
 		const std::string ReadText();
 
 		// Saves text to file.
-		// Location::ASSET not available
+		// Location::INTERNAL path:
+		//		@android: "/data/data/net.app.name/" (hidden file)
+		//		@pc:	  "/internal/"
+		// Location::EXTERNAL:
+		//		@android: "/sdcard/"
+		//		@pc:	  "/external/"
+		// Location::ASSET: not available
 		void WriteToFile(const std::string& filenameAndPath,
 						 const std::string& data,
 						 const Location = Location::INTERNAL);
-
-		void WriteToFile(const std::string& filenameAndPath, const BINARY_DATA& data);
 
 		static AAssetManager* m_manager;
 		

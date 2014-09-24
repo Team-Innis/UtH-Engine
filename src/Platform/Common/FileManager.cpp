@@ -5,6 +5,11 @@
 #include <cstdlib> // malloc
 #include <string>
 
+#ifdef UTH_SYSTEM_WINDOWS
+	#include <direct.h> // _mkdir
+	#define mkdir = _mkdir
+#endif
+
 using namespace uth;
 
 bool FileManager::isCompressed = false;
@@ -16,6 +21,7 @@ FileManager::FileManager()
 	if(isCompressed)
 		PHYSFS_init(nullptr);
 }
+
 FileManager::FileManager(const std::string& path, const Location loca /*= Location::ASSET*/)
 {
 	if(isCompressed)
@@ -23,11 +29,11 @@ FileManager::FileManager(const std::string& path, const Location loca /*= Locati
 
 	OpenFile(path, loca);
 }
+
 FileManager::~FileManager()
 {
 	CloseFile();
 }
-
 
 // Public
 void FileManager::OpenFile(const std::string& path, const Location loca /*=LOCATION::ASSET*/)
@@ -70,6 +76,7 @@ void FileManager::OpenFile(const std::string& path, const Location loca /*=LOCAT
 		assert(file != nullptr);
 	}
 }
+
 void FileManager::CloseFile()
 {
 	if(PHYSFS_isInit())
@@ -83,6 +90,7 @@ void FileManager::CloseFile()
 		file = nullptr;
 	}
 }
+
 int FileManager::GetFileSize()
 {
 	int size;
@@ -166,38 +174,29 @@ const std::string FileManager::ReadText()
 	return str;
 }
 
-
 void FileManager::WriteToFile(const std::string& filename, const std::string& data,
 	const Location loca /*=Location::INTERNAL*/)
 {
 	std::string temp_path;
 	if (loca == Location::EXTERNAL)
+	{
 		temp_path = "external/";
+		mkdir(temp_path.c_str());
+	}
 	else if (loca == Location::INTERNAL)
+	{
 		temp_path = "internal/";
+		mkdir(temp_path.c_str());
+	}
 	else
 		WriteError("No such file location available %d", loca);
+
 	temp_path += filename;
 
 	std::FILE* file = std::fopen(temp_path.c_str(), "w+");
 	if (file != NULL)
 	{
 		std::fputs(data.c_str(), file);
-		std::fflush(file);
-		std::fclose(file);
-	}
-	else
-	{
-		WriteError("Writing to file failed! File couldn't be opened for writing.");
-	}
-}
-
-void FileManager::WriteToFile(const std::string& filename, const BINARY_DATA& data)
-{
-	std::FILE* file = std::fopen(filename.c_str(), "w+");
-	if (file != NULL)
-	{
-		std::fwrite(&data, sizeof(unsigned char), data.size(), file);
 		std::fflush(file);
 		std::fclose(file);
 	}

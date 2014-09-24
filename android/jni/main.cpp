@@ -17,6 +17,9 @@
 #include <UtH/UtHEngine.hpp>
 #include <UtH/Platform/Android/AndroidEngine.hpp>
 
+#include <android/asset_manager.h>
+#include <android/asset_manager_jni.h>
+
 #define NEWSCENEFUNC
 #include <Scenes.hpp>
 

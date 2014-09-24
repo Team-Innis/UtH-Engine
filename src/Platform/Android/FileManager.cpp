@@ -2,6 +2,9 @@
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/Android/AndroidEngine.hpp>
 
+#include <android/asset_manager.h>
+#include <android/asset_manager_jni.h>
+
 #include <cstdlib> //malloc
 #include <cstdio>
 #include <sys/stat.h>
@@ -17,6 +20,7 @@ FileManager::FileManager()
 	 m_asset(nullptr),
 	 m_length(0)
 { }
+
 FileManager::FileManager(const std::string& path, const Location loca /*= Location::ASSET*/)
 	//:m_file(nullptr),
 	: m_stream(NULL),
@@ -25,6 +29,7 @@ FileManager::FileManager(const std::string& path, const Location loca /*= Locati
 {
 	OpenFile(path,loca);
 }
+
 FileManager::~FileManager()
 {
 	CloseFile();
@@ -47,8 +52,20 @@ void FileManager::OpenFile(const std::string& path, const Location loca /*= Loca
 
 		if (loca == Location::EXTERNAL)
 		{
-			//TODO find which sdcard
-			truePath = "/sdcard/" + path;
+			struct stat sb;
+			int32_t res = stat("/sdcard/", &sb);
+			if (0 == res && sb.st_mode & S_IFDIR)
+			{
+				truePath = "/sdcard/" + path;
+			}
+			else
+			{
+				res = stat("/sdcard0/", &sb);
+				if (0 == res && sb.st_mode & S_IFDIR)
+					truePath = "/sdcard0/" + path;
+				else
+					truePath = "/sdcard1/" + path;
+			}
 		}
 		else
 			truePath = uthAndroidEngine.internalPath + "/" + path;
@@ -70,12 +87,14 @@ void FileManager::OpenFile(const std::string& path, const Location loca /*= Loca
 		}
 	}
 }
+
 void FileManager::CloseFile()
 {
 	//AAsset_close(m_asset);
 	if (m_stream.is_open())
 		m_stream.close();
 }
+
 int FileManager::GetFileSize()
 {
 	return m_length;
@@ -141,33 +160,26 @@ void FileManager::WriteToFile(const std::string& filename, const std::string& da
 		size_t temp = filename.rfind("/");
 		if (temp != -1)
 		{
-			// find correct sdcard
 			std::string externalPath;
+
 			struct stat sb;
 			int32_t res = stat("/sdcard/", &sb);
 			if (0 == res && sb.st_mode & S_IFDIR)
 			{
 				externalPath = "/sdcard/";
-				WriteLog("found sdcard");
 			}
 			else
 			{
 				res = stat("/sdcard0/", &sb);
 				if (0 == res && sb.st_mode & S_IFDIR)
-				{
 					externalPath = "/sdcard0/";
-					WriteLog("found sdcard0");
-				}
 				else
-				{
 					externalPath = "/sdcard1/";
-					WriteLog("using sdcard1");
-				}
 			}
-
-
 			dataPath = externalPath + filename.substr(0, temp+1);
 			splitName = filename.substr(temp+1, filename.length() - temp);
+
+			// creating directory /sdcard/data/app.name/ ?
 		}
 		else
 		{
@@ -198,10 +210,8 @@ void FileManager::WriteToFile(const std::string& filename, const std::string& da
 	int32_t res = stat(dataPath.c_str(), &sb);
 
 	if (0 == res && sb.st_mode & S_IFDIR)
-	{
 		WriteLog("%s dir already in app's internal data storage.", dataPath.c_str());
 
-	}
 	if (ENOENT == errno)
 	{
 		res = mkdir(dataPath.c_str(), 0777);
@@ -209,8 +219,8 @@ void FileManager::WriteToFile(const std::string& filename, const std::string& da
 			uth::WriteLog("Creating data folder succeeded!");
 		else
 			uth::WriteError("Creating data folder failed with %d!", strerror(errno));
-
 	}
+
 	errno = 0;
 
 	dataPath += splitName;
@@ -223,45 +233,9 @@ void FileManager::WriteToFile(const std::string& filename, const std::string& da
 	{
 		m_stream << data;
 		m_stream.close();
-		WriteLog("Data at %s is: %s",dataPath.c_str(), data.c_str());
 	}
 	else
 		WriteError("File stream error: %s", strerror(errno));
-}
-
-void FileManager::WriteToFile(const std::string& filename, const BINARY_DATA& data)
-{
-	std::string dataPath(uthAndroidEngine.internalPath + "/");
-
-	struct stat sb;
-	int32_t res = stat(dataPath.c_str(), &sb);
-
-	if (0 == res && sb.st_mode & S_IFDIR)
-	{
-		WriteLog("%s dir already in app's internal data storage.", dataPath.c_str());
-	}
-	else if (ENOENT == errno)
-	{
-		res = mkdir(dataPath.c_str(), 0770);
-		if (!res)
-			uth::WriteLog("Creating data folder succeeded!");
-		else
-			uth::WriteError("Creating data folder failed with %d!", res);
-
-	}
-
-	dataPath += filename;
-	std::FILE* file = std::fopen(dataPath.c_str(), "w+");
-	if (file != NULL)
-	{
-		std::fwrite(&data, sizeof(unsigned char), data.size(), file);
-		std::fflush(file);
-		std::fclose(file);
-	}
-	else
-	{
-		WriteError("Writing to file failed! File couldn't be opened for writing.");
-	}
 }
 
 AAsset* FileManager::loadSound(const std::string& fileName)
