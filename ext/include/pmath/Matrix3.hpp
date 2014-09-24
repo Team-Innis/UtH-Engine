@@ -8,6 +8,7 @@
 #include "Matrix2.hpp"
 
 #include <iostream>
+#include <string>
 
 namespace pmath
 {
@@ -59,6 +60,7 @@ namespace pmath
         static Matrix3 createTranslation(const T& x, const T& y);
         static Matrix3 createTranslation(const Vector2<T>& translation);
 
+        std::string toString() const;
 
         #pragma region Operators
         // Comparison
@@ -66,7 +68,7 @@ namespace pmath
         bool operator !=(const Matrix3& right) const;
 
 
-        // Assingment
+        // Assignment
         Matrix3& operator  =(const Matrix3& right);
         Matrix3& operator +=(const Matrix3& right);
         Matrix3& operator -=(const Matrix3& right);

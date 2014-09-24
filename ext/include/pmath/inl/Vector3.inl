@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <sstream>
 
 namespace pmath
 {
@@ -149,6 +150,14 @@ namespace pmath
         return (1 - t) * vec1 + t * vec2;
     }
 
+    template<typename T>
+    inline std::string pmath::Vector3<T>::toString() const
+    {
+        std::ostringstream stream;
+        stream << *this;
+
+        return stream.str();
+    }
 
     // Operators
     #pragma region Operators

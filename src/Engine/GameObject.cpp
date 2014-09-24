@@ -34,55 +34,67 @@ GameObject::~GameObject()
 
 void GameObject::AddComponent(Component* component)
 {
-	components.emplace_back(component);
+    m_components.emplace_back(component);
 	component->parent = this;
 	component->Init();
 }
 
 void GameObject::RemoveComponent(Component* component)
 {
-	for(size_t i = 0; i < components.size(); ++i)
+    for (size_t i = 0; i < m_components.size(); ++i)
 	{
-		if(components.at(i).get() == component)
+        if (m_components.at(i).get() == component)
 		{
-			components.erase(components.begin() + i);
+            m_components.erase(m_components.begin() + i);
 		}
 	}
 }
 
 void GameObject::RemoveComponent(const std::string& name)
 {
-	for(size_t i = 0; i < components.size(); ++i)
+    for (size_t i = 0; i < m_components.size(); ++i)
 	{
-		if(components.at(i)->GetName() == name)
+        if (m_components.at(i)->GetName() == name)
 		{
-			components.erase(components.begin() + i);
+            m_components.erase(m_components.begin() + i);
 		}
 	}
 }
 
 void GameObject::RemoveComponents()
 {
-	components.clear();
+    m_components.clear();
 }
 
-void GameObject::Draw(RenderTarget& target)
+void GameObject::Draw(RenderTarget& target, RenderAttributes attributes)
 {
 	if (!m_active)
 		return;
 
 	target.Bind();
 
-	draw(target);
+    Shader* tempShader = &target.GetShader();
+    Camera* tempCamera = &target.GetCamera();
 
-	for (auto itr = components.begin(); itr != components.end(); ++itr)
+    Shader& shader = attributes.shader ? *attributes.shader : target.GetShader();
+    Camera& camera = attributes.camera ? *attributes.camera : target.GetCamera();
+    target.SetShader(&shader);
+    target.SetCamera(&camera);
+
+    shader.SetUniform("unifModel", transform.GetTransform());
+    shader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
+
+    draw(target);
+
+    for (auto& i : m_components)
 	{
 		target.GetShader().Use();
-		auto component = itr->get();
-		if (component->IsActive())
-			component->Draw(target);
+		if (i->IsActive())
+			i->Draw(target);
 	}
 
+    target.SetShader(tempShader);
+    target.SetCamera(tempCamera);
 	Object::Draw(target);
 }
 
@@ -93,21 +105,11 @@ void GameObject::Update(float dt)
 
 	update(dt);
 
-	for (auto itr = components.begin(); itr != components.end(); ++itr)
+	for (auto& i : m_components)
 	{
-		auto component = itr->get();
-		if (component->IsActive())
-			component->Update(dt);
-	}
+		if (i->IsActive())
+			i->Update(dt);
 
 	Object::Update(dt);
-}
-
-void GameObject::draw(RenderTarget& target)
-{
-	Shader& shader = target.GetShader();
-
-	shader.Use();
-	shader.SetUniform("unifModel", transform.GetTransform());
-	shader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
+	}
 }

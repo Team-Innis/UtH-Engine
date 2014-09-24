@@ -1,6 +1,6 @@
 #include <UtH/Core/Shader.hpp>
 #include <UtH/Platform/Graphics.hpp>
-#include <UtH/Platform/FileReader.hpp>
+#include <UtH/Platform/FileManager.hpp>
 #include <UtH/Platform/Configuration.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Renderer/RenderTarget.hpp>
@@ -33,7 +33,7 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 
     }
 
-	FileReader fr;
+	FileManager fr;
 
 	// Vertex Shader
 	fr.OpenFile(vertexShaderPath);

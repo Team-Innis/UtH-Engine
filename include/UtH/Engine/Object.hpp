@@ -8,6 +8,7 @@
 #include <string>
 #include <memory>
 #include <UtH/Engine/Transform.hpp>
+#include <UtH/Renderer/RenderAttributes.hpp>
 
 namespace uth
 {
@@ -26,7 +27,7 @@ namespace uth
 		virtual ~Object();
 
 		virtual void Update(float dt);
-		virtual void Draw(RenderTarget& target);
+		virtual void Draw(RenderTarget& target, RenderAttributes attributes = RenderAttributes());
 
 		template <typename T>
 		std::shared_ptr<T> AddChild(std::shared_ptr<T> object);

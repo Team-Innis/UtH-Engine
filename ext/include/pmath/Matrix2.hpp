@@ -3,7 +3,9 @@
 #define MATRIX2_PMATH_H
 
 #include "Vector2.hpp"
+
 #include <iostream>
+#include <string>
 
 namespace pmath
 {
@@ -41,6 +43,7 @@ namespace pmath
         static Matrix2 createScaling(const T& x, const T& y);
         static Matrix2 createScaling(const Vector2<T>& scale);
 
+        std::string toString() const;
 
         #pragma region Operators
         // Comparison
@@ -48,7 +51,7 @@ namespace pmath
         bool operator !=(const Matrix2& right) const;
 
 
-        // Assingment
+        // Assignment
         Matrix2& operator  =(const Matrix2& right);
         Matrix2& operator +=(const Matrix2& right);
         Matrix2& operator -=(const Matrix2& right);

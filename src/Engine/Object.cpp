@@ -61,14 +61,14 @@ namespace uth
 		}
 	}
 
-	void Object::Draw(RenderTarget& target)
+	void Object::Draw(RenderTarget& target, RenderAttributes attributes)
 	{
 		if (m_active)
 		{
 			for (auto& i : m_children)
 			{
 				if (i->m_active)
-					i->Draw(target);
+					i->Draw(target, attributes);
 			}
 		}
 	}

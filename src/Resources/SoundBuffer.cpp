@@ -1,6 +1,6 @@
 #include <UtH/Resources/SoundBuffer.hpp>
 #include <UtH/Platform/Debug.hpp>
-#include <UtH/Platform/FileReader.hpp>
+#include <UtH/Platform/FileManager.hpp>
 
 #include <sndfile/sndfile.h>
 
@@ -21,13 +21,13 @@ namespace uth
 		SF_INFO soundInfo;
 
 #if defined(UTH_SYSTEM_ANDROID)
-		AAsset* asset = FileReader::loadSound(filePath);
+		AAsset* asset = FileManager::loadSound(filePath);
 
 		SF_VIRTUAL_IO virtualIO;
-		virtualIO.get_filelen = &FileReader::getAssetLength;
-		virtualIO.seek = &FileReader::seekAsset;
-		virtualIO.read = &FileReader::readAsset;
-		virtualIO.tell = &FileReader::tellAsset;	
+		virtualIO.get_filelen = &FileManager::getAssetLength;
+		virtualIO.seek = &FileManager::seekAsset;
+		virtualIO.read = &FileManager::readAsset;
+		virtualIO.tell = &FileManager::tellAsset;	
 
 		SNDFILE* file = sf_open_virtual(&virtualIO, SFM_READ, &soundInfo, asset);
 #elif defined(UTH_SYSTEM_WINDOWS)

@@ -27,22 +27,24 @@ namespace uth
 
 		void AddComponent(Component* component);
         template<typename T>
+        T* GetComponent();
+        template<typename T>
 		T* GetComponent(const std::string& name);
 		// Will actually delete the component
 		void RemoveComponent(Component* component);
 		void RemoveComponent(const std::string& name);
 		void RemoveComponents();
 
-		void Draw(RenderTarget& target) final;
+		void Draw(RenderTarget& target, RenderAttributes attributes = RenderAttributes()) override;
 		void Update(float dt) final;
 
 		// Transform is a special component that every gameobject has
 
 	protected:
-        virtual void update(float){};
-        virtual void draw(RenderTarget& target);
+        virtual void update(float){}
+        virtual void draw(RenderTarget&){}
 
-		std::vector<std::unique_ptr<Component>> components;
+		std::vector<std::unique_ptr<Component>> m_components;
 	};
 
 
@@ -54,6 +56,21 @@ namespace uth
             if (components.at(i)->GetName() == name)
             {
                 return static_cast<T*>(components[i].get());
+            }
+        }
+
+        return nullptr;
+    }
+
+    template<typename T>
+    T* GameObject::GetComponent()
+    {
+        for (size_t i = 0; i < components.size(); ++i)
+        {
+            T *c = dynamic_cast<T*>(components.at(i).get());
+            if (c != nullptr)
+            {
+                return c;
             }
         }
 

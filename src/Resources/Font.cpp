@@ -1,5 +1,5 @@
 #include <UtH/Resources/Font.hpp>
-#include <UtH/Platform/FileReader.hpp>
+#include <UtH/Platform/FileManager.hpp>
 #include <cstdlib> // free
 
 using namespace uth;
@@ -16,7 +16,7 @@ Font::~Font()
 
 bool Font::LoadFromFile(const std::string& filePath)
 {
-	FileReader fr;
+	FileManager fr;
 	fr.OpenFile(filePath);
 	m_fontData = fr.ReadBinary();
 

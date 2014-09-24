@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <cmath>
+#include <sstream>
 
 namespace pmath
 {
@@ -155,10 +156,18 @@ namespace pmath
         return (1 - t) * vec1 + t * vec2;
     }
 
+    template<typename T>
+    inline std::string pmath::Vector4<T>::toString() const
+    {
+        std::ostringstream stream;
+        stream << *this;
+
+        return stream.str();
+    }
 
     // Operators
     #pragma region Operators
-    // Compariston operators
+    // Comparison operators
     template<typename T>
     inline bool Vector4<T>::operator ==(const Vector4<T>& right) const
     {
@@ -197,7 +206,7 @@ namespace pmath
     }
 
 
-    // Assingment operators
+    // Assignment operators
     template<typename T>
     inline Vector4<T>& Vector4<T>::operator =(const Vector4<T>& right)
     {

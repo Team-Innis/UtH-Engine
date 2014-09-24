@@ -68,7 +68,7 @@ bool TestScene::DeInit()
 void TestScene::Update(float dt)
 {
 	if (Children("map").size() > 0)
-		TestScene::Children("map")[0]->transform.SetPosition(uthEngine.GetWindow().pixelToCoords(uthInput.Common.Position()));
+		TestScene::Children("map")[0]->transform.SetPosition(uthEngine.GetWindow().PixelToCoords(uthInput.Common.Position()));
 	uthEngine.GetWindow().GetCamera().SetPosition(pmath::Vec2(120,300));
 	Scene::Update(dt);
 }
