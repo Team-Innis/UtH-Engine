@@ -1,5 +1,5 @@
 #include <UtH/Engine/TMX/Map.hpp>
-#include <UtH/Platform/FileReader.hpp>
+#include <UtH/Platform/FileManager.hpp>
 #include <UtH/Platform/Debug.hpp>
 
 #include <tinyxml2.h>
@@ -29,7 +29,7 @@ bool Map::LoadFromFile(const std::string& path)
 {
 	// Create the xml document
 	tinyxml2::XMLDocument doc;
-	FileReader fr(path.c_str());
+	FileManager fr(path.c_str());
 	doc.Parse(fr.ReadText().c_str());
 
 	// Parse the map element

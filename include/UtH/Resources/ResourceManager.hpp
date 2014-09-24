@@ -2,7 +2,7 @@
 #ifndef RESOURCEMANAGER_H_UTH
 #define RESOURCEMANAGER_H_UTH
 
-#include <UtH/Platform/FileReader.hpp>
+#include <UtH/Platform/FileManager.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/Singleton.hpp>
 

@@ -3,7 +3,7 @@
 #define PLATFORM_H_UTH
 
 #include <UtH/Platform/Debug.hpp>
-#include <UtH/Platform/FileReader.hpp>
+#include <UtH/Platform/FileManager.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Platform/HiResTimer.hpp>
 #include <UtH/Platform/Input.hpp>

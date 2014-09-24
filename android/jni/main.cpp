@@ -19,6 +19,9 @@
 #include <Uth/Platform/Input.hpp>
 #include <UtH/Platform/Android/InputController.hpp>
 
+#include <android/asset_manager.h>
+#include <android/asset_manager_jni.h>
+
 #define NEWSCENEFUNC
 #include <Scenes.hpp>
 
@@ -71,7 +74,7 @@ void android_main(android_app* state)
 	uthAndroidEngine.initialized = false;
 
 	uth::Window wndw;
-	uth::FileReader::m_manager = state->activity->assetManager;
+	uth::FileManager::m_manager = state->activity->assetManager;
 
 	state->onAppCmd = handle_cmd;
 	state->onInputEvent = handle_input;
@@ -86,12 +89,12 @@ void android_main(android_app* state)
         uth::SensorInput::sensorManager, ASENSOR_TYPE_GYROSCOPE);
 
 	uthAndroidEngine.app = state;
-
     uthAndroidEngine.settings.position = pmath::Vec2(0, 0);
 	uthAndroidEngine.settings.contextVersionMajor = 2;
 	uthAndroidEngine.settings.contextVersionMinor = 0;
     uthAndroidEngine.settings.fullScreen = true;
-
+	ANativeActivity* natAct = state->activity;
+	uthAndroidEngine.internalPath = natAct->internalDataPath;
 	state->userData = &wndw;
 
 	uthAndroidEngine.winEveHand = windowEventHandler;

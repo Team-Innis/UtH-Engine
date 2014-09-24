@@ -4,6 +4,7 @@
 
 #include <UtH/Platform/Uncopyable.hpp>
 #include <UtH/Core/Shader.hpp>
+#include <UtH/Renderer/RenderAttributes.hpp>
 #include <string>
 
 
@@ -26,9 +27,9 @@ namespace uth
 		const std::string GetName() const;
 
 		// Default to doing nothing
-		virtual void Init(){};
-		virtual void Draw(RenderTarget&){};
-		virtual void Update(float){};
+		virtual void Init(){}
+		virtual void Draw(RenderTarget&){}
+		virtual void Update(float){}
 
 		GameObject* parent;
 
