@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <vector>
+#include <unordered_set>
 #include <string>
 #include <memory>
 #include <UtH/Engine/Transform.hpp>
@@ -53,7 +54,7 @@ namespace uth
 		void AddTag(const std::string& tag);
 		bool HasTag(const std::string& tag) const;
 		void RemoveTag(const std::string& tag);
-		const std::vector<std::string>& Tags() const;
+		const std::unordered_set<std::string>& Tags() const;
 
 		template <typename T>
 		T* Parent();
@@ -76,7 +77,7 @@ namespace uth
 		void setParent(Object* p);
 		//bool m_inWorld;
 		std::vector<std::shared_ptr<Object>> m_children;
-		std::vector<std::string> m_tagList;
+		std::unordered_set<std::string> m_tagList;
 	};
 
 	template <typename T>

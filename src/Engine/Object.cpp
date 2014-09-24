@@ -124,7 +124,10 @@ namespace uth
 	std::vector<std::shared_ptr<Object>> Object::Children(const std::string& tag)
 	{
 		const auto it = std::remove_if(m_children.begin(), m_children.end(),
-			[tag](std::shared_ptr<Object> const& o){return o->HasTag(tag); });
+			[tag](std::shared_ptr<Object> const& o)
+		{
+			return o->HasTag(tag); 
+		});
 		std::vector<std::shared_ptr<Object>> retVal(it, m_children.end());
 		return retVal;
 	}
@@ -145,12 +148,12 @@ namespace uth
 	void Object::AddTag(const std::string& tag)
 	{
 		if (!HasTag(tag))
-			m_tagList.push_back(tag);
+			m_tagList.emplace(tag);
 	}
 
 	bool Object::HasTag(const std::string& tag) const
 	{
-		return std::find(m_tagList.begin(), m_tagList.end(), tag) == m_tagList.end();
+		return m_tagList.find(tag) != m_tagList.end();
 	}
 
 	void Object::RemoveTag(const std::string& tag)
@@ -158,7 +161,7 @@ namespace uth
 		m_tagList.erase(std::find(m_tagList.begin(), m_tagList.end(), tag));
 	}
 
-	const std::vector<std::string>& Object::Tags() const
+	const std::unordered_set<std::string>& Object::Tags() const
 	{
 		return m_tagList;
 	}
