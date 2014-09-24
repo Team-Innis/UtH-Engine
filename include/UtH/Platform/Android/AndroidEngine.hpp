@@ -5,6 +5,7 @@
 #include <UtH/Platform/Singleton.hpp>
 #include <UtH/Platform/WindowSettings.hpp>
 #include <UtH/Platform/Window.hpp>
+#include <UtH/Platform/OpenGL.hpp>
 
 #include <jni.h>
 #include <errno.h>

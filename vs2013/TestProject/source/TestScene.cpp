@@ -1,28 +1,9 @@
 #include <TestScene.hpp>
 #include <Scenes.hpp>
 
+#include <UtH/Platform/JavaFunctions.hpp>
+
 using namespace uth;
-
-#include <jni.h>
-#include <UtH/Platform/Android/AndroidEngine.hpp>
-
-
-void Vibrate(int vibrationTime)
-{
-	JNIEnv* jni;
-	uthAndroidEngine.app->activity->vm->AttachCurrentThread(&jni, NULL);
-	
-	//jclass vibrationClass = jni->FindClass("com/android/uth/testVibrator");
-	jclass vibrationClass = jni->GetObjectClass(uthAndroidEngine.app->activity->clazz);
-	if (!vibrationClass)
-		WriteError("NOPE");
-	jmethodID vibrationFunc = jni->GetMethodID(vibrationClass,
-		"Vibrate", "(I)V");
-	if (!vibrationFunc)
-		WriteError("NADA");
-	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, vibrationFunc, vibrationTime);
-};
-
 
 namespace
 {
@@ -105,18 +86,19 @@ bool TestScene::Update(float dt)
 	{
 		//uthSceneM.GoToScene(-1);
 		text->SetText("CLICK");
-		Vibrate(400);
+		javaFunc::Vibrate(1000);
 	}
+	
 	if (uthInput.Touch.Motion() == TouchMotion::RELEASE)
 	{
 		WriteLog("RELEASE");
 	}
-
+	
 
 #pragma region Controller
 
 
-
+	/*
 	if (uthInput.Controller.IsButtonDown(Controller::ButtonA))
 		text->SetText("A");
 	else if (uthInput.Controller.IsButtonDown(Controller::ButtonB))
@@ -171,7 +153,7 @@ bool TestScene::Update(float dt)
 		text->SetText("LEFT THUMB Y");
 #pragma endregion
 
-	
+	*/
 	return true;
 }
 bool TestScene::Draw()

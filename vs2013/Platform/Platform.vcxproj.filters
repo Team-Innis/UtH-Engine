@@ -102,6 +102,12 @@
     <ClInclude Include="..\..\include\UtH\Platform\Common\ControllerEnums.hpp">
       <Filter>Header Files\Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\JavaFunctions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Common\JavaFunctions.hpp">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Platform\OGLCheck.cpp">
@@ -150,6 +156,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Common\InputController.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Common\JavaFunctions.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
   </ItemGroup>

@@ -20,6 +20,7 @@ public class GameActivity extends android.app.NativeActivity
 	}
 	public void EatContext(GLSurfaceView view)
 	{
-		view.setPreserveEGLContextOnPause(true);
+		//System.out.print(testi);
+		//view.setPreserveEGLContextOnPause(true);
 	}
 }
