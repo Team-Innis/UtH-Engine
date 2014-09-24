@@ -6,12 +6,13 @@ namespace uth
 {
 	Object::Object()
 		: transform(this),
-		m_active(true)
+		m_active(true),
+		m_parent(nullptr)
 	{
 
 	}
 
-	Object::Object(std::weak_ptr<Object> p)
+	Object::Object(Object* p)
 		: transform(this), 
 		  m_parent(p),
 		  m_active(true)
@@ -25,7 +26,7 @@ namespace uth
 		AddTag(tag);
 	}
 
-	Object::Object(const std::string& tag, std::weak_ptr<Object> p)
+	Object::Object(const std::string& tag, Object* p)
 		: Object(p)
 	{
 		AddTag(tag);
@@ -37,7 +38,7 @@ namespace uth
 		AddTags(tags);
 	}
 
-	Object::Object(const std::vector<std::string>& tags, std::weak_ptr<Object> p)
+	Object::Object(const std::vector<std::string>& tags, Object* p)
 		: Object(p)
 	{
 		AddTags(tags);
@@ -162,23 +163,18 @@ namespace uth
 		return m_tagList;
 	}
 
-	std::shared_ptr<Object> Object::Parent()
+	Object* Object::Parent()
 	{
-		assert(HasParent());
-		return m_parent.lock();
-	}
-
-	void Object::SetParent(std::weak_ptr<Object> p)
-	{
-		p.lock()->AddChild(std::shared_ptr<Object>(this));
+		//assert(HasParent());
+		return m_parent;
 	}
 
 	bool Object::HasParent()
 	{
-		return !m_parent.expired();
+		return m_parent != nullptr;
 	}
 
-	void Object::setParent(std::weak_ptr<Object> p)
+	void Object::setParent(Object* p)
 	{
 		m_parent = p;
 	}

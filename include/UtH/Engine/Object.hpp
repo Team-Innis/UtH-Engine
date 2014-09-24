@@ -17,18 +17,20 @@ namespace uth
 		Object(const Object&) = delete;
 	public:
 		Object();
-		Object(std::weak_ptr<Object> parent);
+		Object(Object* parent);
 		Object(const std::string& tag);
-		Object(const std::string& tag, std::weak_ptr<Object> parent);
+		Object(const std::string& tag, Object* parent);
 		Object(const std::vector<std::string>& tags);
-		Object(const std::vector<std::string>& tags, std::weak_ptr<Object> parent);
+		Object(const std::vector<std::string>& tags, Object* parent);
 		virtual ~Object();
 
 		virtual void Update(float dt);
 		virtual void Draw(RenderTarget& target);
 
 		template <typename T>
-		std::shared_ptr<T> AddChild(std::shared_ptr<T> object = new T());
+		std::shared_ptr<T> AddChild(std::shared_ptr<T> object);
+		template <typename T>
+		std::shared_ptr<T> AddChild(T* object = new T());
 
 		bool HasChild(std::shared_ptr<Object> object);
 
@@ -54,14 +56,12 @@ namespace uth
 		const std::vector<std::string>& Tags() const;
 
 		template <typename T>
-		std::shared_ptr<T> Parent();
-		std::shared_ptr<Object> Parent();
+		T* Parent();
+		Object* Parent();
 
 		template <typename T>
 		bool HasParent();
 		bool HasParent();
-
-		void SetParent(std::weak_ptr<Object> p);
 
 		void SetActive(bool value);
 		bool IsActive() const;
@@ -69,27 +69,36 @@ namespace uth
 		Transform transform;
 
 	protected:
-		std::weak_ptr<Object> m_parent;
+		Object* m_parent;
 		bool m_active;
 
 	private:
-		void setParent(std::weak_ptr<Object> p);
+		void setParent(Object* p);
 		//bool m_inWorld;
 		std::vector<std::shared_ptr<Object>> m_children;
 		std::vector<std::string> m_tagList;
 	};
 
 	template <typename T>
-	inline std::shared_ptr<T> Object::AddChild(std::shared_ptr<T> object /*= new T()*/)
+	inline std::shared_ptr<T> Object::AddChild(std::shared_ptr<T> object)
 	{
 		if (object != nullptr)
 		{
-			m_children.emplace_back(object);
-			object->setParent(std::shared_ptr<Object>(this));
+			m_children.push_back(object);
+
+			object->setParent(this);
 			//if (InWorld)
 			//	object->m_inWorld = true;
 		}
 		return object;
+	}
+
+	template <typename T>
+	inline std::shared_ptr<T> Object::AddChild(T* object /*= new T()*/)
+	{
+		auto retVal = AddChild(std::shared_ptr<T>(object));
+		auto p = retVal.use_count();
+		return retVal;
 	}
 
 	template <typename T>
@@ -105,16 +114,16 @@ namespace uth
 	}
 
 	template <typename T>
-	inline std::shared_ptr<T> Object::Parent()
+	inline T* Object::Parent()
 	{
-		assert(HasParent<T>());
-		return std::dynamic_pointer_cast<T>(Parent());
+		//assert(HasParent<T>());
+		return dynamic_cast<T*>(Parent());
 	}
 
 	template <typename T>
 	inline bool Object::HasParent()
 	{
-		return std::dynamic_pointer_cast<T>(Parent()) != nullptr;
+		return dynamic_cast<T*>(Parent()) != nullptr;
 	}
 }
 
