@@ -1,8 +1,7 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
-#include <pmath/Vector.hpp>
-#include <pmath/Matrix4.hpp>
+#include <pmath/PMath.hpp>
 
 namespace uth
 {
