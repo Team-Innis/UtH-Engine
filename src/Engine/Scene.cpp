@@ -18,16 +18,12 @@ Scene::~Scene()
 
 void uth::Scene::Update(float dt)
 {
-	PreUpdate(dt);
 	Object::Update(dt);
-	PostUpdate(dt);
 }
 
 void uth::Scene::Draw(RenderTarget& target)
 {
-	PreDraw(target);
 	Object::Draw(target);
-	PostDraw(target);
 }
 
 

@@ -15,7 +15,7 @@ namespace uth
         bool Init() override;
         bool DeInit() override;
 	
-        //bool Update(float dt) override;
+		void Update(float dt);
         //bool Draw() override;
 	
 	};

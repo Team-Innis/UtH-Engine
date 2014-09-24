@@ -67,10 +67,12 @@ bool DefaultScene::DeInit()
 	return true;
 }
 
-void DefaultScene::PreUpdate(float dt)
+void DefaultScene::Update(float dt)
 {
 	dt = dt < 0.1f ? dt : 0.1f;
 	totalTime += dt;
+
+	Scene::Update(dt);
 
 	const float aStart = 1.0f; // animation start time
 	const float aEnd = aStart + 6;

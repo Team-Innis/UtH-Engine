@@ -25,13 +25,8 @@ namespace uth
 		virtual bool Init() = 0;
 		virtual bool DeInit() = 0;
 
-		virtual void Update(float dt) final;
-		virtual void Draw(RenderTarget& target) final;
-
-		virtual void PreUpdate(float dt){};
-		virtual void PostUpdate(float dt){};
-		virtual void PreDraw(RenderTarget& target){};
-		virtual void PostDraw(RenderTarget& target){};
+		virtual void Update(float dt);
+		virtual void Draw(RenderTarget& target);
 
 		//virtual void OnPause();
 		//virtual void OnResume();

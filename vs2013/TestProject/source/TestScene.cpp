@@ -20,7 +20,6 @@ TestScene::~TestScene()
 
 bool TestScene::Init()
 {
-
     // Objects
     // First
 	{
@@ -54,12 +53,24 @@ bool TestScene::Init()
         ps->AddAffector(aff);
         ps->SetEmitProperties(true, 0.05f, 0.1f, 1, 5);
     }
+	auto a = new TMX::Map("Maps/desert.tmx");
+	a->AddTag("map");
+	a->transform.SetScale(3.0f);
+	AddChild(a);
 
 	return true;
 }
 bool TestScene::DeInit()
 {
 	return true;
+}
+
+void TestScene::Update(float dt)
+{
+	if (Children("map").size() > 0)
+		TestScene::Children("map")[0]->transform.SetPosition(uthEngine.GetWindow().pixelToCoords(uthInput.Common.Position()));
+	uthEngine.GetWindow().GetCamera().SetPosition(pmath::Vec2(120,300));
+	Scene::Update(dt);
 }
 
 //bool TestScene::Update(float dt)

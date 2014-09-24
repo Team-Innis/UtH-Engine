@@ -11,17 +11,17 @@ namespace uth
 {
 	class RenderTarget;
 
-	class DefaultScene : public Scene
+	class DefaultScene final : public Scene
 	{
 	public:
 		friend class SceneManager;
 		DefaultScene();
 		~DefaultScene();
 
-		virtual bool Init();
-		virtual bool DeInit();
+		bool Init();
+		bool DeInit();
 
-		virtual void PreUpdate(float dt);
+		void Update(float dt);
 		//virtual void Draw(RenderTarget& target);
 	protected:
 
