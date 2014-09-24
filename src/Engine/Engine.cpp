@@ -61,7 +61,7 @@ bool Engine::initialize()
 	return true;
 }
 
-const Timer Engine::timer() const
+const Timer& Engine::Timer() const
 {
 	return m_timer;
 }

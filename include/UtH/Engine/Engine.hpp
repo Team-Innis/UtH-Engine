@@ -54,7 +54,7 @@ namespace uth
 	
 		const pmath::Vec2 GetWindowResolution() const;
 		const bool Running() const;
-		const Timer timer() const;
+		const Timer& Timer() const;
 	};
 }
 
