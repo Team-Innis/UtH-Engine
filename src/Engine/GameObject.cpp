@@ -101,11 +101,12 @@ void GameObject::Draw(RenderTarget& target, RenderAttributes attributes)
     Camera* tempCamera = &target.GetCamera();
 
     Shader& shader = attributes.shader ? *attributes.shader : target.GetShader();
+    Camera& camera = attributes.camera ? *attributes.camera : target.GetCamera();
     target.SetShader(&shader);
+    target.SetCamera(&camera);
 
     shader.SetUniform("unifModel", transform.GetTransform());
-    shader.SetUniform("unifProjection", attributes.camera ? attributes.camera->GetProjectionTransform() :
-                                                            target.GetCamera().GetProjectionTransform());
+    shader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
 
     draw(target);
 
