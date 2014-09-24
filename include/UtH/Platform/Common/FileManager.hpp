@@ -12,14 +12,21 @@
 
 namespace uth
 {
-	class FileReader
+	class FileManager
 	{
 	public:
-		FileReader();
-		FileReader(const std::string& path);
-		~FileReader();
+		enum class Location
+		{
+			ASSET = 0,
+			EXTERNAL = 1,
+			INTERNAL = 2,
+		};
 
-		void OpenFile(const std::string& path);
+		FileManager();
+		FileManager(const std::string& path, const Location = Location::ASSET);
+		~FileManager();
+
+		void OpenFile(const std::string& path, const Location = Location::ASSET);
 		void CloseFile();
 		int GetFileSize();
 
@@ -37,6 +44,18 @@ namespace uth
 
 		// Returns the content of the whole file as text
 		const std::string ReadText();
+
+		// Saves text to file.
+		// Location::INTERNAL path:
+		//		@android: "/data/data/net.app.name/" (hidden file)
+		//		@pc:	  "/internal/"
+		// Location::EXTERNAL:
+		//		@android: "/sdcard/"
+		//		@pc:	  "/external/"
+		// Location::ASSET: not available
+		void WriteToFile(const std::string& filenameAndPath,
+			const std::string& data,
+			const Location = Location::INTERNAL);
 
 		static bool isCompressed;
 	private:

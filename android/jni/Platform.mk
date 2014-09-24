@@ -47,7 +47,7 @@ $(SRC_PATH)Resources/Image.cpp
 
 #Platform
 LOCAL_SRC_FILES += \
-$(SRC_PATH)Platform/Android/FileReader.cpp \
+$(SRC_PATH)Platform/Android/FileManager.cpp \
 $(SRC_PATH)Platform/Graphics.cpp \
 $(SRC_PATH)Platform/Debug.cpp \
 $(SRC_PATH)Platform/HiResTimer.cpp \
