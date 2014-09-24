@@ -45,6 +45,8 @@ namespace uth
 
 			unsigned int m_width, m_height;
 
+            bool m_active;
+
 			std::vector<Tile*> m_tiles;
 
 			std::map<std::string, std::string> m_properties;

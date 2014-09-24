@@ -44,6 +44,9 @@ TileLayer::~TileLayer()
 
 void TileLayer::Draw(RenderTarget& target)
 {
+    if (!m_active)
+        return;
+
 	for(auto it = m_spriteBatches.begin(); it != m_spriteBatches.end(); ++it)
 		(*it).second->Draw(target);
 }
@@ -96,6 +99,12 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 	m_name = layerElement->Attribute("name");
 	m_width = layerElement->UnsignedAttribute("width");
 	m_height = layerElement->UnsignedAttribute("height");
+    if (layerElement->Attribute("visible") != 0)
+    {
+        m_active = layerElement->IntAttribute("visible") == 0 ? false : true;
+    }
+    else
+        m_active = true;
 
 	// Parse data
 	unsigned int x = 0;
@@ -104,6 +113,21 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 	while(tile != 0)
 	{
 		unsigned int gid = tile->UnsignedAttribute("gid");
+
+        // Go to the next "line"
+        if (x >= map->GetWidth())
+        {
+            x = 0;
+            y++;
+        }
+
+        // Tile is "empty space"
+        if (gid == 0)
+        {
+            x++;
+            tile = tile->NextSiblingElement("tile");
+            continue;
+        }
 
 		// Read out the flags
 		bool flipped_horizontally = (gid & FLIPPED_HORIZONTALLY_FLAG) != 0;
@@ -120,32 +144,26 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 		{
 			Tileset* tileset = map->tilesets[i];
 
-			if(tileset->GetFirstGID() <= gid)
-			{
-				if(x >= map->GetWidth())
-				{
-					x = 0;
-					y++;
-				}
+            if (tileset->GetFirstGID() <= gid)
+            {
+                const pmath::Rect t(static_cast<float>(x * tileset->GetTileWidth()), static_cast<float>(y * tileset->GetTileHeight()),
+                    static_cast<float>(tileset->GetTileWidth()), static_cast<float>(tileset->GetTileHeight()));
 
-				const pmath::Rect t(static_cast<float>(x * tileset->GetTileWidth()), static_cast<float>(y * tileset->GetTileHeight()),
-					static_cast<float>(tileset->GetTileWidth()), static_cast<float>(tileset->GetTileHeight()));
+                auto tile = new Tile(t);
 
-				auto tile = new Tile(t);
-
-				if(flipped_horizontally)
-					tile->transform.SetScale(-1, tile->transform.GetScale().y);
-				if(flipped_vertically)
+                if (flipped_horizontally)
+                    tile->transform.SetScale(-1, tile->transform.GetScale().y);
+                if (flipped_vertically)
                     tile->transform.SetScale(tile->transform.GetScale().x, -1);
 
-				tile->parent = static_cast<GameObject*>(map);
-				const pmath::Rect texCoords = tileset->GetTile(gid - tileset->GetFirstGID());
+                tile->parent = static_cast<GameObject*>(map);
+                const pmath::Rect texCoords = tileset->GetTile(gid - tileset->GetFirstGID());
 
-				m_tiles.push_back(tile);
-				m_spriteBatches.at(tileset->GetTexture())->AddSprite(&tile->transform, "", pmath::Vec4(1,1,1,1),  texCoords);
-				x++;
-				break;
-			}
+                m_tiles.push_back(tile);
+                m_spriteBatches.at(tileset->GetTexture())->AddSprite(&tile->transform, "", pmath::Vec4(1, 1, 1, 1), texCoords);
+                x++;
+                break;
+            }
 		}
 		tile = tile->NextSiblingElement("tile");
 	}

@@ -121,18 +121,6 @@ void Tileset::parseTileset(tinyxml2::XMLElement* tilesetElement, const std::stri
 	std::string imagePath = mapFolder + imageElement->Attribute("source");
 
 	std::string temp = imagePath.substr(imagePath.length() - 4, 4);
-	if (temp == ".png")
-	{
-		std::string warn;
-		warn.reserve(250);
-		warn.append("Warning: TMX mapfile uses file ");
-		warn.append(imagePath);
-		warn.append("\nUTH Engine does not support png files\nSearching for tga file with the same file name");
-
-		WriteWarning(warn.c_str());
-
-		imagePath.replace(imagePath.length() - 4, 4,".tga");
-	}
 
 	m_texture = uthRS.LoadTexture(imagePath);
 }
