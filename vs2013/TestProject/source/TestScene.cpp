@@ -14,7 +14,7 @@ namespace
 }
 
 TestScene::TestScene()
-    : ps(nullptr)
+    //: ps(nullptr)
 {}
 TestScene::~TestScene()
 {}
@@ -63,8 +63,8 @@ bool TestScene::DeInit()
 bool TestScene::Update(float dt)
 {
 
-    if (ps)
-        ps->Emit(1);
+    //if (ps)
+    //    ps->Emit(1);
     
     UpdateLayers(dt, -1);
 
