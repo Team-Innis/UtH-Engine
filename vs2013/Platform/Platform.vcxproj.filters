@@ -93,13 +93,13 @@
     <ClInclude Include="..\..\include\UtH\Platform\FileReader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Common\FileReader.hpp">
-      <Filter>Header Files\Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\UtH\Platform\Common\InputController.hpp">
       <Filter>Header Files\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Platform\Common\ControllerEnums.hpp">
+      <Filter>Header Files\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Common\FileManager.hpp">
       <Filter>Header Files\Common</Filter>
     </ClInclude>
   </ItemGroup>
@@ -115,9 +115,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Window.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Platform\Common\FileReader.cpp">
-      <Filter>Source Files\Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Input.cpp">
       <Filter>Source Files</Filter>
@@ -150,6 +147,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Common\InputController.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Common\FileManager.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
   </ItemGroup>

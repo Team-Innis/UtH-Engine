@@ -34,23 +34,24 @@ bool TestScene::Init()
     }
 
     // Second (ParticleSystem)
-    {
-        ParticleTemplate pt;
-        pt.SetLifetime(1.f);
-        pt.SetSpeed(10.f, 150.f);
-        pt.SetTexture(uthRS.LoadTexture("particle.tga"));
+    //{ 
+    //    ParticleTemplate pt;
+    //    pt.SetLifetime(1.f);
+    //    pt.SetSpeed(10.f, 150.f);
+    //    pt.SetTexture(uthRS.LoadTexture("particle.tga"));
 
-        ps = new ParticleSystem(100);
-        ps->SetTemplate(pt);
+    //    ps = new ParticleSystem(100);
+    //    ps->SetTemplate(pt);
 
-        Affector* aff = new Affector([](Particle& part, const ParticleTemplate& ptemp, float dt)
-        {
-            part.Move(part.direction * dt);
-        });
+    //    Affector* aff = new Affector();
+    //    aff->SetParticleUpdateFunc([](Particle& part, const ParticleTemplate& ptemp, float dt)
+    //    {
+    //        part.Move(part.direction * dt);
+    //    });
 
-        ps->AddAffector(aff);
-        AddGameObjectToLayer(Other, ps);
-    }
+    //    ps->AddAffector(aff);
+    //    AddGameObjectToLayer(Other, ps);
+    //}
 
 	return true;
 }

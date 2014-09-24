@@ -7,7 +7,7 @@
 
 #ifdef UTH_SYSTEM_WINDOWS
 	#include <direct.h> // _mkdir
-	#define mkdir = _mkdir
+    #define mkdir _mkdir
 #endif
 
 using namespace uth;
