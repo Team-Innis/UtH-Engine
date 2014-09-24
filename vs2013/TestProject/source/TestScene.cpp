@@ -20,16 +20,12 @@ TestScene::~TestScene()
 
 bool TestScene::Init()
 {
-	// Layers
-    CreateLayer(Default);
-    CreateLayer(Other);
 
     // Objects
     // First
 	{
-	    auto test = new GameObject();
+	    auto test = AddChild<GameObject>();
 		test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
-	    AddGameObjectToLayer(Default, test);
     }
 
     // Second (ParticleSystem)
@@ -39,7 +35,7 @@ bool TestScene::Init()
         pt.SetSpeed(10.f, 150.f);
         pt.SetTexture(uthRS.LoadTexture("particle.tga"));
 
-        auto ps = new ParticleSystem(100);
+        auto ps = AddChild(new ParticleSystem(100));
         ps->SetTemplate(pt);
 
         Affector* aff = new Affector();
@@ -57,7 +53,6 @@ bool TestScene::Init()
 
         ps->AddAffector(aff);
         ps->SetEmitProperties(true, 0.05f, 0.1f, 1, 5);
-        AddGameObjectToLayer(Other, ps);
     }
 
 	return true;
@@ -67,17 +62,17 @@ bool TestScene::DeInit()
 	return true;
 }
 
-bool TestScene::Update(float dt)
-{
-    if (uthInput.Mouse.IsButtonPressed(uth::Mouse::RIGHT))
-        GetLayer(Other)->SetActive(false);
-    
-    UpdateLayers(dt, -1);
-
-	return true;
-}
-bool TestScene::Draw()
-{
-	DrawLayers(uthEngine.GetWindow(), -1);
-	return true;
-}
+//bool TestScene::Update(float dt)
+//{
+//    if (uthInput.Mouse.IsButtonPressed(uth::Mouse::RIGHT))
+//        GetLayer(Other)->SetActive(false);
+//    
+//    UpdateLayers(dt, -1);
+//
+//	return true;
+//}
+//bool TestScene::Draw()
+//{
+//	DrawLayers(uthEngine.GetWindow(), -1);
+//	return true;
+//}

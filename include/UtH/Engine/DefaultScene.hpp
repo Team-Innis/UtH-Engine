@@ -9,6 +9,8 @@
 
 namespace uth
 {
+	class RenderTarget;
+
 	class DefaultScene : public Scene
 	{
 	public:
@@ -19,20 +21,14 @@ namespace uth
 		virtual bool Init();
 		virtual bool DeInit();
 
-		virtual bool Update(float dt);
-		virtual bool Draw();
+		virtual void PreUpdate(float dt);
+		//virtual void Draw(RenderTarget& target);
 	protected:
 
 		float totalTime;
 
-		GameObject logo;
+		std::shared_ptr<GameObject> logo, textU, textT, textH, text, fade;
 
-		GameObject textU;
-		GameObject textT;
-		GameObject textH;
-		GameObject text;
-
-		GameObject fade;
 		Sprite* fadeSprite;
 
 		Text* newestText;
