@@ -7,6 +7,7 @@
 #include <vector>
 #include <map>
 #include <string>
+#include <memory>
 
 // Forward declaration
 namespace tinyxml2
@@ -44,7 +45,7 @@ namespace uth
             unsigned int m_width, m_height;
             
             // Objects by name
-            std::map<std::string, Object*> m_objects;
+            std::map<std::string, std::unique_ptr<Object>> m_objects;
             // Objects by type
             std::map<std::string, ObjectList> m_types;
 

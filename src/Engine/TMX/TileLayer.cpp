@@ -21,7 +21,7 @@ TileLayer::TileLayer(tinyxml2::XMLElement* layerElement, Map* map)
 
 		if(m_spriteBatches.find(t) == m_spriteBatches.end())
 		{
-			auto s = new TileHackBatch();
+			auto s = new TileHackBatch(false);
 			s->SetTexture(t);
 			m_spriteBatches[t] = s;
 		}
@@ -142,7 +142,7 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 		// Find correct tileset
 		for(int i = map->tilesets.size() - 1; i >= 0; --i)
 		{
-			Tileset* tileset = map->tilesets[i];
+			Tileset* tileset = map->tilesets[i].get();
 
             if (tileset->GetFirstGID() <= gid)
             {
