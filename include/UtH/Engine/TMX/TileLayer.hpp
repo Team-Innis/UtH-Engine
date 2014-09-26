@@ -3,7 +3,7 @@
 #define LAYER_TMX_UTH_H
 
 #include <UtH/Engine/TMX/Tile.hpp>
-#include <UtH/Engine/TMX/TileHackBatch.hpp>
+#include <UtH/Engine/SpriteBatch.hpp>
 
 #include <string>
 #include <vector>

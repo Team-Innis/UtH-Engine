@@ -128,11 +128,7 @@ namespace uth
 
 		for (size_t i = 0; i < m_vertexData.size() / 4; ++i)
 		{
-			pmath::Mat3 m = m_objects[i]->GetTransform().getMatrix3();
-			// NOTE: this will cause the map to draw correctly.
-			// TODO: figure out a real solution
-			//m[0][0] = m[0][0] > 0 ? 1 : -1;
-			//m[1][1] = m[1][1] > 0 ? 1 : -1;
+			const pmath::Mat4& m = m_objects[i]->GetTransform();
 
 			m_spriteBuffer.m_vertexData[0 + (i * 4)].position *= m;
 			m_spriteBuffer.m_vertexData[1 + (i * 4)].position *= m;
