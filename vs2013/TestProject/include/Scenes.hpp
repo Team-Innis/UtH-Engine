@@ -1,5 +1,6 @@
 #ifndef SCENES_H
 #define SCENES_H
+#define UTHDefaultScene -1
 
 // Enumeration of scenes, giving name for each scene number
 enum SceneName

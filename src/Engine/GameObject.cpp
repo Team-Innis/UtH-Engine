@@ -1,54 +1,35 @@
 #include <UtH/Engine/GameObject.hpp>
 #include <UtH/Renderer/Camera.hpp>
 #include <UtH/Renderer/RenderTarget.hpp>
+#include <UtH/Platform/Debug.hpp>
 
 using namespace uth;
 
 GameObject::GameObject()
-    : transform(*(new Transform())),
-      parent(nullptr),
-      m_name(""),
-      m_active(true)
-	  
 {
-	AddComponent(&transform);
-	transform.parent = this;
+
 }
 
-GameObject::GameObject(const std::string &name)
-    : transform(*(new Transform())),
-      parent(nullptr),
-      m_name(name),
-	  m_active(true)
+GameObject::GameObject(const std::string &tag)
+    : GameObject()
 {
-	AddComponent(&transform);
-	transform.parent = this;
+	AddTag(tag);
 }
 
-uth::GameObject::GameObject(const GameObject& other)
-    : transform(*(new Transform(other.transform))),
-      parent(other.parent),
-      m_components(),
-      m_name(other.m_name),
-      m_active(other.m_active)
-{
-    AddComponent(&transform);
-    transform.parent = this;
-}
+//uth::GameObject::GameObject(const GameObject& other)
+//    : transform(*(new Transform(other.transform))),
+//      parent(other.parent),
+//      components(),
+//      m_name(other.m_name),
+//      m_active(other.m_active)
+//{
+//    AddComponent(&transform);
+//    transform.parent = this;
+//}
 
 GameObject::~GameObject()
 {
 	RemoveComponents();
-}
-
-void GameObject::SetActive(bool value)
-{
-	m_active = value;
-}
-
-const bool GameObject::IsActive() const
-{
-	return m_active;
 }
 
 void GameObject::AddComponent(Component* component)
@@ -56,11 +37,6 @@ void GameObject::AddComponent(Component* component)
     m_components.emplace_back(component);
 	component->parent = this;
 	component->Init();
-}
-
-const std::string GameObject::GetName() const
-{
-	return m_name;
 }
 
 void GameObject::RemoveComponent(Component* component)
@@ -92,7 +68,7 @@ void GameObject::RemoveComponents()
 
 void GameObject::Draw(RenderTarget& target, RenderAttributes attributes)
 {
-	if(!m_active)
+	if (!m_active)
 		return;
 
 	target.Bind();
@@ -119,6 +95,7 @@ void GameObject::Draw(RenderTarget& target, RenderAttributes attributes)
 
     target.SetShader(tempShader);
     target.SetCamera(tempCamera);
+	Object::Draw(target);
 }
 
 void GameObject::Update(float dt)
@@ -132,5 +109,7 @@ void GameObject::Update(float dt)
 	{
 		if (i->IsActive())
 			i->Update(dt);
+
+	Object::Update(dt);
 	}
 }

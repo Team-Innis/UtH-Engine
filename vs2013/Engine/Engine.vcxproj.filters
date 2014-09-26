@@ -87,17 +87,20 @@
     <ClCompile Include="..\..\src\Engine\TMX\TileLayer.cpp">
       <Filter>Source Files\TMX</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Engine\TMX\Object.cpp">
-      <Filter>Source Files\TMX</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Engine\TMX\ObjectGroup.cpp">
       <Filter>Source Files\TMX</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Engine\Engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Engine\Object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\src\Engine\Physics\PhysicsContactListener.cpp">
       <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Engine\TMX\TMXObject.cpp">
+      <Filter>Source Files\TMX</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Engine\Physics\PhysicsWorld.cpp">
       <Filter>Source Files\Physics</Filter>
@@ -161,9 +164,6 @@
     <ClInclude Include="..\..\include\UtH\Engine\Particles\Particle.hpp">
       <Filter>Header Files\Particles</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Engine\TMX\Object.hpp">
-      <Filter>Header Files\TMX</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\TMX\ObjectGroup.hpp">
       <Filter>Header Files\TMX</Filter>
     </ClInclude>
@@ -179,8 +179,14 @@
     <ClInclude Include="..\..\include\UtH\UtHEngine.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\Object.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\Physics\PhysicsWorld.hpp">
       <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\TMX\TMXObject.hpp">
+      <Filter>Header Files\TMX</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\Physics\Rigidbody.hpp">
       <Filter>Header Files\Physics</Filter>

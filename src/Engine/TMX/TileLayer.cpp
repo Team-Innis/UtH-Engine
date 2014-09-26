@@ -32,8 +32,8 @@ TileLayer::TileLayer(tinyxml2::XMLElement* layerElement, Map* map)
 
 TileLayer::~TileLayer()
 {
-	for(auto it = m_tiles.begin(); it != m_tiles.end(); ++it)
-		delete (*it);
+	//for(auto it = m_tiles.begin(); it != m_tiles.end(); ++it)
+	//	delete (*it);
 
 	for(auto it = m_spriteBatches.begin(); it != m_spriteBatches.end(); ++it)
 		delete (*it).second;
@@ -157,7 +157,7 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
                 if (flipped_vertically)
                     tile->transform.SetScale(tile->transform.GetScale().x, -1);
 
-                tile->parent = static_cast<GameObject*>(map);
+				map->AddChild(tile);
                 const pmath::Rect texCoords = tileset->GetTile(gid - tileset->GetFirstGID());
 
                 m_tiles.push_back(tile);

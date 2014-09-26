@@ -1,4 +1,4 @@
-#include <UtH/Engine/TMX/Object.hpp>
+#include <UtH/Engine/TMX/TMXObject.hpp>
 
 #include <tinyxml2.h>
 
@@ -8,33 +8,33 @@
 using namespace uth;
 using namespace TMX;
 
-Object::Object(tinyxml2::XMLElement* objectElement)
+TMXObject::TMXObject(tinyxml2::XMLElement* TMXObjectElement)
 {
-    parseObject(objectElement);
+    parseTMXObject(TMXObjectElement);
 }
 
-Object::~Object()
+TMXObject::~TMXObject()
 { }
 
 
 // Public
 
-const pmath::Rect& Object::GetRectangle() const
+const pmath::Rect& TMXObject::GetRectangle() const
 {
 	return m_rectangle;
 }
 
-const std::vector<pmath::Vec2>& Object::GetPoints() const
+const std::vector<pmath::Vec2>& TMXObject::GetPoints() const
 {
 	return m_points;
 }
 
-const pmath::Vec2 Object::GetPosition() const
+const pmath::Vec2 TMXObject::GetPosition() const
 {
 	return pmath::Vec2(m_rectangle.position.x, m_rectangle.position.y);
 }
 
-std::string Object::GetProperty(const std::string& name) const
+std::string TMXObject::GetProperty(const std::string& name) const
 {
 	auto prop = m_properties.find(name);
 	if(prop != m_properties.end())
@@ -43,19 +43,19 @@ std::string Object::GetProperty(const std::string& name) const
 	return std::string();
 }
 
-const std::string& Object::GetName() const
+const std::string& TMXObject::GetName() const
 {
 	return m_name;
 }
 
-const std::string& Object::GetType() const
+const std::string& TMXObject::GetType() const
 {
 	return m_typeString;
 }
 
 // Private
 
-void Object::parseObject(tinyxml2::XMLElement* element)
+void TMXObject::parseTMXObject(tinyxml2::XMLElement* element)
 {
     // Parse properties
 	const char* name = element->Attribute("name");
@@ -71,7 +71,7 @@ void Object::parseObject(tinyxml2::XMLElement* element)
         parseProperties(properties);
     }
 
-    // Parse actual object
+    // Parse actual TMXObject
 	m_rectangle.position.x = element->FloatAttribute("x");
 	m_rectangle.position.y = element->FloatAttribute("y");
 
@@ -104,7 +104,7 @@ void Object::parseObject(tinyxml2::XMLElement* element)
 	}
 }
 
-void Object::parseProperties(tinyxml2::XMLElement* element)
+void TMXObject::parseProperties(tinyxml2::XMLElement* element)
 {
     auto p = element->FirstChildElement("property");
 	while(p != 0)
@@ -119,7 +119,7 @@ void Object::parseProperties(tinyxml2::XMLElement* element)
 	}
 }
 
-void Object::parsePoints(const std::string& points)
+void TMXObject::parsePoints(const std::string& points)
 {
 	std::istringstream pointStream(points);
 	std::string point;

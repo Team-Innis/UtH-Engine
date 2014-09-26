@@ -19,7 +19,7 @@ ObjectGroup::~ObjectGroup()
 
 // Public
 
-const Object* ObjectGroup::GetObject(const std::string& name) const
+const TMXObject* ObjectGroup::GetObject(const std::string& name) const
 {
     auto object = m_objects.find(name);
     if(object != m_objects.end())
@@ -72,7 +72,7 @@ void ObjectGroup::parseObjectGroup(tinyxml2::XMLElement* element)
     auto objectElement = element->FirstChildElement("object");
     while(objectElement != 0)
     {
-        auto object = std::unique_ptr<Object>(new Object(objectElement));
+        auto object = std::unique_ptr<TMXObject>(new TMXObject(objectElement));
 
         m_types[object->GetType()].push_back(object.get());
         m_objects.emplace(object->GetName(), std::move(object));

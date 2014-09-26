@@ -14,49 +14,44 @@ namespace
 }
 
 TestScene::TestScene()
-    //: ps(nullptr)
 {}
 TestScene::~TestScene()
 {}
 
 bool TestScene::Init()
 {
-	// Layers
-    CreateLayer(Default);
-    CreateLayer(Other);
-
     // Objects
     // First
 	{
-	    auto test = new GameObject();
+	    auto test = AddChild<GameObject>();
 		test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
-	    AddGameObjectToLayer(Default, test);
     }
 
     // Second (ParticleSystem)
-    { 
+    {
         ParticleTemplate pt;
         pt.SetLifetime(1.f);
         pt.SetSpeed(10.f, 150.f);
         pt.SetTexture(uthRS.LoadTexture("particle.tga"));
 
-        ps = new ParticleSystem(100);
+        auto ps = AddChild(new ParticleSystem(100));
         ps->SetTemplate(pt);
 
         Affector* aff = new Affector();
+        aff->SetParticleInitFunc([](Particle& particle, const ParticleTemplate& pTemplate)
+        {
+            pmath::Vec2 tvec(Randomizer::InsideCircle());
+            tvec /= static_cast<float>(tvec.length());
+            particle.direction = Randomizer::GetFloat(pTemplate.minSpeed, pTemplate.maxSpeed) * tvec;
+        });
+
         aff->SetParticleUpdateFunc([](Particle& part, const ParticleTemplate& ptemp, float dt)
         {
             part.Move(part.direction * dt);
         });
-        aff->SetParticleInitFunc([](Particle& p, const ParticleTemplate& pt)
-        {
-            pmath::Vec2 tvec(Randomizer::InsideCircle());
-            tvec /= static_cast<float>(tvec.length());
-            p.direction = Randomizer::GetFloat(pt.minSpeed, pt.maxSpeed) * tvec;
-        });
 
         ps->AddAffector(aff);
-        AddGameObjectToLayer(Other, ps);
+        ps->SetEmitProperties(true, 0.05f, 0.1f, 1, 5);
     }
 
 	return true;
@@ -66,19 +61,12 @@ bool TestScene::DeInit()
 	return true;
 }
 
-bool TestScene::Update(float dt)
-{
+//void TestScene::Update(float dt)
+//{
+//	Scene::Update(dt);
+//}
 
-    if (ps)
-        ps->Emit(1);
-    
-    UpdateLayers(dt, -1);
-
-	return true;
-}
-bool TestScene::Draw()
-{
-	DrawLayers(uthEngine.GetWindow(), -1);
-
-	return true;
-}
+//void TestScene::Draw(RenderTarget& target, RenderAttributes attributes)
+//{
+//	Scene::Draw(target, attributes);
+//}

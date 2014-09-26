@@ -12,16 +12,12 @@ namespace uth
 		TestScene();
 		~TestScene() override;
 	
-        bool Init() override;
-        bool DeInit() override;
+		bool Init() override;
+		bool DeInit() override;
 	
-        bool Update(float dt) override;
-        bool Draw() override;
+		//void Update(float dt) override;
+		//void Draw(RenderTarget& target, RenderAttributes attributes = RenderAttributes()) override;
 
-    private:
-
-        uth::ParticleSystem* ps;
-	
 	};
 }
 

@@ -1,9 +1,7 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
-#include <UtH/Engine/Component.hpp>
-#include <pmath/Vector.hpp>
-#include <pmath/Matrix4.hpp>
+#include <pmath/PMath.hpp>
 
 namespace uth
 {
@@ -23,10 +21,12 @@ namespace uth
 		};
 	}
 
-	class Transform : public Component
+	class Object;
+
+	class Transform
 	{
 	public:
-		Transform(const std::string& name = "Transform");
+		Transform(Object* parent);
 		~Transform();
 
 		void Move(const pmath::Vec2& offset);
@@ -60,6 +60,7 @@ namespace uth
 		void AddTransform(const pmath::Mat4& modelTransform);
 		const pmath::Mat4& GetTransform();
 
+		Object* parent;
 
     private:
 
@@ -68,8 +69,6 @@ namespace uth
 		pmath::Vec2 m_scale;
 		pmath::Vec2 m_origin;
 		float m_angle;
-
-	private:
 
 		void updateTransform();
 

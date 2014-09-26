@@ -9,30 +9,26 @@
 
 namespace uth
 {
-	class DefaultScene : public Scene
+	class RenderTarget;
+
+	class DefaultScene final : public Scene
 	{
 	public:
 		friend class SceneManager;
 		DefaultScene();
 		~DefaultScene();
 
-		virtual bool Init();
-		virtual bool DeInit();
+		bool Init();
+		bool DeInit();
 
-		virtual bool Update(float dt);
-		virtual bool Draw();
+		void Update(float dt);
+
 	protected:
 
 		float totalTime;
 
-		GameObject logo;
+		std::shared_ptr<GameObject> logo, textU, textT, textH, text, fade;
 
-		GameObject textU;
-		GameObject textT;
-		GameObject textH;
-		GameObject text;
-
-		GameObject fade;
 		Sprite* fadeSprite;
 
 		Text* newestText;
