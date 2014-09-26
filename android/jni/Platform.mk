@@ -71,6 +71,7 @@ $(SRC_PATH)Core/VertexBuffer.cpp
 
 #Engine
 LOCAL_SRC_FILES += \
+$(SRC_PATH)Engine/Object.cpp \
 $(SRC_PATH)Engine/Component.cpp \
 $(SRC_PATH)Engine/GameObject.cpp \
 $(SRC_PATH)Engine/DefaultScene.cpp \
@@ -92,7 +93,6 @@ $(SRC_PATH)Engine/TMX/Map.cpp \
 $(SRC_PATH)Engine/TMX/Tile.cpp \
 $(SRC_PATH)Engine/TMX/TileLayer.cpp \
 $(SRC_PATH)Engine/TMX/Tileset.cpp \
-$(SRC_PATH)Engine/TMX/TileHackBatch.cpp \
 $(SRC_PATH)Engine/AnimatedSprite.cpp \
 
 #TinyXML2

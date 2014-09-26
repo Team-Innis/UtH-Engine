@@ -6,16 +6,16 @@ namespace uth
 {
 	Object::Object()
 		: transform(this),
-		m_active(true),
-		m_parent(nullptr)
+		m_parent(nullptr),
+		m_active(true)
 	{
 
 	}
 
 	Object::Object(Object* p)
 		: transform(this), 
-		  m_parent(p),
-		  m_active(true)
+		m_parent(p),
+		m_active(true)
 	{
 
 	}

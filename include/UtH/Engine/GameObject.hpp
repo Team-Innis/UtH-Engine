@@ -51,11 +51,11 @@ namespace uth
     template<typename T>
     T* GameObject::GetComponent(const std::string& name)
     {
-        for (size_t i = 0; i < components.size(); ++i)
+        for (size_t i = 0; i < m_components.size(); ++i)
         {
-            if (components.at(i)->GetName() == name)
+            if (m_components.at(i)->GetName() == name)
             {
-                return static_cast<T*>(components[i].get());
+                return static_cast<T*>(m_components[i].get());
             }
         }
 
@@ -65,9 +65,9 @@ namespace uth
     template<typename T>
     T* GameObject::GetComponent()
     {
-        for (size_t i = 0; i < components.size(); ++i)
+        for (size_t i = 0; i < m_components.size(); ++i)
         {
-            T *c = dynamic_cast<T*>(components.at(i).get());
+            T *c = dynamic_cast<T*>(m_components.at(i).get());
             if (c != nullptr)
             {
                 return c;

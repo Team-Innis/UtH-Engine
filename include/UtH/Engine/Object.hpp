@@ -98,16 +98,14 @@ namespace uth
 	template <typename T>
 	inline std::shared_ptr<T> Object::AddChild(T* object /*= new T()*/)
 	{
-		auto retVal = AddChild(std::shared_ptr<T>(object));
-		auto p = retVal.use_count();
-		return retVal;
+		return AddChild(std::shared_ptr<T>(object));
 	}
 
 	template <typename T>
 	inline std::shared_ptr<T> Object::ExtractChild(std::shared_ptr<T> object)
 	{
 		auto it = std::find(m_children.begin(), m_children.end(), object);
-		if (it-> == m_children.end())
+		if (it == m_children.end())
 			return nullptr;
 		const std::shared_ptr<Object> retVal = &*it;
 		it->release();
