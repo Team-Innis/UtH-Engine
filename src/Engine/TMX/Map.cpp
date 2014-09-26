@@ -20,9 +20,9 @@ Map::Map(const std::string& path)
 
 Map::~Map()
 {
-	for(auto it = tilesets.begin(); it != tilesets.end(); ++it)
-		delete (*it);
-	tilesets.clear();
+    tilesets.clear();
+    layers.clear();
+    objectGroups.clear();
 }
 
 bool Map::LoadFromFile(const std::string& path)
@@ -48,7 +48,7 @@ bool Map::LoadFromFile(const std::string& path)
 	{
 		// TODO: Make getting the map folder better
 		std::string mapfolder = path.substr(0, path.find_last_of("/")+1);
-		tilesets.push_back(new Tileset(tileset, mapfolder));
+		tilesets.emplace_back(new Tileset(tileset, mapfolder));
 		tileset = tileset->NextSiblingElement("tileset");
 	}
 
@@ -56,7 +56,7 @@ bool Map::LoadFromFile(const std::string& path)
 	auto layer = map->FirstChildElement("layer");
 	while(layer != 0)
 	{
-		layers.push_back(new TileLayer(layer, this));
+		layers.emplace_back(new TileLayer(layer, this));
 		layer = layer->NextSiblingElement("layer");
 	}
 
@@ -64,7 +64,7 @@ bool Map::LoadFromFile(const std::string& path)
 	auto objectgroup = map->FirstChildElement("objectgroup");
 	while(objectgroup != 0)
 	{
-		objectGroups.push_back(new ObjectGroup(objectgroup));
+		objectGroups.emplace_back(new ObjectGroup(objectgroup));
 		objectgroup = objectgroup->NextSiblingElement("objectgroup");
 	}
 
@@ -95,7 +95,7 @@ TileLayer* Map::GetLayer(const std::string& name)
 {
 	for(auto it = layers.begin(); it != layers.end(); ++it)
 	{
-		auto layer = (*it);
+		auto layer = it->get();
 		if(layer->GetName() == name)
 			return layer;
 	}
@@ -107,7 +107,7 @@ ObjectGroup* Map::GetObjectGroup(const std::string& name)
 {
     for (auto it = objectGroups.begin(); it != objectGroups.end(); ++it)
     {
-        auto objectgroup = (*it);
+        auto objectgroup = it->get();
         if (objectgroup->GetName() == name)
             return objectgroup;
     }

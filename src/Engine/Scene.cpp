@@ -21,9 +21,9 @@ void uth::Scene::Update(float dt)
 	Object::Update(dt);
 }
 
-void uth::Scene::Draw(RenderTarget& target)
+void uth::Scene::Draw(RenderTarget& target, RenderAttributes attributes)
 {
-	Object::Draw(target);
+	Object::Draw(target, attributes);
 }
 
 

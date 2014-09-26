@@ -21,7 +21,7 @@ TileLayer::TileLayer(tinyxml2::XMLElement* layerElement, Map* map)
 
 		if(m_spriteBatches.find(t) == m_spriteBatches.end())
 		{
-			auto s = new TileHackBatch();
+            auto s = new SpriteBatch(false);
 			s->SetTexture(t);
 			m_spriteBatches[t] = s;
 		}
@@ -32,8 +32,8 @@ TileLayer::TileLayer(tinyxml2::XMLElement* layerElement, Map* map)
 
 TileLayer::~TileLayer()
 {
-	for(auto it = m_tiles.begin(); it != m_tiles.end(); ++it)
-		delete (*it);
+	//for(auto it = m_tiles.begin(); it != m_tiles.end(); ++it)
+	//	delete (*it);
 
 	for(auto it = m_spriteBatches.begin(); it != m_spriteBatches.end(); ++it)
 		delete (*it).second;
@@ -142,7 +142,7 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 		// Find correct tileset
 		for(int i = map->tilesets.size() - 1; i >= 0; --i)
 		{
-			Tileset* tileset = map->tilesets[i];
+			Tileset* tileset = map->tilesets[i].get();
 
             if (tileset->GetFirstGID() <= gid)
             {
@@ -151,6 +151,7 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 
                 auto tile = new Tile(t);
 
+                // NOTE: do diagonal before these
                 if (flipped_horizontally)
                     tile->transform.SetScale(-1, tile->transform.GetScale().y);
                 if (flipped_vertically)

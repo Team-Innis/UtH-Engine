@@ -56,7 +56,7 @@ bool ParticleSystem::ReadyToEmit() const
     
     if (ready)
     {
-        m_emitTimer = 0.f;
+        m_emitTimer -= m_emitTimeLimit;
         m_emitTimeLimit = Randomizer::GetFloat(m_emitFreq.x, m_emitFreq.y);
     }
 

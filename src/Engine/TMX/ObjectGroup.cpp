@@ -12,10 +12,8 @@ ObjectGroup::ObjectGroup(tinyxml2::XMLElement* objectGroupElement)
 
 ObjectGroup::~ObjectGroup()
 {
+    m_objects.clear();
     m_types.clear();
-
-    for(auto it = m_objects.begin(); it != m_objects.end(); ++it)
-		delete (*it).second;
 }
 
 
@@ -25,7 +23,7 @@ const TMXObject* ObjectGroup::GetObject(const std::string& name) const
 {
     auto object = m_objects.find(name);
     if(object != m_objects.end())
-        return object->second;
+        return object->second.get();
 
     return nullptr;
 }
@@ -74,10 +72,10 @@ void ObjectGroup::parseObjectGroup(tinyxml2::XMLElement* element)
     auto objectElement = element->FirstChildElement("object");
     while(objectElement != 0)
     {
-        auto object = new TMXObject(objectElement);
+        auto object = std::unique_ptr<TMXObject>(new TMXObject(objectElement));
 
-        m_objects[object->GetName()] = object;
-        m_types[object->GetType()].push_back(object);
+        m_types[object->GetType()].push_back(object.get());
+        m_objects.emplace(object->GetName(), std::move(object));
 
 		objectElement = objectElement->NextSiblingElement("object");
     }

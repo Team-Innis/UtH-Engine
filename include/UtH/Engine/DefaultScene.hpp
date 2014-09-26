@@ -22,7 +22,7 @@ namespace uth
 		bool DeInit();
 
 		void Update(float dt);
-		//virtual void Draw(RenderTarget& target);
+
 	protected:
 
 		float totalTime;

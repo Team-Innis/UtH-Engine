@@ -53,10 +53,6 @@ bool TestScene::Init()
         ps->AddAffector(aff);
         ps->SetEmitProperties(true, 0.05f, 0.1f, 1, 5);
     }
-	auto a = new TMX::Map("Maps/desert.tmx");
-	a->AddTag("map");
-	a->transform.SetScale(3.0f);
-	AddChild(a);
 
 	return true;
 }
@@ -65,25 +61,12 @@ bool TestScene::DeInit()
 	return true;
 }
 
-void TestScene::Update(float dt)
-{
-	if (Children("map").size() > 0)
-		TestScene::Children("map")[0]->transform.SetPosition(uthEngine.GetWindow().PixelToCoords(uthInput.Common.Position()));
-	uthEngine.GetWindow().GetCamera().SetPosition(pmath::Vec2(120,300));
-	Scene::Update(dt);
-}
-
-//bool TestScene::Update(float dt)
+//void TestScene::Update(float dt)
 //{
-//    if (uthInput.Mouse.IsButtonPressed(uth::Mouse::RIGHT))
-//        GetLayer(Other)->SetActive(false);
-//    
-//    UpdateLayers(dt, -1);
-//
-//	return true;
+//	Scene::Update(dt);
 //}
-//bool TestScene::Draw()
+
+//void TestScene::Draw(RenderTarget& target, RenderAttributes attributes)
 //{
-//	DrawLayers(uthEngine.GetWindow(), -1);
-//	return true;
+//	Scene::Draw(target, attributes);
 //}

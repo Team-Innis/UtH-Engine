@@ -72,7 +72,6 @@
     <ClCompile Include="..\..\src\Engine\Text.cpp" />
     <ClCompile Include="..\..\src\Engine\TMX\TMXObject.cpp" />
     <ClCompile Include="..\..\src\Engine\TMX\ObjectGroup.cpp" />
-    <ClCompile Include="..\..\src\Engine\TMX\TileHackBatch.cpp" />
     <ClCompile Include="..\..\src\Engine\TMX\TileLayer.cpp" />
     <ClCompile Include="..\..\src\Engine\TMX\Map.cpp" />
     <ClCompile Include="..\..\src\Engine\TMX\Tile.cpp" />
@@ -100,7 +99,6 @@
     <ClInclude Include="..\..\include\UtH\Engine\SpriteBatch.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Text.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Enums.hpp" />
-    <ClInclude Include="..\..\include\UtH\Engine\TMX\TileHackBatch.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\TMX\TileLayer.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Map.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\TMX\TMXObject.hpp" />

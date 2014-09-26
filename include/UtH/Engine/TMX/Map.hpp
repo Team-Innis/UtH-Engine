@@ -32,9 +32,9 @@ namespace uth
 			TileLayer* GetLayer(const std::string& name);
             ObjectGroup* GetObjectGroup(const std::string& name);
 
-			std::vector<Tileset*> tilesets;
-			std::vector<TileLayer*> layers;
-			std::vector<ObjectGroup*> objectGroups;
+			std::vector<std::unique_ptr<Tileset>> tilesets;
+			std::vector<std::unique_ptr<TileLayer>> layers;
+			std::vector<std::unique_ptr<ObjectGroup>> objectGroups;
 		private:
 			void draw(RenderTarget& target);
 

@@ -87,9 +87,6 @@
     <ClCompile Include="..\..\src\Engine\TMX\TileLayer.cpp">
       <Filter>Source Files\TMX</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Engine\TMX\TileHackBatch.cpp">
-      <Filter>Source Files\TMX</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\src\Engine\TMX\ObjectGroup.cpp">
       <Filter>Source Files\TMX</Filter>
     </ClCompile>
@@ -174,9 +171,6 @@
       <Filter>Header Files\TMX</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\TMX\TileLayer.hpp">
-      <Filter>Header Files\TMX</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Engine\TMX\TileHackBatch.hpp">
       <Filter>Header Files\TMX</Filter>
     </ClInclude>
     <ClInclude Include="..\..\include\UtH\Engine\Engine.hpp">

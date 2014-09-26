@@ -12,12 +12,12 @@ namespace uth
 		TestScene();
 		~TestScene() override;
 	
-        bool Init() override;
-        bool DeInit() override;
+		bool Init() override;
+		bool DeInit() override;
 	
-		void Update(float dt);
-        //bool Draw() override;
-	
+		//void Update(float dt) override;
+		//void Draw(RenderTarget& target, RenderAttributes attributes = RenderAttributes()) override;
+
 	};
 }
 
