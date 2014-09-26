@@ -28,30 +28,36 @@ bool TestScene::Init()
     // Objects
     // First
 	{
-	    //auto test = new GameObject();
-		//test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
-	    //AddGameObjectToLayer(Default, test);
+	    auto test = new GameObject();
+		test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
+	    AddGameObjectToLayer(Default, test);
     }
 
     // Second (ParticleSystem)
-    //{ 
-    //    ParticleTemplate pt;
-    //    pt.SetLifetime(1.f);
-    //    pt.SetSpeed(10.f, 150.f);
-    //    pt.SetTexture(uthRS.LoadTexture("particle.tga"));
+    { 
+        ParticleTemplate pt;
+        pt.SetLifetime(1.f);
+        pt.SetSpeed(10.f, 150.f);
+        pt.SetTexture(uthRS.LoadTexture("particle.tga"));
 
-    //    ps = new ParticleSystem(100);
-    //    ps->SetTemplate(pt);
+        ps = new ParticleSystem(100);
+        ps->SetTemplate(pt);
 
-    //    Affector* aff = new Affector();
-    //    aff->SetParticleUpdateFunc([](Particle& part, const ParticleTemplate& ptemp, float dt)
-    //    {
-    //        part.Move(part.direction * dt);
-    //    });
+        Affector* aff = new Affector();
+        aff->SetParticleUpdateFunc([](Particle& part, const ParticleTemplate& ptemp, float dt)
+        {
+            part.Move(part.direction * dt);
+        });
+        aff->SetParticleInitFunc([](Particle& p, const ParticleTemplate& pt)
+        {
+            pmath::Vec2 tvec(Randomizer::InsideCircle());
+            tvec /= static_cast<float>(tvec.length());
+            p.direction = Randomizer::GetFloat(pt.minSpeed, pt.maxSpeed) * tvec;
+        });
 
-    //    ps->AddAffector(aff);
-    //    AddGameObjectToLayer(Other, ps);
-    //}
+        ps->AddAffector(aff);
+        AddGameObjectToLayer(Other, ps);
+    }
 
 	return true;
 }
@@ -63,8 +69,8 @@ bool TestScene::DeInit()
 bool TestScene::Update(float dt)
 {
 
-    //if (ps)
-    //    ps->Emit(1);
+    if (ps)
+        ps->Emit(1);
     
     UpdateLayers(dt, -1);
 
