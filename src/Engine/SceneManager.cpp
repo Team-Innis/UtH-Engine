@@ -96,10 +96,5 @@ namespace uth
 		startScene();
 		m_pendingSceneSwitch = false;
 	}
-
-	Scene* SceneManager::GetCurScene()
-	{
-		return curScene;
-	}
 	
 }

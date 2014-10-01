@@ -23,8 +23,6 @@ namespace uth
 
 		void registerNewSceneFunc(Scene* (*newSceneFunc)(int SceneID),int SceneCount);
 
-		Scene* GetCurScene();
-
 	private:
 		void endScene();
 		void startScene();

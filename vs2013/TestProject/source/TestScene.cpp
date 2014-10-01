@@ -63,9 +63,9 @@ bool TestScene::Init()
     }
 
 	
-	//music = Sound::Load("media/music.wav");
-	//music->Play();
-	//music->Loop(true);
+	music = uthRS.LoadSound("media/music.wav");
+	music->Play();
+	music->Loop(true);
 
 	textObject.AddComponent(text = new Text("8bitoperator.ttf", 64));
 	textObject.transform.SetOrigin(pmath::Vec2(0.5f, 0.0f));
@@ -161,11 +161,5 @@ bool TestScene::Draw()
 	DrawLayers(uthEngine.GetWindow(), -1);
 	textObject.Draw(uthEngine.GetWindow());
 
-	return true;
-}
-
-bool TestScene::PauseSounds()
-{
-	//music->Pause();
 	return true;
 }

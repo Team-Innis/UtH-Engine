@@ -110,9 +110,3 @@ bool DefaultScene::Draw()
 
     return true;
 }
-
-bool DefaultScene::PauseSounds()
-{
-	
-	return true;
-}

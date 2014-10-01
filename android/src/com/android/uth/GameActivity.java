@@ -2,7 +2,6 @@ package com.android.uth;
 
 import android.content.Context;
 import android.os.Vibrator;
-import android.opengl.GLSurfaceView;
 
 public class GameActivity extends android.app.NativeActivity
 {
@@ -17,10 +16,5 @@ public class GameActivity extends android.app.NativeActivity
 	{
 		Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		v.vibrate(time);
-	}
-	public void EatContext(GLSurfaceView view)
-	{
-		//System.out.print(testi);
-		//view.setPreserveEGLContextOnPause(true);
 	}
 }

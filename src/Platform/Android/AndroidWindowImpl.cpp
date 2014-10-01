@@ -103,7 +103,7 @@ namespace uth
 
 		if (focusLost)
 		{
-			uthSceneM.GetCurScene()->PauseSounds();
+			uthRS.PauseSounds();
 			focusLost = false;
 		}
 		return nullptr;
@@ -193,7 +193,7 @@ namespace uth
 		case APP_CMD_LOST_FOCUS:
 			WriteLog("LostFocus");
 			uthAndroidEngine.initialized = false;
-			uthSceneM.GetCurScene()->PauseSounds();
+			uthRS.PauseSounds();
 			focusLost = true;
             uth::SensorInput::LostFocus();
 			break;

@@ -31,8 +31,6 @@ namespace uth
 		virtual bool Update(float dt) = 0;
 		virtual bool Draw() = 0;	
 
-		virtual bool PauseSounds() = 0;
-
 	protected:
 
 		//LAYERS

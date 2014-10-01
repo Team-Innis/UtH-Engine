@@ -18,8 +18,6 @@ namespace uth
         bool Update(float dt) override;
         bool Draw() override;
 
-		bool PauseSounds() override;
-
 		Sound* music;
 
 		GameObject textObject;
