@@ -18,6 +18,7 @@ ParticleSystem::ParticleSystem(const size_t reserve)
       m_update(false)
 {
     m_particles.reserve(reserve);
+	transform.setSize(1,1);
 }
 
 void ParticleSystem::Emit(const unsigned int amount)
@@ -87,6 +88,7 @@ void ParticleSystem::SetTemplate(const ParticleTemplate& pTemplate)
 {
 	m_template = pTemplate;
 	m_batch.SetTexture(m_template.m_texture);
+	transform.setSize(m_template.m_texture->GetSize());
 }
 
 void ParticleSystem::Clear(const bool particles, const bool affectors)

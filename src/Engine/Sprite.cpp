@@ -42,7 +42,7 @@ void Sprite::Init()
 {
 	generateBuffer(true);
 	if (parent)
-		parent->transform.SetSize(m_size);
+		parent->transform.setSize(m_size);
 }
 
 void Sprite::Draw(RenderTarget& target)

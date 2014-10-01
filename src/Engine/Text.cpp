@@ -43,7 +43,7 @@ Text::~Text()
 
 void Text::Init()
 {
-	parent->transform.SetSize(m_size);
+	parent->transform.setSize(m_size);
 }
 
 
@@ -134,7 +134,7 @@ void Text::AddText(const std::wstring& text, const pmath::Vec4 color)
 	}
 
 	if (parent)
-		parent->transform.SetSize(m_size);
+		parent->transform.setSize(m_size);
 
 	m_matrix[0][0] = 1;
 	m_matrix[1][1] = 1;

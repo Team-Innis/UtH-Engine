@@ -9,7 +9,7 @@ using namespace uth;
 Transform::Transform(Object* p)
 	: parent(p),
 	  m_position(0, 0),
-	  m_size(1, 1),
+	  m_size(0, 0),
 	  m_scale(1, 1),
       m_origin(0, 0),
 	  m_angle(0),
@@ -48,12 +48,20 @@ const pmath::Vec2& Transform::GetPosition() const
 
 void Transform::SetSize(const pmath::Vec2& size)
 {
-    this->m_size = size;
-	m_transformNeedsUpdate = true;
+	ScaleToSize(size.x, size.y);
 }
 void Transform::SetSize(const float width, const float height)
 {
-	SetSize(pmath::Vec2(width, height));
+	ScaleToSize(width, height);
+}
+void Transform::ScaleToSize(const pmath::Vec2& size)
+{
+	SetSize(size.x, size.y);
+}
+void Transform::ScaleToSize(const float width, const float height)
+{
+	SetScale(width / m_size.x, height / m_size.y);
+	m_transformNeedsUpdate = true;
 }
 const pmath::Vec2& Transform::GetSize() const
 {
@@ -184,6 +192,16 @@ const pmath::Mat4& Transform::GetTransform()
 }
 
 // Private
+
+void Transform::setSize(const pmath::Vec2& size)
+{
+	this->m_size = size;
+	m_transformNeedsUpdate = true;
+}
+void Transform::setSize(const float width, const float height)
+{
+	setSize(pmath::Vec2(width, height));
+}
 
 void Transform::updateTransform()
 {

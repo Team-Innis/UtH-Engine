@@ -105,7 +105,7 @@ void AnimatedSprite::Init()
 	ChangeAnimation(m_firstFrame,m_frames,m_firstFrame, m_fps, m_loop, m_reversed);
 
 	const pmath::Vec2 size = pmath::Vec2(m_sizePx.x, m_sizePx.y);
-	parent->transform.SetSize(size);
+	parent->transform.setSize(size);
 
 	loopEnd = false;
 }
