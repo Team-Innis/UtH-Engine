@@ -16,9 +16,9 @@ void JavaFunctions::Vibrate(int time_ms)
 	
 	jclass vibrationClass = jni->GetObjectClass(uthAndroidEngine.app->activity->clazz);
 	if (!vibrationClass)
-		WriteError("NOPE");
+		WriteError("No engine found!");
 	jmethodID vibrationFunc = jni->GetMethodID(vibrationClass, "Vibrate", "(I)V");
 	if (!vibrationFunc)
-		WriteError("NADA");
+		WriteError("No vibration function found!");
 	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, vibrationFunc, time_ms);
 }
