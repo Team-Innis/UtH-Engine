@@ -11,25 +11,7 @@ ResourceManager::~ResourceManager()
 {
 }
 
-SoundBuffer* uth::ResourceManager::LoadSoundBuffer(const std::string& filePath)
-{
-    auto itr = m_soundBuffers.find(filePath);
 
-    if (itr != m_soundBuffers.end())
-        return itr->second.get();
-
-    std::unique_ptr<SoundBuffer, SoundBuffer::Deleter> temp(new SoundBuffer());
-	const bool result = temp->LoadFromFile(filePath);
-
-    if (result)
-    {
-        auto tempPtr = temp.get();
-        m_soundBuffers[filePath] = std::unique_ptr<SoundBuffer, SoundBuffer::Deleter>(temp.release());
-        return tempPtr;
-    }
-
-    return nullptr;
-}
 
 Image* uth::ResourceManager::LoadImage(const std::string& filePath)
 {
@@ -91,10 +73,30 @@ Font* ResourceManager::LoadFont(const std::string& filePath)
     return nullptr;
 }
 
+Sound* ResourceManager::LoadSound(const std::string& filePath)
+{
+	auto itr = m_sounds.find(filePath);
+
+	if (itr != m_sounds.end())
+		return itr->second.get();
+
+	std::unique_ptr<Sound, Sound::Deleter> temp(new Sound());
+	const bool result = temp->Load(filePath);
+
+	if (result)
+	{
+		auto tempPtr = temp.get();
+		m_sounds[filePath] = std::unique_ptr<Sound, Sound::Deleter>(temp.release());
+		return tempPtr;
+	}
+
+	return nullptr;
+}
+
 void ResourceManager::Clear(const unsigned int flags)
 {
-    if ((flags & uth::ResourceManager::SoundBuffers) != 0)
-        m_soundBuffers.clear();
+    if ((flags & uth::ResourceManager::Sounds) != 0)
+        m_sounds.clear();
     if ((flags & uth::ResourceManager::Images) != 0)
         m_images.clear();
     if ((flags & uth::ResourceManager::Textures) != 0)
@@ -103,18 +105,7 @@ void ResourceManager::Clear(const unsigned int flags)
         m_fonts.clear();
 }
 
-bool ResourceManager::DeleteSoundBuffer(const std::string& filePath)
-{
-    auto itr = m_soundBuffers.find(filePath);
 
-    if (itr != m_soundBuffers.end())
-    {
-        m_soundBuffers.erase(itr);
-        return true;
-    }
-
-    return false;
-}
 
 bool ResourceManager::DeleteImage(const std::string& filePath)
 {
@@ -153,4 +144,29 @@ bool ResourceManager::DeleteFont(const std::string& filePath)
     }
 
     return false;
+}
+
+bool ResourceManager::DeleteSound(const std::string& filePath)
+{
+	auto itr = m_sounds.find(filePath);
+
+	if (itr != m_sounds.end())
+	{
+		m_sounds.erase(itr);
+		return true;
+	}
+
+	return false;
+}
+
+void ResourceManager::PauseSounds()
+{
+	int size = m_sounds.size();
+	auto itr = m_sounds.begin();
+
+	for (int i = 0; i < size; i++)
+	{
+		itr->second->Pause();
+		itr++;
+	}
 }

@@ -3,11 +3,18 @@
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Resources/ResourceManager.hpp>
 #include <UtH/Audio/SoundDevice.hpp>
+#include <UtH/Platform/FileManager.hpp>
+
+#include <sndfile/sndfile.h>
 
 using namespace uth;
 
 
+
 Sound::Sound()
+	: loop(false),
+	  duration(0.1f),
+	  _posX(0), _posY(0), _posZ(0)
 {
 }
 
@@ -22,19 +29,7 @@ Sound::~Sound()
 	}
 }
 
-Sound::Sound(const char* fileName)
-	: loop(false),
-	  duration(0.1f),
-	  _posX(0), _posY(0), _posZ(0)
-{
-	Initialize(fileName);
-}
-
 // PUBLIC
-Sound* Sound::Load(const char* fileName)
-{
-	return new Sound(fileName);
-}
 void Sound::Play()
 {
 	alSourcePlay(source);
@@ -146,38 +141,79 @@ void Sound::SetListenerPosition(pmath::Vec3 position)
 }
 
 // PRIVATE
+bool Sound::Load(std::string fileName)
+{
+	Initialize(fileName);
 
-void Sound::Initialize(const char* fileName)
+	if (source)
+		return true;
+
+	return false;
+}
+
+void Sound::Initialize(std::string fileName)
 {
 	uth::SoundDevice::getInstance();
 
-	const SoundBuffer* buf = uthRS.LoadSoundBuffer(fileName);
+	SF_INFO soundInfo;
 
-	if (!buf)
-		return;
+#if defined(UTH_SYSTEM_ANDROID)
+	AAsset* asset = FileManager::loadSound(fileName);
+
+	SF_VIRTUAL_IO virtualIO;
+	virtualIO.get_filelen = &FileManager::getAssetLength;
+	virtualIO.seek = &FileManager::seekAsset;
+	virtualIO.read = &FileManager::readAsset;
+	virtualIO.tell = &FileManager::tellAsset;
+
+	SNDFILE* file = sf_open_virtual(&virtualIO, SFM_READ, &soundInfo, asset);
+#elif defined(UTH_SYSTEM_WINDOWS)
+	SNDFILE* file = sf_open(("assets/" + fileName).c_str(), SFM_READ, &soundInfo);
+#endif
+
+	if (!file)
+	{
+		int error = sf_error(file);
+		WriteError("Failed to open sound file, error &d", file, error);
+		WriteError(sf_error_number(error));
+	}
+
+	WriteLog("Frames: %d\n", soundInfo.frames);
+	WriteLog("Samplerae: %d\n", soundInfo.samplerate);
+	WriteLog("Channels: %d\n", soundInfo.channels);
+	WriteLog("Format: %d\n", soundInfo.format);
+
+
+	int frames = static_cast<int>(soundInfo.frames * soundInfo.channels);
+	int channels = soundInfo.channels;
+	int sampleRate = soundInfo.samplerate;
+
+	short* soundBuffer = new short[frames];
+	sf_read_short(file, soundBuffer, frames);
+
+	sf_close(file);
+
 
 	Sound::CreateSources(source);
 	// Create buffer
 	alGenBuffers(1, &buffer);
 	CheckALError("alGenBuffers");
 
-	int channels = buf->GetSoundInfo().channels;
+	//int channels = buf->GetSoundInfo().channels;
 
 	alBufferData(buffer, channels == 2 ? AL_FORMAT_STEREO16:AL_FORMAT_MONO16 ,
-		buf->GetSoundInfo().soundBuffer,
-		buf->GetSoundInfo().frames * sizeof(short),
-		buf->GetSoundInfo().sampleRate);
-
-	
+		soundBuffer,
+		frames * sizeof(short),
+		sampleRate);
 
 	CheckALError("alBufferData");
 
 	alSourcei(source, AL_BUFFER, buffer);
 	CheckALError("alSourcei");
 
-	duration = static_cast<float>(buf->GetSoundInfo().frames)
-		/ static_cast<float>(buf->GetSoundInfo().sampleRate)
-		/ static_cast<float>(buf->GetSoundInfo().channels);
+	duration = static_cast<float>(frames)
+		/ static_cast<float>(sampleRate)
+		/ static_cast<float>(channels);
 	WriteLog("duration: %f\n", duration);
 }
 

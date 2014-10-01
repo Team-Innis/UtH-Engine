@@ -74,8 +74,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\ext\lib\openal\lib\Win32</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OpenAL32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\ext\lib\libsndfile\lib\Win32;$(SolutionDir)..\ext\lib\openal\lib\Win32</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OpenAL32.lib;libsndfile-1.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -96,8 +96,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\ext\lib\openal\lib\Win32</AdditionalLibraryDirectories>
-      <AdditionalDependencies>OpenAL32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\ext\lib\libsndfile\lib\Win32;$(SolutionDir)..\ext\lib\openal\lib\Win32</AdditionalLibraryDirectories>
+      <AdditionalDependencies>OpenAL32.lib;libsndfile-1.lib</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

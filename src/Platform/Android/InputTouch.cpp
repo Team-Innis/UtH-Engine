@@ -91,6 +91,10 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 			{
 				ID[index].m_tapped = true;
 			}
+			else
+			{
+				ID[index].m_released = true;
+			}
 		}
 
 		ID[index].m_curPos.x = AMotionEvent_getX(droidInputEvent, index);
@@ -117,8 +121,10 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 
 void TouchInput::Update(float deltaTime)
 {
-	if(m_motion != TouchMotion::NONE && m_motion == TouchMotion::TAP)
+	if((m_motion != TouchMotion::NONE && m_motion == TouchMotion::TAP) || 
+		(m_motion != TouchMotion::NONE && m_motion == TouchMotion::RELEASE))	
 		m_motion = TouchMotion::NONE;
+	
 		
 	for(int i = 0; i < m_maxInputs; i++)
 	{
@@ -148,6 +154,33 @@ void TouchInput::Update(float deltaTime)
 			ID[i].m_tapped = false;
 			ID[i].m_motion = TouchMotion::TAP;
 			m_motion = TouchMotion::TAP;
+		}
+		
+		if(!ID[i].m_released)
+		{	
+			switch(ID[i].Motion())
+			{
+			case TouchMotion::STATIONARY:
+				ID[i].m_downTime += deltaTime;
+				break;
+			case TouchMotion::RELEASE:
+				for (unsigned int j = i; j < m_maxInputs-1; j++)
+				{
+					ID[j].m_startIndex = ID[j+1].m_startIndex;
+					ID[j].m_startPos = ID[j+1].m_startPos;
+					ID[j].m_downTime = ID[j+1].m_downTime;
+					ID[j].m_motion = ID[j+1].Motion();
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		else
+		{
+			ID[i].m_released = false;
+			ID[i].m_motion = TouchMotion::RELEASE;
+			m_motion = TouchMotion::RELEASE;
 		}
 	}
 	if(m_touchCount == 1)

@@ -41,7 +41,6 @@ $(SRC_PATH)Renderer/Texture.cpp
 #Resources
 LOCAL_SRC_FILES += \
 $(SRC_PATH)Resources/ResourceManager.cpp \
-$(SRC_PATH)Resources/SoundBuffer.cpp \
 $(SRC_PATH)Resources/Font.cpp \
 $(SRC_PATH)Resources/Image.cpp
 
@@ -61,7 +60,8 @@ $(SRC_PATH)Platform/Android/InputSensor.cpp \
 $(SRC_PATH)Platform/Android/InputController.cpp \
 $(SRC_PATH)Platform/Android/InputCommon.cpp \
 $(SRC_PATH)Platform/Android/InputMouse.cpp \
-$(SRC_PATH)Platform/Android/InputKeyboard.cpp
+$(SRC_PATH)Platform/Android/InputKeyboard.cpp \
+$(SRC_PATH)Platform/Android/JavaFunctions.cpp
 
 #Core
 LOCAL_SRC_FILES += \

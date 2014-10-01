@@ -18,6 +18,12 @@ namespace uth
 		//void Update(float dt) override;
 		//void Draw(RenderTarget& target, RenderAttributes attributes = RenderAttributes()) override;
 
+		Sound* music;
+
+		GameObject textObject;
+
+		Text* text;
+	
 	};
 }
 

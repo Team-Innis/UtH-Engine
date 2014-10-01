@@ -8,8 +8,11 @@
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Platform/Android/InputSensor.hpp>
 
+
 namespace uth
 {
+	bool AndroidWindowImpl::focusLost = false;
+
 	void* AndroidWindowImpl::create(const WindowSettings& settings)
 	{
 
@@ -98,6 +101,11 @@ namespace uth
 		WriteLog((const char*)glGetString(GL_VERSION));
 		WriteLog("+++++++++++++++++++++++++++++++++++++++");
 
+		if (focusLost)
+		{
+			uthRS.PauseSounds();
+			focusLost = false;
+		}
 		return nullptr;
 	}
 
@@ -180,13 +188,13 @@ namespace uth
 			break;
         case APP_CMD_GAINED_FOCUS:
             uthAndroidEngine.initialized = true;
-
             uth::SensorInput::GainFocus();
             break;
 		case APP_CMD_LOST_FOCUS:
 			WriteLog("LostFocus");
 			uthAndroidEngine.initialized = false;
-
+			uthRS.PauseSounds();
+			focusLost = true;
             uth::SensorInput::LostFocus();
 			break;
 		}
