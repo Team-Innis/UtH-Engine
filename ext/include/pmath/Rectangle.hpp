@@ -23,13 +23,30 @@ namespace pmath
 
         T area() const;
 
+        // Returns the position of the center of the rectangle
+        Vector2<T> center() const;
+        template<typename T2>
+        Vector2<T2> center() const;
+
         T getLeft() const;
         T getRight() const;
         T getBottom() const;
         T getTop() const;
 
+        // Checks intersection with other rectangle
         bool intersects(const Rectangle& other) const;
+        // Checks intersection with other rectangle
+        // outIntersect is the rectangle of the intersection
+        bool intersects(const Rectangle& other, Rectangle& outIntersect) const;
+
+        // Is the point inside the rectangle?
         bool contains(const Vector2<T>& point) const;
+        // Does this rectangle contain the other rectangle?
+        // Checking this on self should return true
+        bool contains(const Rectangle& other) const;
+
+        // Scales the size of the rectangle
+        void scale(const T& scale);
 
         std::string toString() const;
 

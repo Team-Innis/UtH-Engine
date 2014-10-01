@@ -43,6 +43,21 @@ namespace pmath
         return size.x * size.y;
     }
 
+
+    template<typename T>
+    inline Vector2<T> Rectangle<T>::center() const
+    {
+        return position + size / 2;
+    }
+
+
+    template<typename T>
+    template<typename T2>
+    inline Vector2<T2> Rectangle<T>::center() const
+    {
+        return Vector2<T2>(position) + Vector2<T2>(size) / T2(2);
+    }
+
     template<typename T>
     inline T Rectangle<T>::getLeft() const
     {
@@ -78,6 +93,23 @@ namespace pmath
     }
 
     template<typename T>
+    inline bool Rectangle<T>::intersects(const Rectangle& other, Rectangle& outIntersect) const
+    {
+        if (!intersects(other))
+            return false;
+
+        // We have intersection
+        T x = max(position.x, other.position.x);
+        T right = min(getRight(), other.getRight());
+        T y = max(position.y, other.position.y);
+        T bottom = min(getBottom(), other.getBottom());
+        if (right >= x && bottom >= y)
+            outIntersect = Rectangle(x, y, right - x, bottom - y);
+
+        return true;
+    }
+
+    template<typename T>
     inline bool Rectangle<T>::contains(const Vector2<T>& point) const
     {
         return
@@ -85,6 +117,22 @@ namespace pmath
             getRight() < point.x ||
             getTop() > point.y ||
             getBottom() < point.y);
+    }
+
+    template<typename T>
+    bool Rectangle<T>::contains(const Rectangle& other) const
+    {
+        return (getLeft() <= other.getLeft() &&
+            getRight() >= other.getRight() &&
+            getTop() <= other.getTop() &&
+            getBottom() >= other.getBottom());
+    }
+
+
+    template<typename T>
+    void Rectangle<T>::scale(const T& s)
+    {
+        size.scale(s);
     }
 
     template<typename T>
