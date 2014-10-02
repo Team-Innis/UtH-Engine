@@ -3,6 +3,7 @@
 #include <UtH/Engine/Layer.hpp>
 
 #include <cmath>
+#include <array>
 
 using namespace uth;
 
@@ -156,6 +157,23 @@ pmath::Rect Transform::GetBounds() const
     sOrig.scale(m_scale);
 
     return pmath::Rect((m_position - sOrig) - scaled / 2.f, scaled);
+}
+
+pmath::Rect Transform::GetTransformedBounds() const
+{
+    const std::array<pmath::Vec2, 4> points(
+    {
+        pmath::Vec2(m_position
+        transformPoint(rect.left, rect.bottom),
+        transformPoint(rect.getRight(), rect.bottom),
+        transformPoint(rect.getRight(), rect.getTop()),
+        transformPoint(rect.left, rect.getTop())
+    });
+
+    for (auto& i : points)
+    {
+
+    }
 }
 
 void Transform::SetTransform(const pmath::Mat4& modelTransform)

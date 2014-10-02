@@ -61,6 +61,7 @@ namespace uth
 		void Rotate(const float degrees);
 
         pmath::Rect GetBounds() const;
+        pmath::Rect GetTransformedBounds() const;
 
 		void SetTransform(const pmath::Mat4& modelTransform);
 		// Adds to the current transform(multiplies). Mostly needed for layer transformation
