@@ -86,6 +86,20 @@ namespace uth
         return object;
 	}
 
+    bool SpriteBatch::RemoveSprite(Transform* object)
+    {
+        for (auto& i : m_objects)
+        {
+            if (i.get() == object)
+            {
+                if (!m_adoptedPointers)
+                    i.release();
+            }
+        }
+
+        return false;
+    }
+
 	void SpriteBatch::SetTextureAtlas(TextureAtlas* atlas)
 	{
 		m_atlas = atlas;
@@ -157,4 +171,5 @@ namespace uth
 
 		target.SetShader(nullptr);
 	}
+
 }

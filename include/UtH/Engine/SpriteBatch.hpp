@@ -24,6 +24,8 @@ namespace uth
         Transform* AddSprite(Transform* object, const std::string& atlasName = "", const pmath::Vec4& color = pmath::Vec4(1, 1, 1, 1),
                               const pmath::Rect& texCoords = pmath::Rect(0, 0, 0, 0));
 
+        bool RemoveSprite(Transform* object);
+
         void SetTextureAtlas(TextureAtlas* atlas);
 
         void SetTexture(Texture* texture);
