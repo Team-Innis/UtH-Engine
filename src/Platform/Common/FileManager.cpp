@@ -8,6 +8,8 @@
 #ifdef UTH_SYSTEM_WINDOWS
 	#include <direct.h> // _mkdir
     #define mkdir _mkdir
+#else
+    #include <sys/stat.h>
 #endif
 
 using namespace uth;
@@ -181,12 +183,12 @@ void FileManager::WriteToFile(const std::string& filename, const std::string& da
 	if (loca == Location::EXTERNAL)
 	{
 		temp_path = "external/";
-		mkdir(temp_path.c_str());
+		mkdir(temp_path.c_str(), 0755);
 	}
 	else if (loca == Location::INTERNAL)
 	{
 		temp_path = "internal/";
-		mkdir(temp_path.c_str());
+		mkdir(temp_path.c_str(), 0755);
 	}
 	else
 		WriteError("No such file location available %d", loca);

@@ -5,7 +5,7 @@
 #include <UtH/Audio/SoundDevice.hpp>
 #include <UtH/Platform/FileManager.hpp>
 
-#include <sndfile/sndfile.h>
+#include <sndfile.h>
 
 using namespace uth;
 
@@ -167,7 +167,7 @@ void Sound::Initialize(std::string fileName)
 	virtualIO.tell = &FileManager::tellAsset;
 
 	SNDFILE* file = sf_open_virtual(&virtualIO, SFM_READ, &soundInfo, asset);
-#elif defined(UTH_SYSTEM_WINDOWS)
+#else
 	SNDFILE* file = sf_open(("assets/" + fileName).c_str(), SFM_READ, &soundInfo);
 #endif
 

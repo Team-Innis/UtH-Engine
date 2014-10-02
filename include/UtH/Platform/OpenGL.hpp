@@ -17,8 +17,8 @@
 
 #elif defined(UTH_SYSTEM_MACOS)
 
-	#include <OpenGL/gl.h>
-	#include <OpenGL/glu.h>
+    #include <GL/glew.h>
+    #include <GLFW/glfw3.h>
 
 #elif defined(UTH_SYSTEM_ANDROID)
 

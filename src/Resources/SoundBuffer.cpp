@@ -2,7 +2,7 @@
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/FileManager.hpp>
 
-#include <sndfile/sndfile.h>
+#include <sndfile.h>
 
 namespace uth
 {
@@ -30,7 +30,7 @@ namespace uth
 		virtualIO.tell = &FileManager::tellAsset;	
 
 		SNDFILE* file = sf_open_virtual(&virtualIO, SFM_READ, &soundInfo, asset);
-#elif defined(UTH_SYSTEM_WINDOWS)
+#else
 		SNDFILE* file = sf_open(("assets/" + filePath).c_str(), SFM_READ, &soundInfo);
 #endif
 

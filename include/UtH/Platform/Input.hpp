@@ -14,7 +14,7 @@
     #include <UtH/Platform/Android/InputSensor.hpp>
     #include <UtH/Platform/Android/InputController.hpp>
 
-#elif defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX)
+#elif defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX) || defined(UTH_SYSTEM_MACOS)
     #include <UtH/Platform/Common/InputCommon.hpp>
     #include <UtH/Platform/Common/InputKeyboard.hpp>
     #include <UtH/Platform/Common/InputMouse.hpp>

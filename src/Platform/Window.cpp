@@ -4,7 +4,7 @@
 #include <UtH/Platform/Graphics.hpp>
 
 
-#if defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX)
+#if defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX) || defined(UTH_SYSTEM_MACOS)
 
 #include <UtH/Platform/Common/CommonWindowImpl.hpp>
 typedef uth::CommonWindowImpl WindowImpl;

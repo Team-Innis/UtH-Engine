@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FCAE37DE19DD5D760043872E /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAE37DD19DD5D760043872E /* libglfw3.a */; };
+		FCAE37E119DD5F150043872E /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAE37E019DD5F150043872E /* libGLEW.a */; };
 		FCB0A27319DD2EA400BA7FE4 /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A22519DD2EA400BA7FE4 /* Sound.cpp */; };
 		FCB0A27419DD2EA400BA7FE4 /* SoundDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A22619DD2EA400BA7FE4 /* SoundDevice.cpp */; };
 		FCB0A27519DD2EA400BA7FE4 /* Randomizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A22819DD2EA400BA7FE4 /* Randomizer.cpp */; };
@@ -151,9 +153,12 @@
 		FCB0A37219DD2EE700BA7FE4 /* Resources.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FCB0A31919DD2EE700BA7FE4 /* Resources.hpp */; };
 		FCB0A37319DD2EE700BA7FE4 /* SoundBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FCB0A31A19DD2EE700BA7FE4 /* SoundBuffer.hpp */; };
 		FCB0A37419DD2EE700BA7FE4 /* UtHEngine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FCB0A31B19DD2EE700BA7FE4 /* UtHEngine.hpp */; };
+		FCB0A37619DD3C4F00BA7FE4 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCB0A37519DD3C4F00BA7FE4 /* libsndfile.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		FCAE37DD19DD5D760043872E /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ext/lib/glfw/lib/OSX/libglfw3.a; sourceTree = "<group>"; };
+		FCAE37E019DD5F150043872E /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = ../../../../usr/local/Cellar/glew/1.11.0/lib/libGLEW.a; sourceTree = "<group>"; };
 		FCB0A21C19DD2D2600BA7FE4 /* libUtH-Engine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libUtH-Engine.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCB0A22519DD2EA400BA7FE4 /* Sound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sound.cpp; sourceTree = "<group>"; };
 		FCB0A22619DD2EA400BA7FE4 /* SoundDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundDevice.cpp; sourceTree = "<group>"; };
@@ -308,6 +313,8 @@
 		FCB0A31919DD2EE700BA7FE4 /* Resources.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Resources.hpp; sourceTree = "<group>"; };
 		FCB0A31A19DD2EE700BA7FE4 /* SoundBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SoundBuffer.hpp; sourceTree = "<group>"; };
 		FCB0A31B19DD2EE700BA7FE4 /* UtHEngine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UtHEngine.hpp; path = UtH/UtHEngine.hpp; sourceTree = "<group>"; };
+		FCB0A37519DD3C4F00BA7FE4 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsndfile.a; path = /usr/local/Cellar/libsndfile/1.0.25/lib/libsndfile.a; sourceTree = "<absolute>"; };
+		FCB0A37719DD4D4900BA7FE4 /* libsndfile.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsndfile.1.dylib; path = /usr/local/Cellar/libsndfile/1.0.25/lib/libsndfile.1.dylib; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,15 +322,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCAE37E119DD5F150043872E /* libGLEW.a in Frameworks */,
+				FCAE37DE19DD5D760043872E /* libglfw3.a in Frameworks */,
+				FCB0A37619DD3C4F00BA7FE4 /* libsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FCAE37DF19DD5DC90043872E /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				FCAE37DD19DD5D760043872E /* libglfw3.a */,
+				FCB0A37719DD4D4900BA7FE4 /* libsndfile.1.dylib */,
+				FCB0A37519DD3C4F00BA7FE4 /* libsndfile.a */,
+			);
+			name = libs;
+			sourceTree = "<group>";
+		};
 		FCB0A21319DD2D2600BA7FE4 = {
 			isa = PBXGroup;
 			children = (
+				FCAE37E019DD5F150043872E /* libGLEW.a */,
+				FCAE37DF19DD5DC90043872E /* libs */,
 				FCB0A2B519DD2EE700BA7FE4 /* include */,
 				FCB0A22319DD2EA400BA7FE4 /* src */,
 				FCB0A21D19DD2D2600BA7FE4 /* Products */,
@@ -820,7 +842,7 @@
 		FCB0A21419DD2D2600BA7FE4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Team-Innis";
 				TargetAttributes = {
 					FCB0A21B19DD2D2600BA7FE4 = {
@@ -988,7 +1010,22 @@
 		FCB0A22119DD2D2600BA7FE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					include,
+					ext/include,
+					/usr/local/Cellar/libsndfile/1.0.25/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/libsndfile/1.0.25/lib,
+					"$(PROJECT_DIR)/ext/lib/glfw/lib/OSX",
+					/usr/local/Cellar/glew/1.11.0/lib,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -996,7 +1033,22 @@
 		FCB0A22219DD2D2600BA7FE4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					include,
+					ext/include,
+					/usr/local/Cellar/libsndfile/1.0.25/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/libsndfile/1.0.25/lib,
+					"$(PROJECT_DIR)/ext/lib/glfw/lib/OSX",
+					/usr/local/Cellar/glew/1.11.0/lib,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
