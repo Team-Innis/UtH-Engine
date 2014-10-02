@@ -7,8 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FC57791619DD82A500D89D48 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC57791519DD82A500D89D48 /* libGLEW.a */; };
 		FCAE37DE19DD5D760043872E /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAE37DD19DD5D760043872E /* libglfw3.a */; };
-		FCAE37E119DD5F150043872E /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAE37E019DD5F150043872E /* libGLEW.a */; };
+		FCAE37F019DD61650043872E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCAE37EE19DD61650043872E /* main.cpp */; };
+		FCAE37F119DD61650043872E /* TestScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCAE37EF19DD61650043872E /* TestScene.cpp */; };
+		FCAE380B19DD65380043872E /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCAE380A19DD65380043872E /* tinyxml2.cpp */; };
+		FCAE3C3019DD6BAE0043872E /* libUtH-Engine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCB0A21C19DD2D2600BA7FE4 /* libUtH-Engine.a */; };
+		FCAE3C3C19DD6D300043872E /* libphysfs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAE3C3B19DD6D300043872E /* libphysfs.a */; };
+		FCAE3C3F19DD6F430043872E /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAE3C3119DD6BC70043872E /* OpenGL.framework */; };
+		FCAE3C4019DD6F4B0043872E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAE3C3519DD6BCF0043872E /* Cocoa.framework */; };
+		FCAE3C4119DD6F500043872E /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAE3C3719DD6BD70043872E /* IOKit.framework */; };
+		FCAE3C4219DD6F560043872E /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAE3C3919DD6BDB0043872E /* CoreVideo.framework */; };
+		FCAE3C4319DD6F5F0043872E /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAE3C3319DD6BCB0043872E /* OpenAL.framework */; };
+		FCAE406919DD74850043872E /* libfreetype-gl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAE406819DD74850043872E /* libfreetype-gl.a */; };
+		FCAE40A019DD757D0043872E /* libfreetype.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAE409F19DD757D0043872E /* libfreetype.6.dylib */; };
+		FCAE40A619DD764D0043872E /* libsndfile.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAE40A519DD764C0043872E /* libsndfile.1.dylib */; };
 		FCB0A27319DD2EA400BA7FE4 /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A22519DD2EA400BA7FE4 /* Sound.cpp */; };
 		FCB0A27419DD2EA400BA7FE4 /* SoundDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A22619DD2EA400BA7FE4 /* SoundDevice.cpp */; };
 		FCB0A27519DD2EA400BA7FE4 /* Randomizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A22819DD2EA400BA7FE4 /* Randomizer.cpp */; };
@@ -153,12 +166,74 @@
 		FCB0A37219DD2EE700BA7FE4 /* Resources.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FCB0A31919DD2EE700BA7FE4 /* Resources.hpp */; };
 		FCB0A37319DD2EE700BA7FE4 /* SoundBuffer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FCB0A31A19DD2EE700BA7FE4 /* SoundBuffer.hpp */; };
 		FCB0A37419DD2EE700BA7FE4 /* UtHEngine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = FCB0A31B19DD2EE700BA7FE4 /* UtHEngine.hpp */; };
-		FCB0A37619DD3C4F00BA7FE4 /* libsndfile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCB0A37519DD3C4F00BA7FE4 /* libsndfile.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		FCAE37F619DD618A0043872E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FCB0A21419DD2D2600BA7FE4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FCB0A21B19DD2D2600BA7FE4;
+			remoteInfo = "UtH-Engine";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FCAE37E419DD613E0043872E /* Copy Files */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = assets;
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			name = "Copy Files";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		FC57791519DD82A500D89D48 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = ext/lib/glew/lib/OSX/libGLEW.a; sourceTree = "<group>"; };
 		FCAE37DD19DD5D760043872E /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ext/lib/glfw/lib/OSX/libglfw3.a; sourceTree = "<group>"; };
-		FCAE37E019DD5F150043872E /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = ../../../../usr/local/Cellar/glew/1.11.0/lib/libGLEW.a; sourceTree = "<group>"; };
+		FCAE37E619DD613E0043872E /* TestProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestProject; sourceTree = BUILT_PRODUCTS_DIR; };
+		FCAE37EE19DD61650043872E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		FCAE37EF19DD61650043872E /* TestScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestScene.cpp; sourceTree = "<group>"; };
+		FCAE37F319DD61750043872E /* MoveAffector.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MoveAffector.hpp; sourceTree = "<group>"; };
+		FCAE37F419DD61750043872E /* Scenes.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Scenes.hpp; sourceTree = "<group>"; };
+		FCAE37F519DD61750043872E /* TestScene.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = TestScene.hpp; sourceTree = "<group>"; };
+		FCAE380A19DD65380043872E /* tinyxml2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = tinyxml2.cpp; path = ../../ext/lib/tinyxml2/src/tinyxml2.cpp; sourceTree = "<group>"; };
+		FCAE3C3119DD6BC70043872E /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/OpenGL.framework; sourceTree = DEVELOPER_DIR; };
+		FCAE3C3319DD6BCB0043872E /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
+		FCAE3C3519DD6BCF0043872E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		FCAE3C3719DD6BD70043872E /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
+		FCAE3C3919DD6BDB0043872E /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/CoreVideo.framework; sourceTree = DEVELOPER_DIR; };
+		FCAE3C3B19DD6D300043872E /* libphysfs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libphysfs.a; path = ext/lib/physfs/lib/OSX/libphysfs.a; sourceTree = "<group>"; };
+		FCAE406819DD74850043872E /* libfreetype-gl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libfreetype-gl.a"; path = "ext/lib/freetype-gl/lib/OSX/libfreetype-gl.a"; sourceTree = "<group>"; };
+		FCAE409F19DD757D0043872E /* libfreetype.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.6.dylib; path = /usr/local/Cellar/freetype/2.5.3_1/lib/libfreetype.6.dylib; sourceTree = "<absolute>"; };
+		FCAE40A519DD764C0043872E /* libsndfile.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsndfile.1.dylib; path = /usr/local/Cellar/libsndfile/1.0.25/lib/libsndfile.1.dylib; sourceTree = "<absolute>"; };
+		FCAE40A819DD76E50043872E /* 8bitoperator.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = 8bitoperator.ttf; sourceTree = "<group>"; };
+		FCAE40A919DD76E50043872E /* atlastest.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = atlastest.tga; sourceTree = "<group>"; };
+		FCAE40AA19DD76E50043872E /* atlastest.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = atlastest.xml; sourceTree = "<group>"; };
+		FCAE40AB19DD76E50043872E /* eLogo.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = eLogo.tga; sourceTree = "<group>"; };
+		FCAE40AC19DD76E50043872E /* EngineAnimation.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = EngineAnimation.tga; sourceTree = "<group>"; };
+		FCAE40AD19DD76E50043872E /* engineLogo.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = engineLogo.tga; sourceTree = "<group>"; };
+		FCAE40AE19DD76E50043872E /* FreePixel.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FreePixel.ttf; sourceTree = "<group>"; };
+		FCAE40AF19DD76E50043872E /* kenpixel.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kenpixel.ttf; sourceTree = "<group>"; };
+		FCAE40B119DD76E50043872E /* desert.tmx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = desert.tmx; sourceTree = "<group>"; };
+		FCAE40B219DD76E50043872E /* desert.tsx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = desert.tsx; sourceTree = "<group>"; };
+		FCAE40B319DD76E50043872E /* test.tmx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = test.tmx; sourceTree = "<group>"; };
+		FCAE40B419DD76E50043872E /* tmw_desert_spacing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tmw_desert_spacing.png; sourceTree = "<group>"; };
+		FCAE40B519DD76E50043872E /* monsu.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = monsu.tga; sourceTree = "<group>"; };
+		FCAE40B619DD76E50043872E /* particle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = particle.png; sourceTree = "<group>"; };
+		FCAE40B719DD76E50043872E /* particle.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = particle.tga; sourceTree = "<group>"; };
+		FCAE40B919DD76E50043872E /* batchfragmentshader.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = batchfragmentshader.frag; sourceTree = "<group>"; };
+		FCAE40BA19DD76E50043872E /* batchvertexshader.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = batchvertexshader.vert; sourceTree = "<group>"; };
+		FCAE40BB19DD76E50043872E /* Default.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Default.frag; sourceTree = "<group>"; };
+		FCAE40BC19DD76E50043872E /* Default.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = Default.vert; sourceTree = "<group>"; };
+		FCAE40BD19DD76E50043872E /* DefaultText.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = DefaultText.frag; sourceTree = "<group>"; };
+		FCAE40BE19DD76E50043872E /* DefaultText.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = DefaultText.vert; sourceTree = "<group>"; };
+		FCAE40BF19DD76E50043872E /* esText.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = esText.frag; sourceTree = "<group>"; };
+		FCAE40C019DD76E50043872E /* test.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.tga; sourceTree = "<group>"; };
+		FCAE40C119DD76E50043872E /* test2.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = test2.tga; sourceTree = "<group>"; };
 		FCB0A21C19DD2D2600BA7FE4 /* libUtH-Engine.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libUtH-Engine.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCB0A22519DD2EA400BA7FE4 /* Sound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sound.cpp; sourceTree = "<group>"; };
 		FCB0A22619DD2EA400BA7FE4 /* SoundDevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SoundDevice.cpp; sourceTree = "<group>"; };
@@ -313,18 +388,32 @@
 		FCB0A31919DD2EE700BA7FE4 /* Resources.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Resources.hpp; sourceTree = "<group>"; };
 		FCB0A31A19DD2EE700BA7FE4 /* SoundBuffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = SoundBuffer.hpp; sourceTree = "<group>"; };
 		FCB0A31B19DD2EE700BA7FE4 /* UtHEngine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UtHEngine.hpp; path = UtH/UtHEngine.hpp; sourceTree = "<group>"; };
-		FCB0A37519DD3C4F00BA7FE4 /* libsndfile.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsndfile.a; path = /usr/local/Cellar/libsndfile/1.0.25/lib/libsndfile.a; sourceTree = "<absolute>"; };
-		FCB0A37719DD4D4900BA7FE4 /* libsndfile.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsndfile.1.dylib; path = /usr/local/Cellar/libsndfile/1.0.25/lib/libsndfile.1.dylib; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FCAE37E319DD613E0043872E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCAE40A619DD764D0043872E /* libsndfile.1.dylib in Frameworks */,
+				FCAE40A019DD757D0043872E /* libfreetype.6.dylib in Frameworks */,
+				FCAE3C4319DD6F5F0043872E /* OpenAL.framework in Frameworks */,
+				FCAE3C4219DD6F560043872E /* CoreVideo.framework in Frameworks */,
+				FCAE3C4119DD6F500043872E /* IOKit.framework in Frameworks */,
+				FCAE3C4019DD6F4B0043872E /* Cocoa.framework in Frameworks */,
+				FCAE3C3F19DD6F430043872E /* OpenGL.framework in Frameworks */,
+				FCAE3C3019DD6BAE0043872E /* libUtH-Engine.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FCB0A21919DD2D2600BA7FE4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FCAE37E119DD5F150043872E /* libGLEW.a in Frameworks */,
+				FC57791619DD82A500D89D48 /* libGLEW.a in Frameworks */,
+				FCAE406919DD74850043872E /* libfreetype-gl.a in Frameworks */,
+				FCAE3C3C19DD6D300043872E /* libphysfs.a in Frameworks */,
 				FCAE37DE19DD5D760043872E /* libglfw3.a in Frameworks */,
-				FCB0A37619DD3C4F00BA7FE4 /* libsndfile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,20 +423,106 @@
 		FCAE37DF19DD5DC90043872E /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				FCAE406819DD74850043872E /* libfreetype-gl.a */,
+				FC57791519DD82A500D89D48 /* libGLEW.a */,
 				FCAE37DD19DD5D760043872E /* libglfw3.a */,
-				FCB0A37719DD4D4900BA7FE4 /* libsndfile.1.dylib */,
-				FCB0A37519DD3C4F00BA7FE4 /* libsndfile.a */,
+				FCAE3C3B19DD6D300043872E /* libphysfs.a */,
+				FCAE409F19DD757D0043872E /* libfreetype.6.dylib */,
+				FCAE40A519DD764C0043872E /* libsndfile.1.dylib */,
+				FCAE3C3519DD6BCF0043872E /* Cocoa.framework */,
+				FCAE3C3919DD6BDB0043872E /* CoreVideo.framework */,
+				FCAE3C3719DD6BD70043872E /* IOKit.framework */,
+				FCAE3C3319DD6BCB0043872E /* OpenAL.framework */,
+				FCAE3C3119DD6BC70043872E /* OpenGL.framework */,
 			);
 			name = libs;
+			sourceTree = "<group>";
+		};
+		FCAE37E719DD613E0043872E /* TestProject */ = {
+			isa = PBXGroup;
+			children = (
+				FCAE37F219DD61750043872E /* include */,
+				FCAE37ED19DD61650043872E /* source */,
+			);
+			path = TestProject;
+			sourceTree = "<group>";
+		};
+		FCAE37ED19DD61650043872E /* source */ = {
+			isa = PBXGroup;
+			children = (
+				FCAE37EE19DD61650043872E /* main.cpp */,
+				FCAE37EF19DD61650043872E /* TestScene.cpp */,
+			);
+			name = source;
+			path = vs2013/TestProject/source;
+			sourceTree = SOURCE_ROOT;
+		};
+		FCAE37F219DD61750043872E /* include */ = {
+			isa = PBXGroup;
+			children = (
+				FCAE37F319DD61750043872E /* MoveAffector.hpp */,
+				FCAE37F419DD61750043872E /* Scenes.hpp */,
+				FCAE37F519DD61750043872E /* TestScene.hpp */,
+			);
+			name = include;
+			path = vs2013/TestProject/include;
+			sourceTree = SOURCE_ROOT;
+		};
+		FCAE40A719DD76E50043872E /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				FCAE40A819DD76E50043872E /* 8bitoperator.ttf */,
+				FCAE40A919DD76E50043872E /* atlastest.tga */,
+				FCAE40AA19DD76E50043872E /* atlastest.xml */,
+				FCAE40AB19DD76E50043872E /* eLogo.tga */,
+				FCAE40AC19DD76E50043872E /* EngineAnimation.tga */,
+				FCAE40AD19DD76E50043872E /* engineLogo.tga */,
+				FCAE40AE19DD76E50043872E /* FreePixel.ttf */,
+				FCAE40AF19DD76E50043872E /* kenpixel.ttf */,
+				FCAE40B019DD76E50043872E /* Maps */,
+				FCAE40B519DD76E50043872E /* monsu.tga */,
+				FCAE40B619DD76E50043872E /* particle.png */,
+				FCAE40B719DD76E50043872E /* particle.tga */,
+				FCAE40B819DD76E50043872E /* Shaders */,
+				FCAE40C019DD76E50043872E /* test.tga */,
+				FCAE40C119DD76E50043872E /* test2.tga */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
+		FCAE40B019DD76E50043872E /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				FCAE40B119DD76E50043872E /* desert.tmx */,
+				FCAE40B219DD76E50043872E /* desert.tsx */,
+				FCAE40B319DD76E50043872E /* test.tmx */,
+				FCAE40B419DD76E50043872E /* tmw_desert_spacing.png */,
+			);
+			path = Maps;
+			sourceTree = "<group>";
+		};
+		FCAE40B819DD76E50043872E /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				FCAE40B919DD76E50043872E /* batchfragmentshader.frag */,
+				FCAE40BA19DD76E50043872E /* batchvertexshader.vert */,
+				FCAE40BB19DD76E50043872E /* Default.frag */,
+				FCAE40BC19DD76E50043872E /* Default.vert */,
+				FCAE40BD19DD76E50043872E /* DefaultText.frag */,
+				FCAE40BE19DD76E50043872E /* DefaultText.vert */,
+				FCAE40BF19DD76E50043872E /* esText.frag */,
+			);
+			path = Shaders;
 			sourceTree = "<group>";
 		};
 		FCB0A21319DD2D2600BA7FE4 = {
 			isa = PBXGroup;
 			children = (
-				FCAE37E019DD5F150043872E /* libGLEW.a */,
+				FCAE40A719DD76E50043872E /* assets */,
 				FCAE37DF19DD5DC90043872E /* libs */,
 				FCB0A2B519DD2EE700BA7FE4 /* include */,
 				FCB0A22319DD2EA400BA7FE4 /* src */,
+				FCAE37E719DD613E0043872E /* TestProject */,
 				FCB0A21D19DD2D2600BA7FE4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -356,6 +531,7 @@
 			isa = PBXGroup;
 			children = (
 				FCB0A21C19DD2D2600BA7FE4 /* libUtH-Engine.a */,
+				FCAE37E619DD613E0043872E /* TestProject */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -499,6 +675,7 @@
 		FCB0A26619DD2EA400BA7FE4 /* Renderer */ = {
 			isa = PBXGroup;
 			children = (
+				FCAE380A19DD65380043872E /* tinyxml2.cpp */,
 				FCB0A26719DD2EA400BA7FE4 /* Camera.cpp */,
 				FCB0A26819DD2EA400BA7FE4 /* RenderTarget.cpp */,
 				FCB0A26919DD2EA400BA7FE4 /* RenderTexture.cpp */,
@@ -819,6 +996,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		FCAE37E519DD613E0043872E /* TestProject */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FCAE37EA19DD613E0043872E /* Build configuration list for PBXNativeTarget "TestProject" */;
+			buildPhases = (
+				FCAE37E219DD613E0043872E /* Sources */,
+				FCAE37E319DD613E0043872E /* Frameworks */,
+				FCAE37E419DD613E0043872E /* Copy Files */,
+				FCAE40DC19DD7A280043872E /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FCAE37F719DD618A0043872E /* PBXTargetDependency */,
+			);
+			name = TestProject;
+			productName = TestProject;
+			productReference = FCAE37E619DD613E0043872E /* TestProject */;
+			productType = "com.apple.product-type.tool";
+		};
 		FCB0A21B19DD2D2600BA7FE4 /* UtH-Engine */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FCB0A22019DD2D2600BA7FE4 /* Build configuration list for PBXNativeTarget "UtH-Engine" */;
@@ -845,6 +1041,9 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Team-Innis";
 				TargetAttributes = {
+					FCAE37E519DD613E0043872E = {
+						CreatedOnToolsVersion = 6.1;
+					};
 					FCB0A21B19DD2D2600BA7FE4 = {
 						CreatedOnToolsVersion = 6.0.1;
 					};
@@ -863,15 +1062,42 @@
 			projectRoot = "";
 			targets = (
 				FCB0A21B19DD2D2600BA7FE4 /* UtH-Engine */,
+				FCAE37E519DD613E0043872E /* TestProject */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		FCAE40DC19DD7A280043872E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "cp -R assets build/Debug/";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		FCAE37E219DD613E0043872E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FCAE37F119DD61650043872E /* TestScene.cpp in Sources */,
+				FCAE37F019DD61650043872E /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FCB0A21819DD2D2600BA7FE4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCAE380B19DD65380043872E /* tinyxml2.cpp in Sources */,
 				FCB0A2AC19DD2EA400BA7FE4 /* RenderTarget.cpp in Sources */,
 				FCB0A29019DD2EA400BA7FE4 /* Transform.cpp in Sources */,
 				FCB0A28219DD2EA400BA7FE4 /* PhysicsContactListener.cpp in Sources */,
@@ -932,7 +1158,63 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		FCAE37F719DD618A0043872E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FCB0A21B19DD2D2600BA7FE4 /* UtH-Engine */;
+			targetProxy = FCAE37F619DD618A0043872E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		FCAE37EB19DD613E0043872E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					"\"$(SRCROOT)/vs2013/TestProject/include\"",
+					include,
+					ext/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/freetype/2.5.3_1/lib,
+					/usr/local/Cellar/libsndfile/1.0.25/lib,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.9;
+			};
+			name = Debug;
+		};
+		FCAE37EC19DD613E0043872E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Applications/Xcode-Beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
+					"\"$(SRCROOT)/vs2013/TestProject/include\"",
+					include,
+					ext/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/freetype/2.5.3_1/lib,
+					/usr/local/Cellar/libsndfile/1.0.25/lib,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.9;
+			};
+			name = Release;
+		};
 		FCB0A21E19DD2D2600BA7FE4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1024,9 +1306,14 @@
 					/usr/local/Cellar/libsndfile/1.0.25/lib,
 					"$(PROJECT_DIR)/ext/lib/glfw/lib/OSX",
 					/usr/local/Cellar/glew/1.11.0/lib,
+					"$(PROJECT_DIR)/ext/lib/physfs/lib/OSX",
+					"$(PROJECT_DIR)/ext/lib/freetype-gl/lib/OSX",
+					"$(PROJECT_DIR)/ext/lib/glew/lib/OSX",
 				);
+				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.9;
 			};
 			name = Debug;
 		};
@@ -1047,15 +1334,30 @@
 					/usr/local/Cellar/libsndfile/1.0.25/lib,
 					"$(PROJECT_DIR)/ext/lib/glfw/lib/OSX",
 					/usr/local/Cellar/glew/1.11.0/lib,
+					"$(PROJECT_DIR)/ext/lib/physfs/lib/OSX",
+					"$(PROJECT_DIR)/ext/lib/freetype-gl/lib/OSX",
+					"$(PROJECT_DIR)/ext/lib/glew/lib/OSX",
 				);
+				MACH_O_TYPE = staticlib;
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.9;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FCAE37EA19DD613E0043872E /* Build configuration list for PBXNativeTarget "TestProject" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FCAE37EB19DD613E0043872E /* Debug */,
+				FCAE37EC19DD613E0043872E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FCB0A21719DD2D2600BA7FE4 /* Build configuration list for PBXProject "UtH-Engine" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

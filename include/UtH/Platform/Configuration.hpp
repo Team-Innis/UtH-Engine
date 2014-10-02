@@ -14,12 +14,14 @@
 #elif defined(__ANDROID__) || defined(ANDROID)
 
 	#define UTH_SYSTEM_ANDROID
+    #define UTH_SYSTEM_POSIX
 	#define UTH_SYSTEM_OPENGLES
 
 // Linux
 #elif defined(__linux__) || defined(linux) || defined(__linux)
 
 	#define UTH_SYSTEM_LINUX
+    #define UTH_SYSTEM_POSIX
 	#define UTH_SYSTEM_OPENGL
 
 // Mac & iOS
@@ -37,6 +39,7 @@
 
 	#endif
 
+        #define UTH_SYSTEM_POSIX
 #else
 
 	#error Unknown OS

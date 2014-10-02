@@ -48,6 +48,7 @@ bool TestScene::Init()
         aff->SetParticleUpdateFunc([](Particle& part, const ParticleTemplate& ptemp, float dt)
         {
             part.Move(part.direction * dt);
+            WriteLog("dt: %f", dt);
         });
 
         ps->AddAffector(aff);

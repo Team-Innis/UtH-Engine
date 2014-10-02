@@ -10,4 +10,4 @@ fi
 
 # We probably have homebrew now
 brew install libsndfile
-brew install glew
+brew install freetype

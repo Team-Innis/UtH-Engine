@@ -5,10 +5,11 @@
 #include <UtH/Platform/Configuration.hpp>
 
 #if defined(UTH_SYSTEM_WINDOWS)
-#include <windows.h>
-
-#elif defined(UTH_SYSTEM_LINUX) || defined(UTH_SYSTEM_ANDROID)
-#include <sys/time.h>
+    #include <windows.h>
+#elif defined(UTH_SYSTEM_POSIX)
+    #include <sys/time.h>
+#else
+    #error No timer for your platform
 #endif
 
 namespace uth
@@ -49,7 +50,7 @@ namespace uth
 		LARGE_INTEGER m_startCount;
 		LARGE_INTEGER m_curCount;
 
-#elif defined(UTH_SYSTEM_LINUX) || defined(UTH_SYSTEM_ANDROID)
+#elif defined(UTH_SYSTEM_POSIX)
 		timeval m_startCount;
 		timeval m_curCount;
 

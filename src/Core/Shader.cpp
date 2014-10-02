@@ -39,7 +39,9 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 	fr.OpenFile(vertexShaderPath);
 
 #if defined(UTH_SYSTEM_OPENGLES)
-	const std::string vertex = "#version 100\n#define UTH_ES\n" + fr.ReadText(); 
+	const std::string vertex = "#version 100\n#define UTH_ES\n" + fr.ReadText();
+#elif defined(UTH_SYSTEM_MACOS)
+    const std::string vertex = fr.ReadText();
 #elif defined(UTH_SYSTEM_OPENGL)
 	const std::string vertex = "#version 100\n" + fr.ReadText();
 #endif
@@ -56,7 +58,9 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 	
 
 #if defined(UTH_SYSTEM_OPENGLES)
-	const std::string fragment = "#version 100\n#define UTH_ES\nprecision mediump float;\n" + fr.ReadText(); 
+	const std::string fragment = "#version 100\n#define UTH_ES\nprecision mediump float;\n" + fr.ReadText();
+#elif defined(UTH_SYSTEM_MACOS)
+    const std::string fragment = fr.ReadText();
 #elif defined(UTH_SYSTEM_OPENGL)
 	const std::string fragment = "#version 100\nprecision mediump float;\n" + fr.ReadText();
 #endif
