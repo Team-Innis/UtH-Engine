@@ -49,6 +49,9 @@ namespace uth
 		std::vector<std::shared_ptr<Object>> Children() const;
 		std::vector<std::shared_ptr<Object>> Children(const std::string& tag);
 
+		std::vector<std::shared_ptr<Object>> FindAll(const std::string& tag, const size_t reserveSize = 100);
+		std::vector<std::shared_ptr<Object>> FindAll(const size_t reserveSize = 100);
+
 		//bool InWorld() const;
 
 		void AddTags(const std::vector<std::string>& tags);
@@ -75,6 +78,9 @@ namespace uth
 		bool m_active;
 
 	private:
+		void findAll(const std::string& tag, std::vector<std::shared_ptr<Object>>& vec);
+		void findAll(std::vector<std::shared_ptr<Object>>& vec);
+
 		void setParent(Object* p);
 		//bool m_inWorld;
 		std::vector<std::shared_ptr<Object>> m_children;
