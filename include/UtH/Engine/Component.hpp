@@ -24,7 +24,7 @@ namespace uth
 		const bool IsActive() const;
 
 		void SetName(const std::string& name);
-		const std::string GetName() const;
+		const std::string& GetName() const;
 
 		// Default to doing nothing
 		virtual void Init(){}
