@@ -161,19 +161,30 @@ pmath::Rect Transform::GetBounds() const
 
 pmath::Rect Transform::GetTransformedBounds() const
 {
-    const std::array<pmath::Vec2, 4> points(
-    {
-        pmath::Vec2(m_position
-        transformPoint(rect.left, rect.bottom),
-        transformPoint(rect.getRight(), rect.bottom),
-        transformPoint(rect.getRight(), rect.getTop()),
-        transformPoint(rect.left, rect.getTop())
+    const std::array<pmath::Vec2, 4> points
+    ({
+        
     });
+
+    float left = 0.f,
+          right = 0.f,
+          bottom = 0.f,
+          top = 0.f;
 
     for (auto& i : points)
     {
+        if (i.x < left)
+            left = i.x;
+        else if (i.x > right)
+            right = i.x;
 
+        if (i.y < top)
+            top = i.y;
+        else if (i.y > bottom)
+            bottom = i.y;
     }
+
+    return pmath::Rect(left, top, right - left, bottom - top);
 }
 
 void Transform::SetTransform(const pmath::Mat4& modelTransform)
