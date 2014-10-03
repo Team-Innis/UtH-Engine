@@ -12,7 +12,7 @@ namespace uth
 		~JavaFunctions();
 	public:
 		static void Vibrate(int time_ms);
-
+		static void ShowAd();
 	private:
 
 

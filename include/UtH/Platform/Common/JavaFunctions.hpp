@@ -13,7 +13,7 @@ namespace uth
 	public:
 		// Vibrates for given time in milliseconds.
 		static void Vibrate(int time_ms);
-
+		static void ShowAd(){}
 	private:
 
 
