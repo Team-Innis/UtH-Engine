@@ -12,27 +12,29 @@
 
 using namespace uth;
 
-Text::Text(const std::string& fontPath, const float fontSize, const std::string& name)
+uth::Text::Text(const std::string& fontPath, const float fontSize, 
+	const std::string& name /*= "Text"*/, 
+	const pmath::Vec4 defaultColor /*= pmath::Vec4(1,1,1,1)*/)
 	: Component(name),
-	  m_fontSize(fontSize),
-	  m_size(0,m_fontSize)
+	m_fontSize(fontSize),
+	m_size(0, m_fontSize)
 {
 //#if defined(UTH_SYSTEM_OPENGLES)
-//    m_textShader.LoadShader("Shaders/DefaultText.vert", "Shaders/esText.frag");
+//	m_textShader.LoadShader("Shaders/DefaultText.vert", "Shaders/esText.frag");
 //#else
 	m_textShader.LoadShader("Shaders/DefaultText.vert", "Shaders/DefaultText.frag");
 //#endif
 
 	m_atlas = texture_atlas_new(1024, 1024, 1);
 
-    const Font* font = uthRS.LoadFont(fontPath);
+	const Font* font = uthRS.LoadFont(fontPath);
 
-    if (font)
-    {
-        auto& data = font->GetFontData();
+	if (font)
+	{
+		auto& data = font->GetFontData();
 
-        m_font = texture_font_new_from_memory(m_atlas, fontSize, data.ptr(), data.size());
-    }
+		m_font = texture_font_new_from_memory(m_atlas, fontSize, data.ptr(), data.size());
+	}
 }
 
 Text::~Text()
@@ -46,16 +48,21 @@ void Text::Init()
 	parent->transform.setSize(m_size);
 }
 
-
-// Public
-
+void uth::Text::SetText(const std::string& text)
+{
+	SetText(text, m_color);
+}
+void uth::Text::SetText(const std::wstring& text)
+{
+	SetText(text, m_color);
+}
 void Text::SetText(const std::string& text, const pmath::Vec4 color)
 {
-    SetText(std::wstring(text.begin(),text.end()),color);
+	SetText(std::wstring(text.begin(), text.end()), color);
 }
 void Text::SetText(const std::wstring& text, const pmath::Vec4 color)
 {
-	m_size = pmath::Vec2(0,m_fontSize);
+	m_size = pmath::Vec2(0, m_fontSize);
 	m_vertexBuffer.clear();
 	m_lastPos = pmath::Vec2(0, 0);
 	m_text = std::wstring();
@@ -63,9 +70,17 @@ void Text::SetText(const std::wstring& text, const pmath::Vec4 color)
 	AddText(text, color);
 }
 
+void uth::Text::AddText(const std::string& text)
+{
+	AddText(text, m_color);
+}
+void uth::Text::AddText(const std::wstring& text)
+{
+	AddText(text, m_color);
+}
 void Text::AddText(const std::string& text, const pmath::Vec4 color)
 {
-    AddText(std::wstring(text.begin(),text.end()),color);
+	AddText(std::wstring(text.begin(),text.end()),color);
 }
 void Text::AddText(const std::wstring& text, const pmath::Vec4 color)
 {
@@ -107,12 +122,10 @@ void Text::AddText(const std::wstring& text, const pmath::Vec4 color)
 			const float s1 = glyph->s1; // Bottom right x
 			const float t1 = glyph->t1; // Bottom right y
 
-
 			m_vertexBuffer.addVertex(Vertex(pmath::Vec3(x0, y0, 0), pmath::Vec2(s0, t0), color));
 			m_vertexBuffer.addVertex(Vertex(pmath::Vec3(x0, y1, 0), pmath::Vec2(s0, t1), color));
 			m_vertexBuffer.addVertex(Vertex(pmath::Vec3(x1, y1, 0), pmath::Vec2(s1, t1), color));
 			m_vertexBuffer.addVertex(Vertex(pmath::Vec3(x1, y0, 0), pmath::Vec2(s1, t0), color));
-
 
 			std::vector<unsigned short> indices;
 			indices.push_back(0);
@@ -149,16 +162,25 @@ const std::wstring& Text::GetText() const
 	return m_text;
 }
 
+void uth::Text::SetColor(const pmath::Vec4 color)
+{
+
+}
+const pmath::Vec4 uth::Text::GetDefaultColor()
+{
+	return m_color;
+}
+
 void Text::Draw(RenderTarget& target)
 {
-    target.Bind();
+	target.Bind();
 	m_textShader.Use();
 
 	uth::Graphics::BindTexture(TEXTURE_2D, m_atlas->id);
 	m_textShader.SetUniform("unifSampler", 0);
 
 	m_textShader.SetUniform("unifModel", parent->transform.GetTransform() * m_matrix);
-    m_textShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
+	m_textShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
 
 	m_vertexBuffer.bindArrayBuffer();
 	// (position + uv + color) * sizeof(float)
@@ -174,8 +196,8 @@ void Text::Draw(RenderTarget& target)
 	m_textShader.setAttributeData("attrUV", 2, FLOAT_TYPE, posOffset, (void*)uvStart);
 	m_textShader.setAttributeData("attrColor", 4, FLOAT_TYPE, posOffset, (void*)colorStart);
 
-    m_vertexBuffer.bindElementBuffer();
-    uth::Graphics::DrawElements(TRIANGLES, m_vertexBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
+	m_vertexBuffer.bindElementBuffer();
+	uth::Graphics::DrawElements(TRIANGLES, m_vertexBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
 
 	uth::Graphics::BindBuffer(ARRAY_BUFFER, 0);
 }

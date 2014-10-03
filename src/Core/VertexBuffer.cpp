@@ -19,6 +19,22 @@ VertexBuffer::~VertexBuffer()
 }
 
 
+template<typename T>
+Replace(std::vector<T> target, unsigned int offset, std::vector<T> source)
+{
+	const int extraItems = target.size() - offset - source.size();
+	if (extraItems > 0)
+	{
+		target.insert(target.end(), source.end() - extraItems, source.end());
+		std::memcpy(target.data(), source.data(),
+			(source.size() - extraItems) * sizeof(T));
+	}
+	else
+	{
+		std::memcpy(m_vertexData.data(), vertices.data(),
+			(source.size()) * sizeof(T));
+	}
+}
 // Public
 
 void VertexBuffer::addVertex(const Vertex& vertex)
@@ -61,25 +77,70 @@ void VertexBuffer::addIndices(const std::vector<unsigned short>& indices)
     m_elementBufferNeedsUpdate = true;
 }
 
-void VertexBuffer::changeBufferData(const unsigned int offset, const std::vector<Vertex>& vertices) const
+void VertexBuffer::changeBufferDataUV(const unsigned int vertexOffset,
+	const std::vector<pmath::Vec2> uvs)
 {
-    unsigned int size = vertices.size() * sizeof(Vertex);
-    uth::Graphics::BindBuffer(ARRAY_BUFFER, m_arrayBuffer);
-    Graphics::SetBufferSubData(ARRAY_BUFFER, offset, size, &vertices.front());
-}
 
-void VertexBuffer::changeElementData(const unsigned int offset, const std::vector<unsigned int>& indices)
+}
+void VertexBuffer::changeBufferDataPos(const unsigned int vertexOffset,
+	const std::vector<pmath::Vec3> positions)
 {
-    unsigned int size = indices.size() * sizeof(unsigned int);
+
+}
+void VertexBuffer::changeBufferDataColor(const unsigned int vertexOffset,
+	const std::vector<pmath::Vec4> colors)
+{
+
+}
+void VertexBuffer::changeBufferData(const unsigned int vertexOffset,
+	const std::vector<Vertex>& vertices)
+{
+    const unsigned int size = vertices.size() * sizeof(Vertex);
+
+	const int extraVertices = m_vertexData.size() - vertexOffset - vertices.size();
+	if (extraVertices > 0)
+	{
+		m_vertexData.insert(m_vertexData.end(), vertices.end() - extraVertices, vertices.end());
+		std::memcpy(m_vertexData.data(), vertices.data(),
+			(vertices.size() - extraVertices) * sizeof(Vertex));
+	}
+	else
+	{
+		std::memcpy(m_vertexData.data(), vertices.data(),
+			(vertices.size()) * sizeof(Vertex));
+	}
+
+    uth::Graphics::BindBuffer(ARRAY_BUFFER, m_arrayBuffer);
+	Graphics::SetBufferSubData(ARRAY_BUFFER,
+		vertexOffset * sizeof(Vertex), size, &vertices.front());
+}
+void VertexBuffer::changeElementData(const unsigned int indexOffset,
+	const std::vector<unsigned int>& indices)
+{
+    const unsigned int size = indices.size() * sizeof(unsigned int);
+
+	const int extraVertices = m_indices.size() - indexOffset - indices.size();
+	if (extraVertices > 0)
+	{
+		m_indices.insert(m_indices.end(), indices.end() - extraVertices, indices.end());
+		std::memcpy(m_indices.data(), indices.data(),
+			(indices.size() - extraVertices) * sizeof(Vertex));
+	}
+	else
+	{
+		std::memcpy(m_indices.data(), indices.data(),
+			(indices.size()) * sizeof(Vertex));
+	}
+
     uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
-    Graphics::SetBufferSubData(ELEMENT_ARRAY_BUFFER, offset, size, &indices.front());
+	Graphics::SetBufferSubData(ELEMENT_ARRAY_BUFFER,
+		indexOffset * sizeof(unsigned int), size, &indices.front());
 }
 
 const std::vector<Vertex>& VertexBuffer::getVertices() const
 {
     return m_vertexData;
 }
-
 const std::vector<unsigned short>& VertexBuffer::getIndices() const
 {
     return m_indices;
@@ -105,7 +166,6 @@ void VertexBuffer::bindArrayBuffer() const
 
     uth::Graphics::BindBuffer(ARRAY_BUFFER, m_arrayBuffer);
 }
-
 void VertexBuffer::bindElementBuffer() const
 {
     setData();
@@ -120,23 +180,24 @@ void VertexBuffer::init()
 	uth::Graphics::GenerateBuffers(1, &m_arrayBuffer);
 	uth::Graphics::GenerateBuffers(1, &m_elementBuffer);
 }
-
 void VertexBuffer::setData() const
 {
 	UsageType drawMode = STATIC_DRAW;
 
     if (m_arrayBufferNeedsUpdate)
-    {
+	{
+		const unsigned int size = m_vertexData.size() * sizeof(Vertex);
         uth::Graphics::BindBuffer(ARRAY_BUFFER, m_arrayBuffer);
-	    uth::Graphics::SetBufferData(ARRAY_BUFFER, m_vertexData.size()*sizeof(Vertex),
+	    uth::Graphics::SetBufferData(ARRAY_BUFFER, size,
 		&m_vertexData.front(), drawMode);
         m_arrayBufferNeedsUpdate = false;
     }
 
     if (m_elementBufferNeedsUpdate)
-    {
+	{
+		const unsigned int size = m_indices.size() * sizeof(unsigned int);
 	    uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
-	    uth::Graphics::SetBufferData(ELEMENT_ARRAY_BUFFER, m_indices.size() * sizeof(unsigned short),
+	    uth::Graphics::SetBufferData(ELEMENT_ARRAY_BUFFER, size,
 		&m_indices.front(), drawMode);
         m_elementBufferNeedsUpdate = false;
     }

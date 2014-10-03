@@ -27,8 +27,16 @@ namespace uth
 		// Add vector of indexes at the end of current index vector, offsets indices with already added indices
 		void addIndices(const std::vector<unsigned short>& indices);
 
-        void changeBufferData(const unsigned int offset, const std::vector<Vertex>& vertices) const;
-        void changeElementData(const unsigned int offset, const std::vector<unsigned int>& indices);
+		void changeBufferDataUV(const unsigned int vertexOffset,
+			const std::vector<pmath::Vec2> uvs);
+		void changeBufferDataPos(const unsigned int vertexOffset,
+			const std::vector<pmath::Vec3> positions);
+		void changeBufferDataColor(const unsigned int vertexOffset,
+			const std::vector<pmath::Vec4> colors);
+        void changeBufferData(const unsigned int vertexOffset,
+			const std::vector<Vertex>& vertices);
+        void changeElementData(const unsigned int indexOffset,
+			const std::vector<unsigned int>& indices);
 
         const std::vector<Vertex>& getVertices() const;
         const std::vector<unsigned short>& getIndices() const;
