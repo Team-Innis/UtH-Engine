@@ -3,9 +3,7 @@
 using namespace uth;
 
 Component::Component()
-	: parent(nullptr),
-	  m_name(""),
-	  m_active(false)
+	: Component("Component")
 {
 }
 

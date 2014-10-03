@@ -6,7 +6,6 @@
 
 #include <UtH/Core/Shader.hpp>
 #include <UtH/Engine/GameObject.hpp>
-#include <UtH/Engine/Layer.hpp>
 #include <map>
 
 namespace uth

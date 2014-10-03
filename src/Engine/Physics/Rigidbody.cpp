@@ -299,7 +299,7 @@ void Rigidbody::init()
 	}
 }
 
-void Rigidbody::SetRestituion(float restitution)
+void Rigidbody::SetRestitution(float restitution)
 {
 	m_body->GetFixtureList()->SetRestitution(restitution);
 }

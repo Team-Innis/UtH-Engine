@@ -61,11 +61,12 @@ namespace uth
 		void Rotate(const float degrees);
 
         pmath::Rect GetBounds() const;
+        pmath::Rect GetTransformedBounds() const;
 
 		void SetTransform(const pmath::Mat4& modelTransform);
 		// Adds to the current transform(multiplies). Mostly needed for layer transformation
 		void AddTransform(const pmath::Mat4& modelTransform);
-		const pmath::Mat4& GetTransform();
+		const pmath::Mat4& GetTransform() const;
 
 		Object* parent;
 
@@ -87,11 +88,11 @@ namespace uth
 		pmath::Vec2 m_origin;
 		float m_angle;
 
-		void updateTransform();
+		void updateTransform() const;
 
-		pmath::Mat4 m_modelTransform;
-        pmath::Mat4 m_combinedTransform;
-		bool m_transformNeedsUpdate;
+		mutable pmath::Mat4 m_modelTransform;
+        mutable pmath::Mat4 m_combinedTransform;
+		mutable bool m_transformNeedsUpdate;
 	};
 }
 

@@ -30,7 +30,7 @@ bool TestScene::Init()
     // Second (ParticleSystem)
     {
         ParticleTemplate pt;
-        pt.SetLifetime(1.f);
+        pt.SetLifetime(-1.f);
         pt.SetSpeed(10.f, 150.f);
         pt.SetTexture(uthRS.LoadTexture("particle.tga"));
 

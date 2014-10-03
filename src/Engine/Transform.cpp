@@ -1,8 +1,8 @@
 #include <UtH/Engine/Transform.hpp>
 #include <UtH/Engine/GameObject.hpp>
-#include <UtH/Engine/Layer.hpp>
 
 #include <cmath>
+#include <array>
 
 using namespace uth;
 
@@ -158,6 +158,41 @@ pmath::Rect Transform::GetBounds() const
     return pmath::Rect((m_position - sOrig) - scaled / 2.f, scaled);
 }
 
+pmath::Rect Transform::GetTransformedBounds() const
+{
+    const pmath::Vec2 topLeft(m_position - m_size / 2.f - m_origin);
+
+    const auto& tf = GetTransform();
+
+    const std::array<pmath::Vec2, 4> points =
+    {
+        pmath::Vec2(topLeft) *= tf,
+        pmath::Vec2(topLeft.x, topLeft.y + m_size.y) *= tf,
+        pmath::Vec2(topLeft + m_size) *= tf,
+        pmath::Vec2(topLeft.x + m_size.x, topLeft.y) *= tf
+    };
+
+    float left = 0.f,
+          right = 0.f,
+          bottom = 0.f,
+          top = 0.f;
+
+    for (auto& i : points)
+    {
+        if (i.x < left)
+            left = i.x;
+        else if (i.x > right)
+            right = i.x;
+
+        if (i.y < top)
+            top = i.y;
+        else if (i.y > bottom)
+            bottom = i.y;
+    }
+
+    return pmath::Rect(left, top, right - left, bottom - top);
+}
+
 void Transform::SetTransform(const pmath::Mat4& modelTransform)
 {
 	m_modelTransform = modelTransform;
@@ -169,7 +204,7 @@ void Transform::AddTransform(const pmath::Mat4& modelTransform)
 
 	m_modelTransform = m_modelTransform * modelTransform;
 }
-const pmath::Mat4& Transform::GetTransform()
+const pmath::Mat4& Transform::GetTransform() const
 {
 	updateTransform();
 
@@ -203,7 +238,7 @@ void Transform::setSize(const float width, const float height)
 	setSize(pmath::Vec2(width, height));
 }
 
-void Transform::updateTransform()
+void Transform::updateTransform() const
 {
 	if (!m_transformNeedsUpdate)
 		return;
