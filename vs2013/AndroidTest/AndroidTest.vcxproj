@@ -27,7 +27,7 @@
     <ClCompile Include="..\..\src\Platform\Android\InputMouse.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputSensor.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputTouch.cpp" />
-    <ClCompile Include="..\..\src\Platform\Common\JavaFunctions.cpp" />
+    <ClCompile Include="..\..\src\Platform\Android\JavaFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Platform\Android\AndroidEngine.hpp" />

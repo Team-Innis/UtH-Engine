@@ -3,7 +3,6 @@ package com.android.uth;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.support.annotation.StringRes;
 import android.util.Log;
 import android.view.*;
 import android.view.ViewGroup.MarginLayoutParams;
@@ -54,7 +53,7 @@ public class GameActivity extends android.app.NativeActivity
 		adView.setAdUnitId(this.getString(R.string.banner_ad_unit_id));
 	}
 	
-	public void ShowAdPopup()
+	public void ShowAdPopup(final int offsetX, final int offsetY, final int origin)
 	{
 		if(adsinited)
 		{
@@ -71,13 +70,45 @@ public class GameActivity extends android.app.NativeActivity
 				@Override
 				public void run()
 				{
-
+					int gravity = Gravity.BOTTOM;
+					switch(origin)
+					{
+					case 1:
+						gravity = Gravity.BOTTOM | Gravity.LEFT;
+						break;
+					case 2:
+						gravity = Gravity.BOTTOM;
+						break;
+					case 3:
+						gravity = Gravity.BOTTOM | Gravity.RIGHT;
+						break;
+					case 4:
+						gravity = Gravity.LEFT;
+						break;
+					case 5:
+						gravity = Gravity.CENTER;
+						break;
+					case 6:
+						gravity = Gravity.RIGHT;
+						break;
+					case 7:
+						gravity = Gravity.TOP | Gravity.LEFT;
+						break;
+					case 8:
+						gravity = Gravity.TOP;
+						break;
+					case 9:
+						gravity = Gravity.TOP | Gravity.RIGHT;
+						break;
+					default:
+						gravity = Gravity.BOTTOM;
+						break;
+					}
+					
 					Log.v("uth-engine", "adrun");
 					adsinited = true;
 				
-					// Out popup window
 					popUp = new PopupWindow(_activity);
-					// This is the minimum size for AdMob, we need to set this in case our target device run at 320x480 resolution (Otherwise no ad will be shown, see the padding kill below)
 				
 					popUp.setWidth(720);
 					popUp.setHeight(640);
@@ -88,7 +119,6 @@ public class GameActivity extends android.app.NativeActivity
 					layout = new RelativeLayout(_activity);
 					mainLayout = new RelativeLayout(_activity);
 				
-					// The layout system for the PopupWindow will kill some pixels due to margins/paddings etc… (No way to remove it), so padd it to adjust
 					layout.setPadding(-12, -12, -12, -12);
 					Log.v("uth-engine", "Adview " + adView.getAdSize().getWidth() + " " + adView.getAdSize().getHeight());
 					
@@ -107,7 +137,7 @@ public class GameActivity extends android.app.NativeActivity
 				    .build();
 					
 					_activity.adView.loadAd(adRequest);
-					popUp.showAtLocation(mainLayout, Gravity.BOTTOM, 0, 10);
+					popUp.showAtLocation(mainLayout, gravity, offsetX, offsetY);
 					popUp.update();
 			
 			}});
