@@ -83,7 +83,6 @@ $(SRC_PATH)Engine/Transform.cpp \
 $(SRC_PATH)Engine/Physics/Rigidbody.cpp \
 $(SRC_PATH)Engine/Physics/PhysicsContactListener.cpp \
 $(SRC_PATH)Engine/Physics/PhysicsWorld.cpp \
-$(SRC_PATH)Engine/Layer.cpp \
 $(SRC_PATH)Engine/Text.cpp \
 $(SRC_PATH)Engine/SpriteBatch.cpp \
 $(SRC_PATH)Engine/Particles/ParticleTemplate.cpp \

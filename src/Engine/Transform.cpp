@@ -164,13 +164,13 @@ pmath::Rect Transform::GetTransformedBounds() const
 
     const auto& tf = GetTransform();
 
-    const std::array<pmath::Vec2, 4> points =
-    {
-        pmath::Vec2(topLeft) *= tf,
-        pmath::Vec2(topLeft.x, topLeft.y + m_size.y) *= tf,
-        pmath::Vec2(topLeft + m_size) *= tf,
-        pmath::Vec2(topLeft.x + m_size.x, topLeft.y) *= tf
-    };
+    std::array<pmath::Vec2, 4> points =
+    { {
+        pmath::Vec2(topLeft),
+        pmath::Vec2(topLeft.x, topLeft.y + m_size.y),
+        pmath::Vec2(topLeft + m_size),
+        pmath::Vec2(topLeft.x + m_size.x, topLeft.y)
+        } };
 
     float left = 0.f,
           right = 0.f,
@@ -179,6 +179,9 @@ pmath::Rect Transform::GetTransformedBounds() const
 
     for (auto& i : points)
     {
+        // Add transform matrix first
+        i *= tf;
+
         if (i.x < left)
             left = i.x;
         else if (i.x > right)
