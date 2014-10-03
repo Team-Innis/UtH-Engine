@@ -161,10 +161,17 @@ pmath::Rect Transform::GetBounds() const
 
 pmath::Rect Transform::GetTransformedBounds() const
 {
-    const std::array<pmath::Vec2, 4> points
-    ({
-        
-    });
+    const pmath::Vec2 topLeft(m_position - m_size / 2.f - m_origin);
+
+    const auto& tf = GetTransform();
+
+    const std::array<pmath::Vec2, 4> points =
+    {
+        pmath::Vec2(topLeft) *= tf,
+        pmath::Vec2(topLeft.x, topLeft.y + m_size.y) *= tf,
+        pmath::Vec2(topLeft + m_size) *= tf,
+        pmath::Vec2(topLeft.x + m_size.x, topLeft.y) *= tf
+    };
 
     float left = 0.f,
           right = 0.f,
@@ -198,7 +205,7 @@ void Transform::AddTransform(const pmath::Mat4& modelTransform)
 
 	m_modelTransform = m_modelTransform * modelTransform;
 }
-const pmath::Mat4& Transform::GetTransform()
+const pmath::Mat4& Transform::GetTransform() const
 {
 	updateTransform();
 
@@ -232,7 +239,7 @@ void Transform::setSize(const float width, const float height)
 	setSize(pmath::Vec2(width, height));
 }
 
-void Transform::updateTransform()
+void Transform::updateTransform() const
 {
 	if (!m_transformNeedsUpdate)
 		return;
