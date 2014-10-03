@@ -123,7 +123,7 @@ void ParticleSystem::update(float dt)
 
 		bool operator()(Particle& particle)
 		{
-			return (particle.lifetime += deltaTime) >= maxLifetime;
+            return (maxLifetime >= 0.f ? ((particle.lifetime += deltaTime) >= maxLifetime) : (particle.lifetime > 0.f));
 		}
 	};
 
