@@ -131,6 +131,8 @@ namespace uth
 	{
 		return dynamic_cast<T*>(Parent()) != nullptr;
 	}
+
+    typedef Object Layer;
 }
 
 #endif

@@ -1,6 +1,5 @@
 #include <UtH/Engine/Transform.hpp>
 #include <UtH/Engine/GameObject.hpp>
-#include <UtH/Engine/Layer.hpp>
 
 #include <cmath>
 #include <array>
