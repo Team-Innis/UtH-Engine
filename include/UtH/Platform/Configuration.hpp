@@ -26,7 +26,7 @@
 
 // Mac & iOS
 #elif defined(__APPLE__) || defined(MACOSX) || defined(macintosh) || defined(Macintosh)
-
+    #include <TargetConditionals.h> // Detect ios or mac
 	#if defined(TARGET_OS_IPHONE) || defined(TARGET_IPHONE_SIMULATOR)
 
 		#define UTH_SYSTEM_IOS
