@@ -3,6 +3,7 @@ package com.android.uth;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.annotation.StringRes;
 import android.util.Log;
 import android.view.*;
 import android.view.ViewGroup.MarginLayoutParams;
@@ -50,8 +51,7 @@ public class GameActivity extends android.app.NativeActivity
 		// Create our ad view here
 		adView = new AdView(_activity);
 		adView.setAdSize(AdSize.BANNER);
-		adView.setAdUnitId("@string/banner_ad_unit_id");
-		//adView.setAdUnitId("ca-app-pub-5834033732151436/3114129308");
+		adView.setAdUnitId(this.getString(R.string.banner_ad_unit_id));
 	}
 	
 	public void ShowAdPopup()
