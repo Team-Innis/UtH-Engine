@@ -109,7 +109,6 @@ void GameObject::Update(float dt)
 	{
 		if (i->IsActive())
 			i->Update(dt);
-
-	Object::Update(dt);
 	}
+	Object::Update(dt);
 }

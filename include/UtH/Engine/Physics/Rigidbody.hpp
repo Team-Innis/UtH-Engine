@@ -98,7 +98,7 @@ namespace uth
 		// Get the friction of the object
 		float GetFriction() const;
 
-		void SetRestituion(float restitution);
+		void SetRestitution(float restitution);
 		float GetRestitution() const;
 
 		// Sets if the object is active
