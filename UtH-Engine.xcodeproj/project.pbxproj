@@ -7,6 +7,66 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FC20535B19DE775000AC466A /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A22519DD2EA400BA7FE4 /* Sound.cpp */; };
+		FC20535C19DE775000AC466A /* SoundDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A22619DD2EA400BA7FE4 /* SoundDevice.cpp */; };
+		FC20535D19DE775000AC466A /* Randomizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A22819DD2EA400BA7FE4 /* Randomizer.cpp */; };
+		FC20535E19DE775000AC466A /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A22919DD2EA400BA7FE4 /* Shader.cpp */; };
+		FC20535F19DE775000AC466A /* VertexBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A22A19DD2EA400BA7FE4 /* VertexBuffer.cpp */; };
+		FC20536019DE775000AC466A /* AnimatedSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A22C19DD2EA400BA7FE4 /* AnimatedSprite.cpp */; };
+		FC20536119DE775000AC466A /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A22D19DD2EA400BA7FE4 /* Component.cpp */; };
+		FC20536219DE775000AC466A /* DefaultScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A22E19DD2EA400BA7FE4 /* DefaultScene.cpp */; };
+		FC20536319DE775000AC466A /* Engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A22F19DD2EA400BA7FE4 /* Engine.cpp */; };
+		FC20536419DE775000AC466A /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A23019DD2EA400BA7FE4 /* GameObject.cpp */; };
+		FC20536519DE775000AC466A /* Layer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A23119DD2EA400BA7FE4 /* Layer.cpp */; };
+		FC20536619DE775000AC466A /* Object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A23219DD2EA400BA7FE4 /* Object.cpp */; };
+		FC20536719DE775000AC466A /* Affector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A23419DD2EA400BA7FE4 /* Affector.cpp */; };
+		FC20536819DE775000AC466A /* ParticleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A23519DD2EA400BA7FE4 /* ParticleSystem.cpp */; };
+		FC20536919DE775000AC466A /* ParticleTemplate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A23619DD2EA400BA7FE4 /* ParticleTemplate.cpp */; };
+		FC20536A19DE775000AC466A /* PhysicsContactListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A23819DD2EA400BA7FE4 /* PhysicsContactListener.cpp */; };
+		FC20536B19DE775000AC466A /* PhysicsWorld.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A23919DD2EA400BA7FE4 /* PhysicsWorld.cpp */; };
+		FC20536C19DE775000AC466A /* Rigidbody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A23A19DD2EA400BA7FE4 /* Rigidbody.cpp */; };
+		FC20536D19DE775000AC466A /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A23B19DD2EA400BA7FE4 /* Scene.cpp */; };
+		FC20536E19DE775000AC466A /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A23C19DD2EA400BA7FE4 /* SceneManager.cpp */; };
+		FC20536F19DE775000AC466A /* Sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A23D19DD2EA400BA7FE4 /* Sprite.cpp */; };
+		FC20537019DE775000AC466A /* SpriteBatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A23E19DD2EA400BA7FE4 /* SpriteBatch.cpp */; };
+		FC20537119DE775000AC466A /* Text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A23F19DD2EA400BA7FE4 /* Text.cpp */; };
+		FC20537219DE775000AC466A /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A24119DD2EA400BA7FE4 /* Map.cpp */; };
+		FC20537319DE775000AC466A /* ObjectGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A24219DD2EA400BA7FE4 /* ObjectGroup.cpp */; };
+		FC20537419DE775000AC466A /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A24319DD2EA400BA7FE4 /* Tile.cpp */; };
+		FC20537519DE775000AC466A /* TileLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A24419DD2EA400BA7FE4 /* TileLayer.cpp */; };
+		FC20537619DE775000AC466A /* Tileset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A24519DD2EA400BA7FE4 /* Tileset.cpp */; };
+		FC20537719DE775000AC466A /* TMXObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A24619DD2EA400BA7FE4 /* TMXObject.cpp */; };
+		FC20537819DE775000AC466A /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A24719DD2EA400BA7FE4 /* Transform.cpp */; };
+		FC20538219DE775000AC466A /* CommonWindowImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25419DD2EA400BA7FE4 /* CommonWindowImpl.cpp */; };
+		FC20538419DE775000AC466A /* InputBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25619DD2EA400BA7FE4 /* InputBase.cpp */; };
+		FC20538519DE775000AC466A /* InputCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25719DD2EA400BA7FE4 /* InputCommon.cpp */; };
+		FC20538619DE775000AC466A /* InputController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25819DD2EA400BA7FE4 /* InputController.cpp */; };
+		FC20538719DE775000AC466A /* InputKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25919DD2EA400BA7FE4 /* InputKeyboard.cpp */; };
+		FC20538819DE775000AC466A /* InputMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25A19DD2EA400BA7FE4 /* InputMouse.cpp */; };
+		FC20538919DE775000AC466A /* InputSensor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25B19DD2EA400BA7FE4 /* InputSensor.cpp */; };
+		FC20538A19DE775000AC466A /* InputTouch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25C19DD2EA400BA7FE4 /* InputTouch.cpp */; };
+		FC20538B19DE775000AC466A /* JavaFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25D19DD2EA400BA7FE4 /* JavaFunctions.cpp */; };
+		FC20538C19DE775000AC466A /* Debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25E19DD2EA400BA7FE4 /* Debug.cpp */; };
+		FC20538D19DE775000AC466A /* Graphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25F19DD2EA400BA7FE4 /* Graphics.cpp */; };
+		FC20538E19DE775000AC466A /* HiResTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A26019DD2EA400BA7FE4 /* HiResTimer.cpp */; };
+		FC20538F19DE775000AC466A /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A26119DD2EA400BA7FE4 /* Input.cpp */; };
+		FC20539019DE775000AC466A /* OGLCheck.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A26419DD2EA400BA7FE4 /* OGLCheck.cpp */; };
+		FC20539119DE775000AC466A /* Window.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A26519DD2EA400BA7FE4 /* Window.cpp */; };
+		FC20539219DE775000AC466A /* tinyxml2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCAE380A19DD65380043872E /* tinyxml2.cpp */; };
+		FC20539319DE775000AC466A /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A26719DD2EA400BA7FE4 /* Camera.cpp */; };
+		FC20539419DE775000AC466A /* RenderTarget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A26819DD2EA400BA7FE4 /* RenderTarget.cpp */; };
+		FC20539519DE775000AC466A /* RenderTexture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A26919DD2EA400BA7FE4 /* RenderTexture.cpp */; };
+		FC20539619DE775000AC466A /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A26A19DD2EA400BA7FE4 /* Texture.cpp */; };
+		FC20539719DE775000AC466A /* TextureAtlas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A26B19DD2EA400BA7FE4 /* TextureAtlas.cpp */; };
+		FC20539819DE775000AC466A /* stb_image.h in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A26E19DD2EA400BA7FE4 /* stb_image.h */; };
+		FC20539919DE775000AC466A /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A26F19DD2EA400BA7FE4 /* Font.cpp */; };
+		FC20539A19DE775000AC466A /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A27019DD2EA400BA7FE4 /* Image.cpp */; };
+		FC20539B19DE775000AC466A /* ResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A27119DD2EA400BA7FE4 /* ResourceManager.cpp */; };
+		FC20539C19DE775000AC466A /* SoundBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A27219DD2EA400BA7FE4 /* SoundBuffer.cpp */; };
+		FC20539E19DE77E300AC466A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC20539D19DE77E300AC466A /* OpenGLES.framework */; };
+		FC2053A119DE79F200AC466A /* libUtH-Engine-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC20534719DE763100AC466A /* libUtH-Engine-iOS.a */; };
+		FC2053A919DE824000AC466A /* FileManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FC2053A819DE824000AC466A /* FileManager.mm */; };
+		FC2053AC19DE983200AC466A /* libphysfs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC2053AB19DE983200AC466A /* libphysfs.a */; };
 		FC57791619DD82A500D89D48 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC57791519DD82A500D89D48 /* libGLEW.a */; };
 		FC57792019DD831900D89D48 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FC57791F19DD831900D89D48 /* main.m */; };
 		FC57792319DD831900D89D48 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FC57792219DD831900D89D48 /* AppDelegate.m */; };
@@ -16,8 +76,6 @@
 		FC57792D19DD831A00D89D48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC57792B19DD831A00D89D48 /* Main.storyboard */; };
 		FC57792F19DD831A00D89D48 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC57792E19DD831A00D89D48 /* Images.xcassets */; };
 		FC57793219DD831A00D89D48 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC57793019DD831A00D89D48 /* LaunchScreen.xib */; };
-		FC57793E19DD831A00D89D48 /* TestProject_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = FC57793D19DD831A00D89D48 /* TestProject_iOSTests.m */; };
-		FC57794719DD87F700D89D48 /* libUtH-Engine.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCB0A21C19DD2D2600BA7FE4 /* libUtH-Engine.a */; };
 		FCAE37DE19DD5D760043872E /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FCAE37DD19DD5D760043872E /* libglfw3.a */; };
 		FCAE37F019DD61650043872E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCAE37EE19DD61650043872E /* main.cpp */; };
 		FCAE37F119DD61650043872E /* TestScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCAE37EF19DD61650043872E /* TestScene.cpp */; };
@@ -179,19 +237,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		FC57793819DD831A00D89D48 /* PBXContainerItemProxy */ = {
+		FC20539F19DE79BA00AC466A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FCB0A21419DD2D2600BA7FE4 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = FC57791A19DD831900D89D48;
-			remoteInfo = "TestProject-iOS";
-		};
-		FC57794519DD87EF00D89D48 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = FCB0A21419DD2D2600BA7FE4 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = FCB0A21B19DD2D2600BA7FE4;
-			remoteInfo = "UtH-Engine";
+			remoteGlobalIDString = FC20534619DE763100AC466A;
+			remoteInfo = "UtH-Engine-iOS";
 		};
 		FCAE37F619DD618A0043872E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -203,6 +254,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		FC20534519DE763100AC466A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FCAE37E419DD613E0043872E /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 12;
@@ -216,6 +276,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FC20534719DE763100AC466A /* libUtH-Engine-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libUtH-Engine-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC20539D19DE77E300AC466A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
+		FC2053A819DE824000AC466A /* FileManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = FileManager.mm; path = src/Platform/iOS/FileManager.mm; sourceTree = SOURCE_ROOT; };
+		FC2053AA19DE826300AC466A /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileManager.h; path = include/UtH/Platform/iOS/FileManager.h; sourceTree = SOURCE_ROOT; };
+		FC2053AB19DE983200AC466A /* libphysfs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libphysfs.a; path = ext/lib/physfs/lib/iOS/libphysfs.a; sourceTree = "<group>"; };
 		FC57791519DD82A500D89D48 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = ext/lib/glew/lib/OSX/libGLEW.a; sourceTree = "<group>"; };
 		FC57791B19DD831900D89D48 /* TestProject-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TestProject-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC57791E19DD831900D89D48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -229,9 +294,6 @@
 		FC57792C19DD831A00D89D48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FC57792E19DD831A00D89D48 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FC57793119DD831A00D89D48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		FC57793719DD831A00D89D48 /* TestProject-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TestProject-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		FC57793C19DD831A00D89D48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FC57793D19DD831A00D89D48 /* TestProject_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestProject_iOSTests.m; sourceTree = "<group>"; };
 		FCAE37DD19DD5D760043872E /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ext/lib/glfw/lib/OSX/libglfw3.a; sourceTree = "<group>"; };
 		FCAE37E619DD613E0043872E /* TestProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = TestProject; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCAE37EE19DD61650043872E /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -430,18 +492,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FC20534419DE763100AC466A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC2053AC19DE983200AC466A /* libphysfs.a in Frameworks */,
+				FC20539E19DE77E300AC466A /* OpenGLES.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC57791819DD831900D89D48 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC57794719DD87F700D89D48 /* libUtH-Engine.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FC57793419DD831A00D89D48 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				FC2053A119DE79F200AC466A /* libUtH-Engine-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,6 +538,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FC20534819DE763100AC466A /* UtH-Engine-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				FC2053AF19DEAC6800AC466A /* include */,
+				FC2053B019DEAC7300AC466A /* source */,
+			);
+			path = "UtH-Engine-iOS";
+			sourceTree = "<group>";
+		};
+		FC2053AF19DEAC6800AC466A /* include */ = {
+			isa = PBXGroup;
+			children = (
+				FC2053AA19DE826300AC466A /* FileManager.h */,
+			);
+			name = include;
+			sourceTree = "<group>";
+		};
+		FC2053B019DEAC7300AC466A /* source */ = {
+			isa = PBXGroup;
+			children = (
+				FC2053A819DE824000AC466A /* FileManager.mm */,
+			);
+			name = source;
+			sourceTree = "<group>";
+		};
 		FC57791C19DD831900D89D48 /* TestProject-iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -500,29 +589,13 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		FC57793A19DD831A00D89D48 /* TestProject-iOSTests */ = {
-			isa = PBXGroup;
-			children = (
-				FC57793D19DD831A00D89D48 /* TestProject_iOSTests.m */,
-				FC57793B19DD831A00D89D48 /* Supporting Files */,
-			);
-			path = "TestProject-iOSTests";
-			sourceTree = "<group>";
-		};
-		FC57793B19DD831A00D89D48 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				FC57793C19DD831A00D89D48 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		FCAE37DF19DD5DC90043872E /* libs */ = {
 			isa = PBXGroup;
 			children = (
 				FCAE406819DD74850043872E /* libfreetype-gl.a */,
 				FC57791519DD82A500D89D48 /* libGLEW.a */,
 				FCAE37DD19DD5D760043872E /* libglfw3.a */,
+				FC2053AB19DE983200AC466A /* libphysfs.a */,
 				FCAE3C3B19DD6D300043872E /* libphysfs.a */,
 				FCAE409F19DD757D0043872E /* libfreetype.6.dylib */,
 				FCAE40A519DD764C0043872E /* libsndfile.1.dylib */,
@@ -531,6 +604,7 @@
 				FCAE3C3719DD6BD70043872E /* IOKit.framework */,
 				FCAE3C3319DD6BCB0043872E /* OpenAL.framework */,
 				FCAE3C3119DD6BC70043872E /* OpenGL.framework */,
+				FC20539D19DE77E300AC466A /* OpenGLES.framework */,
 			);
 			name = libs;
 			sourceTree = "<group>";
@@ -618,10 +692,10 @@
 				FCAE40A719DD76E50043872E /* assets */,
 				FCAE37DF19DD5DC90043872E /* libs */,
 				FCB0A2B519DD2EE700BA7FE4 /* include */,
-				FCB0A22319DD2EA400BA7FE4 /* src */,
+				FCB0A22319DD2EA400BA7FE4 /* source */,
 				FCAE37E719DD613E0043872E /* TestProject */,
 				FC57791C19DD831900D89D48 /* TestProject-iOS */,
-				FC57793A19DD831A00D89D48 /* TestProject-iOSTests */,
+				FC20534819DE763100AC466A /* UtH-Engine-iOS */,
 				FCB0A21D19DD2D2600BA7FE4 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -632,12 +706,12 @@
 				FCB0A21C19DD2D2600BA7FE4 /* libUtH-Engine.a */,
 				FCAE37E619DD613E0043872E /* TestProject */,
 				FC57791B19DD831900D89D48 /* TestProject-iOS.app */,
-				FC57793719DD831A00D89D48 /* TestProject-iOSTests.xctest */,
+				FC20534719DE763100AC466A /* libUtH-Engine-iOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		FCB0A22319DD2EA400BA7FE4 /* src */ = {
+		FCB0A22319DD2EA400BA7FE4 /* source */ = {
 			isa = PBXGroup;
 			children = (
 				FCB0A22419DD2EA400BA7FE4 /* Audio */,
@@ -647,6 +721,7 @@
 				FCB0A26619DD2EA400BA7FE4 /* Renderer */,
 				FCB0A26C19DD2EA400BA7FE4 /* Resources */,
 			);
+			name = source;
 			path = src;
 			sourceTree = "<group>";
 		};
@@ -1097,6 +1172,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		FC20534619DE763100AC466A /* UtH-Engine-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC20535919DE763200AC466A /* Build configuration list for PBXNativeTarget "UtH-Engine-iOS" */;
+			buildPhases = (
+				FC20534319DE763100AC466A /* Sources */,
+				FC20534419DE763100AC466A /* Frameworks */,
+				FC20534519DE763100AC466A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "UtH-Engine-iOS";
+			productName = "UtH-Engine-iOS";
+			productReference = FC20534719DE763100AC466A /* libUtH-Engine-iOS.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		FC57791A19DD831900D89D48 /* TestProject-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC57793F19DD831A00D89D48 /* Build configuration list for PBXNativeTarget "TestProject-iOS" */;
@@ -1108,30 +1200,12 @@
 			buildRules = (
 			);
 			dependencies = (
-				FC57794619DD87EF00D89D48 /* PBXTargetDependency */,
+				FC2053A019DE79BA00AC466A /* PBXTargetDependency */,
 			);
 			name = "TestProject-iOS";
 			productName = "TestProject-iOS";
 			productReference = FC57791B19DD831900D89D48 /* TestProject-iOS.app */;
 			productType = "com.apple.product-type.application";
-		};
-		FC57793619DD831A00D89D48 /* TestProject-iOSTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FC57794219DD831A00D89D48 /* Build configuration list for PBXNativeTarget "TestProject-iOSTests" */;
-			buildPhases = (
-				FC57793319DD831A00D89D48 /* Sources */,
-				FC57793419DD831A00D89D48 /* Frameworks */,
-				FC57793519DD831A00D89D48 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FC57793919DD831A00D89D48 /* PBXTargetDependency */,
-			);
-			name = "TestProject-iOSTests";
-			productName = "TestProject-iOSTests";
-			productReference = FC57793719DD831A00D89D48 /* TestProject-iOSTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		FCAE37E519DD613E0043872E /* TestProject */ = {
 			isa = PBXNativeTarget;
@@ -1178,12 +1252,11 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Team-Innis";
 				TargetAttributes = {
-					FC57791A19DD831900D89D48 = {
+					FC20534619DE763100AC466A = {
 						CreatedOnToolsVersion = 6.0.1;
 					};
-					FC57793619DD831A00D89D48 = {
+					FC57791A19DD831900D89D48 = {
 						CreatedOnToolsVersion = 6.0.1;
-						TestTargetID = FC57791A19DD831900D89D48;
 					};
 					FCAE37E519DD613E0043872E = {
 						CreatedOnToolsVersion = 6.1;
@@ -1209,7 +1282,7 @@
 				FCB0A21B19DD2D2600BA7FE4 /* UtH-Engine */,
 				FCAE37E519DD613E0043872E /* TestProject */,
 				FC57791A19DD831900D89D48 /* TestProject-iOS */,
-				FC57793619DD831A00D89D48 /* TestProject-iOSTests */,
+				FC20534619DE763100AC466A /* UtH-Engine-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -1224,13 +1297,6 @@
 				FC57792F19DD831A00D89D48 /* Images.xcassets in Resources */,
 				FC57792719DD831A00D89D48 /* Shader.vsh in Resources */,
 				FC57792519DD831A00D89D48 /* Shader.fsh in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FC57793519DD831A00D89D48 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1253,6 +1319,70 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		FC20534319DE763100AC466A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FC20535B19DE775000AC466A /* Sound.cpp in Sources */,
+				FC20535C19DE775000AC466A /* SoundDevice.cpp in Sources */,
+				FC20535D19DE775000AC466A /* Randomizer.cpp in Sources */,
+				FC20535E19DE775000AC466A /* Shader.cpp in Sources */,
+				FC20535F19DE775000AC466A /* VertexBuffer.cpp in Sources */,
+				FC20536019DE775000AC466A /* AnimatedSprite.cpp in Sources */,
+				FC20536119DE775000AC466A /* Component.cpp in Sources */,
+				FC20536219DE775000AC466A /* DefaultScene.cpp in Sources */,
+				FC20536319DE775000AC466A /* Engine.cpp in Sources */,
+				FC20536419DE775000AC466A /* GameObject.cpp in Sources */,
+				FC20536519DE775000AC466A /* Layer.cpp in Sources */,
+				FC20536619DE775000AC466A /* Object.cpp in Sources */,
+				FC20536719DE775000AC466A /* Affector.cpp in Sources */,
+				FC20536819DE775000AC466A /* ParticleSystem.cpp in Sources */,
+				FC20536919DE775000AC466A /* ParticleTemplate.cpp in Sources */,
+				FC20536A19DE775000AC466A /* PhysicsContactListener.cpp in Sources */,
+				FC20536B19DE775000AC466A /* PhysicsWorld.cpp in Sources */,
+				FC2053A919DE824000AC466A /* FileManager.mm in Sources */,
+				FC20536C19DE775000AC466A /* Rigidbody.cpp in Sources */,
+				FC20536D19DE775000AC466A /* Scene.cpp in Sources */,
+				FC20536E19DE775000AC466A /* SceneManager.cpp in Sources */,
+				FC20536F19DE775000AC466A /* Sprite.cpp in Sources */,
+				FC20537019DE775000AC466A /* SpriteBatch.cpp in Sources */,
+				FC20537119DE775000AC466A /* Text.cpp in Sources */,
+				FC20537219DE775000AC466A /* Map.cpp in Sources */,
+				FC20537319DE775000AC466A /* ObjectGroup.cpp in Sources */,
+				FC20537419DE775000AC466A /* Tile.cpp in Sources */,
+				FC20537519DE775000AC466A /* TileLayer.cpp in Sources */,
+				FC20537619DE775000AC466A /* Tileset.cpp in Sources */,
+				FC20537719DE775000AC466A /* TMXObject.cpp in Sources */,
+				FC20537819DE775000AC466A /* Transform.cpp in Sources */,
+				FC20538219DE775000AC466A /* CommonWindowImpl.cpp in Sources */,
+				FC20538419DE775000AC466A /* InputBase.cpp in Sources */,
+				FC20538519DE775000AC466A /* InputCommon.cpp in Sources */,
+				FC20538619DE775000AC466A /* InputController.cpp in Sources */,
+				FC20538719DE775000AC466A /* InputKeyboard.cpp in Sources */,
+				FC20538819DE775000AC466A /* InputMouse.cpp in Sources */,
+				FC20538919DE775000AC466A /* InputSensor.cpp in Sources */,
+				FC20538A19DE775000AC466A /* InputTouch.cpp in Sources */,
+				FC20538B19DE775000AC466A /* JavaFunctions.cpp in Sources */,
+				FC20538C19DE775000AC466A /* Debug.cpp in Sources */,
+				FC20538D19DE775000AC466A /* Graphics.cpp in Sources */,
+				FC20538E19DE775000AC466A /* HiResTimer.cpp in Sources */,
+				FC20538F19DE775000AC466A /* Input.cpp in Sources */,
+				FC20539019DE775000AC466A /* OGLCheck.cpp in Sources */,
+				FC20539119DE775000AC466A /* Window.cpp in Sources */,
+				FC20539219DE775000AC466A /* tinyxml2.cpp in Sources */,
+				FC20539319DE775000AC466A /* Camera.cpp in Sources */,
+				FC20539419DE775000AC466A /* RenderTarget.cpp in Sources */,
+				FC20539519DE775000AC466A /* RenderTexture.cpp in Sources */,
+				FC20539619DE775000AC466A /* Texture.cpp in Sources */,
+				FC20539719DE775000AC466A /* TextureAtlas.cpp in Sources */,
+				FC20539819DE775000AC466A /* stb_image.h in Sources */,
+				FC20539919DE775000AC466A /* Font.cpp in Sources */,
+				FC20539A19DE775000AC466A /* Image.cpp in Sources */,
+				FC20539B19DE775000AC466A /* ResourceManager.cpp in Sources */,
+				FC20539C19DE775000AC466A /* SoundBuffer.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC57791719DD831900D89D48 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1260,14 +1390,6 @@
 				FC57792319DD831900D89D48 /* AppDelegate.m in Sources */,
 				FC57792A19DD831A00D89D48 /* GameViewController.m in Sources */,
 				FC57792019DD831900D89D48 /* main.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FC57793319DD831A00D89D48 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FC57793E19DD831A00D89D48 /* TestProject_iOSTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1346,15 +1468,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		FC57793919DD831A00D89D48 /* PBXTargetDependency */ = {
+		FC2053A019DE79BA00AC466A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = FC57791A19DD831900D89D48 /* TestProject-iOS */;
-			targetProxy = FC57793819DD831A00D89D48 /* PBXContainerItemProxy */;
-		};
-		FC57794619DD87EF00D89D48 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FCB0A21B19DD2D2600BA7FE4 /* UtH-Engine */;
-			targetProxy = FC57794519DD87EF00D89D48 /* PBXContainerItemProxy */;
+			target = FC20534619DE763100AC466A /* UtH-Engine-iOS */;
+			targetProxy = FC20539F19DE79BA00AC466A /* PBXContainerItemProxy */;
 		};
 		FCAE37F719DD618A0043872E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1383,6 +1500,53 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		FC20535519DE763200AC466A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					ext/include,
+					include,
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ext/lib/physfs/lib/iOS",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		FC20535619DE763200AC466A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					ext/include,
+					include,
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ext/lib/physfs/lib/iOS",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		FC57794019DD831A00D89D48 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1412,45 +1576,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		FC57794319DD831A00D89D48 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "TestProject-iOSTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestProject-iOS.app/TestProject-iOS";
-			};
-			name = Debug;
-		};
-		FC57794419DD831A00D89D48 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "TestProject-iOSTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TestProject-iOS.app/TestProject-iOS";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1637,6 +1762,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FC20535919DE763200AC466A /* Build configuration list for PBXNativeTarget "UtH-Engine-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC20535519DE763200AC466A /* Debug */,
+				FC20535619DE763200AC466A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		FC57793F19DD831A00D89D48 /* Build configuration list for PBXNativeTarget "TestProject-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1644,14 +1777,7 @@
 				FC57794119DD831A00D89D48 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		FC57794219DD831A00D89D48 /* Build configuration list for PBXNativeTarget "TestProject-iOSTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FC57794319DD831A00D89D48 /* Debug */,
-				FC57794419DD831A00D89D48 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		FCAE37EA19DD613E0043872E /* Build configuration list for PBXNativeTarget "TestProject" */ = {
 			isa = XCConfigurationList;
