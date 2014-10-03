@@ -14,6 +14,13 @@ typedef uth::CommonWindowImpl WindowImpl;
 #include <UtH/Platform/Android/AndroidWindowImpl.hpp>
 typedef uth::AndroidWindowImpl WindowImpl;
 
+#elif defined(UTH_SYSTEM_IOS)
+#include <UtH/Platform/iOS/iOSWindowImpl.hpp>
+typedef uth::iOSWindowImpl WindowImpl;
+
+#else
+#error Window implementation not found
+
 #endif
 
 

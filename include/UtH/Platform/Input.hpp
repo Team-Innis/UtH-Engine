@@ -14,6 +14,14 @@
     #include <UtH/Platform/Android/InputSensor.hpp>
     #include <UtH/Platform/Android/InputController.hpp>
 
+#elif defined(UTH_SYSTEM_IOS)
+    #include <UtH/Platform/Android/InputCommon.hpp>
+    #include <UtH/Platform/Android/InputKeyboard.hpp>
+    #include <UtH/Platform/Android/InputMouse.hpp>
+    #include <UtH/Platform/iOS/InputTouch.hpp>
+    #include <UtH/Platform/iOS/InputController.hpp>
+    #include <UtH/Platform/Common/InputSensor.hpp>
+
 #elif defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX) || defined(UTH_SYSTEM_MACOS)
     #include <UtH/Platform/Common/InputCommon.hpp>
     #include <UtH/Platform/Common/InputKeyboard.hpp>

@@ -37,12 +37,7 @@
 		FC20537619DE775000AC466A /* Tileset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A24519DD2EA400BA7FE4 /* Tileset.cpp */; };
 		FC20537719DE775000AC466A /* TMXObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A24619DD2EA400BA7FE4 /* TMXObject.cpp */; };
 		FC20537819DE775000AC466A /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A24719DD2EA400BA7FE4 /* Transform.cpp */; };
-		FC20538219DE775000AC466A /* CommonWindowImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25419DD2EA400BA7FE4 /* CommonWindowImpl.cpp */; };
 		FC20538419DE775000AC466A /* InputBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25619DD2EA400BA7FE4 /* InputBase.cpp */; };
-		FC20538519DE775000AC466A /* InputCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25719DD2EA400BA7FE4 /* InputCommon.cpp */; };
-		FC20538619DE775000AC466A /* InputController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25819DD2EA400BA7FE4 /* InputController.cpp */; };
-		FC20538719DE775000AC466A /* InputKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25919DD2EA400BA7FE4 /* InputKeyboard.cpp */; };
-		FC20538819DE775000AC466A /* InputMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25A19DD2EA400BA7FE4 /* InputMouse.cpp */; };
 		FC20538919DE775000AC466A /* InputSensor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25B19DD2EA400BA7FE4 /* InputSensor.cpp */; };
 		FC20538A19DE775000AC466A /* InputTouch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25C19DD2EA400BA7FE4 /* InputTouch.cpp */; };
 		FC20538B19DE775000AC466A /* JavaFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A25D19DD2EA400BA7FE4 /* JavaFunctions.cpp */; };
@@ -67,12 +62,18 @@
 		FC2053A119DE79F200AC466A /* libUtH-Engine-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC20534719DE763100AC466A /* libUtH-Engine-iOS.a */; };
 		FC2053A919DE824000AC466A /* FileManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = FC2053A819DE824000AC466A /* FileManager.mm */; };
 		FC2053AC19DE983200AC466A /* libphysfs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC2053AB19DE983200AC466A /* libphysfs.a */; };
+		FC2053B119DEAF0200AC466A /* InputKeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A24E19DD2EA400BA7FE4 /* InputKeyboard.cpp */; };
+		FC2053B219DEAF0B00AC466A /* InputMouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FCB0A24F19DD2EA400BA7FE4 /* InputMouse.cpp */; };
+		FC2053B519DEAFE500AC466A /* InputTouch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FC2053B419DEAFE500AC466A /* InputTouch.cpp */; };
+		FC2053B819DEB09200AC466A /* InputController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FC2053B619DEB09200AC466A /* InputController.cpp */; };
+		FC2053BC19DEB75400AC466A /* iOSWindowImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = FC2053BB19DEB75400AC466A /* iOSWindowImpl.cpp */; };
+		FC2053BE19DEBBB400AC466A /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC2053BD19DEBBB400AC466A /* OpenAL.framework */; };
 		FC57791619DD82A500D89D48 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC57791519DD82A500D89D48 /* libGLEW.a */; };
 		FC57792019DD831900D89D48 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FC57791F19DD831900D89D48 /* main.m */; };
 		FC57792319DD831900D89D48 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FC57792219DD831900D89D48 /* AppDelegate.m */; };
 		FC57792519DD831A00D89D48 /* Shader.fsh in Resources */ = {isa = PBXBuildFile; fileRef = FC57792419DD831900D89D48 /* Shader.fsh */; };
 		FC57792719DD831A00D89D48 /* Shader.vsh in Resources */ = {isa = PBXBuildFile; fileRef = FC57792619DD831A00D89D48 /* Shader.vsh */; };
-		FC57792A19DD831A00D89D48 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC57792919DD831A00D89D48 /* GameViewController.m */; };
+		FC57792A19DD831A00D89D48 /* GameViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = FC57792919DD831A00D89D48 /* GameViewController.mm */; };
 		FC57792D19DD831A00D89D48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC57792B19DD831A00D89D48 /* Main.storyboard */; };
 		FC57792F19DD831A00D89D48 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC57792E19DD831A00D89D48 /* Images.xcassets */; };
 		FC57793219DD831A00D89D48 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FC57793019DD831A00D89D48 /* LaunchScreen.xib */; };
@@ -281,6 +282,13 @@
 		FC2053A819DE824000AC466A /* FileManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = FileManager.mm; path = src/Platform/iOS/FileManager.mm; sourceTree = SOURCE_ROOT; };
 		FC2053AA19DE826300AC466A /* FileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileManager.h; path = include/UtH/Platform/iOS/FileManager.h; sourceTree = SOURCE_ROOT; };
 		FC2053AB19DE983200AC466A /* libphysfs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libphysfs.a; path = ext/lib/physfs/lib/iOS/libphysfs.a; sourceTree = "<group>"; };
+		FC2053B319DEAFC700AC466A /* InputTouch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = InputTouch.hpp; path = include/UtH/Platform/iOS/InputTouch.hpp; sourceTree = SOURCE_ROOT; };
+		FC2053B419DEAFE500AC466A /* InputTouch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InputTouch.cpp; path = src/Platform/iOS/InputTouch.cpp; sourceTree = SOURCE_ROOT; };
+		FC2053B619DEB09200AC466A /* InputController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InputController.cpp; path = src/Platform/iOS/InputController.cpp; sourceTree = SOURCE_ROOT; };
+		FC2053B919DEB0B900AC466A /* InputController.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = InputController.hpp; path = include/UtH/Platform/iOS/InputController.hpp; sourceTree = SOURCE_ROOT; };
+		FC2053BA19DEB72C00AC466A /* iOSWindowImpl.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = iOSWindowImpl.hpp; path = include/UtH/Platform/iOS/iOSWindowImpl.hpp; sourceTree = SOURCE_ROOT; };
+		FC2053BB19DEB75400AC466A /* iOSWindowImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = iOSWindowImpl.cpp; path = src/Platform/iOS/iOSWindowImpl.cpp; sourceTree = SOURCE_ROOT; };
+		FC2053BD19DEBBB400AC466A /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/OpenAL.framework; sourceTree = DEVELOPER_DIR; };
 		FC57791519DD82A500D89D48 /* libGLEW.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLEW.a; path = ext/lib/glew/lib/OSX/libGLEW.a; sourceTree = "<group>"; };
 		FC57791B19DD831900D89D48 /* TestProject-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TestProject-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC57791E19DD831900D89D48 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -290,7 +298,7 @@
 		FC57792419DD831900D89D48 /* Shader.fsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.fsh; path = Shaders/Shader.fsh; sourceTree = "<group>"; };
 		FC57792619DD831A00D89D48 /* Shader.vsh */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; name = Shader.vsh; path = Shaders/Shader.vsh; sourceTree = "<group>"; };
 		FC57792819DD831A00D89D48 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
-		FC57792919DD831A00D89D48 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		FC57792919DD831A00D89D48 /* GameViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GameViewController.mm; sourceTree = "<group>"; };
 		FC57792C19DD831A00D89D48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FC57792E19DD831A00D89D48 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		FC57793119DD831A00D89D48 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -505,6 +513,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC2053BE19DEBBB400AC466A /* OpenAL.framework in Frameworks */,
 				FC2053A119DE79F200AC466A /* libUtH-Engine-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -551,6 +560,9 @@
 			isa = PBXGroup;
 			children = (
 				FC2053AA19DE826300AC466A /* FileManager.h */,
+				FC2053B319DEAFC700AC466A /* InputTouch.hpp */,
+				FC2053B919DEB0B900AC466A /* InputController.hpp */,
+				FC2053BA19DEB72C00AC466A /* iOSWindowImpl.hpp */,
 			);
 			name = include;
 			sourceTree = "<group>";
@@ -559,6 +571,9 @@
 			isa = PBXGroup;
 			children = (
 				FC2053A819DE824000AC466A /* FileManager.mm */,
+				FC2053B419DEAFE500AC466A /* InputTouch.cpp */,
+				FC2053B619DEB09200AC466A /* InputController.cpp */,
+				FC2053BB19DEB75400AC466A /* iOSWindowImpl.cpp */,
 			);
 			name = source;
 			sourceTree = "<group>";
@@ -571,7 +586,7 @@
 				FC57792419DD831900D89D48 /* Shader.fsh */,
 				FC57792619DD831A00D89D48 /* Shader.vsh */,
 				FC57792819DD831A00D89D48 /* GameViewController.h */,
-				FC57792919DD831A00D89D48 /* GameViewController.m */,
+				FC57792919DD831A00D89D48 /* GameViewController.mm */,
 				FC57792B19DD831A00D89D48 /* Main.storyboard */,
 				FC57792E19DD831A00D89D48 /* Images.xcassets */,
 				FC57793019DD831A00D89D48 /* LaunchScreen.xib */,
@@ -602,6 +617,7 @@
 				FCAE3C3519DD6BCF0043872E /* Cocoa.framework */,
 				FCAE3C3919DD6BDB0043872E /* CoreVideo.framework */,
 				FCAE3C3719DD6BD70043872E /* IOKit.framework */,
+				FC2053BD19DEBBB400AC466A /* OpenAL.framework */,
 				FCAE3C3319DD6BCB0043872E /* OpenAL.framework */,
 				FCAE3C3119DD6BC70043872E /* OpenGL.framework */,
 				FC20539D19DE77E300AC466A /* OpenGLES.framework */,
@@ -1323,6 +1339,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC2053B219DEAF0B00AC466A /* InputMouse.cpp in Sources */,
+				FC2053B119DEAF0200AC466A /* InputKeyboard.cpp in Sources */,
+				FC2053B519DEAFE500AC466A /* InputTouch.cpp in Sources */,
 				FC20535B19DE775000AC466A /* Sound.cpp in Sources */,
 				FC20535C19DE775000AC466A /* SoundDevice.cpp in Sources */,
 				FC20535D19DE775000AC466A /* Randomizer.cpp in Sources */,
@@ -1331,6 +1350,7 @@
 				FC20536019DE775000AC466A /* AnimatedSprite.cpp in Sources */,
 				FC20536119DE775000AC466A /* Component.cpp in Sources */,
 				FC20536219DE775000AC466A /* DefaultScene.cpp in Sources */,
+				FC2053BC19DEB75400AC466A /* iOSWindowImpl.cpp in Sources */,
 				FC20536319DE775000AC466A /* Engine.cpp in Sources */,
 				FC20536419DE775000AC466A /* GameObject.cpp in Sources */,
 				FC20536519DE775000AC466A /* Layer.cpp in Sources */,
@@ -1354,12 +1374,8 @@
 				FC20537619DE775000AC466A /* Tileset.cpp in Sources */,
 				FC20537719DE775000AC466A /* TMXObject.cpp in Sources */,
 				FC20537819DE775000AC466A /* Transform.cpp in Sources */,
-				FC20538219DE775000AC466A /* CommonWindowImpl.cpp in Sources */,
+				FC2053B819DEB09200AC466A /* InputController.cpp in Sources */,
 				FC20538419DE775000AC466A /* InputBase.cpp in Sources */,
-				FC20538519DE775000AC466A /* InputCommon.cpp in Sources */,
-				FC20538619DE775000AC466A /* InputController.cpp in Sources */,
-				FC20538719DE775000AC466A /* InputKeyboard.cpp in Sources */,
-				FC20538819DE775000AC466A /* InputMouse.cpp in Sources */,
 				FC20538919DE775000AC466A /* InputSensor.cpp in Sources */,
 				FC20538A19DE775000AC466A /* InputTouch.cpp in Sources */,
 				FC20538B19DE775000AC466A /* JavaFunctions.cpp in Sources */,
@@ -1388,7 +1404,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC57792319DD831900D89D48 /* AppDelegate.m in Sources */,
-				FC57792A19DD831A00D89D48 /* GameViewController.m in Sources */,
+				FC57792A19DD831A00D89D48 /* GameViewController.mm in Sources */,
 				FC57792019DD831900D89D48 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1556,6 +1572,12 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					include,
+					ext/include,
+				);
 				INFOPLIST_FILE = "TestProject-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1570,6 +1592,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					include,
+					ext/include,
+				);
 				INFOPLIST_FILE = "TestProject-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

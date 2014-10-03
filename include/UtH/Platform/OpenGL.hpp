@@ -29,7 +29,6 @@
 #elif defined(UTH_SYSTEM_IOS)
 
 	#include <OpenGLES/ES2/gl.h>
-	#include <OpenGLES/ES2/glu.h>
 
 #endif
 
