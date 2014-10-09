@@ -110,8 +110,12 @@ public class GameActivity extends android.app.NativeActivity
 				
 					popUp = new PopupWindow(_activity);
 				
-					popUp.setWidth(720);
-					popUp.setHeight(640);
+					//popUp.setWidth(1920);
+					//popUp.setHeight(1080);
+					popUp.setWidth(320);
+					popUp.setHeight(50);
+					//popUp.setWidth(adView.getAdSize().getWidth());
+					//popUp.setWidth(adView.getAdSize().getHeight());
 				
 					popUp.setWindowLayoutMode(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 					popUp.setClippingEnabled(false);
@@ -119,7 +123,8 @@ public class GameActivity extends android.app.NativeActivity
 					layout = new RelativeLayout(_activity);
 					mainLayout = new RelativeLayout(_activity);
 				
-					layout.setPadding(-12, -12, -12, -12);
+					//layout.setPadding(-12, -12, -12, -12);
+					layout.setPadding(-1, -1, -1, -1);
 					Log.v("uth-engine", "Adview " + adView.getAdSize().getWidth() + " " + adView.getAdSize().getHeight());
 					
 					MarginLayoutParams params = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -134,9 +139,11 @@ public class GameActivity extends android.app.NativeActivity
 				    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
 				    .addTestDevice("9DACB2219B50B6E9F596041151E63E12")
 				    .addTestDevice("1B5A8F52DE892FF3954B698A84CBCC87")
+				    .addTestDevice("E69C2A8B1675A10447583C0049DC0D26")
 				    .build();
 					
 					_activity.adView.loadAd(adRequest);
+					Log.v("uth-engine", "ad gravity" + gravity);
 					popUp.showAtLocation(mainLayout, gravity, offsetX, offsetY);
 					popUp.update();
 			

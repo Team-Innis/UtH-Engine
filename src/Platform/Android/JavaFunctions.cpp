@@ -46,5 +46,5 @@ void JavaFunctions::ShowAd()
 	if (popupFunc == NULL)
 		WriteError("No vibration function found!");
 
-	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, popupFunc, 2, 0, 0);
+	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, popupFunc, 0, 0, 9);
 }
