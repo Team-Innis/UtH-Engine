@@ -26,6 +26,7 @@ namespace uth
 
 		void ChangeAnimation(int loopStartFrame, int loopFrames,
 			int startFrame = 0, float fps = 5.0f, bool loop = true, bool reversed = false);
+		void ChangeSpeed(float fps = 0.0f);
 
 		void Init();
 		void Update(float dt);
