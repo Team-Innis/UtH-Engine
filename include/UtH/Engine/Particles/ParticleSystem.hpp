@@ -47,8 +47,8 @@ namespace uth
 
     private:
      
-        void update(float dt);
-        void draw(RenderTarget& target);
+        void update(float dt) override;
+        void draw(RenderTarget& target) override;
 
         ParticleTemplate m_template;
         SpriteBatch m_batch;

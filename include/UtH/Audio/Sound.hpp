@@ -7,19 +7,27 @@
 #include <AL/alc.h>
 
 #include <vector>
-#include <UtH/Platform/FileReader.hpp>
 #include <pmath/Vector3.hpp>
 
 namespace uth
 {
 	class Sound
 	{
+		struct Deleter
+		{
+			void operator()(Sound* sound)
+			{
+				delete sound;
+			}
+		};
+
+		friend class ResourceManager;
 	public:
 		Sound();
 		~Sound();
 
 		// Loads and creates new sound
-		static Sound* Load(const char* fileName);
+		//static Sound* Load(std::string fileName);
 
 		// Plays source
 		void Play();
@@ -62,21 +70,24 @@ namespace uth
 
 	private:
 		Sound(const Sound&);
-		Sound(const char* fileName);
 
-		void Initialize(const char* fileName);
+		bool Load(std::string fileName);
+		void Initialize(std::string fileName);
 		static void CreateSources(ALuint &source);
 		ALint Status();
 		void Copy();
 
+		void InsertToMap(std::string fileName);
+		void RemoveFromMap(std::string fileName);
+
 		ALuint source;
 		ALuint buffer;
-		float* data;
 
 		bool loop;
 		float duration;
 		std::vector<ALuint> tempSource;
 		float _posX, _posY, _posZ;
+
 	};
 }
 

@@ -18,6 +18,7 @@ ParticleSystem::ParticleSystem(const size_t reserve)
       m_update(false)
 {
     m_particles.reserve(reserve);
+	transform.setSize(1,1);
 }
 
 void ParticleSystem::Emit(const unsigned int amount)
@@ -56,7 +57,7 @@ bool ParticleSystem::ReadyToEmit() const
     
     if (ready)
     {
-        m_emitTimer = 0.f;
+        m_emitTimer -= m_emitTimeLimit;
         m_emitTimeLimit = Randomizer::GetFloat(m_emitFreq.x, m_emitFreq.y);
     }
 
@@ -87,6 +88,7 @@ void ParticleSystem::SetTemplate(const ParticleTemplate& pTemplate)
 {
 	m_template = pTemplate;
 	m_batch.SetTexture(m_template.m_texture);
+	transform.setSize(m_template.m_texture->GetSize());
 }
 
 void ParticleSystem::Clear(const bool particles, const bool affectors)
@@ -121,13 +123,14 @@ void ParticleSystem::update(float dt)
 
 		bool operator()(Particle& particle)
 		{
-			return (particle.lifetime += deltaTime) >= maxLifetime;
+            return (maxLifetime >= 0.f ? ((particle.lifetime += deltaTime) >= maxLifetime) : (particle.lifetime > 0.f));
 		}
 	};
 
 	const unsigned int size = m_particles.size();
 
-	m_particles.erase(std::remove_if(m_particles.begin(), m_particles.end(), Eraser(m_template.lifetime, dt)), m_particles.end());
+	m_particles.erase(std::remove_if(m_particles.begin(), m_particles.end(), 
+		Eraser(m_template.lifetime, dt)), m_particles.end());
 
 	if (m_update || size > m_particles.size())
 	{

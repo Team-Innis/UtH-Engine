@@ -2,13 +2,14 @@
 #include <UtH/Engine/GameObject.hpp>
 
 #include <cmath>
+#include <array>
 
 using namespace uth;
 
-Transform::Transform(const std::string& name)
-	: Component(name),
+Transform::Transform(Object* p)
+	: parent(p),
 	  m_position(0, 0),
-	  m_size(1, 1),
+	  m_size(0, 0),
 	  m_scale(1, 1),
       m_origin(0, 0),
 	  m_angle(0),
@@ -47,12 +48,20 @@ const pmath::Vec2& Transform::GetPosition() const
 
 void Transform::SetSize(const pmath::Vec2& size)
 {
-    this->m_size = size;
-	m_transformNeedsUpdate = true;
+	ScaleToSize(size.x, size.y);
 }
 void Transform::SetSize(const float width, const float height)
 {
-	SetSize(pmath::Vec2(width, height));
+	ScaleToSize(width, height);
+}
+void Transform::ScaleToSize(const pmath::Vec2& size)
+{
+	SetSize(size.x, size.y);
+}
+void Transform::ScaleToSize(const float width, const float height)
+{
+	SetScale(width / m_size.x, height / m_size.y);
+	m_transformNeedsUpdate = true;
 }
 const pmath::Vec2& Transform::GetSize() const
 {
@@ -149,6 +158,44 @@ pmath::Rect Transform::GetBounds() const
     return pmath::Rect((m_position - sOrig) - scaled / 2.f, scaled);
 }
 
+pmath::Rect Transform::GetTransformedBounds() const
+{
+    const pmath::Vec2 topLeft(m_position - m_size / 2.f - m_origin);
+
+    const auto& tf = GetTransform();
+
+    std::array<pmath::Vec2, 4> points =
+    { {
+        pmath::Vec2(topLeft),
+        pmath::Vec2(topLeft.x, topLeft.y + m_size.y),
+        pmath::Vec2(topLeft + m_size),
+        pmath::Vec2(topLeft.x + m_size.x, topLeft.y)
+        } };
+
+    float left = 0.f,
+          right = 0.f,
+          bottom = 0.f,
+          top = 0.f;
+
+    for (auto& i : points)
+    {
+        // Add transform matrix first
+        i *= tf;
+
+        if (i.x < left)
+            left = i.x;
+        else if (i.x > right)
+            right = i.x;
+
+        if (i.y < top)
+            top = i.y;
+        else if (i.y > bottom)
+            bottom = i.y;
+    }
+
+    return pmath::Rect(left, top, right - left, bottom - top);
+}
+
 void Transform::SetTransform(const pmath::Mat4& modelTransform)
 {
 	m_modelTransform = modelTransform;
@@ -160,24 +207,41 @@ void Transform::AddTransform(const pmath::Mat4& modelTransform)
 
 	m_modelTransform = m_modelTransform * modelTransform;
 }
-const pmath::Mat4& Transform::GetTransform()
+const pmath::Mat4& Transform::GetTransform() const
 {
 	updateTransform();
 
-    if (parent && parent->parent)
-    {
-        m_combinedTransform = parent->parent->transform.GetTransform() *
-            m_modelTransform;
+	if (parent && (parent->HasParent<GameObject>()))
+	{
+		m_combinedTransform = parent->Parent<GameObject>()->transform.GetTransform() *
+			m_modelTransform;
 
-        return m_combinedTransform;
-    }
+		return m_combinedTransform;
+	}
+	else if (parent && parent->HasParent<Layer>())
+	{
+		m_combinedTransform = parent->Parent<Layer>()->transform.GetTransform() *
+			m_modelTransform;
+
+		return m_combinedTransform;
+	}
 
 	return m_modelTransform;
 }
 
 // Private
 
-void Transform::updateTransform()
+void Transform::setSize(const pmath::Vec2& size)
+{
+	this->m_size = size;
+	m_transformNeedsUpdate = true;
+}
+void Transform::setSize(const float width, const float height)
+{
+	setSize(pmath::Vec2(width, height));
+}
+
+void Transform::updateTransform() const
 {
 	if (!m_transformNeedsUpdate)
 		return;

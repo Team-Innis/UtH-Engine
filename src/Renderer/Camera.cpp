@@ -25,7 +25,7 @@ namespace uth
         m_inverseTransformNeedsUpdate(true)
     {
 		transform.SetPosition(position);
-        transform.SetSize(size);
+        transform.setSize(size);
     }
 
     Camera::~Camera()
@@ -57,7 +57,7 @@ namespace uth
 
     Camera& Camera::SetSize(const pmath::Vec2& size)
     {
-        transform.SetSize(size);
+        transform.setSize(size);
 
         m_transformNeedsUpdate = true;
         m_inverseTransformNeedsUpdate = true;
@@ -67,7 +67,7 @@ namespace uth
 
     Camera& Camera::SetSize(const float x, const float y)
     {
-        transform.SetSize(pmath::Vec2(x, y));
+		transform.setSize(pmath::Vec2(x, y));
 
         m_transformNeedsUpdate = true;
         m_inverseTransformNeedsUpdate = true;

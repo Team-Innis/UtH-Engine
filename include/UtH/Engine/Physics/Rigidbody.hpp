@@ -5,6 +5,7 @@
 #include <UtH/Engine/Physics/PhysicsWorld.hpp>
 #include <pmath/Vector.hpp>
 #include <UtH/Engine/Component.hpp>
+#include <UtH/Platform/Debug.hpp>
 
 namespace uth
 {
@@ -98,7 +99,8 @@ namespace uth
 		// Get the friction of the object
 		float GetFriction() const;
 
-		void SetRestituion(float restitution);
+		void SetRestituion(float restitution){Deprecated("Use SetRestitution() instead") SetRestitution(restitution); }
+		void SetRestitution(float restitution);
 		float GetRestitution() const;
 
 		// Sets if the object is active

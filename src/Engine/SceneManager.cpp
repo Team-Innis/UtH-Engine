@@ -1,8 +1,9 @@
 #include <UtH/Platform/Debug.hpp>
 #include <cassert>
-#include "UtH/Engine/SceneManager.hpp"
+#include <UtH/Engine/SceneManager.hpp>
 
 #include <UtH/Engine/DefaultScene.hpp>
+#include <UtH/Engine/Engine.hpp>
 
 namespace uth
 {
@@ -37,26 +38,17 @@ namespace uth
 		m_nextScene = SceneID;
 	}
 
-	bool SceneManager::Update(float dt)
+	void SceneManager::Update(float dt)
 	{
 		if (m_pendingSceneSwitch)
 			m_switchScene();
 
-		if (!curScene->Update(dt))
-		{
-			WriteError("Scene %d Update() func returns false",m_sceneID);
-			return false;
-		}
-		return true;
+		curScene->Update(dt);
 	}
-	bool SceneManager::Draw()
+
+	void SceneManager::Draw()
 	{
-		if (!curScene->Draw())
-		{
-			WriteError("Scene %d Draw() func returns false",m_sceneID);
-			return false;
-		}
-		return true;
+		curScene->Draw(uthEngine.GetWindow());
 	}
 	
 	void SceneManager::registerNewSceneFunc(Scene* (*newSceneFunc)(int SceneID), int SceneCount)

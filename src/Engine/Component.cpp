@@ -3,9 +3,7 @@
 using namespace uth;
 
 Component::Component()
-	: parent(nullptr),
-	  m_name(""),
-	  m_active(false)
+	: Component("Component")
 {
 }
 
@@ -35,7 +33,7 @@ void Component::SetName(const std::string& name)
 	m_name = name;
 }
 
-const std::string Component::GetName() const
+const std::string& Component::GetName() const
 {
 	return m_name;
 }

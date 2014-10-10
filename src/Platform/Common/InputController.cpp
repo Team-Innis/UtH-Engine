@@ -39,7 +39,7 @@ void ControllerInput::Update()
 
         int buttonCount;
         auto buttons = glfwGetJoystickButtons(0, &buttonCount);
-        for (int i = 0; i < buttonCount && i < m_buttons.size(); ++i)
+        for (int i = 0; i < buttonCount && i < static_cast<int>(m_buttons.size()); ++i)
             m_buttons.at(i) = buttons[i];
 
         int axisCount;

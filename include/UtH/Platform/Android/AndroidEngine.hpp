@@ -5,10 +5,12 @@
 #include <UtH/Platform/Singleton.hpp>
 #include <UtH/Platform/WindowSettings.hpp>
 #include <UtH/Platform/Window.hpp>
+#include <UtH/Platform/OpenGL.hpp>
 
 #include <jni.h>
 #include <errno.h>
 #include <android_native_app_glue.h>
+#include <string>
 
 #define uthAndroidEngine uth::AndroidEngine::getInstance()
 
@@ -29,6 +31,8 @@ public:
 	EGLSurface surface;
 	EGLContext context;
 	EGLConfig config;
+
+	std::string internalPath;
 
 	int message;
 

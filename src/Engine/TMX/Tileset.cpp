@@ -1,6 +1,6 @@
 #include <UtH/Engine/TMX/Tileset.hpp>
 #include <UtH/Engine/TMX/Map.hpp>
-#include <UtH/Platform/FileReader.hpp>
+#include <UtH/Platform/FileManager.hpp>
 
 #include <UtH/Platform/Debug.hpp>
 
@@ -95,7 +95,7 @@ void Tileset::parseTileset(tinyxml2::XMLElement* tilesetElement, const std::stri
 	{
 		// Open tsx file
 		std::string path = mapFolder + tilesetSource;
-		FileReader fr(path.c_str());
+		FileManager fr(path.c_str());
 		doc.Parse(fr.ReadText().c_str());
 
 		auto tileset = doc.FirstChildElement("tileset");
@@ -121,18 +121,6 @@ void Tileset::parseTileset(tinyxml2::XMLElement* tilesetElement, const std::stri
 	std::string imagePath = mapFolder + imageElement->Attribute("source");
 
 	std::string temp = imagePath.substr(imagePath.length() - 4, 4);
-	if (temp == ".png")
-	{
-		std::string warn;
-		warn.reserve(250);
-		warn.append("Warning: TMX mapfile uses file ");
-		warn.append(imagePath);
-		warn.append("\nUTH Engine does not support png files\nSearching for tga file with the same file name");
-
-		WriteWarning(warn.c_str());
-
-		imagePath.replace(imagePath.length() - 4, 4,".tga");
-	}
 
 	m_texture = uthRS.LoadTexture(imagePath);
 }
@@ -143,7 +131,7 @@ void Tileset::parseTileset(tinyxml2::XMLElement* tilesetElement, const std::stri
 tinyxml2::XMLElement* getImageElementFromTSX(const std::string& path)
 {
 	tinyxml2::XMLDocument doc;
-	FileReader fr(path.c_str());
+	FileManager fr(path.c_str());
 
 	// ReadText returns filesize+1 because of null termination
 	doc.Parse(fr.ReadText().c_str());

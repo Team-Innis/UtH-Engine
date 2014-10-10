@@ -20,18 +20,19 @@
   <ItemGroup>
     <ClCompile Include="..\..\android\jni\main.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\AndroidWindowImpl.cpp" />
-    <ClCompile Include="..\..\src\Platform\Android\FileReader.cpp" />
+    <ClCompile Include="..\..\src\Platform\Android\FileManager.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputCommon.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputController.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputKeyboard.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputMouse.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputSensor.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputTouch.cpp" />
+    <ClCompile Include="..\..\src\Platform\Common\JavaFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Platform\Android\AndroidEngine.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\AndroidWindowImpl.hpp" />
-    <ClInclude Include="..\..\include\UtH\Platform\Android\FileReader.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Android\FileManager.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputCommon.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputController.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputKeyboard.hpp" />

@@ -46,6 +46,8 @@ namespace uth
 		void Update();
 		void Draw();
 
+		void Exit();
+
         void SetClearColor(const pmath::Vec4& color);
         void SetClearColor(float r, float g, float b, float a = 1.0f);
 
@@ -54,7 +56,7 @@ namespace uth
 	
 		const pmath::Vec2 GetWindowResolution() const;
 		const bool Running() const;
-		const Timer timer() const;
+		const Timer& Timer() const;
 	};
 }
 

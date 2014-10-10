@@ -11,7 +11,13 @@ namespace pmath
     inline bool equals(const T a, const T b, const T tolerance = T(0.001))
 #endif
     {
-        return std::abs(a - b) <= tolerance;
+        return abs(a - b) <= tolerance;
+    }
+
+    template<typename T>
+    inline T abs(const T& value)
+    {
+        return std::abs(value);
     }
 
     template<typename T>

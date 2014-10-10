@@ -57,7 +57,7 @@
     <ClCompile Include="..\..\src\Engine\Component.cpp" />
     <ClCompile Include="..\..\src\Engine\DefaultScene.cpp" />
     <ClCompile Include="..\..\src\Engine\GameObject.cpp" />
-    <ClCompile Include="..\..\src\Engine\Layer.cpp" />
+    <ClCompile Include="..\..\src\Engine\Object.cpp" />
     <ClCompile Include="..\..\src\Engine\Particles\Affector.cpp" />
     <ClCompile Include="..\..\src\Engine\Particles\ParticleSystem.cpp" />
     <ClCompile Include="..\..\src\Engine\Particles\ParticleTemplate.cpp" />
@@ -69,9 +69,8 @@
     <ClCompile Include="..\..\src\Engine\Sprite.cpp" />
     <ClCompile Include="..\..\src\Engine\SpriteBatch.cpp" />
     <ClCompile Include="..\..\src\Engine\Text.cpp" />
-    <ClCompile Include="..\..\src\Engine\TMX\Object.cpp" />
+    <ClCompile Include="..\..\src\Engine\TMX\TMXObject.cpp" />
     <ClCompile Include="..\..\src\Engine\TMX\ObjectGroup.cpp" />
-    <ClCompile Include="..\..\src\Engine\TMX\TileHackBatch.cpp" />
     <ClCompile Include="..\..\src\Engine\TMX\TileLayer.cpp" />
     <ClCompile Include="..\..\src\Engine\TMX\Map.cpp" />
     <ClCompile Include="..\..\src\Engine\TMX\Tile.cpp" />
@@ -84,7 +83,7 @@
     <ClInclude Include="..\..\include\UtH\Engine\Component.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\DefaultScene.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\GameObject.hpp" />
-    <ClInclude Include="..\..\include\UtH\Engine\Layer.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\Object.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Particles\Affector.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Particles\Particle.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Particles\ParticleSystem.hpp" />
@@ -98,10 +97,9 @@
     <ClInclude Include="..\..\include\UtH\Engine\SpriteBatch.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Text.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Enums.hpp" />
-    <ClInclude Include="..\..\include\UtH\Engine\TMX\TileHackBatch.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\TMX\TileLayer.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Map.hpp" />
-    <ClInclude Include="..\..\include\UtH\Engine\TMX\Object.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\TMX\TMXObject.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\TMX\ObjectGroup.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Tile.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\TMX\Tileset.hpp" />
@@ -160,6 +158,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>NOMINMAX;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)..\include\;$(SolutionDir)..\ext\include\;$(SolutionDir)..\ext\include\freetype_include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>OldStyle</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -180,6 +179,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NOMINMAX;WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)..\include\;$(SolutionDir)..\ext\include\;$(SolutionDir)..\ext\include\freetype_include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>None</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

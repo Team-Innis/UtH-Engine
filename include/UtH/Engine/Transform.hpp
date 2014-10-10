@@ -1,9 +1,7 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
-#include <UtH/Engine/Component.hpp>
-#include <pmath/Vector.hpp>
-#include <pmath/Matrix4.hpp>
+#include <pmath/PMath.hpp>
 
 namespace uth
 {
@@ -23,10 +21,15 @@ namespace uth
 		};
 	}
 
-	class Transform : public Component
+	class Object;
+	namespace TMX
+	{
+		class Tile;
+	}
+	class Transform
 	{
 	public:
-		Transform(const std::string& name = "Transform");
+		Transform(Object* parent);
 		~Transform();
 
 		void Move(const pmath::Vec2& offset);
@@ -36,8 +39,12 @@ namespace uth
 		void SetPosition(const float posX, const float posY);
 		const pmath::Vec2& GetPosition() const;
 
+		//[[deprecated("Has been replaced with ScaleToSize")]]
 		void SetSize(const pmath::Vec2& size);
+		//[[deprecated("Has been replaced with ScaleToSize")]]
 		void SetSize(const float width, const float height);
+		void ScaleToSize(const pmath::Vec2& size);
+		void ScaleToSize(const float width, const float height);
 		const pmath::Vec2& GetSize() const;
 
 		void SetOrigin(const pmath::Vec2& origin);
@@ -54,14 +61,26 @@ namespace uth
 		void Rotate(const float degrees);
 
         pmath::Rect GetBounds() const;
+        pmath::Rect GetTransformedBounds() const;
 
 		void SetTransform(const pmath::Mat4& modelTransform);
 		// Adds to the current transform(multiplies). Mostly needed for layer transformation
 		void AddTransform(const pmath::Mat4& modelTransform);
-		const pmath::Mat4& GetTransform();
+		const pmath::Mat4& GetTransform() const;
 
+		Object* parent;
 
-    private:
+	private:
+		// friends so they can alter transform size
+		friend class AnimatedSprite;
+		friend class Camera;
+		friend class Sprite;
+		friend class Text;
+		friend class ParticleSystem;
+		friend class TMX::Tile;
+
+		void setSize(const pmath::Vec2& size);
+		void setSize(const float width, const float height);
 
 		pmath::Vec2 m_position;
 		pmath::Vec2 m_size;
@@ -69,13 +88,11 @@ namespace uth
 		pmath::Vec2 m_origin;
 		float m_angle;
 
-	private:
+		void updateTransform() const;
 
-		void updateTransform();
-
-		pmath::Mat4 m_modelTransform;
-        pmath::Mat4 m_combinedTransform;
-		bool m_transformNeedsUpdate;
+		mutable pmath::Mat4 m_modelTransform;
+        mutable pmath::Mat4 m_combinedTransform;
+		mutable bool m_transformNeedsUpdate;
 	};
 }
 

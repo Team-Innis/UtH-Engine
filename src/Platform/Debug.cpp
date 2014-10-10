@@ -37,7 +37,9 @@ namespace uth
 
 		va_list v;
 		va_start(v, text);
-		vprintf(text, v);
+		std::string temp = text;
+		temp += "\n";
+		vprintf(temp.c_str(), v);
 		va_end(v);
 
 		printf(
@@ -66,7 +68,9 @@ namespace uth
 
 		va_list v;
 		va_start(v, text);
-		vprintf(text, v);
+		std::string temp = text;
+		temp += "\n";
+		vprintf(temp.c_str(), v);
 		va_end(v);
 
 		printf(
@@ -89,7 +93,9 @@ namespace uth
 
 		va_list v;
 		va_start(v, text);
-		vprintf(text, v);
+		std::string temp = text;
+		temp += "\n";
+		vprintf(temp.c_str(), v);
 		va_end(v);
 
 #endif

@@ -21,10 +21,10 @@ void Engine::Update()
 {
 	const float deltaTime = static_cast<float>(m_timer.DeltaTime());
 	uthInput.Update(deltaTime);
-	
-	if(!uthSceneM.Update(deltaTime) || m_wndw->processMessages())
+	uthSceneM.Update(deltaTime);
+	if(m_wndw->processMessages())
 	{
-		m_running = false;
+		Exit();
 	}
 }
 
@@ -33,6 +33,11 @@ void Engine::Draw()
 	m_wndw->Clear(m_clearColor.x, m_clearColor.y, m_clearColor.z, m_clearColor.w);
 	uthSceneM.Draw();
     m_wndw->swapBuffers();
+}
+
+void Engine::Exit()
+{
+	m_running = false;
 }
 
 void Engine::SetClearColor(const pmath::Vec4& color)
@@ -61,7 +66,7 @@ bool Engine::initialize()
 	return true;
 }
 
-const Timer Engine::timer() const
+const Timer& Engine::Timer() const
 {
 	return m_timer;
 }

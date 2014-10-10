@@ -535,12 +535,48 @@ namespace pmath
     template<typename T>
     inline Vector4<T> Matrix4<T>::operator *(const Vector4<T>& right) const
     {
+        const T L[ROWS][COLUMNS] =
+        {
+            {
+                (*this)[0][0],
+                (*this)[0][1],
+                (*this)[0][2],
+                (*this)[0][3]
+            },
+            {
+                (*this)[1][0],
+                (*this)[1][1],
+                (*this)[1][2],
+                (*this)[1][3]
+            },
+            {
+                (*this)[2][0],
+                (*this)[2][1],
+                (*this)[2][2],
+                (*this)[2][3]
+            },
+            {
+                (*this)[3][0],
+                (*this)[3][1],
+                (*this)[3][2],
+                (*this)[3][3]
+            }
+        };
+
+        const T R[4] =
+        {
+            right.x,
+            right.y,
+            right.z,
+            right.w
+        };
+
         return Vector4<T>
             (
-                (*this)[0][0] * right.x + (*this)[0][1] * right.y + (*this)[0][2] * right.z + (*this)[0][3] * right.w,
-                (*this)[1][0] * right.x + (*this)[1][1] * right.y + (*this)[1][2] * right.z + (*this)[1][3] * right.w,
-                (*this)[2][0] * right.x + (*this)[2][1] * right.y + (*this)[2][2] * right.z + (*this)[2][3] * right.w,
-                (*this)[3][0] * right.x + (*this)[3][1] * right.y + (*this)[3][2] * right.z + (*this)[3][3] * right.w
+            L[0][0] * R[0] + L[0][1] * R[1] + L[0][2] * R[2] + L[0][3] * R[3],
+            L[1][0] * R[0] + L[1][1] * R[1] + L[1][2] * R[2] + L[1][3] * R[3],
+            L[2][0] * R[0] + L[2][1] * R[1] + L[2][2] * R[2] + L[2][3] * R[3],
+            L[3][0] * R[0] + L[3][1] * R[1] + L[3][2] * R[2] + L[3][3] * R[3]
             );
     }
 

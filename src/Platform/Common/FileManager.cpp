@@ -1,38 +1,42 @@
-#include <UtH/Platform/FileReader.hpp>
+#include <UtH/Platform/FileManager.hpp>
 #include <UtH/Platform/Debug.hpp>
 
 #include <cassert>
 #include <cstdlib> // malloc
 #include <string>
 
+#ifdef UTH_SYSTEM_WINDOWS
+	#include <direct.h> // _mkdir
+    #define mkdir _mkdir
+#endif
+
 using namespace uth;
 
-bool FileReader::isCompressed = false;
+bool FileManager::isCompressed = false;
 
-FileReader::FileReader()
+FileManager::FileManager()
 	: file(nullptr),
 	cFile(nullptr)
 {
 	if(isCompressed)
 		PHYSFS_init(nullptr);
 }
-FileReader::FileReader(const std::string& path)
+
+FileManager::FileManager(const std::string& path, const Location loca /*= Location::ASSET*/)
 {
-
-
 	if(isCompressed)
 		PHYSFS_init(nullptr);
 
-	OpenFile(path);
+	OpenFile(path, loca);
 }
-FileReader::~FileReader()
+
+FileManager::~FileManager()
 {
 	CloseFile();
 }
 
-
 // Public
-void FileReader::OpenFile(const std::string& path)
+void FileManager::OpenFile(const std::string& path, const Location loca /*=LOCATION::ASSET*/)
 {
 	//CloseFile();
 
@@ -50,13 +54,30 @@ void FileReader::OpenFile(const std::string& path)
 	}
 	else
 	{
-		std::string temp_path = "assets/";
+		std::string temp_path;
+		if (loca == Location::ASSET)
+			temp_path = "assets/";
+		else if (loca == Location::EXTERNAL)
+			temp_path = "external/";
+		else if (loca == Location::INTERNAL)
+			temp_path = "internal/";
+		else
+			WriteError("No such file location available %d", loca);
+
 		temp_path += path;
 		file = std::fopen(temp_path.c_str(), "rb");
+		if (file == nullptr)
+		{
+			WriteLog("file not found from %s", temp_path.c_str());
+			file = std::fopen(path.c_str(), "rb");
+			if (file == nullptr)
+				WriteLog("file not found from %s", path.c_str());
+		}
 		assert(file != nullptr);
 	}
 }
-void FileReader::CloseFile()
+
+void FileManager::CloseFile()
 {
 	if(PHYSFS_isInit())
 	{
@@ -69,7 +90,8 @@ void FileReader::CloseFile()
 		file = nullptr;
 	}
 }
-int FileReader::GetFileSize()
+
+int FileManager::GetFileSize()
 {
 	int size;
 	if(PHYSFS_isInit())
@@ -86,7 +108,7 @@ int FileReader::GetFileSize()
 	return size;
 }
 
-bool FileReader::FileSeek(int offset, int origin)
+bool FileManager::FileSeek(int offset, int origin)
 {
 	if(PHYSFS_isInit())
 	{
@@ -112,7 +134,7 @@ bool FileReader::FileSeek(int offset, int origin)
 	return false;
 }
 
-bool FileReader::ReadBytes(void* buffer, unsigned int count, unsigned int blockSize)
+bool FileManager::ReadBytes(void* buffer, unsigned int count, unsigned int blockSize)
 {
 	if(PHYSFS_isInit())
 	{
@@ -133,7 +155,7 @@ bool FileReader::ReadBytes(void* buffer, unsigned int count, unsigned int blockS
 	return false;
 }
 
-const BINARY_DATA FileReader::ReadBinary()
+const BINARY_DATA FileManager::ReadBinary()
 {
 	BINARY_DATA retVal(GetFileSize());
 	if(!ReadBytes(retVal.ptr(),retVal.size()))
@@ -141,7 +163,7 @@ const BINARY_DATA FileReader::ReadBinary()
 	return retVal;
 }
 
-const std::string FileReader::ReadText()
+const std::string FileManager::ReadText()
 {
 	int size = GetFileSize();
 	char* buffer = new char[size];
@@ -150,4 +172,36 @@ const std::string FileReader::ReadText()
 	std::string str(buffer, size);
 	delete[] buffer;
 	return str;
+}
+
+void FileManager::WriteToFile(const std::string& filename, const std::string& data,
+	const Location loca /*=Location::INTERNAL*/)
+{
+	std::string temp_path;
+	if (loca == Location::EXTERNAL)
+	{
+		temp_path = "external/";
+		mkdir(temp_path.c_str());
+	}
+	else if (loca == Location::INTERNAL)
+	{
+		temp_path = "internal/";
+		mkdir(temp_path.c_str());
+	}
+	else
+		WriteError("No such file location available %d", loca);
+
+	temp_path += filename;
+
+	std::FILE* file = std::fopen(temp_path.c_str(), "w+");
+	if (file != NULL)
+	{
+		std::fputs(data.c_str(), file);
+		std::fflush(file);
+		std::fclose(file);
+	}
+	else
+	{
+		WriteError("Writing to file failed! File couldn't be opened for writing.");
+	}
 }

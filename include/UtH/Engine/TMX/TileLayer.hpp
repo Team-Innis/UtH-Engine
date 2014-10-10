@@ -3,7 +3,7 @@
 #define LAYER_TMX_UTH_H
 
 #include <UtH/Engine/TMX/Tile.hpp>
-#include <UtH/Engine/TMX/TileHackBatch.hpp>
+#include <UtH/Engine/SpriteBatch.hpp>
 
 #include <string>
 #include <vector>
@@ -44,6 +44,8 @@ namespace uth
 			std::string m_name;
 
 			unsigned int m_width, m_height;
+
+            bool m_active;
 
 			std::vector<Tile*> m_tiles;
 
