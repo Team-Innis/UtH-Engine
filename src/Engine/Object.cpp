@@ -47,10 +47,11 @@ namespace uth
 	{
 		if (m_active)
 		{
-			for (auto& i : m_children)
+			for (auto i = 0; i < m_children.size(); i++)
 			{
-				if (i->m_active)
-					i->Update(dt);
+				auto& c = m_children[i];
+				if (c->IsActive())
+					c->Update(dt);
 			}
 		}
 	}
