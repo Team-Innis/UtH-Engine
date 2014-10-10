@@ -29,7 +29,7 @@ void JavaFunctions::Vibrate(int time_ms)
 	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, vibrationFunc, time_ms);
 }
 
-void JavaFunctions::ShowAd()
+void JavaFunctions::ShowAd(unsigned int origin, pmath::Vec2i off)
 {
 	// Javaenviroment: Loads enviroment from Android activity
 	JNIEnv* jni;
@@ -46,5 +46,24 @@ void JavaFunctions::ShowAd()
 	if (popupFunc == NULL)
 		WriteError("No vibration function found!");
 
-	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, popupFunc, 0, 0, 9);
+	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, popupFunc, off.x, off.y, origin);
+}
+void JavaFunctions::CloseAd(unsigned int origin)
+{
+	// Javaenviroment: Loads enviroment from Android activity
+	JNIEnv* jni;
+	uthAndroidEngine.app->activity->vm->AttachCurrentThread(&jni, NULL);
+
+	// Loads our java master class GameActivity
+	jclass gameActivity = jni->GetObjectClass(uthAndroidEngine.app->activity->clazz);
+	if (!gameActivity)
+		WriteError("No engine found!");
+
+	// Loading function
+	jmethodID popupFunc = NULL;
+	popupFunc = jni->GetMethodID(gameActivity, "CloseAd", "(I)V");
+	if (popupFunc == NULL)
+		WriteError("No vibration function found!");
+
+	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, popupFunc, origin);
 }

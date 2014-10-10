@@ -4,6 +4,8 @@
 
 #define javaFunc uth::JavaFunctions
 
+#include <pmath/PMath.hpp>
+
 namespace uth
 {
 	class JavaFunctions
@@ -13,7 +15,8 @@ namespace uth
 	public:
 		// Vibrates for given time in milliseconds.
 		static void Vibrate(int time_ms);
-		static void ShowAd(){}
+		static void ShowAd(unsigned int origin, pmath::Vec2i offset = pmath::Vec2i()){}
+		static void CloseAd(unsigned int origin = 0){}
 	private:
 
 

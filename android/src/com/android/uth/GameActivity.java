@@ -13,31 +13,76 @@ import com.google.android.gms.ads.*;
 
 public class GameActivity extends android.app.NativeActivity
 {
+
+	GameActivity gameActivity;
+	
+	public class AdStruct
+	{
+		public AdRequest adRequest = null;
+		public AdView adView = null;
+		public MarginLayoutParams mLParams = null;
+		public PopupWindow window = null;
+		public RelativeLayout layout = null;
+		public RelativeLayout mainLayout = null;
+		public String adUnitID = null;
+		
+		public void onDestroy()
+		{
+			adRequest = null;
+			adView = null;
+			mLParams = null;
+			window = null;
+			layout = null;
+			mainLayout = null;
+			adUnitID = null;
+		}
+		
+		public AdStruct(String adID)
+		{
+			if(adView == null)
+				adView = new AdView(gameActivity);
+			adView.setAdSize(AdSize.BANNER);
+			adView.setAdUnitId(adID);
+			
+			if(window == null)
+				window = new PopupWindow(gameActivity);
+			window.setWidth(320);
+			window.setHeight(50);
+			window.setWindowLayoutMode(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			window.setClippingEnabled(false);
+			
+			if(layout == null)
+				layout = new RelativeLayout(gameActivity);
+			if(mainLayout == null)
+				mainLayout = new RelativeLayout(gameActivity);
+			
+			layout.setPadding(-1, -1, -1, -1);
+			mLParams = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			mLParams.setMargins(0, 0, 0, 0);
+			layout.addView(adView, mLParams);
+			
+			window.setContentView(layout);
+			gameActivity.setContentView(mainLayout, mLParams);
+
+			if(adRequest == null)
+				adRequest = new AdRequest.Builder()
+								     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+								     .addTestDevice("9DACB2219B50B6E9F596041151E63E12") // my Nexus 5
+								     .addTestDevice("1B5A8F52DE892FF3954B698A84CBCC87") // jani Xperia
+								     .addTestDevice("E69C2A8B1675A10447583C0049DC0D26") // my Tab2
+								     .build();
+		}
+	}
+	
+	AdStruct[] adS = {null, null, null, null, null, null, null, null, null};
+	
 	static
 	{
 		System.loadLibrary("sndfile");
 		System.loadLibrary("openal");
 		System.loadLibrary("uthengine");
 	}
-	
-	public void Vibrate(int time)
-	{
-		Vibrator vibra = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-		if(vibra == null)
-			Log.v("uth-engine", "vibra is null");
-			
-		vibra.vibrate(time);
-	}
-	
-	AdView adView = null;
-
-	PopupWindow popUp;
-	GameActivity _activity;
-	RelativeLayout layout;
-	RelativeLayout mainLayout;
-	boolean adsinited = false;
-	
 	public void onCreate(Bundle savedInstanceState)
 	{
 
@@ -45,28 +90,38 @@ public class GameActivity extends android.app.NativeActivity
 
 		// Make your custom init here
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		_activity = this;
+		
+		if(gameActivity == null)
+			gameActivity = this;
+		
+		for(int i = 0; i < 9; i++)
+		{
+			adS[i] = new AdStruct(this.getString(R.string.banner_ad_unit_id));
+		}
+	}
+	
+	public void Vibrate(int time)
+	{
+		Vibrator vibra = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-		// Create our ad view here
-		adView = new AdView(_activity);
-		adView.setAdSize(AdSize.BANNER);
-		adView.setAdUnitId(this.getString(R.string.banner_ad_unit_id));
+		if(vibra == null)
+			Log.i("uth-engine", "vibra is null");
+			
+		vibra.vibrate(time);
 	}
 	
 	public void ShowAdPopup(final int offsetX, final int offsetY, final int origin)
 	{
-		if(adsinited)
-		{
-			Log.v("uth-engine", "adsinited");
-			return;
-		}
+		Log.i("uth-engine", "ShowAdPopup(" + offsetX + "," + offsetY + "," + origin + ")");
 		
-		if(adView != null)
+		if(adS[origin-1] == null)
+			adS[origin-1] = new AdStruct(this.getString(R.string.banner_ad_unit_id));
+		
+		if(adS[origin-1] != null)
 		{
-			Log.v("uth-engine", "adView not null");
-			_activity.runOnUiThread(new Runnable() 
+			Log.i("uth-engine", "adS[" + (origin-1) + "] is not null");
+			gameActivity.runOnUiThread(new Runnable() 
 			{
-		
 				@Override
 				public void run()
 				{
@@ -104,54 +159,27 @@ public class GameActivity extends android.app.NativeActivity
 						gravity = Gravity.BOTTOM;
 						break;
 					}
-					
-					Log.v("uth-engine", "adrun");
-					adsinited = true;
 				
-					popUp = new PopupWindow(_activity);
-				
-					//popUp.setWidth(1920);
-					//popUp.setHeight(1080);
-					popUp.setWidth(320);
-					popUp.setHeight(50);
-					//popUp.setWidth(adView.getAdSize().getWidth());
-					//popUp.setWidth(adView.getAdSize().getHeight());
-				
-					popUp.setWindowLayoutMode(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-					popUp.setClippingEnabled(false);
-				
-					layout = new RelativeLayout(_activity);
-					mainLayout = new RelativeLayout(_activity);
-				
-					//layout.setPadding(-12, -12, -12, -12);
-					layout.setPadding(-1, -1, -1, -1);
-					Log.v("uth-engine", "Adview " + adView.getAdSize().getWidth() + " " + adView.getAdSize().getHeight());
-					
-					MarginLayoutParams params = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-					params.setMargins(0, 0, 0, 0);
-					//layout.setOrientation(LinearLayout.VERTICAL);
-					layout.addView(adView, params);
-				
-					popUp.setContentView(layout);
-					_activity.setContentView(mainLayout, params);
-				
-					AdRequest adRequest = new AdRequest.Builder()
-				    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-				    .addTestDevice("9DACB2219B50B6E9F596041151E63E12")
-				    .addTestDevice("1B5A8F52DE892FF3954B698A84CBCC87")
-				    .addTestDevice("E69C2A8B1675A10447583C0049DC0D26")
-				    .build();
-					
-					_activity.adView.loadAd(adRequest);
-					Log.v("uth-engine", "ad gravity" + gravity);
-					popUp.showAtLocation(mainLayout, gravity, offsetX, offsetY);
-					popUp.update();
+					gameActivity.adS[origin-1].adView.loadAd(adS[origin-1].adRequest);
+					adS[origin-1].window.showAtLocation(adS[origin-1].mainLayout, gravity, offsetX, offsetY);
+					//adS[origin-1].window.showAsDropDown(gravity, offsetX, offsetY);
+					adS[origin-1].window.update();
 			
 			}});
 		}
 		else
-			Log.v("uth-engine", "adView null");
-			
+			Log.e("uth-engine", "adS[" + (origin-1) + "] is null");
 	}
 	
+	public void CloseAd(final int origin)
+	{
+		if(origin == 0)
+		{
+			//Close all ads
+		}
+		else if(adS[origin-1].window.isShowing())
+		{
+			//Find out how to close popup windows.
+		}		
+	}
 }
