@@ -263,9 +263,11 @@ void Rigidbody::init()
 	m_body = m_world.lock()->CreateBody(&bodyDef);
 	m_body->SetUserData(parent);
 
-	if(!(m_size.lengthSquared() > 0))
-		m_size = parent->transform.GetSize();
-
+    if (!(m_size.lengthSquared() > 0))
+    {
+        m_size = parent->transform.GetSize();
+        m_size.scale(parent->transform.GetScale());
+    }
 
 	m_size /= PIXELS_PER_METER;
 
