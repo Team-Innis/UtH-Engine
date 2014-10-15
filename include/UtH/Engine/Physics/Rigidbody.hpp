@@ -112,6 +112,9 @@ namespace uth
 		// Get the angle of the object in degrees
 		float GetAngle() const;
 
+        void Move(const pmath::Vec2& offset);
+        void Rotate(const float angle);
+
 		// Set fixed rotation to the object.
 		void SetFixedRotation(bool value);
 

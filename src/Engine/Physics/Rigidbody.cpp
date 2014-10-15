@@ -193,6 +193,16 @@ float Rigidbody::GetAngle() const
 	return -m_body->GetAngle() * 180.f / static_cast<float>(pmath::pi);
 }
 
+void Rigidbody::Move(const pmath::Vec2& offset)
+{
+    SetPosition(GetPosition() + offset);
+}
+
+void Rigidbody::Rotate(const float angle)
+{
+    SetAngle(GetAngle() + angle);
+}
+
 void Rigidbody::SetFixedRotation(bool value)
 {
 	m_body->SetFixedRotation(value);
