@@ -4,10 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.*;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.WindowManager.LayoutParams;
 import android.widget.*;
+import android.widget.PopupWindow;
 
 import com.google.android.gms.ads.*;
 
@@ -15,6 +17,7 @@ public class GameActivity extends android.app.NativeActivity
 {
 
 	GameActivity gameActivity;
+	AdView	gAdView;
 	
 	public class AdStruct
 	{
@@ -22,20 +25,11 @@ public class GameActivity extends android.app.NativeActivity
 		public AdView adView = null;
 		public MarginLayoutParams mLParams = null;
 		public PopupWindow window = null;
-		public RelativeLayout layout = null;
-		public RelativeLayout mainLayout = null;
+		//public RelativeLayout layout = null;
+		//public RelativeLayout mainLayout = null;
+		public LinearLayout layout = null;
+		public LinearLayout mainLayout = null;
 		public String adUnitID = null;
-		
-		public void onDestroy()
-		{
-			adRequest = null;
-			adView = null;
-			mLParams = null;
-			window = null;
-			layout = null;
-			mainLayout = null;
-			adUnitID = null;
-		}
 		
 		public AdStruct(String adID)
 		{
@@ -52,9 +46,9 @@ public class GameActivity extends android.app.NativeActivity
 			window.setClippingEnabled(false);
 			
 			if(layout == null)
-				layout = new RelativeLayout(gameActivity);
+				layout = new LinearLayout(gameActivity);
 			if(mainLayout == null)
-				mainLayout = new RelativeLayout(gameActivity);
+				mainLayout = new LinearLayout(gameActivity);
 			
 			layout.setPadding(-1, -1, -1, -1);
 			mLParams = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -72,9 +66,20 @@ public class GameActivity extends android.app.NativeActivity
 								     .addTestDevice("E69C2A8B1675A10447583C0049DC0D26") // my Tab2
 								     .build();
 		}
+		
+		public void onDestroy()
+		{
+			adRequest = null;
+			adView = null;
+			mLParams = null;
+			window = null;
+			layout = null;
+			mainLayout = null;
+			adUnitID = null;
+		}
 	}
 	
-	AdStruct[] adS = {null, null, null, null, null, null, null, null, null};
+	AdStruct[] adS = {null, null, null, null, null, null, null, null, null, null};
 	
 	static
 	{
@@ -85,7 +90,6 @@ public class GameActivity extends android.app.NativeActivity
 
 	public void onCreate(Bundle savedInstanceState)
 	{
-
 		super.onCreate(savedInstanceState);
 
 		// Make your custom init here
@@ -94,10 +98,10 @@ public class GameActivity extends android.app.NativeActivity
 		if(gameActivity == null)
 			gameActivity = this;
 		
-		for(int i = 0; i < 9; i++)
-		{
-			adS[i] = new AdStruct(this.getString(R.string.banner_ad_unit_id));
-		}
+		adS[0] = new AdStruct(this.getString(R.string.banner_ad_unit_id));
+		gAdView = new AdView(gameActivity);
+		
+		DisplayMetrics metrics = getResources().getDisplayMetrics();
 	}
 	
 	public void Vibrate(int time)
@@ -112,14 +116,13 @@ public class GameActivity extends android.app.NativeActivity
 	
 	public void ShowAdPopup(final int offsetX, final int offsetY, final int origin)
 	{
-		Log.i("uth-engine", "ShowAdPopup(" + offsetX + "," + offsetY + "," + origin + ")");
-		
-		if(adS[origin-1] == null)
-			adS[origin-1] = new AdStruct(this.getString(R.string.banner_ad_unit_id));
-		
-		if(adS[origin-1] != null)
+		if(adS[origin] == null)
 		{
-			Log.i("uth-engine", "adS[" + (origin-1) + "] is not null");
+			adS[origin] = adS[0];
+		}
+		
+		if(adS[origin] != null)
+		{
 			gameActivity.runOnUiThread(new Runnable() 
 			{
 				@Override
@@ -159,12 +162,9 @@ public class GameActivity extends android.app.NativeActivity
 						gravity = Gravity.BOTTOM;
 						break;
 					}
-				
-					gameActivity.adS[origin-1].adView.loadAd(adS[origin-1].adRequest);
-					adS[origin-1].window.showAtLocation(adS[origin-1].mainLayout, gravity, offsetX, offsetY);
-					//adS[origin-1].window.showAsDropDown(gravity, offsetX, offsetY);
-					adS[origin-1].window.update();
-			
+					gameActivity.adS[origin].adView.loadAd(adS[origin].adRequest);
+					adS[origin].window.showAtLocation(adS[origin].mainLayout, gravity, offsetX, offsetY);
+					adS[origin].window.update(offsetX, offsetY, 320, 50);
 			}});
 		}
 		else
@@ -175,11 +175,32 @@ public class GameActivity extends android.app.NativeActivity
 	{
 		if(origin == 0)
 		{
-			//Close all ads
+			gameActivity.runOnUiThread(new Runnable() 
+			{
+				@Override
+				public void run()
+				{
+					for(int i = 1; i < 10; i++)
+					{
+						if(adS[i] != null)
+							if(adS[i].window.isShowing())
+							{
+								adS[i].window.dismiss();
+							}
+					}
+				}
+			});
 		}
-		else if(adS[origin-1].window.isShowing())
+		else if(adS[origin].window.isShowing())
 		{
-			//Find out how to close popup windows.
+			gameActivity.runOnUiThread(new Runnable() 
+			{
+				@Override
+				public void run()
+				{
+					adS[origin].window.dismiss();
+				}
+			});
 		}		
 	}
 }
