@@ -15,7 +15,8 @@ namespace uth
 		TAP = CLICK,
 		DRAG,
 		ZOOM_IN,
-		ZOOM_OUT
+		ZOOM_OUT,
+		RELEASE
 	};
 
 	class CommonInput : public InputBase

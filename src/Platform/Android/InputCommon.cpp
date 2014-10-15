@@ -46,6 +46,10 @@ void CommonInput::Update()
 		m_event = InputEvent::ZOOM_IN;
 		m_position = Touch[0].GetPosition();
 		break;
+	case TouchMotion::RELEASE:
+		m_event = InputEvent::RELEASE;
+		m_position = Touch[0].GetPosition();
+		break;
 	case TouchMotion::MULTIPLE:
 		switch(Touch[0].Motion())
 		{
