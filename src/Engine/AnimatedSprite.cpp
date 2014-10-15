@@ -100,6 +100,11 @@ void AnimatedSprite::ChangeAnimation(int loopStartFrame, int loopFrames,
 	generateBuffer(true);
 }
 
+void AnimatedSprite::ChangeSpeed(float fps)
+{
+	m_fps = fps;
+}
+
 void AnimatedSprite::Init()
 {
 	ChangeAnimation(m_firstFrame,m_frames,m_firstFrame, m_fps, m_loop, m_reversed);
@@ -127,7 +132,6 @@ void AnimatedSprite::Update(float dt)
 	{
 		m_delay = 0.0f;
 		m_frameCount++;
-
 		if(!m_reversed)
 		{
 			m_curFrame++;
@@ -135,14 +139,18 @@ void AnimatedSprite::Update(float dt)
 			{
 				m_curFrame -= m_frames;
 			}
+			WriteLog("CurFrame %d\n", m_curFrame);
+			WriteLog("FirstFrame %d\n", m_firstFrame);
 		}
 		else
 		{
 			m_curFrame--;
 			if(m_curFrame < m_firstFrame)
 			{
-				m_curFrame = m_firstFrame + m_frames;
+				m_curFrame = m_firstFrame + m_frames - 1;
 			}
+			WriteLog("CurFrame %d\n", m_curFrame);
+			WriteLog("FirstFrame %d\n", m_firstFrame);
 		}
 		generateBuffer();
 	}
