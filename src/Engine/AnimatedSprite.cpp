@@ -139,8 +139,6 @@ void AnimatedSprite::Update(float dt)
 			{
 				m_curFrame -= m_frames;
 			}
-			WriteLog("CurFrame %d\n", m_curFrame);
-			WriteLog("FirstFrame %d\n", m_firstFrame);
 		}
 		else
 		{
@@ -149,8 +147,6 @@ void AnimatedSprite::Update(float dt)
 			{
 				m_curFrame = m_firstFrame + m_frames - 1;
 			}
-			WriteLog("CurFrame %d\n", m_curFrame);
-			WriteLog("FirstFrame %d\n", m_firstFrame);
 		}
 		generateBuffer();
 	}
