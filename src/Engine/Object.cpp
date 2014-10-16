@@ -83,6 +83,7 @@ namespace uth
 			if ((*it).get() == object)
 			{
 				RemoveChild(*it);
+				return;
 			}
 		}
 	}
