@@ -20,6 +20,10 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 		m_loop(loop)
 {
 	const pmath::Vec2 texSize = texture->GetSize();
+
+	m_frameCountX = static_cast<unsigned int>(texSize.x / frameSize.x);
+	m_frameCountY = static_cast<unsigned int>(texSize.y / frameSize.y);
+
 #ifndef NDEBUG
 	if(int(texSize.x) % int(frameSize.x) != 0 || int(texSize.y) % int(frameSize.y) != 0)
 	{
@@ -27,10 +31,23 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 			texSize.x, texSize.y, frameSize.x, frameSize.y);
 		assert(false);
 	}
+
+	if (frames > m_frameCountX * m_frameCountY)
+	{
+		WriteError("Too many frames! (maximum frame capacity: %d)", m_frameCountX * m_frameCountY);
+		assert(false);
+	}
 #endif
-	m_frameCountX = static_cast<unsigned int>(texSize.x / frameSize.x);
-	m_frameCountY = static_cast<unsigned int>(texSize.y / frameSize.y);
-	AnimatedSprite(texture, frames, m_frameCountX, m_frameCountY, fps, firstFrame, reversed, loop);
+	
+	// Doesn't work for some reason.
+	//AnimatedSprite(texture, frames, m_frameCountX, m_frameCountY, fps, firstFrame, reversed, loop);
+
+	// frame size in pixels
+	m_sizePx.x = static_cast<const float>(texSize.x / m_frameCountX);
+	m_sizePx.y = static_cast<const float>(texSize.y / m_frameCountY);
+	// frame size in texcoord float
+	m_sizeTc.x = 1.0f / m_frameCountX;
+	m_sizeTc.y = 1.0f / m_frameCountY;
 }
 
 AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
