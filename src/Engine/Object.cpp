@@ -77,6 +77,16 @@ namespace uth
 		(*o)->setParent(nullptr);
 		m_children.erase(o);
 	}
+	void Object::RemoveChild(Object* object)
+	{
+		for (auto it = m_children.begin(); it != m_children.end(); it++)
+		{
+			if ((*it).get() == object)
+			{
+				RemoveChild(*it);
+			}
+		}
+	}
 	void Object::RemoveChildren()
 	{
 		for (auto child : m_children)
