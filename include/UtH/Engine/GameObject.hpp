@@ -20,7 +20,8 @@ namespace uth
 	{
 	public:
 		GameObject();
-		GameObject(const std::string &tag);
+		GameObject(const std::string& tag);
+		GameObject(const std::vector<std::string>& tags);
         //GameObject(const GameObject& other);
         void operator =(const GameObject&) = delete;
 		virtual ~GameObject();
