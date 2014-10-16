@@ -55,7 +55,7 @@
     <ClCompile Include="..\..\src\Platform\Android\FileManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Platform\Common\JavaFunctions.cpp">
+    <ClCompile Include="..\..\src\Platform\Android\JavaFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
