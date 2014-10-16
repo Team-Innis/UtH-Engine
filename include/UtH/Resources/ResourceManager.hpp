@@ -42,11 +42,19 @@ namespace uth
         Font* LoadFont(const std::string& filePath);
 		Sound* LoadSound(const std::string& filePath);
 
-        void Clear(const unsigned int flags);
-        bool DeleteImage(const std::string& filePath);
-        bool DeleteTexture(const std::string& filePath);
-        bool DeleteFont(const std::string& filePath);
+		void Clear(const unsigned int flags);
+		bool DeleteImage(const std::string& filePath);
+		bool DeleteTexture(const std::string& filePath);
+		bool DeleteFont(const std::string& filePath);
 		bool DeleteSound(const std::string& filePath);
+
+		bool UnloadImage(const std::string& filePath);
+		bool UnloadTexture(const std::string& filePath);
+		bool UnloadFont(const std::string& filePath);
+		bool UnloadSound(const std::string& filePath);
+
+		bool AndroidGainFocus();
+		bool AndroidLoseFocus();
 
 		void PauseSounds();
 

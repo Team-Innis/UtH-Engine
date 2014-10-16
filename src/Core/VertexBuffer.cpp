@@ -4,15 +4,24 @@
 
 using namespace uth;
 
+//static std::unordered_set<VertexBuffer*> VertexBuffer::VERTEXBUFFERS;
+
 VertexBuffer::VertexBuffer()
     : m_arrayBufferNeedsUpdate(false),
       m_elementBufferNeedsUpdate(false)
 {
+//#ifdef UTH_SYSTEM_ANDROID
+	VERTEXBUFFERS.emplace(this);
+//#endif
 	init();
 }
 
 VertexBuffer::~VertexBuffer()
 {
+//#ifdef UTH_SYSTEM_ANDROID
+	VERTEXBUFFERS.erase(this);
+//#endif
+
 	clear();
 	uth::Graphics::DeleteBuffers(1, &m_arrayBuffer);
 	uth::Graphics::DeleteBuffers(1, &m_elementBuffer);

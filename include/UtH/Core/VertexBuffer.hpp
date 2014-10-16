@@ -7,13 +7,18 @@
 #include <pmath/Vector.hpp>
 #include <UtH/Core/Vertex.hpp>
 #include <UtH/Core/Shader.hpp>
+#include <UtH/Platform/Configuration.hpp>
+#include <unordered_set>
 
 namespace uth
 {
 	class VertexBuffer
 	{
-
-        friend class SpriteBatch;
+//#ifdef UTH_SYSTEM_ANDROID
+		static std::unordered_set<VertexBuffer*> VERTEXBUFFERS;
+//#endif
+		friend class ResourceManager;
+		friend class SpriteBatch;
 
 	public:
 		VertexBuffer();
