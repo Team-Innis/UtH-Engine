@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    		package="com.android.uth"
+    		package="fi.kajakgames.uth"
     		android:versionCode="1"
     		android:versionName="1.0"
     		>
@@ -11,10 +11,10 @@
   
   <uses-permission android:name="android.permission.VIBRATE"/>
 
-  <application android:hasCode="true">
+  <application android:hasCode="true" android:icon="@drawable/ic_launcher" android:testOnly="false">
 
 	<meta-data android:name="com.google.android.gms.version" android:value="5089000"/>
-	<activity	android:name="com.android.uth.GameActivity"
+	<activity	android:name="fi.kajakgames.uth.GameActivity"
 				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
 				android:launchMode="singleTask"
 				android:screenOrientation="landscape"

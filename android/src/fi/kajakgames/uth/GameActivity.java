@@ -1,4 +1,4 @@
-package com.android.uth;
+package fi.kajakgames.uth;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,8 +9,8 @@ import android.view.*;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.WindowManager.LayoutParams;
 import android.widget.*;
-import android.widget.PopupWindow;
 
+import fi.kajakgames.uth.R;
 import com.google.android.gms.ads.*;
 
 public class GameActivity extends android.app.NativeActivity
@@ -102,6 +102,7 @@ public class GameActivity extends android.app.NativeActivity
 		gAdView = new AdView(gameActivity);
 		
 		DisplayMetrics metrics = getResources().getDisplayMetrics();
+		Log.i("uth-engine", "dpi:" + metrics.densityDpi);
 	}
 	
 	public void Vibrate(int time)
