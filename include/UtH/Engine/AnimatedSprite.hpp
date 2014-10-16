@@ -26,6 +26,7 @@ namespace uth
 
 		void ChangeAnimation(int loopStartFrame, int loopFrames,
 			int startFrame = 0, float fps = 5.0f, bool loop = true, bool reversed = false);
+		void ChangeSpeed(float fps);
 
 		void Init();
 		void Update(float dt);
@@ -35,8 +36,8 @@ namespace uth
 		void generateBuffer(bool init = false);
 
 		unsigned int m_frames; // in the loop
-		unsigned int m_firstFrame; // of the loop
-		unsigned int m_curFrame;
+		int m_firstFrame; // of the loop
+		int m_curFrame;
 		unsigned int m_frameCount;
 
 		// frame size in pixels

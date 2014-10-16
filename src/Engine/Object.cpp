@@ -66,14 +66,14 @@ namespace uth
 		}
 	}
 
-	bool Object::HasChild(std::shared_ptr<Object> object)
+	bool Object::HasChild(const std::shared_ptr<Object>& object) const
 	{
 		return std::find(m_children.begin(), m_children.end(), object) != m_children.end();
 	}
 
-	void Object::RemoveChild(std::shared_ptr<Object> object)
+	void Object::RemoveChild(const std::shared_ptr<Object>& object)
 	{
-		auto o = find(m_children.begin(), m_children.end(), object);
+		auto o = std::find(m_children.begin(), m_children.end(), object);
 		(*o)->setParent(nullptr);
 		m_children.erase(o);
 	}
@@ -89,7 +89,7 @@ namespace uth
 	}
 	void Object::RemoveChildren()
 	{
-		for (auto child : m_children)
+		for (auto& child : m_children)
 			child->setParent(nullptr);
 		m_children.clear();
 	}
@@ -109,7 +109,7 @@ namespace uth
 	}
 	void Object::RemoveChildren(const std::vector<std::shared_ptr<Object>>& objects)
 	{
-		for (auto o : objects)
+		for (auto& o : objects)
 		{
 			RemoveChild(o);
 		}
@@ -142,7 +142,7 @@ namespace uth
 	{
 		return m_children;
 	}
-	std::vector<std::shared_ptr<Object>> Object::Children(const std::string& tag)
+	std::vector<std::shared_ptr<Object>> Object::Children(const std::string& tag) const
 	{
 		std::vector<std::shared_ptr<Object>> retVal;
 		for (auto it = m_children.begin(); it != m_children.end(); it++)
@@ -187,7 +187,7 @@ namespace uth
 
 	void Object::AddTags(const std::vector<std::string>& tags)
 	{
-		for (auto tag : tags)
+		for (auto& tag : tags)
 		{
 			AddTag(tag);
 		}
@@ -210,12 +210,12 @@ namespace uth
 		return m_tagList;
 	}
 
-	Object* Object::Parent()
+	Object* Object::Parent() const
 	{
 		//assert(HasParent());
 		return m_parent;
 	}
-	bool Object::HasParent()
+	bool Object::HasParent() const
 	{
 		return m_parent != nullptr;
 	}
@@ -231,7 +231,7 @@ namespace uth
 
 // Private
 
-	void Object::findAll(const std::string& tag, std::vector<std::shared_ptr<Object>>& vec)
+	void Object::findAll(const std::string& tag, std::vector<std::shared_ptr<Object>>& vec) const
 	{
 		if (m_children.size() == 0)
 			return;
@@ -243,7 +243,7 @@ namespace uth
 			o->findAll(tag, vec);
 		}
 	}
-	void Object::findAll(std::vector<std::shared_ptr<Object>>& vec)
+	void Object::findAll(std::vector<std::shared_ptr<Object>>& vec) const
 	{
 		if (m_children.size() == 0)
 			return;

@@ -34,23 +34,23 @@ namespace uth
 		template <typename T>
 		std::shared_ptr<T> AddChild(T* object = new T());
 
-		bool HasChild(std::shared_ptr<Object> object);
+		bool HasChild(const std::shared_ptr<Object>& object) const;
 
-		void RemoveChild(std::shared_ptr<Object> object);
+		void RemoveChild(const std::shared_ptr<Object>& object);
 		void RemoveChild(Object* object);
 		void RemoveChildren();
 		void RemoveChildren(const std::string& tag);
 		void RemoveChildren(const std::vector<std::shared_ptr<Object>>& objects);
 
 		template <typename T>
-		std::shared_ptr<T> ExtractChild(std::shared_ptr<T> object);
+		std::shared_ptr<T> ExtractChild(const std::shared_ptr<T>& object);
 		template <typename T>
 		std::shared_ptr<T> ExtractChild(T* object);
 
 		std::vector<std::shared_ptr<Object>> ExtractChildren(const std::string& tag);
 
 		std::vector<std::shared_ptr<Object>> Children() const;
-		std::vector<std::shared_ptr<Object>> Children(const std::string& tag);
+		std::vector<std::shared_ptr<Object>> Children(const std::string& tag) const;
 
 		std::vector<std::shared_ptr<Object>> FindAll(const std::string& tag, const size_t reserveSize = 100);
 		std::vector<std::shared_ptr<Object>> FindAll(const size_t reserveSize = 100);
@@ -64,12 +64,12 @@ namespace uth
 		const std::unordered_set<std::string>& Tags() const;
 
 		template <typename T>
-		T* Parent();
-		Object* Parent();
+		T* Parent() const;
+		Object* Parent() const;
 
 		template <typename T>
-		bool HasParent();
-		bool HasParent();
+		bool HasParent() const;
+		bool HasParent() const;
 
 		void SetActive(bool value);
 		bool IsActive() const;
@@ -81,8 +81,8 @@ namespace uth
 		bool m_active;
 
 	private:
-		void findAll(const std::string& tag, std::vector<std::shared_ptr<Object>>& vec);
-		void findAll(std::vector<std::shared_ptr<Object>>& vec);
+		void findAll(const std::string& tag, std::vector<std::shared_ptr<Object>>& vec) const;
+		void findAll(std::vector<std::shared_ptr<Object>>& vec) const;
 
 		void setParent(Object* p);
 		//bool m_inWorld;
@@ -111,7 +111,7 @@ namespace uth
 	}
 
 	template <typename T>
-	inline std::shared_ptr<T> Object::ExtractChild(std::shared_ptr<T> object)
+	inline std::shared_ptr<T> Object::ExtractChild(const std::shared_ptr<T>& object)
 	{
 		auto it = std::find(m_children.begin(), m_children.end(), object);
 		if (it == m_children.end())
@@ -134,14 +134,14 @@ namespace uth
 	}
 
 	template <typename T>
-	inline T* Object::Parent()
+	inline T* Object::Parent() const
 	{
 		//assert(HasParent<T>());
 		return dynamic_cast<T*>(Parent());
 	}
 
 	template <typename T>
-	inline bool Object::HasParent()
+	inline bool Object::HasParent() const
 	{
 		return dynamic_cast<T*>(Parent()) != nullptr;
 	}

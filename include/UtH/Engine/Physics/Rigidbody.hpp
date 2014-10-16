@@ -16,6 +16,32 @@ namespace uth
 	};
 
 
+    namespace Physics
+    {
+        // All possible categories for box2d physics objects.
+        // None means no collision.
+        enum Category : unsigned short
+        {
+            None = 0,
+            Category1 = 0x1,
+            Category2 = 0x2,
+            Category3 = 0x4,
+            Category4 = 0x8,
+            Category5 = 0x10,
+            Category6 = 0x20,
+            Category7 = 0x40,
+            Category8 = 0x80,
+            Category9 = 0x100,
+            Category10 = 0x200,
+            Category11 = 0x400,
+            Category12 = 0x800,
+            Category13 = 0x1000,
+            Category14 = 0x2000,
+            Category15 = 0x4000,
+            Category16 = 0x8000
+        };
+    }
+
 	class Rigidbody : public Component
 	{
 	public:
@@ -86,6 +112,9 @@ namespace uth
 		// Get the angle of the object in degrees
 		float GetAngle() const;
 
+        void Move(const pmath::Vec2& offset);
+        void Rotate(const float angle);
+
 		// Set fixed rotation to the object.
 		void SetFixedRotation(bool value);
 
@@ -116,6 +145,26 @@ namespace uth
 		const bool IsBullet() const;
 
 		void SetKinematic(bool value);
+
+        // Objects with same negative group will never collide
+        // and objects with the same positive group will always collide.
+        // Zero means no group (default). Non-Zero index will take preference
+        // over masks
+        void SetPhysicsGroup(const short index);
+        short GetPhysicsGroup() const;
+
+        // Set the physics category for the object
+        // Default seems to be Category1
+        void SetPhysicsCategory(const Physics::Category category);
+        Physics::Category GetPhysicsCategory() const;
+        // Set the collision mask for the object
+        // Collision mask is a category or a combination of them
+        // e.g. SetPhysicsMask(Category1 | Category2);
+        // Will only collide with objects in categories 1 and 2
+        // Setting this to -1 will collide with everything (the default)
+        //void SetPhysicsMask(const short mask);
+        void SetPhysicsMask(const short mask);
+        short GetPhysicsMask() const;
 
         b2Body* GetBox2dBody();
 

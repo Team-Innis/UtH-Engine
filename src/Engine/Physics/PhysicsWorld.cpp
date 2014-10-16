@@ -5,7 +5,8 @@ using namespace uth;
 PhysicsWorld::PhysicsWorld(const float x, const float y,
     const PhysicsSettings& settings)
     : m_world(new b2World(b2Vec2(x, y))),
-    m_settings(settings)
+    m_settings(settings),
+    m_timer(0)
 { }
 
 PhysicsWorld::PhysicsWorld(const pmath::Vec2& gravity,
@@ -42,10 +43,17 @@ void PhysicsWorld::SetContactListener(PhysicsContactListener* contactListener)
     m_world->SetContactListener(contactListener);
 }
 
-void PhysicsWorld::Update()
+void PhysicsWorld::Update(float dt)
 {
-    m_world->Step(m_settings.timeStep, m_settings.velocityIterations,
-        m_settings.positionIterations);
+    m_timer += dt;
+
+    if (m_timer > m_settings.timeStep)
+    {
+        m_world->Step(m_settings.timeStep, m_settings.velocityIterations,
+            m_settings.positionIterations);
+
+        m_timer -= m_settings.timeStep;
+    }
 }
 
 void PhysicsWorld::SetSettings(const PhysicsSettings& settings)
