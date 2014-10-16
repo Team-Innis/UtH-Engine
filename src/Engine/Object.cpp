@@ -88,6 +88,12 @@ namespace uth
 	}
 	void Object::RemoveChildren()
 	{
+		assert(
+			this != nullptr ?
+			true :
+			[]() -> bool { WriteError("This = nullptr, object deleted multiple times"); return false; }()
+			);
+
 		for (auto& child : m_children)
 			child->setParent(nullptr);
 		m_children.clear();
@@ -98,12 +104,6 @@ namespace uth
 	}
 	void Object::RemoveChildren(const std::vector<std::shared_ptr<Object>>& objects)
 	{
-		assert(
-			this != nullptr ?
-			true :
-			[]() -> bool { WriteError("This = nullptr, object deleted multiple times"); return false; }()
-		);
-
 		for (auto& o : objects)
 		{
 			RemoveChild(o);
