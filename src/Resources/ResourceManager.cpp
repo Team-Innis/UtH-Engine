@@ -6,12 +6,9 @@ using namespace uth;
 ResourceManager::ResourceManager()
 {
 }
-
 ResourceManager::~ResourceManager()
 {
 }
-
-
 
 Image* uth::ResourceManager::LoadImage(const std::string& filePath)
 {
@@ -32,7 +29,6 @@ Image* uth::ResourceManager::LoadImage(const std::string& filePath)
 
     return nullptr;
 }
-
 Texture* uth::ResourceManager::LoadTexture(const std::string& filePath)
 {
     auto itr = m_textures.find(filePath);
@@ -52,7 +48,6 @@ Texture* uth::ResourceManager::LoadTexture(const std::string& filePath)
 
     return nullptr;
 }
-
 Font* ResourceManager::LoadFont(const std::string& filePath)
 {
     auto itr = m_fonts.find(filePath);
@@ -72,7 +67,6 @@ Font* ResourceManager::LoadFont(const std::string& filePath)
 
     return nullptr;
 }
-
 Sound* ResourceManager::LoadSound(const std::string& filePath)
 {
 	auto itr = m_sounds.find(filePath);
@@ -81,7 +75,7 @@ Sound* ResourceManager::LoadSound(const std::string& filePath)
 		return itr->second.get();
 
 	std::unique_ptr<Sound, Sound::Deleter> temp(new Sound());
-	const bool result = temp->Load(filePath);
+	const bool result = temp->LoadFromFile(filePath);
 
 	if (result)
 	{
@@ -104,9 +98,6 @@ void ResourceManager::Clear(const unsigned int flags)
 	if ((flags & uth::ResourceManager::Fonts) != 0)
         m_fonts.clear();
 }
-
-
-
 bool ResourceManager::DeleteImage(const std::string& filePath)
 {
     auto itr = m_images.find(filePath);
@@ -119,7 +110,6 @@ bool ResourceManager::DeleteImage(const std::string& filePath)
 
     return false;
 }
-
 bool ResourceManager::DeleteTexture(const std::string& filePath)
 {
     auto itr = m_textures.find(filePath);
@@ -132,7 +122,6 @@ bool ResourceManager::DeleteTexture(const std::string& filePath)
 
     return false;
 }
-
 bool ResourceManager::DeleteFont(const std::string& filePath)
 {
 	auto itr = m_fonts.find(filePath);
@@ -145,7 +134,6 @@ bool ResourceManager::DeleteFont(const std::string& filePath)
 
     return false;
 }
-
 bool ResourceManager::DeleteSound(const std::string& filePath)
 {
 	auto itr = m_sounds.find(filePath);
@@ -159,6 +147,32 @@ bool ResourceManager::DeleteSound(const std::string& filePath)
 	return false;
 }
 
+bool uth::ResourceManager::UnloadImage(const std::string& filePath)
+{
+	return true;
+}
+bool uth::ResourceManager::UnloadTexture(const std::string& filePath)
+{
+	return true;
+}
+bool uth::ResourceManager::UnloadFont(const std::string& filePath)
+{
+	return true;
+}
+bool uth::ResourceManager::UnloadSound(const std::string& filePath)
+{
+	return true;
+}
+
+bool uth::ResourceManager::AndroidGainFocus()
+{
+	return true;
+}
+bool uth::ResourceManager::AndroidLoseFocus()
+{
+	return true;
+}
+
 void ResourceManager::PauseSounds()
 {
 	int size = m_sounds.size();
@@ -170,3 +184,25 @@ void ResourceManager::PauseSounds()
 		itr++;
 	}
 }
+
+const std::string& ResourceManager::FilePath(const void* ptr, const unsigned int flags) const
+{
+	if ((flags & uth::ResourceManager::Sounds) != 0)
+		for (auto i : m_sounds)
+			if (i.second.get() == ptr)
+				return i.first;
+	if ((flags & uth::ResourceManager::Images) != 0)
+		for (auto i : m_images)
+			if (i.second.get() == ptr)
+				return i.first;
+	if ((flags & uth::ResourceManager::Textures) != 0)
+		for (auto i : m_textures)
+			if (i.second.get() == ptr)
+				return i.first;
+	if ((flags & uth::ResourceManager::Fonts) != 0)
+		for (auto i : m_fonts)
+			if (i.second.get() == ptr)
+				return i.first;
+	return nullptr;
+}
+

@@ -13,12 +13,14 @@
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Resources\Font.hpp" />
     <ClInclude Include="..\..\include\UtH\Resources\Image.hpp" />
+    <ClInclude Include="..\..\include\UtH\Resources\Resource.hpp" />
     <ClInclude Include="..\..\include\UtH\Resources\ResourceManager.hpp" />
     <ClInclude Include="..\..\include\UtH\Resources\Resources.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Resources\Font.cpp" />
     <ClCompile Include="..\..\src\Resources\Image.cpp" />
+    <ClCompile Include="..\..\src\Resources\Resource.cpp" />
     <ClCompile Include="..\..\src\Resources\ResourceManager.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
