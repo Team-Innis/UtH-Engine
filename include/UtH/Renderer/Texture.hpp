@@ -7,6 +7,7 @@
 #include <string>
 #include <unordered_map>
 #include <memory>
+#include <UtH/Platform/Graphics.hpp>
 
 
 namespace uth
@@ -29,9 +30,9 @@ namespace uth
 
     public:
 
-        void Bind() const;
+        void Bind(uth::TexUnit texUnit = uth::TexUnit::TEXTURE_0) const;
 
-        static void Unbind();
+		static void Unbind(uth::TexUnit texUnit = uth::TexUnit::TEXTURE_0);
 
         bool SetSmooth(const bool value);
 

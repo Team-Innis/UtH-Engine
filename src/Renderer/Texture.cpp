@@ -73,15 +73,16 @@ namespace uth
 		return true;
     }
 
-    void Texture::Bind() const
+	void Texture::Bind(uth::TexUnit texUnit) const
     {
         uth::Graphics::SetActiveTexUnit(TEXTURE_0);
         uth::Graphics::BindTexture(TEXTURE_2D, m_textureID);
     }
 
-    void Texture::Unbind()
-    {
-        uth::Graphics::BindTexture(TEXTURE_2D, 0);
+	void Texture::Unbind(uth::TexUnit texUnit)
+	{
+		uth::Graphics::SetActiveTexUnit(TEXTURE_0);
+		uth::Graphics::BindTexture(TEXTURE_2D, 0);
     }
 
     /*unsigned int Texture::GetTextureID() const
