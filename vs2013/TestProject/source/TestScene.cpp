@@ -67,10 +67,10 @@ void TestScene::Update(float dt)
 {
 	Scene::Update(dt);
 
-	if (uthInput.Common == uth::InputEvent::CLICK)
+	if (uthInput.Common == uth::InputEvent::TAP)
 	{
 		javaFunc::Vibrate(2000);
-		javaFunc::ShowAd();
+		javaFunc::ShowAd(Origin::Center);
 	}
 }
 

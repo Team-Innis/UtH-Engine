@@ -21,6 +21,7 @@
     <ClCompile Include="..\..\android\jni\main.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\AndroidWindowImpl.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\FileManager.cpp" />
+    <ClCompile Include="..\..\src\Platform\Android\GooglePlayGameServices.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputCommon.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputController.cpp" />
     <ClCompile Include="..\..\src\Platform\Android\InputKeyboard.cpp" />

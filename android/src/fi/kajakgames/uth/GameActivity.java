@@ -9,15 +9,21 @@ import android.view.*;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.WindowManager.LayoutParams;
 import android.widget.*;
-
 import fi.kajakgames.uth.R;
+
 import com.google.android.gms.ads.*;
+import com.google.android.gms.games.achievement.*;
+import com.google.android.gms.games.leaderboard.*;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 public class GameActivity extends android.app.NativeActivity
 {
 
 	GameActivity gameActivity;
 	AdView	gAdView;
+	GoogleApiClient client;
+	Achievement achievement;
+	Leaderboard leaderboard;
 	
 	public class AdStruct
 	{
@@ -50,7 +56,7 @@ public class GameActivity extends android.app.NativeActivity
 			if(mainLayout == null)
 				mainLayout = new LinearLayout(gameActivity);
 			
-			layout.setPadding(-1, -1, -1, -1);
+			layout.setPadding(-12, -12, -12, -12);
 			mLParams = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			mLParams.setMargins(0, 0, 0, 0);
 			layout.addView(adView, mLParams);
@@ -105,7 +111,21 @@ public class GameActivity extends android.app.NativeActivity
 		Log.i("uth-engine", "dpi:" + metrics.densityDpi);
 	}
 	
-	public void Vibrate(int time)
+	
+	 public void onStart()
+	 {
+	 	super.onStart();
+	  	client.connect();
+	 }
+	  
+	 public void onStop()
+	 {
+		super.onStop();
+		client.disconnect();
+	 }
+	 
+	
+	public void Vibrate(final int time)
 	{
 		Vibrator vibra = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -203,5 +223,34 @@ public class GameActivity extends android.app.NativeActivity
 				}
 			});
 		}		
+	}
+
+	
+	public void UnlockAchievement(String achievement_id)
+	{
+		Log.i("uth-engine", "received string: " + achievement_id);
+		
+		if(!client.isConnected())
+			client.connect();
+		
+		//Games.Achievements.unlock(getApiClient(), achievement_id);
+	}
+	
+	public void ShowAchievements()
+	{
+		if(!client.isConnected())
+			client.connect();
+	}
+	
+	public void SubmitHighScore(String leaderboard_id, int score)
+	{
+		if(!client.isConnected())
+			client.connect();
+	}
+	
+	public void ShowLeaderboard(String leaderboard_id)
+	{
+		if(!client.isConnected())
+			client.connect();
 	}
 }

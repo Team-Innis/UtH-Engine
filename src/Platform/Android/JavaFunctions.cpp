@@ -24,7 +24,7 @@ void JavaFunctions::Vibrate(int time_ms)
 	jmethodID vibrationFunc = NULL;
 	vibrationFunc = jni->GetMethodID(gameActivity, "Vibrate", "(I)V");
 	if (vibrationFunc == NULL)
-		WriteError("No vibration function found!");
+		WriteError("No Vibrate function found!");
 
 	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, vibrationFunc, time_ms);
 }
@@ -44,7 +44,7 @@ void JavaFunctions::ShowAd(unsigned int origin, pmath::Vec2i off)
 	jmethodID popupFunc = NULL;
 	popupFunc = jni->GetMethodID(gameActivity, "ShowAdPopup", "(III)V");
 	if (popupFunc == NULL)
-		WriteError("No vibration function found!");
+		WriteError("No ShowAdPopup function found!");
 
 	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, popupFunc, off.x, off.y, origin);
 }
@@ -63,7 +63,7 @@ void JavaFunctions::CloseAd(unsigned int origin)
 	jmethodID popupFunc = NULL;
 	popupFunc = jni->GetMethodID(gameActivity, "CloseAd", "(I)V");
 	if (popupFunc == NULL)
-		WriteError("No vibration function found!");
+		WriteError("No CloseAd function found!");
 
 	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, popupFunc, origin);
 }
