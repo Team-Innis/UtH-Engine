@@ -2,17 +2,17 @@
 #ifndef TEXTURE_H_UTH
 #define TEXTURE_H_UTH
 
-#include <UtH/Platform/Uncopyable.hpp>
-#include <pmath/Vector2.hpp>
 #include <string>
 #include <unordered_map>
 #include <memory>
+#include <UtH/Resources/Resource.hpp>
 #include <UtH/Platform/Graphics.hpp>
+#include <pmath/Vector2.hpp>
 
 
 namespace uth
 {
-    class Texture : private uth::Uncopyable
+    class Texture : public Resource
     {
     private:
 
@@ -59,9 +59,9 @@ namespace uth
         // These functions are only used by ResourceManager and RenderTexture.
         bool Create(const pmath::Vec2& size, const bool smooth = false, const bool repeated = false);
 
-        bool LoadFromFile(const std::string& filePath, const bool smooth = false, const bool repeated = false);
+        bool LoadFromFile(const std::string& filePath);
 
-
+		bool Unload();
         
         // Member data
 

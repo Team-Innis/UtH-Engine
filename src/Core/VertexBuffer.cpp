@@ -4,7 +4,9 @@
 
 using namespace uth;
 
-//static std::unordered_set<VertexBuffer*> VertexBuffer::VERTEXBUFFERS;
+//#ifdef UTH_SYSTEM_ANDROID
+std::unordered_set<VertexBuffer*> VertexBuffer::VERTEXBUFFERS;
+//#endif
 
 VertexBuffer::VertexBuffer()
     : m_arrayBufferNeedsUpdate(false),

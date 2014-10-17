@@ -24,6 +24,7 @@ namespace uth
 	class ResourceManager : public uth::Singleton<uth::ResourceManager>
 	{
 		friend class Singleton<uth::ResourceManager>;
+		friend class Resource;
 
 	public:
 
@@ -48,6 +49,7 @@ namespace uth
 		bool DeleteFont(const std::string& filePath);
 		bool DeleteSound(const std::string& filePath);
 
+		void Unload(const unsigned int flags);
 		bool UnloadImage(const std::string& filePath);
 		bool UnloadTexture(const std::string& filePath);
 		bool UnloadFont(const std::string& filePath);
@@ -61,6 +63,8 @@ namespace uth
 	private:
 		ResourceManager();
 		~ResourceManager();
+
+		const std::string& FilePath(const void* ptr, const unsigned int flags) const;
 
 		std::unordered_map<std::string, std::unique_ptr<Image, Image::Deleter>> m_images;
         std::unordered_map<std::string, std::unique_ptr<Texture, Texture::Deleter>> m_textures;

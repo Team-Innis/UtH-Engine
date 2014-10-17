@@ -141,14 +141,20 @@ void Sound::SetListenerPosition(pmath::Vec3 position)
 }
 
 // PRIVATE
-bool Sound::Load(std::string fileName)
+bool Sound::LoadFromFile(std::string& fileName)
 {
 	Initialize(fileName);
 
-	if (source)
-		return true;
+	if (!source)
+		return false;
 
-	return false;
+	m_loaded = true;
+	return true;
+}
+
+bool Sound::Unload()
+{
+
 }
 
 void Sound::Initialize(std::string fileName)

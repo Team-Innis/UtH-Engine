@@ -22,8 +22,13 @@ bool Font::LoadFromFile(const std::string& filePath)
 
 	if (!m_fontData.ptr())
 		return false;
-
+	m_loaded = true;
 	return true;
+}
+
+bool Font::Unload()
+{
+
 }
 
 const BINARY_DATA& Font::GetFontData() const

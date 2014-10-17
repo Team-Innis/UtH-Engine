@@ -10,7 +10,8 @@ namespace uth
         : m_textureID(0),
           m_size(),
           m_smooth(false),
-          m_repeated(false)
+          m_repeated(false),
+		  m_loaded(false)
     {
 
     }
@@ -44,7 +45,7 @@ namespace uth
         return true;
     }
 
-    bool Texture::LoadFromFile(const std::string& filePath, const bool smooth, const bool repeated)
+    bool Texture::LoadFromFile(const std::string& filePath)
     {
         const Image* img = uthRS.LoadImage(filePath);
 
@@ -61,8 +62,8 @@ namespace uth
         uth::Graphics::SetActiveTexUnit(TEXTURE_0);
 
         Bind();
-		SetSmooth(smooth);
-        SetRepeated(repeated);
+		SetSmooth(false);
+        SetRepeated(false);
 
 		ImageFormat format = img->GetDepth() == 4 ? RGBA_FORMAT : RGB_FORMAT;
 
@@ -137,4 +138,13 @@ namespace uth
     {
         return m_repeated;
     }
+
+	bool Texture::Unload()
+	{
+		uth::Graphics::DeleteTextures(1,&m_textureID);
+		m_textureID = 0;
+		m_loaded = false;
+		return true;
+	}
+
 }

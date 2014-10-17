@@ -8,12 +8,13 @@
 #include <UtH/Platform/Typedefs.hpp>
 #include <string>
 #include <vector>
+#include <UtH/Resources/Resource.hpp>
 
 
 namespace uth
 {
 
-    class Image
+	class Image : public Resource
     {
     private:
 
@@ -34,7 +35,7 @@ namespace uth
 
 		BYTE GetDepth() const;
 
-        pmath::Vec4 GetPixel(unsigned int x, unsigned int y) const;
+        pmath::Vec4 GetPixel(unsigned int x, unsigned int y);
 
         void flipVertical();
 
@@ -50,6 +51,7 @@ namespace uth
 
         bool LoadFromFile(const std::string& filePath);
 
+		bool Unload();
 
         // Member data
 
