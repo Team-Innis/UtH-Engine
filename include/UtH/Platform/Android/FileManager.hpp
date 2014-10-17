@@ -25,10 +25,12 @@ namespace uth
 		};
 
 		FileManager();
-		FileManager(const std::string& path, const Location = Location::ASSET);
+		FileManager(const std::string& path, const Location = Location::ASSET,
+            bool WriteToFile = false);
 		~FileManager();
 
-		void OpenFile(const std::string& path, const Location = Location::ASSET);
+		void OpenFile(const std::string& path, const Location = Location::ASSET,
+            bool WriteToFile = false);
 		void CloseFile();
 		int GetFileSize();
 		
@@ -55,9 +57,7 @@ namespace uth
 		//		@android: "/sdcard/"
 		//		@pc:	  "/external/"
 		// Location::ASSET: not available
-		void WriteToFile(const std::string& filenameAndPath,
-						 const std::string& data,
-						 const Location = Location::INTERNAL);
+		void WriteString(const std::string& data);
 
 		static AAssetManager* m_manager;
 		
@@ -74,6 +74,7 @@ namespace uth
 		std::fstream m_stream;
 		AAsset* m_asset;
 		unsigned int m_length;
+        bool m_writable;
 	};
 }
 

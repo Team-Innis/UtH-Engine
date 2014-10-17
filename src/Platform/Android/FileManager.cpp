@@ -14,20 +14,25 @@ using namespace uth;
 
 AAssetManager* FileManager::m_manager = nullptr;
 
+void ensureDirectoryExists(const std::string& path);
+
 FileManager::FileManager()
 	//:m_file(nullptr),
 	:m_stream(NULL),
 	 m_asset(nullptr),
-	 m_length(0)
+	 m_length(0),
+     m_writable(false)
 { }
 
-FileManager::FileManager(const std::string& path, const Location loca /*= Location::ASSET*/)
+FileManager::FileManager(const std::string& path, const Location loca /*= Location::ASSET*/,
+    bool WriteToFile)
 	//:m_file(nullptr),
 	: m_stream(NULL),
 	 m_asset(nullptr),
-	 m_length(0)
+	 m_length(0),
+     m_writable(false)
 {
-	OpenFile(path,loca);
+	OpenFile(path, loca, WriteToFile);
 }
 
 FileManager::~FileManager()
@@ -35,7 +40,8 @@ FileManager::~FileManager()
 	CloseFile();
 }
 
-void FileManager::OpenFile(const std::string& path, const Location loca /*= Location::ASSET*/)
+void FileManager::OpenFile(const std::string& path, const Location loca /*= Location::ASSET*/,
+    bool WriteToFile)
 {
 	errno = 0;
 	if (loca == Location::ASSET)
@@ -45,6 +51,7 @@ void FileManager::OpenFile(const std::string& path, const Location loca /*= Loca
 		{
 			m_length = AAsset_getLength(m_asset);
 		}
+        return;
 	}
 	else if (loca == Location::INTERNAL || loca == Location::EXTERNAL)
 	{
@@ -70,16 +77,17 @@ void FileManager::OpenFile(const std::string& path, const Location loca /*= Loca
 		else
 			truePath = uthAndroidEngine.internalPath + "/" + path;
 
-		m_stream.open(truePath, std::ios::in | std::ios::ate);
+        ensureDirectoryExists(truePath);
+
+        if (WriteToFile)
+            m_stream.open(truePath, std::ios::in | std::ios::ate | std::ios::out);
+        else
+		    m_stream.open(truePath, std::ios::in | std::ios::ate);
+
 		if (m_stream.is_open())
 		{
 			m_length = m_stream.tellg();
-			char* memblock = new char[m_length+1];
-			m_stream.seekg(0, std::ios::beg);
-			m_stream.read(memblock, m_length);
-			m_stream.seekg(0, std::ios::beg);
-			memblock[m_length] = 0;
-			delete[] memblock;
+            m_stream.seekg(0, std::ios::beg);
 		}
 		else
 		{
@@ -149,93 +157,12 @@ const std::string FileManager::ReadText()
 	return str;
 }
 
-void FileManager::WriteToFile(const std::string& filename, const std::string& data,
-	const Location loca /*= Location::INTERNAL*/)
+void uth::FileManager::WriteString(const std::string& data)
 {
-	errno = 0;
-	std::string dataPath;
-	std::string splitName;
-	if (loca == Location::EXTERNAL)
-	{
-		size_t temp = filename.rfind("/");
-		if (temp != -1)
-		{
-			std::string externalPath;
-
-			struct stat sb;
-			int32_t res = stat("/sdcard/", &sb);
-			if (0 == res && sb.st_mode & S_IFDIR)
-			{
-				externalPath = "/sdcard/";
-			}
-			else
-			{
-				res = stat("/sdcard0/", &sb);
-				if (0 == res && sb.st_mode & S_IFDIR)
-					externalPath = "/sdcard0/";
-				else
-					externalPath = "/sdcard1/";
-			}
-			dataPath = externalPath + filename.substr(0, temp+1);
-			splitName = filename.substr(temp+1, filename.length() - temp);
-
-			// creating directory /sdcard/data/app.name/ ?
-		}
-		else
-		{
-			dataPath = ("/sdcard/");
-			splitName = filename;
-		}
-	}
-	else if (loca == Location::INTERNAL)
- 	{
-		size_t temp = filename.rfind("/");
-		if (temp != -1)
-		{
-			dataPath = (uthAndroidEngine.internalPath + "/") + filename.substr(0, temp + 1);
-			splitName = filename.substr(temp + 1, filename.length() - temp);
-		}
-		else
-		{
-			dataPath = (uthAndroidEngine.internalPath + "/");
-			splitName = filename;
-		}
- 	}
-	else
-	{
-		WriteError("Couldn't write to %d", loca);
-	}
-
-	struct stat sb;
-	int32_t res = stat(dataPath.c_str(), &sb);
-
-	if (0 == res && sb.st_mode & S_IFDIR)
-		WriteLog("%s dir already in app's internal data storage.", dataPath.c_str());
-
-	if (ENOENT == errno)
-	{
-		res = mkdir(dataPath.c_str(), 0777);
-		if (res == 0)
-			uth::WriteLog("Creating data folder succeeded!");
-		else
-			uth::WriteError("Creating data folder failed with %d!", strerror(errno));
-	}
-
-	errno = 0;
-
-	dataPath += splitName;
-
-	if (m_stream.is_open())
-		m_stream.close();
-
-	m_stream.open(dataPath, std::ios::out | std::ios::trunc);
-	if (m_stream.is_open())
-	{
-		m_stream << data;
-		m_stream.close();
-	}
-	else
-		WriteError("File stream error: %s", strerror(errno));
+    if (!m_stream.is_open() || !m_writable)
+    {
+        WriteError("No file open or it is not writable");
+    }
 }
 
 AAsset* FileManager::loadSound(const std::string& fileName)
@@ -261,4 +188,27 @@ int64_t FileManager::readAsset(void* buffer, int64_t count, void* asset)
 int64_t FileManager::tellAsset(void* asset)
 {
 	return AAsset_seek((AAsset*)asset, 0, SEEK_CUR);
+}
+
+void ensureDirectoryExists(const std::string& path)
+{
+    WriteLog("Check dirs");
+
+    std::vector<std::string> dirs;
+
+    size_t pos = path.find("/", 1);
+    size_t lastPos = 0;
+
+    WriteLog("first %d", pos);
+    while (pos != std::string::npos)
+    {
+        dirs.push_back(path.substr(lastPos, pos-lastPos));
+        lastPos = pos;
+        pos = path.find("/", lastPos + 1);
+    }
+
+    for (int i = 0; i < dirs.size(); ++i)
+    {
+        WriteLog("dir: %d %s", i, dirs.at(i).c_str());
+    }
 }
