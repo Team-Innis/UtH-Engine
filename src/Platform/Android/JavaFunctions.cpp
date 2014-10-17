@@ -29,7 +29,7 @@ void JavaFunctions::Vibrate(int time_ms)
 	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, vibrationFunc, time_ms);
 }
 
-void JavaFunctions::ShowAd(unsigned int origin, pmath::Vec2i off)
+void JavaFunctions::ShowAd(unsigned int origin, pmath::Vec2i off, std::string name)
 {
 	// Javaenviroment: Loads enviroment from Android activity
 	JNIEnv* jni;
@@ -42,13 +42,13 @@ void JavaFunctions::ShowAd(unsigned int origin, pmath::Vec2i off)
 
 	// Loading function
 	jmethodID popupFunc = NULL;
-	popupFunc = jni->GetMethodID(gameActivity, "ShowAdPopup", "(III)V");
+	popupFunc = jni->GetMethodID(gameActivity, "ShowAd", "(IIILjava/lang/String;)V");
 	if (popupFunc == NULL)
-		WriteError("No vibration function found!");
-
-	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, popupFunc, off.x, off.y, origin);
+		WriteError("No adShow function found!");
+	jstring jname = jni->NewStringUTF(name.c_str());
+	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, popupFunc, off.x, off.y, origin, jname);
 }
-void JavaFunctions::CloseAd(unsigned int origin)
+void JavaFunctions::CloseAd(const std::string& name)
 {
 	// Javaenviroment: Loads enviroment from Android activity
 	JNIEnv* jni;
@@ -61,9 +61,9 @@ void JavaFunctions::CloseAd(unsigned int origin)
 
 	// Loading function
 	jmethodID popupFunc = NULL;
-	popupFunc = jni->GetMethodID(gameActivity, "CloseAd", "(I)V");
+	popupFunc = jni->GetMethodID(gameActivity, "HideAd", "(Ljava/lang/String;)V");
 	if (popupFunc == NULL)
-		WriteError("No vibration function found!");
-
-	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, popupFunc, origin);
+		WriteError("No ad hiding function found!");
+	jstring jname = jni->NewStringUTF(name.c_str());
+	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, popupFunc, jname);
 }
