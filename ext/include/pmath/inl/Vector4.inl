@@ -130,25 +130,41 @@ namespace pmath
         return (vec2 - vec1).length();
     }
 
+
     template<typename T>
     inline Vector4<T>& Vector4<T>::normalize()
     {
-        return *this = unitVector();
+        return *this = normalized();
     }
 
+
     template<typename T>
-    inline Vector4<T> Vector4<T>::unitVector() const
+    inline Vector4<T> Vector4<T>::normalized() const
     {
         return *this / static_cast<T>(length());
     }
 
+
     template<typename T>
-    inline bool Vector4<T>::isUnitVector() const
+    inline Vector4<T> Vector4<T>::unitVector() const
+    {
+        return normalized();
+    }
+
+    template<typename T>
+    inline bool Vector4<T>::isNormalized() const
     {
         // LengthSquared returns double.
         // Also sqrt(1) == 1 so we don't need to do that
         return equals<double>(this->lengthSquared(), 1);
     }
+
+    template<typename T>
+    inline bool Vector4<T>::isUnitVector() const
+    {
+        return isNormalized();
+    }
+
 
     template<typename T>
     inline Vector4<T> Vector4<T>::lerp(const Vector4<T>& vec1, const Vector4<T>& vec2, const T& t)

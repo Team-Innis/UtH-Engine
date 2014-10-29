@@ -11,9 +11,13 @@ GameObject::GameObject()
 }
 
 GameObject::GameObject(const std::string &tag)
-    : GameObject()
+	: Object(tag)
 {
-	AddTag(tag);
+}
+
+uth::GameObject::GameObject(const std::vector<std::string>& tags)
+	: Object(tags)
+{
 }
 
 //uth::GameObject::GameObject(const GameObject& other)
