@@ -47,6 +47,10 @@ namespace uth
 
 		virtual void generateBuffer(bool init = false);
 
+        virtual std::shared_ptr<tinyxml2::XMLDocument> save() const;
+
+        virtual bool load(const tinyxml2::XMLDocument& doc);
+
 		VertexBuffer m_vertexBuffer;
 
 		Texture* m_texture;

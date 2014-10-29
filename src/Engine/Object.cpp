@@ -237,4 +237,15 @@ namespace uth
 	{
 		m_parent = p;
 	}
+
+    std::shared_ptr<tinyxml2::XMLDocument> Object::save() const
+    {
+        return std::shared_ptr<tinyxml2::XMLDocument>();
+    }
+
+    bool Object::load(const tinyxml2::XMLDocument& doc)
+    {
+        return false;
+    }
+
 }

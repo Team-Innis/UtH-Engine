@@ -5,6 +5,19 @@
 #include <UtH/Engine/DefaultScene.hpp>
 #include <UtH/Engine/Engine.hpp>
 
+
+namespace
+{
+    struct SaveHeader
+    {
+        // scene name?
+        // object count & possibly memory offsets if needed
+        // object datas in xml binary form
+
+        // component descriptions will be inside the object xml
+    };
+}
+
 namespace uth
 {
 	Scene* defaultNewSceneFunc(int SceneID)
@@ -55,7 +68,22 @@ namespace uth
 	{
 		makeActiveScene = newSceneFunc;
 		sceneCount = SceneCount;
-	}
+    }
+
+    bool SceneManager::SaveCurrentScene(const std::string& saveName)
+    {
+
+
+        return false;
+    }
+
+    bool SceneManager::LoadSavedScene(const std::string& saveName)
+    {
+
+
+        return false;
+    }
+
 
 	// private
 	void SceneManager::endScene()
@@ -88,5 +116,5 @@ namespace uth
 		startScene();
 		m_pendingSceneSwitch = false;
 	}
-	
+
 }

@@ -6,6 +6,8 @@
 #include <UtH/Core/Shader.hpp>
 #include <UtH/Renderer/RenderAttributes.hpp>
 #include <string>
+#include <memory>
+#include <tinyxml2.h>
 
 
 namespace uth
@@ -39,6 +41,14 @@ namespace uth
 		std::string m_name;
 
 		bool m_active;
+
+    private:
+
+        friend class SceneManager;
+
+        virtual std::shared_ptr<tinyxml2::XMLDocument> save() const = 0;
+        virtual bool load(const tinyxml2::XMLDocument& doc) = 0;
+
 	};
 }
 #endif

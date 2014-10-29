@@ -237,3 +237,13 @@ void AnimatedSprite::generateBuffer(bool init)
         m_vertexBuffer.changeBufferData(0, vertices);
     }
 }
+
+std::shared_ptr<tinyxml2::XMLDocument> uth::AnimatedSprite::save() const
+{
+    return std::shared_ptr<tinyxml2::XMLDocument>();
+}
+
+bool uth::AnimatedSprite::load(const tinyxml2::XMLDocument& doc)
+{
+    return false;
+}

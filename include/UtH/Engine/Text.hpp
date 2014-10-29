@@ -45,6 +45,10 @@ namespace uth
 		//Text();
 		Text(/*"text", path = "font", size = 32, name = "Text"*/);
 
+        virtual std::shared_ptr<tinyxml2::XMLDocument> save() const;
+
+        virtual bool load(const tinyxml2::XMLDocument& doc);
+
 		Shader m_textShader;
 
 		VertexBuffer m_vertexBuffer;

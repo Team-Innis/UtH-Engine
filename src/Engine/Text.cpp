@@ -172,6 +172,16 @@ const pmath::Vec4 uth::Text::GetDefaultColor()
 	return m_color;
 }
 
+std::shared_ptr<tinyxml2::XMLDocument> uth::Text::save() const
+{
+    return std::shared_ptr<tinyxml2::XMLDocument>();
+}
+
+bool uth::Text::load(const tinyxml2::XMLDocument& doc)
+{
+    return false;
+}
+
 void Text::Draw(RenderTarget& target)
 {
 	target.Bind();

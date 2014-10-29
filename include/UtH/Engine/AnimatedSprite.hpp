@@ -35,6 +35,10 @@ namespace uth
 
 		void generateBuffer(bool init = false);
 
+        virtual std::shared_ptr<tinyxml2::XMLDocument> save() const;
+
+        virtual bool load(const tinyxml2::XMLDocument& doc);
+
 		unsigned int m_frames; // in the loop
 		int m_firstFrame; // of the loop
 		int m_curFrame;

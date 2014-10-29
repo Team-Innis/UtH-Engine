@@ -9,6 +9,7 @@
 #include <memory>
 #include <UtH/Engine/Transform.hpp>
 #include <UtH/Renderer/RenderAttributes.hpp>
+#include <tinyxml2.h>
 
 namespace uth
 {
@@ -81,6 +82,12 @@ namespace uth
 		bool m_active;
 
 	private:
+
+        friend class SceneManager;
+
+        virtual std::shared_ptr<tinyxml2::XMLDocument> save() const;
+        virtual bool load(const tinyxml2::XMLDocument& doc);
+
 		void findAll(const std::string& tag, std::vector<std::shared_ptr<Object>>& vec) const;
 		void findAll(std::vector<std::shared_ptr<Object>>& vec) const;
 

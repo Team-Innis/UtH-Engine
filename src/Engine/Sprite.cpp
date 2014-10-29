@@ -169,3 +169,13 @@ void Sprite::generateBuffer(bool init)
         m_vertexBuffer.changeBufferData(0, vertices);
     }
 }
+
+std::shared_ptr<tinyxml2::XMLDocument> uth::Sprite::save() const
+{
+    return std::shared_ptr<tinyxml2::XMLDocument>();
+}
+
+bool uth::Sprite::load(const tinyxml2::XMLDocument& doc)
+{
+    return false;
+}
