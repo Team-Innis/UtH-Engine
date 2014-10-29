@@ -25,10 +25,10 @@ namespace uth
 		};
 
 		FileManager();
-		FileManager(const std::string& path, const Location = Location::ASSET);
+        FileManager(const std::string& path, const Location = Location::ASSET);
 		~FileManager();
 
-		void OpenFile(const std::string& path, const Location = Location::ASSET);
+        void OpenFile(const std::string& path, const Location = Location::ASSET);
 		void CloseFile();
 		int GetFileSize();
 		
@@ -47,17 +47,8 @@ namespace uth
 		// Returns the content of the whole file as text
 		const std::string ReadText();
 
-		// Saves text to file.
-		// Location::INTERNAL path:
-		//		@android: "/data/data/net.app.name/" (hidden file)
-		//		@pc:	  "/internal/"
-		// Location::EXTERNAL:
-		//		@android: "/sdcard/"
-		//		@pc:	  "/external/"
-		// Location::ASSET: not available
-		void WriteToFile(const std::string& filenameAndPath,
-						 const std::string& data,
-						 const Location = Location::INTERNAL);
+        // Write text to file.
+		void WriteString(const std::string& data);
 
 		static AAssetManager* m_manager;
 		
@@ -70,10 +61,8 @@ namespace uth
 		static int64_t tellAsset(void* asset);
 		
 	private:
-		//std::FILE* m_file;
 		std::fstream m_stream;
 		AAsset* m_asset;
-		unsigned int m_length;
 	};
 }
 

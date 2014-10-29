@@ -54,6 +54,10 @@ bool TestScene::Init()
         ps->SetEmitProperties(true, 0.05f, 0.1f, 1, 5);
     }
 
+    FileManager fm;
+    fm.OpenFile("testDir/testFile.txt", FileManager::Location::EXTERNAL, true);
+    fm.WriteString("Herp Derp");
+
 	return true;
 }
 bool TestScene::DeInit()
