@@ -55,8 +55,8 @@ namespace uth
 		bool UnloadFont(const std::string& filePath);
 		bool UnloadSound(const std::string& filePath);
 
-		bool AndroidGainFocus();
-		bool AndroidLoseFocus();
+		bool ClearOpenGLContext();
+		bool RecreateOpenGLContext();
 
 		void PauseSounds();
 

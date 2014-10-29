@@ -147,29 +147,71 @@ bool ResourceManager::DeleteSound(const std::string& filePath)
 	return false;
 }
 
+
+void uth::ResourceManager::Unload(const unsigned int flags)
+{
+	if ((flags & uth::ResourceManager::Sounds) != 0)
+		for (auto& i : m_sounds)
+			i.second->Unload();
+	if ((flags & uth::ResourceManager::Images) != 0)
+		for (auto& i : m_images)
+			i.second->Unload();
+	if ((flags & uth::ResourceManager::Textures) != 0)
+		for (auto& i : m_textures)
+			i.second->Unload();
+	if ((flags & uth::ResourceManager::Fonts) != 0)
+		for (auto& i : m_fonts)
+			i.second->Unload();
+}
 bool uth::ResourceManager::UnloadImage(const std::string& filePath)
 {
+	auto& i = m_images.find(filePath);
+	if (i == m_images.end())
+		return false;
+
+	i->second->Unload();
 	return true;
 }
 bool uth::ResourceManager::UnloadTexture(const std::string& filePath)
 {
+	auto& i = m_textures.find(filePath);
+	if (i == m_textures.end())
+		return false;
+
+	i->second->Unload();
 	return true;
 }
 bool uth::ResourceManager::UnloadFont(const std::string& filePath)
 {
+	auto& i = m_fonts.find(filePath);
+	if (i == m_fonts.end())
+		return false;
+
+	i->second->Unload();
 	return true;
 }
 bool uth::ResourceManager::UnloadSound(const std::string& filePath)
 {
+	auto& i = m_sounds.find(filePath);
+	if (i == m_sounds.end())
+		return false;
+
+	i->second->Unload();
 	return true;
 }
 
-bool uth::ResourceManager::AndroidGainFocus()
+bool uth::ResourceManager::RecreateOpenGLContext()
 {
+	for (auto& i : m_images)
+		i.second->EnsureLoaded();
+	for (auto& i : m_textures)
+		i.second->EnsureLoaded();
+
 	return true;
 }
-bool uth::ResourceManager::AndroidLoseFocus()
+bool uth::ResourceManager::ClearOpenGLContext()
 {
+	Unload(Images | Textures);
 	return true;
 }
 
@@ -188,19 +230,19 @@ void ResourceManager::PauseSounds()
 const std::string& ResourceManager::FilePath(const void* ptr, const unsigned int flags) const
 {
 	if ((flags & uth::ResourceManager::Sounds) != 0)
-		for (auto i : m_sounds)
+		for (auto& i : m_sounds)
 			if (i.second.get() == ptr)
 				return i.first;
 	if ((flags & uth::ResourceManager::Images) != 0)
-		for (auto i : m_images)
+		for (auto& i : m_images)
 			if (i.second.get() == ptr)
 				return i.first;
 	if ((flags & uth::ResourceManager::Textures) != 0)
-		for (auto i : m_textures)
+		for (auto& i : m_textures)
 			if (i.second.get() == ptr)
 				return i.first;
 	if ((flags & uth::ResourceManager::Fonts) != 0)
-		for (auto i : m_fonts)
+		for (auto& i : m_fonts)
 			if (i.second.get() == ptr)
 				return i.first;
 	return nullptr;
