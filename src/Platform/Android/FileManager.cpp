@@ -20,19 +20,16 @@ FileManager::FileManager()
 	//:m_file(nullptr),
 	:m_stream(NULL),
 	 m_asset(nullptr),
-	 m_length(0),
-     m_writable(false)
+	 m_length(0)
 { }
 
-FileManager::FileManager(const std::string& path, const Location loca /*= Location::ASSET*/,
-    bool WriteToFile)
+FileManager::FileManager(const std::string& path, const Location loca /*= Location::ASSET*/)
 	//:m_file(nullptr),
 	: m_stream(NULL),
 	 m_asset(nullptr),
-	 m_length(0),
-     m_writable(false)
+	 m_length(0)
 {
-	OpenFile(path, loca, WriteToFile);
+	OpenFile(path, loca);
 }
 
 FileManager::~FileManager()
@@ -40,8 +37,7 @@ FileManager::~FileManager()
 	CloseFile();
 }
 
-void FileManager::OpenFile(const std::string& path, const Location loca /*= Location::ASSET*/,
-    bool WriteToFile)
+void FileManager::OpenFile(const std::string& path, const Location loca /*= Location::ASSET*/)
 {
 	errno = 0;
 	if (loca == Location::ASSET)
@@ -79,10 +75,15 @@ void FileManager::OpenFile(const std::string& path, const Location loca /*= Loca
 
         ensureDirectoryExists(truePath);
 
-        if (WriteToFile)
+        m_stream.open(truePath, std::ios::in | std::ios::ate | std::ios::out);
+        if (!m_stream.is_open())
+        {
+            // Try creating the file
+            m_stream.clear();
+            m_stream.open(truePath, std::ios::out);
+            m_stream.close();
             m_stream.open(truePath, std::ios::in | std::ios::ate | std::ios::out);
-        else
-		    m_stream.open(truePath, std::ios::in | std::ios::ate);
+        }
 
 		if (m_stream.is_open())
 		{
@@ -159,10 +160,13 @@ const std::string FileManager::ReadText()
 
 void uth::FileManager::WriteString(const std::string& data)
 {
-    if (!m_stream.is_open() || !m_writable)
+    if (!m_stream.is_open())
     {
-        WriteError("No file open or it is not writable");
+        WriteError("No file is open");
+        return;
     }
+
+    m_stream << data;
 }
 
 AAsset* FileManager::loadSound(const std::string& fileName)
@@ -207,8 +211,25 @@ void ensureDirectoryExists(const std::string& path)
         pos = path.find("/", lastPos + 1);
     }
 
+    // Check the dirs actually exist
+    std::string testPath;
     for (int i = 0; i < dirs.size(); ++i)
     {
-        WriteLog("dir: %d %s", i, dirs.at(i).c_str());
+        testPath += dirs.at(i);
+
+        struct stat s;
+
+        int ret = stat(testPath.c_str(), &s);
+
+        if (!S_ISDIR(s.st_mode) || ret != 0)
+        {
+            WriteLog("Creating dir %s", testPath.c_str());
+
+            // Try to create the directory
+            int status = mkdir(testPath.c_str(), 0777);
+            if (status == -1)
+                WriteError("Error: %s when creating directory: %s", strerror(errno),
+                testPath.c_str());
+        }
     }
 }

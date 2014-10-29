@@ -25,12 +25,10 @@ namespace uth
 		};
 
 		FileManager();
-		FileManager(const std::string& path, const Location = Location::ASSET,
-            bool WriteToFile = false);
+        FileManager(const std::string& path, const Location = Location::ASSET);
 		~FileManager();
 
-		void OpenFile(const std::string& path, const Location = Location::ASSET,
-            bool WriteToFile = false);
+        void OpenFile(const std::string& path, const Location = Location::ASSET);
 		void CloseFile();
 		int GetFileSize();
 		
@@ -74,7 +72,6 @@ namespace uth
 		std::fstream m_stream;
 		AAsset* m_asset;
 		unsigned int m_length;
-        bool m_writable;
 	};
 }
 
