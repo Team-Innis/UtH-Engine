@@ -238,12 +238,12 @@ void AnimatedSprite::generateBuffer(bool init)
     }
 }
 
-std::shared_ptr<tinyxml2::XMLDocument> uth::AnimatedSprite::save() const
+std::shared_ptr<tinyxml2::XMLNode> uth::AnimatedSprite::save() const
 {
-    return std::shared_ptr<tinyxml2::XMLDocument>();
+    return std::shared_ptr<tinyxml2::XMLNode>();
 }
 
-bool uth::AnimatedSprite::load(const tinyxml2::XMLDocument& doc)
+bool uth::AnimatedSprite::load(const tinyxml2::XMLNode& doc)
 {
     return false;
 }

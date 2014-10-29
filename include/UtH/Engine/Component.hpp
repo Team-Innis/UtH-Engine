@@ -46,8 +46,8 @@ namespace uth
 
         friend class SceneManager;
 
-        virtual std::shared_ptr<tinyxml2::XMLDocument> save() const = 0;
-        virtual bool load(const tinyxml2::XMLDocument& doc) = 0;
+        virtual std::shared_ptr<tinyxml2::XMLNode> save() const = 0;
+        virtual bool load(const tinyxml2::XMLNode& doc) = 0;
 
 	};
 }

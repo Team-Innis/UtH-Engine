@@ -35,9 +35,9 @@ namespace uth
 
 		void generateBuffer(bool init = false);
 
-        virtual std::shared_ptr<tinyxml2::XMLDocument> save() const;
+        std::shared_ptr<tinyxml2::XMLNode> save() const override;
 
-        virtual bool load(const tinyxml2::XMLDocument& doc);
+        bool load(const tinyxml2::XMLNode& doc) override;
 
 		unsigned int m_frames; // in the loop
 		int m_firstFrame; // of the loop

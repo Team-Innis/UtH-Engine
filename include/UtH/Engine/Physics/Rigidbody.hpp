@@ -174,6 +174,10 @@ namespace uth
 
 		Rigidbody();
 
+        std::shared_ptr<tinyxml2::XMLNode> save() const override;
+
+        bool load(const tinyxml2::XMLNode& doc) override;
+
 		std::weak_ptr<b2World> m_world;
 		b2Body* m_body;
 

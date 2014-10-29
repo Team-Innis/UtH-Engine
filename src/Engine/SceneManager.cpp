@@ -6,18 +6,6 @@
 #include <UtH/Engine/Engine.hpp>
 
 
-namespace
-{
-    struct SaveHeader
-    {
-        // scene name?
-        // object count & possibly memory offsets if needed
-        // object datas in xml binary form
-
-        // component descriptions will be inside the object xml
-    };
-}
-
 namespace uth
 {
 	Scene* defaultNewSceneFunc(int SceneID)
@@ -70,18 +58,55 @@ namespace uth
 		sceneCount = SceneCount;
     }
 
-    bool SceneManager::SaveCurrentScene(const std::string& saveName)
+    namespace x = tinyxml2;
+
+    bool SceneManager::SaveCurrentScene(const std::string& saveName, const std::string& path)
     {
+        x::XMLDocument doc;
+        doc.ToElement()->SetName(saveName.c_str());
+        
+        for (auto& i : curScene->m_children)
+        {
+            doc.InsertEndChild(i->save().get());
+        }
 
+        FileManager().WriteToFile(path, doc.ToText()->Value());
 
-        return false;
+        return true;
     }
 
-    bool SceneManager::LoadSavedScene(const std::string& saveName)
+    bool SceneManager::LoadSavedScene(const std::string& path)
     {
+        FileManager fm;
+        fm.OpenFile(path);
+        
+        x::XMLDocument doc;
+        if (doc.Parse(fm.ReadText().c_str()))
+        {
+            WriteError("Failed to parse save file in path %s", path.c_str());
+            return false;
+        }
 
+        //auto elem = doc.ToElement();
+        // TODO: handle scene data after which load it and set active
 
-        return false;
+        bool error = false;
+        for (auto itr = doc.FirstChildElement(); itr != nullptr; itr = itr->NextSiblingElement())
+        {
+            auto obj = std::make_shared<Object>();
+            
+            if (obj->load(*itr))
+                curScene->AddChild(obj);
+            else
+                error = true;
+        }
+
+        if (error)
+        {
+            WriteError("Failed to load one or more objects from save %s", path.c_str());
+        }
+
+        return !error;
     }
 
 

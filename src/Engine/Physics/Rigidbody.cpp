@@ -239,6 +239,16 @@ float uth::Rigidbody::GetRestitution() const
     return m_body->GetFixtureList()->GetRestitution();
 }
 
+std::shared_ptr<tinyxml2::XMLNode> uth::Rigidbody::save() const
+{
+    return std::shared_ptr<tinyxml2::XMLNode>();
+}
+
+bool uth::Rigidbody::load(const tinyxml2::XMLNode& doc)
+{
+    return false;
+}
+
 void Rigidbody::SetActive(bool value)
 {
 	m_body->SetActive(value);
