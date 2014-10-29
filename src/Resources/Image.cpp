@@ -66,7 +66,7 @@ namespace uth
         return true;
     }
 
-	bool Image::Unload()
+	void Image::Unload()
 	{
 		m_pixels.clear();
 		m_loaded = false;

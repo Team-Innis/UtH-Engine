@@ -141,9 +141,9 @@ void Sound::SetListenerPosition(pmath::Vec3 position)
 }
 
 // PRIVATE
-bool Sound::LoadFromFile(std::string& fileName)
+bool Sound::LoadFromFile(const std::string& filePath)
 {
-	Initialize(fileName);
+	Initialize(filePath);
 
 	if (!source)
 		return false;
@@ -152,7 +152,7 @@ bool Sound::LoadFromFile(std::string& fileName)
 	return true;
 }
 
-bool Sound::Unload()
+void Sound::Unload()
 {
 
 }
@@ -185,7 +185,7 @@ void Sound::Initialize(std::string fileName)
 	}
 
 	WriteLog("Frames: %d\n", soundInfo.frames);
-	WriteLog("Samplerae: %d\n", soundInfo.samplerate);
+	WriteLog("Samplerate: %d\n", soundInfo.samplerate);
 	WriteLog("Channels: %d\n", soundInfo.channels);
 	WriteLog("Format: %d\n", soundInfo.format);
 

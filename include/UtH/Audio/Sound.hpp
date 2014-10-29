@@ -38,7 +38,7 @@ namespace uth
 		// Plays from specific second
 		void Play(float offset);
 
-		// Intented for soundeffects.
+		// Indented for soundeffects.
 		// This function copies sound source and starts
 		// to play new source.
 		void PlayEffect();
@@ -74,8 +74,8 @@ namespace uth
 	private:
 		Sound(const Sound&);
 
-		bool LoadFromFile(std::string& fileName);
-		bool Unload();
+		bool LoadFromFile(const std::string& filePath) override;
+		void Unload() override;
 		void Initialize(std::string fileName);
 		static void CreateSources(ALuint &source);
 		ALint Status();

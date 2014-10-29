@@ -32,9 +32,9 @@ namespace uth
 		Font();
 		~Font();
 
-        bool LoadFromFile(const std::string& filePath);
+		bool LoadFromFile(const std::string& filePath) override;
 
-		bool Unload();
+		void Unload() override;
 
         BINARY_DATA m_fontData;
 	};

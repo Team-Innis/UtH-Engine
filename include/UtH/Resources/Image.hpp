@@ -49,9 +49,9 @@ namespace uth
         ~Image();
 
 
-        bool LoadFromFile(const std::string& filePath);
+		bool LoadFromFile(const std::string& filePath) override;
 
-		bool Unload();
+		void Unload() override;
 
         // Member data
 

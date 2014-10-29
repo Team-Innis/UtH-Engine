@@ -59,9 +59,9 @@ namespace uth
         // These functions are only used by ResourceManager and RenderTexture.
         bool Create(const pmath::Vec2& size, const bool smooth = false, const bool repeated = false);
 
-        bool LoadFromFile(const std::string& filePath);
+        bool LoadFromFile(const std::string& filePath) override;
 
-		bool Unload();
+		void Unload() override;
         
         // Member data
 

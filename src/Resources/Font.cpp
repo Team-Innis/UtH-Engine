@@ -26,7 +26,7 @@ bool Font::LoadFromFile(const std::string& filePath)
 	return true;
 }
 
-bool Font::Unload()
+void Font::Unload()
 {
 
 }

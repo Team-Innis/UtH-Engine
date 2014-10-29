@@ -11,12 +11,13 @@ namespace uth
 	{
 		friend class ResourceManager;
 	public:
+		Resource();
 		virtual bool IsLoaded() const;
 
 	protected:
 
 		virtual bool LoadFromFile(const std::string& filePath) = 0;
-		virtual bool Unload() = 0;
+		virtual void Unload() = 0;
 		virtual bool EnsureLoaded();
 
 		bool m_loaded;

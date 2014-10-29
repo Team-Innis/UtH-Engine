@@ -10,8 +10,7 @@ namespace uth
         : m_textureID(0),
           m_size(),
           m_smooth(false),
-          m_repeated(false),
-		  m_loaded(false)
+          m_repeated(false)
     {
 
     }
@@ -70,7 +69,8 @@ namespace uth
         uth::Graphics::SetTextureImage2D(TEXTURE_2D, 0, format,
 			static_cast<unsigned int>(m_size.x), static_cast<unsigned int>(m_size.y),
 			format, UNSIGNED_BYTE_TYPE, &img->m_pixels[0]);
-		
+
+		m_loaded = true;
 		return true;
     }
 
@@ -139,12 +139,13 @@ namespace uth
         return m_repeated;
     }
 
-	bool Texture::Unload()
+	void Texture::Unload()
 	{
-		uth::Graphics::DeleteTextures(1,&m_textureID);
+		Unbind();
+		uth::Graphics::DeleteTextures(1, &m_textureID);
+		Unbind();
 		m_textureID = 0;
 		m_loaded = false;
-		return true;
 	}
 
 }
