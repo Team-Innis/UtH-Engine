@@ -6,12 +6,18 @@
 
 namespace uth
 {
+	//#ifdef UTH_SYSTEM_ANDROID
+	std::unordered_set<RenderTexture*> RenderTexture::RENDERTEXTURES;
+	//#endif
 
     RenderTexture::RenderTexture()
         : m_texture(),
           m_frameBuffer(0),
           m_depthBuffer(0)
-    {
+	{
+		//#ifdef UTH_SYSTEM_ANDROID
+		RENDERTEXTURES.emplace(this);
+		//#endif
     }
 
     RenderTexture::~RenderTexture()
@@ -22,6 +28,10 @@ namespace uth
             uth::Graphics::DeleteFrameBuffers(1, &m_frameBuffer);
         if (m_depthBuffer)
             uth::Graphics::DeleteRenderBuffers(1, &m_depthBuffer);
+
+		//#ifdef UTH_SYSTEM_ANDROID
+		RENDERTEXTURES.erase(this);
+		//#endif
     }
 
 

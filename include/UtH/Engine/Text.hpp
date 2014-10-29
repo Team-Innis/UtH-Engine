@@ -15,6 +15,10 @@ namespace uth
 {
 	class Text : public Component
 	{
+		//#ifdef UTH_SYSTEM_ANDROID
+		static std::unordered_set<Text*> TEXTS;
+		//#endif
+		friend class ResourceManager;
 	public:
 		Text(const std::string& fontPath, const float fontSize,
 			const std::string& name = "Text", 

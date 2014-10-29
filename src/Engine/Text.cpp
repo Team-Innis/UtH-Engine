@@ -12,6 +12,10 @@
 
 using namespace uth;
 
+//#ifdef UTH_SYSTEM_ANDROID
+std::unordered_set<Text*> Text::TEXTS;
+//#endif
+
 uth::Text::Text(const std::string& fontPath, const float fontSize, 
 	const std::string& name /*= "Text"*/, 
 	const pmath::Vec4 defaultColor /*= pmath::Vec4(1,1,1,1)*/)
@@ -19,11 +23,11 @@ uth::Text::Text(const std::string& fontPath, const float fontSize,
 	m_fontSize(fontSize),
 	m_size(0, m_fontSize)
 {
-//#if defined(UTH_SYSTEM_OPENGLES)
-//	m_textShader.LoadShader("Shaders/DefaultText.vert", "Shaders/esText.frag");
-//#else
+	//#ifdef UTH_SYSTEM_ANDROID
+	TEXTS.emplace(this);
+	//#endif
+
 	m_textShader.LoadShader("Shaders/DefaultText.vert", "Shaders/DefaultText.frag");
-//#endif
 
 	m_atlas = texture_atlas_new(1024, 1024, 1);
 
@@ -41,6 +45,10 @@ Text::~Text()
 {
 	texture_font_delete(m_font);
 	texture_atlas_delete(m_atlas);
+
+	//#ifdef UTH_SYSTEM_ANDROID
+	TEXTS.erase(this);
+	//#endif
 }
 
 void Text::Init()

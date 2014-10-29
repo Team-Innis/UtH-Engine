@@ -9,7 +9,11 @@ namespace uth
 {
 
     class RenderTexture : public RenderTarget
-    {
+	{
+		//#ifdef UTH_SYSTEM_ANDROID
+		static std::unordered_set<RenderTexture*> RENDERTEXTURES;
+		//#endif
+		friend class ResourceManager;
     public:
 
         RenderTexture();
