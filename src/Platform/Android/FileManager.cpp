@@ -19,15 +19,13 @@ void ensureDirectoryExists(const std::string& path);
 FileManager::FileManager()
 	//:m_file(nullptr),
 	:m_stream(NULL),
-	 m_asset(nullptr),
-	 m_length(0)
+	 m_asset(nullptr)
 { }
 
 FileManager::FileManager(const std::string& path, const Location loca /*= Location::ASSET*/)
 	//:m_file(nullptr),
 	: m_stream(NULL),
-	 m_asset(nullptr),
-	 m_length(0)
+	 m_asset(nullptr)
 {
 	OpenFile(path, loca);
 }
@@ -43,10 +41,6 @@ void FileManager::OpenFile(const std::string& path, const Location loca /*= Loca
 	if (loca == Location::ASSET)
 	{
 		m_asset = AAssetManager_open(m_manager, path.c_str(), 2);
-		if (m_asset != nullptr)
-		{
-			m_length = AAsset_getLength(m_asset);
-		}
         return;
 	}
 	else if (loca == Location::INTERNAL || loca == Location::EXTERNAL)
@@ -75,22 +69,19 @@ void FileManager::OpenFile(const std::string& path, const Location loca /*= Loca
 
         ensureDirectoryExists(truePath);
 
-        m_stream.open(truePath, std::ios::in | std::ios::ate | std::ios::out);
+        m_stream.open(truePath, std::ios::in | std::ios::out);
+        // First try to create the file if it does not exist
         if (!m_stream.is_open())
         {
             // Try creating the file
             m_stream.clear();
             m_stream.open(truePath, std::ios::out);
             m_stream.close();
-            m_stream.open(truePath, std::ios::in | std::ios::ate | std::ios::out);
+            m_stream.open(truePath, std::ios::in | std::ios::out);
         }
 
-		if (m_stream.is_open())
-		{
-			m_length = m_stream.tellg();
-            m_stream.seekg(0, std::ios::beg);
-		}
-		else
+        // If it's still not open then we have a problem
+        if (!m_stream.is_open())
 		{
 			WriteError("errno %s with file %s", strerror(errno), truePath.c_str());
 		}
@@ -106,7 +97,16 @@ void FileManager::CloseFile()
 
 int FileManager::GetFileSize()
 {
-	return m_length;
+    if (m_asset != nullptr)
+    {
+        return AAsset_getLength(m_asset);
+    }
+
+    m_stream.seekg(0, m_stream.end);
+    int length = m_stream.tellg();
+    m_stream.seekg(0, m_stream.beg);
+
+	return length;
 }
 
 bool FileManager::FileSeek(int offset, int origin)
@@ -196,14 +196,11 @@ int64_t FileManager::tellAsset(void* asset)
 
 void ensureDirectoryExists(const std::string& path)
 {
-    WriteLog("Check dirs");
-
     std::vector<std::string> dirs;
 
     size_t pos = path.find("/", 1);
     size_t lastPos = 0;
 
-    WriteLog("first %d", pos);
     while (pos != std::string::npos)
     {
         dirs.push_back(path.substr(lastPos, pos-lastPos));
@@ -223,8 +220,6 @@ void ensureDirectoryExists(const std::string& path)
 
         if (!S_ISDIR(s.st_mode) || ret != 0)
         {
-            WriteLog("Creating dir %s", testPath.c_str());
-
             // Try to create the directory
             int status = mkdir(testPath.c_str(), 0777);
             if (status == -1)
