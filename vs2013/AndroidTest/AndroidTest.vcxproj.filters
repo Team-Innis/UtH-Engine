@@ -87,5 +87,8 @@
     <ClInclude Include="..\..\include\UtH\Platform\Android\FileManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Android\JavaFunctions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

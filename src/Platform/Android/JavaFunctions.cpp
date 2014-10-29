@@ -29,7 +29,7 @@ void JavaFunctions::Vibrate(int time_ms)
 	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, vibrationFunc, time_ms);
 }
 
-void JavaFunctions::ShowAd(unsigned int origin, pmath::Vec2i off, std::string name)
+void JavaFunctions::ShowAdBanner(std::string name, unsigned int origin, pmath::Vec2i off)
 {
 	// Javaenviroment: Loads enviroment from Android activity
 	JNIEnv* jni;
@@ -63,7 +63,7 @@ void JavaFunctions::CloseAd(const std::string& name)
 	jmethodID popupFunc = NULL;
 	popupFunc = jni->GetMethodID(gameActivity, "HideAd", "(Ljava/lang/String;)V");
 	if (popupFunc == NULL)
-		WriteError("No ad hiding function found!");
+		WriteError("No adHide function found!");
 	jstring jname = jni->NewStringUTF(name.c_str());
 	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, popupFunc, jname);
 }

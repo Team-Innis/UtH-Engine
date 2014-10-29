@@ -40,7 +40,7 @@ public class GameActivity extends android.app.NativeActivity
 		
 		int dpi = getResources().getDisplayMetrics().densityDpi;
 		float padding = ((dpi / 100.0f) * getResources().getDisplayMetrics().density);
-		
+		Log.i("uth-engine", "padding " + padding);
 		initialAd = new Advertisement(this, (int)padding);
 	}
 	
@@ -57,62 +57,42 @@ public class GameActivity extends android.app.NativeActivity
 	public void ShowAd(final int offsetX, final int offsetY, final int origin, final String name)
 	{
 		final String publisher = this.getString(R.string.AdMobPublisherID);
-		Log.i("uth-engine", "Show Ad middle");
 		
 		gameActivity.runOnUiThread(new Runnable() 
 		{
 			@Override
 			public void run()
 			{
-				String adID  = publisher + "/" + name;
+				boolean exists = false;
+				int index = 0;
 				
-				Advertisement lol = new Advertisement(adID, initialAd, AdSize.BANNER);
-				lol.name = name;
-				
-				//TODO: Use gravity
-				int gravity = Gravity.BOTTOM;
-				switch(origin)
-				{
-				case 1:
-					gravity = Gravity.BOTTOM | Gravity.LEFT; break;
-				case 2:
-					gravity = Gravity.BOTTOM; break;
-				case 3:
-					gravity = Gravity.BOTTOM | Gravity.RIGHT; break;
-				case 4:
-					gravity = Gravity.LEFT; break;
-				case 5:
-					gravity = Gravity.CENTER; break;
-				case 6:
-					gravity = Gravity.RIGHT; break;
-				case 7:
-					gravity = Gravity.TOP | Gravity.LEFT; break;
-				case 8:
-					gravity = Gravity.TOP; break;
-				case 9:
-					gravity = Gravity.TOP | Gravity.RIGHT; break;
-				default:
-					gravity = Gravity.BOTTOM; break;
-				}
-				Log.i("uth-engine", "Show AdID " + adID);
-				
-				adList.add(lol);
-			
 				for(int i = 0; i < adList.size(); i++)
 				{
-					if(adList.get(i).name == name)
+					if(adList.get(i).name.equals(name))
 					{
-						adList.get(i).Toggle();
+						exists = true;
+						index = i;
 						break;
 					}
 				}
+				
+				if(exists == false)
+				{
+					String adID  = publisher + "/" + name;
+					int[] offset = {offsetX, offsetY};
+					Advertisement lol = new Advertisement(adID, initialAd, AdSize.BANNER, offset, origin);
+					lol.name = name;
+					
+					adList.add(lol);
+					index = adList.indexOf(lol);
+				}
+				adList.get(index).Toggle();
 			}
 		});
 	}
 	
 	public void HideAd(final String name)
 	{
-		
 		gameActivity.runOnUiThread(new Runnable() 
 		{
 			@Override
