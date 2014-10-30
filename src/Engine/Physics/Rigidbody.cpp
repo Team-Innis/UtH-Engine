@@ -309,6 +309,13 @@ short Rigidbody::GetPhysicsMask() const
     return m_body->GetFixtureList()->GetFilterData().maskBits;
 }
 
+
+b2Body* Rigidbody::GetBox2dBody() const
+{
+    return m_body;
+}
+
+
 // Private
 
 void Rigidbody::defaults()
