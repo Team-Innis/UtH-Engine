@@ -22,9 +22,6 @@ GooglePlayGameServices::~GooglePlayGameServices()
 // Achiements
 void GooglePlayGameServices::Achievement::UnlockAchievement(std::string achievement_id)
 {
-	//if (game_services->IsAuthorized())
-		//game_services->Achievements().Unlock(achievement_id);
-
 	// Javaenviroment: Loads enviroment from Android activity
 	JNIEnv* jni;
 	uthAndroidEngine.app->activity->vm->AttachCurrentThread(&jni, NULL);
@@ -43,6 +40,27 @@ void GooglePlayGameServices::Achievement::UnlockAchievement(std::string achievem
 	jstring stringArg = jni->NewStringUTF(achievement_id.c_str());
 
 	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, unlockAchFunc, stringArg);
+}
+void GooglePlayGameServices::Achievement::IncrementAchievement(std::string achievement_id, int steps)
+{
+	// Javaenviroment: Loads enviroment from Android activity
+	JNIEnv* jni;
+	uthAndroidEngine.app->activity->vm->AttachCurrentThread(&jni, NULL);
+
+	// Loads our java master class GameActivity
+	jclass gameActivity = jni->GetObjectClass(uthAndroidEngine.app->activity->clazz);
+	if (!gameActivity)
+		WriteError("No engine found!");
+
+	// Loading function
+	jmethodID unlockAchFunc = NULL;
+	unlockAchFunc = jni->GetMethodID(gameActivity, "IncrementAchievement", "(Ljava/lang/String;I)V");
+	if (unlockAchFunc == NULL)
+		WriteError("No IncrementAchievement function found!");
+
+	jstring stringArg = jni->NewStringUTF(achievement_id.c_str());
+
+	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, unlockAchFunc, stringArg, steps);
 }
 void GooglePlayGameServices::Achievement::ShowAchievements()
 {

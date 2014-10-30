@@ -1,9 +1,8 @@
 #include <UtH/Engine/DefaultScene.hpp>
 #include <UtH/Engine/Engine.hpp>
 #include <UtH/Platform/Input.hpp>
-#ifdef UTH_SYSTEM_ANDROID
 #include <UtH/Platform/Android/GooglePlayGameServices.hpp>
-#endif
+
 
 using namespace uth;
 
@@ -98,9 +97,9 @@ void DefaultScene::Update(float dt)
 
 	if (uthInput.Common == uth::InputEvent::CLICK)
 	{
-		#ifdef UTH_SYSTEM_ANDROID
-			uthGPGS.achievement.UnlockAchievement("Cgkl46q954kJEAlAg");
-		#endif
+		
+		uthGPGS.leaderboard.SubmitHighScore("CgkI46q954kJEAIQBQ", 9999);
+
 	}
 	if (totalTime >= aEnd || uthInput.Common == uth::InputEvent::CLICK)
 	{

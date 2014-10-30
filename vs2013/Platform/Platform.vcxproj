@@ -11,11 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\include\UtH\Platform\Android\GooglePlayGameServices.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\BinaryData.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Common\CommonWindowImpl.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Common\ControllerEnums.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Common\FileManager.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Common\GooglePlayGameServices.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Common\InputController.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Common\InputSensor.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Common\JavaFunctions.hpp" />
@@ -23,6 +23,7 @@
     <ClInclude Include="..\..\include\UtH\Platform\Debug.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Enums.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\FileManager.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\GooglePlayGameServices.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Graphics.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\HiResTimer.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Input.hpp" />
@@ -45,6 +46,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\Platform\Common\CommonWindowImpl.cpp" />
     <ClCompile Include="..\..\src\Platform\Common\FileManager.cpp" />
+    <ClCompile Include="..\..\src\Platform\Common\GooglePlayGameServices.cpp" />
     <ClCompile Include="..\..\src\Platform\Common\InputController.cpp" />
     <ClCompile Include="..\..\src\Platform\Common\InputSensor.cpp" />
     <ClCompile Include="..\..\src\Platform\Common\JavaFunctions.cpp" />

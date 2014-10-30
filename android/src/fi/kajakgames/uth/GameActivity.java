@@ -1,6 +1,7 @@
 package fi.kajakgames.uth;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -12,18 +13,24 @@ import android.widget.*;
 import fi.kajakgames.uth.R;
 
 import com.google.android.gms.ads.*;
+import com.google.android.gms.games.Games;
 import com.google.android.gms.games.achievement.*;
 import com.google.android.gms.games.leaderboard.*;
+import com.google.android.gms.plus.Plus;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import fi.kajakgames.uth.BaseGameUtils;
+
 public class GameActivity extends android.app.NativeActivity
+implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 {
 
 	GameActivity gameActivity;
 	AdView	gAdView;
-	GoogleApiClient client;
-	Achievement achievement;
-	Leaderboard leaderboard;
+	GoogleApiClient mClient;
+	
+	BaseGameUtils bUtils;
 	
 	public class AdStruct
 	{
@@ -97,38 +104,54 @@ public class GameActivity extends android.app.NativeActivity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
+		
 		// Make your custom init here
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
 		if(gameActivity == null)
 			gameActivity = this;
+	
 		
 		adS[0] = new AdStruct(this.getString(R.string.banner_ad_unit_id));
 		gAdView = new AdView(gameActivity);
 		
 		DisplayMetrics metrics = getResources().getDisplayMetrics();
 		Log.i("uth-engine", "dpi:" + metrics.densityDpi);
+		
+		/*
+		mClient = new GoogleApiClient.Builder(this)
+		.addConnectionCallbacks(this)
+		.addOnConnectionFailedListener(this)
+		.addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN)
+		.addApi(Games.API).addScope(Games.SCOPE_GAMES)
+		.build();
+		*/
+		mClient = new GoogleApiClient.Builder(this)
+				.addApi(Games.API).addScope(Games.SCOPE_GAMES)
+				.addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN)
+				.addOnConnectionFailedListener(this)
+				.addConnectionCallbacks(this)
+				.build();
 	}
 	
 	
 	 public void onStart()
 	 {
 	 	super.onStart();
-	  	client.connect();
+	  	mClient.connect();
 	 }
 	  
 	 public void onStop()
 	 {
 		super.onStop();
-		client.disconnect();
+		mClient.disconnect();
 	 }
-	 
+
 	
 	public void Vibrate(final int time)
 	{
 		Vibrator vibra = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
+		
 		if(vibra == null)
 			Log.i("uth-engine", "vibra is null");
 			
@@ -228,29 +251,107 @@ public class GameActivity extends android.app.NativeActivity
 	
 	public void UnlockAchievement(String achievement_id)
 	{
-		Log.i("uth-engine", "received string: " + achievement_id);
+		if(!mClient.isConnected())
+			mClient.connect();	
 		
-		if(!client.isConnected())
-			client.connect();
+		Games.Achievements.unlock(mClient, achievement_id);
+	}
+	public void IncrementAchievement(String achievement_id, int steps)
+	{
+		if(!mClient.isConnected())
+			mClient.connect();	
 		
-		//Games.Achievements.unlock(getApiClient(), achievement_id);
+		Games.Achievements.increment(mClient, achievement_id, steps);
 	}
 	
 	public void ShowAchievements()
 	{
-		if(!client.isConnected())
-			client.connect();
+		if(!mClient.isConnected())
+			mClient.connect();
+		
+		startActivityForResult(Games.Achievements.getAchievementsIntent(mClient), 5001);
 	}
 	
 	public void SubmitHighScore(String leaderboard_id, int score)
 	{
-		if(!client.isConnected())
-			client.connect();
+		if(!mClient.isConnected())
+			mClient.connect();
+		
+		Games.Leaderboards.submitScore(mClient, leaderboard_id, score);
 	}
 	
 	public void ShowLeaderboard(String leaderboard_id)
 	{
-		if(!client.isConnected())
-			client.connect();
+		if(!mClient.isConnected())
+			mClient.connect();
+		
+		startActivityForResult(Games.Leaderboards.getLeaderboardIntent(mClient, leaderboard_id), 5002);
 	}
+
+	
+	
+	private static int RC_SIGN_IN = 9001;
+	private boolean mResolvingConnectionFailure = false;
+	private boolean mAutoStartSignInFlow = true;
+	private boolean mSignInClicked = false;
+
+	@Override
+	public void onConnectionFailed(ConnectionResult arg0) 
+	{
+		// TODO Auto-generated method stub
+		Log.d("uth-engine", "Connection failed, result: " + arg0);
+		
+		if (mResolvingConnectionFailure)
+		{
+			return;
+		}
+		
+		if(mSignInClicked || mAutoStartSignInFlow)
+		{
+			mAutoStartSignInFlow = false;
+			mSignInClicked = false;
+			mResolvingConnectionFailure = true;		
+			
+			
+			if(!BaseGameUtils.resolveConnectionFailure(this, mClient, arg0, RC_SIGN_IN, "Error message"))
+			{
+				mResolvingConnectionFailure = false;
+			}
+		}
+	}
+
+
+	@Override
+	public void onConnected(Bundle arg0) 
+	{
+		// TODO Auto-generated method stub
+		Log.d("uth-engine", "OnConnected, bundle: " + arg0);
+	}
+
+
+	@Override
+	public void onConnectionSuspended(int arg0) 
+	{
+		// TODO Auto-generated method stub
+		Log.d("uth-engine", "onConnectionSuspended, arg: " + arg0);
+	}
+	
+	protected void onActivityResult(int requestCode, int responseCode, Intent intent)
+	 {
+		 if(requestCode == RC_SIGN_IN)
+		 {
+			 mSignInClicked = false;
+			 Log.d("uth-engine", "onActivityResult with requestCode == 9001, responseCode=" + responseCode + ", intent=" + intent);
+		 
+			 if(responseCode == RESULT_OK)
+			 {
+				 mClient.connect();
+			 }
+			 else
+			 {
+				 BaseGameUtils.showActivityResultError(this, requestCode, responseCode, R.string.signin_failure, R.string.signin_other_error);
+			 }
+		 }
+	 }
+	 
 }

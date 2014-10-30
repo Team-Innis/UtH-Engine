@@ -5,9 +5,6 @@
 #include <UtH/Platform/Singleton.hpp>
 #include <string>
 
-//#include <gpg/gpg.h>
-
-
 #define uthGPGS uth::GooglePlayGameServices().getInstance() 
 
 namespace uth
@@ -38,18 +35,7 @@ namespace uth
 		LeaderBoard leaderboard;
 
 	private:
-		/*
-		void init();
-		void initServices(gpg::PlatformConfiguration const &pc,
-			gpg::GameServices::Builder::OnAuthActionStartedCallback started_callback,
-			gpg::GameServices::Builder::OnAuthActionFinishedCallback finished_callback);
-
-		void deInit();
-
-		gpg::AndroidPlatformConfiguration *platform_config;
-		static bool is_auth_in_progress;
-		static std::unique_ptr<gpg::GameServices> game_services;
-		*/
+	
 	};
 }
 

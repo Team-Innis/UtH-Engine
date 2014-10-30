@@ -1,6 +1,7 @@
 #include <TestScene.hpp>
 #include <Scenes.hpp>
 #include <uth/Platform/JavaFunctions.hpp>
+#include <UtH/Platform/GooglePlayGameServices.hpp>
 
 using namespace uth;
 
@@ -69,8 +70,10 @@ void TestScene::Update(float dt)
 
 	if (uthInput.Common == uth::InputEvent::TAP)
 	{
+		WriteLog("TAP");
 		javaFunc::Vibrate(2000);
-		javaFunc::ShowAd(Origin::Center);
+		//javaFunc::ShowAd(Origin::Center);
+		uthGPGS.leaderboard.ShowLeaderboard("CgkI46q954kJEAIQBQ");
 	}
 }
 

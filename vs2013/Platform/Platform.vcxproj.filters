@@ -108,8 +108,11 @@
     <ClInclude Include="..\..\include\UtH\Platform\FileManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Android\GooglePlayGameServices.hpp">
+    <ClInclude Include="..\..\include\UtH\Platform\GooglePlayGameServices.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\Common\GooglePlayGameServices.hpp">
+      <Filter>Header Files\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +162,9 @@
       <Filter>Source Files\Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Platform\Common\JavaFunctions.cpp">
+      <Filter>Source Files\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\Common\GooglePlayGameServices.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
   </ItemGroup>
