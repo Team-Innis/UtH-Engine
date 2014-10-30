@@ -43,7 +43,7 @@ namespace uth
 
         void SetContactListener(PhysicsContactListener* contactListener);
 
-        void Update();
+        void Update(float dt);
 
         void SetSettings(const PhysicsSettings& settings);
         PhysicsSettings& GetSettings();
@@ -52,11 +52,14 @@ namespace uth
         std::shared_ptr<b2World> GetBox2dWorldObject();
 
     private:
+
         PhysicsWorld();
 
         std::shared_ptr<b2World> m_world;
         //b2World m_world;
         PhysicsSettings m_settings;
+
+        float m_timer;
     };
 }
 

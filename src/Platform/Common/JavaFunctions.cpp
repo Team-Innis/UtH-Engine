@@ -7,7 +7,7 @@ JavaFunctions::JavaFunctions(){}
 
 JavaFunctions::~JavaFunctions(){}
 
-void JavaFunctions::Vibrate(int time_ms)
+void JavaFunctions::Vibrate(int)
 {
 	WriteLog("\nNo JavaFunctions outside of Android.\n");
 }

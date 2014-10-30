@@ -41,8 +41,16 @@ namespace pmath
 
         // Normalizes the vector and returns the normalized vector
         Vector2& normalize();
-        // Only returns the normalized vector. Doesn't modify the original
+        // Returns the normalized vector. doesn't modify original
+        Vector2 normalized() const;
+
+        // Deprecated. use normalized()
         Vector2 unitVector() const;
+
+        // Check if the vector is normalized
+        bool isNormalized() const;
+
+        // Deprecated. use isNormalized()
         bool isUnitVector() const;
 
         static Vector2 lerp(const Vector2& vec1, const Vector2& vec2, const T& t);
