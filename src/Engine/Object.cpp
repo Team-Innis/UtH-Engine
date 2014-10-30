@@ -48,6 +48,7 @@ namespace uth
 	{
 		if (m_active)
 		{
+			const std::vector<std::shared_ptr<Object>> objBackup(m_children);
 			for (int i = 0; i < m_children.size(); ++i)
 				if (m_children[i]->m_active)
 					m_children[i]->Update(dt);
@@ -72,9 +73,9 @@ namespace uth
 
 	void Object::RemoveChild(const std::shared_ptr<Object>& object)
 	{
-		auto o = std::find(m_children.begin(), m_children.end(), object);
-		(*o)->setParent(nullptr);
-		m_children.erase(o);
+		auto it = std::find(m_children.begin(), m_children.end(), object);
+		(*it)->setParent(nullptr);
+		m_children.erase(it);
 	}
 	void Object::RemoveChild(Object* object)
 	{
