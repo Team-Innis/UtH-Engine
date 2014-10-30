@@ -17,6 +17,7 @@ namespace uth
 		// Vibrates for given time in milliseconds.
 		static void Vibrate(int time_ms);
 		static void ShowAdBanner(std::string admobID, unsigned int origin = 2, pmath::Vec2i offset = pmath::Vec2i()){}
+		static void ShowAdFull(std::string adID){}
 		static void CloseAd(const std::string& name){}
 	private:
 

@@ -11,11 +11,11 @@
   
   <uses-permission android:name="android.permission.VIBRATE"/>
 
-  <application android:hasCode="true" android:icon="@drawable/ic_launcher" android:testOnly="false">
+  <application android:hasCode="true" android:icon="@drawable/ic_launcher" android:testOnly="false" android:label="TestiSofta">
 
 	<meta-data android:name="com.google.android.gms.version" android:value="5089000"/>
 	<activity	android:name="fi.kajakgames.uth.GameActivity"
-				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+				android:theme="@android:style/Theme.Translucent"
 				android:launchMode="singleTask"
 				android:screenOrientation="landscape"
 				android:configChanges="orientation|keyboardHidden">

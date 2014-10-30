@@ -1,6 +1,5 @@
 package fi.kajakgames.uth;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.WindowManager.LayoutParams;

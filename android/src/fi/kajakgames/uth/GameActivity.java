@@ -22,6 +22,9 @@ public class GameActivity extends android.app.NativeActivity
 	Advertisement initialAd = null;
 	Vector<Advertisement> adList = new Vector<Advertisement>(32);
 	
+	//Test Only
+	private InterstitialAd interstitial;
+	
 	static
 	{
 		System.loadLibrary("sndfile");
@@ -34,6 +37,7 @@ public class GameActivity extends android.app.NativeActivity
 		super.onCreate(savedInstanceState);
 
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		if(gameActivity == null)
 			gameActivity = this;
@@ -42,6 +46,16 @@ public class GameActivity extends android.app.NativeActivity
 		float padding = ((dpi / 100.0f) * getResources().getDisplayMetrics().density);
 		Log.i("uth-engine", "padding " + padding);
 		initialAd = new Advertisement(this, (int)padding);
+		
+		//Test
+		interstitial = new InterstitialAd(this);
+		final String adID = this.getString(R.string.AdMobPublisherID) + "/" + "9257920890";
+		interstitial.setAdUnitId(adID);
+	    AdRequest adRequest = new AdRequest.Builder()
+									    .addTestDevice("E69C2A8B1675A10447583C0049DC0D26")
+									    .build();
+	    
+	    interstitial.loadAd(adRequest);
 	}
 	
 	public void Vibrate(int time)
@@ -87,6 +101,24 @@ public class GameActivity extends android.app.NativeActivity
 					index = adList.indexOf(lol);
 				}
 				adList.get(index).Toggle();
+			}
+		});
+	}
+	
+	public void ShowAdFull(final String adID)
+	{
+		gameActivity.runOnUiThread(new Runnable() 
+		{
+			@Override
+			public void run()
+			{
+				Log.i("uth-engine","Show fullscreen ad[" + adID + "]");
+			    if (interstitial.isLoaded())
+			    {
+			        interstitial.show();
+					Log.i("uth-engine","after show full");
+			    }
+				Log.i("uth-engine","end of show full");
 			}
 		});
 	}
