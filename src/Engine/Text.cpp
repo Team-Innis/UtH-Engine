@@ -12,9 +12,7 @@
 
 using namespace uth;
 
-//#ifdef UTH_SYSTEM_ANDROID
 std::unordered_set<Text*> Text::TEXTS;
-//#endif
 
 uth::Text::Text(const std::string& fontPath, const float fontSize, 
 	const std::string& name /*= "Text"*/, 
@@ -23,9 +21,7 @@ uth::Text::Text(const std::string& fontPath, const float fontSize,
 	m_fontSize(fontSize),
 	m_size(0, m_fontSize)
 {
-	//#ifdef UTH_SYSTEM_ANDROID
 	TEXTS.emplace(this);
-	//#endif
 
 	m_textShader.LoadShader("Shaders/DefaultText.vert", "Shaders/DefaultText.frag");
 
@@ -43,12 +39,9 @@ uth::Text::Text(const std::string& fontPath, const float fontSize,
 
 Text::~Text()
 {
-	texture_font_delete(m_font);
-	texture_atlas_delete(m_atlas);
+	ClearOpenGLContext();
 
-	//#ifdef UTH_SYSTEM_ANDROID
 	TEXTS.erase(this);
-	//#endif
 }
 
 void Text::Init()
@@ -209,4 +202,17 @@ void Text::Draw(RenderTarget& target)
 	uth::Graphics::DrawElements(TRIANGLES, m_vertexBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
 
 	uth::Graphics::BindBuffer(ARRAY_BUFFER, 0);
+}
+
+
+bool Text::RecreateOpenGLContext()
+{
+	return true;
+}
+bool Text::ClearOpenGLContext()
+{
+	texture_font_delete(m_font);
+	texture_atlas_delete(m_atlas);
+
+	return true;
 }

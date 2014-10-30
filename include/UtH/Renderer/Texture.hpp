@@ -12,64 +12,56 @@
 
 namespace uth
 {
-    class Texture : public Resource
-    {
-    private:
+	class Texture : public Resource
+	{
+	private:
 
-        struct Deleter
-        {
-            void operator()(Texture* file) const
-            {
-                delete file;
-            }
-        };
+		struct Deleter
+		{
+			void operator()(Texture* file) const
+			{
+				delete file;
+			}
+		};
 
 
-        friend class RenderTexture;
-        friend class ResourceManager;
+		friend class RenderTexture;
+		friend class ResourceManager;
 
-    public:
+	public:
 
-        void Bind(uth::TexUnit texUnit = uth::TexUnit::TEXTURE_0) const;
-
+		void Bind(uth::TexUnit texUnit = uth::TexUnit::TEXTURE_0) const;
 		static void Unbind(uth::TexUnit texUnit = uth::TexUnit::TEXTURE_0);
 
-        bool SetSmooth(const bool value);
+		bool SetSmooth(const bool value);
+		bool SetRepeated(const bool value);
 
-        bool SetRepeated(const bool value);
+		const pmath::Vec2& GetSize() const;
 
-        const pmath::Vec2& GetSize() const;
+		bool IsValid() const;
 
-        bool IsValid() const;
+		bool IsSmooth() const;
+		bool IsRepeated() const;
 
-        bool IsSmooth() const;
+	private:
 
-        bool IsRepeated() const;
+		// Only friend classes can construct a texture.
+		Texture();
+		~Texture();
 
+		// These functions are only used by ResourceManager and RenderTexture.
+		bool Create(const pmath::Vec2& size, const bool smooth = false, const bool repeated = false);
 
-
-
-    private:
-
-        // Only friend classes can construct a texture.
-        Texture();
-
-        ~Texture();
-
-        // These functions are only used by ResourceManager and RenderTexture.
-        bool Create(const pmath::Vec2& size, const bool smooth = false, const bool repeated = false);
-
-        bool LoadFromFile(const std::string& filePath) override;
-
+		bool LoadFromFile(const std::string& filePath) override;
 		void Unload() override;
-        
-        // Member data
 
-        unsigned int m_textureID;
-        pmath::Vec2 m_size;
-        bool m_smooth, m_repeated;
+		// Member data
 
-    };
+		unsigned int m_textureID;
+		pmath::Vec2 m_size;
+		bool m_smooth, m_repeated, m_created;
+
+	};
 }
 
 #endif

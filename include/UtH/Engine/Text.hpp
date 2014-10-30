@@ -15,9 +15,8 @@ namespace uth
 {
 	class Text : public Component
 	{
-		//#ifdef UTH_SYSTEM_ANDROID
 		static std::unordered_set<Text*> TEXTS;
-		//#endif
+
 		friend class ResourceManager;
 	public:
 		Text(const std::string& fontPath, const float fontSize,
@@ -46,6 +45,10 @@ namespace uth
 		void Draw(RenderTarget& target);
 
 	private:
+		bool RecreateOpenGLContext();
+		bool ClearOpenGLContext();
+
+
 		//Text();
 		Text(/*"text", path = "font", size = 32, name = "Text"*/);
 
