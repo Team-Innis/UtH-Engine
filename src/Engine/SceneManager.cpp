@@ -63,14 +63,12 @@ namespace uth
     bool SceneManager::SaveCurrentScene(const std::string& saveName, const std::string& path)
     {
         x::XMLDocument doc;
-        doc.ToElement()->SetName(saveName.c_str());
+        doc.ToElement()->SetName("savename");
+        doc.ToElement()->SetValue(saveName.c_str());
         
-        for (auto& i : curScene->m_children)
-        {
-            doc.InsertEndChild(i->save().get());
-        }
+        doc.InsertEndChild(curScene->Object::save());
 
-        FileManager().WriteToFile(path, doc.ToText()->Value());
+        FileManager().WriteToFile(path + "/" + saveName, doc.ToText()->Value());
 
         return true;
     }
@@ -87,8 +85,7 @@ namespace uth
             return false;
         }
 
-        //auto elem = doc.ToElement();
-        // TODO: handle scene data after which load it and set active
+        // TODO: load a scene of the right type
 
         bool error = false;
         for (auto itr = doc.FirstChildElement(); itr != nullptr; itr = itr->NextSiblingElement())
@@ -105,6 +102,8 @@ namespace uth
         {
             WriteError("Failed to load one or more objects from save %s", path.c_str());
         }
+
+        curScene->SetActive(true);
 
         return !error;
     }

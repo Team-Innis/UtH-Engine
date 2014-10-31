@@ -238,14 +238,108 @@ namespace uth
 		m_parent = p;
 	}
 
-    std::shared_ptr<tinyxml2::XMLNode> Object::save() const
+    tinyxml2::XMLNode* Object::save() const
     {
-        return std::shared_ptr<tinyxml2::XMLNode>();
+        auto node = new tinyxml2::XMLDocument();
+
+        // Active flag
+        node->ToElement()->SetAttribute("active", m_active);
+        
+        // Transform
+        {
+            auto newNode = new tinyxml2::XMLDocument();
+            node->InsertEndChild(newNode);
+
+            auto trans = newNode->ToElement();
+            trans->SetName("Transform");
+
+            // Position
+            trans->SetAttribute("posX", transform.GetPosition().x);
+            trans->SetAttribute("posY", transform.GetPosition().y);
+
+            // Origin
+            trans->SetAttribute("origX", transform.GetOrigin().x);
+            trans->SetAttribute("origY", transform.GetOrigin().y);
+
+            // Scale
+            trans->SetAttribute("scaleX", transform.GetScale().x);
+            trans->SetAttribute("scaleY", transform.GetScale().y);
+
+            // Size
+            trans->SetAttribute("sizeX", transform.GetSize().x);
+            trans->SetAttribute("sizeY", transform.GetSize().y);
+
+            // Rotation
+            trans->SetAttribute("angle", transform.GetRotation());
+        }
+
+        // Tags
+        {
+            auto newNode = new tinyxml2::XMLDocument();
+            node->InsertEndChild(newNode);
+
+            newNode->ToElement()->SetName("Tags");
+
+            for (auto& i : m_tagList)
+            {
+                auto tagNode = new tinyxml2::XMLDocument();
+                tagNode->ToElement()->SetName("Tag");
+                tagNode->ToElement()->SetValue(i.c_str());
+                newNode->InsertEndChild(tagNode);
+            }
+        }
+
+        // Children
+        for (auto& i : m_children)
+            node->InsertEndChild(i->save());
+
+        return node;
     }
 
     bool Object::load(const tinyxml2::XMLNode& doc)
     {
-        return false;
+        m_active = doc.ToElement()->BoolAttribute("active");
+        auto currentNode = doc.FirstChild();
+
+        {
+            auto transElem = currentNode->FirstChildElement();
+
+            // Position
+            transform.SetPosition(transElem->FindAttribute("posX")->FloatValue(),
+                                  transElem->FindAttribute("posY")->FloatValue());
+
+            // Origin
+            transform.SetOrigin(pmath::Vec2(transElem->FindAttribute("origX")->FloatValue(),
+                                            transElem->FindAttribute("origY")->FloatValue()));
+
+            // Scale
+            transform.SetScale(transElem->FindAttribute("scaleX")->FloatValue(),
+                               transElem->FindAttribute("scaleY")->FloatValue());
+
+            // Size
+            transform.SetSize(transElem->FindAttribute("sizeX")->FloatValue(),
+                              transElem->FindAttribute("sizeY")->FloatValue());
+
+            // Rotatiom
+            transform.SetRotation(transElem->FindAttribute("angle")->FloatValue());
+        }
+
+        currentNode = currentNode->NextSibling();
+
+        // Tags
+        {
+            for (auto itr = currentNode->FirstChildElement(); itr != nullptr; itr = itr->NextSiblingElement())
+                m_tagList.emplace(itr->FirstAttribute()->Value());
+        }
+
+        for (auto itr = currentNode->NextSibling(); itr != nullptr; itr = itr->NextSibling())
+        {
+
+
+            // TODO: type resolution is needed here.
+        }
+
+        return true;
     }
 
 }

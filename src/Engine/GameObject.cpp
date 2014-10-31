@@ -116,3 +116,14 @@ void GameObject::Update(float dt)
 	}
 	Object::Update(dt);
 }
+
+tinyxml2::XMLNode* uth::GameObject::save() const
+{
+    // TODO: handle components
+    return Object::save();
+}
+
+bool uth::GameObject::load(const tinyxml2::XMLNode& doc)
+{
+    return Object::load(doc);
+}

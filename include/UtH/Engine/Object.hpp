@@ -79,14 +79,14 @@ namespace uth
 
 	protected:
 		Object* m_parent;
-		bool m_active;
+        bool m_active;
+
+        virtual tinyxml2::XMLNode* save() const;
+        virtual bool load(const tinyxml2::XMLNode& doc);
 
 	private:
 
         friend class SceneManager;
-
-        virtual std::shared_ptr<tinyxml2::XMLNode> save() const;
-        virtual bool load(const tinyxml2::XMLNode& doc);
 
 		void findAll(const std::string& tag, std::vector<std::shared_ptr<Object>>& vec) const;
 		void findAll(std::vector<std::shared_ptr<Object>>& vec) const;

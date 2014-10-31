@@ -45,6 +45,10 @@ namespace uth
         virtual void update(float){}
         virtual void draw(RenderTarget&){}
 
+        virtual tinyxml2::XMLNode* save() const override;
+
+        virtual bool load(const tinyxml2::XMLNode& doc) override;
+
 		std::vector<std::unique_ptr<Component>> m_components;
 	};
 

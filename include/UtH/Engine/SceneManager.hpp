@@ -3,6 +3,8 @@
 
 #include <UtH/Engine/Scene.hpp>
 #include <UtH/Platform/Singleton.hpp>
+#include <functional>
+#include <vector>
 
 #define uthSceneM uth::SceneManager::getInstance()
 
@@ -27,6 +29,16 @@ namespace uth
 
         bool LoadSavedScene(const std::string& path);
 
+        typedef std::function<Scene*(const std::string&)> SceneCFunc;
+        void AddSceneCreateFunc(SceneCFunc func);
+
+        typedef std::function<Object*(const std::string&)> ObjectCFunc;
+        void AddObjectCreateFunc(ObjectCFunc func);
+
+        typedef std::function<Component*(const std::string&)> ComponentCFunc;
+        void AddComponentCreateFunc();
+
+
 	private:
 		void endScene();
 		void startScene();
@@ -39,6 +51,10 @@ namespace uth
 		int m_nextScene;
 		int sceneCount;
 		bool m_pendingSceneSwitch;
+
+        std::vector<SceneCFunc> m_sceneFuncs;
+        std::vector<ObjectCFunc> m_objectFuncs;
+        std::vector<ComponentCFunc> m_componentFuncs;
 
 
 	};
