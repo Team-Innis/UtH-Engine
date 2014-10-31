@@ -1,4 +1,6 @@
 #include <UtH/Resources/ResourceManager.hpp>
+#include <UtH/Core/VertexBuffer.hpp>
+#include <UtH/Core/Shader.hpp>
 #include <cassert>
 
 using namespace uth;
@@ -177,7 +179,7 @@ void uth::ResourceManager::Unload(const unsigned int flags)
 }
 bool uth::ResourceManager::UnloadImage(const std::string& filePath)
 {
-	auto& i = m_images.find(filePath);
+	auto i = m_images.find(filePath);
 	if (i == m_images.end())
 		return false;
 
@@ -186,7 +188,7 @@ bool uth::ResourceManager::UnloadImage(const std::string& filePath)
 }
 bool uth::ResourceManager::UnloadTexture(const std::string& filePath)
 {
-	auto& i = m_textures.find(filePath);
+	auto i = m_textures.find(filePath);
 	if (i == m_textures.end())
 		return false;
 
@@ -195,7 +197,7 @@ bool uth::ResourceManager::UnloadTexture(const std::string& filePath)
 }
 bool uth::ResourceManager::UnloadFont(const std::string& filePath)
 {
-	auto& i = m_fonts.find(filePath);
+	auto i = m_fonts.find(filePath);
 	if (i == m_fonts.end())
 		return false;
 
@@ -204,7 +206,7 @@ bool uth::ResourceManager::UnloadFont(const std::string& filePath)
 }
 bool uth::ResourceManager::UnloadSound(const std::string& filePath)
 {
-	auto& i = m_sounds.find(filePath);
+	auto i = m_sounds.find(filePath);
 	if (i == m_sounds.end())
 		return false;
 
@@ -214,16 +216,29 @@ bool uth::ResourceManager::UnloadSound(const std::string& filePath)
 
 bool uth::ResourceManager::RecreateOpenGLContext()
 {
+	WriteLog("Recreating context");
 	for (auto& i : m_images)
 		i.second->EnsureLoaded();
 	for (auto& i : m_textures)
 		i.second->EnsureLoaded();
 
+	for (auto it : VertexBuffer::VERTEXBUFFERS)
+		it->RecreateOpenGLContext();
+	for (auto it : Shader::SHADERS)
+		it->RecreateOpenGLContext();
+
 	return true;
 }
 bool uth::ResourceManager::ClearOpenGLContext()
 {
+	WriteLog("Clearing context");
 	Unload(Textures);
+
+	for (auto it : VertexBuffer::VERTEXBUFFERS)
+		it->ClearOpenGLContext();
+	for (auto it : Shader::SHADERS)
+		it->ClearOpenGLContext();
+
 	return true;
 }
 
@@ -239,7 +254,7 @@ void ResourceManager::PauseSounds()
 	}
 }
 
-const std::string& ResourceManager::FilePath(const void* ptr, const unsigned int flags) const
+const std::string ResourceManager::FilePath(const void* ptr, const unsigned int flags) const
 {
 	if ((flags & uth::ResourceManager::Sounds) != 0)
 		for (auto& i : m_sounds)
@@ -257,6 +272,6 @@ const std::string& ResourceManager::FilePath(const void* ptr, const unsigned int
 		for (auto& i : m_fonts)
 			if (i.second.get() == ptr)
 				return i.first;
-	return nullptr;
+	return "";
 }
 

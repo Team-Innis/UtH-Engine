@@ -64,7 +64,7 @@ namespace uth
 		ResourceManager();
 		~ResourceManager();
 
-		const std::string& FilePath(const void* ptr, const unsigned int flags) const;
+		const std::string FilePath(const void* ptr, const unsigned int flags) const;
 
 		std::unordered_map<std::string, std::unique_ptr<Image, Image::Deleter>> m_images;
         std::unordered_map<std::string, std::unique_ptr<Texture, Texture::Deleter>> m_textures;

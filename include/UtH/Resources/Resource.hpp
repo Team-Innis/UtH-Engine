@@ -12,6 +12,7 @@ namespace uth
 		friend class ResourceManager;
 	public:
 		Resource();
+		virtual ~Resource(){}
 		virtual bool IsLoaded() const;
 
 	protected:
