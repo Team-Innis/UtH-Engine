@@ -14,8 +14,11 @@ Image* uth::ResourceManager::LoadImage(const std::string& filePath)
 {
 	auto itr = m_images.find(filePath);
 
-    if (itr != m_images.end())
-        return itr->second.get();
+	if (itr != m_images.end())
+	{
+		itr->second->EnsureLoaded();
+		return itr->second.get();
+	}
 
     std::unique_ptr<Image, Image::Deleter> temp(new Image());
     const bool result = temp->LoadFromFile(filePath);
@@ -33,8 +36,11 @@ Texture* uth::ResourceManager::LoadTexture(const std::string& filePath)
 {
     auto itr = m_textures.find(filePath);
 
-    if (itr != m_textures.end())
-        return itr->second.get();
+	if (itr != m_textures.end())
+	{
+		itr->second->EnsureLoaded();
+		return itr->second.get();
+	}
 
     std::unique_ptr<Texture, Texture::Deleter> temp(new Texture());
     const bool result = temp->LoadFromFile(filePath);
@@ -52,8 +58,11 @@ Font* ResourceManager::LoadFont(const std::string& filePath)
 {
     auto itr = m_fonts.find(filePath);
 
-    if (itr != m_fonts.end())
-        return itr->second.get();
+	if (itr != m_fonts.end())
+	{
+		itr->second->EnsureLoaded();
+		return itr->second.get();
+	}
 
     std::unique_ptr<Font, Font::Deleter> temp(new Font());
     const bool result = temp->LoadFromFile(filePath);
@@ -72,7 +81,10 @@ Sound* ResourceManager::LoadSound(const std::string& filePath)
 	auto itr = m_sounds.find(filePath);
 
 	if (itr != m_sounds.end())
+	{
+		itr->second->EnsureLoaded();
 		return itr->second.get();
+	}
 
 	std::unique_ptr<Sound, Sound::Deleter> temp(new Sound());
 	const bool result = temp->LoadFromFile(filePath);

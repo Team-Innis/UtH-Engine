@@ -14,9 +14,8 @@ namespace uth
 {
 	class VertexBuffer
 	{
-//#ifdef UTH_SYSTEM_ANDROID
 		static std::unordered_set<VertexBuffer*> VERTEXBUFFERS;
-//#endif
+
 		friend class ResourceManager;
 		friend class SpriteBatch;
 

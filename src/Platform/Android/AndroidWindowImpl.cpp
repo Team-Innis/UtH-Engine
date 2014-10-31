@@ -101,11 +101,6 @@ namespace uth
 		WriteLog((const char*)glGetString(GL_VERSION));
 		WriteLog("+++++++++++++++++++++++++++++++++++++++");
 
-		if (focusLost)
-		{
-			uthRS.PauseSounds();
-			focusLost = false;
-		}
 		return nullptr;
 	}
 
@@ -178,7 +173,13 @@ namespace uth
 			WriteLog("windowINIT");
 			uthAndroidEngine.initialized = true;
 			uthAndroidEngine.winEveHand(window);
-			uthEngine.Init(uthAndroidEngine.settings);
+			if (!focusLost)
+				uthEngine.Init(uthAndroidEngine.settings);
+			else
+			{
+				uthRS.PauseSounds();
+			}
+			uthRS.RecreateOpenGLContext();
 			WriteLog("uthAndroidEngine.winEveHand");
 			break;
 		case APP_CMD_TERM_WINDOW:
@@ -193,6 +194,7 @@ namespace uth
 		case APP_CMD_LOST_FOCUS:
 			WriteLog("LostFocus");
 			uthAndroidEngine.initialized = false;
+			uthRS.ClearOpenGLContext();
 			uthRS.PauseSounds();
 			focusLost = true;
             uth::SensorInput::LostFocus();

@@ -4,25 +4,19 @@
 
 using namespace uth;
 
-//#ifdef UTH_SYSTEM_ANDROID
 std::unordered_set<VertexBuffer*> VertexBuffer::VERTEXBUFFERS;
-//#endif
 
 VertexBuffer::VertexBuffer()
     : m_arrayBufferNeedsUpdate(false),
       m_elementBufferNeedsUpdate(false)
 {
-//#ifdef UTH_SYSTEM_ANDROID
 	VERTEXBUFFERS.emplace(this);
-//#endif
 	init();
 }
 
 VertexBuffer::~VertexBuffer()
 {
-//#ifdef UTH_SYSTEM_ANDROID
 	VERTEXBUFFERS.erase(this);
-//#endif
 
 	clear();
 	uth::Graphics::DeleteBuffers(1, &m_arrayBuffer);
@@ -76,14 +70,14 @@ void VertexBuffer::changeBufferData(const unsigned int offset, const std::vector
 {
     unsigned int size = vertices.size() * sizeof(Vertex);
     uth::Graphics::BindBuffer(ARRAY_BUFFER, m_arrayBuffer);
-    Graphics::SetBufferSubData(ARRAY_BUFFER, offset, size, &vertices.front());
+	Graphics::SetBufferSubData(ARRAY_BUFFER, offset, size, &vertices.front());
 }
 
 void VertexBuffer::changeElementData(const unsigned int offset, const std::vector<unsigned int>& indices)
 {
     unsigned int size = indices.size() * sizeof(unsigned int);
     uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
-    Graphics::SetBufferSubData(ELEMENT_ARRAY_BUFFER, offset, size, &indices.front());
+	Graphics::SetBufferSubData(ELEMENT_ARRAY_BUFFER, offset, size, &indices.front());
 }
 
 const std::vector<Vertex>& VertexBuffer::getVertices() const
@@ -154,6 +148,17 @@ void VertexBuffer::setData() const
 }
 
 bool VertexBuffer::ClearOpenGLContext()
-{}
+{
+	uth::Graphics::DeleteBuffers(1, &m_arrayBuffer);
+	uth::Graphics::DeleteBuffers(1, &m_elementBuffer);
+	return true;
+}
 bool VertexBuffer::RecreateOpenGLContext()
-{}
+{
+	uth::Graphics::GenerateBuffers(1, &m_arrayBuffer);
+	uth::Graphics::GenerateBuffers(1, &m_elementBuffer);
+	m_arrayBufferNeedsUpdate = true;
+	m_elementBufferNeedsUpdate = true;
+	setData();
+	return true;
+}

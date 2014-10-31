@@ -7,25 +7,30 @@
 
 using namespace uth;
 
+std::unordered_set<Shader*> Shader::SHADERS;
+
 Shader::Shader()
     : m_program(0),
       m_target(nullptr)
 {
+	SHADERS.emplace(this);
 	//WriteLog("\nShaderProgram created: %d", program);
 }
-
 Shader::~Shader()
 {
-	uth::Graphics::DestroyShaderProgram(m_program);
+	SHADERS.erase(this);
+	ClearOpenGLContext();
 
     if (m_target)
         m_target->SetShader(nullptr);
 }
 
-
 // Public
 bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
 {
+	m_vertexPath = vertexShaderPath;
+	m_fragmentPath = fragmentShaderPath;
+
     if (!m_program)
     {
         //uth::Graphics::DestroyShaderProgram(m_program);
@@ -70,7 +75,6 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 	
     return uth::Graphics::LinkShaderProgram(m_program);
 }
-
 void Shader::Use()
 {
 	uth::Graphics::BindProgram(m_program);
@@ -174,3 +178,13 @@ bool Shader::SetUniform(const std::string& name, const pmath::Mat4& matrix)
 
 // Private
 
+bool Shader::ClearOpenGLContext()
+{
+	uth::Graphics::DestroyShaderProgram(m_program);
+	m_program = 0;
+	return true;
+}
+bool Shader::RecreateOpenGLContext()
+{
+	return LoadShader(m_vertexPath,m_fragmentPath);
+}

@@ -4,6 +4,7 @@
 #include <pmath/PMath.hpp>
 #include <UtH/Platform/Enums.hpp>
 #include <string>
+#include <unordered_set>
 
 namespace uth
 {
@@ -11,8 +12,10 @@ namespace uth
 
 	class Shader
 	{
+		static std::unordered_set<Shader*> SHADERS;
 
         friend class RenderTarget;
+		friend class ResourceManager;
 
 	public:
 		Shader();
@@ -39,11 +42,16 @@ namespace uth
 		bool SetUniform(const std::string& name, const pmath::Mat4& matrix);
 	private:
 
+		bool ClearOpenGLContext();
+		bool RecreateOpenGLContext();
+
 		unsigned int m_program;
 
         // Used for unbinding this shader from a render target automatically.
         RenderTarget* m_target;
 
+		std::string m_vertexPath;
+		std::string m_fragmentPath;
 	};
 }
 
