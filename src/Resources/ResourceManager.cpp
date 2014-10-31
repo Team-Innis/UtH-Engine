@@ -211,7 +211,7 @@ bool uth::ResourceManager::RecreateOpenGLContext()
 }
 bool uth::ResourceManager::ClearOpenGLContext()
 {
-	Unload(Images | Textures);
+	Unload(Textures);
 	return true;
 }
 

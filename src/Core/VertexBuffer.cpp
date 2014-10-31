@@ -152,3 +152,8 @@ void VertexBuffer::setData() const
         m_elementBufferNeedsUpdate = false;
     }
 }
+
+bool VertexBuffer::ClearOpenGLContext()
+{}
+bool VertexBuffer::RecreateOpenGLContext()
+{}

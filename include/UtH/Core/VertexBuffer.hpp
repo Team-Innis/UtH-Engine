@@ -48,6 +48,9 @@ namespace uth
 		void init();
 		void setData() const;
 
+		bool ClearOpenGLContext();
+		bool RecreateOpenGLContext();
+
         std::vector<Vertex> m_vertexData;
 
         mutable bool m_arrayBufferNeedsUpdate,
