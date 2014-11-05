@@ -4,6 +4,8 @@
 #include <UtH/Platform/Graphics.hpp>
 
 
+bool uth::Window::focused = true;
+
 #if defined(UTH_SYSTEM_WINDOWS) || defined(UTH_SYSTEM_LINUX)
 
 #include <UtH/Platform/Common/CommonWindowImpl.hpp>

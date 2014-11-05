@@ -13,12 +13,11 @@ Shader::Shader()
     : m_program(0),
       m_target(nullptr)
 {
-	SHADERS.emplace(this);
 	//WriteLog("\nShaderProgram created: %d", program);
 }
 Shader::~Shader()
 {
-	SHADERS.erase(this);
+
 	ClearOpenGLContext();
 
     if (m_target)
@@ -72,8 +71,12 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 		return false;
 	}
     fr.CloseFile();
-	
-    return uth::Graphics::LinkShaderProgram(m_program);
+	const bool result = uth::Graphics::LinkShaderProgram(m_program);
+
+	if (result)
+		SHADERS.emplace(this);
+
+	return result;
 }
 void Shader::Use()
 {
@@ -180,11 +183,14 @@ bool Shader::SetUniform(const std::string& name, const pmath::Mat4& matrix)
 
 bool Shader::ClearOpenGLContext()
 {
-	uth::Graphics::DestroyShaderProgram(m_program);
-	m_program = 0;
+	SHADERS.erase(this);
+
 	return true;
 }
 bool Shader::RecreateOpenGLContext()
 {
-	return LoadShader(m_vertexPath,m_fragmentPath);
+	if (m_vertexPath == "" || m_fragmentPath == "")
+		return false;
+
+	return LoadShader(m_vertexPath, m_fragmentPath);
 }

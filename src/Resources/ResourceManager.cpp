@@ -232,14 +232,27 @@ bool uth::ResourceManager::RecreateOpenGLContext()
 bool uth::ResourceManager::ClearOpenGLContext()
 {
 	WriteLog("Clearing context");
+	bool result = true;
 	Unload(Textures);
 
-	for (auto it : VertexBuffer::VERTEXBUFFERS)
-		it->ClearOpenGLContext();
-	for (auto it : Shader::SHADERS)
-		it->ClearOpenGLContext();
+	{
+		const auto temp = std::unordered_set<VertexBuffer*>(
+			VertexBuffer::VERTEXBUFFERS.begin(),
+			VertexBuffer::VERTEXBUFFERS.end());
+		for (auto it : temp)
+			if (!it->ClearOpenGLContext())
+				result = false;
+	}
+	{
+		const auto temp = std::unordered_set<Shader*>(
+			Shader::SHADERS.begin(),
+			Shader::SHADERS.end());
+		for (auto it : temp)
+			if (!it->ClearOpenGLContext())
+				result = false;
+	}
 
-	return true;
+	return result;
 }
 
 void ResourceManager::PauseSounds()
