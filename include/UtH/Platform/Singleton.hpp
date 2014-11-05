@@ -27,7 +27,7 @@ namespace uth
 		///
 		/// \return A reference to the singletoned class.
 		///
-		/**/ static C& getInstance()
+		/**/inline static C& getInstance()
 		{
 			static C instance;
 

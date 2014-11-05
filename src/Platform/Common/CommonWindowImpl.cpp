@@ -41,9 +41,11 @@ void FocusCallback(GLFWwindow*, int focus)
 	if (focus == GL_TRUE)
 	{
 		uthRS.RecreateOpenGLContext();
+		uth::Window::focused == true;
 	}
 	else
 	{
+		uth::Window::focused == false;
 		uthRS.ClearOpenGLContext();
 	}
 }
