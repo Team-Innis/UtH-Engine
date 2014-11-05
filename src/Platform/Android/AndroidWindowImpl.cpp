@@ -13,11 +13,8 @@ namespace uth
 {
 	bool AndroidWindowImpl::focusLost = false;
 
-	WindowSettings AndroidWindowImpl::windowSettings;
-
 	void* AndroidWindowImpl::create(const WindowSettings& settings)
 	{
-		windowSettings = settings;
 
 		const EGLint attribs[] =
 		{
@@ -174,9 +171,7 @@ namespace uth
 			break;
 		case APP_CMD_INIT_WINDOW:
 			WriteLog("windowINIT");
-			if (focusLost)
-				create(windowSettings);
-			//uthAndroidEngine.initialized = true;
+			uthAndroidEngine.initialized = true;
 			uthAndroidEngine.winEveHand(window);
 			if (!focusLost)
 				uthEngine.Init(uthAndroidEngine.settings);
@@ -186,7 +181,6 @@ namespace uth
 			}
 			uthRS.RecreateOpenGLContext();
 			WriteLog("uthAndroidEngine.winEveHand");
-			focusLost = false;
 			break;
 		case APP_CMD_TERM_WINDOW:
 			uthAndroidEngine.initialized = false;
@@ -202,8 +196,8 @@ namespace uth
 			uthAndroidEngine.initialized = false;
 			uthRS.ClearOpenGLContext();
 			uthRS.PauseSounds();
-			uth::SensorInput::LostFocus();
 			focusLost = true;
+            uth::SensorInput::LostFocus();
 			break;
 		}
 

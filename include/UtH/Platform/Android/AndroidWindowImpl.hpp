@@ -36,8 +36,6 @@ namespace uth
         static void setResizeCallback(ResizeFunc func);
 
 		static bool focusLost;
-	private:
-		static WindowSettings windowSettings;
 	};
 }
 

@@ -11,15 +11,14 @@ std::unordered_set<Shader*> Shader::SHADERS;
 
 Shader::Shader()
     : m_program(0),
-      m_target(nullptr),
-	  m_vertexPath(""),
-	  m_fragmentPath("")
+      m_target(nullptr)
 {
+	SHADERS.emplace(this);
 	//WriteLog("\nShaderProgram created: %d", program);
 }
 Shader::~Shader()
 {
-
+	SHADERS.erase(this);
 	ClearOpenGLContext();
 
     if (m_target)
@@ -31,7 +30,6 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 {
 	m_vertexPath = vertexShaderPath;
 	m_fragmentPath = fragmentShaderPath;
-	WriteLog("Vertex Path: %s\nFragment Path: %s", m_vertexPath.c_str(), m_fragmentPath.c_str());
 
     if (!m_program)
     {
@@ -74,12 +72,8 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 		return false;
 	}
     fr.CloseFile();
-	const bool result = uth::Graphics::LinkShaderProgram(m_program);
-
-	if (result)
-		SHADERS.emplace(this);
-
-	return result;
+	
+    return uth::Graphics::LinkShaderProgram(m_program);
 }
 void Shader::Use()
 {
@@ -186,44 +180,11 @@ bool Shader::SetUniform(const std::string& name, const pmath::Mat4& matrix)
 
 bool Shader::ClearOpenGLContext()
 {
-	WriteLog("ClearOpenGLContext");
-	if (this == nullptr)
-	{
-		WriteLog("this == nullptr");
-	}
-	if (m_vertexPath.empty())
-	{
-		WriteLog("No vertexpath");
-	}
-	else if (m_vertexPath.c_str() == nullptr)
-	{
-		WriteLog("null vertexpath");
-	}
-	else
-	{
-		WriteLog("1Vertex Path: %s\n1Fragment Path: %s", m_vertexPath.c_str(), m_fragmentPath.c_str());
-
-		if (m_program != 0)
-		{
-			uth::Graphics::DestroyShaderProgram(m_program);
-			m_program = 0;
-		}
-
-		WriteLog("2Vertex Path: %s\n2Fragment Path: %s", m_vertexPath.c_str(), m_fragmentPath.c_str());
-	}
-
-	if (SHADERS.find(this) != SHADERS.end())
-		SHADERS.erase(this);
-	WriteLog("Size: %u", SHADERS.size());
-
+	uth::Graphics::DestroyShaderProgram(m_program);
+	m_program = 0;
 	return true;
 }
 bool Shader::RecreateOpenGLContext()
 {
-	WriteLog("3Vertex Path: %s\n3Fragment Path: %s", m_vertexPath.c_str(), m_fragmentPath.c_str());
-	if (m_vertexPath == "")
-	{
-		return LoadShader(m_vertexPath, m_fragmentPath);
-	}
-	return false;
+	return LoadShader(m_vertexPath,m_fragmentPath);
 }

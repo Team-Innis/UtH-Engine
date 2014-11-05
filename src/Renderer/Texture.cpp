@@ -9,12 +9,12 @@ namespace uth
 	//Private
 	void Texture::Bind(uth::TexUnit texUnit) const
 	{
-		uth::Graphics::SetActiveTexUnit(texUnit);
+		uth::Graphics::SetActiveTexUnit(TEXTURE_0);
 		uth::Graphics::BindTexture(TEXTURE_2D, m_textureID);
 	}
 	void Texture::Unbind(uth::TexUnit texUnit)
 	{
-		uth::Graphics::SetActiveTexUnit(texUnit);
+		uth::Graphics::SetActiveTexUnit(TEXTURE_0);
 		uth::Graphics::BindTexture(TEXTURE_2D, 0);
 	}
 
