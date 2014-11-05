@@ -309,6 +309,15 @@ short Rigidbody::GetPhysicsMask() const
     return m_body->GetFixtureList()->GetFilterData().maskBits;
 }
 
+void Rigidbody::SetTrigger(bool trigger)
+{
+    m_body->GetFixtureList()->SetSensor(trigger);
+}
+
+bool Rigidbody::IsTrigger() const
+{
+    return m_body->GetFixtureList()->IsSensor();
+}
 
 b2Body* Rigidbody::GetBox2dBody() const
 {
