@@ -33,18 +33,23 @@ void handle_cmd(android_app* app, int cmd)
 
 int handle_input(android_app* app, AInputEvent* inputEvent)
 {
+    // Returning 1 seems to tell android that we handled
+    // the event and android ignores it
+
     int32_t eventType = AInputEvent_getType(inputEvent);
 
     if (eventType == AINPUT_EVENT_TYPE_KEY)
     {
-        uthInput.Controller.HandleInput(inputEvent);
+      
+        int handledInput = uthInput.Controller.HandleInput(inputEvent);
 
 		if (AKeyEvent_getKeyCode(inputEvent) == AKEYCODE_BACK)
 		{
 			uthInput.RunBackButton();
+            handledInput = 1;
 		}
 
-        return 1;
+        return handledInput;
     }
     else if (eventType == AINPUT_EVENT_TYPE_MOTION)
     {
