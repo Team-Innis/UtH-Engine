@@ -44,9 +44,9 @@ namespace uth
 
     private:
 
-        friend class SceneManager;
+        friend class GameObject;
 
-        virtual std::shared_ptr<tinyxml2::XMLNode> save() const = 0;
+        virtual tinyxml2::XMLNode* save() const = 0;
         virtual bool load(const tinyxml2::XMLNode& doc) = 0;
 
 	};

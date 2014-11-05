@@ -85,7 +85,21 @@ namespace uth
             return false;
         }
 
-        // TODO: load a scene of the right type
+        // Why tinyxml so confusing...
+        const std::string sceneName(doc.ToElement()->Value());
+
+        Scene* ptr = nullptr;
+        for (size_t i = 0; i < m_sceneFuncs.size() && ptr == nullptr; ++i)
+        {
+            if (m_sceneFuncs[i])
+                ptr = m_sceneFuncs[i](sceneName);
+        }
+
+        if (!ptr)
+        {
+            WriteError("Failed to cast loaded scene (%s)", sceneName.c_str());
+            return false;
+        }
 
         bool error = false;
         for (auto itr = doc.FirstChildElement(); itr != nullptr; itr = itr->NextSiblingElement())
@@ -93,7 +107,7 @@ namespace uth
             auto obj = std::make_shared<Object>();
             
             if (obj->load(*itr))
-                curScene->AddChild(obj);
+                ptr->AddChild(obj);
             else
                 error = true;
         }
@@ -103,7 +117,7 @@ namespace uth
             WriteError("Failed to load one or more objects from save %s", path.c_str());
         }
 
-        curScene->SetActive(true);
+        ptr->SetActive(true);
 
         return !error;
     }
@@ -140,5 +154,20 @@ namespace uth
 		startScene();
 		m_pendingSceneSwitch = false;
 	}
+
+    void SceneManager::AddSceneCreateFunc(SceneCFunc func)
+    {
+        m_sceneFuncs.emplace_back(func);
+    }
+
+    void SceneManager::AddObjectCreateFunc(ObjectCFunc func)
+    {
+        m_objectFuncs.emplace_back(func);
+    }
+
+    void SceneManager::AddComponentCreateFunc(ComponentCFunc func)
+    {
+        m_componentFuncs.emplace_back(func);
+    }
 
 }

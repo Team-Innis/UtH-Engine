@@ -47,7 +47,7 @@ namespace uth
 
 		virtual void generateBuffer(bool init = false);
 
-        std::shared_ptr<tinyxml2::XMLNode> save() const override;
+        tinyxml2::XMLNode* save() const override;
 
         bool load(const tinyxml2::XMLNode& doc) override;
 

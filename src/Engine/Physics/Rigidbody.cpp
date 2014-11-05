@@ -239,9 +239,9 @@ float uth::Rigidbody::GetRestitution() const
     return m_body->GetFixtureList()->GetRestitution();
 }
 
-std::shared_ptr<tinyxml2::XMLNode> uth::Rigidbody::save() const
+tinyxml2::XMLNode* uth::Rigidbody::save() const
 {
-    return std::shared_ptr<tinyxml2::XMLNode>();
+    return nullptr;
 }
 
 bool uth::Rigidbody::load(const tinyxml2::XMLNode& doc)

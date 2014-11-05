@@ -45,7 +45,7 @@ namespace uth
 		//Text();
 		Text(/*"text", path = "font", size = 32, name = "Text"*/);
 
-        std::shared_ptr<tinyxml2::XMLNode> save() const override;
+        tinyxml2::XMLNode* save() const override;
 
         bool load(const tinyxml2::XMLNode& doc) override;
 

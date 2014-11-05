@@ -36,7 +36,7 @@ namespace uth
         void AddObjectCreateFunc(ObjectCFunc func);
 
         typedef std::function<Component*(const std::string&)> ComponentCFunc;
-        void AddComponentCreateFunc();
+        void AddComponentCreateFunc(ComponentCFunc func);
 
 
 	private:
@@ -52,8 +52,13 @@ namespace uth
 		int sceneCount;
 		bool m_pendingSceneSwitch;
 
+
         std::vector<SceneCFunc> m_sceneFuncs;
+
+        friend class Object;
         std::vector<ObjectCFunc> m_objectFuncs;
+
+        friend class GameObject;
         std::vector<ComponentCFunc> m_componentFuncs;
 
 

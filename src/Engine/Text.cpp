@@ -172,9 +172,9 @@ const pmath::Vec4 uth::Text::GetDefaultColor()
 	return m_color;
 }
 
-std::shared_ptr<tinyxml2::XMLNode> uth::Text::save() const
+tinyxml2::XMLNode* uth::Text::save() const
 {
-    return std::shared_ptr<tinyxml2::XMLNode>();
+    return nullptr;
 }
 
 bool uth::Text::load(const tinyxml2::XMLNode& doc)

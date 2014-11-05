@@ -2,6 +2,7 @@
 #include <UtH/Renderer/RenderTarget.hpp>
 #include <cassert>
 #include <UtH/Platform/Debug.hpp>
+#include <UtH/Engine/SceneManager.hpp>
 
 namespace uth
 {
@@ -334,9 +335,17 @@ namespace uth
 
         for (auto itr = currentNode->NextSibling(); itr != nullptr; itr = itr->NextSibling())
         {
+            auto& funcs = uthSceneM.m_objectFuncs;
 
+            Object* ptr = nullptr;
+            for (size_t i = 0; i < funcs.size() && ptr == nullptr; ++i)
+                ptr = funcs[i](itr->Value());
+            
+            if (!ptr)
+                return false;
 
-            // TODO: type resolution is needed here.
+            if (ptr->load(*itr))
+                AddChild(ptr);
         }
 
         return true;
