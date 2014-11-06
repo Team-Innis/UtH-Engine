@@ -111,6 +111,9 @@
     <ClInclude Include="..\..\include\UtH\Platform\FileManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Platform\SoundDevice.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Platform\OGLCheck.cpp">
@@ -163,6 +166,9 @@
     </ClCompile>
     <ClCompile Include="..\..\ext\lib\tinyxml2\src\tinyxml2.cpp">
       <Filter>tinyxlm2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\SoundDevice.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

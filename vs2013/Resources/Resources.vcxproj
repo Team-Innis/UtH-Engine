@@ -16,6 +16,7 @@
     <ClInclude Include="..\..\include\UtH\Resources\ResourceManager.hpp" />
     <ClInclude Include="..\..\include\UtH\Resources\Resources.hpp" />
     <ClInclude Include="..\..\include\UtH\Resources\Shader.hpp" />
+    <ClInclude Include="..\..\include\UtH\Resources\Sound.hpp" />
     <ClInclude Include="..\..\include\UtH\Resources\Texture.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -23,6 +24,7 @@
     <ClCompile Include="..\..\src\Resources\Image.cpp" />
     <ClCompile Include="..\..\src\Resources\ResourceManager.cpp" />
     <ClCompile Include="..\..\src\Resources\Shader.cpp" />
+    <ClCompile Include="..\..\src\Resources\Sound.cpp" />
     <ClCompile Include="..\..\src\Resources\Texture.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -81,11 +83,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OpenAL32.lib;libsndfile-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\ext\lib\libsndfile\lib\Win32;$(SolutionDir)..\ext\lib\openal\lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -107,11 +108,10 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>OpenAL32.lib;libsndfile-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
     <Lib>
-      <AdditionalLibraryDirectories>
-      </AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\ext\lib\libsndfile\lib\Win32;$(SolutionDir)..\ext\lib\openal\lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

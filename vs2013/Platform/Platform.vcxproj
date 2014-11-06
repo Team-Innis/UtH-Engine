@@ -31,6 +31,7 @@
     <ClInclude Include="..\..\include\UtH\Platform\OpenGL.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Platform.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Singleton.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\SoundDevice.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Typedefs.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Uncopyable.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Common\InputCommon.hpp" />
@@ -58,6 +59,7 @@
     <ClCompile Include="..\..\src\Platform\Common\InputKeyboard.cpp" />
     <ClCompile Include="..\..\src\Platform\Common\InputMouse.cpp" />
     <ClCompile Include="..\..\src\Platform\Common\InputTouch.cpp" />
+    <ClCompile Include="..\..\src\Platform\SoundDevice.cpp" />
     <ClCompile Include="..\..\src\Platform\Window.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
