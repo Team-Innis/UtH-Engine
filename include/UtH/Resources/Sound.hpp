@@ -68,6 +68,9 @@ namespace uth
 		// Adjust listener position
 		void SetListenerPosition(pmath::Vec3 position);
 
+		// Check if source is playing.
+		bool IsPlaying();
+
 	private:
 		Sound(const Sound&);
 

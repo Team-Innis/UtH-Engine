@@ -140,6 +140,14 @@ void Sound::SetListenerPosition(pmath::Vec3 position)
 	CheckALError("al_listener3f AL_VELOCITY");
 }
 
+bool Sound::IsPlaying()
+{
+	if (Status() == AL_PLAYING)
+		return true;
+	else
+		return false;
+}
+
 // PRIVATE
 bool Sound::Load(std::string fileName)
 {
