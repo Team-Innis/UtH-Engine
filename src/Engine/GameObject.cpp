@@ -118,52 +118,46 @@ void GameObject::Update(float dt)
 	Object::Update(dt);
 }
 
-tinyxml2::XMLNode* GameObject::save() const
+namespace rj = rapidjson;
+
+rapidjson::Value GameObject::save(rapidjson::MemoryPoolAllocator<>& alloc) const
 {
-    auto node = Object::save();
+    rj::Value val = Object::save(alloc);
 
-    if (!node)
-        return nullptr;
-
+    if (!m_components.empty())
     {
-        auto compArray = new tinyxml2::XMLDocument();
-        compArray->SetValue("components");
+        val.AddMember(rj::StringRef("components"), rj::kArrayType, alloc);
+        rj::Value& compArray = val["components"];
 
         for (auto& i : m_components)
         {
-            std::unique_ptr<tinyxml2::XMLDocument> comp(i->save()->ToDocument());
-
-            if (comp)
-                compArray->InsertEndChild(comp.release());
+            
         }
-
-        node->InsertEndChild(compArray);
     }
 
-    return node;
+    return val;
 }
 
-bool GameObject::load(const tinyxml2::XMLNode& doc)
+bool GameObject::load(const rj::Value& doc)
 {
     if (!Object::load(doc))
         return false;
 
-    auto compArray = doc.FirstChild();
-
-    for (auto itr = compArray; itr != nullptr; itr = itr->NextSibling())
+    if (doc.HasMember("components") && doc["components"].IsArray())
     {
-        if (itr->Value() == "components")
+        const rj::Value& compArray = doc["components"];
+
+        for (auto itr = compArray.Begin(); itr != compArray.End(); ++itr)
         {
-            for (auto cItr = itr->FirstChild(); cItr != nullptr; cItr = cItr->NextSibling())
+            const std::string id(itr->FindMember("identifier")->value.GetString());
+            
+            Component* ptr = nullptr;
+            for (auto& i : uthSceneM.m_componentFuncs)
+                ptr = i(id);
+
+            if (!ptr)
             {
-                std::unique_ptr<Component> ptr;
-                auto& funcs = uthSceneM.m_componentFuncs;
-
-                for (size_t i = 0; i < funcs.size() && ptr == nullptr; ++i)
-                    ptr.reset(funcs[i](cItr->Value()));
-
-                if (ptr && ptr->load(*cItr))
-                    AddComponent(ptr.release());
+                // cast failed
             }
         }
     }

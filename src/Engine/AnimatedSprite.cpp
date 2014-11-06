@@ -238,12 +238,14 @@ void AnimatedSprite::generateBuffer(bool init)
     }
 }
 
-tinyxml2::XMLNode* uth::AnimatedSprite::save() const
+namespace rj = rapidjson;
+
+rj::Value AnimatedSprite::save(rj::MemoryPoolAllocator<>& alloc) const
 {
-    return nullptr;
+    return rj::Value();
 }
 
-bool uth::AnimatedSprite::load(const tinyxml2::XMLNode& doc)
+bool uth::AnimatedSprite::load(const rj::Value& doc)
 {
     return false;
 }

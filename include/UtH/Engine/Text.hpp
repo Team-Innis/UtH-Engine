@@ -45,9 +45,9 @@ namespace uth
 		//Text();
 		Text(/*"text", path = "font", size = 32, name = "Text"*/);
 
-        tinyxml2::XMLNode* save() const override;
+        rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const final override;
 
-        bool load(const tinyxml2::XMLNode& doc) override;
+        bool load(const rapidjson::Value& doc) override;
 
 		Shader m_textShader;
 

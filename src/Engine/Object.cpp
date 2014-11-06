@@ -239,113 +239,128 @@ namespace uth
 		m_parent = p;
 	}
 
-    tinyxml2::XMLNode* Object::save() const
+    namespace rj = rapidjson;
+
+    rj::Value Object::save(rapidjson::MemoryPoolAllocator<>& alloc) const
     {
-        auto node = new tinyxml2::XMLDocument();
+        rj::Value val;
+        val.SetObject();
 
         // Active flag
-        node->ToElement()->SetAttribute("active", m_active);
+        // TODO: add identifier for casting
+        val.AddMember(rj::StringRef("active"), m_active, alloc);
         
         // Transform
         {
-            auto newNode = new tinyxml2::XMLDocument();
-            node->InsertEndChild(newNode);
-
-            auto trans = newNode->ToElement();
-            trans->SetName("Transform");
+            rj::Value transVal;
+            transVal.SetObject();
 
             // Position
-            trans->SetAttribute("posX", transform.GetPosition().x);
-            trans->SetAttribute("posY", transform.GetPosition().y);
+            transVal.AddMember(rj::StringRef("posX"), transform.GetPosition().x, alloc);
+            transVal.AddMember(rj::StringRef("posY"), transform.GetPosition().y, alloc);
 
             // Origin
-            trans->SetAttribute("origX", transform.GetOrigin().x);
-            trans->SetAttribute("origY", transform.GetOrigin().y);
+            transVal.AddMember(rj::StringRef("origX"), transform.GetOrigin().x, alloc);
+            transVal.AddMember(rj::StringRef("origY"), transform.GetOrigin().y, alloc);
 
             // Scale
-            trans->SetAttribute("scaleX", transform.GetScale().x);
-            trans->SetAttribute("scaleY", transform.GetScale().y);
+            transVal.AddMember(rj::StringRef("scaleX"), transform.GetScale().x, alloc);
+            transVal.AddMember(rj::StringRef("scaleY"), transform.GetScale().y, alloc);
 
             // Size
-            trans->SetAttribute("sizeX", transform.GetSize().x);
-            trans->SetAttribute("sizeY", transform.GetSize().y);
+            transVal.AddMember(rj::StringRef("sizeX"), transform.GetSize().x, alloc);
+            transVal.AddMember(rj::StringRef("sizeY"), transform.GetSize().y, alloc);
 
             // Rotation
-            trans->SetAttribute("angle", transform.GetRotation());
+            transVal.AddMember(rj::StringRef("angle"), transform.GetRotation(), alloc);
+
+            val.AddMember(rj::StringRef("transform"), transVal, alloc);
         }
 
         // Tags
+        if (!m_tagList.empty())
         {
-            auto newNode = new tinyxml2::XMLDocument();
-            node->InsertEndChild(newNode);
-
-            newNode->ToElement()->SetName("Tags");
+            rj::Value tagArray;
+            tagArray.SetArray();
 
             for (auto& i : m_tagList)
             {
-                auto tagNode = new tinyxml2::XMLDocument();
-                tagNode->ToElement()->SetName("Tag");
-                tagNode->ToElement()->SetValue(i.c_str());
-                newNode->InsertEndChild(tagNode);
+                tagArray.PushBack(rj::Value(i.c_str(), alloc), alloc);
             }
+
+            val.AddMember(rj::StringRef("tags"), tagArray, alloc);
+        }
+        
+        // Children
+        if (!m_children.empty())
+        {
+            val.AddMember(rj::StringRef("children"), rj::kArrayType, alloc);
+            rj::Value& childArray = val["children"];
+
+            for (auto& i : m_children)
+                childArray.PushBack(i->save(alloc), alloc);
+        }
+
+        return val;
+    }
+
+    bool Object::load(const rj::Value& doc)
+    {
+        m_active = doc["active"].GetBool();
+
+        {
+            const rj::Value& transVal = doc["transform"];
+
+            // Position
+            transform.SetPosition(transVal["posX"].GetDouble(),
+                                  transVal["posY"].GetDouble());
+
+            // Origin
+            transform.SetOrigin(pmath::Vec2(transVal["origX"].GetDouble(),
+                                            transVal["origY"].GetDouble()));
+
+            // Scale
+            transform.SetScale(transVal["scaleX"].GetDouble(),
+                               transVal["scaleY"].GetDouble());
+
+            // Size
+            transform.SetSize(transVal["sizeX"].GetDouble(),
+                              transVal["sizeY"].GetDouble());
+
+            // Rotatiom
+            transform.SetRotation(transVal["angle"].GetDouble());
+        }
+
+        // Tags
+        if (doc.HasMember("tags") && doc["tags"].IsArray())
+        {
+            const rj::Value& tagArray = doc["tags"];
+
+            for (auto itr = tagArray.Begin(); itr != tagArray.End(); ++itr)
+                m_tagList.emplace(itr->GetString());
         }
 
         // Children
-        for (auto& i : m_children)
-            node->InsertEndChild(i->save());
-
-        return node;
-    }
-
-    bool Object::load(const tinyxml2::XMLNode& doc)
-    {
-        m_active = doc.ToElement()->BoolAttribute("active");
-        auto currentNode = doc.FirstChild();
-
+        if (doc.HasMember("children") && doc["children"].IsArray())
         {
-            auto transElem = currentNode->FirstChildElement();
+            const rj::Value& childArray = doc["children"];
 
-            // Position
-            transform.SetPosition(transElem->FindAttribute("posX")->FloatValue(),
-                                  transElem->FindAttribute("posY")->FloatValue());
+            for (auto itr = childArray.Begin(); itr != childArray.End(); ++itr)
+            {
+                auto& funcs = uthSceneM.m_objectFuncs;
 
-            // Origin
-            transform.SetOrigin(pmath::Vec2(transElem->FindAttribute("origX")->FloatValue(),
-                                            transElem->FindAttribute("origY")->FloatValue()));
+                Object* ptr = nullptr;
+                for (size_t i = 0; i < funcs.size() && ptr == nullptr; ++i)
+                    ptr = funcs[i](itr->FindMember("identifier")->value.GetString());
 
-            // Scale
-            transform.SetScale(transElem->FindAttribute("scaleX")->FloatValue(),
-                               transElem->FindAttribute("scaleY")->FloatValue());
+                if (!ptr)
+                    return false;
 
-            // Size
-            transform.SetSize(transElem->FindAttribute("sizeX")->FloatValue(),
-                              transElem->FindAttribute("sizeY")->FloatValue());
-
-            // Rotatiom
-            transform.SetRotation(transElem->FindAttribute("angle")->FloatValue());
-        }
-
-        currentNode = currentNode->NextSibling();
-
-        // Tags
-        {
-            for (auto itr = currentNode->FirstChildElement(); itr != nullptr; itr = itr->NextSiblingElement())
-                m_tagList.emplace(itr->FirstAttribute()->Value());
-        }
-
-        for (auto itr = currentNode->NextSibling(); itr != nullptr; itr = itr->NextSibling())
-        {
-            auto& funcs = uthSceneM.m_objectFuncs;
-
-            Object* ptr = nullptr;
-            for (size_t i = 0; i < funcs.size() && ptr == nullptr; ++i)
-                ptr = funcs[i](itr->Value());
-            
-            if (!ptr)
-                return false;
-
-            if (ptr->load(*itr))
-                AddChild(ptr);
+                if (ptr->load(*itr))
+                    AddChild(ptr);
+                else
+                    return false;
+            }
         }
 
         return true;

@@ -35,9 +35,9 @@ namespace uth
 
 		void generateBuffer(bool init = false);
 
-        tinyxml2::XMLNode* save() const override;
+        rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const final override;
 
-        bool load(const tinyxml2::XMLNode& doc) override;
+        bool load(const rapidjson::Value& doc) override;
 
 		unsigned int m_frames; // in the loop
 		int m_firstFrame; // of the loop

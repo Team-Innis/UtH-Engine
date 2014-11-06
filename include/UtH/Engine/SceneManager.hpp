@@ -25,9 +25,9 @@ namespace uth
 
 		void registerNewSceneFunc(Scene* (*newSceneFunc)(int SceneID),int SceneCount);
 
-        bool SaveCurrentScene(const std::string& saveName, const std::string& path);
+        bool SaveCurrentScene(const std::string& saveName);
 
-        bool LoadSavedScene(const std::string& path);
+        bool LoadSavedScene(const std::string& saveName);
 
         typedef std::function<Scene*(const std::string&)> SceneCFunc;
         void AddSceneCreateFunc(SceneCFunc func);

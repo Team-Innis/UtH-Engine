@@ -239,12 +239,14 @@ float uth::Rigidbody::GetRestitution() const
     return m_body->GetFixtureList()->GetRestitution();
 }
 
-tinyxml2::XMLNode* uth::Rigidbody::save() const
+namespace rj = rapidjson;
+
+rj::Value uth::Rigidbody::save(rapidjson::MemoryPoolAllocator<>& alloc) const
 {
-    return nullptr;
+    return rj::Value();
 }
 
-bool uth::Rigidbody::load(const tinyxml2::XMLNode& doc)
+bool uth::Rigidbody::load(const rj::Value& doc)
 {
     return false;
 }

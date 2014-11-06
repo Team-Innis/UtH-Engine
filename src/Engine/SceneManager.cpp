@@ -4,6 +4,8 @@
 
 #include <UtH/Engine/DefaultScene.hpp>
 #include <UtH/Engine/Engine.hpp>
+#include <rapidjson/prettywriter.h>
+#include <rapidjson/stringbuffer.h>
 
 
 namespace uth
@@ -58,68 +60,71 @@ namespace uth
 		sceneCount = SceneCount;
     }
 
-    namespace x = tinyxml2;
-
-    bool SceneManager::SaveCurrentScene(const std::string& saveName, const std::string& path)
+    bool SceneManager::SaveCurrentScene(const std::string& saveName)
     {
-        x::XMLDocument doc;
-        doc.ToElement()->SetName("savename");
-        doc.ToElement()->SetValue(saveName.c_str());
-        
-        doc.InsertEndChild(curScene->Object::save());
+        namespace rj = rapidjson;
 
-        FileManager().WriteToFile(path + "/" + saveName, doc.ToText()->Value());
+        if (curScene)
+        {
+            rj::Document doc;
+            doc.SetObject();
+            
+            doc.AddMember(rj::Value(saveName.c_str(), doc.GetAllocator()), curScene->save(doc.GetAllocator()), doc.GetAllocator());
 
-        return true;
+            rj::StringBuffer buffer;
+            rj::PrettyWriter<rj::StringBuffer> writer(buffer);
+            doc.Accept(writer);
+            rj::Value v;
+
+            FileManager fm;
+            fm.WriteToFile("saves/" + saveName + ".uths", buffer.GetString());
+
+            return true;
+        }
+
+        return false;
     }
 
-    bool SceneManager::LoadSavedScene(const std::string& path)
+    bool SceneManager::LoadSavedScene(const std::string& saveName)
     {
+        namespace rj = rapidjson;
+
         FileManager fm;
+        const std::string path("saves/" + saveName + ".uths");
         fm.OpenFile(path);
         
-        x::XMLDocument doc;
-        if (doc.Parse(fm.ReadText().c_str()))
+        rj::Document doc;
+        doc.Parse<0>(fm.ReadText().c_str());
+
+        if (doc.HasParseError())
         {
-            WriteError("Failed to parse save file in path %s", path.c_str());
+            WriteError("Failed to parse save file %s", saveName.c_str());
             return false;
         }
 
-        // Why tinyxml so confusing...
-        const std::string sceneName(doc.ToElement()->Value());
+        if (!doc.HasMember(saveName.c_str()))
+            return false;
 
         Scene* ptr = nullptr;
         for (size_t i = 0; i < m_sceneFuncs.size() && ptr == nullptr; ++i)
         {
             if (m_sceneFuncs[i])
-                ptr = m_sceneFuncs[i](sceneName);
+                ptr = m_sceneFuncs[i](saveName);
         }
 
         if (!ptr)
         {
-            WriteError("Failed to cast loaded scene (%s)", sceneName.c_str());
+            WriteError("Failed to cast loaded scene %s", saveName.c_str());
             return false;
         }
 
-        bool error = false;
-        for (auto itr = doc.FirstChildElement(); itr != nullptr; itr = itr->NextSiblingElement())
+        if (!ptr->load(doc))
         {
-            auto obj = std::make_shared<Object>();
-            
-            if (obj->load(*itr))
-                ptr->AddChild(obj);
-            else
-                error = true;
+            WriteError("Failed to load one or more objects from save %s", saveName.c_str());
+            return false;
         }
 
-        if (error)
-        {
-            WriteError("Failed to load one or more objects from save %s", path.c_str());
-        }
-
-        ptr->SetActive(true);
-
-        return !error;
+        return true;
     }
 
 

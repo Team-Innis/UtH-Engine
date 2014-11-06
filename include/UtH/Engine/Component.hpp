@@ -7,7 +7,7 @@
 #include <UtH/Renderer/RenderAttributes.hpp>
 #include <string>
 #include <memory>
-#include <tinyxml2.h>
+#include <rapidjson/document.h>
 
 
 namespace uth
@@ -46,8 +46,8 @@ namespace uth
 
         friend class GameObject;
 
-        virtual tinyxml2::XMLNode* save() const = 0;
-        virtual bool load(const tinyxml2::XMLNode& doc) = 0;
+        virtual rapidjson::Value save(rapidjson::MemoryPoolAllocator<>&) const = 0;
+        virtual bool load(const rapidjson::Value&) = 0;
 
 	};
 }

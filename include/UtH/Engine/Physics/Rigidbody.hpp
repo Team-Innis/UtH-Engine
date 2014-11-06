@@ -174,9 +174,9 @@ namespace uth
 
 		Rigidbody();
 
-        tinyxml2::XMLNode* save() const override;
+        rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const override;
 
-        bool load(const tinyxml2::XMLNode& doc) override;
+        bool load(const rapidjson::Value& doc) override;
 
 		std::weak_ptr<b2World> m_world;
 		b2Body* m_body;

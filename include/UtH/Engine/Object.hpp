@@ -9,7 +9,7 @@
 #include <memory>
 #include <UtH/Engine/Transform.hpp>
 #include <UtH/Renderer/RenderAttributes.hpp>
-#include <tinyxml2.h>
+#include <rapidjson/document.h>
 
 namespace uth
 {
@@ -81,8 +81,8 @@ namespace uth
 		Object* m_parent;
         bool m_active;
 
-        virtual tinyxml2::XMLNode* save() const;
-        virtual bool load(const tinyxml2::XMLNode& doc);
+        virtual rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const;
+        virtual bool load(const rapidjson::Value& doc);
 
 	private:
 

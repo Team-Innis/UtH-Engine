@@ -17,6 +17,7 @@ External libraries
 * [OpenAL Soft](http://kcat.strangesoft.net/openal.html)
 * [PhysicsFS](https://icculus.org/physfs/)
 * [ProbablyMath] (https://github.com/M4T1A5/ProbablyMath)
+* [RapidJSON] (https://github.com/miloyip/rapidjson)
 * [TinyXML2](http://www.grinninglizard.com/tinyxml2/index.html)
 * [stb_image] (https://github.com/nothings/stb)
 

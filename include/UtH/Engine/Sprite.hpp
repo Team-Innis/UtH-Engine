@@ -47,9 +47,9 @@ namespace uth
 
 		virtual void generateBuffer(bool init = false);
 
-        tinyxml2::XMLNode* save() const override;
+        rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const override;
 
-        bool load(const tinyxml2::XMLNode& doc) override;
+        bool load(const rapidjson::Value& doc) override;
 
 		VertexBuffer m_vertexBuffer;
 

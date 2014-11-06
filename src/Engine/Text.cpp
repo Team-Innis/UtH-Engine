@@ -172,12 +172,14 @@ const pmath::Vec4 uth::Text::GetDefaultColor()
 	return m_color;
 }
 
-tinyxml2::XMLNode* uth::Text::save() const
+namespace rj = rapidjson;
+
+rj::Value uth::Text::save(rj::MemoryPoolAllocator<>& alloc) const
 {
-    return nullptr;
+    return rj::Value();
 }
 
-bool uth::Text::load(const tinyxml2::XMLNode& doc)
+bool uth::Text::load(const rj::Value& doc)
 {
     return false;
 }
