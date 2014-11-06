@@ -1,5 +1,4 @@
 #include <UtH/Renderer/Texture.hpp>
-#include <UtH/Platform/Graphics.hpp>
 #include <UtH/Resources/ResourceManager.hpp>
 #include <cstdlib>
 
