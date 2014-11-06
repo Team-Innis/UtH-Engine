@@ -21,7 +21,6 @@ namespace uth
 			}
 		};
 
-		friend class RenderTarget;
 		friend class ResourceManager;
 
 		Shader();

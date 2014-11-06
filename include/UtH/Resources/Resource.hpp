@@ -19,6 +19,7 @@ namespace uth
 
 		virtual bool LoadFromFile(const std::string& filePath) = 0;
 		virtual void Unload() = 0;
+		// TODO : change to pure virtual function
 		virtual bool EnsureLoaded();
 
 		bool m_loaded;

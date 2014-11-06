@@ -1,6 +1,7 @@
-#include <UtH/Renderer/RenderTarget.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/Graphics.hpp>
+#include <UtH/Renderer/RenderTarget.hpp>
+#include <UtH/Resources/ResourceManager.hpp>
 #include <cassert>
 
 
@@ -12,17 +13,19 @@ namespace
 
         return ++id;
     }
+
 }
 
 namespace uth
 {
+	uth::Shader* RenderTarget::defaultShader;
+	bool RenderTarget::shaderLoaded = false;
+
     RenderTarget::RenderTarget()
         : m_camera(nullptr),
           m_shader(nullptr),
           m_defaultCamera(),
-          m_defaultShader(),
           m_viewport(),
-          m_loaded(false),
           m_set(false),
           m_uniqueID(getUniqueID())
     {
@@ -31,11 +34,11 @@ namespace uth
 
 
     bool RenderTarget::Bind()
-    {
+	{
         if (m_shader)
             m_shader->Use();
         else
-            m_defaultShader.Use();
+			uthRS.LoadShader("Shaders/Default.vert", "Shaders/Default.frag")->Use();
 
         updateUniforms();
 
@@ -83,28 +86,14 @@ namespace uth
     void RenderTarget::SetShader(Shader* shader)
     {
         m_shader = shader;
-
-        if (m_shader)
-            m_shader->m_target = this;
     }
 
     Shader& RenderTarget::GetShader()
-    {
-        if (!m_loaded)
-        {
-            const bool compiled = m_defaultShader.LoadShader("Shaders/Default.vert", "Shaders/Default.frag");
-            if (!compiled)
-            {
-                WriteError("Default shader compilation failed");
-                assert(false);
-            }
-            m_loaded = true;
-        }
-
+	{
         if (m_shader)
             return *m_shader;
 
-        return m_defaultShader;
+		return *uthRS.LoadShader("Shaders/Default.vert", "Shaders/Default.frag");
     }
 
     void RenderTarget::SetViewport(const pmath::Recti& rect)
@@ -145,7 +134,7 @@ namespace uth
         }
         else
         {
-            m_defaultShader.SetUniform("unifProjection", m_camera ? m_camera->GetProjectionTransform() : m_defaultCamera.GetProjectionTransform());
+			uthRS.LoadShader("Shaders/Default.vert", "Shaders/Default.frag")->SetUniform("unifProjection", m_camera ? m_camera->GetProjectionTransform() : m_defaultCamera.GetProjectionTransform());
         }
     }
 }

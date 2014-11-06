@@ -4,9 +4,12 @@
 
 using namespace uth;
 
-std::string combineShaderPaths(const std::string& vertexPath, const std::string& fragmentPath)
+namespace
 {
-	return vertexPath + '\n' + fragmentPath;
+	std::string combineShaderPaths(const std::string& vertexPath, const std::string& fragmentPath)
+	{
+		return vertexPath + '\n' + fragmentPath;
+	}
 }
 
 ResourceManager::ResourceManager()
@@ -272,8 +275,6 @@ bool uth::ResourceManager::UnloadShader(const std::string& vertexPath, const std
 bool uth::ResourceManager::RecreateOpenGLContext()
 {
 	WriteLog("Recreating context");
-	for (auto& i : m_images)
-		i.second->EnsureLoaded();
 	for (auto& i : m_textures)
 		i.second->EnsureLoaded();
 	for (auto& i : m_shaders)
@@ -326,7 +327,6 @@ void ResourceManager::PauseSounds()
 
 const std::string ResourceManager::FilePath(const void* ptr, const unsigned int flags) const
 {
-	//TODO : make each use only own flag
 	if ((flags & uth::ResourceManager::Sounds) != 0)
 		for (auto& i : m_sounds)
 			if (i.second.get() == ptr)

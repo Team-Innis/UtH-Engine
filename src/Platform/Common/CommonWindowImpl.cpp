@@ -38,25 +38,25 @@ namespace
 
 void FocusCallback(GLFWwindow*, int focus)
 {
-	static bool RecreationFailed = false;
-	std::cout << focus << std::endl;
-	if (focus == GL_TRUE)
-	{
-		if (!RecreationFailed)
-		{
-			if (!uthRS.RecreateOpenGLContext())
-			{
-				RecreationFailed = true;
-				uth::Window::focused = true;
-			}
-		}
-	}
-	else
-	{
-		if (uth::Window::focused)
-			uthRS.ClearOpenGLContext();
-		uth::Window::focused = false;
-	}
+	//static bool RecreationFailed = false;
+	//std::cout << focus << std::endl;
+	//if (focus == GL_TRUE)
+	//{
+	//	if (!RecreationFailed)
+	//	{
+	//		if (!uthRS.RecreateOpenGLContext())
+	//		{
+	//			RecreationFailed = true;
+	//		}
+	//		uth::Window::focused = true;
+	//	}
+	//}
+	//else
+	//{
+	//	if (uth::Window::focused)
+	//		uthRS.ClearOpenGLContext();
+	//	uth::Window::focused = false;
+	//}
 }
 
 namespace uth

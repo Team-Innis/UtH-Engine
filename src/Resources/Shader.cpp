@@ -14,7 +14,7 @@ Shader::Shader()
 }
 Shader::~Shader()
 {
-	ClearOpenGLContext();
+	Unload();
 }
 
 // Public
@@ -166,8 +166,7 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 	fr.CloseFile();
 	const bool result = uth::Graphics::LinkShaderProgram(m_program);
 
-	if (result)
-		SHADERS.emplace(this);
+	m_loaded = result;
 
 	return result;
 }
@@ -177,7 +176,7 @@ bool uth::Shader::LoadFromFile(const std::string& filePath)
 	const size_t cut = filePath.find('\n');
 	const std::string vertexPath = filePath.substr(0, cut);
 	const std::string fragmentPath = filePath.substr(cut+1, filePath.size());
-	LoadShader(vertexPath, fragmentPath);
+	return LoadShader(vertexPath, fragmentPath);
 }
 void uth::Shader::Unload()
 {
@@ -186,4 +185,5 @@ void uth::Shader::Unload()
 		Graphics::DestroyShaderProgram(m_program);
 		m_program = 0;
 	}
+	m_loaded = false;
 }
