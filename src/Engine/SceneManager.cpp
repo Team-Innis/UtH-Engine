@@ -35,7 +35,7 @@ namespace uth
         });
         AddComponentCreateFunc([](const std::string& id) -> Component*
         {
-
+            return nullptr;
         });
 
 		registerNewSceneFunc(defaultNewSceneFunc, 0);

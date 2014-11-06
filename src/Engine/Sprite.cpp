@@ -190,8 +190,7 @@ rj::Value uth::Sprite::save(rj::MemoryPoolAllocator<>& alloc) const
     props.PushBack(m_color.a, alloc);
 
     if (m_texture)
-    // TODO: need to extract texture path somehow
-    val.AddMember(rj::StringRef("texture"), rj::kStringType, alloc);
+        val.AddMember(rj::StringRef("texture"), rj::Value(uthRS.FilePath(m_texture,ResourceManager::Textures).c_str(), alloc), alloc);
 
     return val;
 }
@@ -202,7 +201,7 @@ bool uth::Sprite::load(const rj::Value& doc)
         return false;
 
     const rj::Value& props = doc["properties"];
-
+    
     m_size.w = props[0u].GetDouble();
     m_size.h = props[1].GetDouble();
     m_color.r = props[2].GetDouble();
