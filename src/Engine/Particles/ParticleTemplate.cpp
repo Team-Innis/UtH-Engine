@@ -1,5 +1,5 @@
 #include <UtH/Engine/Particles/ParticleTemplate.hpp>
-#include <UtH/Core/Randomizer.hpp>
+#include <UtH/Engine/Randomizer.hpp>
 #include <UtH/Engine/Particles/Particle.hpp>
 
 using namespace uth;

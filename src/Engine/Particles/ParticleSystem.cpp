@@ -1,5 +1,5 @@
 #include <UtH/Engine/Particles/ParticleSystem.hpp>
-#include <UtH/Core/Randomizer.hpp>
+#include <UtH/Engine/Randomizer.hpp>
 #include <algorithm>
 #include <iostream>
 
@@ -172,4 +172,9 @@ unsigned int ParticleSystem::GetParticleAmount() const
 size_t ParticleSystem::GetParticleLimit() const
 {
     return m_particles.capacity();
+}
+
+void uth::ParticleSystem::RaiseUpdateFlag()
+{
+    m_update = true;
 }

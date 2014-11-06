@@ -4,15 +4,20 @@
 #include <cassert>
 #include <cstdlib> // malloc
 #include <string>
+#include <vector>
 
 #ifdef UTH_SYSTEM_WINDOWS
 	#include <direct.h> // _mkdir
-    #define mkdir _mkdir
 #endif
+
+#include <sys/types.h>
+#include <sys/stat.h>
 
 using namespace uth;
 
 bool FileManager::isCompressed = false;
+
+void ensureDirectoryExists(const std::string& path);
 
 FileManager::FileManager()
 	: file(nullptr),
@@ -65,13 +70,16 @@ void FileManager::OpenFile(const std::string& path, const Location loca /*=LOCAT
 			WriteError("No such file location available %d", loca);
 
 		temp_path += path;
-		file = std::fopen(temp_path.c_str(), "rb");
+
+        if (loca != Location::ASSET)
+            ensureDirectoryExists(temp_path);
+
+		file = std::fopen(temp_path.c_str(), "r+b");
 		if (file == nullptr)
 		{
-			WriteLog("file not found from %s", temp_path.c_str());
-			file = std::fopen(path.c_str(), "rb");
-			if (file == nullptr)
-				WriteLog("file not found from %s", path.c_str());
+            file = std::fopen(temp_path.c_str(), "w+b");
+            if (file == nullptr)
+                WriteError("Cannot open file %s", temp_path.c_str());
 		}
 		assert(file != nullptr);
 	}
@@ -174,34 +182,51 @@ const std::string FileManager::ReadText()
 	return str;
 }
 
-void FileManager::WriteToFile(const std::string& filename, const std::string& data,
-	const Location loca /*=Location::INTERNAL*/)
+void FileManager::WriteString(const std::string& data)
 {
-	std::string temp_path;
-	if (loca == Location::EXTERNAL)
-	{
-		temp_path = "external/";
-		mkdir(temp_path.c_str());
-	}
-	else if (loca == Location::INTERNAL)
-	{
-		temp_path = "internal/";
-		mkdir(temp_path.c_str());
-	}
-	else
-		WriteError("No such file location available %d", loca);
+    std::fwrite(data.c_str(), sizeof(char), data.length(), file);
+}
 
-	temp_path += filename;
+void ensureDirectoryExists(const std::string& path)
+{
+    std::vector<std::string> dirs;
 
-	std::FILE* file = std::fopen(temp_path.c_str(), "w+");
-	if (file != NULL)
-	{
-		std::fputs(data.c_str(), file);
-		std::fflush(file);
-		std::fclose(file);
-	}
-	else
-	{
-		WriteError("Writing to file failed! File couldn't be opened for writing.");
-	}
+    size_t pos = path.find("/", 1);
+    size_t lastPos = 0;
+
+    while (pos != std::string::npos)
+    {
+        dirs.push_back(path.substr(lastPos, pos - lastPos));
+        lastPos = pos;
+        pos = path.find("/", lastPos + 1);
+    }
+
+    // Check the dirs actually exist
+    std::string testPath;
+    for (int i = 0; i < dirs.size(); ++i)
+    {
+        testPath += dirs.at(i);
+
+        struct stat s;
+
+        int ret = stat(testPath.c_str(), &s);
+
+        if (!(s.st_mode & S_IFDIR) || ret != 0)
+        {
+            WriteLog("Creating dir %s", testPath.c_str());
+
+
+            int status;
+            // Try to create the directory
+            #ifdef UTH_SYSTEM_WINDOWS
+            status = _mkdir(testPath.c_str());
+            #else
+            status = mkdir(testPath.c_str(), 0777);
+            #endif // UTH_SYSTEM_WINDOWS
+
+            if (status == -1)
+                WriteError("Error: %s when creating directory: %s", strerror(errno),
+                testPath.c_str());
+        }
+    }
 }

@@ -1,8 +1,8 @@
-#include <UtH/Audio/Sound.hpp>
+#include <UtH/Resources/Sound.hpp>
 #include <UtH/Platform/Typedefs.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Resources/ResourceManager.hpp>
-#include <UtH/Audio/SoundDevice.hpp>
+#include <UtH/Platform/SoundDevice.hpp>
 #include <UtH/Platform/FileManager.hpp>
 
 #include <sndfile/sndfile.h>
@@ -141,14 +141,20 @@ void Sound::SetListenerPosition(pmath::Vec3 position)
 }
 
 // PRIVATE
-bool Sound::Load(std::string fileName)
+bool Sound::LoadFromFile(const std::string& filePath)
 {
-	Initialize(fileName);
+	Initialize(filePath);
 
-	if (source)
-		return true;
+	if (!source)
+		return false;
 
-	return false;
+	m_loaded = true;
+	return true;
+}
+
+void Sound::Unload()
+{
+
 }
 
 void Sound::Initialize(std::string fileName)
@@ -179,7 +185,7 @@ void Sound::Initialize(std::string fileName)
 	}
 
 	WriteLog("Frames: %d\n", soundInfo.frames);
-	WriteLog("Samplerae: %d\n", soundInfo.samplerate);
+	WriteLog("Samplerate: %d\n", soundInfo.samplerate);
 	WriteLog("Channels: %d\n", soundInfo.channels);
 	WriteLog("Format: %d\n", soundInfo.format);
 

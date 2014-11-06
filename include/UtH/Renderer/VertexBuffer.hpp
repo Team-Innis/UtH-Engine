@@ -5,15 +5,19 @@
 
 #include <vector>
 #include <pmath/Vector.hpp>
-#include <UtH/Core/Vertex.hpp>
-#include <UtH/Core/Shader.hpp>
+#include <UtH/Renderer/Vertex.hpp>
+#include <UtH/Resources/Shader.hpp>
+#include <UtH/Platform/Configuration.hpp>
+#include <unordered_set>
 
 namespace uth
 {
 	class VertexBuffer
 	{
+		static std::unordered_set<VertexBuffer*> VERTEXBUFFERS;
 
-        friend class SpriteBatch;
+		friend class ResourceManager;
+		friend class SpriteBatch;
 
 	public:
 		VertexBuffer();
@@ -42,6 +46,9 @@ namespace uth
 	//private:
 		void init();
 		void setData() const;
+
+		bool ClearOpenGLContext();
+		bool RecreateOpenGLContext();
 
         std::vector<Vertex> m_vertexData;
 

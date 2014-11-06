@@ -28,6 +28,7 @@ namespace uth
 
 		void* m_windowHandle;
 
+		static bool focused;
 	private:
 
 		bool bind();

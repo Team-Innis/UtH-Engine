@@ -76,8 +76,8 @@ namespace uth
             doc.Accept(writer);
             rj::Value v;
 
-            FileManager fm;
-            fm.WriteToFile("saves/" + saveName + ".uths", buffer.GetString());
+            FileManager fm("saves/" + saveName + ".uths");
+            fm.WriteString(buffer.GetString());
 
             return true;
         }

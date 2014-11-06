@@ -11,22 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Audio\Audio.vcxproj">
-      <Project>{78ec45c3-4529-4645-8101-3faecb76ba68}</Project>
-      <Private>true</Private>
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-    </ProjectReference>
-    <ProjectReference Include="..\Core\Core.vcxproj">
-      <Project>{3a3f643b-9f93-4c53-afc9-dd057c6a026d}</Project>
-      <Private>true</Private>
-      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
-      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
-      <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
-    </ProjectReference>
     <ProjectReference Include="..\Platform\Platform.vcxproj">
       <Project>{18249a2b-04bc-4cc3-88df-cd8c3e945692}</Project>
       <Private>true</Private>
@@ -64,6 +48,7 @@
     <ClCompile Include="..\..\src\Engine\Physics\PhysicsContactListener.cpp" />
     <ClCompile Include="..\..\src\Engine\Physics\PhysicsWorld.cpp" />
     <ClCompile Include="..\..\src\Engine\Physics\Rigidbody.cpp" />
+    <ClCompile Include="..\..\src\Engine\Randomizer.cpp" />
     <ClCompile Include="..\..\src\Engine\Scene.cpp" />
     <ClCompile Include="..\..\src\Engine\SceneManager.cpp" />
     <ClCompile Include="..\..\src\Engine\Sprite.cpp" />
@@ -91,6 +76,7 @@
     <ClInclude Include="..\..\include\UtH\Engine\Physics\PhysicsContactListener.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Physics\PhysicsWorld.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Physics\Rigidbody.hpp" />
+    <ClInclude Include="..\..\include\UtH\Engine\Randomizer.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Scene.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\SceneManager.hpp" />
     <ClInclude Include="..\..\include\UtH\Engine\Sprite.hpp" />

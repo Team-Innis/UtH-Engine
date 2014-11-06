@@ -41,7 +41,7 @@ namespace uth
 
         void SetUpdateFunc(UpdateFunc func);
 
-        const ParticleSystem* GetSystem() const;
+        ParticleSystem* GetSystem();
 
     private:
      

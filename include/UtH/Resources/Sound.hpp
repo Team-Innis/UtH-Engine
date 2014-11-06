@@ -8,10 +8,11 @@
 
 #include <vector>
 #include <pmath/Vector3.hpp>
+#include <UtH/Resources/Resource.hpp>
 
 namespace uth
 {
-	class Sound
+	class Sound : public Resource
 	{
 		struct Deleter
 		{
@@ -22,9 +23,11 @@ namespace uth
 		};
 
 		friend class ResourceManager;
-	public:
+
 		Sound();
 		~Sound();
+
+	public:
 
 		// Loads and creates new sound
 		//static Sound* Load(std::string fileName);
@@ -35,7 +38,7 @@ namespace uth
 		// Plays from specific second
 		void Play(float offset);
 
-		// Intented for soundeffects.
+		// Indented for soundeffects.
 		// This function copies sound source and starts
 		// to play new source.
 		void PlayEffect();
@@ -71,14 +74,15 @@ namespace uth
 	private:
 		Sound(const Sound&);
 
-		bool Load(std::string fileName);
+		bool LoadFromFile(const std::string& filePath) override;
+		void Unload() override;
 		void Initialize(std::string fileName);
 		static void CreateSources(ALuint &source);
 		ALint Status();
 		void Copy();
 
-		void InsertToMap(std::string fileName);
-		void RemoveFromMap(std::string fileName);
+		//void InsertToMap(std::string fileName);
+		//void RemoveFromMap(std::string fileName);
 
 		ALuint source;
 		ALuint buffer;

@@ -10,20 +10,24 @@
 
 #include <cmath>
 
+namespace
+{
+	static uth::Shader* textShader;
+}
+
 using namespace uth;
+
+std::unordered_set<Text*> Text::TEXTS;
 
 uth::Text::Text(const std::string& fontPath, const float fontSize, 
 	const std::string& name /*= "Text"*/, 
 	const pmath::Vec4 defaultColor /*= pmath::Vec4(1,1,1,1)*/)
 	: Component(name),
 	m_fontSize(fontSize),
-	m_size(0, m_fontSize)
+	m_size(0, m_fontSize),
+    m_color(defaultColor)
 {
-//#if defined(UTH_SYSTEM_OPENGLES)
-//	m_textShader.LoadShader("Shaders/DefaultText.vert", "Shaders/esText.frag");
-//#else
-	m_textShader.LoadShader("Shaders/DefaultText.vert", "Shaders/DefaultText.frag");
-//#endif
+	TEXTS.emplace(this);
 
 	m_atlas = texture_atlas_new(1024, 1024, 1);
 
@@ -39,8 +43,9 @@ uth::Text::Text(const std::string& fontPath, const float fontSize,
 
 Text::~Text()
 {
-	texture_font_delete(m_font);
-	texture_atlas_delete(m_atlas);
+	ClearOpenGLContext();
+
+	TEXTS.erase(this);
 }
 
 void Text::Init()
@@ -186,14 +191,21 @@ bool uth::Text::load(const rj::Value& doc)
 
 void Text::Draw(RenderTarget& target)
 {
+	static bool shaderLoaded = false;
+	if (!shaderLoaded)
+	{
+		textShader = uthRS.LoadShader("Shaders/DefaultText.vert", "Shaders/DefaultText.frag");
+		shaderLoaded = true;
+	}
+
 	target.Bind();
-	m_textShader.Use();
+	textShader->Use();
 
 	uth::Graphics::BindTexture(TEXTURE_2D, m_atlas->id);
-	m_textShader.SetUniform("unifSampler", 0);
+	textShader->SetUniform("unifSampler", 0);
 
-	m_textShader.SetUniform("unifModel", parent->transform.GetTransform() * m_matrix);
-	m_textShader.SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
+	textShader->SetUniform("unifModel", parent->transform.GetTransform() * m_matrix);
+	textShader->SetUniform("unifProjection", target.GetCamera().GetProjectionTransform());
 
 	m_vertexBuffer.bindArrayBuffer();
 	// (position + uv + color) * sizeof(float)
@@ -205,12 +217,25 @@ void Text::Draw(RenderTarget& target)
 
 	// Attribute name, number of components, datatype, bytes between first elements,
 	// offset of first element in buffer
-	m_textShader.setAttributeData("attrPosition", 3, FLOAT_TYPE, posOffset, (void*)0);
-	m_textShader.setAttributeData("attrUV", 2, FLOAT_TYPE, posOffset, (void*)uvStart);
-	m_textShader.setAttributeData("attrColor", 4, FLOAT_TYPE, posOffset, (void*)colorStart);
+	textShader->setAttributeData("attrPosition", 3, FLOAT_TYPE, posOffset, (void*)0);
+	textShader->setAttributeData("attrUV", 2, FLOAT_TYPE, posOffset, (void*)uvStart);
+	textShader->setAttributeData("attrColor", 4, FLOAT_TYPE, posOffset, (void*)colorStart);
 
 	m_vertexBuffer.bindElementBuffer();
 	uth::Graphics::DrawElements(TRIANGLES, m_vertexBuffer.getIndices().size(), UNSIGNED_SHORT_TYPE, (void*)0);
 
 	uth::Graphics::BindBuffer(ARRAY_BUFFER, 0);
+}
+
+
+bool Text::RecreateOpenGLContext()
+{
+	return true;
+}
+bool Text::ClearOpenGLContext()
+{
+	texture_font_delete(m_font);
+	texture_atlas_delete(m_atlas);
+
+	return true;
 }

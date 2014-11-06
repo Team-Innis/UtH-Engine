@@ -6,12 +6,14 @@
 
 namespace uth
 {
+	std::unordered_set<RenderTexture*> RenderTexture::RENDERTEXTURES;
 
     RenderTexture::RenderTexture()
         : m_texture(),
           m_frameBuffer(0),
           m_depthBuffer(0)
-    {
+	{
+		RENDERTEXTURES.emplace(this);
     }
 
     RenderTexture::~RenderTexture()
@@ -22,6 +24,8 @@ namespace uth
             uth::Graphics::DeleteFrameBuffers(1, &m_frameBuffer);
         if (m_depthBuffer)
             uth::Graphics::DeleteRenderBuffers(1, &m_depthBuffer);
+
+		RENDERTEXTURES.erase(this);
     }
 
 

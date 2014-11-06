@@ -3,13 +3,16 @@
 #define RENDERTEXTURE_H_UTH
 
 #include <UtH/Renderer/RenderTarget.hpp>
-#include <UtH/Renderer/Texture.hpp>
+#include <UtH/Resources/Texture.hpp>
 
 namespace uth
 {
 
     class RenderTexture : public RenderTarget
-    {
+	{
+		static std::unordered_set<RenderTexture*> RENDERTEXTURES;
+
+		friend class ResourceManager;
     public:
 
         RenderTexture();

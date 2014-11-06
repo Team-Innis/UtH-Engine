@@ -5,7 +5,8 @@
 #include <UtH/Platform/Graphics.hpp>
 #include <iostream>
 #include <cassert>
-
+#include <UtH/Resources/ResourceManager.hpp>
+#include <UtH/Platform/Window.hpp>
 
 namespace
 {
@@ -35,6 +36,28 @@ namespace
     uth::CommonWindowImpl::ResizeFunc ns_resizeFunc;
 }
 
+void FocusCallback(GLFWwindow*, int focus)
+{
+	//static bool RecreationFailed = false;
+	//std::cout << focus << std::endl;
+	//if (focus == GL_TRUE)
+	//{
+	//	if (!RecreationFailed)
+	//	{
+	//		if (!uthRS.RecreateOpenGLContext())
+	//		{
+	//			RecreationFailed = true;
+	//		}
+	//		uth::Window::focused = true;
+	//	}
+	//}
+	//else
+	//{
+	//	if (uth::Window::focused)
+	//		uthRS.ClearOpenGLContext();
+	//	uth::Window::focused = false;
+	//}
+}
 
 namespace uth
 {
@@ -118,6 +141,7 @@ namespace uth
 			glBindVertexArray(vertexArray);
 		}
 
+		glfwSetWindowFocusCallback(wndwHandle, FocusCallback);
 
 		return static_cast<void*>(wndwHandle);
 	}
