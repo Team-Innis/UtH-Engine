@@ -14,7 +14,6 @@
     <ClCompile Include="..\..\src\Renderer\Camera.cpp" />
     <ClCompile Include="..\..\src\Renderer\RenderTarget.cpp" />
     <ClCompile Include="..\..\src\Renderer\RenderTexture.cpp" />
-    <ClCompile Include="..\..\src\Renderer\Texture.cpp" />
     <ClCompile Include="..\..\src\Renderer\TextureAtlas.cpp" />
     <ClCompile Include="..\..\src\Renderer\VertexBuffer.cpp" />
   </ItemGroup>
@@ -24,7 +23,6 @@
     <ClInclude Include="..\..\include\UtH\Renderer\Renderer.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\RenderTarget.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\RenderTexture.hpp" />
-    <ClInclude Include="..\..\include\UtH\Renderer\Texture.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\TextureAtlas.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\Vertex.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\VertexBuffer.hpp" />

@@ -2,7 +2,7 @@
 #ifndef SPRITE_H_UTH
 #define SPRITE_H_UTH
 
-#include <UtH/Renderer/Texture.hpp>
+#include <UtH/Resources/Texture.hpp>
 #include <UtH/Engine/Component.hpp>
 #include <UtH/Renderer/VertexBuffer.hpp>
 #include <UtH/Resources/ResourceManager.hpp>

@@ -11,7 +11,7 @@
 #include <UtH/Resources/Font.hpp>
 #include <UtH/Resources/Image.hpp>
 
-#include <UtH/Renderer/Texture.hpp>
+#include <UtH/Resources/Texture.hpp>
 
 #include <unordered_map>
 #include <utility>
