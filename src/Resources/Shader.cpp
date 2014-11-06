@@ -1,4 +1,4 @@
-#include <UtH/Core/Shader.hpp>
+#include <UtH/Resources/Shader.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <UtH/Platform/FileManager.hpp>
 #include <UtH/Platform/Configuration.hpp>

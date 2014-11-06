@@ -124,24 +124,39 @@ namespace pmath
         return (vec2 - vec1).length();
     }
 
+
     template<typename T>
     inline Vector3<T>& Vector3<T>::normalize()
     {
-        return *this = unitVector();
+        return *this = normalized();
     }
+
+
+    template<typename T>
+    inline Vector3<T> Vector3<T>::normalized() const
+    {
+        return *this / static_cast<T>(length());
+    }
+
 
     template<typename T>
     inline Vector3<T> Vector3<T>::unitVector() const
     {
-        return *this / static_cast<T>(length());
+        return normalized();
+    }
+
+    template<typename T>
+    inline bool Vector3<T>::isNormalized() const
+    {
+        // LengthSquared returns double.
+        // Also sqrt(1) == 1 so we don't need to do that
+        return equals<double>(this->lengthSquared(), 1);
     }
 
     template<typename T>
     inline bool Vector3<T>::isUnitVector() const
     {
-        // LengthSquared returns double.
-        // Also sqrt(1) == 1 so we don't need to do that
-        return equals<double>(this->lengthSquared(), 1);
+        return isNormalized();
     }
 
     template<typename T>

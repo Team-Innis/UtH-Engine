@@ -5,8 +5,8 @@
 
 #include <vector>
 #include <pmath/Vector.hpp>
-#include <UtH/Core/Vertex.hpp>
-#include <UtH/Core/Shader.hpp>
+#include <UtH/Renderer/Vertex.hpp>
+#include <UtH/Resources/Shader.hpp>
 #include <UtH/Platform/Configuration.hpp>
 #include <unordered_set>
 

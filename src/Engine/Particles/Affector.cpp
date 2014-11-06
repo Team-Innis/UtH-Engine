@@ -45,7 +45,7 @@ void uth::Affector::SetParticleInitFunc(InitFunc func)
     m_initFunc = func;
 }
 
-const ParticleSystem* Affector::GetSystem() const
+ParticleSystem* Affector::GetSystem()
 {
     return m_system;
 }

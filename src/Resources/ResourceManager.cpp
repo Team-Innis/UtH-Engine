@@ -1,6 +1,5 @@
 #include <UtH/Resources/ResourceManager.hpp>
-#include <UtH/Core/VertexBuffer.hpp>
-#include <UtH/Core/Shader.hpp>
+#include <UtH/Renderer/VertexBuffer.hpp>
 #include <cassert>
 
 using namespace uth;

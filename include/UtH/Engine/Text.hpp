@@ -3,7 +3,7 @@
 #define TEXT_H_UTH
 
 #include <UtH/Engine/Component.hpp>
-#include <UtH/Core/VertexBuffer.hpp>
+#include <UtH/Renderer/VertexBuffer.hpp>
 #include <UtH/Resources/ResourceManager.hpp>
 #include <pmath/Vector.hpp>
 
@@ -52,7 +52,7 @@ namespace uth
 		//Text();
 		Text(/*"text", path = "font", size = 32, name = "Text"*/);
 
-		Shader m_textShader;
+		//Shader m_textShader;
 
 		VertexBuffer m_vertexBuffer;
 

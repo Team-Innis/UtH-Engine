@@ -1,8 +1,8 @@
-#include <UtH/Audio/Sound.hpp>
+#include <UtH/Resources/Sound.hpp>
 #include <UtH/Platform/Typedefs.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Resources/ResourceManager.hpp>
-#include <UtH/Audio/SoundDevice.hpp>
+#include <UtH/Platform/SoundDevice.hpp>
 #include <UtH/Platform/FileManager.hpp>
 
 #include <sndfile/sndfile.h>

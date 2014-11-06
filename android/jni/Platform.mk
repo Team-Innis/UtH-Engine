@@ -25,30 +25,30 @@ LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../ext/include/
 LOCAL_C_INCLUDES += $(LOCAL_PATH)/../../ext/include/freetype_include/
 
-#Audio
-LOCAL_SRC_FILES += \
-$(SRC_PATH)Audio/Sound.cpp \
-$(SRC_PATH)Audio/SoundDevice.cpp
-
 #Renderer
 LOCAL_SRC_FILES += \
 $(SRC_PATH)Renderer/Camera.cpp \
 $(SRC_PATH)Renderer/RenderTarget.cpp \
 $(SRC_PATH)Renderer/RenderTexture.cpp \
 $(SRC_PATH)Renderer/TextureAtlas.cpp \
-$(SRC_PATH)Renderer/Texture.cpp
+$(SRC_PATH)Renderer/VertexBuffer.cpp
+
 
 #Resources
 LOCAL_SRC_FILES += \
 $(SRC_PATH)Resources/ResourceManager.cpp \
+$(SRC_PATH)Resources/Shader.cpp \
+$(SRC_PATH)Resources/Texture.cpp \
 $(SRC_PATH)Resources/Font.cpp \
 $(SRC_PATH)Resources/Image.cpp \
+$(SRC_PATH)Resources/Sound.cpp \
 $(SRC_PATH)Resources/Resource.cpp
 
 
 #Platform
 LOCAL_SRC_FILES += \
 $(SRC_PATH)Platform/Android/FileManager.cpp \
+$(SRC_PATH)Platform/SoundDevice.cpp \
 $(SRC_PATH)Platform/Graphics.cpp \
 $(SRC_PATH)Platform/Debug.cpp \
 $(SRC_PATH)Platform/HiResTimer.cpp \
@@ -64,12 +64,6 @@ $(SRC_PATH)Platform/Android/InputCommon.cpp \
 $(SRC_PATH)Platform/Android/InputMouse.cpp \
 $(SRC_PATH)Platform/Android/InputKeyboard.cpp \
 $(SRC_PATH)Platform/Android/JavaFunctions.cpp
-
-#Core
-LOCAL_SRC_FILES += \
-$(SRC_PATH)Core/Shader.cpp \
-$(SRC_PATH)Core/Randomizer.cpp \
-$(SRC_PATH)Core/VertexBuffer.cpp
 
 #Engine
 LOCAL_SRC_FILES += \
@@ -90,6 +84,7 @@ $(SRC_PATH)Engine/SpriteBatch.cpp \
 $(SRC_PATH)Engine/Particles/ParticleTemplate.cpp \
 $(SRC_PATH)Engine/Particles/ParticleSystem.cpp \
 $(SRC_PATH)Engine/Particles/Affector.cpp \
+$(SRC_PATH)Engine/Randomizer.cpp \
 $(SRC_PATH)Engine/TMX/Map.cpp \
 $(SRC_PATH)Engine/TMX/Tile.cpp \
 $(SRC_PATH)Engine/TMX/TileLayer.cpp \
