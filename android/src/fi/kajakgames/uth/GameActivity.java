@@ -14,23 +14,22 @@ import fi.kajakgames.uth.R;
 
 import com.google.android.gms.ads.*;
 import com.google.android.gms.games.Games;
-import com.google.android.gms.games.achievement.*;
-import com.google.android.gms.games.leaderboard.*;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import fi.kajakgames.uth.BaseGameUtils;
 
+
 public class GameActivity extends android.app.NativeActivity
 implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 {
-
+	GameAnalytics gameAnalytics;
 	GameActivity gameActivity;
 	AdView	gAdView;
-	GoogleApiClient mClient;
 	
-	BaseGameUtils bUtils;
+	private boolean usePlayServices = false;
+	GoogleApiClient mClient;
 	
 	public class AdStruct
 	{
@@ -100,10 +99,13 @@ implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFail
 		System.loadLibrary("openal");
 		System.loadLibrary("uthengine");
 	}
+	
 
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		
+		gameAnalytics = new GameAnalytics();
 		
 		// Make your custom init here
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -117,36 +119,27 @@ implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFail
 		
 		DisplayMetrics metrics = getResources().getDisplayMetrics();
 		Log.i("uth-engine", "dpi:" + metrics.densityDpi);
-		
-		/*
+
+		if(usePlayServices){
 		mClient = new GoogleApiClient.Builder(this)
-		.addConnectionCallbacks(this)
-		.addOnConnectionFailedListener(this)
-		.addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN)
 		.addApi(Games.API).addScope(Games.SCOPE_GAMES)
-		.build();
-		*/
-		mClient = new GoogleApiClient.Builder(this)
-				.addApi(Games.API).addScope(Games.SCOPE_GAMES)
-				.addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN)
-				.addOnConnectionFailedListener(this)
-				.addConnectionCallbacks(this)
-				.build();
+		.addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN)
+		.addOnConnectionFailedListener(this)
+		.addConnectionCallbacks(this)
+		.build(); }
 	}
 	
-	
-	 public void onStart()
+	public void onStart()
 	 {
 	 	super.onStart();
-	  	mClient.connect();
+	 	if(usePlayServices){ mClient.connect(); }
 	 }
 	  
 	 public void onStop()
 	 {
 		super.onStop();
-		mClient.disconnect();
+		if(usePlayServices){ mClient.disconnect(); }
 	 }
-
 	
 	public void Vibrate(final int time)
 	{
@@ -247,45 +240,78 @@ implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFail
 			});
 		}		
 	}
-
-	
 	public void UnlockAchievement(String achievement_id)
-	{
-		if(!mClient.isConnected())
-			mClient.connect();	
-		
-		Games.Achievements.unlock(mClient, achievement_id);
+	{	
+		if(usePlayServices)
+		{
+			if(!mClient.isConnected())
+				mClient.connect();	
+			
+			Games.Achievements.unlock(mClient, achievement_id);
+		}
+		else
+		{
+			Log.d("uth-engine", "GooglePlayGameServices is disabled.");
+		}
 	}
 	public void IncrementAchievement(String achievement_id, int steps)
-	{
-		if(!mClient.isConnected())
-			mClient.connect();	
-		
-		Games.Achievements.increment(mClient, achievement_id, steps);
+	{	
+		if(usePlayServices)
+		{
+			if(!mClient.isConnected())
+				mClient.connect();	
+			
+			Games.Achievements.increment(mClient, achievement_id, steps);
+		}
+		else
+		{
+			Log.d("uth-engine", "GooglePlayGameServices is disabled.");
+		}
 	}
 	
 	public void ShowAchievements()
-	{
-		if(!mClient.isConnected())
-			mClient.connect();
-		
-		startActivityForResult(Games.Achievements.getAchievementsIntent(mClient), 5001);
+	{	
+		if(usePlayServices)
+		{
+			if(!mClient.isConnected())
+				mClient.connect();
+			
+			startActivityForResult(Games.Achievements.getAchievementsIntent(mClient), 5001);
+		}
+		else
+		{
+			Log.d("uth-engine", "GooglePlayGameServices is disabled.");
+		}
 	}
 	
 	public void SubmitHighScore(String leaderboard_id, int score)
-	{
-		if(!mClient.isConnected())
-			mClient.connect();
-		
-		Games.Leaderboards.submitScore(mClient, leaderboard_id, score);
+	{	
+		if(usePlayServices)
+		{
+			if(!mClient.isConnected())
+				mClient.connect();
+			
+			Games.Leaderboards.submitScore(mClient, leaderboard_id, score);
+		}
+		else
+		{
+			Log.d("uth-engine", "GooglePlayGameServices is disabled.");
+		}
 	}
 	
 	public void ShowLeaderboard(String leaderboard_id)
-	{
-		if(!mClient.isConnected())
-			mClient.connect();
-		
-		startActivityForResult(Games.Leaderboards.getLeaderboardIntent(mClient, leaderboard_id), 5002);
+	{	
+		if(usePlayServices)
+		{
+			if(!mClient.isConnected())
+				mClient.connect();
+			
+			startActivityForResult(Games.Leaderboards.getLeaderboardIntent(mClient, leaderboard_id), 5002);
+		}
+		else
+		{
+			Log.d("uth-engine", "GooglePlayGameServices is disabled.");
+		}
 	}
 
 	
@@ -320,22 +346,16 @@ implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFail
 		}
 	}
 
-
 	@Override
 	public void onConnected(Bundle arg0) 
 	{
-		// TODO Auto-generated method stub
 		Log.d("uth-engine", "OnConnected, bundle: " + arg0);
 	}
-
-
 	@Override
 	public void onConnectionSuspended(int arg0) 
 	{
-		// TODO Auto-generated method stub
 		Log.d("uth-engine", "onConnectionSuspended, arg: " + arg0);
 	}
-	
 	protected void onActivityResult(int requestCode, int responseCode, Intent intent)
 	 {
 		 if(requestCode == RC_SIGN_IN)
@@ -353,5 +373,8 @@ implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFail
 			 }
 		 }
 	 }
-	 
+	
+	
+	
+	
 }
