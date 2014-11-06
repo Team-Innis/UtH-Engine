@@ -15,11 +15,13 @@
     <ClInclude Include="..\..\include\UtH\Resources\Image.hpp" />
     <ClInclude Include="..\..\include\UtH\Resources\ResourceManager.hpp" />
     <ClInclude Include="..\..\include\UtH\Resources\Resources.hpp" />
+    <ClInclude Include="..\..\include\UtH\Resources\Shader.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Resources\Font.cpp" />
     <ClCompile Include="..\..\src\Resources\Image.cpp" />
     <ClCompile Include="..\..\src\Resources\ResourceManager.cpp" />
+    <ClCompile Include="..\..\src\Resources\Shader.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{471D0772-92B6-4239-8903-A3A1574DF99F}</ProjectGuid>

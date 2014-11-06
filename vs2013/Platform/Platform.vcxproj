@@ -42,6 +42,7 @@
     <ClInclude Include="..\..\include\UtH\Platform\WindowSettings.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\ext\lib\tinyxml2\src\tinyxml2.cpp" />
     <ClCompile Include="..\..\src\Platform\Common\CommonWindowImpl.cpp" />
     <ClCompile Include="..\..\src\Platform\Common\FileManager.cpp" />
     <ClCompile Include="..\..\src\Platform\Common\InputController.cpp" />

@@ -11,12 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\ext\lib\tinyxml2\src\tinyxml2.cpp" />
     <ClCompile Include="..\..\src\Renderer\Camera.cpp" />
     <ClCompile Include="..\..\src\Renderer\RenderTarget.cpp" />
     <ClCompile Include="..\..\src\Renderer\RenderTexture.cpp" />
     <ClCompile Include="..\..\src\Renderer\Texture.cpp" />
     <ClCompile Include="..\..\src\Renderer\TextureAtlas.cpp" />
+    <ClCompile Include="..\..\src\Renderer\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Renderer\Camera.hpp" />
@@ -26,6 +26,8 @@
     <ClInclude Include="..\..\include\UtH\Renderer\RenderTexture.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\Texture.hpp" />
     <ClInclude Include="..\..\include\UtH\Renderer\TextureAtlas.hpp" />
+    <ClInclude Include="..\..\include\UtH\Renderer\Vertex.hpp" />
+    <ClInclude Include="..\..\include\UtH\Renderer\VertexBuffer.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1D73B616-7E2F-48D5-920E-EC7868BE9664}</ProjectGuid>

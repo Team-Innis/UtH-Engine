@@ -3,7 +3,7 @@
 #define TEXT_H_UTH
 
 #include <UtH/Engine/Component.hpp>
-#include <UtH/Core/VertexBuffer.hpp>
+#include <UtH/Renderer/VertexBuffer.hpp>
 #include <UtH/Resources/ResourceManager.hpp>
 #include <pmath/Vector.hpp>
 

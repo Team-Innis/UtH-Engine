@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestProject", "TestProject\TestProject.vcxproj", "{8FBE26B8-AD9D-4D1D-9D40-94E1EAD029C4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Platform", "Platform\Platform.vcxproj", "{18249A2B-04BC-4CC3-88DF-CD8C3E945692}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Core", "Core\Core.vcxproj", "{3A3F643B-9F93-4C53-AFC9-DD057C6A026D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Resources", "Resources\Resources.vcxproj", "{471D0772-92B6-4239-8903-A3A1574DF99F}"
 EndProject
@@ -33,10 +31,6 @@ Global
 		{18249A2B-04BC-4CC3-88DF-CD8C3E945692}.Debug|Win32.Build.0 = Debug|Win32
 		{18249A2B-04BC-4CC3-88DF-CD8C3E945692}.Release|Win32.ActiveCfg = Release|Win32
 		{18249A2B-04BC-4CC3-88DF-CD8C3E945692}.Release|Win32.Build.0 = Release|Win32
-		{3A3F643B-9F93-4C53-AFC9-DD057C6A026D}.Debug|Win32.ActiveCfg = Debug|Win32
-		{3A3F643B-9F93-4C53-AFC9-DD057C6A026D}.Debug|Win32.Build.0 = Debug|Win32
-		{3A3F643B-9F93-4C53-AFC9-DD057C6A026D}.Release|Win32.ActiveCfg = Release|Win32
-		{3A3F643B-9F93-4C53-AFC9-DD057C6A026D}.Release|Win32.Build.0 = Release|Win32
 		{471D0772-92B6-4239-8903-A3A1574DF99F}.Debug|Win32.ActiveCfg = Debug|Win32
 		{471D0772-92B6-4239-8903-A3A1574DF99F}.Debug|Win32.Build.0 = Debug|Win32
 		{471D0772-92B6-4239-8903-A3A1574DF99F}.Release|Win32.ActiveCfg = Release|Win32

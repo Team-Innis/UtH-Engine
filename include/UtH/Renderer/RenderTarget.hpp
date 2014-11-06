@@ -3,7 +3,7 @@
 #define RENDERTARGET_H_UTH
 
 #include <UtH/Renderer/Camera.hpp>
-#include <UtH/Core/Shader.hpp>
+#include <UtH/Resources/Shader.hpp>
 #include <UtH/Platform/Uncopyable.hpp>
 #include <pmath/Vector2.hpp>
 #include <pmath/Rectangle.hpp>

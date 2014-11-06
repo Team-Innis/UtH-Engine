@@ -19,6 +19,7 @@
 #include <UtH/Engine/Physics/PhysicsWorld.hpp>
 #include <UtH/Engine/SceneManager.hpp>
 #include <UtH/Engine/SpriteBatch.hpp>
+#include <UtH/Engine/Randomizer.hpp>
 
 //#include <UtH/Resources/ResourceManager.hpp>
 
