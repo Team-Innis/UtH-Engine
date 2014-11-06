@@ -13,6 +13,8 @@
 
 #include <UtH/Renderer/Texture.hpp>
 
+#include <UtH/Core/Shader.hpp>
+
 #include <unordered_map>
 #include <utility>
 #include <memory>
@@ -34,26 +36,30 @@ namespace uth
             Images =		1 << 1,
             Textures =		1 << 2,
 			Fonts =			1 << 3,
+			Shaders =		1 << 4,
 
-            All = Sounds | Images | Textures | Fonts
+            All = Sounds | Images | Textures | Fonts | Shaders
         };
 
 		Image* LoadImage(const std::string& filePath);
         Texture* LoadTexture(const std::string& filePath);
         Font* LoadFont(const std::string& filePath);
 		Sound* LoadSound(const std::string& filePath);
+		Shader* LoadShader(const std::string& vertexPath, const std::string& fragmentPath);
 
 		void Clear(const unsigned int flags);
 		bool DeleteImage(const std::string& filePath);
 		bool DeleteTexture(const std::string& filePath);
 		bool DeleteFont(const std::string& filePath);
 		bool DeleteSound(const std::string& filePath);
+		bool DeleteShader(const std::string& vertexPath, const std::string& fragmentPath);
 
 		void Unload(const unsigned int flags);
 		bool UnloadImage(const std::string& filePath);
 		bool UnloadTexture(const std::string& filePath);
 		bool UnloadFont(const std::string& filePath);
 		bool UnloadSound(const std::string& filePath);
+		bool UnloadShader(const std::string& vertexPath, const std::string& fragmentPath);
 
 		bool ClearOpenGLContext();
 		bool RecreateOpenGLContext();
@@ -70,6 +76,7 @@ namespace uth
         std::unordered_map<std::string, std::unique_ptr<Texture, Texture::Deleter>> m_textures;
         std::unordered_map<std::string, std::unique_ptr<Font, Font::Deleter>> m_fonts;
 		std::unordered_map<std::string, std::unique_ptr<Sound, Sound::Deleter>> m_sounds;
+		std::unordered_map<std::string, std::unique_ptr<Shader, Shader::Deleter>> m_shaders;
 
 	};
 }

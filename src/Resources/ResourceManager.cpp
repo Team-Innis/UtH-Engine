@@ -5,6 +5,11 @@
 
 using namespace uth;
 
+std::string combineShaderPaths(const std::string& vertexPath, const std::string& fragmentPath)
+{
+	return vertexPath + '\n' + fragmentPath;
+}
+
 ResourceManager::ResourceManager()
 {
 }
@@ -100,6 +105,29 @@ Sound* ResourceManager::LoadSound(const std::string& filePath)
 
 	return nullptr;
 }
+Shader* ResourceManager::LoadShader(const std::string& vertexPath, const std::string& fragmentPath)
+{
+	const std::string filePath = combineShaderPaths(vertexPath,fragmentPath);
+	auto itr = m_shaders.find(filePath);
+
+	if (itr != m_shaders.end())
+	{
+		itr->second->EnsureLoaded();
+		return itr->second.get();
+	}
+
+	std::unique_ptr<Shader, Shader::Deleter> temp(new Shader());
+	const bool result = temp->LoadFromFile(filePath);
+
+	if (result)
+	{
+		auto tempPtr = temp.get();
+		m_shaders[filePath] = std::unique_ptr<Shader, Shader::Deleter>(temp.release());
+		return tempPtr;
+	}
+
+	return nullptr;
+}
 
 void ResourceManager::Clear(const unsigned int flags)
 {
@@ -108,9 +136,11 @@ void ResourceManager::Clear(const unsigned int flags)
     if ((flags & uth::ResourceManager::Images) != 0)
         m_images.clear();
     if ((flags & uth::ResourceManager::Textures) != 0)
-        m_textures.clear();
+		m_textures.clear();
 	if ((flags & uth::ResourceManager::Fonts) != 0)
-        m_fonts.clear();
+		m_fonts.clear();
+	if ((flags & uth::ResourceManager::Shaders) != 0)
+		m_shaders.clear();
 }
 bool ResourceManager::DeleteImage(const std::string& filePath)
 {
@@ -160,6 +190,19 @@ bool ResourceManager::DeleteSound(const std::string& filePath)
 
 	return false;
 }
+bool ResourceManager::DeleteShader(const std::string& vertexPath, const std::string& fragmentPath)
+{
+	const std::string filePath = combineShaderPaths(vertexPath, fragmentPath);
+	auto itr = m_shaders.find(filePath);
+
+	if (itr != m_shaders.end())
+	{
+		m_shaders.erase(itr);
+		return true;
+	}
+
+	return false;
+}
 
 
 void uth::ResourceManager::Unload(const unsigned int flags)
@@ -175,6 +218,9 @@ void uth::ResourceManager::Unload(const unsigned int flags)
 			i.second->Unload();
 	if ((flags & uth::ResourceManager::Fonts) != 0)
 		for (auto& i : m_fonts)
+			i.second->Unload();
+	if ((flags & uth::ResourceManager::Shaders) != 0)
+		for (auto& i : m_shaders)
 			i.second->Unload();
 }
 bool uth::ResourceManager::UnloadImage(const std::string& filePath)
@@ -213,6 +259,16 @@ bool uth::ResourceManager::UnloadSound(const std::string& filePath)
 	i->second->Unload();
 	return true;
 }
+bool uth::ResourceManager::UnloadShader(const std::string& vertexPath, const std::string& fragmentPath)
+{
+	const std::string filePath = combineShaderPaths(vertexPath, fragmentPath);
+	auto i = m_shaders.find(filePath);
+	if (i == m_shaders.end())
+		return false;
+
+	i->second->Unload();
+	return true;
+}
 
 bool uth::ResourceManager::RecreateOpenGLContext()
 {
@@ -221,11 +277,13 @@ bool uth::ResourceManager::RecreateOpenGLContext()
 		i.second->EnsureLoaded();
 	for (auto& i : m_textures)
 		i.second->EnsureLoaded();
+	for (auto& i : m_shaders)
+		i.second->EnsureLoaded();
 
 	for (auto it : VertexBuffer::VERTEXBUFFERS)
 		it->RecreateOpenGLContext();
-	for (auto it : Shader::SHADERS)
-		it->RecreateOpenGLContext();
+	//for (auto it : Shader::SHADERS)
+	//	it->RecreateOpenGLContext();
 
 	return true;
 }
@@ -233,7 +291,7 @@ bool uth::ResourceManager::ClearOpenGLContext()
 {
 	WriteLog("Clearing context");
 	bool result = true;
-	Unload(Textures);
+	Unload(Textures | Shaders);
 
 	{
 		const auto temp = std::unordered_set<VertexBuffer*>(
@@ -243,14 +301,14 @@ bool uth::ResourceManager::ClearOpenGLContext()
 			if (!it->ClearOpenGLContext())
 				result = false;
 	}
-	{
-		const auto temp = std::unordered_set<Shader*>(
-			Shader::SHADERS.begin(),
-			Shader::SHADERS.end());
-		for (auto it : temp)
-			if (!it->ClearOpenGLContext())
-				result = false;
-	}
+	//{
+	//	const auto temp = std::unordered_set<Shader*>(
+	//		Shader::SHADERS.begin(),
+	//		Shader::SHADERS.end());
+	//	for (auto it : temp)
+	//		if (!it->ClearOpenGLContext())
+	//			result = false;
+	//}
 
 	return result;
 }
@@ -269,6 +327,7 @@ void ResourceManager::PauseSounds()
 
 const std::string ResourceManager::FilePath(const void* ptr, const unsigned int flags) const
 {
+	//TODO : make each use only own flag
 	if ((flags & uth::ResourceManager::Sounds) != 0)
 		for (auto& i : m_sounds)
 			if (i.second.get() == ptr)
@@ -283,6 +342,10 @@ const std::string ResourceManager::FilePath(const void* ptr, const unsigned int 
 				return i.first;
 	if ((flags & uth::ResourceManager::Fonts) != 0)
 		for (auto& i : m_fonts)
+			if (i.second.get() == ptr)
+				return i.first;
+	if ((flags & uth::ResourceManager::Shaders) != 0)
+		for (auto& i : m_shaders)
 			if (i.second.get() == ptr)
 				return i.first;
 	return "";

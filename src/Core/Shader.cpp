@@ -7,77 +7,18 @@
 
 using namespace uth;
 
-std::unordered_set<Shader*> Shader::SHADERS;
-
 Shader::Shader()
-    : m_program(0),
-      m_target(nullptr)
+	: m_program(0)
 {
 	//WriteLog("\nShaderProgram created: %d", program);
 }
 Shader::~Shader()
 {
-
 	ClearOpenGLContext();
-
-    if (m_target)
-        m_target->SetShader(nullptr);
 }
 
 // Public
-bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
-{
-	m_vertexPath = vertexShaderPath;
-	m_fragmentPath = fragmentShaderPath;
 
-    if (!m_program)
-    {
-        //uth::Graphics::DestroyShaderProgram(m_program);
-        m_program = uth::Graphics::CreateShaderProgram();
-
-    }
-
-	FileManager fr;
-
-	// Vertex Shader
-	fr.OpenFile(vertexShaderPath);
-
-#if defined(UTH_SYSTEM_OPENGLES)
-	const std::string vertex = "#version 100\n#define UTH_ES\n" + fr.ReadText(); 
-#elif defined(UTH_SYSTEM_OPENGL)
-	const std::string vertex = "#version 100\n" + fr.ReadText();
-#endif
-
-	if(!uth::Graphics::CreateShader(VERTEX_SHADER, m_program, vertex.c_str()))
-	{
-		WriteError("Vertex shader failed");
-		return false;
-	}
-    fr.CloseFile();
-
-	// Fragment Shader
-	fr.OpenFile(fragmentShaderPath);
-	
-
-#if defined(UTH_SYSTEM_OPENGLES)
-	const std::string fragment = "#version 100\n#define UTH_ES\nprecision mediump float;\n" + fr.ReadText(); 
-#elif defined(UTH_SYSTEM_OPENGL)
-	const std::string fragment = "#version 100\nprecision mediump float;\n" + fr.ReadText();
-#endif
-
-	if(!uth::Graphics::CreateShader(FRAGMENT_SHADER, m_program, fragment.c_str()))
-	{
-		WriteError("Fragment shader failed");
-		return false;
-	}
-    fr.CloseFile();
-	const bool result = uth::Graphics::LinkShaderProgram(m_program);
-
-	if (result)
-		SHADERS.emplace(this);
-
-	return result;
-}
 void Shader::Use()
 {
 	uth::Graphics::BindProgram(m_program);
@@ -86,7 +27,7 @@ void Shader::Use()
 bool Shader::setAttributeData(const std::string& name, const int size, DataType type, const int offset, const void* data)
 {
 	int location = uth::Graphics::GetAttributeLocation(m_program, name.c_str());
-	if(location == -1)
+	if (location == -1)
 		return false;
 
 	uth::Graphics::EnableVertexAttribArray(location);
@@ -95,13 +36,12 @@ bool Shader::setAttributeData(const std::string& name, const int size, DataType 
 	return true;
 }
 
-
 //////////////////////////////////////////////////////////////
 // Uniform set functions
 bool Shader::SetUniform(const std::string& name, const int x)
 {
 	int location = uth::Graphics::GetUniformLocation(m_program, name.c_str());
-	if(location == -1)
+	if (location == -1)
 		return false;
 	uth::Graphics::SetUniform(location, x);
 	return true;
@@ -109,7 +49,7 @@ bool Shader::SetUniform(const std::string& name, const int x)
 bool Shader::SetUniform(const std::string& name, const float x)
 {
 	int location = uth::Graphics::GetUniformLocation(m_program, name.c_str());
-	if(location == -1)
+	if (location == -1)
 		return false;
 	uth::Graphics::SetUniform(location, x);
 	return true;
@@ -117,7 +57,7 @@ bool Shader::SetUniform(const std::string& name, const float x)
 bool Shader::SetUniform(const std::string& name, const float x, const float y)
 {
 	int location = uth::Graphics::GetUniformLocation(m_program, name.c_str());
-	if(location == -1)
+	if (location == -1)
 		return false;
 	uth::Graphics::SetUniform(location, x, y);
 	return true;
@@ -125,7 +65,7 @@ bool Shader::SetUniform(const std::string& name, const float x, const float y)
 bool Shader::SetUniform(const std::string& name, const float x, const float y, const float z)
 {
 	int location = uth::Graphics::GetUniformLocation(m_program, name.c_str());
-	if(location == -1)
+	if (location == -1)
 		return false;
 	uth::Graphics::SetUniform(location, x, y, z);
 	return true;
@@ -133,7 +73,7 @@ bool Shader::SetUniform(const std::string& name, const float x, const float y, c
 bool Shader::SetUniform(const std::string& name, const float x, const float y, const float z, const float w)
 {
 	int location = uth::Graphics::GetUniformLocation(m_program, name.c_str());
-	if(location == -1)
+	if (location == -1)
 		return false;
 	uth::Graphics::SetUniform(location, x, y, z, w);
 	return true;
@@ -141,7 +81,7 @@ bool Shader::SetUniform(const std::string& name, const float x, const float y, c
 bool Shader::SetUniform(const std::string& name, const pmath::Vec2& vector)
 {
 	int location = uth::Graphics::GetUniformLocation(m_program, name.c_str());
-	if(location == -1)
+	if (location == -1)
 		return false;
 	uth::Graphics::SetUniform(location, vector);
 	return true;
@@ -149,7 +89,7 @@ bool Shader::SetUniform(const std::string& name, const pmath::Vec2& vector)
 bool Shader::SetUniform(const std::string& name, const pmath::Vec3& vector)
 {
 	int location = uth::Graphics::GetUniformLocation(m_program, name.c_str());
-	if(location == -1)
+	if (location == -1)
 		return false;
 	uth::Graphics::SetUniform(location, vector);
 	return true;
@@ -157,7 +97,7 @@ bool Shader::SetUniform(const std::string& name, const pmath::Vec3& vector)
 bool Shader::SetUniform(const std::string& name, const pmath::Vec4& vector)
 {
 	int location = uth::Graphics::GetUniformLocation(m_program, name.c_str());
-	if(location == -1)
+	if (location == -1)
 		return false;
 	uth::Graphics::SetUniform(location, vector);
 	return true;
@@ -165,7 +105,7 @@ bool Shader::SetUniform(const std::string& name, const pmath::Vec4& vector)
 bool Shader::SetUniform(const std::string& name, const pmath::Mat3& matrix)
 {
 	int location = uth::Graphics::GetUniformLocation(m_program, name.c_str());
-	if(location == -1)
+	if (location == -1)
 		return false;
 	uth::Graphics::SetUniform(location, matrix);
 	return true;
@@ -173,7 +113,7 @@ bool Shader::SetUniform(const std::string& name, const pmath::Mat3& matrix)
 bool Shader::SetUniform(const std::string& name, const pmath::Mat4& matrix)
 {
 	int location = uth::Graphics::GetUniformLocation(m_program, name.c_str());
-	if(location == -1)
+	if (location == -1)
 		return false;
 	uth::Graphics::SetUniform(location, matrix);
 	return true;
@@ -181,16 +121,69 @@ bool Shader::SetUniform(const std::string& name, const pmath::Mat4& matrix)
 
 // Private
 
-bool Shader::ClearOpenGLContext()
+bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath)
 {
-	SHADERS.erase(this);
+	if (!m_program)
+	{
+		//uth::Graphics::DestroyShaderProgram(m_program);
+		m_program = uth::Graphics::CreateShaderProgram();
 
-	return true;
-}
-bool Shader::RecreateOpenGLContext()
-{
-	if (m_vertexPath == "" || m_fragmentPath == "")
+	}
+
+	FileManager fr;
+
+	// Vertex Shader
+	fr.OpenFile(vertexShaderPath);
+
+#if defined(UTH_SYSTEM_OPENGLES)
+	const std::string vertex = "#version 100\n#define UTH_ES\n" + fr.ReadText();
+#elif defined(UTH_SYSTEM_OPENGL)
+	const std::string vertex = "#version 100\n" + fr.ReadText();
+#endif
+
+	if (!uth::Graphics::CreateShader(VERTEX_SHADER, m_program, vertex.c_str()))
+	{
+		WriteError("Vertex shader failed");
 		return false;
+	}
+	fr.CloseFile();
 
-	return LoadShader(m_vertexPath, m_fragmentPath);
+	// Fragment Shader
+	fr.OpenFile(fragmentShaderPath);
+
+
+#if defined(UTH_SYSTEM_OPENGLES)
+	const std::string fragment = "#version 100\n#define UTH_ES\nprecision mediump float;\n" + fr.ReadText();
+#elif defined(UTH_SYSTEM_OPENGL)
+	const std::string fragment = "#version 100\nprecision mediump float;\n" + fr.ReadText();
+#endif
+
+	if (!uth::Graphics::CreateShader(FRAGMENT_SHADER, m_program, fragment.c_str()))
+	{
+		WriteError("Fragment shader failed");
+		return false;
+	}
+	fr.CloseFile();
+	const bool result = uth::Graphics::LinkShaderProgram(m_program);
+
+	if (result)
+		SHADERS.emplace(this);
+
+	return result;
+}
+
+bool uth::Shader::LoadFromFile(const std::string& filePath)
+{
+	const size_t cut = filePath.find('\n');
+	const std::string vertexPath = filePath.substr(0, cut);
+	const std::string fragmentPath = filePath.substr(cut+1, filePath.size());
+	LoadShader(vertexPath, fragmentPath);
+}
+void uth::Shader::Unload()
+{
+	if (m_program)
+	{
+		Graphics::DestroyShaderProgram(m_program);
+		m_program = 0;
+	}
 }
