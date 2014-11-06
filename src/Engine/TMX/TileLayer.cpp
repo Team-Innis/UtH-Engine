@@ -130,10 +130,9 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
         }
 
 		// Read out the flags
-		bool flipped_horizontally = (gid & FLIPPED_HORIZONTALLY_FLAG) != 0;
-		bool flipped_vertically = (gid & FLIPPED_VERTICALLY_FLAG) != 0;
-        // TODO: implement this
-		//bool flipped_diagonally = (gid & FLIPPED_DIAGONALLY_FLAG) != 0;
+		const bool flipped_horizontally = (gid & FLIPPED_HORIZONTALLY_FLAG) != 0;
+		const bool flipped_vertically = (gid & FLIPPED_VERTICALLY_FLAG) != 0;
+		const bool flipped_diagonally = (gid & FLIPPED_DIAGONALLY_FLAG) != 0;
 
 		// Clear the flags
 		gid &= ~(FLIPPED_HORIZONTALLY_FLAG | FLIPPED_VERTICALLY_FLAG
@@ -151,11 +150,35 @@ void TileLayer::parseElement(tinyxml2::XMLElement* layerElement, Map* map)
 
                 auto tile = new Tile(t);
 
-                // NOTE: do diagonal before these
-                if (flipped_horizontally)
-                    tile->transform.SetScale(-1, tile->transform.GetScale().y);
-                if (flipped_vertically)
-                    tile->transform.SetScale(tile->transform.GetScale().x, -1);
+                if (flipped_diagonally)
+                {
+                    if (flipped_horizontally && flipped_vertically)
+                    {
+                        tile->transform.Rotate(90);
+                        tile->transform.SetScale(-1, tile->transform.GetScale().y);
+                    }
+                    else if (flipped_horizontally)
+                    {
+                        tile->transform.Rotate(90);
+                    }
+                    else if (flipped_vertically)
+                    {
+                        tile->transform.Rotate(-90);
+                    }
+                    else
+                    {
+                        tile->transform.Rotate(-90);
+                        tile->transform.SetScale(-1, tile->transform.GetScale().y);
+                    }
+                        
+                }
+                else
+                {
+                    if (flipped_horizontally)
+                        tile->transform.SetScale(-1, tile->transform.GetScale().y);
+                    if (flipped_vertically)
+                        tile->transform.SetScale(tile->transform.GetScale().x, -1);
+                }
 
 				map->AddChild(tile);
                 const pmath::Rect texCoords = tileset->GetTile(gid - tileset->GetFirstGID());

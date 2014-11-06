@@ -56,7 +56,6 @@ bool Map::LoadFromFile(const std::string& path)
 	auto tileset = map->FirstChildElement("tileset");
 	while(tileset != 0)
 	{
-		// TODO: Make getting the map folder better
 		std::string mapfolder = path.substr(0, path.find_last_of("/")+1);
 		tilesets.emplace_back(new Tileset(tileset, mapfolder));
 		tileset = tileset->NextSiblingElement("tileset");
