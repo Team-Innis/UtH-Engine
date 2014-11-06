@@ -37,7 +37,9 @@ namespace uth
 
         rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const final override;
 
-        bool load(const rapidjson::Value& doc) override;
+        bool load(const rapidjson::Value& doc) final override;
+
+        const char* getIdentifier() const final override;
 
 		unsigned int m_frames; // in the loop
 		int m_firstFrame; // of the loop

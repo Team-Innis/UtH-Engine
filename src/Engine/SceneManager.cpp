@@ -19,6 +19,25 @@ namespace uth
 		: m_nextScene(UTHDefaultScene),
 		  m_pendingSceneSwitch(true)
 	{
+        AddSceneCreateFunc([](const std::string& id) -> Scene*
+        {
+            if (id == "Default Scene")
+                return new DefaultScene();
+            
+            return nullptr;
+        });
+        AddObjectCreateFunc([](const std::string& id) -> Object*
+        {
+            if (id == "Camera")
+                return new Camera();
+
+            return nullptr;
+        });
+        AddComponentCreateFunc([](const std::string& id) -> Component*
+        {
+
+        });
+
 		registerNewSceneFunc(defaultNewSceneFunc, 0);
 	}
 	SceneManager::~SceneManager()
@@ -105,11 +124,11 @@ namespace uth
         if (!doc.HasMember(saveName.c_str()))
             return false;
 
-        Scene* ptr = nullptr;
+        std::unique_ptr<Scene> ptr = nullptr;
         for (size_t i = 0; i < m_sceneFuncs.size() && ptr == nullptr; ++i)
         {
             if (m_sceneFuncs[i])
-                ptr = m_sceneFuncs[i](saveName);
+                ptr.reset(m_sceneFuncs[i](saveName));
         }
 
         if (!ptr)
@@ -117,12 +136,16 @@ namespace uth
             WriteError("Failed to cast loaded scene %s", saveName.c_str());
             return false;
         }
-
+        
         if (!ptr->load(doc))
         {
             WriteError("Failed to load one or more objects from save %s", saveName.c_str());
             return false;
         }
+
+        endScene();
+        curScene = ptr.release();
+        startScene();
 
         return true;
     }

@@ -56,6 +56,8 @@ namespace uth
 
         bool load(const rapidjson::Value& doc) override;
 
+        const char* getIdentifier() const final override;
+
 
 		VertexBuffer m_vertexBuffer;
 

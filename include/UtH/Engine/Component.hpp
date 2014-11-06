@@ -42,12 +42,13 @@ namespace uth
 
 		bool m_active;
 
-    private:
+    protected:
 
         friend class GameObject;
 
-        virtual rapidjson::Value save(rapidjson::MemoryPoolAllocator<>&) const = 0;
-        virtual bool load(const rapidjson::Value&) = 0;
+        virtual rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const;
+        virtual bool load(const rapidjson::Value& doc);
+        virtual const char* getIdentifier() const;
 
 	};
 }

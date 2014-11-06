@@ -131,7 +131,10 @@ rapidjson::Value GameObject::save(rapidjson::MemoryPoolAllocator<>& alloc) const
 
         for (auto& i : m_components)
         {
-            
+            rj::Value compVal = i->save(alloc);
+            compVal.AddMember(rj::StringRef("identifier"), rj::StringRef(i->getIdentifier()), alloc);
+
+            compArray.PushBack(compVal, alloc);
         }
     }
 
@@ -157,8 +160,11 @@ bool GameObject::load(const rj::Value& doc)
 
             if (!ptr)
             {
-                // cast failed
+                WriteError("Failed to cast loaded component with identifier %s", id.c_str());
+                return false;
             }
+
+            AddComponent(ptr);
         }
     }
 

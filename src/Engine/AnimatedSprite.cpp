@@ -242,10 +242,17 @@ namespace rj = rapidjson;
 
 rj::Value AnimatedSprite::save(rj::MemoryPoolAllocator<>& alloc) const
 {
-    return rj::Value();
+    rj::Value val = Sprite::save(alloc);
+
+    return val;
 }
 
 bool uth::AnimatedSprite::load(const rj::Value& doc)
 {
     return false;
+}
+
+const char* uth::AnimatedSprite::getIdentifier() const
+{
+    return "AnimatedSprite";
 }

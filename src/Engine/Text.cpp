@@ -9,6 +9,7 @@
 #include <freetype-gl/freetype-gl.h>
 
 #include <cmath>
+#include <codecvt>
 
 namespace
 {
@@ -181,12 +182,21 @@ namespace rj = rapidjson;
 
 rj::Value uth::Text::save(rj::MemoryPoolAllocator<>& alloc) const
 {
+    rj::Value val = Component::save(alloc);
+
+    const std::string newStr(std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(m_text));
+
     return rj::Value();
 }
 
 bool uth::Text::load(const rj::Value& doc)
 {
     return false;
+}
+
+const char* uth::Text::getIdentifier() const
+{
+    return "Text";
 }
 
 void Text::Draw(RenderTarget& target)
