@@ -4,7 +4,8 @@
 #include <UtH/Engine/Scene.hpp>
 #include <UtH/Platform/Singleton.hpp>
 #include <functional>
-#include <vector>
+#include <unordered_map>
+#include <type_traits>
 
 #define uthSceneM uth::SceneManager::getInstance()
 
@@ -29,14 +30,33 @@ namespace uth
 
         bool LoadSavedScene(const std::string& saveName);
 
-        typedef std::function<Scene*(const std::string&)> SceneCFunc;
-        void AddSceneCreateFunc(SceneCFunc func);
 
-        typedef std::function<Object*(const std::string&)> ObjectCFunc;
-        void AddObjectCreateFunc(ObjectCFunc func);
+        typedef std::function<Object*()> ObjectCFunc;
+        typedef std::function<Component*()> ComponentCFunc;
 
-        typedef std::function<Component*(const std::string&)> ComponentCFunc;
-        void AddComponentCreateFunc(ComponentCFunc func);
+        template<typename T>
+        void RegisterObject()
+        {
+            static_assert(std::is_base_of<Object, T>::value, "Tried to register an object that doesn't derive from uth::Object");
+            static_assert(!std::is_reference<T>::value && !std::is_pointer<T>::value, "Tried to register an object as pointer or reference. Must be full definition.");
+
+            m_objectFuncs.emplace(typeid(T).name(), []() -> Object*
+            {
+                return new T();
+            });
+        }
+
+        template<typename T>
+        void RegisterComponent()
+        {
+            static_assert(std::is_base_of<Component, T>::value, "Tried to register a component that doesn't derive from uth::Component");
+            static_assert(!std::is_reference<T>::value && !std::is_pointer<T>::value, "Tried to register a component as pointer or reference. Must be full definition.");
+
+            m_componentFuncs.emplace(typeid(T).name(), []() -> Component*
+            {
+                return new T();
+            });
+        }
 
 
 	private:
@@ -53,13 +73,12 @@ namespace uth
 		bool m_pendingSceneSwitch;
 
 
-        std::vector<SceneCFunc> m_sceneFuncs;
-
         friend class Object;
-        std::vector<ObjectCFunc> m_objectFuncs;
+        std::unordered_map<std::string, ObjectCFunc> m_objectFuncs;
 
         friend class GameObject;
-        std::vector<ComponentCFunc> m_componentFuncs;
+        std::unordered_map<std::string, ComponentCFunc> m_componentFuncs;
+
 
 
 	};

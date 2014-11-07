@@ -10,6 +10,12 @@ pmath::Vec2 box2DToUmath(const b2Vec2& vec);
 
 using namespace uth;
 
+Rigidbody::Rigidbody()
+    : Component("Rigid body")
+{
+
+}
+
 Rigidbody::Rigidbody(PhysicsWorld& world, const COLLIDER_TYPE collider, const std::string& name)
 	: Component(name),
 	  m_world(world.GetBox2dWorldObject()),

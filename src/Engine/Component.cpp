@@ -61,8 +61,3 @@ bool uth::Component::load(const rapidjson::Value& doc)
 
     return true;
 }
-
-const char* uth::Component::getIdentifier() const
-{
-    return "Component";
-}

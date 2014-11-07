@@ -42,6 +42,13 @@ uth::Text::Text(const std::string& fontPath, const float fontSize,
 	}
 }
 
+uth::Text::Text()
+    : Component(),
+      m_fontSize(30)
+{
+
+}
+
 Text::~Text()
 {
 	ClearOpenGLContext();
@@ -192,11 +199,6 @@ rj::Value uth::Text::save(rj::MemoryPoolAllocator<>& alloc) const
 bool uth::Text::load(const rj::Value& doc)
 {
     return false;
-}
-
-const char* uth::Text::getIdentifier() const
-{
-    return "Text";
 }
 
 void Text::Draw(RenderTarget& target)

@@ -132,7 +132,7 @@ rapidjson::Value GameObject::save(rapidjson::MemoryPoolAllocator<>& alloc) const
         for (auto& i : m_components)
         {
             rj::Value compVal = i->save(alloc);
-            compVal.AddMember(rj::StringRef("identifier"), rj::StringRef(i->getIdentifier()), alloc);
+            compVal.AddMember(rj::StringRef("identifier"), rj::StringRef(typeid(*i.get()).name()), alloc);
 
             compArray.PushBack(compVal, alloc);
         }
@@ -154,17 +154,23 @@ bool GameObject::load(const rj::Value& doc)
         {
             const std::string id(itr->FindMember("identifier")->value.GetString());
             
-            Component* ptr = nullptr;
-            for (auto& i : uthSceneM.m_componentFuncs)
-                ptr = i(id);
+            auto& funcs = uthSceneM.m_componentFuncs;
 
-            if (!ptr)
+            std::unique_ptr<Component> ptr = nullptr;
+            auto castItr = funcs.find(id);
+            
+            if (castItr != funcs.end())
+                ptr.reset(castItr->second());
+            else
             {
                 WriteError("Failed to cast loaded component with identifier %s", id.c_str());
                 return false;
             }
 
-            AddComponent(ptr);
+            if (ptr->load(*itr))
+                AddComponent(ptr.release());
+            else
+                return false;
         }
     }
 

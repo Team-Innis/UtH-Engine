@@ -349,15 +349,16 @@ namespace uth
             {
                 auto& funcs = uthSceneM.m_objectFuncs;
 
-                Object* ptr = nullptr;
-                for (size_t i = 0; i < funcs.size() && ptr == nullptr; ++i)
-                    ptr = funcs[i](itr->FindMember("identifier")->value.GetString());
-
-                if (!ptr)
+                std::unique_ptr<Object> ptr = nullptr;
+                auto castItr = funcs.find(itr->FindMember("identifier")->value.GetString());
+                
+                if (castItr != funcs.end())
+                    ptr.reset(castItr->second());
+                else
                     return false;
 
                 if (ptr->load(*itr))
-                    AddChild(ptr);
+                    AddChild(ptr.release());
                 else
                     return false;
             }

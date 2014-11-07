@@ -19,24 +19,16 @@ namespace uth
 		: m_nextScene(UTHDefaultScene),
 		  m_pendingSceneSwitch(true)
 	{
-        AddSceneCreateFunc([](const std::string& id) -> Scene*
-        {
-            if (id == "Default Scene")
-                return new DefaultScene();
-            
-            return nullptr;
-        });
-        AddObjectCreateFunc([](const std::string& id) -> Object*
-        {
-            if (id == "Camera")
-                return new Camera();
-
-            return nullptr;
-        });
-        AddComponentCreateFunc([](const std::string& id) -> Component*
-        {
-            return nullptr;
-        });
+        RegisterObject<Object>();
+        RegisterObject<GameObject>();
+        RegisterObject<Camera>();
+        RegisterObject<DefaultScene>();
+        
+        RegisterComponent<Component>();
+        RegisterComponent<Rigidbody>();
+        RegisterComponent<Sprite>();
+        RegisterComponent<AnimatedSprite>();
+        RegisterComponent<Text>();
 
 		registerNewSceneFunc(defaultNewSceneFunc, 0);
 	}
@@ -125,13 +117,11 @@ namespace uth
             return false;
 
         std::unique_ptr<Scene> ptr = nullptr;
-        for (size_t i = 0; i < m_sceneFuncs.size() && ptr == nullptr; ++i)
-        {
-            if (m_sceneFuncs[i])
-                ptr.reset(m_sceneFuncs[i](saveName));
-        }
+        auto itr = m_objectFuncs.find(doc["identifier"].GetString());
 
-        if (!ptr)
+        if (itr != m_objectFuncs.end())
+            ptr.reset(static_cast<Scene*>(itr->second()));
+        else
         {
             WriteError("Failed to cast loaded scene %s", saveName.c_str());
             return false;
@@ -182,20 +172,4 @@ namespace uth
 		startScene();
 		m_pendingSceneSwitch = false;
 	}
-
-    void SceneManager::AddSceneCreateFunc(SceneCFunc func)
-    {
-        m_sceneFuncs.emplace_back(func);
-    }
-
-    void SceneManager::AddObjectCreateFunc(ObjectCFunc func)
-    {
-        m_objectFuncs.emplace_back(func);
-    }
-
-    void SceneManager::AddComponentCreateFunc(ComponentCFunc func)
-    {
-        m_componentFuncs.emplace_back(func);
-    }
-
 }

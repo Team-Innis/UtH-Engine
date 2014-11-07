@@ -19,6 +19,7 @@ namespace uth
 	{
 	public:
 
+        Component();
 		Component(const std::string& name); // Should be unique(per gameobject)
 		virtual ~Component();
 
@@ -36,7 +37,6 @@ namespace uth
 		GameObject* parent;
 
 	protected:
-		Component();
 
 		std::string m_name;
 
@@ -48,7 +48,6 @@ namespace uth
 
         virtual rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const;
         virtual bool load(const rapidjson::Value& doc);
-        virtual const char* getIdentifier() const;
 
 	};
 }

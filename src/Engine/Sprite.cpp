@@ -6,6 +6,13 @@
 
 using namespace uth;
 
+
+uth::Sprite::Sprite()
+    : Component()
+{
+
+}
+
 Sprite::Sprite(Texture* texture, const std::string& name)
 	: Component(name),
 	  m_texture(texture)
@@ -213,9 +220,4 @@ bool uth::Sprite::load(const rj::Value& doc)
         SetTexture(uthRS.LoadTexture(doc["texture"].GetString()));
 
     return false;
-}
-
-const char* uth::Sprite::getIdentifier() const
-{
-    return "Sprite";
 }

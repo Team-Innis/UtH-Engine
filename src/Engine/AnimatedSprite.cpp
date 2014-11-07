@@ -6,6 +6,13 @@
 
 using namespace uth;
 
+
+uth::AnimatedSprite::AnimatedSprite()
+    : Sprite()
+{
+
+}
+
 AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 	const pmath::Vec2& frameSize,
 	const float fps, const unsigned int firstFrame,
@@ -250,9 +257,4 @@ rj::Value AnimatedSprite::save(rj::MemoryPoolAllocator<>& alloc) const
 bool uth::AnimatedSprite::load(const rj::Value& doc)
 {
     return false;
-}
-
-const char* uth::AnimatedSprite::getIdentifier() const
-{
-    return "AnimatedSprite";
 }

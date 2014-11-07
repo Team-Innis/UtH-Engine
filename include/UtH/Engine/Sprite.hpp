@@ -15,6 +15,8 @@ namespace uth
 	class Sprite : public Component
 	{
 	public:
+        Sprite();
+
 		Sprite(Texture* texture, const std::string& name = "Sprite");
 		//Sprite(Texture* texture, pmath::Vec2 size);
 		//Sprite(Texture* texture, int width, int height);
@@ -50,8 +52,6 @@ namespace uth
         rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const override;
 
         bool load(const rapidjson::Value& doc) override;
-
-        virtual const char* getIdentifier() const override;
 
 		VertexBuffer m_vertexBuffer;
 
