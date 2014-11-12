@@ -25,13 +25,6 @@ GameObject::~GameObject()
 	RemoveComponents();
 }
 
-void GameObject::AddComponent(Component* component)
-{
-    m_components.emplace_back(component);
-	component->parent = this;
-	component->Init();
-}
-
 void GameObject::RemoveComponent(Component* component)
 {
     for (size_t i = 0; i < m_components.size(); ++i)
