@@ -29,6 +29,9 @@ namespace pmath
 	// Return value in degrees
 	template<typename T>
 	T atan(const T& value);
+    // Return value in degrees
+    template<typename T>
+    T atan2(const T& y, const T& x);
 }
 
 #include "inl/Trigonometry.inl"

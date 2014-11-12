@@ -28,7 +28,8 @@ namespace pmath
     template<typename T>
     T clamp(const T& value, const T& min, const T& max);
 
-    double lerp(const double a, const double b, const double t);
+    template<typename T, typename T2>
+    T lerp(const T& a, const T& b, const T2& t);
 }
 
 #include "inl/Util.inl"

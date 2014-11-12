@@ -33,7 +33,8 @@ namespace uth
         // Deadzone is inclusive
         float GetAxis(Controller::Axis axis, const float deadzone = 0.001f) const;
 
-        void HandleInput(AInputEvent* inputEvent);
+        // Need to return if we handled the event
+        int HandleInput(AInputEvent* inputEvent);
 
     private:
         class Axis
@@ -45,8 +46,8 @@ namespace uth
             void update(AInputEvent* inputEvent);
         };
 
-        void handleKeys(AInputEvent* inputEvent);
-        void handleAxes(AInputEvent* inputEvent);
+        int handleKeys(AInputEvent* inputEvent);
+        int handleAxes(AInputEvent* inputEvent);
 
         std::vector<int> m_buttons;
         std::vector<int> m_prevButtons;

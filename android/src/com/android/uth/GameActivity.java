@@ -1,6 +1,8 @@
 package com.android.uth;
 
 import android.content.Context;
+import android.media.AudioManager;
+import android.os.Bundle;
 import android.os.Vibrator;
 
 public class GameActivity extends android.app.NativeActivity
@@ -16,5 +18,11 @@ public class GameActivity extends android.app.NativeActivity
 	{
 		Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		v.vibrate(time);
+	}
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 	}
 }

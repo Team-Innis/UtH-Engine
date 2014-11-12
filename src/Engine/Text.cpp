@@ -17,7 +17,8 @@ uth::Text::Text(const std::string& fontPath, const float fontSize,
 	const pmath::Vec4 defaultColor /*= pmath::Vec4(1,1,1,1)*/)
 	: Component(name),
 	m_fontSize(fontSize),
-	m_size(0, m_fontSize)
+	m_size(0, m_fontSize),
+    m_color(defaultColor)
 {
 //#if defined(UTH_SYSTEM_OPENGLES)
 //	m_textShader.LoadShader("Shaders/DefaultText.vert", "Shaders/esText.frag");

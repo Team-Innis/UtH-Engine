@@ -3,7 +3,7 @@
 #define RESOURCEMANAGER_H_UTH
 
 #include <UtH/Platform/FileManager.hpp>
-#include <UtH/Audio/Sound.hpp>
+#include <UtH/Resources/Sound.hpp>
 
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/Singleton.hpp>
@@ -11,7 +11,7 @@
 #include <UtH/Resources/Font.hpp>
 #include <UtH/Resources/Image.hpp>
 
-#include <UtH/Renderer/Texture.hpp>
+#include <UtH/Resources/Texture.hpp>
 
 #include <unordered_map>
 #include <utility>
