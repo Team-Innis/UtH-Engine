@@ -9,13 +9,14 @@
 #include <memory>
 #include <UtH/Engine/Transform.hpp>
 #include <UtH/Renderer/RenderAttributes.hpp>
-#include <rapidjson/document.h>
+#include <UtH/Engine/Saveable.hpp>
+
 
 namespace uth
 {
 	class RenderTarget;
 
-	class Object
+	class Object : public Saveable
 	{
 		Object(const Object&) = delete;
 	public:
@@ -81,8 +82,8 @@ namespace uth
 		Object* m_parent;
         bool m_active;
 
-        virtual rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const;
-        virtual bool load(const rapidjson::Value& doc);
+        rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const override;
+        bool load(const rapidjson::Value& doc) override;
 
 	private:
 

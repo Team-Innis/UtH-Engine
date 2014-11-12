@@ -154,14 +154,9 @@ bool GameObject::load(const rj::Value& doc)
         {
             const std::string id(itr->FindMember("identifier")->value.GetString());
             
-            auto& funcs = uthSceneM.m_componentFuncs;
+            std::unique_ptr<Component> ptr(static_cast<Component*>(uthSceneM.GetSaveable(id)));
 
-            std::unique_ptr<Component> ptr = nullptr;
-            auto castItr = funcs.find(id);
-            
-            if (castItr != funcs.end())
-                ptr.reset(castItr->second());
-            else
+            if (!ptr)
             {
                 WriteError("Failed to cast loaded component with identifier %s", id.c_str());
                 return false;

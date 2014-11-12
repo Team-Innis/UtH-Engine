@@ -347,14 +347,9 @@ namespace uth
 
             for (auto itr = childArray.Begin(); itr != childArray.End(); ++itr)
             {
-                auto& funcs = uthSceneM.m_objectFuncs;
-
-                std::unique_ptr<Object> ptr = nullptr;
-                auto castItr = funcs.find(itr->FindMember("identifier")->value.GetString());
+                std::unique_ptr<Object> ptr(static_cast<Object*>(uthSceneM.GetSaveable(itr->FindMember("identifier")->value.GetString())));
                 
-                if (castItr != funcs.end())
-                    ptr.reset(castItr->second());
-                else
+                if (!ptr)
                     return false;
 
                 if (ptr->load(*itr))

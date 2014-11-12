@@ -2,21 +2,23 @@
 #define SCENEMANAGER_H_UTH
 
 #include <UtH/Engine/Scene.hpp>
-#include <UtH/Platform/Singleton.hpp>
+#include <UtH/Engine/Saveable.hpp>
 #include <functional>
 #include <unordered_map>
 #include <type_traits>
 
-#define uthSceneM uth::SceneManager::getInstance()
+#define uthSceneM uth::SceneManager::GetInstance()
 
 namespace uth
 {
-	class SceneManager : public Singleton<SceneManager>
+	class SceneManager
 	{
-		friend class Singleton<SceneManager>;
 		SceneManager();
 		~SceneManager();
 	public:
+
+        static SceneManager& GetInstance();
+
 		void GoToScene(int SceneNumber, bool disposeCurrent = true);
 
 		void Update(float dt);
@@ -31,32 +33,21 @@ namespace uth
         bool LoadSavedScene(const std::string& saveName);
 
 
-        typedef std::function<Object*()> ObjectCFunc;
-        typedef std::function<Component*()> ComponentCFunc;
+        typedef std::function<Saveable*()> ObjectCFunc;
 
         template<typename T>
-        void RegisterObject()
+        void RegisterSaveable()
         {
-            static_assert(std::is_base_of<Object, T>::value, "Tried to register an object that doesn't derive from uth::Object");
+            static_assert(std::is_base_of<Saveable, T>::value, "Tried to register an object that doesn't derive from uth::Saveable");
             static_assert(!std::is_reference<T>::value && !std::is_pointer<T>::value, "Tried to register an object as pointer or reference. Must be full definition.");
 
-            m_objectFuncs.emplace(typeid(T).name(), []() -> Object*
+            m_saveableFuncs.emplace(typeid(T).raw_name(), []() -> Saveable*
             {
                 return new T();
             });
         }
 
-        template<typename T>
-        void RegisterComponent()
-        {
-            static_assert(std::is_base_of<Component, T>::value, "Tried to register a component that doesn't derive from uth::Component");
-            static_assert(!std::is_reference<T>::value && !std::is_pointer<T>::value, "Tried to register a component as pointer or reference. Must be full definition.");
-
-            m_componentFuncs.emplace(typeid(T).name(), []() -> Component*
-            {
-                return new T();
-            });
-        }
+        Saveable* GetSaveable(const std::string& identifier);
 
 
 	private:
@@ -72,14 +63,7 @@ namespace uth
 		int sceneCount;
 		bool m_pendingSceneSwitch;
 
-
-        friend class Object;
-        std::unordered_map<std::string, ObjectCFunc> m_objectFuncs;
-
-        friend class GameObject;
-        std::unordered_map<std::string, ComponentCFunc> m_componentFuncs;
-
-
+        std::unordered_map<std::string, ObjectCFunc> m_saveableFuncs;
 
 	};
 

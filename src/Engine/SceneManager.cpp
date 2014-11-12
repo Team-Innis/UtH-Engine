@@ -19,16 +19,16 @@ namespace uth
 		: m_nextScene(UTHDefaultScene),
 		  m_pendingSceneSwitch(true)
 	{
-        RegisterObject<Object>();
-        RegisterObject<GameObject>();
-        RegisterObject<Camera>();
-        RegisterObject<DefaultScene>();
+        RegisterSaveable<Object>();
+        RegisterSaveable<GameObject>();
+        RegisterSaveable<Camera>();
+        RegisterSaveable<DefaultScene>();
         
-        RegisterComponent<Component>();
-        RegisterComponent<Rigidbody>();
-        RegisterComponent<Sprite>();
-        RegisterComponent<AnimatedSprite>();
-        RegisterComponent<Text>();
+        RegisterSaveable<Component>();
+        RegisterSaveable<Rigidbody>();
+        RegisterSaveable<Sprite>();
+        RegisterSaveable<AnimatedSprite>();
+        RegisterSaveable<Text>();
 
 		registerNewSceneFunc(defaultNewSceneFunc, 0);
 	}
@@ -116,12 +116,9 @@ namespace uth
         if (!doc.HasMember(saveName.c_str()))
             return false;
 
-        std::unique_ptr<Scene> ptr = nullptr;
-        auto itr = m_objectFuncs.find(doc["identifier"].GetString());
+        std::unique_ptr<Scene> ptr(static_cast<Scene*>(GetSaveable(doc["identifier"].GetString())));
 
-        if (itr != m_objectFuncs.end())
-            ptr.reset(static_cast<Scene*>(itr->second()));
-        else
+        if (!ptr)
         {
             WriteError("Failed to cast loaded scene %s", saveName.c_str());
             return false;
@@ -172,4 +169,22 @@ namespace uth
 		startScene();
 		m_pendingSceneSwitch = false;
 	}
+
+    SceneManager& SceneManager::GetInstance()
+    {
+        static SceneManager instance;
+
+        return instance;
+    }
+
+    Saveable* SceneManager::GetSaveable(const std::string& identifier)
+    {
+        auto itr = m_saveableFuncs.find(identifier);
+
+        if (itr != m_saveableFuncs.end())
+            return itr->second();
+
+        return nullptr;
+    }
+
 }

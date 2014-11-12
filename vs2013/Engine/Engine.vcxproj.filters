@@ -194,5 +194,8 @@
     <ClInclude Include="..\..\include\UtH\Engine\Randomizer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\include\UtH\Engine\Saveable.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

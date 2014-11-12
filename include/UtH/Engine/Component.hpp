@@ -5,9 +5,9 @@
 #include <UtH/Platform/Uncopyable.hpp>
 #include <UtH/Resources/Shader.hpp>
 #include <UtH/Renderer/RenderAttributes.hpp>
+#include <UtH/Engine/Saveable.hpp>
 #include <string>
 #include <memory>
-#include <rapidjson/document.h>
 
 
 namespace uth
@@ -15,7 +15,7 @@ namespace uth
 	class GameObject;
 	class RenderTarget;
 
-	class Component
+	class Component : public Saveable
 	{
 	public:
 
@@ -46,8 +46,8 @@ namespace uth
 
         friend class GameObject;
 
-        virtual rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const;
-        virtual bool load(const rapidjson::Value& doc);
+        rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const override;
+        bool load(const rapidjson::Value& doc) override;
 
 	};
 }
