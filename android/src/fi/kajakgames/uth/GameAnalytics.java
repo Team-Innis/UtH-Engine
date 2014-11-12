@@ -28,7 +28,7 @@ public class GameAnalytics extends Application
 	
 	public GameAnalytics(){super();}
 	
-	synchronized Tracker getTracker(TrackerName trackerId)
+	public synchronized Tracker getTracker(TrackerName trackerId)
 	{
 		if(!mTrackers.containsKey(trackerId))
 		{
@@ -36,14 +36,9 @@ public class GameAnalytics extends Application
 			/*Tracker t = (trackerId == TrackerName.APP_TRACKER) ? analytics.newTracker(R.xml.app_tracker)
 					: (trackerId == TrackerName.GLOBAL_TRACKER) ? analytics.newTracker(PROPERTY_ID)
 					: analytics.newTracker(R.xml.ecommerce_tracker);*/
-			Tracker t = analytics.newTracker(R.xml.global_tracker);
+			Tracker t = analytics.newTracker(R.xml.app_tracker);
 					mTrackers.put(trackerId, t);
 		}
 		return mTrackers.get(trackerId);
 	}	
-	
-	public static void analytics(Application app, String TAG)
-	{
-		
-	}
 }

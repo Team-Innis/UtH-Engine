@@ -17,16 +17,16 @@ import com.google.android.gms.games.Games;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.analytics.*;
 
 import fi.kajakgames.uth.BaseGameUtils;
-
 
 public class GameActivity extends android.app.NativeActivity
 implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
 {
-	GameAnalytics gameAnalytics;
 	GameActivity gameActivity;
 	AdView	gAdView;
+	//Tracker tracker;
 	
 	private boolean usePlayServices = false;
 	GoogleApiClient mClient;
@@ -105,8 +105,6 @@ implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFail
 	{
 		super.onCreate(savedInstanceState);
 		
-		gameAnalytics = new GameAnalytics();
-		
 		// Make your custom init here
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
@@ -127,18 +125,25 @@ implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFail
 		.addOnConnectionFailedListener(this)
 		.addConnectionCallbacks(this)
 		.build(); }
+		
+		//((GameAnalytics) getApplication()).getTracker(GameAnalytics.TrackerName.APP_TRACKER); // doesn't work
+		GoogleAnalytics.getInstance(this).newTracker(R.xml.app_tracker);
 	}
 	
 	public void onStart()
 	 {
 	 	super.onStart();
 	 	if(usePlayServices){ mClient.connect(); }
+	 	
+	 	GoogleAnalytics.getInstance(this).reportActivityStart(this);
 	 }
 	  
 	 public void onStop()
 	 {
 		super.onStop();
 		if(usePlayServices){ mClient.disconnect(); }
+		
+		GoogleAnalytics.getInstance(this).reportActivityStop(this);
 	 }
 	
 	public void Vibrate(final int time)
@@ -324,7 +329,6 @@ implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFail
 	@Override
 	public void onConnectionFailed(ConnectionResult arg0) 
 	{
-		// TODO Auto-generated method stub
 		Log.d("uth-engine", "Connection failed, result: " + arg0);
 		
 		if (mResolvingConnectionFailure)
