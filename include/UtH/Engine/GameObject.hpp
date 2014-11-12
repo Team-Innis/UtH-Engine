@@ -45,7 +45,7 @@ namespace uth
         virtual void update(float){}
         virtual void draw(RenderTarget&){}
 
-		std::vector<std::unique_ptr<Component>> m_components;
+		std::vector<std::shared_ptr<Component>> m_components;
 	};
 
 

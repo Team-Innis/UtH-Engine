@@ -90,11 +90,12 @@ void GameObject::Draw(RenderTarget& target, RenderAttributes attributes)
 
     draw(target);
 
-    for (auto& i : m_components)
+	const std::vector<std::shared_ptr<Component>> objBackup(m_components);
+	for (int i = 0; i < objBackup.size(); ++i)
 	{
 		target.GetShader().Use();
-		if (i->IsActive())
-			i->Draw(target);
+		if (objBackup[i]->IsActive())
+			objBackup[i]->Draw(target);
 	}
 
     target.SetShader(tempShader);

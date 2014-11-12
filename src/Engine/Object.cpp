@@ -46,23 +46,23 @@ namespace uth
 
 	void Object::Update(float dt)
 	{
-		if (m_active)
-		{
-			const std::vector<std::shared_ptr<Object>> objBackup(m_children);
-			for (int i = 0; i < m_children.size(); ++i)
-				if (m_children[i]->m_active)
-					m_children[i]->Update(dt);
-		}
+		if (!m_active)
+			return;
+
+		const std::vector<std::shared_ptr<Object>> objBackup(m_children);
+		for (int i = 0; i < objBackup.size(); ++i)
+			if (objBackup[i]->m_active)
+				objBackup[i]->Update(dt);
 	}
 	void Object::Draw(RenderTarget& target, RenderAttributes attributes)
 	{
-		if (m_active)
+		if (!m_active)
+			return;
+
+		for (auto& i : m_children)
 		{
-			for (auto& i : m_children)
-			{
-				if (i->m_active)
-					i->Draw(target, attributes);
-			}
+			if (i->m_active)
+				i->Draw(target, attributes);
 		}
 	}
 
