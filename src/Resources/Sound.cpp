@@ -63,8 +63,8 @@ void Sound::Pause()
 {
 	if(Status() == AL_PLAYING)
 		alSourcePause(source);
-	else
-		alSourcePlay(source);
+	//else
+	//	alSourcePlay(source);
 }
 
 void Sound::Loop()

@@ -43,7 +43,7 @@ namespace uth
 		// Stops source from playing.
 		void Stop();
 
-		// Toggles between playing and paused.
+		// Pauses source. Use Play() to continue.
 		void Pause();
 
 		// Toggles loop on or off
