@@ -65,11 +65,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <NMakePreprocessorDefinitions>WIN32;_DEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(SolutionDir)../include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)../include;C:\Users\Public\ndk\sources\android\support\include;C:\Users\Public\ndk\sources\android\native_app_glue;C:\Users\Public\ndk\platforms\android-15\arch-arm\usr\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <NMakePreprocessorDefinitions>WIN32;NDEBUG;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <IncludePath>$(SolutionDir)../include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)../include;C:\Users\Public\ndk\sources\android\support\include;C:\Users\Public\ndk\sources\android\native_app_glue;C:\Users\Public\ndk\platforms\android-15\arch-arm\usr\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
