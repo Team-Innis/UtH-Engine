@@ -20,17 +20,6 @@ uth::GameObject::GameObject(const std::vector<std::string>& tags)
 {
 }
 
-//uth::GameObject::GameObject(const GameObject& other)
-//    : transform(*(new Transform(other.transform))),
-//      parent(other.parent),
-//      components(),
-//      m_name(other.m_name),
-//      m_active(other.m_active)
-//{
-//    AddComponent(&transform);
-//    transform.parent = this;
-//}
-
 GameObject::~GameObject()
 {
 	RemoveComponents();
