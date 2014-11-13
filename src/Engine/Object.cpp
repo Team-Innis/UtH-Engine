@@ -259,9 +259,7 @@ namespace uth
             tagArray.SetArray();
 
             for (auto& i : m_tagList)
-            {
                 tagArray.PushBack(rj::Value(i.c_str(), alloc), alloc);
-            }
 
             val.AddMember(rj::StringRef("tags"), tagArray, alloc);
         }

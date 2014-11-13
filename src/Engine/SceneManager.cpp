@@ -145,7 +145,6 @@ namespace uth
 
         endScene();
         curScene = ptr.release();
-        startScene();
 
         return true;
     }

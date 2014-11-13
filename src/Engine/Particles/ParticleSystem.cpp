@@ -227,6 +227,9 @@ bool uth::ParticleSystem::load(const rapidjson::Value& doc)
 {
     namespace rj = rapidjson;
 
+    if (!GameObject::load(doc))
+        return false;
+
     const rj::Value& props = doc["properties"];
 
     m_emitAmount.x = props[0u].GetInt();
