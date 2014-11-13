@@ -46,7 +46,7 @@ namespace uth
 	{
     public:
 
-        Rigidbody();
+        //Rigidbody();
 		// Create a rigidbody with a default box collider
 		Rigidbody(PhysicsWorld& world, const COLLIDER_TYPE collider = COLLIDER_BOX,
 			const std::string& name = "Rigidbody");

@@ -247,35 +247,10 @@ namespace uth
         val.SetObject();
 
         // Active flag
-        // TODO: add identifier for casting
+        val.AddMember(rj::StringRef("identifier"), rj::StringRef(typeid(*this).raw_name()), alloc);
         val.AddMember(rj::StringRef("active"), m_active, alloc);
         
-        // Transform
-        {
-            rj::Value transVal;
-            transVal.SetObject();
-
-            // Position
-            transVal.AddMember(rj::StringRef("posX"), transform.GetPosition().x, alloc);
-            transVal.AddMember(rj::StringRef("posY"), transform.GetPosition().y, alloc);
-
-            // Origin
-            transVal.AddMember(rj::StringRef("origX"), transform.GetOrigin().x, alloc);
-            transVal.AddMember(rj::StringRef("origY"), transform.GetOrigin().y, alloc);
-
-            // Scale
-            transVal.AddMember(rj::StringRef("scaleX"), transform.GetScale().x, alloc);
-            transVal.AddMember(rj::StringRef("scaleY"), transform.GetScale().y, alloc);
-
-            // Size
-            transVal.AddMember(rj::StringRef("sizeX"), transform.GetSize().x, alloc);
-            transVal.AddMember(rj::StringRef("sizeY"), transform.GetSize().y, alloc);
-
-            // Rotation
-            transVal.AddMember(rj::StringRef("angle"), transform.GetRotation(), alloc);
-
-            val.AddMember(rj::StringRef("transform"), transVal, alloc);
-        }
+        val.AddMember(rj::StringRef("transform"), transform.save(alloc), alloc);
 
         // Tags
         if (!m_tagList.empty())
@@ -308,28 +283,8 @@ namespace uth
     {
         m_active = doc["active"].GetBool();
 
-        {
-            const rj::Value& transVal = doc["transform"];
-
-            // Position
-            transform.SetPosition(transVal["posX"].GetDouble(),
-                                  transVal["posY"].GetDouble());
-
-            // Origin
-            transform.SetOrigin(pmath::Vec2(transVal["origX"].GetDouble(),
-                                            transVal["origY"].GetDouble()));
-
-            // Scale
-            transform.SetScale(transVal["scaleX"].GetDouble(),
-                               transVal["scaleY"].GetDouble());
-
-            // Size
-            transform.SetSize(transVal["sizeX"].GetDouble(),
-                              transVal["sizeY"].GetDouble());
-
-            // Rotatiom
-            transform.SetRotation(transVal["angle"].GetDouble());
-        }
+        // We'll just assume the transform is valid.
+        transform.load(doc["transform"]);
 
         // Tags
         if (doc.HasMember("tags") && doc["tags"].IsArray())
@@ -347,7 +302,7 @@ namespace uth
 
             for (auto itr = childArray.Begin(); itr != childArray.End(); ++itr)
             {
-                std::unique_ptr<Object> ptr(static_cast<Object*>(uthSceneM.GetSaveable(itr->FindMember("identifier")->value.GetString())));
+                std::unique_ptr<Object> ptr(static_cast<Object*>(uthSceneM.GetSaveable(*itr)));
                 
                 if (!ptr)
                     return false;

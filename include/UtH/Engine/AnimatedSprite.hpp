@@ -10,7 +10,7 @@ namespace uth
 	class AnimatedSprite : public Sprite
 	{
 	public:
-        AnimatedSprite();
+        //AnimatedSprite();
 		~AnimatedSprite();
 
 		AnimatedSprite(Texture* texture, const unsigned int frames,

@@ -273,3 +273,55 @@ void Transform::updateTransform() const
 
 	m_transformNeedsUpdate = false;
 }
+
+rapidjson::Value uth::Transform::save(rapidjson::MemoryPoolAllocator<>& alloc) const
+{
+    namespace rj = rapidjson;
+
+    rj::Value transVal;
+    transVal.SetObject();
+
+    // Position
+    transVal.AddMember(rj::StringRef("posX"), GetPosition().x, alloc);
+    transVal.AddMember(rj::StringRef("posY"), GetPosition().y, alloc);
+
+    // Origin
+    transVal.AddMember(rj::StringRef("origX"), GetOrigin().x, alloc);
+    transVal.AddMember(rj::StringRef("origY"), GetOrigin().y, alloc);
+
+    // Scale
+    transVal.AddMember(rj::StringRef("scaleX"), GetScale().x, alloc);
+    transVal.AddMember(rj::StringRef("scaleY"), GetScale().y, alloc);
+
+    // Size
+    transVal.AddMember(rj::StringRef("sizeX"), GetSize().x, alloc);
+    transVal.AddMember(rj::StringRef("sizeY"), GetSize().y, alloc);
+
+    // Rotation
+    transVal.AddMember(rj::StringRef("angle"), GetRotation(), alloc);
+
+    return transVal;
+}
+
+bool uth::Transform::load(const rapidjson::Value& doc)
+{
+    SetPosition(doc["posX"].GetDouble(),
+                doc["posY"].GetDouble());
+
+    // Origin
+    SetOrigin(pmath::Vec2(doc["origX"].GetDouble(),
+                          doc["origY"].GetDouble()));
+
+    // Scale
+    SetScale(doc["scaleX"].GetDouble(),
+             doc["scaleY"].GetDouble());
+
+    // Size
+    setSize(doc["sizeX"].GetDouble(),
+            doc["sizeY"].GetDouble());
+
+    // Rotatiom
+    SetRotation(doc["angle"].GetDouble());
+
+    return true;
+}

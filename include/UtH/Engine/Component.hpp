@@ -19,7 +19,7 @@ namespace uth
 	{
 	public:
 
-        Component();
+        //Component();
 		Component(const std::string& name); // Should be unique(per gameobject)
 		virtual ~Component();
 

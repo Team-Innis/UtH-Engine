@@ -1,0 +1,72 @@
+{
+    "identifier": ".?AVTestScene@uth@@",
+    "active": true,
+    "transform": {
+        "posX": 0.0,
+        "posY": 0.0,
+        "origX": 0.0,
+        "origY": 0.0,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "sizeX": 0.0,
+        "sizeY": 0.0,
+        "angle": 0.0
+    },
+    "children": [
+        {
+            "identifier": ".?AVGameObject@uth@@",
+            "active": true,
+            "transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "origX": 0.0,
+                "origY": 0.0,
+                "scaleX": 1.0,
+                "scaleY": 1.0,
+                "sizeX": 128.0,
+                "sizeY": 128.0,
+                "angle": 0.0
+            },
+            "components": [
+                {
+                    "name": "Sprite",
+                    "active": true,
+                    "properties": [
+                        128.0,
+                        128.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "identifier": ".?AVSprite@uth@@"
+                }
+            ]
+        },
+        {
+            "identifier": ".?AVParticleSystem@uth@@",
+            "active": true,
+            "transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "origX": 0.0,
+                "origY": 0.0,
+                "scaleX": 1.0,
+                "scaleY": 1.0,
+                "sizeX": 25.0,
+                "sizeY": 25.0,
+                "angle": 0.0
+            },
+            "particleLimit": 100,
+            "properties": [
+                1,
+                5,
+                0.05000000074505806,
+                0.10000000149011612,
+                0.022778525948524476,
+                0.09657582640647888,
+                true
+            ]
+        }
+    ]
+}

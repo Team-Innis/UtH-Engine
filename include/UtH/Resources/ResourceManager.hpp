@@ -4,7 +4,6 @@
 
 #include <UtH/Platform/FileManager.hpp>
 #include <UtH/Platform/Debug.hpp>
-#include <UtH/Platform/Singleton.hpp>
 
 #include <UtH/Resources/Sound.hpp>
 #include <UtH/Resources/Image.hpp>
@@ -16,13 +15,12 @@
 #include <utility>
 #include <memory>
 
-#define uthRS uth::ResourceManager::getInstance()
+#define uthRS uth::ResourceManager::GetInstance()
 
 namespace uth
 {
-	class ResourceManager : public uth::Singleton<uth::ResourceManager>
+	class ResourceManager
 	{
-		friend class Singleton<uth::ResourceManager>;
 		friend class Resource;
 
 	public:
@@ -37,6 +35,8 @@ namespace uth
 
             All = Sounds | Images | Textures | Fonts | Shaders
         };
+
+        static ResourceManager& GetInstance();
 
 		Image* LoadImage(const std::string& filePath);
         Texture* LoadTexture(const std::string& filePath);

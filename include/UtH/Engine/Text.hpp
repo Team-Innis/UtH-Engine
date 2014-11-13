@@ -19,7 +19,7 @@ namespace uth
 
 		friend class ResourceManager;
     public:
-        Text();
+        //Text();
 		Text(const std::string& fontPath, const float fontSize,
 			const std::string& name = "Text", 
 			const pmath::Vec4 defaultColor = pmath::Vec4(1,1,1,1));
@@ -54,7 +54,7 @@ namespace uth
 
         rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const final override;
 
-        bool load(const rapidjson::Value& doc) override;
+        bool load(const rapidjson::Value& doc) final override;
 
 
 		VertexBuffer m_vertexBuffer;
@@ -70,6 +70,7 @@ namespace uth
 
 		texture_atlas_t* m_atlas;
 		texture_font_t* m_font;
+        const Font* m_uthFont;
 	};
 }
 

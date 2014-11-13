@@ -19,16 +19,34 @@ namespace uth
 		: m_nextScene(UTHDefaultScene),
 		  m_pendingSceneSwitch(true)
 	{
+        // Objects
         RegisterSaveable<Object>();
         RegisterSaveable<GameObject>();
         RegisterSaveable<Camera>();
-        RegisterSaveable<DefaultScene>();
+        RegisterSaveable<SpriteBatch>([](const rapidjson::Value& val) -> Saveable*
+        {
+            return new SpriteBatch(val["adoptedPointers"].GetBool());
+        });
+        RegisterSaveable<ParticleSystem>([](const rapidjson::Value& val) -> Saveable*
+        {
+            return new ParticleSystem(val["particleLimit"].GetUint());
+        });
         
-        RegisterSaveable<Component>();
-        RegisterSaveable<Rigidbody>();
+        // Components (There should never be any base component instances so no need to register that)
+        RegisterSaveable<Rigidbody>([](const rapidjson::Value& val)
+        {
+            return nullptr; // TODO: Figure out how to actually do this
+        });
         RegisterSaveable<Sprite>();
-        RegisterSaveable<AnimatedSprite>();
-        RegisterSaveable<Text>();
+        RegisterSaveable<AnimatedSprite>([](const rapidjson::Value& val)
+        {
+            return new AnimatedSprite(uthRS.LoadTexture(val["texture"].GetString()),
+                                      val["frames"].GetUint(), val["frameCountX"].GetUint(), val["frameCountY"].GetUint());
+        });
+        RegisterSaveable<Text>([](const rapidjson::Value& val)
+        {
+            return new Text(val["fontPath"].GetString(), val["fontSize"].GetDouble());
+        });
 
 		registerNewSceneFunc(defaultNewSceneFunc, 0);
 	}
@@ -79,15 +97,13 @@ namespace uth
         {
             rj::Document doc;
             doc.SetObject();
-            
-            doc.AddMember(rj::Value(saveName.c_str(), doc.GetAllocator()), curScene->save(doc.GetAllocator()), doc.GetAllocator());
+            doc.CopyFrom(curScene->save(doc.GetAllocator()), doc.GetAllocator());
 
             rj::StringBuffer buffer;
             rj::PrettyWriter<rj::StringBuffer> writer(buffer);
             doc.Accept(writer);
-            rj::Value v;
 
-            FileManager fm("saves/" + saveName + ".uths");
+            FileManager fm("saves/" + saveName + ".uths", uth::FileManager::Location::INTERNAL, true);
             fm.WriteString(buffer.GetString());
 
             return true;
@@ -102,7 +118,7 @@ namespace uth
 
         FileManager fm;
         const std::string path("saves/" + saveName + ".uths");
-        fm.OpenFile(path);
+        fm.OpenFile(path, uth::FileManager::Location::INTERNAL);
         
         rj::Document doc;
         doc.Parse<0>(fm.ReadText().c_str());
@@ -113,10 +129,7 @@ namespace uth
             return false;
         }
 
-        if (!doc.HasMember(saveName.c_str()))
-            return false;
-
-        std::unique_ptr<Scene> ptr(static_cast<Scene*>(GetSaveable(doc["identifier"].GetString())));
+        std::unique_ptr<Scene> ptr(static_cast<Scene*>(GetSaveable(doc)));
 
         if (!ptr)
         {
@@ -126,7 +139,7 @@ namespace uth
         
         if (!ptr->load(doc))
         {
-            WriteError("Failed to load one or more objects from save %s", saveName.c_str());
+            WriteError("Failed to load one or more objects from save \"%s\"", saveName.c_str());
             return false;
         }
 
@@ -177,12 +190,18 @@ namespace uth
         return instance;
     }
 
-    Saveable* SceneManager::GetSaveable(const std::string& identifier)
+    Saveable* SceneManager::GetSaveable(const rapidjson::Value& val)
     {
-        auto itr = m_saveableFuncs.find(identifier);
+        const char* idKey = "identifier";
+        if (val.HasMember(idKey) && val[idKey].IsString())
+        {
+            auto itr = m_saveableFuncs.find(val[idKey].GetString());
 
-        if (itr != m_saveableFuncs.end())
-            return itr->second();
+            if (itr != m_saveableFuncs.end())
+                return itr->second(val);
+        }
+
+        WriteError("Failed to cast saveable with.");
 
         return nullptr;
     }

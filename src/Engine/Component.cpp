@@ -2,10 +2,10 @@
 
 using namespace uth;
 
-Component::Component()
-	: Component("Component")
-{
-}
+//Component::Component()
+//	: Component("Component")
+//{
+//}
 
 Component::Component(const std::string& name)
 	: parent(nullptr),
@@ -57,7 +57,7 @@ bool uth::Component::load(const rapidjson::Value& doc)
         return false;
 
     SetName(doc["name"].GetString());
-    SetActive(doc["active"].GetString());
+    SetActive(doc["active"].GetBool());
 
     return true;
 }

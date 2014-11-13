@@ -7,11 +7,11 @@
 using namespace uth;
 
 
-uth::AnimatedSprite::AnimatedSprite()
-    : Sprite()
-{
-
-}
+//uth::AnimatedSprite::AnimatedSprite()
+//    : Sprite()
+//{
+//
+//}
 
 AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 	const pmath::Vec2& frameSize,
@@ -251,10 +251,51 @@ rj::Value AnimatedSprite::save(rj::MemoryPoolAllocator<>& alloc) const
 {
     rj::Value val = Sprite::save(alloc);
 
+    val.AddMember(rj::StringRef("frames"), m_frames, alloc);
+    val.AddMember(rj::StringRef("firstFrame"), m_firstFrame, alloc);
+    val.AddMember(rj::StringRef("curFrame"), m_curFrame, alloc);
+
+    rj::Value& sizeVal = val.AddMember(rj::StringRef("sizes"), rj::kArrayType, alloc)["sizes"];
+
+    sizeVal.PushBack(m_sizePx.x, alloc)
+           .PushBack(m_sizePx.y, alloc)
+           .PushBack(m_sizeTc.x, alloc)
+           .PushBack(m_sizeTc.y, alloc);
+
+    val.AddMember(rj::StringRef("fps"), m_fps, alloc);
+    val.AddMember(rj::StringRef("delay"), m_delay, alloc);
+    val.AddMember(rj::StringRef("reversed"), m_reversed, alloc);
+    val.AddMember(rj::StringRef("loop"), m_loop, alloc);
+    val.AddMember(rj::StringRef("loopEnd"), loopEnd, alloc);
+    
+    val.AddMember(rj::StringRef("frameCountX"), m_frameCountX, alloc);
+    val.AddMember(rj::StringRef("frameCountY"), m_frameCountY, alloc);
+
     return val;
 }
 
 bool uth::AnimatedSprite::load(const rj::Value& doc)
 {
-    return false;
+    if (!Sprite::load(doc))
+        return false;
+
+    m_firstFrame = doc["firstFrame"].GetInt();
+    m_curFrame = doc["curFrame"].GetInt();
+
+    const rj::Value& sizeVal = doc["sizes"];
+
+    m_sizePx.x = sizeVal[0u].GetDouble();
+    m_sizePx.y = sizeVal[1].GetDouble();
+    m_sizeTc.x = sizeVal[2].GetDouble();
+    m_sizeTc.y = sizeVal[3].GetDouble();
+
+    m_fps = doc["fps"].GetDouble();
+    m_delay = doc["delay"].GetDouble();
+    m_reversed = doc["reversed"].GetBool();
+    m_loop = doc["loop"].GetBool();
+    loopEnd = doc["loopEnd"].GetBool();
+
+    Init();
+
+    return true;
 }

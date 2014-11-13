@@ -20,7 +20,7 @@ namespace uth
 
         ParticleSystem(const size_t reserve);
 
-        ~ParticleSystem(){};
+        ~ParticleSystem(){}
 
 
         void Emit(const unsigned int amount);
@@ -46,6 +46,9 @@ namespace uth
         void RaiseUpdateFlag();
 
     private:
+
+        rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const final override;
+        bool load(const rapidjson::Value& doc) final override;
      
         void update(float dt) override;
         void draw(RenderTarget& target) override;

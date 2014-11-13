@@ -174,7 +174,92 @@ size_t ParticleSystem::GetParticleLimit() const
     return m_particles.capacity();
 }
 
-void uth::ParticleSystem::RaiseUpdateFlag()
+void ParticleSystem::RaiseUpdateFlag()
 {
     m_update = true;
+}
+
+rapidjson::Value ParticleSystem::save(rapidjson::MemoryPoolAllocator<>& alloc) const
+{
+    namespace rj = rapidjson;
+
+    rapidjson::Value val = GameObject::save(alloc);
+
+    val.AddMember(rj::StringRef("particleLimit"), m_particles.capacity(), alloc)
+       .AddMember(rj::StringRef("properties"), rj::kArrayType, alloc);
+
+    val["properties"].PushBack(m_emitAmount.x, alloc)
+                     .PushBack(m_emitAmount.y, alloc)
+                     .PushBack(m_emitFreq.x, alloc)
+                     .PushBack(m_emitFreq.y, alloc)
+                     .PushBack(m_emitTimer, alloc)
+                     .PushBack(m_emitTimeLimit, alloc)
+                     .PushBack(m_autoEmit, alloc);
+
+    // Template
+    {
+        rj::Value& tempVal = val.AddMember(rj::StringRef("template"), rj::kObjectType, alloc)["template"];
+
+        rj::Value& colVal = tempVal.AddMember(rj::StringRef("color"), rj::kArrayType, alloc)["color"];
+        colVal.PushBack(m_template.color.r, alloc)
+              .PushBack(m_template.color.g, alloc)
+              .PushBack(m_template.color.b, alloc)
+              .PushBack(m_template.color.a, alloc);
+
+        tempVal.AddMember(rj::StringRef("lifetime"), m_template.lifetime, alloc);
+        tempVal.AddMember(rj::StringRef("minSpeed"), m_template.minSpeed, alloc);
+        tempVal.AddMember(rj::StringRef("maxSpeed"), m_template.maxSpeed, alloc);
+
+        if (m_template.m_texture)
+            tempVal.AddMember(rj::StringRef("texture"), rj::Value(uthRS.FilePath(m_template.m_texture, ResourceManager::Textures).c_str(), alloc), alloc);
+
+        rj::Value& tcVal = tempVal.AddMember(rj::StringRef("texCoords"), rj::kArrayType, alloc)["texCoords"];
+        tempVal.PushBack(m_template.m_texCoords.position.x, alloc)
+               .PushBack(m_template.m_texCoords.position.y, alloc)
+               .PushBack(m_template.m_texCoords.size.x, alloc)
+               .PushBack(m_template.m_texCoords.size.y, alloc);
+    }
+
+    return val;
+}
+
+bool uth::ParticleSystem::load(const rapidjson::Value& doc)
+{
+    namespace rj = rapidjson;
+
+    const rj::Value& props = doc["properties"];
+
+    m_emitAmount.x = props[0u].GetInt();
+    m_emitAmount.y = props[1].GetInt();
+    m_emitFreq.x = props[2].GetDouble();
+    m_emitFreq.y = props[3].GetDouble();
+    m_emitTimer = props[4].GetDouble();
+    m_emitTimeLimit = props[5].GetDouble();
+    m_autoEmit = props[6].GetBool();
+
+    // Template
+    {
+        const rj::Value& tempVal = doc["template"];
+
+        const rj::Value& colVal = tempVal["color"];
+        m_template.color.r = colVal[0u].GetDouble();
+        m_template.color.g = colVal[1].GetDouble();
+        m_template.color.b = colVal[2].GetDouble();
+        m_template.color.a = colVal[3].GetDouble();
+
+        m_template.lifetime = tempVal["lifetime"].GetDouble();
+        m_template.minSpeed = tempVal["minSpeed"].GetDouble();
+        m_template.maxSpeed = tempVal["maxSpeed"].GetDouble();
+
+        if (tempVal.HasMember("texture"))
+            m_template.m_texture = uthRS.LoadTexture(tempVal["texture"].GetString());
+
+        const rj::Value& tcVal = tempVal["texCoords"];
+        m_template.m_texCoords.position.x = tcVal[0u].GetDouble();
+        m_template.m_texCoords.position.y = tcVal[1].GetDouble();
+        m_template.m_texCoords.size.x = tcVal[2].GetDouble();
+        m_template.m_texCoords.size.x = tcVal[3].GetDouble();
+    }
+
+    return true;
 }

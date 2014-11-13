@@ -14,12 +14,16 @@ namespace
 }
 
 TestScene::TestScene()
-{}
+{
+    uthSceneM.RegisterSaveable<TestScene>();
+}
 TestScene::~TestScene()
 {}
 
 bool TestScene::Init()
 {
+    //if (uthSceneM.LoadSavedScene("test")) return true;
+
     // Objects
     // First
 	{
@@ -58,6 +62,7 @@ bool TestScene::Init()
 }
 bool TestScene::DeInit()
 {
+    uthSceneM.SaveCurrentScene("test");
 	return true;
 }
 

@@ -8,7 +8,8 @@ using namespace uth;
 
 
 uth::Sprite::Sprite()
-    : Component()
+    : Component("Sprite"),
+      m_texture(nullptr)
 {
 
 }
@@ -197,7 +198,7 @@ rj::Value uth::Sprite::save(rj::MemoryPoolAllocator<>& alloc) const
     props.PushBack(m_color.a, alloc);
 
     if (m_texture)
-        val.AddMember(rj::StringRef("texture"), rj::Value(uthRS.FilePath(m_texture,ResourceManager::Textures).c_str(), alloc), alloc);
+        val.AddMember(rj::StringRef("texture"), rj::Value(uthRS.FilePath(m_texture, ResourceManager::Textures).c_str(), alloc), alloc);
 
     return val;
 }
@@ -218,6 +219,8 @@ bool uth::Sprite::load(const rj::Value& doc)
 
     if (doc.HasMember("texture") && doc["texture"].IsString())
         SetTexture(uthRS.LoadTexture(doc["texture"].GetString()));
+    else
+        Init();
 
-    return false;
+    return true;
 }
