@@ -1,8 +1,11 @@
 #pragma once
 #ifndef JAVAFUNCTIONS_H_UTH
 #define JAVAFUNCTIONS_H_UTH
+// WINDOWS
 
 #define javaFunc uth::JavaFunctions
+
+#include <pmath/PMath.hpp>
 
 namespace uth
 {
@@ -13,7 +16,9 @@ namespace uth
 	public:
 		// Vibrates for given time in milliseconds.
 		static void Vibrate(int time_ms);
-
+		static void ShowAdBanner(std::string admobID, unsigned int origin = 2, pmath::Vec2i offset = pmath::Vec2i()){}
+		static void ShowAdFull(std::string adID){}
+		static void CloseAd(const std::string& name){}
 	private:
 
 

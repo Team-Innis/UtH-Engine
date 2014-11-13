@@ -1,5 +1,6 @@
 #include <TestScene.hpp>
 #include <Scenes.hpp>
+#include <uth/Platform/JavaFunctions.hpp>
 
 using namespace uth;
 
@@ -23,7 +24,7 @@ bool TestScene::Init()
     // Objects
     // First
 	{
-	    auto test = AddChild<GameObject>();
+	    auto test = this->AddChild<GameObject>();
 		test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
     }
 
@@ -52,7 +53,7 @@ bool TestScene::Init()
 
         ps->AddAffector(aff);
         ps->SetEmitProperties(true, 0.05f, 0.1f, 1, 5);
-    }
+	}
 
 	return true;
 }
@@ -61,10 +62,16 @@ bool TestScene::DeInit()
 	return true;
 }
 
-//void TestScene::Update(float dt)
-//{
-//	Scene::Update(dt);
-//}
+void TestScene::Update(float dt)
+{
+	Scene::Update(dt);
+
+	if (uthInput.Common == uth::InputEvent::CLICK)
+	{
+		javaFunc::Vibrate(2000);
+		javaFunc::ShowAdBanner("");
+	}
+}
 
 //void TestScene::Draw(RenderTarget& target, RenderAttributes attributes)
 //{
