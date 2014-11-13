@@ -69,7 +69,7 @@ void TestScene::Update(float dt)
 	if (uthInput.Common == uth::InputEvent::CLICK)
 	{
 		javaFunc::Vibrate(2000);
-		javaFunc::ShowAdBanner("9121443697");
+		javaFunc::ShowAdBanner("");
 	}
 }
 
