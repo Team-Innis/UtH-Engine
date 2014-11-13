@@ -21,8 +21,7 @@ void Engine::Update()
 {
 	const float deltaTime = static_cast<float>(m_timer.DeltaTime());
 	uthInput.Update(deltaTime);
-	if (uth::Window::focused)
-		uthSceneM.Update(deltaTime);
+	uthSceneM.Update(deltaTime);
 	if(m_wndw->processMessages())
 	{
 		Exit();
@@ -32,8 +31,7 @@ void Engine::Update()
 void Engine::Draw()
 {
 	m_wndw->Clear(m_clearColor.x, m_clearColor.y, m_clearColor.z, m_clearColor.w);
-	if (uth::Window::focused)
-		uthSceneM.Draw();
+	uthSceneM.Draw();
     m_wndw->swapBuffers();
 }
 

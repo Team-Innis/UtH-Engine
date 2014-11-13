@@ -15,7 +15,6 @@ namespace uth
 
 	void* AndroidWindowImpl::create(const WindowSettings& settings)
 	{
-
 		const EGLint attribs[] =
 		{
 			EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
@@ -55,10 +54,10 @@ namespace uth
 
 		eglChooseConfig(uthAndroidEngine.display, attribs, &uthAndroidEngine.config, 1, &numConfigs);
 		CheckGLError("eglChooseConfig");
-			WriteLog("eglChooseConfig succeeded");
+		WriteLog("eglChooseConfig succeeded");
 		eglGetConfigAttrib(uthAndroidEngine.display, uthAndroidEngine.config, EGL_NATIVE_VISUAL_ID, &format);
 		CheckGLError("eglGetConfigAttrib");
-			WriteLog("eglGetConfigAttrib succeeded");
+		WriteLog("eglGetConfigAttrib succeeded");
 
 
 
@@ -95,6 +94,7 @@ namespace uth
 		//glHint(GL_GENERATE_MIPMAP_HINT, GL_FASTEST);
 		//glEnable(GL_CULL_FACE);
 		//glEnable(GL_DEPTH_TEST);
+
 		Graphics::SetBlendFunction(true, SRC_ALPHA, ONE_MINUS_SRC_ALPHA);
 
 		WriteLog("+++++++++++++++++++++++++++++++++++++++");
@@ -103,7 +103,6 @@ namespace uth
 
 		return nullptr;
 	}
-
 
 	void* AndroidWindowImpl::destroy(void* handle)
 	{
@@ -161,45 +160,59 @@ namespace uth
 
 	bool AndroidWindowImpl::processMessages(void* handle)
 	{
+		//TODO : fix processMessages called in Engine.cpp
+		if (uthAndroidEngine.message == 0xFFFFFFFF)
+			return false;
 		android_app* app = uthAndroidEngine.app;
 		uth::Window* window = ((uth::Window*)app->userData);
 
 		switch (uthAndroidEngine.message)
 		{
 		case APP_CMD_SAVE_STATE:
-			WriteLog("SaveStated");
+			WriteLog("APP_CMD_SAVE_STATE");
 			break;
 		case APP_CMD_INIT_WINDOW:
-			WriteLog("windowINIT");
+
+			WriteLog("APP_CMD_INIT_WINDOW");
+			//if (focusLost)
+			//create(uthAndroidEngine.settings);
 			uthAndroidEngine.initialized = true;
 			uthAndroidEngine.winEveHand(window);
-			if (!focusLost)
-				uthEngine.Init(uthAndroidEngine.settings);
+
+			uthEngine.Init(uthAndroidEngine.settings);
+			if (!focusLost);
 			else
 			{
-				uthRS.PauseSounds();
 			}
 			uthRS.RecreateOpenGLContext();
 			WriteLog("uthAndroidEngine.winEveHand");
+			focusLost = false;
 			break;
 		case APP_CMD_TERM_WINDOW:
+			WriteLog("APP_CMD_TERM_WINDOW");
 			uthAndroidEngine.initialized = false;
+			uthRS.ClearOpenGLContext();
 			window->destroy();
 			return true;
 			break;
-        case APP_CMD_GAINED_FOCUS:
-            uthAndroidEngine.initialized = true;
+		case APP_CMD_GAINED_FOCUS:
+			WriteLog("APP_CMD_GAINED_FOCUS");
+			uthAndroidEngine.initialized = true;
+			uthRS.PauseSounds();
+
             uth::SensorInput::GainFocus();
             break;
 		case APP_CMD_LOST_FOCUS:
-			WriteLog("LostFocus");
+			WriteLog("APP_CMD_LOST_FOCUS");
 			uthAndroidEngine.initialized = false;
-			uthRS.ClearOpenGLContext();
 			uthRS.PauseSounds();
+
+			uth::SensorInput::LostFocus();
 			focusLost = true;
-            uth::SensorInput::LostFocus();
 			break;
 		}
+		//TODO : remove
+		uthAndroidEngine.message = 0xFFFFFFFF;
 
 		return false;
 	}

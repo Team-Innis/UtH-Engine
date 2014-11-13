@@ -282,8 +282,6 @@ bool uth::ResourceManager::RecreateOpenGLContext()
 
 	for (auto it : VertexBuffer::VERTEXBUFFERS)
 		it->RecreateOpenGLContext();
-	//for (auto it : Shader::SHADERS)
-	//	it->RecreateOpenGLContext();
 
 	return true;
 }
@@ -294,21 +292,13 @@ bool uth::ResourceManager::ClearOpenGLContext()
 	Unload(Textures | Shaders);
 
 	{
-		const auto temp = std::unordered_set<VertexBuffer*>(
-			VertexBuffer::VERTEXBUFFERS.begin(),
-			VertexBuffer::VERTEXBUFFERS.end());
-		for (auto it : temp)
+		//const auto temp = std::unordered_set<VertexBuffer*>(
+		//	VertexBuffer::VERTEXBUFFERS.begin(),
+		//	VertexBuffer::VERTEXBUFFERS.end());
+		for (auto it : VertexBuffer::VERTEXBUFFERS)
 			if (!it->ClearOpenGLContext())
 				result = false;
 	}
-	//{
-	//	const auto temp = std::unordered_set<Shader*>(
-	//		Shader::SHADERS.begin(),
-	//		Shader::SHADERS.end());
-	//	for (auto it : temp)
-	//		if (!it->ClearOpenGLContext())
-	//			result = false;
-	//}
 
 	return result;
 }

@@ -27,8 +27,6 @@ namespace uth
 		pmath::Vec2 GetSize() const;
 
 		void* m_windowHandle;
-
-		static bool focused;
 	private:
 
 		bool bind();

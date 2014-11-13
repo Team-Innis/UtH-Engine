@@ -463,17 +463,10 @@ namespace uth
 
 	void Graphics::SetBlendFunction(const bool enable, BlendFunction sfunc, BlendFunction dfunc)
 	{
-		static bool enabled = false;
-
-		if (enable != enabled)
-		{
-			if (enable)
-				oglCheck(glEnable(GL_BLEND));
-			else
-				oglCheck(glDisable(GL_BLEND));
-
-			enabled = !enabled;
-		}
+		if (enable)
+			oglCheck(glEnable(GL_BLEND));
+		else
+			oglCheck(glDisable(GL_BLEND));
 
 		oglCheck(glBlendFunc(blendFunctions[sfunc], blendFunctions[dfunc]));
 	}
