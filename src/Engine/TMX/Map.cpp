@@ -30,12 +30,22 @@ bool Map::LoadFromFile(const std::string& path)
 	// Create the xml document
 	tinyxml2::XMLDocument doc;
 	FileManager fr(path.c_str());
-	doc.Parse(fr.ReadText().c_str());
+    doc.Parse(fr.ReadText().c_str());
 
 	// Parse the map element
 	tinyxml2::XMLElement* map = doc.FirstChildElement("map");
+    if (map == nullptr)
+    {
+        WriteError("Could not open map from path: %s", path.c_str());
+        assert(false);
+    }
+
 	m_orientation = getOrientation(map->Attribute("orientation"));
-	assert(m_orientation == Orientation::ORTHOGONAL);
+    if (m_orientation != Orientation::ORTHOGONAL)
+    {
+        WriteError("Only orthogonal maps are supported");
+        assert(false);
+    }
 	m_width = map->UnsignedAttribute("width");
 	m_height = map->UnsignedAttribute("height");
 	m_tileWidth = map->UnsignedAttribute("tilewidth");
@@ -46,7 +56,6 @@ bool Map::LoadFromFile(const std::string& path)
 	auto tileset = map->FirstChildElement("tileset");
 	while(tileset != 0)
 	{
-		// TODO: Make getting the map folder better
 		std::string mapfolder = path.substr(0, path.find_last_of("/")+1);
 		tilesets.emplace_back(new Tileset(tileset, mapfolder));
 		tileset = tileset->NextSiblingElement("tileset");

@@ -63,8 +63,8 @@ void Sound::Pause()
 {
 	if(Status() == AL_PLAYING)
 		alSourcePause(source);
-	else
-		alSourcePlay(source);
+	//else
+	//	alSourcePlay(source);
 }
 
 void Sound::Loop()
@@ -138,6 +138,14 @@ void Sound::SetListenerPosition(pmath::Vec3 position)
 	CheckALError("al_slistener3f AL_POSITION");
 	alListener3f(AL_VELOCITY, _posX, _posY, _posZ);
 	CheckALError("al_listener3f AL_VELOCITY");
+}
+
+bool Sound::IsPlaying()
+{
+	if (Status() == AL_PLAYING)
+		return true;
+	else
+		return false;
 }
 
 // PRIVATE

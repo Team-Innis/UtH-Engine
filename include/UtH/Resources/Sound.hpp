@@ -46,7 +46,7 @@ namespace uth
 		// Stops source from playing.
 		void Stop();
 
-		// Toggles between playing and paused.
+		// Pauses source. Use Play() to continue.
 		void Pause();
 
 		// Toggles loop on or off
@@ -70,6 +70,9 @@ namespace uth
 		void SetListenerPosition(float x, float y, float z = 0);
 		// Adjust listener position
 		void SetListenerPosition(pmath::Vec3 position);
+
+		// Check if source is playing.
+		bool IsPlaying();
 
 	private:
 		Sound(const Sound&);
