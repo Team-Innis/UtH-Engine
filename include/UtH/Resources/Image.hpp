@@ -50,8 +50,8 @@ namespace uth
 
 
 		bool LoadFromFile(const std::string& filePath) override;
-
 		void Unload() override;
+		bool EnsureLoaded() override;
 
         // Member data
 

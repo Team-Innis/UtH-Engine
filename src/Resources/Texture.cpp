@@ -136,4 +136,12 @@ namespace uth
 		m_textureID = 0;
 		m_loaded = false;
 	}
+	bool Texture::EnsureLoaded()
+	{
+		if (m_loaded)
+			return true;
+		const bool result = LoadFromFile(uthRS.FilePath(this, ResourceManager::Textures));
+		//assert(result);
+		return result;
+	}
 }

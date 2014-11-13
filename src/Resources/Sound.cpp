@@ -151,10 +151,17 @@ bool Sound::LoadFromFile(const std::string& filePath)
 	m_loaded = true;
 	return true;
 }
-
 void Sound::Unload()
 {
 
+}
+bool Sound::EnsureLoaded()
+{
+	if (m_loaded)
+		return true;
+	const bool result = LoadFromFile(uthRS.FilePath(this, ResourceManager::Sounds));
+	//assert(result);
+	return result;
 }
 
 void Sound::Initialize(std::string fileName)

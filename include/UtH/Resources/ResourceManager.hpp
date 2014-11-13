@@ -22,8 +22,13 @@ namespace uth
 {
 	class ResourceManager : public uth::Singleton<uth::ResourceManager>
 	{
-		friend class Singleton<uth::ResourceManager>;
+		friend class Singleton < uth::ResourceManager > ;
 		friend class Resource;
+		friend class Sound;
+		friend class Image;
+		friend class Texture;
+		friend class Font;
+		friend class Shader;
 
 	public:
 

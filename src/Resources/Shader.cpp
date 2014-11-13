@@ -4,6 +4,7 @@
 #include <UtH/Platform/Configuration.hpp>
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Renderer/RenderTarget.hpp>
+#include <UtH/Resources/ResourceManager.hpp>
 
 using namespace uth;
 
@@ -171,14 +172,14 @@ bool Shader::LoadShader(const std::string& vertexShaderPath, const std::string& 
 	return result;
 }
 
-bool uth::Shader::LoadFromFile(const std::string& filePath)
+bool Shader::LoadFromFile(const std::string& filePath)
 {
 	const size_t cut = filePath.find('\n');
 	const std::string vertexPath = filePath.substr(0, cut);
-	const std::string fragmentPath = filePath.substr(cut+1, filePath.size());
+	const std::string fragmentPath = filePath.substr(cut + 1, filePath.size());
 	return LoadShader(vertexPath, fragmentPath);
 }
-void uth::Shader::Unload()
+void Shader::Unload()
 {
 	if (m_program)
 	{
@@ -186,4 +187,12 @@ void uth::Shader::Unload()
 		m_program = 0;
 	}
 	m_loaded = false;
+}
+bool Shader::EnsureLoaded()
+{
+	if (m_loaded)
+		return true;
+	const bool result = LoadFromFile(uthRS.FilePath(this, ResourceManager::Shaders));
+	//assert(result);
+	return result;
 }

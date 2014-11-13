@@ -76,6 +76,8 @@ namespace uth
 
 		bool LoadFromFile(const std::string& filePath) override;
 		void Unload() override;
+		bool EnsureLoaded() override;
+
 		void Initialize(std::string fileName);
 		static void CreateSources(ALuint &source);
 		ALint Status();

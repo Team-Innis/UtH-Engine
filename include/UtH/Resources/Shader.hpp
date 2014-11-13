@@ -49,9 +49,9 @@ namespace uth
 
 		bool LoadShader(const std::string& vertexShaderPath, const std::string& fragmentShaderPath);
 
-		virtual bool LoadFromFile(const std::string& filePath) override;
-		virtual void Unload() override;
-		//virtual bool EnsureLoaded() override;
+		bool LoadFromFile(const std::string& filePath) override;
+		void Unload() override;
+		bool EnsureLoaded() override;
 
 		unsigned int m_program;
 	};

@@ -1,5 +1,6 @@
 #include <UtH/Resources/Font.hpp>
 #include <UtH/Platform/FileManager.hpp>
+#include <UtH/Resources/ResourceManager.hpp>
 #include <cstdlib> // free
 
 using namespace uth;
@@ -25,10 +26,17 @@ bool Font::LoadFromFile(const std::string& filePath)
 	m_loaded = true;
 	return true;
 }
-
 void Font::Unload()
 {
 
+}
+bool Font::EnsureLoaded()
+{
+	if (m_loaded)
+		return true;
+	const bool result = LoadFromFile(uthRS.FilePath(this, ResourceManager::Fonts));
+	//assert(result);
+	return result;
 }
 
 const BINARY_DATA& Font::GetFontData() const

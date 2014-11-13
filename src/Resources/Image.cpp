@@ -2,6 +2,7 @@
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/BinaryData.hpp>
 #include <UtH/Platform/FileManager.hpp>
+#include <UtH/Resources/ResourceManager.hpp>
 #include <cassert>
 #include <cstring>
 #include <vector>
@@ -65,11 +66,18 @@ namespace uth
 		m_loaded = true;
         return true;
     }
-
 	void Image::Unload()
 	{
 		m_pixels.clear();
 		m_loaded = false;
+	}
+	bool Image::EnsureLoaded()
+	{
+		if (m_loaded)
+			return true;
+		const bool result = LoadFromFile(uthRS.FilePath(this, ResourceManager::Images));
+		//assert(result);
+		return result;
 	}
 
     const pmath::Vec2& Image::GetSize() const
