@@ -26,7 +26,7 @@ void JavaFunctions::Vibrate(int time_ms)
 	if (vibrationFunc == NULL)
 		WriteError("No vibration function found!");
 
-	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, vibrationFunc, time_ms);
+	jni->CallVoidMethod(uthAndroidEngine.app->activity->clazz, vibrationFunc, time_ms);
 }
 
 void JavaFunctions::ShowAdBanner(std::string name, unsigned int origin, pmath::Vec2i off)
@@ -46,7 +46,7 @@ void JavaFunctions::ShowAdBanner(std::string name, unsigned int origin, pmath::V
 	if (popupFunc == NULL)
 		WriteError("No adShow function found!");
 	jstring jname = jni->NewStringUTF(name.c_str());
-	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, popupFunc, off.x, off.y, origin, jname);
+	jni->CallVoidMethod(uthAndroidEngine.app->activity->clazz, popupFunc, off.x, off.y, origin, jname);
 }
 
 void JavaFunctions::ShowAdFull(std::string name)
@@ -66,7 +66,7 @@ void JavaFunctions::ShowAdFull(std::string name)
 	if (popupFunc == NULL)
 		WriteError("No adShowFull function found!");
 	jstring jname = jni->NewStringUTF(name.c_str());
-	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, popupFunc, jname);
+	jni->CallVoidMethod(uthAndroidEngine.app->activity->clazz, popupFunc, jname);
 }
 
 void JavaFunctions::CloseAd(const std::string& name)
@@ -86,5 +86,5 @@ void JavaFunctions::CloseAd(const std::string& name)
 	if (popupFunc == NULL)
 		WriteError("No adHide function found!");
 	jstring jname = jni->NewStringUTF(name.c_str());
-	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, popupFunc, jname);
+	jni->CallVoidMethod(uthAndroidEngine.app->activity->clazz, popupFunc, jname);
 }
