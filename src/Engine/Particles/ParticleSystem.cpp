@@ -1,5 +1,5 @@
 #include <UtH/Engine/Particles/ParticleSystem.hpp>
-#include <UtH/Core/Randomizer.hpp>
+#include <UtH/Engine/Randomizer.hpp>
 #include <algorithm>
 #include <iostream>
 

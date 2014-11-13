@@ -5,6 +5,7 @@
 #include <UtH/Platform/Singleton.hpp>
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/Configuration.hpp>
+#include <UtH/Platform/Debug.hpp>
 
 #if defined(UTH_SYSTEM_ANDROID)
 	#include <UtH/Platform/Android/InputCommon.hpp>
@@ -27,6 +28,8 @@
 	#error No input for such platform
 #endif
 
+#include <functional>
+
 #define uthInput uth::Input::getInstance()
 
 namespace uth
@@ -44,11 +47,18 @@ namespace uth
         ControllerInput Controller;
 		CommonInput Common;
 
+		void SetAndroidBackFunction(std::function<void()> function);
+
+		// This shouldn't be used ouside main.cpp
+		void RunBackButton();
+
 		void Update(float deltaTime);
 		void SetWindow(void *windowHandle);
 	private:
 		void *m_windowHandle;
 		friend class UtHEngine;
+
+		std::function<void()> f_androidBackButton = [](){};
 	};
 }
 

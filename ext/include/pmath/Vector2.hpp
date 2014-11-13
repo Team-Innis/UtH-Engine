@@ -26,6 +26,9 @@ namespace pmath
         // Scales the whole vector with the number
         Vector2& scale(const T& scale);
 
+        // Get the angle between the x axis and the vector
+        T angle() const;
+
         T dot(const Vector2& other) const;
         static T dot(const Vector2& vec1, const Vector2& vec2);
 

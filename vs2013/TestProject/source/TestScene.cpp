@@ -54,7 +54,6 @@ bool TestScene::Init()
         ps->AddAffector(aff);
         ps->SetEmitProperties(true, 0.05f, 0.1f, 1, 5);
 	}
-	javaFunc::Vibrate(1000);
 
 	return true;
 }
@@ -70,7 +69,7 @@ void TestScene::Update(float dt)
 	if (uthInput.Common == uth::InputEvent::CLICK)
 	{
 		javaFunc::Vibrate(2000);
-		javaFunc::ShowAd();
+		javaFunc::ShowAdBanner("9121443697");
 	}
 }
 

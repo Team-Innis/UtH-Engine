@@ -81,17 +81,17 @@ float ControllerInput::GetAxis(const Controller::Axis axis, const float deadzone
     return output;
 }
 
-void ControllerInput::HandleInput(AInputEvent* inputEvent)
+int ControllerInput::HandleInput(AInputEvent* inputEvent)
 {
     if (AInputEvent_getType(inputEvent) == AINPUT_EVENT_TYPE_KEY)
-        handleKeys(inputEvent);
-    else
-        handleAxes(inputEvent);
+        return handleKeys(inputEvent);
+
+    return handleAxes(inputEvent);
 }
 
 
 // Private
-void ControllerInput::handleKeys(AInputEvent* inputEvent)
+int ControllerInput::handleKeys(AInputEvent* inputEvent)
 {
     int button;
 
@@ -145,19 +145,25 @@ void ControllerInput::handleKeys(AInputEvent* inputEvent)
     }
 
     if (button == -1)
-        return;
+        return 0;
 
     int action = AKeyEvent_getAction(inputEvent);
     m_buttons.at(button) = action;
     m_hasChanged = true;
+
+    // returning 1 means we handled the event
+    return 1;
 }
 
-void ControllerInput::handleAxes(AInputEvent* inputEvent)
+int ControllerInput::handleAxes(AInputEvent* inputEvent)
 {
     for (int i = 0; i < m_axes.size(); ++i)
     {
         m_axes.at(i).update(inputEvent);
     }
+
+    // Just presume we always handle axis events
+    return 1;
 }
 
 

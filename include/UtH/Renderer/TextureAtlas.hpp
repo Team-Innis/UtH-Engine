@@ -2,7 +2,7 @@
 #ifndef TEXTUREATLAS_H_UTH
 #define TEXTUREATLAS_H_UTH
 
-#include <UtH/Renderer/Texture.hpp>
+#include <UtH/Resources/Texture.hpp>
 #include <pmath/Rectangle.hpp>
 #include <map>
 

@@ -46,22 +46,23 @@ namespace uth
 
 	void Object::Update(float dt)
 	{
-		if (m_active)
-		{
-			for (int i = 0; i < m_children.size(); ++i)
-				if (m_children[i]->m_active)
-					m_children[i]->Update(dt);
-		}
+		if (!m_active)
+			return;
+
+		const std::vector<std::shared_ptr<Object>> objBackup(m_children);
+		for (int i = 0; i < objBackup.size(); ++i)
+			if (objBackup[i]->m_active)
+				objBackup[i]->Update(dt);
 	}
 	void Object::Draw(RenderTarget& target, RenderAttributes attributes)
 	{
-		if (m_active)
+		if (!m_active)
+			return;
+
+		for (auto& i : m_children)
 		{
-			for (auto& i : m_children)
-			{
-				if (i->m_active)
-					i->Draw(target, attributes);
-			}
+			if (i->m_active)
+				i->Draw(target, attributes);
 		}
 	}
 
@@ -72,9 +73,9 @@ namespace uth
 
 	void Object::RemoveChild(const std::shared_ptr<Object>& object)
 	{
-		auto o = std::find(m_children.begin(), m_children.end(), object);
-		(*o)->setParent(nullptr);
-		m_children.erase(o);
+		auto it = std::find(m_children.begin(), m_children.end(), object);
+		(*it)->setParent(nullptr);
+		m_children.erase(it);
 	}
 	void Object::RemoveChild(Object* object)
 	{

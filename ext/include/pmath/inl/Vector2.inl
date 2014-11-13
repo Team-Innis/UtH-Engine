@@ -1,5 +1,6 @@
 #include "../Vector2.hpp"
 #include "../Util.hpp"
+#include "../Trigonometry.hpp"
 
 #include <cassert>
 #include <cmath>
@@ -64,6 +65,13 @@ namespace pmath
     inline Vector2<T>& Vector2<T>::scale(const T& s)
     {
         return scale(s, s);
+    }
+
+
+    template<typename T>
+    inline T Vector2<T>::angle() const
+    {
+        return atan2(y, x);
     }
 
     template<typename T>

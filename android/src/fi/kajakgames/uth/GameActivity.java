@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -35,7 +36,8 @@ public class GameActivity extends android.app.NativeActivity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
+		
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		

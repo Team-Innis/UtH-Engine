@@ -4,7 +4,7 @@
 
 #define UTHDefaultScene -1
 
-#include <UtH/Core/Shader.hpp>
+#include <UtH/Resources/Shader.hpp>
 #include <UtH/Engine/GameObject.hpp>
 #include <map>
 

@@ -177,20 +177,31 @@ pmath::Rect Transform::GetTransformedBounds() const
           bottom = 0.f,
           top = 0.f;
 
-    for (auto& i : points)
+    for (size_t i = 0; i < points.size(); ++i)
     {
+        auto& point = points.at(i);
         // Add transform matrix first
-        i *= tf;
+        point *= tf;
 
-        if (i.x < left)
-            left = i.x;
-        else if (i.x > right)
-            right = i.x;
+        // Initialize left, right, top and bottom with sensible values
+        // This is required so that the result will be correct
+        if (i == 0)
+        {
+            left = point.x;
+            right = point.x;
+            top = point.y;
+            bottom = point.y;
+        }
 
-        if (i.y < top)
-            top = i.y;
-        else if (i.y > bottom)
-            bottom = i.y;
+        if (point.x < left)
+            left = point.x;
+        else if (point.x > right)
+            right = point.x;
+
+        if (point.y < top)
+            top = point.y;
+        else if (point.y > bottom)
+            bottom = point.y;
     }
 
     return pmath::Rect(left, top, right - left, bottom - top);
