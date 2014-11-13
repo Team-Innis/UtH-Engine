@@ -21,18 +21,17 @@ void ensureDirectoryExists(const std::string& path);
 
 FileManager::FileManager()
 	: file(nullptr),
-	cFile(nullptr)
+	cFile(nullptr),
+    m_writable(false)
 {
 	if(isCompressed)
 		PHYSFS_init(nullptr);
 }
 
-FileManager::FileManager(const std::string& path, const Location loca /*= Location::ASSET*/)
+FileManager::FileManager(const std::string& path, const Location loca, bool isWritable)
+    : FileManager()
 {
-	if(isCompressed)
-		PHYSFS_init(nullptr);
-
-	OpenFile(path, loca);
+	OpenFile(path, loca, isWritable);
 }
 
 FileManager::~FileManager()
@@ -41,7 +40,7 @@ FileManager::~FileManager()
 }
 
 // Public
-void FileManager::OpenFile(const std::string& path, const Location loca /*=LOCATION::ASSET*/)
+void FileManager::OpenFile(const std::string& path, const Location loca, bool isWritable)
 {
 	//CloseFile();
 
@@ -74,9 +73,11 @@ void FileManager::OpenFile(const std::string& path, const Location loca /*=LOCAT
         if (loca != Location::ASSET)
             ensureDirectoryExists(temp_path);
 
-		file = std::fopen(temp_path.c_str(), "r+b");
-		if (file == nullptr)
+        if (!isWritable)
+		    file = std::fopen(temp_path.c_str(), "r+b");
+        else
 		{
+            m_writable = true;
             file = std::fopen(temp_path.c_str(), "w+b");
             if (file == nullptr)
                 WriteError("Cannot open file %s", temp_path.c_str());
@@ -184,7 +185,10 @@ const std::string FileManager::ReadText()
 
 void FileManager::WriteString(const std::string& data)
 {
-    std::fwrite(data.c_str(), sizeof(char), data.length(), file);
+    if (m_writable)
+        std::fwrite(data.c_str(), sizeof(char), data.length(), file);
+    else
+        WriteError("Current file is not opened as writable");
 }
 
 void ensureDirectoryExists(const std::string& path)
