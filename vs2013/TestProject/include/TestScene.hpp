@@ -15,12 +15,12 @@ namespace uth
 		bool Init() override;
 		bool DeInit() override;
 	
-		//void Update(float dt) override;
+		void Update(float dt) override;
 		//void Draw(RenderTarget& target, RenderAttributes attributes = RenderAttributes()) override;
 
 		Sound* music;
 
-		GameObject textObject;
+		Sprite* test;
 
 		Text* text;
 	
