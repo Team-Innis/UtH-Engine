@@ -59,9 +59,9 @@ namespace uth
 
         Saveable* GetSaveable(const rapidjson::Value& val);
 
+        void endScene();
 
-	private:
-		void endScene();
+    private:
 		void startScene();
 		void m_switchScene();
 		Scene* (*makeActiveScene)(int SceneID);

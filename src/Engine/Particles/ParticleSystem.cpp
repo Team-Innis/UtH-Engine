@@ -214,10 +214,10 @@ rapidjson::Value ParticleSystem::save(rapidjson::MemoryPoolAllocator<>& alloc) c
             tempVal.AddMember(rj::StringRef("texture"), rj::Value(uthRS.FilePath(m_template.m_texture, ResourceManager::Textures).c_str(), alloc), alloc);
 
         rj::Value& tcVal = tempVal.AddMember(rj::StringRef("texCoords"), rj::kArrayType, alloc)["texCoords"];
-        tempVal.PushBack(m_template.m_texCoords.position.x, alloc)
-               .PushBack(m_template.m_texCoords.position.y, alloc)
-               .PushBack(m_template.m_texCoords.size.x, alloc)
-               .PushBack(m_template.m_texCoords.size.y, alloc);
+        tcVal.PushBack(m_template.m_texCoords.position.x, alloc)
+             .PushBack(m_template.m_texCoords.position.y, alloc)
+             .PushBack(m_template.m_texCoords.size.x, alloc)
+             .PushBack(m_template.m_texCoords.size.y, alloc);
     }
 
     return val;
@@ -261,7 +261,7 @@ bool uth::ParticleSystem::load(const rapidjson::Value& doc)
         m_template.m_texCoords.position.x = tcVal[0u].GetDouble();
         m_template.m_texCoords.position.y = tcVal[1].GetDouble();
         m_template.m_texCoords.size.x = tcVal[2].GetDouble();
-        m_template.m_texCoords.size.x = tcVal[3].GetDouble();
+        m_template.m_texCoords.size.y = tcVal[3].GetDouble();
     }
 
     return true;

@@ -52,8 +52,7 @@ namespace uth
 	}
 	SceneManager::~SceneManager()
 	{
-		curScene->DeInit();
-		delete curScene;
+		
 	}
 	
 	void SceneManager::GoToScene(int SceneID, bool /*disposeCurrent*/)
