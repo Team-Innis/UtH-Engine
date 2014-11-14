@@ -80,9 +80,10 @@ void GameObject::Draw(RenderTarget& target, RenderAttributes attributes)
 			objBackup[i]->Draw(target);
 	}
 
+    Object::Draw(target, attributes);
+
     target.SetShader(tempShader);
     target.SetCamera(tempCamera);
-	Object::Draw(target);
 }
 
 void GameObject::Update(float dt)
