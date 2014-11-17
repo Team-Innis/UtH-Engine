@@ -2,6 +2,7 @@
 #include <UtH/Platform/Android/AndroidEngine.hpp>
 #include <UtH/Platform/Debug.hpp>
 
+// Android
 
 using namespace uth;
 
@@ -19,116 +20,194 @@ GooglePlayGameServices::~GooglePlayGameServices()
 }
 
 // Public
+
+void JNI_gameActivity()
+{
+	// Javaenviroment: Loads enviroment from Android activity
+	if (uthAndroidEngine.jni == NULL)
+		uthAndroidEngine.app->activity->vm->AttachCurrentThread(&uthAndroidEngine.jni, NULL);
+
+	// Loads our java master class GameActivity
+	if (uthAndroidEngine.gameActivity == NULL)
+	{
+		uthAndroidEngine.gameActivity = uthAndroidEngine.jni->GetObjectClass(uthAndroidEngine.app->activity->clazz);
+		if (!uthAndroidEngine.gameActivity)
+			WriteError("No engine found!");
+	}
+}
+
+
 // Achiements
 void GooglePlayGameServices::Achievement::UnlockAchievement(std::string achievement_id)
 {
-	// Javaenviroment: Loads enviroment from Android activity
-	JNIEnv* jni;
-	uthAndroidEngine.app->activity->vm->AttachCurrentThread(&jni, NULL);
-
-	// Loads our java master class GameActivity
-	jclass gameActivity = jni->GetObjectClass(uthAndroidEngine.app->activity->clazz);
-	if (!gameActivity)
-		WriteError("No engine found!");
+	JNI_gameActivity();
 
 	// Loading function
 	jmethodID unlockAchFunc = NULL;
-	unlockAchFunc = jni->GetMethodID(gameActivity, "UnlockAchievement", "(Ljava/lang/String;)V");
+	unlockAchFunc = uthAndroidEngine.jni->GetMethodID(uthAndroidEngine.gameActivity, "UnlockAchievement", "(Ljava/lang/String;)V");
 	if (unlockAchFunc == NULL)
 		WriteError("No UnlockAchievement function found!");
 
-	jstring stringArg = jni->NewStringUTF(achievement_id.c_str());
+	jstring stringArg = uthAndroidEngine.jni->NewStringUTF(achievement_id.c_str());
 
-	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, unlockAchFunc, stringArg);
+	uthAndroidEngine.jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, unlockAchFunc, stringArg);
 }
 void GooglePlayGameServices::Achievement::IncrementAchievement(std::string achievement_id, int steps)
 {
-	// Javaenviroment: Loads enviroment from Android activity
-	JNIEnv* jni;
-	uthAndroidEngine.app->activity->vm->AttachCurrentThread(&jni, NULL);
-
-	// Loads our java master class GameActivity
-	jclass gameActivity = jni->GetObjectClass(uthAndroidEngine.app->activity->clazz);
-	if (!gameActivity)
-		WriteError("No engine found!");
+	JNI_gameActivity();
 
 	// Loading function
 	jmethodID unlockAchFunc = NULL;
-	unlockAchFunc = jni->GetMethodID(gameActivity, "IncrementAchievement", "(Ljava/lang/String;I)V");
+	unlockAchFunc = uthAndroidEngine.jni->GetMethodID(uthAndroidEngine.gameActivity, "IncrementAchievement", "(Ljava/lang/String;I)V");
 	if (unlockAchFunc == NULL)
 		WriteError("No IncrementAchievement function found!");
 
-	jstring stringArg = jni->NewStringUTF(achievement_id.c_str());
+	jstring stringArg = uthAndroidEngine.jni->NewStringUTF(achievement_id.c_str());
 
-	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, unlockAchFunc, stringArg, steps);
+	uthAndroidEngine.jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, unlockAchFunc, stringArg, steps);
 }
 void GooglePlayGameServices::Achievement::ShowAchievements()
 {
-	// Javaenviroment: Loads enviroment from Android activity
-	JNIEnv* jni;
-	uthAndroidEngine.app->activity->vm->AttachCurrentThread(&jni, NULL);
-
-	// Loads our java master class GameActivity
-	jclass gameActivity = jni->GetObjectClass(uthAndroidEngine.app->activity->clazz);
-	if (!gameActivity)
-		WriteError("No engine found!");
+	JNI_gameActivity();
 
 	// Loading function
 	jmethodID showAchFunc = NULL;
-	showAchFunc = jni->GetMethodID(gameActivity, "ShowAchievements", "()V");
+	showAchFunc = uthAndroidEngine.jni->GetMethodID(uthAndroidEngine.gameActivity, "ShowAchievements", "()V");
 	if (showAchFunc == NULL)
 		WriteError("No ShowAchievements function found!");
 
-	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, showAchFunc);
+	uthAndroidEngine.jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, showAchFunc);
 }
+
 // Leaderboard
 void GooglePlayGameServices::LeaderBoard::SubmitHighScore(std::string leaderboard_id, int score)
 {
-	//if (game_services->IsAuthorized())
-		//game_services->Leaderboards().SubmitScore(leaderboard_id, score);
-
-	// Javaenviroment: Loads enviroment from Android activity
-	JNIEnv* jni;
-	uthAndroidEngine.app->activity->vm->AttachCurrentThread(&jni, NULL);
-
-	// Loads our java master class GameActivity
-	jclass gameActivity = jni->GetObjectClass(uthAndroidEngine.app->activity->clazz);
-	if (!gameActivity)
-		WriteError("No engine found!");
+	JNI_gameActivity();
 
 	// Loading function
 	jmethodID submitScoreFunc = NULL;
-	submitScoreFunc = jni->GetMethodID(gameActivity, "SubmitHighScore", "(Ljava/lang/String;I)V");
+	submitScoreFunc = uthAndroidEngine.jni->GetMethodID(uthAndroidEngine.gameActivity, "SubmitHighScore", "(Ljava/lang/String;I)V");
 	if (submitScoreFunc == NULL)
 		WriteError("No SubmitHighScore function found!");
 
-	jstring stringArg = jni->NewStringUTF(leaderboard_id.c_str());
+	jstring stringArg = uthAndroidEngine.jni->NewStringUTF(leaderboard_id.c_str());
 
-	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, submitScoreFunc, stringArg, score);
+	uthAndroidEngine.jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, submitScoreFunc, stringArg, score);
 }
 void GooglePlayGameServices::LeaderBoard::ShowLeaderboard(std::string leaderboard_id)
 {
-	// Javaenviroment: Loads enviroment from Android activity
-	JNIEnv* jni;
-	uthAndroidEngine.app->activity->vm->AttachCurrentThread(&jni, NULL);
-
-	// Loads our java master class GameActivity
-	jclass gameActivity = jni->GetObjectClass(uthAndroidEngine.app->activity->clazz);
-	if (!gameActivity)
-		WriteError("No engine found!");
+	JNI_gameActivity();
 
 	// Loading function
 	jmethodID showLPFunc = NULL;
-	showLPFunc = jni->GetMethodID(gameActivity, "ShowLeaderboard", "(Ljava/lang/String;)V");
+	showLPFunc = uthAndroidEngine.jni->GetMethodID(uthAndroidEngine.gameActivity, "ShowLeaderboard", "(Ljava/lang/String;)V");
 	if (showLPFunc == NULL)
 		WriteError("No ShowLeaderboard function found!");
 
-	jstring stringArg = jni->NewStringUTF(leaderboard_id.c_str());
+	jstring stringArg = uthAndroidEngine.jni->NewStringUTF(leaderboard_id.c_str());
 
-	jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, showLPFunc, stringArg);
+	uthAndroidEngine.jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, showLPFunc, stringArg);
 }
 
+// GPS
+std::string GooglePlayGameServices::GPS::GetCurrentLocation()
+{
+	JNI_gameActivity();
 
+	// Loading function
+	jmethodID getCurLoc = NULL;
+	getCurLoc = uthAndroidEngine.jni->GetMethodID(uthAndroidEngine.gameActivity, "GetCurrentLocation", "()Ljava/lang/String;");
+	if (getCurLoc == NULL)
+		WriteError("No GetCurrentLocation function found!");
+
+
+	jstring location = (jstring)uthAndroidEngine.jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, getCurLoc);
+
+	std::string returnable = uthAndroidEngine.jni->GetStringUTFChars( location, 0);
+
+	return returnable;
+}
+float GooglePlayGameServices::GPS::GetDistanceTo(double latitude, double longitude)
+{
+	JNI_gameActivity();
+
+	// Loading function
+	jmethodID getDistance = NULL;
+	getDistance = uthAndroidEngine.jni->GetMethodID(uthAndroidEngine.gameActivity, "DistanceTo", "(DD)F");
+	if (getDistance == NULL)
+		WriteError("No GetDistanceTo function found!");
+		
+	float result = 0;
+
+	result = uthAndroidEngine.jni->CallFloatMethod(uthAndroidEngine.app->activity->clazz, getDistance, latitude, longitude);
+
+	return result;
+}
+float GooglePlayGameServices::GPS::GetDistanceBetween(double sLatitude, double sLongitude, double eLatitude, double eLongitude)
+{
+	JNI_gameActivity();
+
+	// Loading function
+	jmethodID getDistance = NULL;
+	getDistance = uthAndroidEngine.jni->GetMethodID(uthAndroidEngine.gameActivity, "DistanceBetween", "(DDDD)F");
+	if (getDistance == NULL)
+		WriteError("No DistanceBetween function found!");
+
+	float result = 0;
+
+	result = uthAndroidEngine.jni->CallFloatMethod(uthAndroidEngine.app->activity->clazz, getDistance,
+		sLatitude, sLongitude, eLatitude, eLongitude);
+
+	return result;
+}
+double GooglePlayGameServices::GPS::GetLatitude()
+{
+	JNI_gameActivity();
+
+	// Loading function
+	jmethodID getLatitude = NULL;
+	getLatitude = uthAndroidEngine.jni->GetMethodID(uthAndroidEngine.gameActivity, "GetLatitude", "()D");
+	if (getLatitude == NULL)
+		WriteError("No GetLatitude function found!");
+
+	double result = 0;
+
+	result = uthAndroidEngine.jni->CallDoubleMethod(uthAndroidEngine.app->activity->clazz, getLatitude);
+
+	return result;
+}
+double GooglePlayGameServices::GPS::GetLongitude()
+{
+	JNI_gameActivity();
+
+	// Loading function
+	jmethodID getLongitude = NULL;
+	getLongitude = uthAndroidEngine.jni->GetMethodID(uthAndroidEngine.gameActivity, "GetLongitude", "()D");
+	if (getLongitude == NULL)
+		WriteError("No GetLongitude function found!");
+
+	double result = 0;
+
+	result = uthAndroidEngine.jni->CallDoubleMethod(uthAndroidEngine.app->activity->clazz, getLongitude);
+
+	return result;
+}
+float GooglePlayGameServices::GPS::GetAccuracy()
+{
+	JNI_gameActivity();
+
+	// Loading function
+	jmethodID getAccuracy = NULL;
+	getAccuracy = uthAndroidEngine.jni->GetMethodID(uthAndroidEngine.gameActivity, "GetAccuracy", "()F");
+	if (getAccuracy == NULL)
+		WriteError("No GetAccuracy function found!");
+
+	float result = 0;
+
+	result = uthAndroidEngine.jni->CallFloatMethod(uthAndroidEngine.app->activity->clazz, getAccuracy);
+	
+	return result;
+}
 
 // Private
 /*

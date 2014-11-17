@@ -1,6 +1,7 @@
 #include <UtH/Platform/Common/GooglePlayGameServices.hpp>
 #include <UtH/Platform/Debug.hpp>
 
+// Windows
 
 using namespace uth;
 
@@ -35,4 +36,29 @@ void GooglePlayGameServices::LeaderBoard::SubmitHighScore(std::string leaderboar
 void GooglePlayGameServices::LeaderBoard::ShowLeaderboard(std::string leaderboard_id)
 {
 
+}
+// GPS
+std::string GooglePlayGameServices::GPS::GetCurrentLocation()
+{
+	return "";
+}
+float GooglePlayGameServices::GPS::GetDistanceTo(double latitude, double longitude)
+{
+	return 0;
+}
+float GooglePlayGameServices::GPS::GetDistanceBetween(double sLatitude, double sLongitude, double eLatitude, double eLongitude)
+{
+	return 0;
+}
+double GooglePlayGameServices::GPS::GetLatitude()
+{
+	return 0;
+}
+double GooglePlayGameServices::GPS::GetLongitude()
+{
+	return 0;
+}
+float GooglePlayGameServices::GPS::GetAccuracy()
+{
+	return 0;
 }

@@ -2,6 +2,7 @@ package fi.kajakgames.uth;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -18,18 +19,28 @@ import com.google.android.gms.plus.Plus;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.analytics.*;
+import com.google.android.gms.location.*;
 
 import fi.kajakgames.uth.BaseGameUtils;
 
 public class GameActivity extends android.app.NativeActivity
-implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener
+implements LocationListener, 
+GoogleApiClient.ConnectionCallbacks, 
+GoogleApiClient.OnConnectionFailedListener
 {
 	GameActivity gameActivity;
 	AdView	gAdView;
-	//Tracker tracker;
 	
-	private boolean usePlayServices = false;
+	private boolean useGoogleAnalytics = false;
+	private boolean usePlayServices = true;
+	
 	GoogleApiClient mClient;
+	Location mCurLocation;
+	LocationRequest locationRequest;
+	
+	private static final long INTERVAL = 1000 * 30;
+    private static final long FASTEST_INTERVAL = 1000 * 5;
+	
 	
 	public class AdStruct
 	{
@@ -122,12 +133,18 @@ implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFail
 		mClient = new GoogleApiClient.Builder(this)
 		.addApi(Games.API).addScope(Games.SCOPE_GAMES)
 		.addApi(Plus.API).addScope(Plus.SCOPE_PLUS_LOGIN)
+		.addApi(LocationServices.API)
 		.addOnConnectionFailedListener(this)
 		.addConnectionCallbacks(this)
 		.build(); }
 		
 		//((GameAnalytics) getApplication()).getTracker(GameAnalytics.TrackerName.APP_TRACKER); // doesn't work
-		GoogleAnalytics.getInstance(this).newTracker(R.xml.app_tracker);
+		if(useGoogleAnalytics){	GoogleAnalytics.getInstance(this).newTracker(R.xml.app_tracker); }
+		
+		locationRequest = LocationRequest.create();
+		locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+		locationRequest.setInterval(INTERVAL);
+		locationRequest.setFastestInterval(FASTEST_INTERVAL);
 	}
 	
 	public void onStart()
@@ -135,15 +152,16 @@ implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFail
 	 	super.onStart();
 	 	if(usePlayServices){ mClient.connect(); }
 	 	
-	 	GoogleAnalytics.getInstance(this).reportActivityStart(this);
+	 	if(useGoogleAnalytics){ GoogleAnalytics.getInstance(this).reportActivityStart(this); }
 	 }
 	  
 	 public void onStop()
 	 {
-		super.onStop();
 		if(usePlayServices){ mClient.disconnect(); }
+			
+		if(useGoogleAnalytics){ GoogleAnalytics.getInstance(this).reportActivityStop(this); }
 		
-		GoogleAnalytics.getInstance(this).reportActivityStop(this);
+		super.onStop();	
 	 }
 	
 	public void Vibrate(final int time)
@@ -318,8 +336,67 @@ implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFail
 			Log.d("uth-engine", "GooglePlayGameServices is disabled.");
 		}
 	}
-
 	
+
+	public String GetCurrentLocation()
+	{
+		mCurLocation = LocationServices.FusedLocationApi.getLastLocation(mClient);
+		
+		//Log.d("location test", "" + mCurLocation); 
+		
+		//Log.d("location string", "" + mCurLocation.toString());
+	
+		return mCurLocation.toString();
+	}
+	public float DistanceTo(double endLatitude, double endLongitude)
+	{
+		float[] result = {0};
+		
+		//GetCurrentLocation();
+		//double startLatitude = mCurLocation.getLatitude();
+		//double startLongitude = mCurLocation.getLongitude();
+		double startLatitude = LocationServices.FusedLocationApi.getLastLocation(mClient).getLatitude();
+		double startLongitude = LocationServices.FusedLocationApi.getLastLocation(mClient).getLongitude();
+		
+		Location.distanceBetween(startLatitude, startLongitude, endLatitude, endLongitude, result);
+		
+		return result[0];
+	}
+	public float DistanceBetween(double startLatitude, double startLongitude, double endLatitude, double endLongitude)
+	{
+		float[] result = {0, 0, 0 };
+		
+		Location.distanceBetween(startLatitude, startLongitude, endLatitude, endLongitude, result);
+		
+		return result[0];
+	}
+	public double GetLatitude()
+	{
+		double result = 0;
+
+		//GetCurrentLocation();
+		result = LocationServices.FusedLocationApi.getLastLocation(mClient).getLatitude();
+		
+		return result;
+	}
+	public double GetLongitude()
+	{
+		double result = 0;
+		
+		//GetCurrentLocation();
+		result = LocationServices.FusedLocationApi.getLastLocation(mClient).getLongitude();
+		
+		return result;
+	}
+	public float GetAccuracy()
+	{
+		float result = 0;
+		
+		//GetCurrentLocation();
+		result = LocationServices.FusedLocationApi.getLastLocation(mClient).getAccuracy();
+		
+		return result;
+	}
 	
 	private static int RC_SIGN_IN = 9001;
 	private boolean mResolvingConnectionFailure = false;
@@ -354,12 +431,16 @@ implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFail
 	public void onConnected(Bundle arg0) 
 	{
 		Log.d("uth-engine", "OnConnected, bundle: " + arg0);
+		//Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+		
+		LocationServices.FusedLocationApi.requestLocationUpdates(mClient, locationRequest, gameActivity);
 	}
 	@Override
 	public void onConnectionSuspended(int arg0) 
 	{
 		Log.d("uth-engine", "onConnectionSuspended, arg: " + arg0);
 	}
+	@Override
 	protected void onActivityResult(int requestCode, int responseCode, Intent intent)
 	 {
 		 if(requestCode == RC_SIGN_IN)
@@ -377,8 +458,20 @@ implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFail
 			 }
 		 }
 	 }
+
+	@Override
+	public void onLocationChanged(Location arg0) {
+		// TODO Auto-generated method stub
+		Log.d("location", "changed");
+	}
+
 	
-	
+	public void onDisconnected() 
+	{
+		//Toast.makeText(this, "Disconnected.", Toast.LENGTH_SHORT).show();
+		Log.d("uth-engine", "Disconnected");
+		
+	}
 	
 	
 }

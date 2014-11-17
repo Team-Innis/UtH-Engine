@@ -26,6 +26,22 @@ namespace uth
 			void SubmitHighScore(std::string leaderboard_id, int score);
 			void ShowLeaderboard(std::string leaderboard_id);
 		};
+		class GPS
+		{
+		public:
+			struct Location
+			{
+				double loc_latitude;
+				double loc_longitude;
+				float loc_accuracy;
+			}location;
+			std::string GetCurrentLocation();
+			float GetDistanceTo(double latitude, double longitude);
+			float GetDistanceBetween(double sLatitude, double sLongitude, double eLatitude, double eLongitude);
+			double GetLatitude();
+			double GetLongitude();
+			float GetAccuracy();
+		};
 
 	public:
 		GooglePlayGameServices();
@@ -33,6 +49,7 @@ namespace uth
 
 		Achievement achievement;
 		LeaderBoard leaderboard;
+		GPS gps;
 
 	private:
 	
