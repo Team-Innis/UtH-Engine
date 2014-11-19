@@ -289,7 +289,7 @@ bool uth::ParticleSystem::load(const rapidjson::Value& doc)
         {
             std::unique_ptr<Affector> ptr(static_cast<Affector*>(uthSceneM.GetSaveable(*itr)));
 
-            if (!ptr && !ptr->load(*itr))
+            if (!ptr || !ptr->load(*itr))
                 continue;
 
             AddAffector(ptr.release());
