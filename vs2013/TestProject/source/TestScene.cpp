@@ -70,10 +70,11 @@ void TestScene::Update(float dt)
 
 	if (uthInput.Common == uth::InputEvent::TAP)
 	{
-		WriteLog("TAP");
 		javaFunc::Vibrate(2000);
-		//javaFunc::ShowAd(Origin::Center);
-		uthGPGS.leaderboard.ShowLeaderboard("CgkI46q954kJEAIQBQ");
+		
+
+		std::string location = uthGPGS.gps.GetCurrentLocation();
+		WriteLog("Current location: %s", location.c_str());
 	}
 }
 

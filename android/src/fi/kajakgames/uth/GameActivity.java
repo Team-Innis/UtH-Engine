@@ -5,17 +5,13 @@ import java.util.Vector;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import.android.content.res.Resources;
-import.android.media.AudioManager;
+
+
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
-import android.util.DisplayMetrics;
 import android.view.*;
-import android.view.ViewGroup.MarginLayoutParams;
-import android.view.WindowManager.LayoutParams;
-import android.widget.*;
-
 import fi.kajakgames.uth.R;
 
 import com.google.android.gms.ads.*;

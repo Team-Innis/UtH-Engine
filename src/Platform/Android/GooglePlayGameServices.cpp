@@ -50,7 +50,7 @@ void GooglePlayGameServices::Achievement::UnlockAchievement(std::string achievem
 
 	jstring stringArg = uthAndroidEngine.jni->NewStringUTF(achievement_id.c_str());
 
-	uthAndroidEngine.jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, unlockAchFunc, stringArg);
+	uthAndroidEngine.jni->CallVoidMethod(uthAndroidEngine.app->activity->clazz, unlockAchFunc, stringArg);
 }
 void GooglePlayGameServices::Achievement::IncrementAchievement(std::string achievement_id, int steps)
 {
@@ -64,7 +64,7 @@ void GooglePlayGameServices::Achievement::IncrementAchievement(std::string achie
 
 	jstring stringArg = uthAndroidEngine.jni->NewStringUTF(achievement_id.c_str());
 
-	uthAndroidEngine.jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, unlockAchFunc, stringArg, steps);
+	uthAndroidEngine.jni->CallVoidMethod(uthAndroidEngine.app->activity->clazz, unlockAchFunc, stringArg, steps);
 }
 void GooglePlayGameServices::Achievement::ShowAchievements()
 {
@@ -76,7 +76,7 @@ void GooglePlayGameServices::Achievement::ShowAchievements()
 	if (showAchFunc == NULL)
 		WriteError("No ShowAchievements function found!");
 
-	uthAndroidEngine.jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, showAchFunc);
+	uthAndroidEngine.jni->CallVoidMethod(uthAndroidEngine.app->activity->clazz, showAchFunc);
 }
 
 // Leaderboard
@@ -92,7 +92,7 @@ void GooglePlayGameServices::LeaderBoard::SubmitHighScore(std::string leaderboar
 
 	jstring stringArg = uthAndroidEngine.jni->NewStringUTF(leaderboard_id.c_str());
 
-	uthAndroidEngine.jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, submitScoreFunc, stringArg, score);
+	uthAndroidEngine.jni->CallVoidMethod(uthAndroidEngine.app->activity->clazz, submitScoreFunc, stringArg, score);
 }
 void GooglePlayGameServices::LeaderBoard::ShowLeaderboard(std::string leaderboard_id)
 {
@@ -106,7 +106,7 @@ void GooglePlayGameServices::LeaderBoard::ShowLeaderboard(std::string leaderboar
 
 	jstring stringArg = uthAndroidEngine.jni->NewStringUTF(leaderboard_id.c_str());
 
-	uthAndroidEngine.jni->CallObjectMethod(uthAndroidEngine.app->activity->clazz, showLPFunc, stringArg);
+	uthAndroidEngine.jni->CallVoidMethod(uthAndroidEngine.app->activity->clazz, showLPFunc, stringArg);
 }
 
 // GPS
