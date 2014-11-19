@@ -17,7 +17,8 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 		m_fps(fps),
 		m_delay(0.0f),
 		m_reversed(reversed),
-		m_loop(loop)
+		m_loop(loop),
+		m_loopEnd(false)
 {
 	const pmath::Vec2 texSize = texture->GetSize();
 
@@ -62,6 +63,7 @@ AnimatedSprite::AnimatedSprite(Texture* texture, const unsigned int frames,
 		m_delay(0.0f),
 		m_reversed(reversed),
 		m_loop(loop),
+		m_loopEnd(false),
 		m_frameCountX(frameCountX),
         m_frameCountY(frameCountY)
 {
@@ -112,6 +114,7 @@ void AnimatedSprite::ChangeAnimation(int loopStartFrame, int loopFrames,
 	m_firstFrame = loopStartFrame;
 	m_fps = fps;
 	m_loop = loop;
+	m_loopEnd = false;
 	m_frameCount = 0;
 	m_reversed = reversed;
 	generateBuffer(true);
@@ -128,8 +131,6 @@ void AnimatedSprite::Init()
 
 	const pmath::Vec2 size = pmath::Vec2(m_sizePx.x, m_sizePx.y);
 	parent->transform.setSize(size);
-
-	loopEnd = false;
 }
 
 void AnimatedSprite::Update(float dt)
@@ -142,10 +143,10 @@ void AnimatedSprite::Update(float dt)
 	if (!m_loop)
 	{
 		if(m_frames == m_frameCount + 1)
-			loopEnd = true;
+			m_loopEnd = true;
 	}
 
-	if(m_delay > 1.0f / m_fps && !loopEnd)
+	if(m_delay > 1.0f / m_fps && !m_loopEnd)
 	{
 		m_delay = 0.0f;
 		m_frameCount++;
