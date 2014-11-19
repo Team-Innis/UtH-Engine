@@ -1,5 +1,6 @@
 #include <UtH/Engine/Particles/ParticleSystem.hpp>
 #include <UtH/Engine/Randomizer.hpp>
+#include <UtH/Engine/SceneManager.hpp>
 #include <algorithm>
 #include <iostream>
 
@@ -220,6 +221,21 @@ rapidjson::Value ParticleSystem::save(rapidjson::MemoryPoolAllocator<>& alloc) c
              .PushBack(m_template.m_texCoords.size.y, alloc);
     }
 
+    // Affectors
+    if (!m_affectors.empty())
+    {
+        rj::Value& aArray = val.AddMember(rj::StringRef("affectors"), rj::kArrayType, alloc)["affectors"];
+
+        for (auto& i : m_affectors)
+        {
+            rj::Value aff(i->save(alloc));
+
+            aff.AddMember(rj::StringRef("identifier"), rj::StringRef(typeid(*i).raw_name()), alloc);
+
+            aArray.PushBack(aff, alloc);
+        }
+    }
+
     return val;
 }
 
@@ -262,6 +278,22 @@ bool uth::ParticleSystem::load(const rapidjson::Value& doc)
         m_template.m_texCoords.position.y = tcVal[1].GetDouble();
         m_template.m_texCoords.size.x = tcVal[2].GetDouble();
         m_template.m_texCoords.size.y = tcVal[3].GetDouble();
+    }
+
+    // Affectors
+    if (doc.HasMember("affectors") && doc["affectors"].IsArray())
+    {
+        const rj::Value& aArray = doc["affectors"];
+
+        for (auto itr = aArray.Begin(); itr != aArray.End(); ++itr)
+        {
+            std::unique_ptr<Affector> ptr(static_cast<Affector*>(uthSceneM.GetSaveable(*itr)));
+
+            if (!ptr && !ptr->load(*itr))
+                continue;
+
+            AddAffector(ptr.release());
+        }
     }
 
     return true;

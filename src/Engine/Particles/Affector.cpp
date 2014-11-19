@@ -45,6 +45,16 @@ void uth::Affector::SetParticleInitFunc(InitFunc func)
     m_initFunc = func;
 }
 
+rapidjson::Value uth::Affector::save(rapidjson::MemoryPoolAllocator<>& alloc) const
+{
+    return rapidjson::Value(rapidjson::kObjectType);
+}
+
+bool uth::Affector::load(const rapidjson::Value& doc)
+{
+    return true;
+}
+
 ParticleSystem* Affector::GetSystem()
 {
     return m_system;
