@@ -57,9 +57,11 @@ namespace uth
 		const pmath::Vec2& GetScale() const;
 
 		void SetRotation(const float degrees);
-		const float GetRotation() const;
 		void Rotate(const float degrees);
+		const float GetRotation() const;
 
+        pmath::Rect GetLocalBounds() const;
+        pmath::Rect GetGlobalBounds() const;
         pmath::Rect GetBounds() const;
         pmath::Rect GetTransformedBounds() const;
 
