@@ -32,9 +32,10 @@ GoogleApiClient.OnConnectionFailedListener
 	AdView	gAdView;
 	
 	private boolean useGoogleAnalytics = false;
-	private boolean usePlayServices = true;
+	private boolean usePlayServices = false;
 	
 	GoogleApiClient mClient;
+	GoogleApiClient lClient;
 	Location mCurLocation;
 	LocationRequest locationRequest;
 	
@@ -141,6 +142,12 @@ GoogleApiClient.OnConnectionFailedListener
 		//((GameAnalytics) getApplication()).getTracker(GameAnalytics.TrackerName.APP_TRACKER); // doesn't work
 		if(useGoogleAnalytics){	GoogleAnalytics.getInstance(this).newTracker(R.xml.app_tracker); }
 		
+		lClient = new GoogleApiClient.Builder(this)
+		.addApi(LocationServices.API)
+		.addConnectionCallbacks(this)
+		.addConnectionCallbacks(this)
+		.build();
+		
 		locationRequest = LocationRequest.create();
 		locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 		locationRequest.setInterval(INTERVAL);
@@ -153,6 +160,8 @@ GoogleApiClient.OnConnectionFailedListener
 	 	if(usePlayServices){ mClient.connect(); }
 	 	
 	 	if(useGoogleAnalytics){ GoogleAnalytics.getInstance(this).reportActivityStart(this); }
+	 	
+	 	lClient.connect();
 	 }
 	  
 	 public void onStop()
@@ -160,6 +169,8 @@ GoogleApiClient.OnConnectionFailedListener
 		if(usePlayServices){ mClient.disconnect(); }
 			
 		if(useGoogleAnalytics){ GoogleAnalytics.getInstance(this).reportActivityStop(this); }
+		
+		lClient.disconnect();
 		
 		super.onStop();	
 	 }
@@ -340,7 +351,7 @@ GoogleApiClient.OnConnectionFailedListener
 
 	public String GetCurrentLocation()
 	{
-		mCurLocation = LocationServices.FusedLocationApi.getLastLocation(mClient);
+		mCurLocation = LocationServices.FusedLocationApi.getLastLocation(lClient);
 		
 		//Log.d("location test", "" + mCurLocation); 
 		
@@ -350,13 +361,13 @@ GoogleApiClient.OnConnectionFailedListener
 	}
 	public float DistanceTo(double endLatitude, double endLongitude)
 	{
-		float[] result = {0};
+		float[] result = {0, 0, 0};
 		
 		//GetCurrentLocation();
 		//double startLatitude = mCurLocation.getLatitude();
 		//double startLongitude = mCurLocation.getLongitude();
-		double startLatitude = LocationServices.FusedLocationApi.getLastLocation(mClient).getLatitude();
-		double startLongitude = LocationServices.FusedLocationApi.getLastLocation(mClient).getLongitude();
+		double startLatitude = GetLatitude();
+		double startLongitude = GetLongitude();
 		
 		Location.distanceBetween(startLatitude, startLongitude, endLatitude, endLongitude, result);
 		
@@ -375,7 +386,7 @@ GoogleApiClient.OnConnectionFailedListener
 		double result = 0;
 
 		//GetCurrentLocation();
-		result = LocationServices.FusedLocationApi.getLastLocation(mClient).getLatitude();
+		result = LocationServices.FusedLocationApi.getLastLocation(lClient).getLatitude();
 		
 		return result;
 	}
@@ -384,7 +395,7 @@ GoogleApiClient.OnConnectionFailedListener
 		double result = 0;
 		
 		//GetCurrentLocation();
-		result = LocationServices.FusedLocationApi.getLastLocation(mClient).getLongitude();
+		result = LocationServices.FusedLocationApi.getLastLocation(lClient).getLongitude();
 		
 		return result;
 	}
@@ -393,7 +404,7 @@ GoogleApiClient.OnConnectionFailedListener
 		float result = 0;
 		
 		//GetCurrentLocation();
-		result = LocationServices.FusedLocationApi.getLastLocation(mClient).getAccuracy();
+		result = LocationServices.FusedLocationApi.getLastLocation(lClient).getAccuracy();
 		
 		return result;
 	}
@@ -433,7 +444,7 @@ GoogleApiClient.OnConnectionFailedListener
 		Log.d("uth-engine", "OnConnected, bundle: " + arg0);
 		//Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
 		
-		LocationServices.FusedLocationApi.requestLocationUpdates(mClient, locationRequest, gameActivity);
+		LocationServices.FusedLocationApi.requestLocationUpdates(lClient, locationRequest, gameActivity);
 	}
 	@Override
 	public void onConnectionSuspended(int arg0) 
