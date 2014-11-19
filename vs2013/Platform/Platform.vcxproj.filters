@@ -19,6 +19,9 @@
     <Filter Include="Header Files\Common">
       <UniqueIdentifier>{2e6e0ede-7ed0-4f5b-82da-3506cca66d64}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tinyxlm2">
+      <UniqueIdentifier>{38ee5733-c00a-405b-ad6f-93f64f7d6333}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\UtH\Platform\Graphics.hpp">
@@ -108,11 +111,8 @@
     <ClInclude Include="..\..\include\UtH\Platform\FileManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\GooglePlayGameServices.hpp">
+    <ClInclude Include="..\..\include\UtH\Platform\SoundDevice.hpp">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\include\UtH\Platform\Common\GooglePlayGameServices.hpp">
-      <Filter>Header Files\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -164,8 +164,11 @@
     <ClCompile Include="..\..\src\Platform\Common\JavaFunctions.cpp">
       <Filter>Source Files\Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Platform\Common\GooglePlayGameServices.cpp">
-      <Filter>Source Files\Common</Filter>
+    <ClCompile Include="..\..\ext\lib\tinyxml2\src\tinyxml2.cpp">
+      <Filter>tinyxlm2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\SoundDevice.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

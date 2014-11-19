@@ -49,7 +49,8 @@ namespace pmath
         return value;
     }
 
-    inline double lerp(const double a, const double b, const double t)
+    template<typename T, typename T2>
+    inline T lerp(const T& a, const T& b, const T2& t)
     {
         return (1 - t) * a + t * b;
     }

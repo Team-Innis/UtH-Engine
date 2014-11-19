@@ -2,7 +2,7 @@
 #ifndef PARTICLETEMPLATE_H_UTH
 #define PARTICLETEMPLATE_H_UTH
 
-#include <UtH/Renderer/Texture.hpp>
+#include <UtH/Resources/Texture.hpp>
 #include <pmath/Rectangle.hpp>
 #include <pmath/Vector4.hpp>
 #include <string>

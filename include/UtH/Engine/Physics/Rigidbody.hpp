@@ -166,7 +166,10 @@ namespace uth
         void SetPhysicsMask(const short mask);
         short GetPhysicsMask() const;
 
-        b2Body* GetBox2dBody();
+        void SetTrigger(bool trigger);
+        bool IsTrigger() const;
+
+        b2Body* GetBox2dBody() const;
 
 	private:
 		void defaults();

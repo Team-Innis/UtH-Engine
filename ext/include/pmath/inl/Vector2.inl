@@ -1,5 +1,6 @@
 #include "../Vector2.hpp"
 #include "../Util.hpp"
+#include "../Trigonometry.hpp"
 
 #include <cassert>
 #include <cmath>
@@ -66,6 +67,13 @@ namespace pmath
         return scale(s, s);
     }
 
+
+    template<typename T>
+    inline T Vector2<T>::angle() const
+    {
+        return atan2(y, x);
+    }
+
     template<typename T>
     inline T Vector2<T>::dot(const Vector2<T>& other) const
     {
@@ -112,21 +120,35 @@ namespace pmath
     template<typename T>
     inline Vector2<T>& Vector2<T>::normalize()
     {
-        return *this = unitVector();
+        return *this = normalized();
     }
+
+
+    template<typename T>
+    inline Vector2<T> Vector2<T>::normalized() const
+    {
+        return *this / static_cast<T>(length());
+    }
+
 
     template<typename T>
     inline Vector2<T> Vector2<T>::unitVector() const
     {
-        return *this / static_cast<T>(length());
+        return normalized();
+    }
+
+    template<typename T>
+    inline bool Vector2<T>::isNormalized() const
+    {
+        // LengthSquared returns double.
+        // Also sqrt(1) == 1 so we don't need to do that
+        return equals<double>(this->lengthSquared(), 1);
     }
 
     template<typename T>
     inline bool Vector2<T>::isUnitVector() const
     {
-        // LengthSquared returns double.
-        // Also sqrt(1) == 1 so we don't need to do that
-        return equals<double>(this->lengthSquared(), 1);
+        return isNormalized();
     }
 
     template<typename T>

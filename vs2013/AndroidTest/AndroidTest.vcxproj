@@ -40,6 +40,7 @@
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputMouse.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputSensor.hpp" />
     <ClInclude Include="..\..\include\UtH\Platform\Android\InputTouch.hpp" />
+    <ClInclude Include="..\..\include\UtH\Platform\Android\JavaFunctions.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4C267BE7-7BF8-4967-A71F-ABA1199D48BA}</ProjectGuid>

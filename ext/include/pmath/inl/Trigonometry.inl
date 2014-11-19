@@ -50,4 +50,10 @@ namespace pmath
     {
         return radiansToDegrees<T>(std::atan(value));
     }
+
+    template<typename T>
+    inline T atan2(const T& y, const T& x)
+    {
+        return radiansToDegrees(std::atan2(y, x));
+    }
 }

@@ -3,7 +3,7 @@
 #define COMPONENT_H_UTH
 
 #include <UtH/Platform/Uncopyable.hpp>
-#include <UtH/Core/Shader.hpp>
+#include <UtH/Resources/Shader.hpp>
 #include <UtH/Renderer/RenderAttributes.hpp>
 #include <string>
 

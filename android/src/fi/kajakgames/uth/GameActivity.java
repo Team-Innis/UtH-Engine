@@ -1,8 +1,12 @@
 package fi.kajakgames.uth;
 
+import java.util.Vector;
+
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import.android.content.res.Resources;
+import.android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
@@ -11,6 +15,7 @@ import android.view.*;
 import android.view.ViewGroup.MarginLayoutParams;
 import android.view.WindowManager.LayoutParams;
 import android.widget.*;
+
 import fi.kajakgames.uth.R;
 
 import com.google.android.gms.ads.*;
@@ -28,9 +33,10 @@ implements LocationListener,
 GoogleApiClient.ConnectionCallbacks, 
 GoogleApiClient.OnConnectionFailedListener
 {
+
 	GameActivity gameActivity;
-	AdView	gAdView;
-	
+	Advertisement initialAd = null;
+	Vector<Advertisement> adList = new Vector<Advertisement>(32);
 	private boolean useGoogleAnalytics = false;
 	private boolean usePlayServices = false;
 	
@@ -43,67 +49,9 @@ GoogleApiClient.OnConnectionFailedListener
     private static final long FASTEST_INTERVAL = 1000 * 5;
 	
 	
-	public class AdStruct
-	{
-		public AdRequest adRequest = null;
-		public AdView adView = null;
-		public MarginLayoutParams mLParams = null;
-		public PopupWindow window = null;
-		//public RelativeLayout layout = null;
-		//public RelativeLayout mainLayout = null;
-		public LinearLayout layout = null;
-		public LinearLayout mainLayout = null;
-		public String adUnitID = null;
-		
-		public AdStruct(String adID)
-		{
-			if(adView == null)
-				adView = new AdView(gameActivity);
-			adView.setAdSize(AdSize.BANNER);
-			adView.setAdUnitId(adID);
-			
-			if(window == null)
-				window = new PopupWindow(gameActivity);
-			window.setWidth(320);
-			window.setHeight(50);
-			window.setWindowLayoutMode(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			window.setClippingEnabled(false);
-			
-			if(layout == null)
-				layout = new LinearLayout(gameActivity);
-			if(mainLayout == null)
-				mainLayout = new LinearLayout(gameActivity);
-			
-			layout.setPadding(-12, -12, -12, -12);
-			mLParams = new MarginLayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			mLParams.setMargins(0, 0, 0, 0);
-			layout.addView(adView, mLParams);
-			
-			window.setContentView(layout);
-			gameActivity.setContentView(mainLayout, mLParams);
-
-			if(adRequest == null)
-				adRequest = new AdRequest.Builder()
-								     .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-								     .addTestDevice("9DACB2219B50B6E9F596041151E63E12") // my Nexus 5
-								     .addTestDevice("1B5A8F52DE892FF3954B698A84CBCC87") // jani Xperia
-								     .addTestDevice("E69C2A8B1675A10447583C0049DC0D26") // my Tab2
-								     .build();
-		}
-		
-		public void onDestroy()
-		{
-			adRequest = null;
-			adView = null;
-			mLParams = null;
-			window = null;
-			layout = null;
-			mainLayout = null;
-			adUnitID = null;
-		}
-	}
 	
-	AdStruct[] adS = {null, null, null, null, null, null, null, null, null, null};
+	//Test Only
+	private InterstitialAd interstitial;
 	
 	static
 	{
@@ -116,19 +64,30 @@ GoogleApiClient.OnConnectionFailedListener
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		
+
 		// Make your custom init here
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
+		
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		if(gameActivity == null)
 			gameActivity = this;
 	
+		int dpi = getResources().getDisplayMetrics().densityDpi;
+		float padding = ((dpi / 100.0f) * getResources().getDisplayMetrics().density);
+		Log.i("uth-engine", "padding " + padding);
+		initialAd = new Advertisement(this, (int)padding);
 		
-		adS[0] = new AdStruct(this.getString(R.string.banner_ad_unit_id));
-		gAdView = new AdView(gameActivity);
-		
-		DisplayMetrics metrics = getResources().getDisplayMetrics();
-		Log.i("uth-engine", "dpi:" + metrics.densityDpi);
+		//Test
+		interstitial = new InterstitialAd(this);
+		final String adID = this.getString(R.string.AdMobPublisherID) + "/" + "9257920890";
+		interstitial.setAdUnitId(adID);
+	    AdRequest adRequest = new AdRequest.Builder()
+									    .addTestDevice("E69C2A8B1675A10447583C0049DC0D26")
+									    .build();
+	    
+	    interstitial.loadAd(adRequest);
 
 		if(usePlayServices){
 		mClient = new GoogleApiClient.Builder(this)
@@ -185,94 +144,78 @@ GoogleApiClient.OnConnectionFailedListener
 		vibra.vibrate(time);
 	}
 	
-	public void ShowAdPopup(final int offsetX, final int offsetY, final int origin)
+	public void ShowAd(final int offsetX, final int offsetY, final int origin, final String name)
 	{
-		if(adS[origin] == null)
-		{
-			adS[origin] = adS[0];
-		}
+		final String publisher = this.getString(R.string.AdMobPublisherID);
 		
-		if(adS[origin] != null)
+		gameActivity.runOnUiThread(new Runnable() 
 		{
-			gameActivity.runOnUiThread(new Runnable() 
+			@Override
+			public void run()
 			{
-				@Override
-				public void run()
+				boolean exists = false;
+				int index = 0;
+				
+				for(int i = 0; i < adList.size(); i++)
 				{
-					int gravity = Gravity.BOTTOM;
-					switch(origin)
+					if(adList.get(i).name.equals(name))
 					{
-					case 1:
-						gravity = Gravity.BOTTOM | Gravity.LEFT;
-						break;
-					case 2:
-						gravity = Gravity.BOTTOM;
-						break;
-					case 3:
-						gravity = Gravity.BOTTOM | Gravity.RIGHT;
-						break;
-					case 4:
-						gravity = Gravity.LEFT;
-						break;
-					case 5:
-						gravity = Gravity.CENTER;
-						break;
-					case 6:
-						gravity = Gravity.RIGHT;
-						break;
-					case 7:
-						gravity = Gravity.TOP | Gravity.LEFT;
-						break;
-					case 8:
-						gravity = Gravity.TOP;
-						break;
-					case 9:
-						gravity = Gravity.TOP | Gravity.RIGHT;
-						break;
-					default:
-						gravity = Gravity.BOTTOM;
+						exists = true;
+						index = i;
 						break;
 					}
-					gameActivity.adS[origin].adView.loadAd(adS[origin].adRequest);
-					adS[origin].window.showAtLocation(adS[origin].mainLayout, gravity, offsetX, offsetY);
-					adS[origin].window.update(offsetX, offsetY, 320, 50);
-			}});
-		}
-		else
-			Log.e("uth-engine", "adS[" + (origin-1) + "] is null");
+				}
+				
+				if(exists == false)
+				{
+					String adID  = publisher + "/" + name;
+					int[] offset = {offsetX, offsetY};
+					Advertisement lol = new Advertisement(adID, initialAd, AdSize.BANNER, offset, origin);
+					lol.name = name;
+					
+					adList.add(lol);
+					index = adList.indexOf(lol);
+				}
+				adList.get(index).Toggle();
+			}
+		});
 	}
 	
-	public void CloseAd(final int origin)
+	public void ShowAdFull(final String adID)
 	{
-		if(origin == 0)
+		gameActivity.runOnUiThread(new Runnable() 
 		{
-			gameActivity.runOnUiThread(new Runnable() 
+			@Override
+			public void run()
 			{
-				@Override
-				public void run()
+				Log.i("uth-engine","Show fullscreen ad[" + adID + "]");
+			    if (interstitial.isLoaded())
+			    {
+			        interstitial.show();
+					Log.i("uth-engine","after show full");
+			    }
+				Log.i("uth-engine","end of show full");
+			}
+		});
+	}
+	
+	public void HideAd(final String name)
+	{
+		gameActivity.runOnUiThread(new Runnable() 
+		{
+			@Override
+			public void run()
+			{
+				for(int i = 0; i < adList.size(); i++)
 				{
-					for(int i = 1; i < 10; i++)
+					if(adList.get(i).name.equals(name))
 					{
-						if(adS[i] != null)
-							if(adS[i].window.isShowing())
-							{
-								adS[i].window.dismiss();
-							}
+						adList.get(i).Toggle();
+						break;
 					}
 				}
-			});
-		}
-		else if(adS[origin].window.isShowing())
-		{
-			gameActivity.runOnUiThread(new Runnable() 
-			{
-				@Override
-				public void run()
-				{
-					adS[origin].window.dismiss();
-				}
-			});
-		}		
+			}
+		});
 	}
 	public void UnlockAchievement(String achievement_id)
 	{	

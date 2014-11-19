@@ -37,12 +37,15 @@ namespace uth
 		bool HasChild(const std::shared_ptr<Object>& object) const;
 
 		void RemoveChild(const std::shared_ptr<Object>& object);
+		void RemoveChild(Object* object);
 		void RemoveChildren();
 		void RemoveChildren(const std::string& tag);
 		void RemoveChildren(const std::vector<std::shared_ptr<Object>>& objects);
 
 		template <typename T>
 		std::shared_ptr<T> ExtractChild(const std::shared_ptr<T>& object);
+		template <typename T>
+		std::shared_ptr<T> ExtractChild(T* object);
 
 		std::vector<std::shared_ptr<Object>> ExtractChildren(const std::string& tag);
 
@@ -117,6 +120,17 @@ namespace uth
 		it->release();
 		m_children.erase(it);
 		return retVal;
+	}
+	template <typename T>
+	inline std::shared_ptr<T> Object::ExtractChild(T* object)
+	{
+		for (auto it = m_children.begin(); it != m_children.end(); it++)
+		{
+			if ((*it).get() == object)
+			{
+				return ExtractChild<T>(*it);
+			}
+		}
 	}
 
 	template <typename T>

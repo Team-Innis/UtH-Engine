@@ -1,4 +1,4 @@
-#include <UtH/Core/VertexBuffer.hpp>
+#include <UtH/Renderer/VertexBuffer.hpp>
 #include <UtH/Platform/Graphics.hpp>
 #include <cassert>
 

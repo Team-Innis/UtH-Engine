@@ -22,3 +22,12 @@ void Input::Update(float deltaTime)
     Sensor.Update();
     Controller.Update();
 }
+void Input::SetAndroidBackFunction(std::function<void()> function)
+{
+	f_androidBackButton = function;
+}
+
+void Input::RunBackButton()
+{
+	f_androidBackButton();
+}

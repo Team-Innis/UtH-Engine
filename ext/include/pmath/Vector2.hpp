@@ -26,6 +26,9 @@ namespace pmath
         // Scales the whole vector with the number
         Vector2& scale(const T& scale);
 
+        // Get the angle between the x axis and the vector
+        T angle() const;
+
         T dot(const Vector2& other) const;
         static T dot(const Vector2& vec1, const Vector2& vec2);
 
@@ -41,8 +44,16 @@ namespace pmath
 
         // Normalizes the vector and returns the normalized vector
         Vector2& normalize();
-        // Only returns the normalized vector. Doesn't modify the original
+        // Returns the normalized vector. doesn't modify original
+        Vector2 normalized() const;
+
+        // Deprecated. use normalized()
         Vector2 unitVector() const;
+
+        // Check if the vector is normalized
+        bool isNormalized() const;
+
+        // Deprecated. use isNormalized()
         bool isUnitVector() const;
 
         static Vector2 lerp(const Vector2& vec1, const Vector2& vec2, const T& t);

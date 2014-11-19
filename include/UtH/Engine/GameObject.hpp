@@ -20,12 +20,14 @@ namespace uth
 	{
 	public:
 		GameObject();
-		GameObject(const std::string &tag);
-        //GameObject(const GameObject& other);
+		GameObject(const std::string& tag);
+		GameObject(const std::vector<std::string>& tags);
         void operator =(const GameObject&) = delete;
 		virtual ~GameObject();
 
-		void AddComponent(Component* component);
+        template<typename T>
+        T* AddComponent(T* component);
+
         template<typename T>
         T* GetComponent();
         template<typename T>
@@ -44,9 +46,18 @@ namespace uth
         virtual void update(float){}
         virtual void draw(RenderTarget&){}
 
-		std::vector<std::unique_ptr<Component>> m_components;
+		std::vector<std::shared_ptr<Component>> m_components;
 	};
 
+    template<typename T>
+    T* GameObject::AddComponent(T* component)
+    {
+        m_components.emplace_back(component);
+        component->parent = this;
+        component->Init();
+
+        return component;
+    }
 
     template<typename T>
     T* GameObject::GetComponent(const std::string& name)
