@@ -37,6 +37,9 @@ namespace uth
 
 		void SetPosition(const pmath::Vec2& position);
 		void SetPosition(const float posX, const float posY);
+        // NOTE: Might not work in debug mode atm
+        void SetGlobalPosition(const pmath::Vec2& position);
+        void SetGlobalPosition(const float posX, const float posY);
 		const pmath::Vec2& GetPosition() const;
 
 		//[[deprecated("Has been replaced with ScaleToSize")]]
@@ -54,9 +57,15 @@ namespace uth
 		void SetScale(const pmath::Vec2& scale);
 		void SetScale(const float xScale, const float yScale);
 		void SetScale(const float scale);
+        // NOTE: Not implemented
+        void SetGlobalScale(const pmath::Vec2& scale);
+        void SetGlobalScale(const float xScale, const float yScale);
+        void SetGlobalScale(const float scale);
 		const pmath::Vec2& GetScale() const;
 
 		void SetRotation(const float degrees);
+        // NOTE: Not implemented
+        void SetGlobalRotation(const float degrees);
 		void Rotate(const float degrees);
 		const float GetRotation() const;
 

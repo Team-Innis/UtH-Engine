@@ -42,6 +42,17 @@ void Transform::SetPosition(const float posX, const float posY)
 {
 	SetPosition(pmath::Vec2(posX, posY));
 }
+void uth::Transform::SetGlobalPosition(const pmath::Vec2& position)
+{
+    //TODO: doesn't work in debug
+    const auto transform = GetTransform()*m_modelTransform.inverse();
+
+    SetPosition(transform.inverse() * position);
+}
+void uth::Transform::SetGlobalPosition(const float posX, const float posY)
+{
+    SetGlobalPosition(pmath::Vec2(posX, posY));
+}
 const pmath::Vec2& Transform::GetPosition() const
 {
     return m_position;
@@ -129,6 +140,18 @@ void Transform::SetScale(const float scale)
 {
 	SetScale(pmath::Vec2(scale, scale));
 }
+void uth::Transform::SetGlobalScale(const pmath::Vec2& scale)
+{
+    // TODO: Implement this
+}
+void uth::Transform::SetGlobalScale(const float xScale, const float yScale)
+{
+    SetGlobalScale(pmath::Vec2(xScale, yScale));
+}
+void uth::Transform::SetGlobalScale(const float scale)
+{
+    SetGlobalScale(scale, scale);
+}
 const pmath::Vec2& Transform::GetScale() const
 {
     return m_scale;
@@ -138,6 +161,10 @@ void Transform::SetRotation(const float degrees)
 {
     this->m_angle = degrees;
 	m_transformNeedsUpdate = true;
+}
+void uth::Transform::SetGlobalRotation(const float degrees)
+{
+    // TODO: Implement this
 }
 const float Transform::GetRotation() const
 {
@@ -180,13 +207,13 @@ pmath::Rect Transform::GetGlobalBounds() const
 
 pmath::Rect Transform::GetBounds() const
 {
-    Deprecated("");
+    Deprecated("Use GetLocalBounds()");
     return GetLocalBounds();
 }
 
 pmath::Rect Transform::GetTransformedBounds() const
 {
-    Deprecated("");
+    Deprecated("Use GetGlobalBounds()");
     return GetGlobalBounds();
 }
 
@@ -205,16 +232,9 @@ const pmath::Mat4& Transform::GetTransform() const
 {
 	updateTransform();
 
-	if (parent && (parent->HasParent<GameObject>()))
+	if (parent && (parent->HasParent<Object>()))
 	{
-		m_combinedTransform = parent->Parent<GameObject>()->transform.GetTransform() *
-			m_modelTransform;
-
-		return m_combinedTransform;
-	}
-	else if (parent && parent->HasParent<Layer>())
-	{
-		m_combinedTransform = parent->Parent<Layer>()->transform.GetTransform() *
+		m_combinedTransform = parent->Parent<Object>()->transform.GetTransform() *
 			m_modelTransform;
 
 		return m_combinedTransform;
