@@ -90,7 +90,7 @@ namespace uth
 	}
 	bool Object::HasChild(const Object* object) const
 	{
-		for (auto& it = m_children.begin(); it != m_children.end(); ++it)
+		for (auto it = m_children.begin(); it != m_children.end(); ++it)
 		{
 			if (object == it->get())
 			{
