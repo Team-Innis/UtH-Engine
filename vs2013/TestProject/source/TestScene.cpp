@@ -24,8 +24,8 @@ bool TestScene::Init()
     // Objects
     // First
 	{
-	    auto test = this->AddChild<GameObject>();
-		test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
+	    testSharedPtr = AddChild(testObject = new GameObject());
+		testObject->AddComponent(new Sprite(pmath::Vec4(1, 0, 0, 1), pmath::Vec2(128, 128)));
     }
 
     // Second (ParticleSystem)
@@ -64,13 +64,16 @@ bool TestScene::DeInit()
 
 void TestScene::Update(float dt)
 {
-	Scene::Update(dt);
+	//if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::A))
+	//{
+	//	RemoveChild(testObject);
+	//}
+	//if (uthInput.Keyboard.IsKeyReleased(uth::Keyboard::A))
+	//{
+	//	AddChild(testSharedPtr);
+	//}
 
-	if (uthInput.Common == uth::InputEvent::CLICK)
-	{
-		javaFunc::Vibrate(2000);
-		javaFunc::ShowAdBanner("");
-	}
+	Scene::Update(dt);
 }
 
 //void TestScene::Draw(RenderTarget& target, RenderAttributes attributes)
