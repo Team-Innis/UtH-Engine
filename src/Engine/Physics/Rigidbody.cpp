@@ -336,7 +336,7 @@ bool Rigidbody::load(const rapidjson::Value& doc)
         SetKinematic(body[13].GetBool());
     }
 
-    return false;
+    return true;
 }
 
 void Rigidbody::SetActive(bool value)

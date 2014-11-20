@@ -63,8 +63,8 @@
                 5,
                 0.05000000074505806,
                 0.10000000149011612,
-                0.04075547680258751,
-                0.09730826318264008,
+                0.006025590002536774,
+                0.07504501938819885,
                 true
             ],
             "template": {
@@ -84,7 +84,39 @@
                     1.0,
                     1.0
                 ]
-            }
+            },
+            "affectors": []
+        },
+        {
+            "identifier": ".?AVGameObject@uth@@",
+            "active": true,
+            "transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "origX": 0.0,
+                "origY": 0.0,
+                "scaleX": 1.0,
+                "scaleY": 1.0,
+                "sizeX": 464.0,
+                "sizeY": 32.0,
+                "angle": 0.0
+            },
+            "components": [
+                {
+                    "name": "Text",
+                    "active": true,
+                    "fontSize": 32.0,
+                    "fontPath": "FreePixel.ttf",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "string": "QWERTYUIOPASDFGHJKLZXCVBNM;:_",
+                    "identifier": ".?AVText@uth@@"
+                }
+            ]
         }
     ]
 }

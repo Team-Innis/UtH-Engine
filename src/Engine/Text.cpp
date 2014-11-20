@@ -204,7 +204,7 @@ rapidjson::Value uth::Text::save(rapidjson::MemoryPoolAllocator<>& alloc) const
     if (!m_text.empty())
         val.AddMember(rj::StringRef("string"), rj::Value(std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(m_text).c_str(), alloc), alloc);
 
-    return rj::Value();
+    return val;
 }
 
 bool uth::Text::load(const rapidjson::Value& doc)
@@ -222,7 +222,7 @@ bool uth::Text::load(const rapidjson::Value& doc)
     if (doc.HasMember("string"))
         SetText(doc["string"].GetString());
 
-    return false;
+    return true;
 }
 
 void Text::Draw(RenderTarget& target)

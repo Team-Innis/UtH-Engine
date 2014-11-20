@@ -58,6 +58,9 @@ bool TestScene::Init()
         ps->SetEmitProperties(true, 0.05f, 0.1f, 1, 5);
     }
 
+    GameObject* to = AddChild(new GameObject()).get();
+    to->AddComponent(new Text("FreePixel.ttf", 32))->SetText(L"QWERTYUIOPASDFGHJKLZXCVBNM;:_");
+
 	return true;
 }
 bool TestScene::DeInit()
