@@ -31,7 +31,7 @@ namespace uth
 
         bool SaveCurrentScene(const std::string& saveName);
 
-        bool LoadSavedScene(const std::string& saveName);
+        bool LoadCurrentScene(const std::string& saveName);
 
 
         typedef std::function<Saveable*(const rapidjson::Value& val)> ObjectCFunc;
@@ -67,7 +67,6 @@ namespace uth
 		Scene* (*makeActiveScene)(int SceneID);
 
 		Scene* curScene;
-        Scene* loadingScene;
 
 		int m_sceneID;
 		int m_nextScene;

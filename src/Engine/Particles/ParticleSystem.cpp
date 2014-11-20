@@ -40,6 +40,8 @@ void ParticleSystem::Emit(const unsigned int amount)
         p.lifetime = 0;
         m_batch.AddSprite(&p);
 	}
+
+    std::cout << m_particles.size() << std::endl;
 }
 
 void uth::ParticleSystem::WarmUp(const float time, const float step)
@@ -184,7 +186,9 @@ rapidjson::Value ParticleSystem::save(rapidjson::MemoryPoolAllocator<>& alloc) c
 {
     namespace rj = rapidjson;
 
-    rapidjson::Value val = GameObject::save(alloc);
+    rj::Value val = GameObject::save(alloc);
+
+    val.AddMember(rj::StringRef("batch"), m_batch.save(alloc), alloc);
 
     val.AddMember(rj::StringRef("particleLimit"), m_particles.capacity(), alloc)
        .AddMember(rj::StringRef("properties"), rj::kArrayType, alloc);
@@ -246,7 +250,7 @@ bool uth::ParticleSystem::load(const rapidjson::Value& doc)
 {
     namespace rj = rapidjson;
 
-    if (!GameObject::load(doc))
+    if (!GameObject::load(doc) || !m_batch.load(doc["batch"]))
         return false;
 
     const rj::Value& props = doc["properties"];

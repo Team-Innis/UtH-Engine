@@ -35,7 +35,7 @@ namespace uth
         // Components (There should never be any base component instances so no need to register that)
         RegisterSaveable<Rigidbody>([this](const rapidjson::Value& val) -> Saveable*
         {
-            PhysicsWorld* world = loadingScene->GetPhysicsWorld();
+            PhysicsWorld* world = curScene->GetPhysicsWorld();
 
             if (world)
             {
@@ -122,7 +122,7 @@ namespace uth
         return false;
     }
 
-    bool SceneManager::LoadSavedScene(const std::string& saveName)
+    bool SceneManager::LoadCurrentScene(const std::string& saveName)
     {
         namespace rj = rapidjson;
 
@@ -139,26 +139,26 @@ namespace uth
             return false;
         }
 
-        std::unique_ptr<Scene> ptr(static_cast<Scene*>(GetSaveable(doc)));
+        /*std::unique_ptr<Scene> ptr(static_cast<Scene*>(GetSaveable(doc)));
 
         if (!ptr)
         {
             WriteError("Failed to cast loaded scene %s", saveName.c_str());
             return false;
-        }
+        }*/
 
-        loadingScene = ptr.get();
+        //loadingScene = ptr.get();
         
-        if (!ptr->load(doc))
+        if (!curScene->load(doc))
         {
             WriteError("Failed to load one or more objects from save \"%s\"", saveName.c_str());
             return false;
         }
 
-        endScene();
-        curScene = ptr.release();
+            //endScene();
+        //curScene = ptr.release();
 
-        loadingScene = nullptr;
+        //loadingScene = nullptr;
 
         return true;
     }

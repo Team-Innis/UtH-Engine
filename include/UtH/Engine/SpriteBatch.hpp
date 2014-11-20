@@ -14,6 +14,10 @@ namespace uth
 
     class SpriteBatch : public GameObject
     {
+    private:
+
+        friend class ParticleSystem;
+
     public:
 
         SpriteBatch(const bool adoptPointers = true);

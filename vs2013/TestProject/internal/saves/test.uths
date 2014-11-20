@@ -57,14 +57,34 @@
                 "sizeY": 25.0,
                 "angle": 0.0
             },
+            "tags": [
+                "PS"
+            ],
+            "batch": {
+                "identifier": ".?AVSpriteBatch@uth@@",
+                "active": true,
+                "transform": {
+                    "posX": 0.0,
+                    "posY": 0.0,
+                    "origX": 0.0,
+                    "origY": 0.0,
+                    "scaleX": 1.0,
+                    "scaleY": 1.0,
+                    "sizeX": 0.0,
+                    "sizeY": 0.0,
+                    "angle": 0.0
+                },
+                "adoptedPointers": false,
+                "texture": "particle.tga"
+            },
             "particleLimit": 100,
             "properties": [
                 1,
                 5,
                 0.05000000074505806,
                 0.10000000149011612,
-                0.006025590002536774,
-                0.07504501938819885,
+                0.07872138172388077,
+                0.08420056849718094,
                 true
             ],
             "template": {
