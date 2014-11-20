@@ -5,8 +5,6 @@
 #include <UtH/Platform/Singleton.hpp>
 #include <string>
 
-//#include <gpg/gpg.h>
-
 
 #define uthGPGS uth::GooglePlayGameServices().getInstance() 
 
@@ -15,7 +13,15 @@ namespace uth
 	class GooglePlayGameServices : public Singleton < GooglePlayGameServices >
 	{
 		friend class Singleton < GooglePlayGameServices > ;
-
+		public:
+		struct Location
+		{
+			double loc_latitude;
+			double loc_longitude;
+			float loc_accuracy;
+			std::string device_time_since_reboot;
+		}curLocation;
+		private:
 		class Achievement
 		{
 		public:
@@ -32,7 +38,8 @@ namespace uth
 		class GPS
 		{
 		public:
-			std::string GetCurrentLocation();
+			
+			Location GetCurrentLocation();
 			float GetDistanceTo(double latitude, double longitude);
 			float GetDistanceBetween(double sLatitude, double sLongitude, double eLatitude, double eLongitude);
 			double GetLatitude();
@@ -47,20 +54,8 @@ namespace uth
 		Achievement achievement;
 		LeaderBoard leaderboard;
 		GPS gps;
-
-	private:
-		/*
-		void init();
-		void initServices(gpg::PlatformConfiguration const &pc,
-			gpg::GameServices::Builder::OnAuthActionStartedCallback started_callback,
-			gpg::GameServices::Builder::OnAuthActionFinishedCallback finished_callback);
-
-		void deInit();
-
-		gpg::AndroidPlatformConfiguration *platform_config;
-		static bool is_auth_in_progress;
-		static std::unique_ptr<gpg::GameServices> game_services;
-		*/
+		
+		
 	};
 }
 

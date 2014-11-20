@@ -110,7 +110,7 @@ void GooglePlayGameServices::LeaderBoard::ShowLeaderboard(std::string leaderboar
 }
 
 // GPS
-std::string GooglePlayGameServices::GPS::GetCurrentLocation()
+GooglePlayGameServices::Location GooglePlayGameServices::GPS::GetCurrentLocation()
 {
 	JNI_gameActivity();
 
@@ -125,7 +125,34 @@ std::string GooglePlayGameServices::GPS::GetCurrentLocation()
 
 	std::string returnable = uthAndroidEngine.jni->GetStringUTFChars( location, 0);
 
-	return returnable;
+	std::string::size_type fused = returnable.find("fused");
+	std::string::size_type acc = returnable.find("acc=");
+	std::string::size_type et = returnable.find("et=");
+	std::string::size_type timeEnd = returnable.find("]");
+
+	std::string fusedString = returnable.substr(fused + 6, acc - fused - 7);
+	std::string::size_type splitPos = fusedString.find(",", 4);
+
+	std::string::size_type replacePos;
+
+	std::string latitude = fusedString.substr(0, splitPos);
+	replacePos = latitude.find(",");
+	latitude.replace(replacePos, 1, ".");
+
+	std::string longitude = fusedString.substr(splitPos + 1);
+	replacePos = longitude.find(",");
+	longitude.replace(replacePos, 1, ".");
+
+	std::string accuracy = returnable.substr(acc + 4, 2);
+	std::string time = returnable.substr(et + 4, timeEnd - et - 4);
+
+	uthGPGS.curLocation.loc_latitude = atof(latitude.c_str());
+	uthGPGS.curLocation.loc_longitude = atof(longitude.c_str());
+	//curLocation.loc_accuracy = atof(accuracy.c_str());   // UnAccurate
+	uthGPGS.curLocation.loc_accuracy = GetAccuracy();
+	uthGPGS.curLocation.device_time_since_reboot = time;
+
+	return uthGPGS.curLocation;
 }
 float GooglePlayGameServices::GPS::GetDistanceTo(double latitude, double longitude)
 {

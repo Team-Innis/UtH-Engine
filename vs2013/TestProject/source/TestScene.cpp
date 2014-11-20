@@ -73,8 +73,16 @@ void TestScene::Update(float dt)
 		javaFunc::Vibrate(2000);
 		
 
-		std::string location = uthGPGS.gps.GetCurrentLocation();
-		WriteLog("Current location: %s", location.c_str());
+		//std::string location = uthGPGS.gps.GetCurrentLocation();
+		//WriteLog("Current location: %s", location.c_str());
+
+		GooglePlayGameServices::Location location = uthGPGS.gps.GetCurrentLocation();
+		
+		WriteLog("Accuracy: %f", uthGPGS.gps.GetAccuracy());
+		WriteLog("ConvLat: %f", location.loc_latitude);
+		WriteLog("ConvLong: %f", location.loc_longitude);
+		WriteLog("ConvAcc: %f", location.loc_accuracy);
+		WriteLog("ConvTime: %s", location.device_time_since_reboot.c_str());
 	}
 }
 

@@ -41,7 +41,7 @@ GoogleApiClient.OnConnectionFailedListener
 	Location mCurLocation;
 	LocationRequest locationRequest;
 	
-	private static final long INTERVAL = 1000 * 30;
+	private static final long INTERVAL = 1000 * 15;
     private static final long FASTEST_INTERVAL = 1000 * 5;
 	
 	
@@ -94,7 +94,6 @@ GoogleApiClient.OnConnectionFailedListener
 		.addConnectionCallbacks(this)
 		.build(); }
 		
-		//((GameAnalytics) getApplication()).getTracker(GameAnalytics.TrackerName.APP_TRACKER); // doesn't work
 		if(useGoogleAnalytics){	GoogleAnalytics.getInstance(this).newTracker(R.xml.app_tracker); }
 		
 		lClient = new GoogleApiClient.Builder(this)
@@ -102,6 +101,7 @@ GoogleApiClient.OnConnectionFailedListener
 		.addConnectionCallbacks(this)
 		.addConnectionCallbacks(this)
 		.build();
+	
 		
 		locationRequest = LocationRequest.create();
 		locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -294,7 +294,7 @@ GoogleApiClient.OnConnectionFailedListener
 		
 		//Log.d("location test", "" + mCurLocation); 
 		
-		//Log.d("location string", "" + mCurLocation.toString());
+		Log.d("location string", "" + mCurLocation.toString());
 	
 		return mCurLocation.toString();
 	}

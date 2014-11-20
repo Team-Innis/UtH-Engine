@@ -13,6 +13,8 @@ namespace uth
 	{
 		friend class Singleton < GooglePlayGameServices > ;
 
+		struct Location;
+
 		class Achievement
 		{
 		public:
@@ -29,13 +31,7 @@ namespace uth
 		class GPS
 		{
 		public:
-			struct Location
-			{
-				double loc_latitude;
-				double loc_longitude;
-				float loc_accuracy;
-			}location;
-			std::string GetCurrentLocation();
+			Location GetCurrentLocation();
 			float GetDistanceTo(double latitude, double longitude);
 			float GetDistanceBetween(double sLatitude, double sLongitude, double eLatitude, double eLongitude);
 			double GetLatitude();
@@ -50,6 +46,15 @@ namespace uth
 		Achievement achievement;
 		LeaderBoard leaderboard;
 		GPS gps;
+
+		struct Location
+		{
+			double loc_latitude;
+			double loc_longitude;
+			float loc_accuracy;
+			std::string device_time_since_reboot;
+		}curLocation;
+		
 
 	private:
 	
