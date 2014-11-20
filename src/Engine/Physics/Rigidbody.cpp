@@ -240,7 +240,7 @@ void Rigidbody::SetRestitution(float restitution)
     m_body->GetFixtureList()->SetRestitution(restitution);
 }
 
-float uth::Rigidbody::GetRestitution() const
+float Rigidbody::GetRestitution() const
 {
     return m_body->GetFixtureList()->GetRestitution();
 }
@@ -259,12 +259,12 @@ rapidjson::Value Rigidbody::save(rapidjson::MemoryPoolAllocator<>& alloc) const
     // Fixture
     {
         rj::Value& fix = val.AddMember(rj::StringRef("fixture"), rj::kObjectType, alloc)["fixture"];
-
+        
         fix.AddMember(rj::StringRef("filterData"), rj::kArrayType, alloc)["filterData"]
            .PushBack(m_fixtureDef.filter.categoryBits, alloc)
            .PushBack(m_fixtureDef.filter.groupIndex, alloc)
            .PushBack(m_fixtureDef.filter.maskBits, alloc);
-
+        
         fix.AddMember(rj::StringRef("properties"), rj::kArrayType, alloc)["properties"]
            .PushBack(m_fixtureDef.density, alloc)
            .PushBack(m_fixtureDef.friction, alloc)
@@ -287,7 +287,8 @@ rapidjson::Value Rigidbody::save(rapidjson::MemoryPoolAllocator<>& alloc) const
            .PushBack(m_body->IsActive(), alloc)
            .PushBack(m_body->IsBullet(), alloc)
            .PushBack(m_body->IsFixedRotation(), alloc)
-           .PushBack(m_body->IsSleepingAllowed(), alloc);
+           .PushBack(m_body->IsSleepingAllowed(), alloc)
+           .PushBack(m_body->GetType() == b2_kinematicBody, alloc);
     }
 
     return val;
@@ -332,6 +333,7 @@ bool Rigidbody::load(const rapidjson::Value& doc)
         SetBullet(body[10].GetBool());
         SetFixedRotation(body[11].GetBool());
         m_body->SetSleepingAllowed(body[12].GetBool());
+        SetKinematic(body[13].GetBool());
     }
 
     return false;
