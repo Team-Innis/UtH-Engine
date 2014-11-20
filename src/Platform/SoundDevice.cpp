@@ -1,5 +1,6 @@
 #include <UtH/Platform/SoundDevice.hpp>
 #include <UtH/Platform/Debug.hpp>
+#include <cassert>
 
 using namespace uth;
 
@@ -32,8 +33,11 @@ void SoundDevice::CreateContext()
 
 		device = alcOpenDevice(0);
 
-		if(!device)
+		if (!device)
+		{
 			WriteError("Failed to open audio device!");
+			assert(false);
+		}
 		else
 			WriteLog("Audio device opened.\n");
 
