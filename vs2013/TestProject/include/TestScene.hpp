@@ -20,7 +20,7 @@ namespace uth
 
 		Sound* music;
 
-		GameObject textObject;
+		GameObject* textObject;
 
 		Text* text;
 	

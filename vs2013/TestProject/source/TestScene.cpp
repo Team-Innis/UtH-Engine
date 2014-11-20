@@ -14,34 +14,36 @@ namespace
 }
 
 TestScene::TestScene()
+    : textObject(nullptr)
 {
     uthSceneM.RegisterSaveable<TestScene>();
 }
 TestScene::~TestScene()
 {}
 
+void setAffectors(ParticleSystem* ps)
+{
+    ps->Clear(false, true);
+
+    Affector* aff = new Affector();
+    aff->SetParticleInitFunc([](Particle& particle, const ParticleTemplate& pTemplate)
+    {
+        pmath::Vec2 tvec(Randomizer::InsideCircle());
+        tvec /= static_cast<float>(tvec.length());
+        particle.direction = Randomizer::GetFloat(pTemplate.minSpeed, pTemplate.maxSpeed) * tvec;
+    });
+
+    aff->SetParticleUpdateFunc([](Particle& part, const ParticleTemplate& ptemp, float dt)
+    {
+        part.Move(part.direction * dt);
+    });
+
+    ps->AddAffector(aff);
+}
+
 bool TestScene::Init()
 {
     return true;
-    /*if (uthSceneM.LoadCurrentScene("test"))
-    {
-        Affector* aff = new Affector();
-        aff->SetParticleInitFunc([](Particle& particle, const ParticleTemplate& pTemplate)
-        {
-            pmath::Vec2 tvec(Randomizer::InsideCircle());
-            tvec /= static_cast<float>(tvec.length());
-            particle.direction = Randomizer::GetFloat(pTemplate.minSpeed, pTemplate.maxSpeed) * tvec;
-        });
-
-        aff->SetParticleUpdateFunc([](Particle& part, const ParticleTemplate& ptemp, float dt)
-        {
-            part.Move(part.direction * dt);
-        });
-
-        static_cast<ParticleSystem*>(FindAll("PS")[0].get())->AddAffector(aff);
-
-        return true;
-    }*/
 
     // Objects
     // First
@@ -61,20 +63,7 @@ bool TestScene::Init()
         ps->AddTag("PS");
         ps->SetTemplate(pt);
 
-        Affector* aff = new Affector();
-        aff->SetParticleInitFunc([](Particle& particle, const ParticleTemplate& pTemplate)
-        {
-            pmath::Vec2 tvec(Randomizer::InsideCircle());
-            tvec /= static_cast<float>(tvec.length());
-            particle.direction = Randomizer::GetFloat(pTemplate.minSpeed, pTemplate.maxSpeed) * tvec;
-        });
-
-        aff->SetParticleUpdateFunc([](Particle& part, const ParticleTemplate& ptemp, float dt)
-        {
-            part.Move(part.direction * dt);
-        });
-
-        ps->AddAffector(aff);
+        setAffectors(ps.get());
         ps->SetEmitProperties(true, 0.05f, 0.1f, 1, 5);
     }
 
@@ -93,28 +82,23 @@ void TestScene::Update(float dt)
 {
 	Scene::Update(dt);
 
+    if (textObject)
+        textObject->transform.Move((uthInput.Keyboard.IsKeyDown(uth::Keyboard::Right) - uthInput.Keyboard.IsKeyDown(uth::Keyboard::Left)) * 100.f * dt,
+                                   (uthInput.Keyboard.IsKeyDown(uth::Keyboard::Down) - uthInput.Keyboard.IsKeyDown(uth::Keyboard::Up)) * 100.f * dt);
+
     if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::S))
         uthSceneM.SaveCurrentScene("test");
     else if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::L))
     {
+        RemoveChildren();
+
         uthSceneM.LoadCurrentScene("test");
 
-        Affector* aff = new Affector();
-        aff->SetParticleInitFunc([](Particle& particle, const ParticleTemplate& pTemplate)
-        {
-            pmath::Vec2 tvec(Randomizer::InsideCircle());
-            tvec /= static_cast<float>(tvec.length());
-            particle.direction = Randomizer::GetFloat(pTemplate.minSpeed, pTemplate.maxSpeed) * tvec;
-        });
+        textObject = static_cast<GameObject*>(FindAll("TEXT", 1)[0].get());
 
-        aff->SetParticleUpdateFunc([](Particle& part, const ParticleTemplate& ptemp, float dt)
-        {
-            part.Move(part.direction * dt);
-        });
-
-        auto ps = static_cast<ParticleSystem*>(FindAll("PS")[0].get());
-        ps->Clear(true, true);
-        ps->AddAffector(aff);
+        auto ps = static_cast<ParticleSystem*>(FindAll("PS", 1)[0].get());
+        ps->Clear(true, false);
+        setAffectors(ps);
     }
 }
 
