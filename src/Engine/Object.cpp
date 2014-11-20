@@ -51,24 +51,14 @@ namespace uth
 		if (!m_active)
 			return;
 
-		auto it = m_children.begin();
-		while (it != m_children.end())
+		const std::vector<std::shared_ptr<Object>> objBackup(m_children);
+
+		for (auto o : objBackup)
 		{
-			auto& e = *(*it);
-
-			if (e.IsActive())
-			{
-				e.Update(dt);
-			}
-
-			if (e.IsRemoved())
-			{
-				it = m_children.erase(it);
-			}
-			else
-			{
-				++it;
-			}
+			if (o->IsActive())
+				o->Update(dt);
+			if (o->IsRemoved())
+				RemoveChild(o);
 		}
 	}
 	void Object::Draw(RenderTarget& target, RenderAttributes attributes)
