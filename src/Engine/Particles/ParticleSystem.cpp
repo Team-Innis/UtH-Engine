@@ -40,8 +40,6 @@ void ParticleSystem::Emit(const unsigned int amount)
         p.lifetime = 0;
         m_batch.AddSprite(&p);
 	}
-
-    std::cout << m_particles.size() << std::endl;
 }
 
 void uth::ParticleSystem::WarmUp(const float time, const float step)

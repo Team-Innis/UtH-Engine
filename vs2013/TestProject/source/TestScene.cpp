@@ -83,8 +83,11 @@ void TestScene::Update(float dt)
 	Scene::Update(dt);
 
     if (textObject)
+    {
         textObject->transform.Move((uthInput.Keyboard.IsKeyDown(uth::Keyboard::Right) - uthInput.Keyboard.IsKeyDown(uth::Keyboard::Left)) * 100.f * dt,
                                    (uthInput.Keyboard.IsKeyDown(uth::Keyboard::Down) - uthInput.Keyboard.IsKeyDown(uth::Keyboard::Up)) * 100.f * dt);
+        textObject->transform.Rotate((uthInput.Mouse.IsButtonDown(uth::Mouse::RIGHT) - uthInput.Mouse.IsButtonDown(uth::Mouse::LEFT)) * 100.f * dt);
+    }
 
     if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::S))
         uthSceneM.SaveCurrentScene("test");
