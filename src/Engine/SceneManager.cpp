@@ -23,18 +23,29 @@ namespace uth
         RegisterSaveable<Object>();
         RegisterSaveable<GameObject>();
         RegisterSaveable<Camera>();
-        RegisterSaveable<SpriteBatch>([](const rapidjson::Value& val) -> Saveable*
+        RegisterSaveable<SpriteBatch>([](const rapidjson::Value& val)
         {
             return new SpriteBatch(val["adoptedPointers"].GetBool());
         });
-        RegisterSaveable<ParticleSystem>([](const rapidjson::Value& val) -> Saveable*
+        RegisterSaveable<ParticleSystem>([](const rapidjson::Value& val)
         {
             return new ParticleSystem(val["particleLimit"].GetUint());
         });
         
         // Components (There should never be any base component instances so no need to register that)
-        RegisterSaveable<Rigidbody>([](const rapidjson::Value& val)
+        RegisterSaveable<Rigidbody>([this](const rapidjson::Value& val) -> Saveable*
         {
+            PhysicsWorld* world = loadingScene->GetPhysicsWorld();
+
+            if (world)
+            {
+                return new Rigidbody(*world, static_cast<COLLIDER_TYPE>(val["colliderType"].GetUint()), pmath::Vec2(val["size"][0u].GetUint(), val["size"][1].GetUint()));
+            }
+            else
+            {
+                WriteError("Couldn't fetch the physics world while loading a RigidBody");
+            }
+
             return nullptr; // TODO: Figure out how to actually do this
         });
         RegisterSaveable<Sprite>();
@@ -135,6 +146,8 @@ namespace uth
             WriteError("Failed to cast loaded scene %s", saveName.c_str());
             return false;
         }
+
+        loadingScene = ptr.get();
         
         if (!ptr->load(doc))
         {
@@ -144,6 +157,8 @@ namespace uth
 
         endScene();
         curScene = ptr.release();
+
+        loadingScene = nullptr;
 
         return true;
     }

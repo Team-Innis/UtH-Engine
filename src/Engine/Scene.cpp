@@ -26,6 +26,11 @@ void uth::Scene::Draw(RenderTarget& target, RenderAttributes attributes)
 	Object::Draw(target, attributes);
 }
 
+PhysicsWorld* uth::Scene::GetPhysicsWorld()
+{
+    return nullptr;
+}
+
 
 
 // Protected

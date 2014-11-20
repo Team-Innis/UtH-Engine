@@ -67,6 +67,7 @@ namespace uth
 		Scene* (*makeActiveScene)(int SceneID);
 
 		Scene* curScene;
+        Scene* loadingScene;
 
 		int m_sceneID;
 		int m_nextScene;
