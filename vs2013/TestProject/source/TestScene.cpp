@@ -24,7 +24,8 @@ bool TestScene::Init()
     // Objects
     // First
 	{
-	    testSharedPtr = AddChild(testObject = new GameObject());
+		AddChild(testParent = new GameObject());
+		testSharedPtr = testParent->AddChild(testObject = new GameObject());
 		testObject->AddComponent(new Sprite(pmath::Vec4(1, 0, 0, 1), pmath::Vec2(128, 128)));
     }
 
@@ -64,14 +65,30 @@ bool TestScene::DeInit()
 
 void TestScene::Update(float dt)
 {
-	//if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::A))
-	//{
-	//	RemoveChild(testObject);
-	//}
-	//if (uthInput.Keyboard.IsKeyReleased(uth::Keyboard::A))
-	//{
-	//	AddChild(testSharedPtr);
-	//}
+	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::Q))
+	{
+		testParent->ExtractChild(testObject);
+	}
+	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::W))
+	{
+		testParent->AddChild(testSharedPtr);
+	}
+	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::E))
+	{
+		testParent->ExtractChild(testObject,true);
+	}
+	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::R))
+	{
+		testParent->AddChild(testSharedPtr,true);
+	}
+	if (uthInput.Mouse.IsButtonDown(Mouse::MS1))
+	{
+		testObject->transform.SetPosition(uthEngine.GetWindow().PixelToCoords(uthInput.Mouse.Position()));
+	}
+	if (uthInput.Mouse.IsButtonDown(Mouse::MS2))
+	{
+		testParent->transform.SetPosition(uthEngine.GetWindow().PixelToCoords(uthInput.Mouse.Position()));
+	}
 
 	Scene::Update(dt);
 }

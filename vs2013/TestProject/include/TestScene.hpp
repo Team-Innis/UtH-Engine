@@ -23,6 +23,8 @@ namespace uth
 		GameObject* testObject;
 		std::shared_ptr<Object> testSharedPtr;
 
+		GameObject* testParent;
+
 		Text* text;
 	
 	};

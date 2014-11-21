@@ -105,7 +105,7 @@ namespace uth
 		if (object != nullptr)
 		{
 			if (keepGlobalPos)
-				object->transform.SetTransform(object->transform.GetTransform()*transform.GetTransform());
+				object->transform.SetTransform(object->transform.GetTransform()*transform.GetTransform().inverse());
 
 			m_children.push_back(object);
 
@@ -117,9 +117,7 @@ namespace uth
 	template <typename T>
 	inline std::shared_ptr<T> Object::AddChild(T* object, const bool keepGlobalPos)
 	{
-		static_assert(std::is_void<T>::value || std::is_base_of<Object, T>::value, "Error: Template type must be derived from uth::Object");
-
-		return AddChild(std::shared_ptr<T>(object,keepGlobalPos));
+		return AddChild(std::shared_ptr<T>(object),keepGlobalPos);
 	}
 
 	template <typename T>
@@ -134,6 +132,7 @@ namespace uth
 
 		if (keepGlobalPos)
 			retVal->transform.SetTransform(retVal->transform.GetTransform());
+		retVal->setParent(nullptr);
 
 		m_children.erase(it);
 		return retVal;
@@ -147,12 +146,13 @@ namespace uth
 		{
 			if ((*it).get() == object)
 			{
-				if (dynamic_cast<T*>((*it).get()) != nullptr)
+				if (dynamic_cast<T*>((*it).get()) == nullptr)
 					return nullptr;
 				const std::shared_ptr<Object> retVal = *it;
 
 				if (keepGlobalPos)
 					retVal->transform.SetTransform(retVal->transform.GetTransform());
+				retVal->setParent(nullptr);
 
 				m_children.erase(it);
 				return retVal;
