@@ -24,9 +24,8 @@ bool TestScene::Init()
     // Objects
     // First
 	{
-		AddChild(testParent = new GameObject());
-		testSharedPtr = testParent->AddChild(testObject = new GameObject());
-		testObject->AddComponent(new Sprite(pmath::Vec4(1, 0, 0, 1), pmath::Vec2(128, 128)));
+	    auto test = this->AddChild<GameObject>();
+		test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
     }
 
     // Second (ParticleSystem)
@@ -65,32 +64,13 @@ bool TestScene::DeInit()
 
 void TestScene::Update(float dt)
 {
-	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::Q))
-	{
-		testParent->ExtractChild(testObject);
-	}
-	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::W))
-	{
-		testParent->AddChild(testSharedPtr);
-	}
-	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::E))
-	{
-		testParent->ExtractChild(testObject,true);
-	}
-	if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::R))
-	{
-		testParent->AddChild(testSharedPtr,true);
-	}
-	if (uthInput.Mouse.IsButtonDown(Mouse::MS1))
-	{
-		testObject->transform.SetPosition(uthEngine.GetWindow().PixelToCoords(uthInput.Mouse.Position()));
-	}
-	if (uthInput.Mouse.IsButtonDown(Mouse::MS2))
-	{
-		testParent->transform.SetPosition(uthEngine.GetWindow().PixelToCoords(uthInput.Mouse.Position()));
-	}
-
 	Scene::Update(dt);
+
+	if (uthInput.Common == uth::InputEvent::CLICK)
+	{
+		javaFunc::Vibrate(2000);
+		javaFunc::ShowAdBanner("");
+	}
 }
 
 //void TestScene::Draw(RenderTarget& target, RenderAttributes attributes)

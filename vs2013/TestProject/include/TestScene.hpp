@@ -20,8 +20,7 @@ namespace uth
 
 		Sound* music;
 
-		GameObject* testObject;
-		std::shared_ptr<Object> testSharedPtr;
+		GameObject textObject;
 
 		GameObject* testParent;
 
