@@ -22,6 +22,8 @@ namespace uth
 
 		GameObject textObject;
 
+		GameObject* testParent;
+
 		Text* text;
 	
 	};

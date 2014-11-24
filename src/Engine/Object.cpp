@@ -73,15 +73,15 @@ namespace uth
 		}
 	}
 
-	void Object::AddChildren(const std::vector<std::shared_ptr<Object>>& objects)
+	void Object::AddChildren(const std::vector<std::shared_ptr<Object>>& objects, const bool keepGlobalPos)
 	{
 		for (auto& o : objects)
-			AddChild(o);
+			AddChild(o, keepGlobalPos);
 	}
-	void Object::AddChildren(const std::vector<Object*>& objects)
+	void Object::AddChildren(const std::vector<Object*>& objects, const bool keepGlobalPos)
 	{
 		for (auto& o : objects)
-			AddChild(o);
+			AddChild(o, keepGlobalPos);
 	}
 
 	bool Object::HasChild(const std::shared_ptr<Object>& object) const
@@ -158,13 +158,16 @@ namespace uth
 		return m_isRemoved;
 	}
 
-	std::vector<std::shared_ptr<Object>> Object::ExtractChildren(const std::string& tag)
+	std::vector<std::shared_ptr<Object>> Object::ExtractChildren(const std::string& tag, const bool keepGlobalPos)
 	{
 		std::vector<std::shared_ptr<Object>> retVal;
 		for (auto it = m_children.begin(); it != m_children.end(); it++)
 		{
-			if ((*it)->HasTag(tag))
+			const auto& c = (*it);
+			if (c->HasTag(tag))
 			{
+				if (keepGlobalPos)
+					c->transform.SetTransform(c->transform.GetTransform());
 				retVal.push_back(*it);
 				m_children.erase(it);
 			}
