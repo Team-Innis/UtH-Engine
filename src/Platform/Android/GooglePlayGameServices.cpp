@@ -137,11 +137,13 @@ GooglePlayGameServices::Location GooglePlayGameServices::GPS::GetCurrentLocation
 
 	std::string latitude = fusedString.substr(0, splitPos);
 	replacePos = latitude.find(",");
-	latitude.replace(replacePos, 1, ".");
+	if (replacePos != std::string::npos)
+		latitude.replace(replacePos, 1, ".");
 
 	std::string longitude = fusedString.substr(splitPos + 1);
 	replacePos = longitude.find(",");
-	longitude.replace(replacePos, 1, ".");
+	if (replacePos != std::string::npos)
+		longitude.replace(replacePos, 1, ".");
 
 	std::string accuracy = returnable.substr(acc + 4, 2);
 	std::string time = returnable.substr(et + 4, timeEnd - et - 4);
