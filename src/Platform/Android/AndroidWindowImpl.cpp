@@ -11,7 +11,7 @@
 
 namespace uth
 {
-	bool AndroidWindowImpl::focusLost = false;
+	static bool focused = true;
 
 	void* AndroidWindowImpl::create(const WindowSettings& settings)
 	{
@@ -180,6 +180,7 @@ namespace uth
 			uthAndroidEngine.winEveHand(window);
 			uthEngine.Init(uthAndroidEngine.settings);
 			WriteLog("uthAndroidEngine.winEveHand");
+			focused = true;
 			break;
 		case APP_CMD_TERM_WINDOW:
 			uthAndroidEngine.initialized = false;
@@ -188,13 +189,14 @@ namespace uth
 			break;
         case APP_CMD_GAINED_FOCUS:
             uthAndroidEngine.initialized = true;
+			focused = true;
             uth::SensorInput::GainFocus();
             break;
 		case APP_CMD_LOST_FOCUS:
 			WriteLog("LostFocus");
 			uthAndroidEngine.initialized = false;
 			uthRS.PauseSounds();
-			focusLost = true;
+			focused = false;
             uth::SensorInput::LostFocus();
 			break;
 		}
@@ -204,4 +206,9 @@ namespace uth
 
     void AndroidWindowImpl::setResizeCallback(ResizeFunc)
     { }
+
+	bool AndroidWindowImpl::Focused()
+	{
+		return focused;
+	}
 }
