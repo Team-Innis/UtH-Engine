@@ -140,6 +140,8 @@ bool GameObject::load(const rj::Value& doc)
             if (!ptr)
                 return false;
 
+            ptr->parent = this;
+
             if (ptr->load(*itr))
                 AddComponent(ptr.release());
             else

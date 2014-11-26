@@ -279,6 +279,9 @@ namespace uth
 
     bool Object::load(const rj::Value& doc)
     {
+        m_children.clear();
+        m_tagList.clear();
+
         m_active = doc["active"].GetBool();
 
         // We'll just assume the transform is valid.

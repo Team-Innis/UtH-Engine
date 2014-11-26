@@ -17,16 +17,19 @@
             "identifier": ".?AVGameObject@uth@@",
             "active": true,
             "transform": {
-                "posX": 0.0,
-                "posY": 0.0,
+                "posX": 0.02601698227226734,
+                "posY": 170.1458282470703,
                 "origX": 0.0,
                 "origY": 0.0,
                 "scaleX": 1.0,
                 "scaleY": 1.0,
                 "sizeX": 128.0,
                 "sizeY": 128.0,
-                "angle": 0.0
+                "angle": -0.006865568459033966
             },
+            "tags": [
+                "RB"
+            ],
             "components": [
                 {
                     "name": "Sprite",
@@ -40,6 +43,114 @@
                         1.0
                     ],
                     "identifier": ".?AVSprite@uth@@"
+                },
+                {
+                    "name": "Rigidbody",
+                    "active": true,
+                    "colliderType": 0,
+                    "size": [
+                        128.0,
+                        128.0
+                    ],
+                    "fixture": {
+                        "filterData": [
+                            1,
+                            0,
+                            65535
+                        ],
+                        "properties": [
+                            1.0,
+                            0.30000001192092898,
+                            false,
+                            0.0
+                        ]
+                    },
+                    "body": [
+                        0.00011983402509940788,
+                        0.0,
+                        4.3470390664879235e-7,
+                        1.0,
+                        0.0,
+                        0.00028526235837489367,
+                        0.708331823348999,
+                        0.0005250940448604524,
+                        3.414722204208374,
+                        true,
+                        false,
+                        false,
+                        true,
+                        false
+                    ],
+                    "identifier": ".?AVRigidbody@uth@@"
+                }
+            ]
+        },
+        {
+            "identifier": ".?AVGameObject@uth@@",
+            "active": true,
+            "transform": {
+                "posX": 0.0,
+                "posY": 250.0,
+                "origX": 0.0,
+                "origY": 0.0,
+                "scaleX": 1.0,
+                "scaleY": 1.0,
+                "sizeX": 512.0,
+                "sizeY": 10.0,
+                "angle": 0.0
+            },
+            "components": [
+                {
+                    "name": "Sprite",
+                    "active": true,
+                    "properties": [
+                        512.0,
+                        10.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        1.0
+                    ],
+                    "identifier": ".?AVSprite@uth@@"
+                },
+                {
+                    "name": "Rigidbody",
+                    "active": true,
+                    "colliderType": 0,
+                    "size": [
+                        512.0,
+                        10.0
+                    ],
+                    "fixture": {
+                        "filterData": [
+                            1,
+                            0,
+                            65535
+                        ],
+                        "properties": [
+                            1.0,
+                            0.30000001192092898,
+                            false,
+                            0.0
+                        ]
+                    },
+                    "body": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        5.0,
+                        true,
+                        false,
+                        false,
+                        true,
+                        true
+                    ],
+                    "identifier": ".?AVRigidbody@uth@@"
                 }
             ]
         },
@@ -83,8 +194,8 @@
                 5,
                 0.05000000074505806,
                 0.10000000149011612,
-                0.05589590221643448,
-                0.09739524126052857,
+                0.041347846388816836,
+                0.08492538332939148,
                 true
             ],
             "template": {
@@ -111,15 +222,15 @@
             "identifier": ".?AVGameObject@uth@@",
             "active": true,
             "transform": {
-                "posX": -331.96923828125,
-                "posY": -6.612860202789307,
+                "posX": 0.0,
+                "posY": 0.0,
                 "origX": 0.0,
                 "origY": 0.0,
                 "scaleX": 1.0,
                 "scaleY": 1.0,
                 "sizeX": 464.0,
                 "sizeY": 32.0,
-                "angle": 60.05863952636719
+                "angle": 0.0
             },
             "tags": [
                 "TEXT"

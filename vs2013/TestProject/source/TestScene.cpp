@@ -14,7 +14,8 @@ namespace
 }
 
 TestScene::TestScene()
-    : textObject(nullptr)
+    : textObject(nullptr),
+      m_world(0, 10)
 {
     uthSceneM.RegisterSaveable<TestScene>();
 }
@@ -43,13 +44,22 @@ void setAffectors(ParticleSystem* ps)
 
 bool TestScene::Init()
 {
-    return true;
+    //return true;
 
     // Objects
     // First
 	{
 	    auto test = AddChild<GameObject>();
+        test->AddTag("RB");
 		test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
+        m_rb1 = test->AddComponent(new Rigidbody(m_world));
+        m_rb1->SetRestitution(0.5f);
+
+        auto test2 = AddChild<GameObject>();
+        test2->AddComponent(new Sprite(pmath::Vec4(0, 1, 0, 1), pmath::Vec2(512, 10)));
+        auto rb2 = test2->AddComponent(new Rigidbody(m_world));
+        rb2->SetPosition(pmath::Vec2(0, 250));
+        rb2->SetKinematic(true);
     }
 
     // Second (ParticleSystem)
@@ -69,18 +79,19 @@ bool TestScene::Init()
 
     GameObject* to = AddChild(new GameObject()).get();
     to->AddComponent(new Text("FreePixel.ttf", 32))->SetText(L"QWERTYUIOPASDFGHJKLZXCVBNM;:_");
+    to->AddTag("TEXT");
 
 	return true;
 }
 bool TestScene::DeInit()
 {
-    //uthSceneM.SaveCurrentScene("test");
 	return true;
 }
 
 void TestScene::Update(float dt)
 {
 	Scene::Update(dt);
+    m_world.Update(dt);
 
     if (textObject)
     {
@@ -89,20 +100,32 @@ void TestScene::Update(float dt)
         textObject->transform.Rotate((uthInput.Mouse.IsButtonDown(uth::Mouse::RIGHT) - uthInput.Mouse.IsButtonDown(uth::Mouse::LEFT)) * 100.f * dt);
     }
 
+    if (uthInput.Keyboard.IsKeyPressed(Keyboard::Space))
+        m_rb1->ApplyForce(pmath::Vec2(200.f, -2000.f), pmath::Vec2(32, 32));
+
     if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::S))
         uthSceneM.SaveCurrentScene("test");
     else if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::L))
     {
-        RemoveChildren();
-
-        uthSceneM.LoadCurrentScene("test");
+        if (!uthSceneM.LoadCurrentScene("test"))
+        {
+            WriteError("Load failed");
+            return;
+        }
 
         textObject = static_cast<GameObject*>(FindAll("TEXT", 1)[0].get());
+
+        m_rb1 = static_cast<GameObject*>(FindAll("RB", 1)[0].get())->GetComponent<Rigidbody>();
 
         auto ps = static_cast<ParticleSystem*>(FindAll("PS", 1)[0].get());
         ps->Clear(true, false);
         setAffectors(ps);
     }
+}
+
+PhysicsWorld* uth::TestScene::GetPhysicsWorld()
+{
+    return &m_world;
 }
 
 //void TestScene::Draw(RenderTarget& target, RenderAttributes attributes)

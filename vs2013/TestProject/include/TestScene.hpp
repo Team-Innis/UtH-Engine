@@ -23,6 +23,11 @@ namespace uth
 		GameObject* textObject;
 
 		Text* text;
+
+        PhysicsWorld m_world;
+        Rigidbody* m_rb1;
+
+        PhysicsWorld* GetPhysicsWorld() override;
 	
 	};
 }

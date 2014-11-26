@@ -39,14 +39,14 @@ namespace uth
 
             if (world)
             {
-                return new Rigidbody(*world, static_cast<COLLIDER_TYPE>(val["colliderType"].GetUint()), pmath::Vec2(val["size"][0u].GetUint(), val["size"][1].GetUint()));
+                return new Rigidbody(*world, static_cast<COLLIDER_TYPE>(val["colliderType"].GetUint()), pmath::Vec2(val["size"][0u].GetDouble(), val["size"][1].GetDouble()));
             }
             else
             {
-                WriteError("Couldn't fetch the physics world while loading a RigidBody");
+                WriteError("Couldn't fetch the physics world while loading a RigidBody. Make sure you've overridden GetPhysicsWorld() in your scene.");
             }
 
-            return nullptr; // TODO: Figure out how to actually do this
+            return nullptr;
         });
         RegisterSaveable<Sprite>();
         RegisterSaveable<AnimatedSprite>([](const rapidjson::Value& val)
@@ -138,27 +138,12 @@ namespace uth
             WriteError("Failed to parse save file %s", saveName.c_str());
             return false;
         }
-
-        /*std::unique_ptr<Scene> ptr(static_cast<Scene*>(GetSaveable(doc)));
-
-        if (!ptr)
-        {
-            WriteError("Failed to cast loaded scene %s", saveName.c_str());
-            return false;
-        }*/
-
-        //loadingScene = ptr.get();
         
         if (!curScene->load(doc))
         {
             WriteError("Failed to load one or more objects from save \"%s\"", saveName.c_str());
             return false;
         }
-
-            //endScene();
-        //curScene = ptr.release();
-
-        //loadingScene = nullptr;
 
         return true;
     }
