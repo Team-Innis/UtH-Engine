@@ -6,6 +6,7 @@
 using namespace uth;
 
 GameObject::GameObject()
+	: Object()
 {
 
 }
