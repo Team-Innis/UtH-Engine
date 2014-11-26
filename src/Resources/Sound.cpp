@@ -13,6 +13,7 @@ using namespace uth;
 
 Sound::Sound()
 	: loop(false),
+	  enginePaused(false),
 	  duration(0.1f),
 	  _posX(0), _posY(0), _posZ(0)
 {
@@ -76,10 +77,20 @@ void Sound::Pause()
 	if (!SoundDevice::getInstance().DeviceInitialized())
 		return;
 
-	if(Status() == AL_PLAYING)
+	if (Status() == AL_PLAYING)
 		alSourcePause(source);
-	//else
-	//	alSourcePlay(source);
+	else if (Status() == AL_PAUSED)
+		alSourcePlay(source);
+}
+void Sound::Pause(bool pause)
+{
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
+
+	if (Status() == AL_PLAYING && pause)
+		alSourcePause(source);
+	else if (Status() == AL_PAUSED && !pause)
+		alSourcePlay(source);
 }
 
 void Sound::Loop()

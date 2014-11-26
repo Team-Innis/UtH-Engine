@@ -166,7 +166,14 @@ void ResourceManager::PauseSounds()
 
 	for (int i = 0; i < size; i++)
 	{
-		itr->second->Pause();
+		if (itr->second->Status() == AL_PLAYING)
+		{
+			itr->second->Pause();
+			itr->second->enginePaused = true;
+		}
+		else if (itr->second->enginePaused)
+			itr->second->Pause();
+
 		itr++;
 	}
 }

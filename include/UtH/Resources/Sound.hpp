@@ -45,6 +45,7 @@ namespace uth
 
 		// Pauses source. Use Play() to continue.
 		void Pause();
+		void Pause(bool pause);
 
 		// Toggles loop on or off
 		void Loop();
@@ -87,6 +88,7 @@ namespace uth
 		ALuint buffer;
 
 		bool loop;
+		bool enginePaused;
 		float duration;
 		std::vector<ALuint> tempSource;
 		float _posX, _posY, _posZ;
