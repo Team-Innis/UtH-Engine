@@ -41,6 +41,7 @@ namespace uth
         void SetGlobalPosition(const pmath::Vec2& position);
         void SetGlobalPosition(const float posX, const float posY);
 		const pmath::Vec2& GetPosition() const;
+        const pmath::Vec2 GetGlobalPosition() const;
 
 		//[[deprecated("Has been replaced with ScaleToSize")]]
 		void SetSize(const pmath::Vec2& size);

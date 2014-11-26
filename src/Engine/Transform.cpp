@@ -57,6 +57,11 @@ const pmath::Vec2& Transform::GetPosition() const
 {
     return m_position;
 }
+const pmath::Vec2 uth::Transform::GetGlobalPosition() const
+{
+    const auto& transform = GetTransform();
+    return pmath::Vec2(transform[0][3], transform[1][3]);
+}
 
 void Transform::SetSize(const pmath::Vec2& size)
 {
