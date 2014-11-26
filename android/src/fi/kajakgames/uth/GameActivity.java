@@ -29,22 +29,20 @@ implements LocationListener,
 GoogleApiClient.ConnectionCallbacks, 
 GoogleApiClient.OnConnectionFailedListener
 {
-
-	GameActivity gameActivity;
-	Advertisement initialAd = null;
-	Vector<Advertisement> adList = new Vector<Advertisement>(32);
 	private boolean useGoogleAnalytics = false;
 	private boolean usePlayServices = false;
+	private boolean useGPS = false;
+	private static final long INTERVAL = 1000 * 15;
+    private static final long FASTEST_INTERVAL = 1000 * 5;
 	
+	Advertisement initialAd = null;
+	Vector<Advertisement> adList = new Vector<Advertisement>(32);
+	
+	GameActivity gameActivity;
 	GoogleApiClient mClient;
 	GoogleApiClient lClient;
 	Location mCurLocation;
 	LocationRequest locationRequest;
-	
-	private static final long INTERVAL = 1000 * 15;
-    private static final long FASTEST_INTERVAL = 1000 * 5;
-	
-	
 	
 	//Test Only
 	private InterstitialAd interstitial;
@@ -96,17 +94,20 @@ GoogleApiClient.OnConnectionFailedListener
 		
 		if(useGoogleAnalytics){	GoogleAnalytics.getInstance(this).newTracker(R.xml.app_tracker); }
 		
+		if(useGPS){
 		lClient = new GoogleApiClient.Builder(this)
 		.addApi(LocationServices.API)
 		.addConnectionCallbacks(this)
 		.addConnectionCallbacks(this)
-		.build();
+		.build(); 
 	
 		
 		locationRequest = LocationRequest.create();
 		locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 		locationRequest.setInterval(INTERVAL);
 		locationRequest.setFastestInterval(FASTEST_INTERVAL);
+		
+		}
 	}
 	
 	public void onStart()
@@ -116,7 +117,7 @@ GoogleApiClient.OnConnectionFailedListener
 	 	
 	 	if(useGoogleAnalytics){ GoogleAnalytics.getInstance(this).reportActivityStart(this); }
 	 	
-	 	lClient.connect();
+	 	if(useGPS){ lClient.connect(); }
 	 }
 	  
 	 public void onStop()
@@ -125,7 +126,7 @@ GoogleApiClient.OnConnectionFailedListener
 			
 		if(useGoogleAnalytics){ GoogleAnalytics.getInstance(this).reportActivityStop(this); }
 		
-		lClient.disconnect();
+		if(useGPS){ lClient.disconnect(); }
 		
 		super.onStop();	
 	 }
@@ -290,16 +291,23 @@ GoogleApiClient.OnConnectionFailedListener
 
 	public String GetCurrentLocation()
 	{
+		if(useGPS){
 		mCurLocation = LocationServices.FusedLocationApi.getLastLocation(lClient);
 		
 		//Log.d("location test", "" + mCurLocation); 
 		
-		Log.d("location string", "" + mCurLocation.toString());
+		//Log.d("location string", "" + mCurLocation.toString());
 	
 		return mCurLocation.toString();
+		}
+		else
+		{
+			return "GPS is disabled!";
+		}
 	}
 	public float DistanceTo(double endLatitude, double endLongitude)
 	{
+		if(useGPS){
 		float[] result = {0, 0, 0};
 		
 		//GetCurrentLocation();
@@ -311,41 +319,75 @@ GoogleApiClient.OnConnectionFailedListener
 		Location.distanceBetween(startLatitude, startLongitude, endLatitude, endLongitude, result);
 		
 		return result[0];
+		}
+		else
+		{
+			Log.d("uth-engine", "GPS is disabled!");
+			return 0;
+		}
 	}
 	public float DistanceBetween(double startLatitude, double startLongitude, double endLatitude, double endLongitude)
 	{
+		if(useGPS){
 		float[] result = {0, 0, 0 };
 		
 		Location.distanceBetween(startLatitude, startLongitude, endLatitude, endLongitude, result);
 		
 		return result[0];
+		}
+		else
+		{
+			Log.d("uth-engine", "GPS is disabled!");
+			return 0;
+		}
 	}
 	public double GetLatitude()
 	{
+		if(useGPS){
 		double result = 0;
 
 		//GetCurrentLocation();
 		result = LocationServices.FusedLocationApi.getLastLocation(lClient).getLatitude();
 		
 		return result;
+		}
+		else
+		{
+			Log.d("uth-engine", "GPS is disabled!");
+			return 0;
+		}
 	}
 	public double GetLongitude()
 	{
+		if(useGPS){
 		double result = 0;
 		
 		//GetCurrentLocation();
 		result = LocationServices.FusedLocationApi.getLastLocation(lClient).getLongitude();
 		
 		return result;
+		}
+		else
+		{
+			Log.d("uth-engine", "GPS is disabled!");
+			return 0;
+		}
 	}
 	public float GetAccuracy()
 	{
+		if(useGPS){
 		float result = 0;
 		
 		//GetCurrentLocation();
 		result = LocationServices.FusedLocationApi.getLastLocation(lClient).getAccuracy();
 		
 		return result;
+		}
+		else
+		{
+			Log.d("uth-engine", "GPS is disabled");
+			return 0;
+		}
 	}
 	
 	private static int RC_SIGN_IN = 9001;
@@ -382,8 +424,9 @@ GoogleApiClient.OnConnectionFailedListener
 	{
 		Log.d("uth-engine", "OnConnected, bundle: " + arg0);
 		//Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
-		
+		if(useGPS){
 		LocationServices.FusedLocationApi.requestLocationUpdates(lClient, locationRequest, gameActivity);
+		}
 	}
 	@Override
 	public void onConnectionSuspended(int arg0) 
