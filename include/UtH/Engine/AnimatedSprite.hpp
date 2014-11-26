@@ -50,7 +50,7 @@ namespace uth
 
 		bool m_reversed;
 		bool m_loop;
-		bool loopEnd;
+		bool m_loopEnd;
 
 		unsigned int m_frameCountX;
 		unsigned int m_frameCountY;

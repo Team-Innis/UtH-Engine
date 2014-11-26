@@ -11,7 +11,7 @@
 
 namespace uth
 {
-	bool AndroidWindowImpl::focusLost = false;
+	static bool focused = true;
 
 	void* AndroidWindowImpl::create(const WindowSettings& settings)
 	{
@@ -101,6 +101,11 @@ namespace uth
 		WriteLog((const char*)glGetString(GL_VERSION));
 		WriteLog("+++++++++++++++++++++++++++++++++++++++");
 
+		if (!focused)
+		{
+			uthRS.PauseSounds();
+			focused = true;
+		}
 		return nullptr;
 	}
 
@@ -174,19 +179,12 @@ namespace uth
 		case APP_CMD_INIT_WINDOW:
 
 			WriteLog("APP_CMD_INIT_WINDOW");
-			//if (focusLost)
-			//create(uthAndroidEngine.settings);
 			uthAndroidEngine.initialized = true;
 			uthAndroidEngine.winEveHand(window);
 
 			uthEngine.Init(uthAndroidEngine.settings);
-			if (!focusLost);
-			else
-			{
-			}
 			uthRS.RecreateOpenGLContext();
-			WriteLog("uthAndroidEngine.winEveHand");
-			focusLost = false;
+			focused = true;
 			break;
 		case APP_CMD_TERM_WINDOW:
 			WriteLog("APP_CMD_TERM_WINDOW");
@@ -199,6 +197,7 @@ namespace uth
 			WriteLog("APP_CMD_GAINED_FOCUS");
 			uthAndroidEngine.initialized = true;
 			uthRS.PauseSounds();
+			focused = true;
 
             uth::SensorInput::GainFocus();
             break;
@@ -206,9 +205,8 @@ namespace uth
 			WriteLog("APP_CMD_LOST_FOCUS");
 			uthAndroidEngine.initialized = false;
 			uthRS.PauseSounds();
-
+			focused = false;
 			uth::SensorInput::LostFocus();
-			focusLost = true;
 			break;
 		}
 		//TODO : remove
@@ -219,4 +217,9 @@ namespace uth
 
     void AndroidWindowImpl::setResizeCallback(ResizeFunc)
     { }
+
+	bool AndroidWindowImpl::Focused()
+	{
+		return focused;
+	}
 }

@@ -6,6 +6,7 @@
 using namespace uth;
 
 GameObject::GameObject()
+	: Object()
 {
 
 }
@@ -20,27 +21,9 @@ uth::GameObject::GameObject(const std::vector<std::string>& tags)
 {
 }
 
-//uth::GameObject::GameObject(const GameObject& other)
-//    : transform(*(new Transform(other.transform))),
-//      parent(other.parent),
-//      components(),
-//      m_name(other.m_name),
-//      m_active(other.m_active)
-//{
-//    AddComponent(&transform);
-//    transform.parent = this;
-//}
-
 GameObject::~GameObject()
 {
 	RemoveComponents();
-}
-
-void GameObject::AddComponent(Component* component)
-{
-    m_components.emplace_back(component);
-	component->parent = this;
-	component->Init();
 }
 
 void GameObject::RemoveComponent(Component* component)
@@ -90,16 +73,18 @@ void GameObject::Draw(RenderTarget& target, RenderAttributes attributes)
 
     draw(target);
 
-    for (auto& i : m_components)
+	const std::vector<std::shared_ptr<Component>> objBackup(m_components);
+	for (int i = 0; i < objBackup.size(); ++i)
 	{
 		target.GetShader().Use();
-		if (i->IsActive())
-			i->Draw(target);
+		if (objBackup[i]->IsActive())
+			objBackup[i]->Draw(target);
 	}
+
+    Object::Draw(target, attributes);
 
     target.SetShader(tempShader);
     target.SetCamera(tempCamera);
-	Object::Draw(target);
 }
 
 void GameObject::Update(float dt)

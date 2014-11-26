@@ -1,5 +1,6 @@
 #include <TestScene.hpp>
 #include <Scenes.hpp>
+#include <uth/Platform/JavaFunctions.hpp>
 
 using namespace uth;
 
@@ -52,7 +53,7 @@ bool TestScene::Init()
 
         ps->AddAffector(aff);
         ps->SetEmitProperties(true, 0.05f, 0.1f, 1, 5);
-    }
+	}
 
 	return true;
 }
@@ -63,6 +64,13 @@ bool TestScene::DeInit()
 
 void TestScene::Update(float dt)
 {
+
+	if (uthInput.Common == uth::InputEvent::CLICK)
+	{
+		javaFunc::Vibrate(2000);
+		javaFunc::ShowAdBanner("");
+	}
+
 	static float a = 0;
 	static float time = 0;
 	time += dt;

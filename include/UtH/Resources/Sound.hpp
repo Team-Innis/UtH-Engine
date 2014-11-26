@@ -46,8 +46,9 @@ namespace uth
 		// Stops source from playing.
 		void Stop();
 
-		// Toggles between playing and paused.
+		// Pauses source. Use Play() to continue.
 		void Pause();
+		void Pause(bool pause);
 
 		// Toggles loop on or off
 		void Loop();
@@ -71,6 +72,9 @@ namespace uth
 		// Adjust listener position
 		void SetListenerPosition(pmath::Vec3 position);
 
+		// Check if source is playing.
+		bool IsPlaying();
+
 	private:
 		Sound(const Sound&);
 
@@ -90,6 +94,7 @@ namespace uth
 		ALuint buffer;
 
 		bool loop;
+		bool enginePaused;
 		float duration;
 		std::vector<ALuint> tempSource;
 		float _posX, _posY, _posZ;

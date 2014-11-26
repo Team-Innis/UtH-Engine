@@ -22,12 +22,12 @@ FileManager::FileManager()
 	 m_asset(nullptr)
 { }
 
-FileManager::FileManager(const std::string& path, const Location loca /*= Location::ASSET*/)
+FileManager::FileManager(const std::string& path, const Location loca, bool isWritable)
 	//:m_file(nullptr),
 	: m_stream(NULL),
 	 m_asset(nullptr)
 {
-	OpenFile(path, loca);
+	OpenFile(path, loca, isWritable);
 }
 
 FileManager::~FileManager()
@@ -35,8 +35,10 @@ FileManager::~FileManager()
 	CloseFile();
 }
 
-void FileManager::OpenFile(const std::string& path, const Location loca /*= Location::ASSET*/)
+void FileManager::OpenFile(const std::string& path, const Location loca, bool isWritable)
 {
+    // We can safely ignore isWritable because it doesn't matter here
+
 	errno = 0;
 	if (loca == Location::ASSET)
 	{
@@ -69,7 +71,7 @@ void FileManager::OpenFile(const std::string& path, const Location loca /*= Loca
 
         ensureDirectoryExists(truePath);
 
-        m_stream.open(truePath, std::ios::in | std::ios::out);
+        m_stream.open(truePath, std::ios::in | std::ios::out | std::ios::trunc);
         // First try to create the file if it does not exist
         if (!m_stream.is_open())
         {

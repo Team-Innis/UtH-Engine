@@ -73,6 +73,11 @@ namespace uth
 		return m_windowSettings.size;
 	}
 
+	bool Window::Focused() const
+	{
+		return WindowImpl::Focused();
+	}
+
 	bool Window::bind()
 	{
 		uth::Graphics::BindFrameBuffer(0);

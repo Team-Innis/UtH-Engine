@@ -1,5 +1,6 @@
 #include <UtH/Engine/Transform.hpp>
 #include <UtH/Engine/GameObject.hpp>
+#include <UtH/Platform/Debug.hpp>
 
 #include <cmath>
 #include <array>
@@ -40,6 +41,17 @@ void Transform::SetPosition(const pmath::Vec2& position)
 void Transform::SetPosition(const float posX, const float posY)
 {
 	SetPosition(pmath::Vec2(posX, posY));
+}
+void uth::Transform::SetGlobalPosition(const pmath::Vec2& position)
+{
+    //TODO: doesn't work in debug
+    const auto transform = GetTransform()*m_modelTransform.inverse();
+
+    SetPosition(transform.inverse() * position);
+}
+void uth::Transform::SetGlobalPosition(const float posX, const float posY)
+{
+    SetGlobalPosition(pmath::Vec2(posX, posY));
 }
 const pmath::Vec2& Transform::GetPosition() const
 {
@@ -128,6 +140,18 @@ void Transform::SetScale(const float scale)
 {
 	SetScale(pmath::Vec2(scale, scale));
 }
+void uth::Transform::SetGlobalScale(const pmath::Vec2& scale)
+{
+    // TODO: Implement this
+}
+void uth::Transform::SetGlobalScale(const float xScale, const float yScale)
+{
+    SetGlobalScale(pmath::Vec2(xScale, yScale));
+}
+void uth::Transform::SetGlobalScale(const float scale)
+{
+    SetGlobalScale(scale, scale);
+}
 const pmath::Vec2& Transform::GetScale() const
 {
     return m_scale;
@@ -137,6 +161,10 @@ void Transform::SetRotation(const float degrees)
 {
     this->m_angle = degrees;
 	m_transformNeedsUpdate = true;
+}
+void uth::Transform::SetGlobalRotation(const float degrees)
+{
+    // TODO: Implement this
 }
 const float Transform::GetRotation() const
 {
@@ -148,7 +176,7 @@ void Transform::Rotate(const float degrees)
 	m_transformNeedsUpdate = true;
 }
 
-pmath::Rect Transform::GetBounds() const
+pmath::Rect Transform::GetLocalBounds() const
 {
     pmath::Vec2 scaled = m_size;
     scaled.scale(m_scale);
@@ -158,42 +186,35 @@ pmath::Rect Transform::GetBounds() const
     return pmath::Rect((m_position - sOrig) - scaled / 2.f, scaled);
 }
 
-pmath::Rect Transform::GetTransformedBounds() const
+pmath::Rect Transform::GetGlobalBounds() const
 {
-    const pmath::Vec2 topLeft(m_position - m_size / 2.f - m_origin);
-
     const auto& tf = GetTransform();
 
-    std::array<pmath::Vec2, 4> points =
-    { {
-        pmath::Vec2(topLeft),
-        pmath::Vec2(topLeft.x, topLeft.y + m_size.y),
-        pmath::Vec2(topLeft + m_size),
-        pmath::Vec2(topLeft.x + m_size.x, topLeft.y)
-        } };
-
-    float left = 0.f,
-          right = 0.f,
-          bottom = 0.f,
-          top = 0.f;
-
-    for (auto& i : points)
+    const pmath::Vec2 size
     {
-        // Add transform matrix first
-        i *= tf;
+        m_size.x * pmath::abs(tf[0][0]) + m_size.y * pmath::abs(tf[1][0]),
+        m_size.x * pmath::abs(tf[0][1]) + m_size.y * pmath::abs(tf[1][1])
+    };
 
-        if (i.x < left)
-            left = i.x;
-        else if (i.x > right)
-            right = i.x;
+    pmath::Vec2 topLeft{ tf[0][3], tf[1][3] };
+    topLeft -= size / 2;
+    const pmath::Vec2 bottomRight = topLeft + size;
 
-        if (i.y < top)
-            top = i.y;
-        else if (i.y > bottom)
-            bottom = i.y;
-    }
+    return pmath::Rect(topLeft.x, topLeft.y, bottomRight.x - topLeft.x,
+        bottomRight.y - topLeft.y);
+}
 
-    return pmath::Rect(left, top, right - left, bottom - top);
+
+pmath::Rect Transform::GetBounds() const
+{
+    Deprecated("Use GetLocalBounds()");
+    return GetLocalBounds();
+}
+
+pmath::Rect Transform::GetTransformedBounds() const
+{
+    Deprecated("Use GetGlobalBounds()");
+    return GetGlobalBounds();
 }
 
 void Transform::SetTransform(const pmath::Mat4& modelTransform)
@@ -211,16 +232,9 @@ const pmath::Mat4& Transform::GetTransform() const
 {
 	updateTransform();
 
-	if (parent && (parent->HasParent<GameObject>()))
+	if (parent && (parent->HasParent<Object>()))
 	{
-		m_combinedTransform = parent->Parent<GameObject>()->transform.GetTransform() *
-			m_modelTransform;
-
-		return m_combinedTransform;
-	}
-	else if (parent && parent->HasParent<Layer>())
-	{
-		m_combinedTransform = parent->Parent<Layer>()->transform.GetTransform() *
+		m_combinedTransform = parent->Parent<Object>()->transform.GetTransform() *
 			m_modelTransform;
 
 		return m_combinedTransform;

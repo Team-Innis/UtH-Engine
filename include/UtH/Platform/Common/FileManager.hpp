@@ -24,10 +24,10 @@ namespace uth
 		};
 
         FileManager();
-        FileManager(const std::string& path, const Location = Location::ASSET);
+        FileManager(const std::string& path, const Location = Location::ASSET, bool isWritable = false);
         ~FileManager();
 
-        void OpenFile(const std::string& path, const Location = Location::ASSET);
+        void OpenFile(const std::string& path, const Location = Location::ASSET, bool isWritable = false);
         void CloseFile();
         int GetFileSize();
 
@@ -53,6 +53,7 @@ namespace uth
 	private:
 		std::FILE* file;
 		PHYSFS_file* cFile;
+        bool m_writable;
 	};
 }
 

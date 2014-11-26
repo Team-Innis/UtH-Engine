@@ -12,6 +12,7 @@ namespace
 {
 	static unsigned int windowRefs = 0;
 	static bool initialized = false;
+	static bool focused = true;
 
 	void manageWindowRefs()
 	{
@@ -38,6 +39,7 @@ namespace
 
 void FocusCallback(GLFWwindow*, int focus)
 {
+	focused = focus;
 }
 
 namespace uth
@@ -176,4 +178,8 @@ namespace uth
         ns_resizeFunc = func;
     }
 
+	bool CommonWindowImpl::Focused()
+	{
+		return focused;
+	}
 }
