@@ -44,7 +44,9 @@ void Transform::SetPosition(const float posX, const float posY)
 }
 void uth::Transform::SetGlobalPosition(const pmath::Vec2& position)
 {
-    //TODO: doesn't work in debug
+    // Updating the transform is required
+    // (will most likely break everything if not called)
+    updateTransform();
     const auto transform = GetTransform()*m_modelTransform.inverse();
 
     SetPosition(transform.inverse() * position);
