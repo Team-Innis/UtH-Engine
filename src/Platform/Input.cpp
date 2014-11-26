@@ -3,6 +3,7 @@
 using namespace uth;
 
 Input::Input()
+    : m_handleBackButton(false)
 {}
 Input::~Input()
 {}
@@ -24,10 +25,21 @@ void Input::Update(float deltaTime)
 }
 void Input::SetAndroidBackFunction(std::function<void()> function)
 {
-	f_androidBackButton = function;
+    if (function)
+    {
+        f_androidBackButton = function;
+        m_handleBackButton = true;
+    }
+    else
+    {
+        m_handleBackButton = false;
+    }
 }
 
-void Input::RunBackButton()
+bool Input::RunBackButton()
 {
-	f_androidBackButton();
+    if (m_handleBackButton)
+        f_androidBackButton();
+
+    return m_handleBackButton;
 }
