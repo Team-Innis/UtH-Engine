@@ -36,7 +36,10 @@ namespace
     uth::CommonWindowImpl::ResizeFunc ns_resizeFunc;
 }
 
+void FocusCallback(GLFWwindow*, int focus)
+{
 	focused = focus;
+}
 
 namespace uth
 {
@@ -120,6 +123,7 @@ namespace uth
 			glBindVertexArray(vertexArray);
 		}
 
+		glfwSetWindowFocusCallback(wndwHandle, FocusCallback);
 
 		return static_cast<void*>(wndwHandle);
 	}

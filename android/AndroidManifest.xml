@@ -13,7 +13,7 @@
 
   <application android:hasCode="true" android:icon="@drawable/ic_launcher" android:testOnly="false" android:label="TestiSofta">
       
-	<meta-data android:name="com.google.android.gms.version" android:value="5089000"/>
+	<meta-data android:name="com.google.android.gms.version" android:value="6171000"/>
 	<activity	android:name="fi.kajakgames.uth.GameActivity"
 				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
 				android:launchMode="singleTask"

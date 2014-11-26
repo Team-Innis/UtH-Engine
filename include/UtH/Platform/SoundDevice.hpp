@@ -16,6 +16,8 @@ namespace uth
 		SoundDevice();
 		~SoundDevice();
 
+		bool DeviceInitialized();
+
 	private:
 		SoundDevice(const SoundDevice&);
 

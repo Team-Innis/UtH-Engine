@@ -101,10 +101,10 @@ namespace uth
 		WriteLog((const char*)glGetString(GL_VERSION));
 		WriteLog("+++++++++++++++++++++++++++++++++++++++");
 
-		if (focusLost)
+		if (!focused)
 		{
 			uthRS.PauseSounds();
-			focusLost = false;
+			focused = true;
 		}
 		return nullptr;
 	}
