@@ -147,18 +147,6 @@ void Transform::SetScale(const float scale)
 {
 	SetScale(pmath::Vec2(scale, scale));
 }
-void uth::Transform::SetGlobalScale(const pmath::Vec2& scale)
-{
-    // TODO: Implement this
-}
-void uth::Transform::SetGlobalScale(const float xScale, const float yScale)
-{
-    SetGlobalScale(pmath::Vec2(xScale, yScale));
-}
-void uth::Transform::SetGlobalScale(const float scale)
-{
-    SetGlobalScale(scale, scale);
-}
 const pmath::Vec2& Transform::GetScale() const
 {
     return m_scale;
@@ -168,10 +156,6 @@ void Transform::SetRotation(const float degrees)
 {
     this->m_angle = degrees;
 	m_transformNeedsUpdate = true;
-}
-void uth::Transform::SetGlobalRotation(const float degrees)
-{
-    // TODO: Implement this
 }
 const float Transform::GetRotation() const
 {
