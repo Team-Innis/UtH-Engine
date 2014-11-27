@@ -48,18 +48,26 @@ bool TestScene::Init()
 
     // Objects
     // First
-	{
-	    auto test = AddChild<GameObject>();
+    {
+        auto test = AddChild<GameObject>();
         test->AddTag("RB");
-		test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
+        test->AddComponent(new Sprite(pmath::Vec4(1, 0, 0, 1), pmath::Vec2(128, 128)));
         m_rb1 = test->AddComponent(new Rigidbody(m_world));
         m_rb1->SetRestitution(0.5f);
 
-        auto test2 = AddChild<GameObject>();
-        test2->AddComponent(new Sprite(pmath::Vec4(0, 1, 0, 1), pmath::Vec2(512, 10)));
-        auto rb2 = test2->AddComponent(new Rigidbody(m_world));
+    }
+    {
+        auto test = AddChild<GameObject>();
+        test->AddComponent(new Sprite(pmath::Vec4(0, 1, 0, 1), pmath::Vec2(512, 10)));
+        auto rb2 = test->AddComponent(new Rigidbody(m_world));
         rb2->SetPosition(pmath::Vec2(0, 250));
         rb2->SetKinematic(true);
+    }
+    {
+        auto test = AddChild<GameObject>();
+        test->AddTag("ANIM");
+        test->AddComponent(new AnimatedSprite(uthRS.LoadTexture("monsu.tga"), 16, 4, 4));
+        test->transform.SetPosition(100, 0);
     }
 
     // Second (ParticleSystem)

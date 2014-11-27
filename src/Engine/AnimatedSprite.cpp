@@ -266,7 +266,6 @@ rj::Value AnimatedSprite::save(rj::MemoryPoolAllocator<>& alloc) const
     val.AddMember(rj::StringRef("delay"), m_delay, alloc);
     val.AddMember(rj::StringRef("reversed"), m_reversed, alloc);
     val.AddMember(rj::StringRef("loop"), m_loop, alloc);
-    val.AddMember(rj::StringRef("loopEnd"), loopEnd, alloc);
     
     val.AddMember(rj::StringRef("frameCountX"), m_frameCountX, alloc);
     val.AddMember(rj::StringRef("frameCountY"), m_frameCountY, alloc);
@@ -293,9 +292,10 @@ bool uth::AnimatedSprite::load(const rj::Value& doc)
     m_delay = doc["delay"].GetDouble();
     m_reversed = doc["reversed"].GetBool();
     m_loop = doc["loop"].GetBool();
-    loopEnd = doc["loopEnd"].GetBool();
 
-    Init();
+    ChangeAnimation(0, m_frames, m_curFrame, m_fps, m_loop, m_reversed);
+    const pmath::Vec2 size = pmath::Vec2(m_sizePx.x, m_sizePx.y);
+    parent->transform.setSize(size);
 
     return true;
 }
