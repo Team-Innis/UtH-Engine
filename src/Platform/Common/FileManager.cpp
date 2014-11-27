@@ -191,6 +191,16 @@ void FileManager::WriteString(const std::string& data)
         WriteError("Current file is not opened as writable");
 }
 
+
+void uth::FileManager::WriteBinary(const BINARY_DATA& data)
+{
+    if (m_writable)
+        std::fwrite(data.ptr(), sizeof(unsigned char), data.size(), file);
+    else
+        WriteError("Current file is not opened as writable");
+}
+
+
 void ensureDirectoryExists(const std::string& path)
 {
     std::vector<std::string> dirs;
