@@ -40,11 +40,13 @@ int handle_input(android_app* app, AInputEvent* inputEvent)
 
     if (eventType == AINPUT_EVENT_TYPE_KEY)
     {
+      
         int handledInput = uthInput.Controller.HandleInput(inputEvent);
 
 		if (AKeyEvent_getKeyCode(inputEvent) == AKEYCODE_BACK)
 		{
-            handledInput = static_cast<int>(uthInput.RunBackButton());
+			uthInput.RunBackButton();
+            handledInput = 1;
 		}
 
         return handledInput;

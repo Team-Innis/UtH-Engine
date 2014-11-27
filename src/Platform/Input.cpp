@@ -1,10 +1,12 @@
 #include <UtH/Platform/Input.hpp>
+#include <UtH/Platform/JavaFunctions.hpp>
 
 using namespace uth;
 
 Input::Input()
-    : m_handleBackButton(false)
-{}
+	:f_androidBackButton([](){javaFunc::MoveTaskToBack(true); })
+{
+}
 Input::~Input()
 {}
 void Input::SetWindow(void *windowHandle)
@@ -25,21 +27,10 @@ void Input::Update(float deltaTime)
 }
 void Input::SetAndroidBackFunction(std::function<void()> function)
 {
-    if (function)
-    {
-        f_androidBackButton = function;
-        m_handleBackButton = true;
-    }
-    else
-    {
-        m_handleBackButton = false;
-    }
+	f_androidBackButton = function;
 }
 
-bool Input::RunBackButton()
+void Input::RunBackButton()
 {
-    if (m_handleBackButton)
-        f_androidBackButton();
-
-    return m_handleBackButton;
+	f_androidBackButton();
 }
