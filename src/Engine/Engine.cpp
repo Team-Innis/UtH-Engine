@@ -22,10 +22,12 @@ void Engine::Update()
 	const float deltaTime = static_cast<float>(m_timer.DeltaTime());
 	uthInput.Update(deltaTime);
 	uthSceneM.Update(deltaTime);
-	if(m_wndw->processMessages())
-	{
+
+	//TODO: Move to main.cpp after current projects have been finished
+#ifndef UTH_SYSTEM_ANDROID
+	if (m_wndw->processMessages())
 		Exit();
-	}
+#endif
 }
 
 void Engine::Draw()

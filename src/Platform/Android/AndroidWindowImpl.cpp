@@ -165,9 +165,6 @@ namespace uth
 
 	bool AndroidWindowImpl::processMessages(void* handle)
 	{
-		//TODO : fix processMessages called in Engine.cpp
-		if (uthAndroidEngine.message == 0xFFFFFFFF)
-			return false;
 		android_app* app = uthAndroidEngine.app;
 		uth::Window* window = ((uth::Window*)app->userData);
 
@@ -209,8 +206,6 @@ namespace uth
 			uth::SensorInput::LostFocus();
 			break;
 		}
-		//TODO : remove
-		uthAndroidEngine.message = 0xFFFFFFFF;
 
 		return false;
 	}
