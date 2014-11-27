@@ -20,7 +20,7 @@ namespace uth
 
 		Sound* music;
 
-		GameObject textObject;
+		Sprite* test;
 
 		GameObject* testParent;
 

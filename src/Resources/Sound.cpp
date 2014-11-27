@@ -208,14 +208,27 @@ bool Sound::IsPlaying()
 }
 
 // PRIVATE
-bool Sound::Load(std::string fileName)
+bool Sound::LoadFromFile(const std::string& filePath)
 {
-	Initialize(fileName);
+	Initialize(filePath);
 
-	if (source)
+	if (!source)
+		return false;
+
+	m_loaded = true;
+	return true;
+}
+void Sound::Unload()
+{
+
+}
+bool Sound::EnsureLoaded()
+{
+	if (m_loaded)
 		return true;
-
-	return false;
+	const bool result = LoadFromFile(uthRS.FilePath(this, ResourceManager::Sounds));
+	//assert(result);
+	return result;
 }
 
 void Sound::Initialize(std::string fileName)
@@ -247,7 +260,7 @@ void Sound::Initialize(std::string fileName)
 	}
 
 	//WriteLog("Frames: %d\n", soundInfo.frames);
-	//WriteLog("Samplerae: %d\n", soundInfo.samplerate);
+	//WriteLog("Samplerate: %d\n", soundInfo.samplerate);
 	//WriteLog("Channels: %d\n", soundInfo.channels);
 	//WriteLog("Format: %d\n", soundInfo.format);
 

@@ -7,6 +7,14 @@
 #include <UtH/Platform/Window.hpp>
 #include <UtH/Platform/OpenGL.hpp>
 
+#ifdef UTH_SYSTEM_WINDOWS // for AndroidTest project on windows
+
+#include <EGL/egl.h>
+#include <GLES2/gl2.h>
+#include <GLES2/gl2ext.h>
+
+#endif
+
 #include <jni.h>
 #include <errno.h>
 #include <android_native_app_glue.h>

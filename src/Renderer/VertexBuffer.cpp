@@ -4,15 +4,20 @@
 
 using namespace uth;
 
+std::unordered_set<VertexBuffer*> VertexBuffer::VERTEXBUFFERS;
+
 VertexBuffer::VertexBuffer()
     : m_arrayBufferNeedsUpdate(false),
       m_elementBufferNeedsUpdate(false)
 {
+	VERTEXBUFFERS.emplace(this);
 	init();
 }
 
 VertexBuffer::~VertexBuffer()
 {
+	VERTEXBUFFERS.erase(this);
+
 	clear();
 	uth::Graphics::DeleteBuffers(1, &m_arrayBuffer);
 	uth::Graphics::DeleteBuffers(1, &m_elementBuffer);
@@ -65,14 +70,14 @@ void VertexBuffer::changeBufferData(const unsigned int offset, const std::vector
 {
     unsigned int size = vertices.size() * sizeof(Vertex);
     uth::Graphics::BindBuffer(ARRAY_BUFFER, m_arrayBuffer);
-    Graphics::SetBufferSubData(ARRAY_BUFFER, offset, size, &vertices.front());
+	Graphics::SetBufferSubData(ARRAY_BUFFER, offset, size, &vertices.front());
 }
 
 void VertexBuffer::changeElementData(const unsigned int offset, const std::vector<unsigned int>& indices)
 {
     unsigned int size = indices.size() * sizeof(unsigned int);
     uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
-    Graphics::SetBufferSubData(ELEMENT_ARRAY_BUFFER, offset, size, &indices.front());
+	Graphics::SetBufferSubData(ELEMENT_ARRAY_BUFFER, offset, size, &indices.front());
 }
 
 const std::vector<Vertex>& VertexBuffer::getVertices() const
@@ -140,4 +145,20 @@ void VertexBuffer::setData() const
 		&m_indices.front(), drawMode);
         m_elementBufferNeedsUpdate = false;
     }
+}
+
+bool VertexBuffer::ClearOpenGLContext()
+{
+	uth::Graphics::DeleteBuffers(1, &m_arrayBuffer);
+	uth::Graphics::DeleteBuffers(1, &m_elementBuffer);
+	return true;
+}
+bool VertexBuffer::RecreateOpenGLContext()
+{
+	uth::Graphics::GenerateBuffers(1, &m_arrayBuffer);
+	uth::Graphics::GenerateBuffers(1, &m_elementBuffer);
+	m_arrayBufferNeedsUpdate = true;
+	m_elementBufferNeedsUpdate = true;
+	setData();
+	return true;
 }

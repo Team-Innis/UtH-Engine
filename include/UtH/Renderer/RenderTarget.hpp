@@ -49,13 +49,14 @@ namespace uth
         Shader* m_shader;
 
         mutable Camera m_defaultCamera;
-        Shader m_defaultShader;
 
         pmath::Recti m_viewport;
 
+        mutable bool m_set;
 
-        mutable bool m_loaded, m_set;
+		static Shader* defaultShader;
 
+		static bool shaderLoaded;
 
     protected:
 

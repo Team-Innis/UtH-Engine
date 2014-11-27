@@ -119,7 +119,7 @@ void android_main(android_app* state)
 
 		while ((ident=ALooper_pollAll(0, nullptr, &events,(void**)&source)) >= 0)
 		{
-			//Insteads of these two 'if' statement proper exit should be placed
+			//Instead of these two 'if' statement proper exit should be placed
 			if (source != nullptr)
 			{
 				source->process(state, source);

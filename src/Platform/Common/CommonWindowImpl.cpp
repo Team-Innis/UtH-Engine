@@ -5,7 +5,8 @@
 #include <UtH/Platform/Graphics.hpp>
 #include <iostream>
 #include <cassert>
-
+#include <UtH/Resources/ResourceManager.hpp>
+#include <UtH/Platform/Window.hpp>
 
 namespace
 {

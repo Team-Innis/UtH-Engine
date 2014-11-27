@@ -15,6 +15,9 @@ namespace uth
 {
 	class Text : public Component
 	{
+		static std::unordered_set<Text*> TEXTS;
+
+		friend class ResourceManager;
 	public:
 		Text(const std::string& fontPath, const float fontSize,
 			const std::string& name = "Text", 
@@ -42,10 +45,14 @@ namespace uth
 		void Draw(RenderTarget& target);
 
 	private:
+		bool RecreateOpenGLContext();
+		bool ClearOpenGLContext();
+
+
 		//Text();
 		Text(/*"text", path = "font", size = 32, name = "Text"*/);
 
-		Shader m_textShader;
+		//Shader m_textShader;
 
 		VertexBuffer m_vertexBuffer;
 

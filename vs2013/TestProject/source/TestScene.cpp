@@ -25,8 +25,8 @@ bool TestScene::Init()
     // Objects
     // First
 	{
-	    auto test = this->AddChild<GameObject>();
-		test->AddComponent(new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
+	    auto child = AddChild<GameObject>();
+		child->AddComponent(test = new Sprite(pmath::Vec4(1,0,0,1),pmath::Vec2(128,128)));
     }
 
     // Second (ParticleSystem)
@@ -66,7 +66,6 @@ bool TestScene::DeInit()
 
 void TestScene::Update(float dt)
 {
-	Scene::Update(dt);
 
 	if (uthInput.Common == uth::InputEvent::TAP)
 	{
@@ -84,6 +83,23 @@ void TestScene::Update(float dt)
 		WriteLog("ConvAcc: %f", location.loc_accuracy);
 		WriteLog("ConvTime: %s", location.device_time_since_reboot.c_str());
 	}
+
+	static float a = 0;
+	static float time = 0;
+	time += dt;
+	if (time < 1)
+		a = 1 - time;
+	else if (time < 2)
+		a = time - 1;
+	else
+		time = 0;
+
+	pmath::Vec4 color = test->GetColor();
+	color.a = a;
+	test->SetColor(color);
+
+	Scene::Update(dt);
+
 }
 
 //void TestScene::Draw(RenderTarget& target, RenderAttributes attributes)

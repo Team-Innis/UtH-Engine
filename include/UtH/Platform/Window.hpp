@@ -29,7 +29,6 @@ namespace uth
 		bool Focused() const;
 
 		void* m_windowHandle;
-
 	private:
 
 		bool bind();

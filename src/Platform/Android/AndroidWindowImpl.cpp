@@ -15,7 +15,6 @@ namespace uth
 
 	void* AndroidWindowImpl::create(const WindowSettings& settings)
 	{
-
 		const EGLint attribs[] =
 		{
 			EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
@@ -55,10 +54,10 @@ namespace uth
 
 		eglChooseConfig(uthAndroidEngine.display, attribs, &uthAndroidEngine.config, 1, &numConfigs);
 		CheckGLError("eglChooseConfig");
-			WriteLog("eglChooseConfig succeeded");
+		WriteLog("eglChooseConfig succeeded");
 		eglGetConfigAttrib(uthAndroidEngine.display, uthAndroidEngine.config, EGL_NATIVE_VISUAL_ID, &format);
 		CheckGLError("eglGetConfigAttrib");
-			WriteLog("eglGetConfigAttrib succeeded");
+		WriteLog("eglGetConfigAttrib succeeded");
 
 
 
@@ -95,6 +94,7 @@ namespace uth
 		//glHint(GL_GENERATE_MIPMAP_HINT, GL_FASTEST);
 		//glEnable(GL_CULL_FACE);
 		//glEnable(GL_DEPTH_TEST);
+
 		Graphics::SetBlendFunction(true, SRC_ALPHA, ONE_MINUS_SRC_ALPHA);
 
 		WriteLog("+++++++++++++++++++++++++++++++++++++++");
@@ -108,7 +108,6 @@ namespace uth
 		}
 		return nullptr;
 	}
-
 
 	void* AndroidWindowImpl::destroy(void* handle)
 	{
@@ -172,32 +171,39 @@ namespace uth
 		switch (uthAndroidEngine.message)
 		{
 		case APP_CMD_SAVE_STATE:
-			WriteLog("SaveStated");
+			WriteLog("APP_CMD_SAVE_STATE");
 			break;
 		case APP_CMD_INIT_WINDOW:
-			WriteLog("windowINIT");
+
+			WriteLog("APP_CMD_INIT_WINDOW");
 			uthAndroidEngine.initialized = true;
 			uthAndroidEngine.winEveHand(window);
+
 			uthEngine.Init(uthAndroidEngine.settings);
-			WriteLog("uthAndroidEngine.winEveHand");
+			uthRS.RecreateOpenGLContext();
 			focused = true;
 			break;
 		case APP_CMD_TERM_WINDOW:
+			WriteLog("APP_CMD_TERM_WINDOW");
 			uthAndroidEngine.initialized = false;
+			uthRS.ClearOpenGLContext();
 			window->destroy();
 			return true;
 			break;
-        case APP_CMD_GAINED_FOCUS:
-            uthAndroidEngine.initialized = true;
+		case APP_CMD_GAINED_FOCUS:
+			WriteLog("APP_CMD_GAINED_FOCUS");
+			uthAndroidEngine.initialized = true;
+			uthRS.PauseSounds();
 			focused = true;
+
             uth::SensorInput::GainFocus();
             break;
 		case APP_CMD_LOST_FOCUS:
-			WriteLog("LostFocus");
+			WriteLog("APP_CMD_LOST_FOCUS");
 			uthAndroidEngine.initialized = false;
 			uthRS.PauseSounds();
 			focused = false;
-            uth::SensorInput::LostFocus();
+			uth::SensorInput::LostFocus();
 			break;
 		}
 
