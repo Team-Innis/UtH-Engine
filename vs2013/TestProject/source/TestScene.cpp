@@ -17,6 +17,7 @@ TestScene::TestScene()
     : textObject(nullptr),
       m_world(0, 10)
 {
+    m_world.GetBox2dWorldObject()->SetWarmStarting(true);
     uthSceneM.RegisterSaveable<TestScene>();
 }
 TestScene::~TestScene()
@@ -99,7 +100,6 @@ bool TestScene::DeInit()
 void TestScene::Update(float dt)
 {
 	Scene::Update(dt);
-    m_world.Update(dt);
 
     if (textObject)
     {
@@ -115,6 +115,8 @@ void TestScene::Update(float dt)
         uthSceneM.SaveCurrentScene("test");
     else if (uthInput.Keyboard.IsKeyPressed(uth::Keyboard::L))
     {
+        m_world.GetBox2dWorldObject()->SetWarmStarting(true);
+
         if (!uthSceneM.LoadCurrentScene("test"))
         {
             WriteError("Load failed");
@@ -129,6 +131,9 @@ void TestScene::Update(float dt)
         ps->Clear(true, false);
         setAffectors(ps);
     }
+
+    m_world.Update(dt);
+    //m_world.GetBox2dWorldObject()->DrawDebugData();
 }
 
 PhysicsWorld* uth::TestScene::GetPhysicsWorld()

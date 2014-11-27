@@ -322,17 +322,18 @@ bool Rigidbody::load(const rapidjson::Value& doc)
     // Body
     {
         const rj::Value& body = doc["body"];
-        SetAngle(body[0u].GetDouble());
-        SetPosition(pmath::Vec2(body[7].GetDouble(), body[8].GetDouble()));
-        //m_body->SetAngularDamping(body[1].GetDouble());
-        SetAngularVelocity(body[2].GetDouble());
-        //m_body->SetGravityScale(body[3].GetDouble());
-        //m_body->SetLinearDamping(body[4].GetDouble());
-        SetVelocity(pmath::Vec2(body[5].GetDouble(), body[6].GetDouble()));
+        //SetAngle(body[0u].GetDouble());
+        //SetPosition(pmath::Vec2(body[7].GetDouble(), body[8].GetDouble()));
+        m_body->SetTransform(b2Vec2(body[7].GetDouble(), body[8].GetDouble()), body[0u].GetDouble());
+        m_body->SetAngularDamping(body[1].GetDouble());
+        //SetAngularVelocity(body[2].GetDouble());
+        m_body->SetGravityScale(body[3].GetDouble());
+        m_body->SetLinearDamping(body[4].GetDouble());
+        //SetVelocity(pmath::Vec2(body[5].GetDouble(), body[6].GetDouble()));
         SetActive(body[9].GetBool());
         SetBullet(body[10].GetBool());
         SetFixedRotation(body[11].GetBool());
-        //m_body->SetSleepingAllowed(body[12].GetBool());
+        m_body->SetSleepingAllowed(body[12].GetBool());
         SetKinematic(body[13].GetBool());
     }
 
