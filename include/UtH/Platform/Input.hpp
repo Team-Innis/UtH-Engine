@@ -49,8 +49,8 @@ namespace uth
 
 		void SetAndroidBackFunction(std::function<void()> function);
 
-		// This shouldn't be used outside main.cpp
-		bool RunBackButton();
+		// This shouldn't be used ouside main.cpp
+		void RunBackButton();
 
 		void Update(float deltaTime);
 		void SetWindow(void *windowHandle);
@@ -59,7 +59,6 @@ namespace uth
 		friend class UtHEngine;
 
 		std::function<void()> f_androidBackButton;
-        bool m_handleBackButton;
 	};
 }
 

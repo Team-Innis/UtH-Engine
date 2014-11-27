@@ -78,5 +78,15 @@ void JavaFunctions::CloseAd(const std::string& name)
 
 bool JavaFunctions::MoveTaskToBack(bool value)
 {
+	JavaFunc_JNI_gameActivity();
 
+	// Loading function
+	jmethodID moveTask = NULL;
+	moveTask = uthAndroidEngine.jni->GetMethodID(uthAndroidEngine.gameActivity, "MoveTaskToBack", "(Z)Z");
+	if (moveTask == NULL)
+		WriteError("No adHide function found!");
+	
+	bool returnable = uthAndroidEngine.jni->CallBooleanMethod(uthAndroidEngine.app->activity->clazz, moveTask, value);
+
+	return returnable;
 }
