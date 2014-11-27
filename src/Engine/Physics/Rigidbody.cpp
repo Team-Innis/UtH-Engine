@@ -159,12 +159,12 @@ void Rigidbody::SetUnitSize(const float radius)
 	m_size.y = radius*2;
 }
 
-const pmath::Vec2 Rigidbody::GetSize()
+const pmath::Vec2 Rigidbody::GetSize() const
 {
 	return m_size * PIXELS_PER_METER;
 }
 
-const pmath::Vec2 Rigidbody::GetUnitSize()
+const pmath::Vec2 Rigidbody::GetUnitSize() const
 {
 	return m_size;
 }
@@ -175,7 +175,7 @@ void Rigidbody::SetPosition(const pmath::Vec2& position)
 	m_body->SetTransform(p, m_body->GetAngle());
 }
 
-const pmath::Vec2 Rigidbody::GetPosition()
+const pmath::Vec2 Rigidbody::GetPosition() const
 {
 	b2Vec2 pos = m_body->GetPosition();
 	pos *= PIXELS_PER_METER;
