@@ -171,6 +171,17 @@ void uth::FileManager::WriteString(const std::string& data)
     m_stream << data;
 }
 
+void uth::FileManager::WriteBinary(const BINARY_DATA& data)
+{
+    if (!m_stream.is_open())
+    {
+        WriteError("No file is open");
+        return;
+    }
+
+    m_stream.write(reinterpret_cast<const char *>(data.ptr()), data.size());
+}
+
 AAsset* FileManager::loadSound(const std::string& fileName)
 {
 	return AAssetManager_open(m_manager, fileName.c_str(), AASSET_MODE_UNKNOWN);
