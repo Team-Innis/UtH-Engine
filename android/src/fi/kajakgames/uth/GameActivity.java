@@ -55,6 +55,13 @@ public class GameActivity extends android.app.NativeActivity
 	    interstitial.loadAd(adRequest);
 	}
 	
+	public boolean MoveTaskToBack(boolean value)
+	{
+		boolean returnable = moveTaskToBack(value);
+		
+		return returnable;
+	}
+	
 	public void Vibrate(int time)
 	{
 		Vibrator vibra = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);

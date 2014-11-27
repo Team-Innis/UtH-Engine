@@ -18,6 +18,8 @@ namespace uth
 		static void ShowAdBanner(std::string adID,unsigned int origin = 2, pmath::Vec2i offset = pmath::Vec2i());
 		static void ShowAdFull(std::string adID);
 		static void CloseAd(const std::string& name);
+		static bool MoveTaskToBack(bool value);
+
 	private:
 
 

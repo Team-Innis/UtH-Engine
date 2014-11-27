@@ -88,3 +88,8 @@ void JavaFunctions::CloseAd(const std::string& name)
 	jstring jname = jni->NewStringUTF(name.c_str());
 	jni->CallVoidMethod(uthAndroidEngine.app->activity->clazz, popupFunc, jname);
 }
+
+bool JavaFunctions::MoveTaskToBack(bool value)
+{
+
+}
