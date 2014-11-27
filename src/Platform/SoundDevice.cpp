@@ -42,8 +42,8 @@ void SoundDevice::CreateContext()
 			//assert(false);
 			return;
 		}
-		else
-			WriteLog("Audio device opened.\n");
+		//else
+		//	WriteLog("Audio device opened.\n");
 
 		context = alcCreateContext(device, 0);
 		if(!alcMakeContextCurrent(context))

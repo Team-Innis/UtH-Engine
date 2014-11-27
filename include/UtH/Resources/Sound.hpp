@@ -81,9 +81,6 @@ namespace uth
 		ALint Status();
 		void Copy();
 
-		void InsertToMap(std::string fileName);
-		void RemoveFromMap(std::string fileName);
-
 		ALuint source;
 		ALuint buffer;
 

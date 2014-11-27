@@ -172,8 +172,10 @@ void ResourceManager::PauseSounds()
 			itr->second->enginePaused = true;
 		}
 		else if (itr->second->enginePaused)
+		{
 			itr->second->Pause();
-
+			itr->second->enginePaused = false;
+		}
 		itr++;
 	}
 }

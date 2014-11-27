@@ -37,6 +37,8 @@ void Sound::Play()
 		return;
 
 	alSourcePlay(source);
+
+	enginePaused = false;
 }
 
 void Sound::Play(float offset)
@@ -51,6 +53,8 @@ void Sound::Play(float offset)
 		alSourcei(source, AL_SEC_OFFSET, static_cast<ALint>(offset));
 		alSourcePlay(source);
 	}
+
+	enginePaused = false;
 }
 
 void Sound::PlayEffect()
@@ -62,6 +66,8 @@ void Sound::PlayEffect()
 		alSourcePlay(source);
 	else
 		Copy();
+
+	enginePaused = false;
 }
 
 void Sound::Stop()
@@ -240,10 +246,10 @@ void Sound::Initialize(std::string fileName)
 		WriteError(sf_error_number(error));
 	}
 
-	WriteLog("Frames: %d\n", soundInfo.frames);
-	WriteLog("Samplerae: %d\n", soundInfo.samplerate);
-	WriteLog("Channels: %d\n", soundInfo.channels);
-	WriteLog("Format: %d\n", soundInfo.format);
+	//WriteLog("Frames: %d\n", soundInfo.frames);
+	//WriteLog("Samplerae: %d\n", soundInfo.samplerate);
+	//WriteLog("Channels: %d\n", soundInfo.channels);
+	//WriteLog("Format: %d\n", soundInfo.format);
 
 
 	int frames = static_cast<int>(soundInfo.frames * soundInfo.channels);
@@ -276,7 +282,7 @@ void Sound::Initialize(std::string fileName)
 	duration = static_cast<float>(frames)
 		/ static_cast<float>(sampleRate)
 		/ static_cast<float>(channels);
-	WriteLog("duration: %f\n", duration);
+	//WriteLog("duration: %f\n", duration);
 }
 
 void Sound::CreateSources(ALuint &source)
