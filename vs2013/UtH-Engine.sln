@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestProject", "TestProject\TestProject.vcxproj", "{8FBE26B8-AD9D-4D1D-9D40-94E1EAD029C4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{07326890-84B7-46AD-9CA3-2ACBD1EE3B26} = {07326890-84B7-46AD-9CA3-2ACBD1EE3B26}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Platform", "Platform\Platform.vcxproj", "{18249A2B-04BC-4CC3-88DF-CD8C3E945692}"
 EndProject
@@ -46,5 +49,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(Performance) = preSolution
+		HasPerformanceSessions = true
 	EndGlobalSection
 EndGlobal
