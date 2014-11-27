@@ -1,6 +1,7 @@
 #include <TestScene.hpp>
 #include <Scenes.hpp>
 #include <uth/Platform/JavaFunctions.hpp>
+#include <UtH/Platform/GooglePlayGameServices.hpp>
 
 using namespace uth;
 
@@ -54,6 +55,7 @@ bool TestScene::Init()
         ps->AddAffector(aff);
         ps->SetEmitProperties(true, 0.05f, 0.1f, 1, 5);
 	}
+	javaFunc::Vibrate(1000);
 
 	return true;
 }
@@ -66,10 +68,21 @@ void TestScene::Update(float dt)
 {
 	Scene::Update(dt);
 
-	if (uthInput.Common == uth::InputEvent::CLICK)
+	if (uthInput.Common == uth::InputEvent::TAP)
 	{
 		javaFunc::Vibrate(2000);
-		javaFunc::ShowAdBanner("");
+		
+
+		//std::string location = uthGPGS.gps.GetCurrentLocation();
+		//WriteLog("Current location: %s", location.c_str());
+
+		GooglePlayGameServices::Location location = uthGPGS.gps.GetCurrentLocation();
+		
+		WriteLog("Accuracy: %f", uthGPGS.gps.GetAccuracy());
+		WriteLog("ConvLat: %f", location.loc_latitude);
+		WriteLog("ConvLong: %f", location.loc_longitude);
+		WriteLog("ConvAcc: %f", location.loc_accuracy);
+		WriteLog("ConvTime: %s", location.device_time_since_reboot.c_str());
 	}
 }
 

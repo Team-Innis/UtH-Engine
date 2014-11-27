@@ -61,7 +61,8 @@ $(SRC_PATH)Platform/Android/InputController.cpp \
 $(SRC_PATH)Platform/Android/InputCommon.cpp \
 $(SRC_PATH)Platform/Android/InputMouse.cpp \
 $(SRC_PATH)Platform/Android/InputKeyboard.cpp \
-$(SRC_PATH)Platform/Android/JavaFunctions.cpp
+$(SRC_PATH)Platform/Android/JavaFunctions.cpp \
+$(SRC_PATH)Platform/Android/GooglePlayGameServices.cpp 
 
 #Engine
 LOCAL_SRC_FILES += \

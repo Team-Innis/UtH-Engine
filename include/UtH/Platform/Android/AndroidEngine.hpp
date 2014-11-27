@@ -31,6 +31,9 @@ public:
 	EGLSurface surface;
 	EGLContext context;
 	EGLConfig config;
+	
+	JNIEnv* jni;
+	jclass gameActivity;
 
 	std::string internalPath;
 

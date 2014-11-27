@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="app_name">UtH</string>
+    <string name="banner_ad_unit_id">ca-app-pub-8283311219899894/9121443697</string>
+    <string name="app_id">311870575971</string>
+    <string name="signin_failure">Unable to sign in.</string>
+    <string name="signin_other_error">Signin other error.</string>
     <string name="AdMobPublisherID"></string>
 </resources>

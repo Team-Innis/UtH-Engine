@@ -1,6 +1,7 @@
 #include <UtH/Engine/DefaultScene.hpp>
 #include <UtH/Engine/Engine.hpp>
 #include <UtH/Platform/Input.hpp>
+#include <UtH/Platform/Android/GooglePlayGameServices.hpp>
 
 
 using namespace uth;
@@ -82,21 +83,26 @@ void DefaultScene::Update(float dt)
 	bringLetter(textH, aStart + 1, aStart + 1.8f, totalTime);
 
 	if (totalTime > aStart + 4)
-		newestText->SetText("Made with", pmath::Vec4(1,1,1,1));
-	else if (totalTime > aStart+2)
-		newestText->SetText("Made with", pmath::Vec4(1,1,1,(totalTime - (aStart+2)) / 2));
+		newestText->SetText("Made with", pmath::Vec4(1, 1, 1, 1));
+	else if (totalTime > aStart + 2)
+		newestText->SetText("Made with", pmath::Vec4(1, 1, 1, (totalTime - (aStart + 2)) / 2));
 
-	if (totalTime > aEnd-1)
-		fadeSprite->SetColor(0,0,0,1);
-	else if (totalTime > aEnd-3)
-		fadeSprite->SetColor(0,0,0,(totalTime - (aEnd-3))/2);
+	if (totalTime > aEnd - 1)
+		fadeSprite->SetColor(0, 0, 0, 1);
+	else if (totalTime > aEnd - 3)
+		fadeSprite->SetColor(0, 0, 0, (totalTime - (aEnd - 3)) / 2);
 	else if (totalTime < 0.5f)
-		fadeSprite->SetColor(0,0,0,(0.5f - totalTime)*2);
+		fadeSprite->SetColor(0, 0, 0, (0.5f - totalTime) * 2);
 
 
+	if (uthInput.Common == uth::InputEvent::CLICK)
+	{
+		
+		uthGPGS.leaderboard.SubmitHighScore("CgkI46q954kJEAIQBQ", 9999);
 
-	if(totalTime >= aEnd || uthInput.Common == uth::InputEvent::CLICK)
-    {
-        uthSceneM.GoToScene(0);
+	}
+	if (totalTime >= aEnd || uthInput.Common == uth::InputEvent::CLICK)
+	{
+		uthSceneM.GoToScene(0);
 	}
 }
