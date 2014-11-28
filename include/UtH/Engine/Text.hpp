@@ -6,6 +6,7 @@
 #include <UtH/Renderer/VertexBuffer.hpp>
 #include <UtH/Resources/ResourceManager.hpp>
 #include <pmath/Vector.hpp>
+#include <UtH/Resources/Font.hpp>
 
 // Forward declaration so we dont need to include the ugly C headers
 struct texture_atlas_t;
@@ -67,6 +68,12 @@ namespace uth
 
 		texture_atlas_t* m_atlas;
 		texture_font_t* m_font;
+
+
+
+
+
+		Font* m_font;
 	};
 }
 

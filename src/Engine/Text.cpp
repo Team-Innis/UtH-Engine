@@ -218,6 +218,17 @@ void Text::Draw(RenderTarget& target)
 
 bool Text::RecreateOpenGLContext()
 {
+	m_atlas = texture_atlas_new(1024, 1024, 1);
+
+	const Font* font = uthRS.LoadFont(fontPath);
+
+	if (font)
+	{
+		auto& data = font->GetFontData();
+
+		m_font = texture_font_new_from_memory(m_atlas, fontSize, data.ptr(), data.size());
+	}
+
 	return true;
 }
 bool Text::ClearOpenGLContext()

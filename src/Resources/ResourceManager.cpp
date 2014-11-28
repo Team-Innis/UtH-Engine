@@ -291,14 +291,9 @@ bool uth::ResourceManager::ClearOpenGLContext()
 	bool result = true;
 	Unload(Textures | Shaders);
 
-	{
-		//const auto temp = std::unordered_set<VertexBuffer*>(
-		//	VertexBuffer::VERTEXBUFFERS.begin(),
-		//	VertexBuffer::VERTEXBUFFERS.end());
-		for (auto it : VertexBuffer::VERTEXBUFFERS)
-			if (!it->ClearOpenGLContext())
-				result = false;
-	}
+	for (auto it : VertexBuffer::VERTEXBUFFERS)
+		if (!it->ClearOpenGLContext())
+			result = false;
 
 	return result;
 }
