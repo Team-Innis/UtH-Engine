@@ -65,15 +65,18 @@ bool Engine::initialize()
 	m_wndw = new Window(m_wsettings);
 	uth::Graphics::SetBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 	uthInput.SetWindow(m_wndw->m_windowHandle);
+
 	if (!m_firstTime)
 		m_wndw->m_set = true;
-	else
-		m_firstTime = false;
+
 	m_wndw->SetViewport(pmath::Rect(0, 0, m_wsettings.size.x, m_wsettings.size.y));
 	m_wndw->m_defaultCamera = m_camera;
 	m_running = true;
 
-	uthSceneM.AndroidReturn();
+	if (!m_firstTime)
+		uthSceneM.AndroidReturn();
+	else
+		m_firstTime = false;
 
 	return true;
 }
