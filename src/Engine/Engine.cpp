@@ -73,6 +73,8 @@ bool Engine::initialize()
 	m_wndw->m_defaultCamera = m_camera;
 	m_running = true;
 
+	uthSceneM.AndroidReturn();
+
 	return true;
 }
 

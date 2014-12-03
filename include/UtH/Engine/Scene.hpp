@@ -14,7 +14,9 @@ namespace uth
 
 	class Scene : public Layer
     {
-        friend class SceneManager;
+		friend class SceneManager;
+
+		virtual void AndroidReturn(){}
 
 	public:
 
