@@ -14,6 +14,7 @@ namespace uth
 
     class RenderTarget : private Uncopyable
     {
+		friend class Engine;
     public:
 
         bool Bind();
@@ -48,7 +49,7 @@ namespace uth
         mutable Camera* m_camera;
         Shader* m_shader;
 
-        mutable Camera m_defaultCamera;
+        mutable std::shared_ptr<Camera> m_defaultCamera;
 
         pmath::Recti m_viewport;
 
