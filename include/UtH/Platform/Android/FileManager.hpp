@@ -65,6 +65,7 @@ namespace uth
 	private:
 		std::fstream m_stream;
 		AAsset* m_asset;
+        bool m_writable;
 	};
 }
 
