@@ -50,10 +50,11 @@ namespace uth
 
         float GetRotation() const;
 
+		float GetZoom() const;
+
         const pmath::Mat4& GetProjectionTransform() const;
 
         const pmath::Mat4& GetInverseProjectionTransform() const;
-
 
     private:
 

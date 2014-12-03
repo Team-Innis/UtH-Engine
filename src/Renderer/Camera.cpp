@@ -142,6 +142,11 @@ namespace uth
         return transform.GetRotation();
     }
 
+	float Camera::GetZoom() const
+	{
+		return m_zoom;
+	}
+
     const pmath::Mat4& Camera::GetProjectionTransform() const
     {
         if (m_transformNeedsUpdate)
