@@ -24,7 +24,7 @@ namespace uth
     RenderTarget::RenderTarget()
         : m_camera(nullptr),
           m_shader(nullptr),
-          m_defaultCamera(),
+          m_defaultCamera(new Camera()),
           m_viewport(),
           m_set(false),
           m_uniqueID(getUniqueID())
@@ -72,15 +72,15 @@ namespace uth
     {
         if (!m_set)
         {
-            m_defaultCamera.SetSize(GetSize());
-            m_defaultCamera.SetPosition(0, 0);
+            m_defaultCamera->SetSize(GetSize());
+            m_defaultCamera->SetPosition(0, 0);
             m_set = true;
         }
 
         if (m_camera)
             return *m_camera;
 
-        return m_defaultCamera;
+        return *m_defaultCamera;
     }
 
     void RenderTarget::SetShader(Shader* shader)
@@ -130,11 +130,11 @@ namespace uth
     {
         if (m_shader)
         {
-            m_shader->SetUniform("unifProjection", m_camera ? m_camera->GetProjectionTransform() : m_defaultCamera.GetProjectionTransform());
+            m_shader->SetUniform("unifProjection", m_camera ? m_camera->GetProjectionTransform() : m_defaultCamera->GetProjectionTransform());
         }
         else
         {
-			uthRS.LoadShader("Shaders/Default.vert", "Shaders/Default.frag")->SetUniform("unifProjection", m_camera ? m_camera->GetProjectionTransform() : m_defaultCamera.GetProjectionTransform());
+			uthRS.LoadShader("Shaders/Default.vert", "Shaders/Default.frag")->SetUniform("unifProjection", m_camera ? m_camera->GetProjectionTransform() : m_defaultCamera->GetProjectionTransform());
         }
     }
 }

@@ -14,7 +14,7 @@ namespace uth
 
 	class Scene : public Layer
     {
-        friend class SceneManager;
+		friend class SceneManager;
 
 	public:
 
@@ -23,6 +23,9 @@ namespace uth
 
 		virtual bool Init() = 0;
 		virtual bool DeInit() = 0;
+
+		virtual void AndroidReturn(){}
+		virtual void AndroidLeave(){}
 
 		virtual void Update(float dt);
 		virtual void Draw(RenderTarget& target, RenderAttributes attributes = RenderAttributes());

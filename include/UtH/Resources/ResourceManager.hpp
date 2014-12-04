@@ -66,7 +66,7 @@ namespace uth
 		bool ClearOpenGLContext();
 		bool RecreateOpenGLContext();
 
-		void PauseSounds();
+		void PauseSounds(bool pause = true);
 
 	private:
 		ResourceManager();

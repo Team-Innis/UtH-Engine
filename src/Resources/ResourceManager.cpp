@@ -1,5 +1,6 @@
 #include <UtH/Resources/ResourceManager.hpp>
 #include <UtH/Renderer/VertexBuffer.hpp>
+#include <UtH/Engine/SceneManager.hpp>
 #include <cassert>
 
 using namespace uth;
@@ -283,10 +284,14 @@ bool uth::ResourceManager::RecreateOpenGLContext()
 	for (auto it : VertexBuffer::VERTEXBUFFERS)
 		it->RecreateOpenGLContext();
 
+	uthSceneM.AndroidReturn();
+
 	return true;
 }
 bool uth::ResourceManager::ClearOpenGLContext()
 {
+	uthSceneM.AndroidLeave();
+
 	WriteLog("Clearing context");
 	bool result = true;
 	Unload(Textures | Shaders);
@@ -298,19 +303,19 @@ bool uth::ResourceManager::ClearOpenGLContext()
 	return result;
 }
 
-void ResourceManager::PauseSounds()
+void ResourceManager::PauseSounds(bool pause)
 {
 	int size = m_sounds.size();
 	auto itr = m_sounds.begin();
 
 	for (int i = 0; i < size; i++)
 	{
-		if (itr->second->Status() == AL_PLAYING)
+		if (pause && itr->second->Status() == AL_PLAYING)
 		{
 			itr->second->Pause();
 			itr->second->enginePaused = true;
 		}
-		else if (itr->second->enginePaused)
+		else if (!pause && itr->second->enginePaused)
 		{
 			itr->second->Pause();
 			itr->second->enginePaused = false;

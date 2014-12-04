@@ -125,6 +125,12 @@ GooglePlayGameServices::Location GooglePlayGameServices::GPS::GetCurrentLocation
 
 	std::string returnable = uthAndroidEngine.jni->GetStringUTFChars( location, 0);
 
+	if (returnable.size() < 2)
+	{
+		WriteError("GPS is disabled due incorrect Google Play Services version!");
+		return uthGPGS.curLocation;
+	}
+
 	std::string::size_type fused = returnable.find("fused");
 	std::string::size_type acc = returnable.find("acc=");
 	std::string::size_type et = returnable.find("et=");
