@@ -68,15 +68,12 @@ bool Engine::initialize()
 
 	if (!m_firstTime)
 		m_wndw->m_set = true;
+	else
+		m_firstTime = false;
 
 	m_wndw->SetViewport(pmath::Rect(0, 0, m_wsettings.size.x, m_wsettings.size.y));
 	m_wndw->m_defaultCamera = m_camera;
 	m_running = true;
-
-	if (!m_firstTime)
-		uthSceneM.AndroidReturn();
-	else
-		m_firstTime = false;
 
 	return true;
 }

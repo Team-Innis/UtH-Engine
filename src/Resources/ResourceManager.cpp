@@ -1,5 +1,6 @@
 #include <UtH/Resources/ResourceManager.hpp>
 #include <UtH/Renderer/VertexBuffer.hpp>
+#include <UtH/Engine/SceneManager.hpp>
 #include <cassert>
 
 using namespace uth;
@@ -283,10 +284,14 @@ bool uth::ResourceManager::RecreateOpenGLContext()
 	for (auto it : VertexBuffer::VERTEXBUFFERS)
 		it->RecreateOpenGLContext();
 
+	uthSceneM.AndroidReturn();
+
 	return true;
 }
 bool uth::ResourceManager::ClearOpenGLContext()
 {
+	uthSceneM.AndroidLeave();
+
 	WriteLog("Clearing context");
 	bool result = true;
 	Unload(Textures | Shaders);

@@ -64,6 +64,11 @@ namespace uth
 		if (curScene)
 			curScene->AndroidReturn();
 	}
+	void SceneManager::AndroidLeave()
+	{
+		if (curScene)
+			curScene->AndroidLeave();
+	}
 
 	void SceneManager::endScene()
 	{
@@ -95,5 +100,5 @@ namespace uth
 		startScene();
 		m_pendingSceneSwitch = false;
 	}
-	
+
 }
