@@ -218,12 +218,11 @@ void Text::Draw(RenderTarget& target)
 
 bool Text::RecreateOpenGLContext()
 {
+	texture_atlas_upload(m_atlas);
+
 	return true;
 }
 bool Text::ClearOpenGLContext()
 {
-	texture_font_delete(m_font);
-	texture_atlas_delete(m_atlas);
-
 	return true;
 }

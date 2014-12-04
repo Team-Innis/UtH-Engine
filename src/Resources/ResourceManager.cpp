@@ -1,6 +1,7 @@
 #include <UtH/Resources/ResourceManager.hpp>
 #include <UtH/Renderer/VertexBuffer.hpp>
 #include <UtH/Engine/SceneManager.hpp>
+#include <UtH/Engine/Text.hpp>
 #include <cassert>
 
 using namespace uth;
@@ -282,6 +283,8 @@ bool uth::ResourceManager::RecreateOpenGLContext()
 		i.second->EnsureLoaded();
 
 	for (auto it : VertexBuffer::VERTEXBUFFERS)
+		it->RecreateOpenGLContext();
+	for (auto it : Text::TEXTS)
 		it->RecreateOpenGLContext();
 
 	uthSceneM.AndroidReturn();
