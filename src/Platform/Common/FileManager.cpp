@@ -17,7 +17,7 @@ using namespace uth;
 
 bool FileManager::isCompressed = false;
 
-void ensureDirectoryExists(const std::string& path);
+bool ensureDirectoryExists(const std::string& path);
 
 FileManager::FileManager()
 	: file(nullptr),
@@ -40,7 +40,7 @@ FileManager::~FileManager()
 }
 
 // Public
-void FileManager::OpenFile(const std::string& path, const Location loca, bool isWritable)
+bool FileManager::OpenFile(const std::string& path, const Location loca, bool isWritable)
 {
 	//CloseFile();
 
@@ -71,7 +71,8 @@ void FileManager::OpenFile(const std::string& path, const Location loca, bool is
 		temp_path += path;
 
         if (loca != Location::ASSET)
-            ensureDirectoryExists(temp_path);
+            if (!ensureDirectoryExists(temp_path))
+				return false;
 
         if (!isWritable)
 		    file = std::fopen(temp_path.c_str(), "r+b");
@@ -82,8 +83,10 @@ void FileManager::OpenFile(const std::string& path, const Location loca, bool is
             if (file == nullptr)
                 WriteError("Cannot open file %s", temp_path.c_str());
 		}
-		assert(file != nullptr);
+		if (file == nullptr)
+			return false;
 	}
+	return true;
 }
 
 void FileManager::CloseFile()
@@ -201,7 +204,7 @@ void uth::FileManager::WriteBinary(const BINARY_DATA& data)
 }
 
 
-void ensureDirectoryExists(const std::string& path)
+bool ensureDirectoryExists(const std::string& path)
 {
     std::vector<std::string> dirs;
 
@@ -238,9 +241,13 @@ void ensureDirectoryExists(const std::string& path)
             status = mkdir(testPath.c_str(), 0777);
             #endif // UTH_SYSTEM_WINDOWS
 
-            if (status == -1)
-                WriteError("Error: %s when creating directory: %s", strerror(errno),
-                testPath.c_str());
+			if (status == -1)
+			{
+				WriteError("Error: %s when creating directory: %s", strerror(errno),
+					testPath.c_str());
+				return false;
+			}
         }
     }
+	return true;
 }

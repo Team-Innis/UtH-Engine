@@ -14,7 +14,7 @@ using namespace uth;
 
 AAssetManager* FileManager::m_manager = nullptr;
 
-void ensureDirectoryExists(const std::string& path);
+bool ensureDirectoryExists(const std::string& path);
 
 FileManager::FileManager()
 	//:m_file(nullptr),
@@ -37,7 +37,7 @@ FileManager::~FileManager()
 	CloseFile();
 }
 
-void FileManager::OpenFile(const std::string& path, const Location loca, bool isWritable)
+bool FileManager::OpenFile(const std::string& path, const Location loca, bool isWritable)
 {
     // We can safely ignore isWritable because it doesn't matter here
 
@@ -71,7 +71,9 @@ void FileManager::OpenFile(const std::string& path, const Location loca, bool is
 		else
 			truePath = uthAndroidEngine.internalPath + "/" + path;
 
-        ensureDirectoryExists(truePath);
+        if (!ensureDirectoryExists(truePath))
+			return false;
+
         if (isWritable)
         {
             m_stream.open(truePath, std::ios::in | std::ios::out | std::ios::trunc);
@@ -94,8 +96,10 @@ void FileManager::OpenFile(const std::string& path, const Location loca, bool is
         if (!m_stream.is_open())
 		{
 			WriteError("errno %s with file %s", strerror(errno), truePath.c_str());
+			return false;
 		}
 	}
+	return true;
 }
 
 void FileManager::CloseFile()
@@ -221,7 +225,7 @@ int64_t FileManager::tellAsset(void* asset)
 	return AAsset_seek((AAsset*)asset, 0, SEEK_CUR);
 }
 
-void ensureDirectoryExists(const std::string& path)
+bool ensureDirectoryExists(const std::string& path)
 {
     std::vector<std::string> dirs;
 
@@ -249,9 +253,13 @@ void ensureDirectoryExists(const std::string& path)
         {
             // Try to create the directory
             int status = mkdir(testPath.c_str(), 0777);
-            if (status == -1)
-                WriteError("Error: %s when creating directory: %s", strerror(errno),
-                testPath.c_str());
+			if (status == -1)
+			{
+				WriteError("Error: %s when creating directory: %s", strerror(errno),
+					testPath.c_str());
+				return false;
+			}
         }
     }
+	return true;
 }

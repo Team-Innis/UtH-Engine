@@ -29,7 +29,7 @@ namespace uth
 		~FileManager();
 
      
-        void OpenFile(const std::string& path, const Location = Location::ASSET, bool isWritable = false);
+        bool OpenFile(const std::string& path, const Location = Location::ASSET, bool isWritable = false);
         void CloseFile();
 		int GetFileSize();
 		
