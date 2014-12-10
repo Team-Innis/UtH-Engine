@@ -65,7 +65,7 @@ void Sound::PlayEffect()
 	if(Status() != AL_PLAYING)
 		alSourcePlay(source);
 	else
-		Copy();
+		effectCopy();
 
 	enginePaused = false;
 }
@@ -158,8 +158,8 @@ void Sound::SetSourcePosition(float x, float y, float z)
 	_posX = x; _posY = y; _posZ = z;
 	alSource3f(source, AL_POSITION, _posX, _posY, _posZ);
 	CheckALError("al_source3f AL_POSITION");
-	alSource3f(source, AL_VELOCITY, _posX, _posY, _posZ);
-	CheckALError("al_source3f AL_VELOCITY");
+	//alSource3f(source, AL_VELOCITY, _posX, _posY, _posZ);
+	//CheckALError("al_source3f AL_VELOCITY");
 }
 void Sound::SetSourcePosition(pmath::Vec3 position)
 {
@@ -169,8 +169,8 @@ void Sound::SetSourcePosition(pmath::Vec3 position)
 	_posX = position.x; _posY = position.y; _posZ = position.z;
 	alSource3f(source, AL_POSITION, _posX, _posY, _posZ);
 	CheckALError("al_source3f AL_POSITION");
-	alSource3f(source, AL_VELOCITY, _posX, _posY, _posZ);
-	CheckALError("al_source3f AL_VELOCITY");
+	//alSource3f(source, AL_VELOCITY, _posX, _posY, _posZ);
+	//CheckALError("al_source3f AL_VELOCITY");
 }
 
 void Sound::SetListenerPosition(float x, float y, float z)
@@ -178,22 +178,20 @@ void Sound::SetListenerPosition(float x, float y, float z)
 	if (!SoundDevice::getInstance().DeviceInitialized())
 		return;
 
-	_posX = x; _posY = y; _posZ = z;
-	alListener3f(AL_POSITION, _posX, _posY, _posZ);
+	alListener3f(AL_POSITION, x, y, z);
 	CheckALError("al_slistener3f AL_POSITION");
-	alListener3f(AL_VELOCITY, _posX, _posY, _posZ);
-	CheckALError("al_listener3f AL_VELOCITY");
+	//alListener3f(AL_VELOCITY, _posX, _posY, _posZ);
+	//CheckALError("al_listener3f AL_VELOCITY");
 }
 void Sound::SetListenerPosition(pmath::Vec3 position)
 {
 	if (!SoundDevice::getInstance().DeviceInitialized())
 		return;
 
-	_posX = position.x; _posY = position.y; _posZ = position.z;
-	alListener3f(AL_POSITION, _posX, _posY, _posZ);
+	alListener3f(AL_POSITION, position.x, position.y, position.z);
 	CheckALError("al_slistener3f AL_POSITION");
-	alListener3f(AL_VELOCITY, _posX, _posY, _posZ);
-	CheckALError("al_listener3f AL_VELOCITY");
+	//alListener3f(AL_VELOCITY, _posX, _posY, _posZ);
+	//CheckALError("al_listener3f AL_VELOCITY");
 }
 
 bool Sound::IsPlaying()
@@ -205,6 +203,14 @@ bool Sound::IsPlaying()
 		return true;
 	else
 		return false;
+}
+
+void Sound::StopEffects()
+{
+	for (int i = 0; i < tempSource.size(); i++)
+	{
+		alSourceStop(tempSource[i]);
+	}
 }
 
 // PRIVATE
@@ -296,6 +302,7 @@ void Sound::Initialize(std::string fileName)
 		/ static_cast<float>(sampleRate)
 		/ static_cast<float>(channels);
 	//WriteLog("duration: %f\n", duration);
+	//m_sounds.push_back(this);
 }
 
 void Sound::CreateSources(ALuint &source)
@@ -328,20 +335,45 @@ ALint Sound::Status()
 }
 // Copies effect sound into vector and starts to play it.
 // Removes already finished playback from beginning of vector.
-void Sound::Copy()
+void Sound::effectCopy()
 {
-	ALuint source;
-	Sound::CreateSources(source);
-	// We want to put copied sound in same location as copied source.
-	alSource3f(source, AL_POSITION, _posX, _posY, _posZ);
-	alSource3f(source, AL_VELOCITY, _posX, _posY, _posZ);
+	float pitch, gain;
+	alGetSourcef(source, AL_PITCH, &pitch);
+	CheckALError("al_getsourcef AL_PITCH");
+	alGetSourcef(source, AL_GAIN, &gain);
+	CheckALError("al_getsourcef AL_GAIN");
 
-	alSourcei(source, AL_BUFFER, buffer);
+	for (int i = 0; i < tempSource.size(); i++)
+	{
+		ALint tempState;
+		alGetSourcei(tempSource[i], AL_SOURCE_STATE, &tempState);
+		if (tempState == AL_STOPPED)
+		{
+			alSourcef(tempSource[i], AL_PITCH, pitch);
+			alSourcef(tempSource[i], AL_GAIN, gain);
+			alSource3f(tempSource[i], AL_POSITION, _posX, _posY, _posZ);
+			alSource3f(tempSource[i], AL_VELOCITY, _posX, _posY, _posZ);
+			alSourcePlay(tempSource[i]);
+			return;
+		}		
+
+	}
+	
+	ALuint t_source;
+	Sound::CreateSources(t_source);
+	// We want to put copied sound in same location as copied source.
+	alSourcef(t_source, AL_PITCH, pitch);
+	alSourcef(t_source, AL_GAIN, gain);
+	alSource3f(t_source, AL_POSITION, _posX, _posY, _posZ);
+	alSource3f(t_source, AL_VELOCITY, _posX, _posY, _posZ);
+
+	alSourcei(t_source, AL_BUFFER, buffer);
 	CheckALError("alSourcei AL_BUFFER");
 
 	// Push new source into vector.
-	tempSource.push_back(source);
-	alSourcePlay(tempSource[tempSource.size()-1]);
+	
+	tempSource.push_back(t_source);
+	alSourcePlay(tempSource.back());
 	// Remove source from beginning of vector as it finishes playback.
-	tempSource.erase(tempSource.begin());
+	//tempSource.erase(tempSource.begin());
 }
