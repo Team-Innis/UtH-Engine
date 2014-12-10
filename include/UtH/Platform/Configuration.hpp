@@ -10,6 +10,17 @@
 	#define UTH_SYSTEM_WINDOWS
 	#define UTH_SYSTEM_OPENGL
 
+#ifndef WIN32_LEAN_AND_MEAN
+	#define WIN32_LEAN_AND_MEAN
+#endif
+#ifndef VC_EXTRALEAN
+	#define VC_EXTRALEAN
+#endif
+#ifndef NOMINMAX
+	#define NOMINMAX
+#endif
+
+
 // Android
 #elif defined(__ANDROID__) || defined(ANDROID)
 
