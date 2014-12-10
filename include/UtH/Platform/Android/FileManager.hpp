@@ -50,6 +50,7 @@ namespace uth
 
         // Write text to file.
 		void WriteString(const std::string& data);
+        void WriteBinary(const BINARY_DATA& data);
 
 		static AAssetManager* m_manager;
 		
@@ -64,6 +65,7 @@ namespace uth
 	private:
 		std::fstream m_stream;
 		AAsset* m_asset;
+        bool m_writable;
 	};
 }
 

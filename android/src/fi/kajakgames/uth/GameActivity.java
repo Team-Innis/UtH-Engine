@@ -18,6 +18,8 @@ import com.google.android.gms.ads.*;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.analytics.*;
 import com.google.android.gms.location.*;
@@ -110,6 +112,33 @@ GoogleApiClient.OnConnectionFailedListener
 		}
 	}
 	
+	boolean IsGPGSAvailable()
+	{
+		int result = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+		
+		if (result == ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED)
+		{
+			Log.d("GooglePlayServices", "" + GooglePlayServicesUtil.getErrorString(result));
+			return false;
+		}
+		if (result == ConnectionResult.SERVICE_MISSING)
+		{
+			Log.d("GooglePlayServices", "" + GooglePlayServicesUtil.getErrorString(result));
+			return false;
+		}
+		if (result == ConnectionResult.SERVICE_DISABLED)
+		{
+			Log.d("GooglePlayServices", "" + GooglePlayServicesUtil.getErrorString(result));
+			return false;
+		}
+		if (result == ConnectionResult.SUCCESS)
+		{
+			Log.d("GooglePlayServices", "" + GooglePlayServicesUtil.getErrorString(result));
+			return true;
+		}
+		return false;
+	}
+	
 	public void onStart()
 	 {
 	 	super.onStart();
@@ -129,7 +158,14 @@ GoogleApiClient.OnConnectionFailedListener
 		if(useGPS){ lClient.disconnect(); }
 		
 		super.onStop();	
-	 }
+	}
+	
+	public boolean MoveTaskToBack(boolean value)
+	{
+		boolean returnable = moveTaskToBack(value);
+		
+		return returnable;
+	}
 	
 	public void Vibrate(final int time)
 	{
@@ -138,6 +174,7 @@ GoogleApiClient.OnConnectionFailedListener
 		if(vibra == null)
 			Log.i("uth-engine", "vibra is null");
 			
+		Log.d("Vibra", "Has Vibrator: " + vibra.hasVibrator());
 		vibra.vibrate(time);
 	}
 	
@@ -216,6 +253,9 @@ GoogleApiClient.OnConnectionFailedListener
 	}
 	public void UnlockAchievement(String achievement_id)
 	{	
+		if(!IsGPGSAvailable())
+			return;
+		
 		if(usePlayServices)
 		{
 			if(!mClient.isConnected())
@@ -230,6 +270,9 @@ GoogleApiClient.OnConnectionFailedListener
 	}
 	public void IncrementAchievement(String achievement_id, int steps)
 	{	
+		if(!IsGPGSAvailable())
+			return;
+		
 		if(usePlayServices)
 		{
 			if(!mClient.isConnected())
@@ -245,6 +288,9 @@ GoogleApiClient.OnConnectionFailedListener
 	
 	public void ShowAchievements()
 	{	
+		if(!IsGPGSAvailable())
+			return;
+		
 		if(usePlayServices)
 		{
 			if(!mClient.isConnected())
@@ -260,6 +306,9 @@ GoogleApiClient.OnConnectionFailedListener
 	
 	public void SubmitHighScore(String leaderboard_id, int score)
 	{	
+		if(!IsGPGSAvailable())
+			return;
+		
 		if(usePlayServices)
 		{
 			if(!mClient.isConnected())
@@ -275,6 +324,9 @@ GoogleApiClient.OnConnectionFailedListener
 	
 	public void ShowLeaderboard(String leaderboard_id)
 	{	
+		if(!IsGPGSAvailable())
+			return;
+		
 		if(usePlayServices)
 		{
 			if(!mClient.isConnected())
@@ -291,6 +343,10 @@ GoogleApiClient.OnConnectionFailedListener
 
 	public String GetCurrentLocation()
 	{
+		Log.d("getloc", "doh");
+		if(!IsGPGSAvailable())
+			return "";
+		Log.d("getloc", "doh2");
 		if(useGPS){
 		mCurLocation = LocationServices.FusedLocationApi.getLastLocation(lClient);
 		
@@ -307,6 +363,9 @@ GoogleApiClient.OnConnectionFailedListener
 	}
 	public float DistanceTo(double endLatitude, double endLongitude)
 	{
+		if(!IsGPGSAvailable())
+			return 0;
+		
 		if(useGPS){
 		float[] result = {0, 0, 0};
 		
@@ -328,6 +387,9 @@ GoogleApiClient.OnConnectionFailedListener
 	}
 	public float DistanceBetween(double startLatitude, double startLongitude, double endLatitude, double endLongitude)
 	{
+		if(!IsGPGSAvailable())
+			return 0;
+		
 		if(useGPS){
 		float[] result = {0, 0, 0 };
 		
@@ -343,6 +405,9 @@ GoogleApiClient.OnConnectionFailedListener
 	}
 	public double GetLatitude()
 	{
+		if(!IsGPGSAvailable())
+			return 0;
+		
 		if(useGPS){
 		double result = 0;
 
@@ -359,6 +424,9 @@ GoogleApiClient.OnConnectionFailedListener
 	}
 	public double GetLongitude()
 	{
+		if(!IsGPGSAvailable())
+			return 0;
+		
 		if(useGPS){
 		double result = 0;
 		
@@ -375,6 +443,9 @@ GoogleApiClient.OnConnectionFailedListener
 	}
 	public float GetAccuracy()
 	{
+		if(!IsGPGSAvailable())
+			return 0;
+		
 		if(useGPS){
 		float result = 0;
 		

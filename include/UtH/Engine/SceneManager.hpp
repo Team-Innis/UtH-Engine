@@ -11,6 +11,7 @@ namespace uth
 	class SceneManager : public Singleton<SceneManager>
 	{
 		friend class Singleton<SceneManager>;
+		friend class ResourceManager;
 		SceneManager();
 		~SceneManager();
 	public:
@@ -24,11 +25,13 @@ namespace uth
 		void registerNewSceneFunc(Scene* (*newSceneFunc)(int SceneID),int SceneCount);
 
 	private:
+		void AndroidReturn();
+		void AndroidLeave();
+
 		void endScene();
 		void startScene();
 		void m_switchScene();
 		Scene* (*makeActiveScene)(int SceneID);
-
 		Scene* curScene;
 
 		int m_sceneID;

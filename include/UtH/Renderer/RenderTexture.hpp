@@ -9,7 +9,10 @@ namespace uth
 {
 
     class RenderTexture : public RenderTarget
-    {
+	{
+		static std::unordered_set<RenderTexture*> RENDERTEXTURES;
+
+		friend class ResourceManager;
     public:
 
         RenderTexture();

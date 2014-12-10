@@ -8,7 +8,10 @@
 using namespace uth;
 
 Engine::Engine()
-    : m_running(false)
+    : m_wndw(nullptr),
+	m_camera(new Camera()),
+	m_firstTime(true),
+	m_running(false)
 { }
 
 bool Engine::Init(const uth::WindowSettings &wsettings)
@@ -22,10 +25,12 @@ void Engine::Update()
 	const float deltaTime = static_cast<float>(m_timer.DeltaTime());
 	uthInput.Update(deltaTime);
 	uthSceneM.Update(deltaTime);
-	if(m_wndw->processMessages())
-	{
+
+	//TODO: Move to main.cpp after current projects have been finished
+#ifndef UTH_SYSTEM_ANDROID
+	if (m_wndw->processMessages())
 		Exit();
-	}
+#endif
 }
 
 void Engine::Draw()
@@ -60,7 +65,14 @@ bool Engine::initialize()
 	m_wndw = new Window(m_wsettings);
 	uth::Graphics::SetBlendFunction(true, uth::SRC_ALPHA, uth::ONE_MINUS_SRC_ALPHA);
 	uthInput.SetWindow(m_wndw->m_windowHandle);
-    m_wndw->SetViewport(pmath::Rect(0, 0, m_wsettings.size.x, m_wsettings.size.y));
+
+	if (!m_firstTime)
+		m_wndw->m_set = true;
+	else
+		m_firstTime = false;
+
+	m_wndw->SetViewport(pmath::Rect(0, 0, m_wsettings.size.x, m_wsettings.size.y));
+	m_wndw->m_defaultCamera = m_camera;
 	m_running = true;
 
 	return true;

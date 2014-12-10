@@ -99,14 +99,14 @@ namespace uth
 
 		// Returns the size of the object(hitbox) in pixels
 		// Returns as a box size so diameter of a ball can be found in vector.x
-		const pmath::Vec2 GetSize();
+		const pmath::Vec2 GetSize() const;
 		// Returns the size of the object(hitbox) in Box2D units(meters)
-		const pmath::Vec2 GetUnitSize();
+		const pmath::Vec2 GetUnitSize() const;
 		
 		// Sets the position of the object in pixels
 		void SetPosition(const pmath::Vec2& position);
 		// Get the position in pixels
-		const pmath::Vec2 GetPosition();
+		const pmath::Vec2 GetPosition() const;
 		// Set the angle of the object in degrees
 		void SetAngle(const float angle);
 		// Get the angle of the object in degrees

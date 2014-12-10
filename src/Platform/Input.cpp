@@ -1,9 +1,12 @@
 #include <UtH/Platform/Input.hpp>
+#include <UtH/Platform/JavaFunctions.hpp>
 
 using namespace uth;
 
 Input::Input()
-{}
+	:f_androidBackButton([](){javaFunc::MoveTaskToBack(true); })
+{
+}
 Input::~Input()
 {}
 void Input::SetWindow(void *windowHandle)

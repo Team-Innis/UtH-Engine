@@ -26,8 +26,9 @@ namespace uth
 		const WindowSettings& getWindowSettings() const;
 		pmath::Vec2 GetSize() const;
 
-		void* m_windowHandle;
+		bool Focused() const;
 
+		void* m_windowHandle;
 	private:
 
 		bool bind();

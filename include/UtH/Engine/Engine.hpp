@@ -35,8 +35,9 @@ namespace uth
 
 		uth::WindowSettings m_wsettings;
 		uth::Window* m_wndw;
+		std::shared_ptr<Camera> m_camera;
 		uth::Timer m_timer;
-	
+		bool m_firstTime;
 		bool m_running;
 	
 		bool initialize();

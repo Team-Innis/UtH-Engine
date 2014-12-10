@@ -2,6 +2,7 @@
 #include <UtH/Platform/Debug.hpp>
 #include <UtH/Platform/BinaryData.hpp>
 #include <UtH/Platform/FileManager.hpp>
+#include <UtH/Resources/ResourceManager.hpp>
 #include <cassert>
 #include <cstring>
 #include <vector>
@@ -62,9 +63,22 @@ namespace uth
         {
             return false;
         }
-
+		m_loaded = true;
         return true;
     }
+	void Image::Unload()
+	{
+		m_pixels.clear();
+		m_loaded = false;
+	}
+	bool Image::EnsureLoaded()
+	{
+		if (m_loaded)
+			return true;
+		const bool result = LoadFromFile(uthRS.FilePath(this, ResourceManager::Images));
+		//assert(result);
+		return result;
+	}
 
     const pmath::Vec2& Image::GetSize() const
     {
@@ -77,8 +91,9 @@ namespace uth
 	}
 
 
-    pmath::Vec4 Image::GetPixel(unsigned int x, unsigned int y) const
+    pmath::Vec4 Image::GetPixel(unsigned int x, unsigned int y)
     {
+		EnsureLoaded();
         assert(x < m_size.x && y < m_size.y);
 
         const unsigned int start = static_cast<unsigned int>(4 * ((y * m_size.x) + x));
@@ -90,7 +105,8 @@ namespace uth
     }
 
     void Image::flipVertical()
-    {
+	{
+		EnsureLoaded();
         if (!m_pixels.empty())
         {
             std::size_t rowSize = static_cast<std::size_t>(m_size.x) * 4;
@@ -109,7 +125,8 @@ namespace uth
     }
 
     void Image::flipHorizontal()
-    {
+	{
+		EnsureLoaded();
         if (!m_pixels.empty())
         {
             std::size_t rowSize = static_cast<std::size_t>(m_size.x) * m_depth;

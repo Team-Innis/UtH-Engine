@@ -11,10 +11,10 @@ namespace uth
 	{
 	public:
 
-		void BeginContact(b2Contact* contact);
-		void EndContact(b2Contact* contact);
-		void PreSolve(b2Contact* contact, const b2Manifold* oldManifold);
-		void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse);
+		void BeginContact(b2Contact* contact) override;
+		void EndContact(b2Contact* contact) override;
+		void PreSolve(b2Contact* contact, const b2Manifold* oldManifold) override;
+		void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse) override;
 
 		std::function<void(b2Contact* contact, GameObject* a, GameObject* b)> onBeginContact = nullptr;
 		std::function<void(b2Contact* contact, const b2Manifold* oldManifold, GameObject* a, GameObject* b)> onPreSolve = nullptr;

@@ -4,10 +4,11 @@
 
 #include <string>
 #include <UtH/Platform/BinaryData.hpp>
+#include <UtH/Resources/Resource.hpp>
 
 namespace uth
 {
-	class Font
+	class Font : public Resource
 	{
 	private:
 
@@ -31,7 +32,9 @@ namespace uth
 		Font();
 		~Font();
 
-        bool LoadFromFile(const std::string& filePath);
+		bool LoadFromFile(const std::string& filePath) override;
+		void Unload() override;
+		bool EnsureLoaded() override;
 
         BINARY_DATA m_fontData;
 	};

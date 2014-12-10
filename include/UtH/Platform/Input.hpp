@@ -58,7 +58,7 @@ namespace uth
 		void *m_windowHandle;
 		friend class UtHEngine;
 
-		std::function<void()> f_androidBackButton = [](){};
+		std::function<void()> f_androidBackButton;
 	};
 }
 

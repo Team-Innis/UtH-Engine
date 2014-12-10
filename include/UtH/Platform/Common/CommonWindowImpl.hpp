@@ -36,6 +36,8 @@ namespace uth
 		static bool processMessages(void* handle);
 
         static void setResizeCallback(ResizeFunc func);
+
+		static bool Focused();
 	};
 }
 

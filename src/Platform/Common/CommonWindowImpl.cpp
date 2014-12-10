@@ -5,12 +5,14 @@
 #include <UtH/Platform/Graphics.hpp>
 #include <iostream>
 #include <cassert>
-
+#include <UtH/Resources/ResourceManager.hpp>
+#include <UtH/Platform/Window.hpp>
 
 namespace
 {
 	static unsigned int windowRefs = 0;
 	static bool initialized = false;
+	static bool focused = true;
 
 	void manageWindowRefs()
 	{
@@ -35,6 +37,10 @@ namespace
     uth::CommonWindowImpl::ResizeFunc ns_resizeFunc;
 }
 
+void FocusCallback(GLFWwindow*, int focus)
+{
+	focused = focus;
+}
 
 namespace uth
 {
@@ -118,6 +124,7 @@ namespace uth
 			glBindVertexArray(vertexArray);
 		}
 
+		glfwSetWindowFocusCallback(wndwHandle, FocusCallback);
 
 		return static_cast<void*>(wndwHandle);
 	}
@@ -171,4 +178,8 @@ namespace uth
         ns_resizeFunc = func;
     }
 
+	bool CommonWindowImpl::Focused()
+	{
+		return focused;
+	}
 }

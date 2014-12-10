@@ -27,7 +27,7 @@ namespace uth
             ObjectGroup(tinyxml2::XMLElement* objectGroupElement);
             ~ObjectGroup();
 
-            const TMXObject* GetObject(const std::string& name) const;
+            const TMXObject* GetTMXObject(const std::string& name) const;
 
             const ObjectList* GetObjectsByType(const std::string& type) const;
 

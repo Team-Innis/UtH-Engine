@@ -19,13 +19,15 @@ void ensureDirectoryExists(const std::string& path);
 FileManager::FileManager()
 	//:m_file(nullptr),
 	:m_stream(NULL),
-	 m_asset(nullptr)
+	 m_asset(nullptr),
+     m_writable(false)
 { }
 
 FileManager::FileManager(const std::string& path, const Location loca, bool isWritable)
 	//:m_file(nullptr),
 	: m_stream(NULL),
-	 m_asset(nullptr)
+	 m_asset(nullptr),
+     m_writable(false)
 {
 	OpenFile(path, loca, isWritable);
 }
@@ -70,10 +72,16 @@ void FileManager::OpenFile(const std::string& path, const Location loca, bool is
 			truePath = uthAndroidEngine.internalPath + "/" + path;
 
         ensureDirectoryExists(truePath);
+        if (isWritable)
+        {
+            m_stream.open(truePath, std::ios::in | std::ios::out | std::ios::trunc);
+            m_writable = true;
+        }
+        else
+            m_stream.open(truePath, std::ios::in);
 
-        m_stream.open(truePath, std::ios::in | std::ios::out | std::ios::trunc);
         // First try to create the file if it does not exist
-        if (!m_stream.is_open())
+        if (isWritable && !m_stream.is_open())
         {
             // Try creating the file
             m_stream.clear();
@@ -167,8 +175,25 @@ void uth::FileManager::WriteString(const std::string& data)
         WriteError("No file is open");
         return;
     }
+    else if (!m_writable)
+        WriteError("File not writable");
+
+    WriteLog("Writing: %s", data.c_str());
 
     m_stream << data;
+}
+
+void uth::FileManager::WriteBinary(const BINARY_DATA& data)
+{
+    if (!m_stream.is_open())
+    {
+        WriteError("No file is open");
+        return;
+    }
+    else if (!m_writable)
+        WriteError("File not writable");
+
+    m_stream.write(reinterpret_cast<const char *>(data.ptr()), data.size());
 }
 
 AAsset* FileManager::loadSound(const std::string& fileName)

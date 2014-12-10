@@ -19,7 +19,7 @@ ObjectGroup::~ObjectGroup()
 
 // Public
 
-const TMXObject* ObjectGroup::GetObject(const std::string& name) const
+const TMXObject* ObjectGroup::GetTMXObject(const std::string& name) const
 {
     auto object = m_objects.find(name);
     if(object != m_objects.end())

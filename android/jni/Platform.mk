@@ -40,8 +40,10 @@ $(SRC_PATH)Resources/ResourceManager.cpp \
 $(SRC_PATH)Resources/Shader.cpp \
 $(SRC_PATH)Resources/Texture.cpp \
 $(SRC_PATH)Resources/Font.cpp \
+$(SRC_PATH)Resources/Image.cpp \
 $(SRC_PATH)Resources/Sound.cpp \
-$(SRC_PATH)Resources/Image.cpp
+$(SRC_PATH)Resources/Resource.cpp
+
 
 #Platform
 LOCAL_SRC_FILES += \

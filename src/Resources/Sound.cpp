@@ -13,6 +13,7 @@ using namespace uth;
 
 Sound::Sound()
 	: loop(false),
+	  enginePaused(false),
 	  duration(0.1f),
 	  _posX(0), _posY(0), _posZ(0)
 {
@@ -32,11 +33,19 @@ Sound::~Sound()
 // PUBLIC
 void Sound::Play()
 {
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
+
 	alSourcePlay(source);
+
+	enginePaused = false;
 }
 
 void Sound::Play(float offset)
 {
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
+
 	if(offset >= duration)
 		WriteError("Offset %f exceeds %f duration!", offset, duration);
 	else
@@ -44,31 +53,57 @@ void Sound::Play(float offset)
 		alSourcei(source, AL_SEC_OFFSET, static_cast<ALint>(offset));
 		alSourcePlay(source);
 	}
+
+	enginePaused = false;
 }
 
 void Sound::PlayEffect()
 {
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
+
 	if(Status() != AL_PLAYING)
 		alSourcePlay(source);
 	else
 		Copy();
+
+	enginePaused = false;
 }
 
 void Sound::Stop()
 {
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
+
 	alSourceStop(source);
 }
 
 void Sound::Pause()
 {
-	if(Status() == AL_PLAYING)
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
+
+	if (Status() == AL_PLAYING)
 		alSourcePause(source);
-	//else
-	//	alSourcePlay(source);
+	else if (Status() == AL_PAUSED)
+		alSourcePlay(source);
+}
+void Sound::Pause(bool pause)
+{
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
+
+	if (Status() == AL_PLAYING && pause)
+		alSourcePause(source);
+	else if (Status() == AL_PAUSED && !pause)
+		alSourcePlay(source);
 }
 
 void Sound::Loop()
 {
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
+
 	if(loop)
 	{
 		alSourcei(source, AL_LOOPING, AL_FALSE);
@@ -83,6 +118,9 @@ void Sound::Loop()
 
 void Sound::Loop(bool looping)
 {
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
+
 	if(looping == 0)
 		loop = false;
 	else
@@ -94,6 +132,9 @@ void Sound::Loop(bool looping)
 
 void Sound::SetVolume(int volumePercent)
 {
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
+
 	float newVolume = float(volumePercent) / 100.0f;
 	alSourcef(source, AL_GAIN, newVolume);
 	CheckALError("al_sourcef AL_GAIN");
@@ -101,6 +142,9 @@ void Sound::SetVolume(int volumePercent)
 
 void Sound::SetPitch(int pitchPercent)
 {
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
+
 	float newPitch = float(pitchPercent) / 100.0f;
 	alSourcef(source, AL_PITCH, newPitch);
 	CheckALError("al_sourcef AL_PITCH");
@@ -108,6 +152,9 @@ void Sound::SetPitch(int pitchPercent)
 
 void Sound::SetSourcePosition(float x, float y, float z)
 {
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
+
 	_posX = x; _posY = y; _posZ = z;
 	alSource3f(source, AL_POSITION, _posX, _posY, _posZ);
 	CheckALError("al_source3f AL_POSITION");
@@ -116,6 +163,9 @@ void Sound::SetSourcePosition(float x, float y, float z)
 }
 void Sound::SetSourcePosition(pmath::Vec3 position)
 {
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
+
 	_posX = position.x; _posY = position.y; _posZ = position.z;
 	alSource3f(source, AL_POSITION, _posX, _posY, _posZ);
 	CheckALError("al_source3f AL_POSITION");
@@ -125,6 +175,9 @@ void Sound::SetSourcePosition(pmath::Vec3 position)
 
 void Sound::SetListenerPosition(float x, float y, float z)
 {
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
+
 	_posX = x; _posY = y; _posZ = z;
 	alListener3f(AL_POSITION, _posX, _posY, _posZ);
 	CheckALError("al_slistener3f AL_POSITION");
@@ -133,6 +186,9 @@ void Sound::SetListenerPosition(float x, float y, float z)
 }
 void Sound::SetListenerPosition(pmath::Vec3 position)
 {
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
+
 	_posX = position.x; _posY = position.y; _posZ = position.z;
 	alListener3f(AL_POSITION, _posX, _posY, _posZ);
 	CheckALError("al_slistener3f AL_POSITION");
@@ -142,6 +198,9 @@ void Sound::SetListenerPosition(pmath::Vec3 position)
 
 bool Sound::IsPlaying()
 {
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return false;
+
 	if (Status() == AL_PLAYING)
 		return true;
 	else
@@ -149,19 +208,33 @@ bool Sound::IsPlaying()
 }
 
 // PRIVATE
-bool Sound::Load(std::string fileName)
+bool Sound::LoadFromFile(const std::string& filePath)
 {
-	Initialize(fileName);
+	Initialize(filePath);
 
-	if (source)
+	if (!source)
+		return false;
+
+	m_loaded = true;
+	return true;
+}
+void Sound::Unload()
+{
+
+}
+bool Sound::EnsureLoaded()
+{
+	if (m_loaded)
 		return true;
-
-	return false;
+	const bool result = LoadFromFile(uthRS.FilePath(this, ResourceManager::Sounds));
+	//assert(result);
+	return result;
 }
 
 void Sound::Initialize(std::string fileName)
 {
-	uth::SoundDevice::getInstance();
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
 
 	SF_INFO soundInfo;
 
@@ -186,10 +259,10 @@ void Sound::Initialize(std::string fileName)
 		WriteError(sf_error_number(error));
 	}
 
-	WriteLog("Frames: %d\n", soundInfo.frames);
-	WriteLog("Samplerae: %d\n", soundInfo.samplerate);
-	WriteLog("Channels: %d\n", soundInfo.channels);
-	WriteLog("Format: %d\n", soundInfo.format);
+	//WriteLog("Frames: %d\n", soundInfo.frames);
+	//WriteLog("Samplerate: %d\n", soundInfo.samplerate);
+	//WriteLog("Channels: %d\n", soundInfo.channels);
+	//WriteLog("Format: %d\n", soundInfo.format);
 
 
 	int frames = static_cast<int>(soundInfo.frames * soundInfo.channels);
@@ -222,7 +295,7 @@ void Sound::Initialize(std::string fileName)
 	duration = static_cast<float>(frames)
 		/ static_cast<float>(sampleRate)
 		/ static_cast<float>(channels);
-	WriteLog("duration: %f\n", duration);
+	//WriteLog("duration: %f\n", duration);
 }
 
 void Sound::CreateSources(ALuint &source)

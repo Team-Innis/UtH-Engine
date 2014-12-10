@@ -1,5 +1,6 @@
 #include <UtH/Platform/SoundDevice.hpp>
 #include <UtH/Platform/Debug.hpp>
+#include <cassert>
 
 using namespace uth;
 
@@ -22,20 +23,27 @@ SoundDevice::~SoundDevice()
 	alcCloseDevice(device);
 }
 
+bool SoundDevice::DeviceInitialized()
+{
+	return initialized;
+}
+
 // PRIVATE
 
 void SoundDevice::CreateContext()
 {
 	if(!initialized)
 	{
-		initialized = true;
-
 		device = alcOpenDevice(0);
 
-		if(!device)
+		if (!device)
+		{
 			WriteError("Failed to open audio device!");
-		else
-			WriteLog("Audio device opened.\n");
+			//assert(false);
+			return;
+		}
+		//else
+		//	WriteLog("Audio device opened.\n");
 
 		context = alcCreateContext(device, 0);
 		if(!alcMakeContextCurrent(context))
@@ -43,5 +51,6 @@ void SoundDevice::CreateContext()
 			WriteError("Failed to make context current!");
 			CheckALError("alcMakeContextCurrent");
 		}
+		initialized = true;
 	}
 }

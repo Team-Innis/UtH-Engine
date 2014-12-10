@@ -11,17 +11,17 @@
   <uses-permission android:name="android.permission.VIBRATE"/>
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-  <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="19"/>
-  
+
+  <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="21"/>
 
   <application android:hasCode="true" android:icon="@drawable/ic_launcher" android:testOnly="false" android:label="TestiSofta">
-
-	<meta-data android:name="com.google.android.gms.version" android:value="6171000"/>
+  
+	<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
 	<meta-data 	android:name="com.google.android.gms.games.APP_ID"
 	    		android:value="@string/app_id" />
 	
 	<activity	android:name="fi.kajakgames.uth.GameActivity"
-				android:theme="@android:style/Theme.Translucent"
+				android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
 				android:launchMode="singleTask"
 				android:screenOrientation="landscape"
 				android:configChanges="orientation|keyboardHidden">
@@ -36,8 +36,8 @@
     </activity>
     
 	<activity android:name="com.google.android.gms.ads.AdActivity"
-			android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
-	
+			android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+			android:theme="@android:style/Theme.Translucent"/>
 	<!-- Google Analytics Version v4 needs this value for easy tracking -->
 	<meta-data android:name="com.google.android.gms.analytics.globalConfigResource" android:resource="@xml/global_tracker" />
     
