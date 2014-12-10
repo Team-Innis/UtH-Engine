@@ -12,8 +12,9 @@ namespace uth
 	class GooglePlayGameServices : public Singleton < GooglePlayGameServices >
 	{
 		friend class Singleton < GooglePlayGameServices > ;
-
+	public:
 		struct Location;
+	private:
 
 		class Achievement
 		{
