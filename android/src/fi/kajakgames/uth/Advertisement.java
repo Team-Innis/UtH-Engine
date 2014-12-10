@@ -107,14 +107,14 @@ public class Advertisement
 		}
 	}
 	
-	private void Show()
+	public void Show()
 	{
 		adView.loadAd(adRequest);
 		window.showAtLocation(mainLayout, gravity, offset[0], offset[1]);
 		window.update(offset[0], offset[1], size[0], size[1]);
 	}
 	
-	private void Hide()
+	public void Hide()
 	{
 		window.dismiss();
 		adView.pause();
