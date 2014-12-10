@@ -45,7 +45,7 @@ bool FileManager::OpenFile(const std::string& path, const Location loca, bool is
 	if (loca == Location::ASSET)
 	{
 		m_asset = AAssetManager_open(m_manager, path.c_str(), 2);
-        return;
+        return true;
 	}
 	else if (loca == Location::INTERNAL || loca == Location::EXTERNAL)
 	{

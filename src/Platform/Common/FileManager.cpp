@@ -80,11 +80,14 @@ bool FileManager::OpenFile(const std::string& path, const Location loca, bool is
 		{
             m_writable = true;
             file = std::fopen(temp_path.c_str(), "w+b");
-            if (file == nullptr)
-                WriteError("Cannot open file %s", temp_path.c_str());
 		}
 		if (file == nullptr)
+		{
+			WriteError("Cannot open file %s", temp_path.c_str());
+			if (loca == Location::ASSET)
+				assert(false);
 			return false;
+		}
 	}
 	return true;
 }
