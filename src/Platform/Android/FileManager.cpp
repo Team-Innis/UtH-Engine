@@ -130,7 +130,7 @@ bool FileManager::FileSeek(int offset, int origin)
 	return false;
 }
 
-bool FileManager::ReadBytes(void* b, unsigned int count, unsigned int blockSize)
+bool FileManager::ReadBytes(void* const b, const unsigned int count, const unsigned int blockSize)
 {
 	char* buffer = (char*)b;
 
@@ -174,30 +174,54 @@ const std::string FileManager::ReadText()
 
 void uth::FileManager::WriteString(const std::string& data)
 {
-    if (!m_stream.is_open())
-    {
-        WriteError("No file is open");
-        return;
-    }
-    else if (!m_writable)
-        WriteError("File not writable");
+	if (!m_stream.is_open())
+	{
+		WriteError("No file is open");
+		return;
+	}
+
+	if (!m_writable)
+	{
+		WriteError("File not writable");
+		return;
+	}
 
     WriteLog("Writing: %s", data.c_str());
 
     m_stream << data;
 }
 
+void uth::FileManager::WriteBytes(const void* const buffer, const unsigned int count, const unsigned int blockSize)
+{
+	if (!m_stream.is_open())
+	{
+		WriteError("No file is open");
+		return;
+	}
+
+	if (!m_writable)
+	{
+		WriteError("File not writable");
+		return;
+	}
+
+	m_stream.write(reinterpret_cast<const char *>(buffer), count * blockSize);
+}
 void uth::FileManager::WriteBinary(const BINARY_DATA& data)
 {
-    if (!m_stream.is_open())
-    {
-        WriteError("No file is open");
-        return;
-    }
-    else if (!m_writable)
-        WriteError("File not writable");
+	if (!m_stream.is_open())
+	{
+		WriteError("No file is open");
+		return;
+	}
 
-    m_stream.write(reinterpret_cast<const char *>(data.ptr()), data.size());
+	if (!m_writable)
+	{
+		WriteError("File not writable");
+		return;
+	}
+
+	m_stream.write(reinterpret_cast<const char *>(data.ptr()), data.size());
 }
 
 AAsset* FileManager::loadSound(const std::string& fileName)

@@ -38,7 +38,7 @@ namespace uth
         // Read a 'count' ammount of 'blockSize' sized blocks of data from file to buffer
         // Buffer is a pointer to the first element of an array
         // Also sets the file pointer to the end of read block
-        bool ReadBytes(void* buffer, unsigned int count, unsigned int blockSize = 1);
+        bool ReadBytes(void* const buffer, const unsigned int count, const unsigned int blockSize = 1);
 
         // Returns the content of whole file as binary data
         const BINARY_DATA ReadBinary();
@@ -48,7 +48,9 @@ namespace uth
 
         // Write text to file.
         void WriteString(const std::string& data);
-        void WriteBinary(const BINARY_DATA& data);
+
+		void WriteBytes(const void* const buffer, const unsigned int count, const unsigned int blockSize = 1);
+		void WriteBinary(const BINARY_DATA& data);
 
 		static bool isCompressed;
 	private:

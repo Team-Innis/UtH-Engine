@@ -149,7 +149,7 @@ bool FileManager::FileSeek(int offset, int origin)
 	return false;
 }
 
-bool FileManager::ReadBytes(void* buffer, unsigned int count, unsigned int blockSize)
+bool FileManager::ReadBytes(void* const buffer, const unsigned int count, const unsigned int blockSize)
 {
 	if(PHYSFS_isInit())
 	{
@@ -198,6 +198,13 @@ void FileManager::WriteString(const std::string& data)
 }
 
 
+void FileManager::WriteBytes(const void* const buffer, const unsigned int count, const unsigned int blockSize)
+{
+	if (m_writable)
+		std::fwrite(buffer, blockSize, count, file);
+	else
+		WriteError("Current file is not opened as writable");
+}
 void uth::FileManager::WriteBinary(const BINARY_DATA& data)
 {
     if (m_writable)
