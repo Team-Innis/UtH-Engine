@@ -74,7 +74,6 @@ GoogleApiClient.OnConnectionFailedListener
 	
 		int dpi = getResources().getDisplayMetrics().densityDpi;
 		float padding = ((dpi / 100.0f) * getResources().getDisplayMetrics().density);
-		Log.i("uth-engine", "padding " + padding);
 		initialAd = new Advertisement(this, (int)padding);
 		
 		//Test
@@ -236,9 +235,7 @@ GoogleApiClient.OnConnectionFailedListener
 		{
 			@Override
 			public void run()
-			{
-				Log.i("uth-engine","Show fullscreen ad[" + adID + "]");
-				
+			{				
 				if (interstitial != null && interstitial.isLoaded())
 				{
 					interstitial.show();
