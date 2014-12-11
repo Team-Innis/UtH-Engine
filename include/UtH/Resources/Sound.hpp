@@ -75,6 +75,9 @@ namespace uth
 		// Check if source is playing.
 		bool IsPlaying();
 
+		// Stops all effects
+		void StopEffects();
+
 	private:
 		Sound(const Sound&);
 
@@ -85,7 +88,7 @@ namespace uth
 		void Initialize(std::string fileName);
 		static void CreateSources(ALuint &source);
 		ALint Status();
-		void Copy();
+		void effectCopy();
 
 		ALuint source;
 		ALuint buffer;
@@ -94,6 +97,7 @@ namespace uth
 		bool enginePaused;
 		float duration;
 		std::vector<ALuint> tempSource;
+		
 		float _posX, _posY, _posZ;
 
 	};

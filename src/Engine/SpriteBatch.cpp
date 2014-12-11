@@ -88,17 +88,24 @@ namespace uth
 
     bool SpriteBatch::RemoveSprite(Transform* object)
     {
-        for (auto& i : m_objects)
-        {
-            if (i.get() == object)
-            {
-                if (!m_adoptedPointers)
-                    i.release();
-            }
-        }
+		for (int i = 0; i < m_objects.size(); i++)
+		{
+			if (m_objects[i].get() == object)
+			{
+				if (!m_adoptedPointers)
+				{
+					m_objects[i].release();
+				}
 
-        return false;
-    }
+				m_objects.erase(m_objects.begin() + i);
+				for (int j = 3; j >= 0; --j)
+					m_vertexData.erase(m_vertexData.begin() + i * 4 + j);
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 	void SpriteBatch::SetTextureAtlas(TextureAtlas* atlas)
 	{

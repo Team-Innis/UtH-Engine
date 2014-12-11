@@ -14,7 +14,7 @@ using namespace uth;
 
 AAssetManager* FileManager::m_manager = nullptr;
 
-void ensureDirectoryExists(const std::string& path);
+bool ensureDirectoryExists(const std::string& path);
 
 FileManager::FileManager()
 	//:m_file(nullptr),
@@ -37,7 +37,7 @@ FileManager::~FileManager()
 	CloseFile();
 }
 
-void FileManager::OpenFile(const std::string& path, const Location loca, bool isWritable)
+bool FileManager::OpenFile(const std::string& path, const Location loca, bool isWritable)
 {
     // We can safely ignore isWritable because it doesn't matter here
 
@@ -45,7 +45,7 @@ void FileManager::OpenFile(const std::string& path, const Location loca, bool is
 	if (loca == Location::ASSET)
 	{
 		m_asset = AAssetManager_open(m_manager, path.c_str(), 2);
-        return;
+        return true;
 	}
 	else if (loca == Location::INTERNAL || loca == Location::EXTERNAL)
 	{
@@ -71,7 +71,9 @@ void FileManager::OpenFile(const std::string& path, const Location loca, bool is
 		else
 			truePath = uthAndroidEngine.internalPath + "/" + path;
 
-        ensureDirectoryExists(truePath);
+        if (!ensureDirectoryExists(truePath))
+			return false;
+
         if (isWritable)
         {
             m_stream.open(truePath, std::ios::in | std::ios::out | std::ios::trunc);
@@ -94,8 +96,10 @@ void FileManager::OpenFile(const std::string& path, const Location loca, bool is
         if (!m_stream.is_open())
 		{
 			WriteError("errno %s with file %s", strerror(errno), truePath.c_str());
+			return false;
 		}
 	}
+	return true;
 }
 
 void FileManager::CloseFile()
@@ -126,7 +130,7 @@ bool FileManager::FileSeek(int offset, int origin)
 	return false;
 }
 
-bool FileManager::ReadBytes(void* b, unsigned int count, unsigned int blockSize)
+bool FileManager::ReadBytes(void* const b, const unsigned int count, const unsigned int blockSize)
 {
 	char* buffer = (char*)b;
 
@@ -170,30 +174,54 @@ const std::string FileManager::ReadText()
 
 void uth::FileManager::WriteString(const std::string& data)
 {
-    if (!m_stream.is_open())
-    {
-        WriteError("No file is open");
-        return;
-    }
-    else if (!m_writable)
-        WriteError("File not writable");
+	if (!m_stream.is_open())
+	{
+		WriteError("No file is open");
+		return;
+	}
+
+	if (!m_writable)
+	{
+		WriteError("File not writable");
+		return;
+	}
 
     WriteLog("Writing: %s", data.c_str());
 
     m_stream << data;
 }
 
+void uth::FileManager::WriteBytes(const void* const buffer, const unsigned int count, const unsigned int blockSize)
+{
+	if (!m_stream.is_open())
+	{
+		WriteError("No file is open");
+		return;
+	}
+
+	if (!m_writable)
+	{
+		WriteError("File not writable");
+		return;
+	}
+
+	m_stream.write(reinterpret_cast<const char *>(buffer), count * blockSize);
+}
 void uth::FileManager::WriteBinary(const BINARY_DATA& data)
 {
-    if (!m_stream.is_open())
-    {
-        WriteError("No file is open");
-        return;
-    }
-    else if (!m_writable)
-        WriteError("File not writable");
+	if (!m_stream.is_open())
+	{
+		WriteError("No file is open");
+		return;
+	}
 
-    m_stream.write(reinterpret_cast<const char *>(data.ptr()), data.size());
+	if (!m_writable)
+	{
+		WriteError("File not writable");
+		return;
+	}
+
+	m_stream.write(reinterpret_cast<const char *>(data.ptr()), data.size());
 }
 
 AAsset* FileManager::loadSound(const std::string& fileName)
@@ -221,7 +249,7 @@ int64_t FileManager::tellAsset(void* asset)
 	return AAsset_seek((AAsset*)asset, 0, SEEK_CUR);
 }
 
-void ensureDirectoryExists(const std::string& path)
+bool ensureDirectoryExists(const std::string& path)
 {
     std::vector<std::string> dirs;
 
@@ -249,9 +277,13 @@ void ensureDirectoryExists(const std::string& path)
         {
             // Try to create the directory
             int status = mkdir(testPath.c_str(), 0777);
-            if (status == -1)
-                WriteError("Error: %s when creating directory: %s", strerror(errno),
-                testPath.c_str());
+			if (status == -1)
+			{
+				WriteError("Error: %s when creating directory: %s", strerror(errno),
+					testPath.c_str());
+				return false;
+			}
         }
     }
+	return true;
 }

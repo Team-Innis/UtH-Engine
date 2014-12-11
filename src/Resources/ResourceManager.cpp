@@ -322,6 +322,7 @@ void ResourceManager::PauseSounds(bool pause)
 		{
 			itr->second->Pause();
 			itr->second->enginePaused = true;
+			itr->second->StopEffects();
 		}
 		else if (!pause && itr->second->enginePaused)
 		{

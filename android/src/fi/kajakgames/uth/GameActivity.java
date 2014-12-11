@@ -21,6 +21,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.drive.internal.OnResourceIdSetResponse;
 import com.google.android.gms.analytics.*;
 import com.google.android.gms.location.*;
 
@@ -48,7 +49,8 @@ GoogleApiClient.OnConnectionFailedListener
 	
 	//Test Only
 	private InterstitialAd interstitial;
-	
+	private InterstitialAd interstitial2;
+	AdRequest adRequest;
 	static
 	{
 		System.loadLibrary("sndfile");
@@ -79,7 +81,7 @@ GoogleApiClient.OnConnectionFailedListener
 		interstitial = new InterstitialAd(this);
 		final String adID = this.getString(R.string.AdMobPublisherID) + "/" + "9257920890";
 		interstitial.setAdUnitId(adID);
-	    AdRequest adRequest = new AdRequest.Builder()
+	    adRequest = new AdRequest.Builder()
 									    .addTestDevice("E69C2A8B1675A10447583C0049DC0D26")
 									    .build();
 	    
@@ -110,6 +112,19 @@ GoogleApiClient.OnConnectionFailedListener
 		locationRequest.setFastestInterval(FASTEST_INTERVAL);
 		
 		}
+	}
+	
+	public void onResume()
+	{
+		super.onResume();
+		
+		gameActivity.runOnUiThread(new Runnable() {
+			
+			@Override
+			public void run() {
+				interstitial.loadAd(adRequest);
+			}
+		});
 	}
 	
 	boolean IsGPGSAvailable()
@@ -210,7 +225,7 @@ GoogleApiClient.OnConnectionFailedListener
 					adList.add(lol);
 					index = adList.indexOf(lol);
 				}
-				adList.get(index).Toggle();
+				adList.get(index).Show();
 			}
 		});
 	}
@@ -223,18 +238,18 @@ GoogleApiClient.OnConnectionFailedListener
 			public void run()
 			{
 				Log.i("uth-engine","Show fullscreen ad[" + adID + "]");
-			    if (interstitial.isLoaded())
-			    {
-			        interstitial.show();
-					Log.i("uth-engine","after show full");
-			    }
-				Log.i("uth-engine","end of show full");
+				
+				if (interstitial != null && interstitial.isLoaded())
+				{
+					interstitial.show();
+				}
 			}
 		});
 	}
 	
 	public void HideAd(final String name)
 	{
+		final String publisherID = this.getString(R.string.AdMobPublisherID);
 		gameActivity.runOnUiThread(new Runnable() 
 		{
 			@Override
@@ -244,7 +259,7 @@ GoogleApiClient.OnConnectionFailedListener
 				{
 					if(adList.get(i).name.equals(name))
 					{
-						adList.get(i).Toggle();
+						adList.get(i).Hide();
 						break;
 					}
 				}

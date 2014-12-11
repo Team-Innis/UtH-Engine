@@ -17,7 +17,7 @@ using namespace uth;
 
 bool FileManager::isCompressed = false;
 
-void ensureDirectoryExists(const std::string& path);
+bool ensureDirectoryExists(const std::string& path);
 
 FileManager::FileManager()
 	: file(nullptr),
@@ -40,7 +40,7 @@ FileManager::~FileManager()
 }
 
 // Public
-void FileManager::OpenFile(const std::string& path, const Location loca, bool isWritable)
+bool FileManager::OpenFile(const std::string& path, const Location loca, bool isWritable)
 {
 	//CloseFile();
 
@@ -71,7 +71,8 @@ void FileManager::OpenFile(const std::string& path, const Location loca, bool is
 		temp_path += path;
 
         if (loca != Location::ASSET)
-            ensureDirectoryExists(temp_path);
+            if (!ensureDirectoryExists(temp_path))
+				return false;
 
         if (!isWritable)
 		    file = std::fopen(temp_path.c_str(), "r+b");
@@ -79,11 +80,16 @@ void FileManager::OpenFile(const std::string& path, const Location loca, bool is
 		{
             m_writable = true;
             file = std::fopen(temp_path.c_str(), "w+b");
-            if (file == nullptr)
-                WriteError("Cannot open file %s", temp_path.c_str());
 		}
-		assert(file != nullptr);
+		if (file == nullptr)
+		{
+			WriteError("Cannot open file %s", temp_path.c_str());
+			if (loca == Location::ASSET)
+				assert(false);
+			return false;
+		}
 	}
+	return true;
 }
 
 void FileManager::CloseFile()
@@ -143,7 +149,7 @@ bool FileManager::FileSeek(int offset, int origin)
 	return false;
 }
 
-bool FileManager::ReadBytes(void* buffer, unsigned int count, unsigned int blockSize)
+bool FileManager::ReadBytes(void* const buffer, const unsigned int count, const unsigned int blockSize)
 {
 	if(PHYSFS_isInit())
 	{
@@ -192,6 +198,13 @@ void FileManager::WriteString(const std::string& data)
 }
 
 
+void FileManager::WriteBytes(const void* const buffer, const unsigned int count, const unsigned int blockSize)
+{
+	if (m_writable)
+		std::fwrite(buffer, blockSize, count, file);
+	else
+		WriteError("Current file is not opened as writable");
+}
 void uth::FileManager::WriteBinary(const BINARY_DATA& data)
 {
     if (m_writable)
@@ -201,7 +214,7 @@ void uth::FileManager::WriteBinary(const BINARY_DATA& data)
 }
 
 
-void ensureDirectoryExists(const std::string& path)
+bool ensureDirectoryExists(const std::string& path)
 {
     std::vector<std::string> dirs;
 
@@ -238,9 +251,13 @@ void ensureDirectoryExists(const std::string& path)
             status = mkdir(testPath.c_str(), 0777);
             #endif // UTH_SYSTEM_WINDOWS
 
-            if (status == -1)
-                WriteError("Error: %s when creating directory: %s", strerror(errno),
-                testPath.c_str());
+			if (status == -1)
+			{
+				WriteError("Error: %s when creating directory: %s", strerror(errno),
+					testPath.c_str());
+				return false;
+			}
         }
     }
+	return true;
 }
