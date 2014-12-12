@@ -94,7 +94,8 @@ Sound* ResourceManager::LoadSound(const std::string& filePath)
 	if (itr != m_sounds.end())
 	{
 		itr->second->EnsureLoaded();
-		return itr->second.get();
+		//return itr->second.get();
+		return itr->second->Copy();
 	}
 
 	std::unique_ptr<Sound, Sound::Deleter> temp(new Sound());

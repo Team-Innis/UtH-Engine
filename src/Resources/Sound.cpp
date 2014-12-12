@@ -17,6 +17,7 @@ Sound::Sound()
 	  duration(0.1f),
 	  _posX(0), _posY(0), _posZ(0)
 {
+	copy = nullptr;
 }
 
 Sound::~Sound()
@@ -121,12 +122,15 @@ void Sound::Loop(bool looping)
 	if (!SoundDevice::getInstance().DeviceInitialized())
 		return;
 
-	if(looping == 0)
-		loop = false;
-	else
-		loop = true;
+	loop = looping;
 
-	alSourcei(source, AL_LOOPING, looping);
+	ALboolean looper;
+	if(looping == 0)
+		looper = AL_FALSE;
+	else
+		looper = AL_TRUE;
+
+	alSourcei(source, AL_LOOPING, looper);
 	CheckALError("al_sourcei AL_LOOPING");
 }
 
@@ -138,6 +142,16 @@ void Sound::SetVolume(int volumePercent)
 	float newVolume = float(volumePercent) / 100.0f;
 	alSourcef(source, AL_GAIN, newVolume);
 	CheckALError("al_sourcef AL_GAIN");
+}
+
+void Sound::SetListenerVolume(int volumePercent)
+{
+	if (!SoundDevice::getInstance().DeviceInitialized())
+		return;
+
+	float newVolume = float(volumePercent) / 100.0f;
+	alListenerf(AL_GAIN, newVolume);
+	CheckALError("al_Listenerf AL_GAIN");
 }
 
 void Sound::SetPitch(int pitchPercent)
@@ -314,6 +328,8 @@ void Sound::CreateSources(ALuint &source)
 	alSourcef(source, AL_PITCH, 1);
 	CheckALError("al_sourcef AL_PITCH");
 	// set maximum volume = 1
+	alListenerf(AL_GAIN, 1);
+	CheckALError("al_Listenerf AL_GAIN");
 	alSourcef(source, AL_GAIN, 1);
 	CheckALError("al_sourcef AL_GAIN");
 	// set position to center
@@ -340,7 +356,7 @@ void Sound::effectCopy()
 	float pitch, gain;
 	alGetSourcef(source, AL_PITCH, &pitch);
 	CheckALError("al_getsourcef AL_PITCH");
-	alGetSourcef(source, AL_GAIN, &gain);
+	alGetListenerf(AL_GAIN, &gain);
 	CheckALError("al_getsourcef AL_GAIN");
 
 	for (int i = 0; i < tempSource.size(); i++)
@@ -350,9 +366,13 @@ void Sound::effectCopy()
 		if (tempState == AL_STOPPED)
 		{
 			alSourcef(tempSource[i], AL_PITCH, pitch);
+			CheckALError("al_sourcef AL_PITCH");
 			alSourcef(tempSource[i], AL_GAIN, gain);
+			CheckALError("al_sourcef AL_GAIN");
 			alSource3f(tempSource[i], AL_POSITION, _posX, _posY, _posZ);
+			CheckALError("al_source3f AL_POSITION");
 			alSource3f(tempSource[i], AL_VELOCITY, _posX, _posY, _posZ);
+			CheckALError("al_source3f AL_VELOCITY");
 			alSourcePlay(tempSource[i]);
 			return;
 		}		
@@ -363,9 +383,13 @@ void Sound::effectCopy()
 	Sound::CreateSources(t_source);
 	// We want to put copied sound in same location as copied source.
 	alSourcef(t_source, AL_PITCH, pitch);
+	CheckALError("al_sourcef AL_PITCH");
 	alSourcef(t_source, AL_GAIN, gain);
+	CheckALError("al_sourcef AL_GAIN");
 	alSource3f(t_source, AL_POSITION, _posX, _posY, _posZ);
+	CheckALError("al_source3f AL_POSITION");
 	alSource3f(t_source, AL_VELOCITY, _posX, _posY, _posZ);
+	CheckALError("al_source3f AL_VELOCITY");
 
 	alSourcei(t_source, AL_BUFFER, buffer);
 	CheckALError("alSourcei AL_BUFFER");
@@ -376,4 +400,53 @@ void Sound::effectCopy()
 	alSourcePlay(tempSource.back());
 	// Remove source from beginning of vector as it finishes playback.
 	//tempSource.erase(tempSource.begin());
+}
+
+Sound* Sound::Copy()
+{
+	copy = new Sound();
+	copy->loop = loop;
+	copy->enginePaused = enginePaused;
+	copy->duration = duration;
+	copy->_posX = _posX;
+	copy->_posY = _posY;
+	copy->_posZ = _posZ;
+
+
+	alGenBuffers(1, &copy->buffer);
+	CheckALError("alGenBuffers");
+
+	copy->CreateSources(copy->source);
+	copy->buffer = buffer;
+
+	alSourcei(copy->source, AL_BUFFER, copy->buffer);
+	CheckALError("alSourcei AL_BUFFER");
+
+	float value;
+	alGetSourcef(source, AL_PITCH, &value);
+	CheckALError("alGetSourcef AL_PITCH");
+	alSourcef(copy->source, AL_PITCH, value);
+	CheckALError("alSourcef AL_PITCH");
+	alGetListenerf(AL_GAIN, &value);
+	CheckALError("alGetSourcef AL_GAIN");
+	alListenerf(AL_GAIN, value);
+	CheckALError("alListenerf AL_GAIN");
+	alSourcef(copy->source, AL_GAIN, value);
+	CheckALError("alSourcef AL_GAIN");
+
+	float posX, posY, posZ;
+	alGetSource3f(source, AL_POSITION, &posX, &posY, &posZ);
+	CheckALError("alGetSource3f AL_POSITION");
+	alSource3f(copy->source, AL_POSITION, posX, posY, posZ);
+	CheckALError("alSource3f AL_POSITION");
+
+	alGetSource3f(source, AL_VELOCITY, &posX, &posY, &posZ);
+	CheckALError("alGetSource3f AL_VELOCITY");
+	alSource3f(copy->source, AL_VELOCITY, posX, posY, posZ);
+	CheckALError("alSource3f AL_VELOCITY");
+
+	//alSourcei(copy->source, AL_LOOPING, copy->loop);
+	//CheckALError("alGetSourcei AL_LOOPING");
+
+	return copy;
 }

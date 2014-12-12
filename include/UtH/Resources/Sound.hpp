@@ -56,8 +56,13 @@ namespace uth
 		// Sets loop true or false
 		void Loop(bool looping);
 
-		// Adjust volume
+		// Adjust source volume
+		// Use SetListenerVolume if you want copied sounds
+		// to use same volume as old one.
 		void SetVolume(int volumePercent);
+
+		// Adjust listener volume
+		void SetListenerVolume(int volumePercent);
 
 		// Adjust pitch
 		void SetPitch(int pitchPercent);
@@ -97,6 +102,9 @@ namespace uth
 		bool enginePaused;
 		float duration;
 		std::vector<ALuint> tempSource;
+
+		Sound* copy;
+		Sound* Copy();
 		
 		float _posX, _posY, _posZ;
 
