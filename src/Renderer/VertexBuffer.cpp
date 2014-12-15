@@ -23,6 +23,22 @@ VertexBuffer::~VertexBuffer()
 	uth::Graphics::DeleteBuffers(1, &m_elementBuffer);
 }
 
+template<typename T>
+void Replace(std::vector<T>& target, const unsigned int offset, const std::vector<T>& source)
+{
+	const int extraItems = target.size() - offset - source.size();
+	if (extraItems > 0)
+	{
+		target.insert(target.end(), source.end() - extraItems, source.end());
+		std::memcpy(target.data(), source.data(),
+			(source.size() - extraItems) * sizeof(T));
+	}
+	else
+	{
+		std::memcpy(target.data(), source.data(),
+			(source.size()) * sizeof(T));
+	}
+}
 
 // Public
 
@@ -66,18 +82,26 @@ void VertexBuffer::addIndices(const std::vector<unsigned short>& indices)
     m_elementBufferNeedsUpdate = true;
 }
 
-void VertexBuffer::changeBufferData(const unsigned int offset, const std::vector<Vertex>& vertices) const
+void VertexBuffer::changeBufferData(const unsigned int vertexOffset, const std::vector<Vertex>& vertices)
 {
-    unsigned int size = vertices.size() * sizeof(Vertex);
-    uth::Graphics::BindBuffer(ARRAY_BUFFER, m_arrayBuffer);
-	Graphics::SetBufferSubData(ARRAY_BUFFER, offset, size, &vertices.front());
+	const unsigned int size = vertices.size() * sizeof(Vertex);
+
+	Replace(m_vertexData, vertexOffset, vertices);
+
+	uth::Graphics::BindBuffer(ARRAY_BUFFER, m_arrayBuffer);
+	Graphics::SetBufferSubData(ARRAY_BUFFER,
+		vertexOffset * sizeof(Vertex), size, &vertices.front());
 }
 
-void VertexBuffer::changeElementData(const unsigned int offset, const std::vector<unsigned int>& indices)
+void VertexBuffer::changeElementData(const unsigned int indexOffset, const std::vector<unsigned short>& indices)
 {
-    unsigned int size = indices.size() * sizeof(unsigned int);
-    uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
-	Graphics::SetBufferSubData(ELEMENT_ARRAY_BUFFER, offset, size, &indices.front());
+	const unsigned int size = indices.size() * sizeof(unsigned int);
+
+	Replace(m_indices, indexOffset, indices);
+
+	uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
+	Graphics::SetBufferSubData(ELEMENT_ARRAY_BUFFER,
+		indexOffset * sizeof(unsigned int), size, &indices.front());
 }
 
 const std::vector<Vertex>& VertexBuffer::getVertices() const
