@@ -30,12 +30,12 @@ void Replace(std::vector<T>& target, const unsigned int offset, const std::vecto
 	if (extraItems > 0)
 	{
 		target.insert(target.end(), source.end() - extraItems, source.end());
-		std::memcpy(target.data(), source.data(),
+		memcpy(target.data(), source.data(),
 			(source.size() - extraItems) * sizeof(T));
 	}
 	else
 	{
-		std::memcpy(target.data(), source.data(),
+		memcpy(target.data(), source.data(),
 			(source.size()) * sizeof(T));
 	}
 }
