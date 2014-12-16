@@ -41,6 +41,7 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 		ID[index].m_startIndex = index;
 		ID[index].m_downTime = 0.f;
 		ID[index].m_tapped = false;
+		ID[index].m_curPos = ID[index].m_startPos;
 		}
 		break;
 	case AMOTION_EVENT_ACTION_MOVE:
@@ -121,10 +122,9 @@ int TouchInput::DroidMessage(android_app* app, AInputEvent* droidInputEvent)
 
 void TouchInput::Update(float deltaTime)
 {
-	if((m_motion != TouchMotion::NONE && m_motion == TouchMotion::TAP) || 
-		(m_motion != TouchMotion::NONE && m_motion == TouchMotion::RELEASE))	
+	if ((m_motion == TouchMotion::TAP) ||
+		(m_motion == TouchMotion::RELEASE))
 		m_motion = TouchMotion::NONE;
-	
 		
 	for(int i = 0; i < m_maxInputs; i++)
 	{
