@@ -24,19 +24,21 @@ VertexBuffer::~VertexBuffer()
 }
 
 template<typename T>
-void Replace(std::vector<T>& target, const unsigned int offset, const std::vector<T>& source)
+bool Replace(std::vector<T>& target, const unsigned int offset, const std::vector<T>& source)
 {
-	const int extraItems = target.size() - offset - source.size();
+	const int extraItems = source.size() + offset - target.size();
 	if (extraItems > 0)
 	{
 		target.insert(target.end(), source.end() - extraItems, source.end());
 		memcpy(target.data(), source.data(),
 			(source.size() - extraItems) * sizeof(T));
+		return false;
 	}
 	else
 	{
 		memcpy(target.data(), source.data(),
 			(source.size()) * sizeof(T));
+		return true;
 	}
 }
 
@@ -86,22 +88,28 @@ void VertexBuffer::changeBufferData(const unsigned int vertexOffset, const std::
 {
 	const unsigned int size = vertices.size() * sizeof(Vertex);
 
-	Replace(m_vertexData, vertexOffset, vertices);
-
-	uth::Graphics::BindBuffer(ARRAY_BUFFER, m_arrayBuffer);
-	Graphics::SetBufferSubData(ARRAY_BUFFER,
-		vertexOffset * sizeof(Vertex), size, &vertices.front());
+	if (Replace(m_vertexData, vertexOffset, vertices))
+	{
+		uth::Graphics::BindBuffer(ARRAY_BUFFER, m_arrayBuffer);
+		Graphics::SetBufferSubData(ARRAY_BUFFER,
+			vertexOffset * sizeof(Vertex), size, &vertices.front());
+	}
+	else
+		setData();
 }
 
 void VertexBuffer::changeElementData(const unsigned int indexOffset, const std::vector<unsigned short>& indices)
 {
 	const unsigned int size = indices.size() * sizeof(unsigned int);
 
-	Replace(m_indices, indexOffset, indices);
-
-	uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
-	Graphics::SetBufferSubData(ELEMENT_ARRAY_BUFFER,
-		indexOffset * sizeof(unsigned int), size, &indices.front());
+	if (Replace(m_indices, indexOffset, indices))
+	{
+		uth::Graphics::BindBuffer(ELEMENT_ARRAY_BUFFER, m_elementBuffer);
+		Graphics::SetBufferSubData(ELEMENT_ARRAY_BUFFER,
+			indexOffset * sizeof(unsigned int), size, &indices.front());
+	}
+	else
+		setData();
 }
 
 const std::vector<Vertex>& VertexBuffer::getVertices() const
