@@ -18,10 +18,8 @@ import com.google.android.gms.ads.*;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesClient;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.drive.internal.OnResourceIdSetResponse;
 import com.google.android.gms.analytics.*;
 import com.google.android.gms.location.*;
 
@@ -358,10 +356,9 @@ GoogleApiClient.OnConnectionFailedListener
 
 	public String GetCurrentLocation()
 	{
-		Log.d("getloc", "doh");
 		if(!IsGPGSAvailable())
 			return "";
-		Log.d("getloc", "doh2");
+
 		if(useGPS){
 		mCurLocation = LocationServices.FusedLocationApi.getLastLocation(lClient);
 		
