@@ -51,6 +51,10 @@ uth::Text::Text(const std::string& fontPath, const float fontSize,
 
 Text::~Text()
 {
+	texture_font_delete(m_font);
+
+	texture_atlas_delete(m_atlas);
+
 	ClearOpenGLContext();
 
 	TEXTS.erase(this);
