@@ -11,6 +11,7 @@
 namespace uth
 {
 	class RenderTarget;
+    class PhysicsWorld;
 
 	class Scene : public Layer
     {
@@ -29,6 +30,8 @@ namespace uth
 
 		virtual void Update(float dt);
 		virtual void Draw(RenderTarget& target, RenderAttributes attributes = RenderAttributes());
+
+        virtual PhysicsWorld* GetPhysicsWorld();
 
 	};
 }

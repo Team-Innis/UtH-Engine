@@ -47,6 +47,11 @@ namespace uth
         virtual void draw(RenderTarget&){}
 
 		std::vector<std::shared_ptr<Component>> m_components;
+		
+        rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const override;
+
+        bool load(const rapidjson::Value& doc) override;
+
 	};
 
     template<typename T>

@@ -20,6 +20,11 @@ bool Engine::Init(const uth::WindowSettings &wsettings)
 	return initialize();
 }
 
+void uth::Engine::DeInit()
+{
+    uthSceneM.endScene();
+}
+
 void Engine::Update()
 {
 	const float deltaTime = static_cast<float>(m_timer.DeltaTime());

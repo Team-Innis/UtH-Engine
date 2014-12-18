@@ -19,6 +19,7 @@ ResourceManager::ResourceManager()
 }
 ResourceManager::~ResourceManager()
 {
+    Clear(All);
 }
 
 Image* uth::ResourceManager::LoadImage(const std::string& filePath)
@@ -310,6 +311,13 @@ bool uth::ResourceManager::ClearOpenGLContext()
 	}
 
 	return result;
+}
+
+ResourceManager& uth::ResourceManager::GetInstance()
+{
+    static ResourceManager instance;
+
+    return instance;
 }
 
 void ResourceManager::PauseSounds(bool pause)

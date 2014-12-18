@@ -2,6 +2,7 @@
 #define TRANSFORM_H
 
 #include <pmath/PMath.hpp>
+#include <UtH/Engine/Saveable.hpp>
 
 namespace uth
 {
@@ -26,7 +27,7 @@ namespace uth
 	{
 		class Tile;
 	}
-	class Transform
+	class Transform : public Saveable
 	{
 	public:
 		Transform(Object* parent);
@@ -83,6 +84,10 @@ namespace uth
 		friend class Text;
 		friend class ParticleSystem;
 		friend class TMX::Tile;
+        friend class Object;
+
+        rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const final override;
+        bool load(const rapidjson::Value& doc) final override;
 
 		void setSize(const pmath::Vec2& size);
 		void setSize(const float width, const float height);

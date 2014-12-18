@@ -14,6 +14,10 @@ namespace uth
 
     class SpriteBatch : public GameObject
     {
+    private:
+
+        friend class ParticleSystem;
+
     public:
 
         SpriteBatch(const bool adoptPointers = true);
@@ -34,6 +38,10 @@ namespace uth
 
 
     protected:
+
+        rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const final override;
+
+        bool load(const rapidjson::Value& doc) final override;
 
         virtual void draw(RenderTarget& target);
 

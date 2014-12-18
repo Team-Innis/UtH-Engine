@@ -2,6 +2,7 @@
 #include <UtH/Renderer/RenderTarget.hpp>
 #include <cassert>
 #include <UtH/Platform/Debug.hpp>
+#include <UtH/Engine/SceneManager.hpp>
 
 namespace uth
 {
@@ -282,4 +283,83 @@ namespace uth
 	{
 		m_parent = p;
 	}
+
+    namespace rj = rapidjson;
+
+    rj::Value Object::save(rapidjson::MemoryPoolAllocator<>& alloc) const
+    {
+        rj::Value val;
+        val.SetObject();
+
+        // Active flag
+        val.AddMember(rj::StringRef("identifier"), rj::StringRef(typeid(*this).raw_name()), alloc);
+        val.AddMember(rj::StringRef("active"), m_active, alloc);
+        
+        val.AddMember(rj::StringRef("transform"), transform.save(alloc), alloc);
+
+        // Tags
+        if (!m_tagList.empty())
+        {
+            rj::Value tagArray;
+            tagArray.SetArray();
+
+            for (auto& i : m_tagList)
+                tagArray.PushBack(rj::Value(i.c_str(), alloc), alloc);
+
+            val.AddMember(rj::StringRef("tags"), tagArray, alloc);
+        }
+        
+        // Children
+        if (!m_children.empty())
+        {
+            val.AddMember(rj::StringRef("children"), rj::kArrayType, alloc);
+            rj::Value& childArray = val["children"];
+
+            for (auto& i : m_children)
+                childArray.PushBack(i->save(alloc), alloc);
+        }
+
+        return val;
+    }
+
+    bool Object::load(const rj::Value& doc)
+    {
+        m_children.clear();
+        m_tagList.clear();
+
+        m_active = doc["active"].GetBool();
+
+        // We'll just assume the transform is valid.
+        transform.load(doc["transform"]);
+
+        // Tags
+        if (doc.HasMember("tags") && doc["tags"].IsArray())
+        {
+            const rj::Value& tagArray = doc["tags"];
+
+            for (auto itr = tagArray.Begin(); itr != tagArray.End(); ++itr)
+                m_tagList.emplace(itr->GetString());
+        }
+
+        // Children
+        if (doc.HasMember("children") && doc["children"].IsArray())
+        {
+            const rj::Value& childArray = doc["children"];
+
+            for (auto itr = childArray.Begin(); itr != childArray.End(); ++itr)
+            {
+                std::unique_ptr<Object> ptr(static_cast<Object*>(uthSceneM.GetSaveable(*itr)));
+                
+                if (!ptr)
+                    return false;
+
+                if (ptr->load(*itr))
+                    AddChild(ptr.release());
+                else
+                    return false;
+            }
+        }
+
+        return true;
+    }
 }

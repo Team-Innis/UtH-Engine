@@ -1,0 +1,305 @@
+{
+    "identifier": ".?AVTestScene@uth@@",
+    "active": true,
+    "transform": {
+        "posX": 0.0,
+        "posY": 0.0,
+        "origX": 0.0,
+        "origY": 0.0,
+        "scaleX": 1.0,
+        "scaleY": 1.0,
+        "sizeX": 0.0,
+        "sizeY": 0.0,
+        "angle": 0.0
+    },
+    "children": [
+        {
+            "identifier": ".?AVGameObject@uth@@",
+            "active": true,
+            "transform": {
+                "posX": 98.67132568359375,
+                "posY": -173.98406982421876,
+                "origX": 0.0,
+                "origY": 0.0,
+                "scaleX": 1.0,
+                "scaleY": 1.0,
+                "sizeX": 128.0,
+                "sizeY": 128.0,
+                "angle": 729.604248046875
+            },
+            "tags": [
+                "RB"
+            ],
+            "components": [
+                {
+                    "name": "Sprite",
+                    "active": true,
+                    "properties": [
+                        128.0,
+                        128.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        1.0
+                    ],
+                    "identifier": ".?AVSprite@uth@@"
+                },
+                {
+                    "name": "Rigidbody",
+                    "active": true,
+                    "colliderType": 0,
+                    "size": [
+                        128.0,
+                        128.0
+                    ],
+                    "fixture": {
+                        "filterData": [
+                            1,
+                            0,
+                            65535
+                        ],
+                        "properties": [
+                            1.0,
+                            0.30000001192092898,
+                            false,
+                            0.0
+                        ]
+                    },
+                    "body": [
+                        -12.733996391296387,
+                        0.0,
+                        -9.83476734161377,
+                        1.0,
+                        0.0,
+                        1.5255507230758668,
+                        0.5745387673377991,
+                        1.9734264612197877,
+                        -3.4796814918518068,
+                        true,
+                        false,
+                        false,
+                        true,
+                        false
+                    ],
+                    "identifier": ".?AVRigidbody@uth@@"
+                }
+            ]
+        },
+        {
+            "identifier": ".?AVGameObject@uth@@",
+            "active": true,
+            "transform": {
+                "posX": 0.0,
+                "posY": 250.0,
+                "origX": 0.0,
+                "origY": 0.0,
+                "scaleX": 1.0,
+                "scaleY": 1.0,
+                "sizeX": 512.0,
+                "sizeY": 10.0,
+                "angle": 0.0
+            },
+            "components": [
+                {
+                    "name": "Sprite",
+                    "active": true,
+                    "properties": [
+                        512.0,
+                        10.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        1.0
+                    ],
+                    "identifier": ".?AVSprite@uth@@"
+                },
+                {
+                    "name": "Rigidbody",
+                    "active": true,
+                    "colliderType": 0,
+                    "size": [
+                        512.0,
+                        10.0
+                    ],
+                    "fixture": {
+                        "filterData": [
+                            1,
+                            0,
+                            65535
+                        ],
+                        "properties": [
+                            1.0,
+                            0.30000001192092898,
+                            false,
+                            0.0
+                        ]
+                    },
+                    "body": [
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        5.0,
+                        true,
+                        false,
+                        false,
+                        true,
+                        true
+                    ],
+                    "identifier": ".?AVRigidbody@uth@@"
+                }
+            ]
+        },
+        {
+            "identifier": ".?AVGameObject@uth@@",
+            "active": true,
+            "transform": {
+                "posX": 100.0,
+                "posY": 0.0,
+                "origX": 0.0,
+                "origY": 0.0,
+                "scaleX": 1.0,
+                "scaleY": 1.0,
+                "sizeX": 32.0,
+                "sizeY": 32.0,
+                "angle": 0.0
+            },
+            "tags": [
+                "ANIM"
+            ],
+            "components": [
+                {
+                    "name": "AnimatedSprite",
+                    "active": true,
+                    "properties": [
+                        128.0,
+                        128.0,
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "texture": "monsu.tga",
+                    "frames": 16,
+                    "firstFrame": 0,
+                    "curFrame": 4,
+                    "sizes": [
+                        32.0,
+                        32.0,
+                        0.25,
+                        0.25
+                    ],
+                    "fps": 5.0,
+                    "delay": 0.13343895971775056,
+                    "reversed": false,
+                    "loop": true,
+                    "frameCountX": 4,
+                    "frameCountY": 4,
+                    "identifier": ".?AVAnimatedSprite@uth@@"
+                }
+            ]
+        },
+        {
+            "identifier": ".?AVParticleSystem@uth@@",
+            "active": true,
+            "transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "origX": 0.0,
+                "origY": 0.0,
+                "scaleX": 1.0,
+                "scaleY": 1.0,
+                "sizeX": 25.0,
+                "sizeY": 25.0,
+                "angle": 0.0
+            },
+            "tags": [
+                "PS"
+            ],
+            "batch": {
+                "identifier": ".?AVSpriteBatch@uth@@",
+                "active": true,
+                "transform": {
+                    "posX": 0.0,
+                    "posY": 0.0,
+                    "origX": 0.0,
+                    "origY": 0.0,
+                    "scaleX": 1.0,
+                    "scaleY": 1.0,
+                    "sizeX": 0.0,
+                    "sizeY": 0.0,
+                    "angle": 0.0
+                },
+                "adoptedPointers": false,
+                "texture": "particle.tga"
+            },
+            "particleLimit": 100,
+            "properties": [
+                1,
+                5,
+                0.05000000074505806,
+                0.10000000149011612,
+                0.017368903383612634,
+                0.05732749402523041,
+                true
+            ],
+            "template": {
+                "color": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                ],
+                "lifetime": -1.0,
+                "minSpeed": 10.0,
+                "maxSpeed": 150.0,
+                "texture": "particle.tga",
+                "texCoords": [
+                    0.0,
+                    0.0,
+                    1.0,
+                    1.0
+                ]
+            },
+            "affectors": []
+        },
+        {
+            "identifier": ".?AVGameObject@uth@@",
+            "active": true,
+            "transform": {
+                "posX": 0.0,
+                "posY": 0.0,
+                "origX": 0.0,
+                "origY": 0.0,
+                "scaleX": 1.0,
+                "scaleY": 1.0,
+                "sizeX": 464.0,
+                "sizeY": 32.0,
+                "angle": 0.0
+            },
+            "tags": [
+                "TEXT"
+            ],
+            "components": [
+                {
+                    "name": "Text",
+                    "active": true,
+                    "fontSize": 32.0,
+                    "fontPath": "FreePixel.ttf",
+                    "color": [
+                        1.0,
+                        1.0,
+                        1.0,
+                        1.0
+                    ],
+                    "string": "QWERTYUIOPASDFGHJKLZXCVBNM;:_",
+                    "identifier": ".?AVText@uth@@"
+                }
+            ]
+        }
+    ]
+}

@@ -179,4 +179,28 @@ namespace uth
 		target.SetShader(nullptr);
 	}
 
+    rapidjson::Value SpriteBatch::save(rapidjson::MemoryPoolAllocator<>& alloc) const
+    {
+        namespace rj = rapidjson;
+
+        rj::Value val = GameObject::save(alloc);
+
+        val.AddMember(rj::StringRef("adoptedPointers"), m_adoptedPointers, alloc);
+
+        if (m_atlas)
+            val.AddMember(rj::StringRef("atlas"), rj::Value(uthRS.FilePath(m_atlas, uth::ResourceManager::Textures).c_str(), alloc), alloc);
+        else if (m_texture)
+            val.AddMember(rj::StringRef("texture"), rj::Value(uthRS.FilePath(m_texture, uth::ResourceManager::Textures).c_str(), alloc), alloc);
+    
+        return val;
+    }
+
+    bool SpriteBatch::load(const rapidjson::Value& doc)
+    {
+        // TODO: atlas support
+        if (doc.HasMember("texture"))
+            m_texture = uthRS.LoadTexture(doc["texture"].GetString());
+
+        return (m_atlas != nullptr || m_texture != nullptr);
+    }
 }

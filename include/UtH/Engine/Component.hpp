@@ -5,7 +5,9 @@
 #include <UtH/Platform/Uncopyable.hpp>
 #include <UtH/Resources/Shader.hpp>
 #include <UtH/Renderer/RenderAttributes.hpp>
+#include <UtH/Engine/Saveable.hpp>
 #include <string>
+#include <memory>
 
 
 namespace uth
@@ -13,10 +15,11 @@ namespace uth
 	class GameObject;
 	class RenderTarget;
 
-	class Component
+	class Component : public Saveable
 	{
 	public:
 
+        //Component();
 		Component(const std::string& name); // Should be unique(per gameobject)
 		virtual ~Component();
 
@@ -34,11 +37,18 @@ namespace uth
 		GameObject* parent;
 
 	protected:
-		Component();
 
 		std::string m_name;
 
 		bool m_active;
+
+    protected:
+
+        friend class GameObject;
+
+        rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const override;
+        bool load(const rapidjson::Value& doc) override;
+
 	};
 }
 #endif

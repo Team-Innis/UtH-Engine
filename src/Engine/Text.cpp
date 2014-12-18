@@ -9,6 +9,7 @@
 #include <freetype-gl/freetype-gl.h>
 
 #include <cmath>
+#include <codecvt>
 
 namespace
 {
@@ -31,15 +32,22 @@ uth::Text::Text(const std::string& fontPath, const float fontSize,
 
 	m_atlas = texture_atlas_new(1024, 1024, 1);
 
-	const Font* font = uthRS.LoadFont(fontPath);
+	m_uthFont = uthRS.LoadFont(fontPath);
 
-	if (font)
+    if (m_uthFont)
 	{
-		auto& data = font->GetFontData();
+        auto& data = m_uthFont->GetFontData();
 
 		m_font = texture_font_new_from_memory(m_atlas, fontSize, data.ptr(), data.size());
 	}
 }
+
+//uth::Text::Text()
+//    : Component(),
+//      m_fontSize(30)
+//{
+//
+//}
 
 Text::~Text()
 {
@@ -169,12 +177,53 @@ const std::wstring& Text::GetText() const
 
 void uth::Text::SetColor(const pmath::Vec4 color)
 {
-	m_color = color;
-	SetText(m_text, color);
+    m_color = color;
+    std::wstring tempStr(m_text);
+    SetText(tempStr, color);
 }
 const pmath::Vec4 uth::Text::GetDefaultColor()
 {
 	return m_color;
+}
+
+rapidjson::Value uth::Text::save(rapidjson::MemoryPoolAllocator<>& alloc) const
+{
+    namespace rj = rapidjson;
+
+    rj::Value val = Component::save(alloc);
+
+    val.AddMember(rj::StringRef("fontSize"), m_fontSize, alloc);
+    val.AddMember(rj::StringRef("fontPath"), rj::Value(uthRS.FilePath(m_uthFont, ResourceManager::Fonts).c_str(), alloc), alloc);
+
+    rj::Value& colVal = val.AddMember(rj::StringRef("color"), rj::kArrayType, alloc)["color"];
+
+    colVal.PushBack(m_color.r, alloc)
+          .PushBack(m_color.g, alloc)
+          .PushBack(m_color.b, alloc)
+          .PushBack(m_color.a, alloc);
+
+    if (!m_text.empty())
+        val.AddMember(rj::StringRef("string"), rj::Value(std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(m_text).c_str(), alloc), alloc);
+
+    return val;
+}
+
+bool uth::Text::load(const rapidjson::Value& doc)
+{
+    if (!Component::load(doc))
+        return false;
+
+    const rapidjson::Value& colVal = doc["color"];
+
+    m_color.r = colVal[0u].GetDouble();
+    m_color.g = colVal[1].GetDouble();
+    m_color.b = colVal[2].GetDouble();
+    m_color.a = colVal[3].GetDouble();
+
+    if (doc.HasMember("string"))
+        SetText(doc["string"].GetString());
+
+    return true;
 }
 
 void Text::Draw(RenderTarget& target)

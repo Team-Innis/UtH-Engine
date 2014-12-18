@@ -44,7 +44,9 @@ namespace uth
 
 	class Rigidbody : public Component
 	{
-	public:
+    public:
+
+        //Rigidbody();
 		// Create a rigidbody with a default box collider
 		Rigidbody(PhysicsWorld& world, const COLLIDER_TYPE collider = COLLIDER_BOX,
 			const std::string& name = "Rigidbody");
@@ -175,7 +177,9 @@ namespace uth
 		void defaults();
 		void init();
 
-		Rigidbody();
+        rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const override;
+
+        bool load(const rapidjson::Value& doc) override;
 
 		std::weak_ptr<b2World> m_world;
 		b2Body* m_body;

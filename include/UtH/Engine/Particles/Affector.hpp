@@ -2,6 +2,7 @@
 #ifndef AFFECTOR_H_UTH
 #define AFFECTOR_H_UTH
 
+#include <UtH/Engine/Saveable.hpp>
 #include <functional>
 
 
@@ -11,7 +12,7 @@ namespace uth
     class ParticleTemplate;
     class ParticleSystem;
 
-    class Affector
+    class Affector : public Saveable
     {
     private:
 
@@ -44,6 +45,10 @@ namespace uth
         ParticleSystem* GetSystem();
 
     private:
+
+        virtual rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const override;
+
+        virtual bool load(const rapidjson::Value& doc) override;
      
         InitFunc m_initFunc;
         ParticleUpdateFunc m_puFunc;

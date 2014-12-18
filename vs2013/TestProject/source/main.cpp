@@ -16,6 +16,8 @@ int main()
 		uthEngine.Draw();
 	}
 
+    uthEngine.DeInit();
+
 	return 0;
 	//Hood.MainLoop(/*new StartScene*/);
 	//uthSceneM.GoToScene(/*new GameScene*/1);

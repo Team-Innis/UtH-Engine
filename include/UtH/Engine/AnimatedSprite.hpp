@@ -10,6 +10,7 @@ namespace uth
 	class AnimatedSprite : public Sprite
 	{
 	public:
+        //AnimatedSprite();
 		~AnimatedSprite();
 
 		AnimatedSprite(Texture* texture, const unsigned int frames,
@@ -34,6 +35,10 @@ namespace uth
 	private:
 
 		void generateBuffer(bool init = false);
+
+        rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const final override;
+
+        bool load(const rapidjson::Value& doc) final override;
 
 		unsigned int m_frames; // in the loop
 		int m_firstFrame; // of the loop

@@ -6,6 +6,14 @@
 
 using namespace uth;
 
+
+uth::Sprite::Sprite()
+    : Component("Sprite"),
+      m_texture(nullptr)
+{
+
+}
+
 Sprite::Sprite(Texture* texture, const std::string& name)
 	: Component(name),
 	  m_texture(texture)
@@ -82,9 +90,12 @@ void Sprite::Draw(RenderTarget& target)
 
 void Sprite::SetTexture(Texture* texture)
 {
-	m_texture = texture;
-	m_size = texture->GetSize();
-	Init();
+    if (texture)
+    {
+        m_texture = texture;
+        m_size = texture->GetSize();
+        Init();
+    }
 }
 
 Texture* Sprite::GetTexture() const
@@ -168,4 +179,48 @@ void Sprite::generateBuffer(bool init)
 
         m_vertexBuffer.changeBufferData(0, vertices);
     }
+}
+
+namespace rj = rapidjson;
+
+rj::Value uth::Sprite::save(rj::MemoryPoolAllocator<>& alloc) const
+{
+    rj::Value val(Component::save(alloc));
+
+    val.AddMember(rj::StringRef("properties"), rj::kArrayType, alloc);
+    rj::Value& props = val["properties"];
+
+    props.PushBack(m_size.w, alloc);
+    props.PushBack(m_size.h, alloc);
+    props.PushBack(m_color.r, alloc);
+    props.PushBack(m_color.g, alloc);
+    props.PushBack(m_color.b, alloc);
+    props.PushBack(m_color.a, alloc);
+
+    if (m_texture)
+        val.AddMember(rj::StringRef("texture"), rj::Value(uthRS.FilePath(m_texture, ResourceManager::Textures).c_str(), alloc), alloc);
+
+    return val;
+}
+
+bool uth::Sprite::load(const rj::Value& doc)
+{
+    if (!Component::load(doc))
+        return false;
+
+    const rj::Value& props = doc["properties"];
+    
+    m_size.w = props[0u].GetDouble();
+    m_size.h = props[1].GetDouble();
+    m_color.r = props[2].GetDouble();
+    m_color.g = props[3].GetDouble();
+    m_color.b = props[4].GetDouble();
+    m_color.a = props[5].GetDouble();
+
+    if (doc.HasMember("texture") && doc["texture"].IsString())
+        SetTexture(uthRS.LoadTexture(doc["texture"].GetString()));
+    else
+        Init();
+
+    return true;
 }

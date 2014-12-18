@@ -2,11 +2,12 @@
 #include <UtH/Renderer/Camera.hpp>
 #include <UtH/Renderer/RenderTarget.hpp>
 #include <UtH/Platform/Debug.hpp>
+#include <UtH/Engine/SceneManager.hpp>
 
 using namespace uth;
 
 GameObject::GameObject()
-	: Object()
+    : Object()
 {
 
 }
@@ -100,4 +101,55 @@ void GameObject::Update(float dt)
 			i->Update(dt);
 	}
 	Object::Update(dt);
+}
+
+namespace rj = rapidjson;
+
+rapidjson::Value GameObject::save(rapidjson::MemoryPoolAllocator<>& alloc) const
+{
+    rj::Value val = Object::save(alloc);
+
+    if (!m_components.empty())
+    {
+        val.AddMember(rj::StringRef("components"), rj::kArrayType, alloc);
+        rj::Value& compArray = val["components"];
+
+        for (auto& i : m_components)
+        {
+            rj::Value compVal = i->save(alloc);
+            compVal.AddMember(rj::StringRef("identifier"), rj::StringRef(typeid(*i.get()).raw_name()), alloc);
+
+            compArray.PushBack(compVal, alloc);
+        }
+    }
+
+    return val;
+}
+
+bool GameObject::load(const rj::Value& doc)
+{
+    if (!Object::load(doc))
+        return false;
+
+    if (doc.HasMember("components") && doc["components"].IsArray())
+    {
+        const rj::Value& compArray = doc["components"];
+
+        for (auto itr = compArray.Begin(); itr != compArray.End(); ++itr)
+        {
+            std::unique_ptr<Component> ptr(static_cast<Component*>(uthSceneM.GetSaveable(*itr)));
+
+            if (!ptr)
+                return false;
+
+            ptr->parent = this;
+
+            if (ptr->load(*itr))
+                AddComponent(ptr.release());
+            else
+                return false;
+        }
+    }
+
+    return true;
 }

@@ -9,12 +9,14 @@
 #include <memory>
 #include <UtH/Engine/Transform.hpp>
 #include <UtH/Renderer/RenderAttributes.hpp>
+#include <UtH/Engine/Saveable.hpp>
+
 
 namespace uth
 {
 	class RenderTarget;
 
-	class Object
+	class Object : public Saveable
 	{
 		Object(const Object&) = delete;
 	public:
@@ -84,9 +86,15 @@ namespace uth
 
 	protected:
 		Object* m_parent;
-		bool m_active;
+        bool m_active;
+
+        rapidjson::Value save(rapidjson::MemoryPoolAllocator<>& alloc) const override;
+        bool load(const rapidjson::Value& doc) override;
 
 	private:
+
+        friend class SceneManager;
+
 		void findAll(const std::string& tag, std::vector<std::shared_ptr<Object>>& vec) const;
 		void findAll(std::vector<std::shared_ptr<Object>>& vec) const;
 
