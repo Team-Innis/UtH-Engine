@@ -235,7 +235,7 @@ rapidjson::Value ParticleSystem::save(rapidjson::MemoryPoolAllocator<>& alloc) c
 
             rj::Value aff(i->save(alloc));
 
-            aff.AddMember(rj::StringRef("identifier"), rj::StringRef(typeid(*i).raw_name()), alloc);
+            aff.AddMember(rj::StringRef("identifier"), rj::StringRef(typeid(*i).name()), alloc);
 
             aArray.PushBack(aff, alloc);
         }

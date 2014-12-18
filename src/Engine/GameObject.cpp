@@ -117,7 +117,7 @@ rapidjson::Value GameObject::save(rapidjson::MemoryPoolAllocator<>& alloc) const
         for (auto& i : m_components)
         {
             rj::Value compVal = i->save(alloc);
-            compVal.AddMember(rj::StringRef("identifier"), rj::StringRef(typeid(*i.get()).raw_name()), alloc);
+            compVal.AddMember(rj::StringRef("identifier"), rj::StringRef(typeid(*i.get()).name()), alloc);
 
             compArray.PushBack(compVal, alloc);
         }

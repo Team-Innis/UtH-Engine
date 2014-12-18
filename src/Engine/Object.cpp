@@ -292,7 +292,7 @@ namespace uth
         val.SetObject();
 
         // Active flag
-        val.AddMember(rj::StringRef("identifier"), rj::StringRef(typeid(*this).raw_name()), alloc);
+        val.AddMember(rj::StringRef("identifier"), rj::StringRef(typeid(*this).name()), alloc);
         val.AddMember(rj::StringRef("active"), m_active, alloc);
         
         val.AddMember(rj::StringRef("transform"), transform.save(alloc), alloc);

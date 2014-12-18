@@ -46,7 +46,7 @@ namespace uth
             static_assert(std::is_base_of<Saveable, T>::value, "Tried to register an object that doesn't derive from uth::Saveable");
             static_assert(!std::is_reference<T>::value && !std::is_pointer<T>::value, "Tried to register an object as pointer or reference. Must be full definition.");
 
-            m_saveableFuncs.emplace(typeid(T).raw_name(), [](const rapidjson::Value&) -> Saveable*
+            m_saveableFuncs.emplace(typeid(T).name(), [](const rapidjson::Value&) -> Saveable*
             {
                 return new T();
             });
@@ -58,7 +58,7 @@ namespace uth
             static_assert(std::is_base_of<Saveable, T>::value, "Tried to register an object that doesn't derive from uth::Saveable");
             static_assert(!std::is_reference<T>::value && !std::is_pointer<T>::value, "Tried to register an object as pointer or reference. Must be full definition.");
 
-            m_saveableFuncs.emplace(typeid(T).raw_name(), func);
+            m_saveableFuncs.emplace(typeid(T).name(), func);
         }
 
         Saveable* GetSaveable(const rapidjson::Value& val);

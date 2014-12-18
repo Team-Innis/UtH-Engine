@@ -9,7 +9,7 @@
 #include <freetype-gl/freetype-gl.h>
 
 #include <cmath>
-#include <codecvt>
+//#include <locale>
 
 namespace
 {
@@ -203,7 +203,7 @@ rapidjson::Value uth::Text::save(rapidjson::MemoryPoolAllocator<>& alloc) const
           .PushBack(m_color.a, alloc);
 
     if (!m_text.empty())
-        val.AddMember(rj::StringRef("string"), rj::Value(std::wstring_convert<std::codecvt_utf8<wchar_t>>().to_bytes(m_text).c_str(), alloc), alloc);
+        val.AddMember(rj::StringRef("string"), rj::Value(std::string(m_text.begin(), m_text.end()).c_str(), alloc), alloc);
 
     return val;
 }

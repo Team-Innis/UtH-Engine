@@ -14,7 +14,7 @@ namespace uth
 
         Saveable(){}
 
-        virtual ~Saveable() = 0{}
+		virtual ~Saveable() {};
 
 
         virtual rapidjson::Value save(rapidjson::MemoryPoolAllocator<>&) const = 0;
