@@ -251,45 +251,47 @@ rapidjson::Value Rigidbody::save(rapidjson::MemoryPoolAllocator<>& alloc) const
 
     rj::Value val = Component::save(alloc);
 
-    val.AddMember("colliderType", static_cast<unsigned int>(m_collider), alloc);
-    val.AddMember("size", rj::kArrayType, alloc)["size"]
-       .PushBack(m_size.x * PIXELS_PER_METER, alloc)
-       .PushBack(m_size.y * PIXELS_PER_METER, alloc);
+    WriteError("Rigidbody saving is not currently supported.");
 
-    // Fixture
-    {
-        rj::Value& fix = val.AddMember(rj::StringRef("fixture"), rj::kObjectType, alloc)["fixture"];
-        
-        fix.AddMember(rj::StringRef("filterData"), rj::kArrayType, alloc)["filterData"]
-           .PushBack(m_fixtureDef.filter.categoryBits, alloc)
-           .PushBack(m_fixtureDef.filter.groupIndex, alloc)
-           .PushBack(m_fixtureDef.filter.maskBits, alloc);
-        
-        fix.AddMember(rj::StringRef("properties"), rj::kArrayType, alloc)["properties"]
-           .PushBack(m_fixtureDef.density, alloc)
-           .PushBack(m_fixtureDef.friction, alloc)
-           .PushBack(m_fixtureDef.isSensor, alloc)
-           .PushBack(m_fixtureDef.restitution, alloc);
-    }
+    //val.AddMember("colliderType", static_cast<unsigned int>(m_collider), alloc);
+    //val.AddMember("size", rj::kArrayType, alloc)["size"]
+    //   .PushBack(m_size.x * PIXELS_PER_METER, alloc)
+    //   .PushBack(m_size.y * PIXELS_PER_METER, alloc);
 
-    // Body
-    {
-        val.AddMember(rj::StringRef("body"), rj::kArrayType, alloc)["body"]
-           .PushBack(m_body->GetAngle(), alloc)
-           .PushBack(m_body->GetAngularDamping(), alloc)
-           .PushBack(m_body->GetAngularVelocity(), alloc)
-           .PushBack(m_body->GetGravityScale(), alloc)
-           .PushBack(m_body->GetLinearDamping(), alloc)
-           .PushBack(m_body->GetLinearVelocity().x, alloc)
-           .PushBack(m_body->GetLinearVelocity().y, alloc)
-           .PushBack(m_body->GetPosition().x, alloc)
-           .PushBack(m_body->GetPosition().y, alloc)
-           .PushBack(m_body->IsActive(), alloc)
-           .PushBack(m_body->IsBullet(), alloc)
-           .PushBack(m_body->IsFixedRotation(), alloc)
-           .PushBack(m_body->IsSleepingAllowed(), alloc)
-           .PushBack(m_body->GetType() == b2_kinematicBody, alloc);
-    }
+    //// Fixture
+    //{
+    //    rj::Value& fix = val.AddMember(rj::StringRef("fixture"), rj::kObjectType, alloc)["fixture"];
+    //    
+    //    fix.AddMember(rj::StringRef("filterData"), rj::kArrayType, alloc)["filterData"]
+    //       .PushBack(m_fixtureDef.filter.categoryBits, alloc)
+    //       .PushBack(m_fixtureDef.filter.groupIndex, alloc)
+    //       .PushBack(m_fixtureDef.filter.maskBits, alloc);
+    //    
+    //    fix.AddMember(rj::StringRef("properties"), rj::kArrayType, alloc)["properties"]
+    //       .PushBack(m_fixtureDef.density, alloc)
+    //       .PushBack(m_fixtureDef.friction, alloc)
+    //       .PushBack(m_fixtureDef.isSensor, alloc)
+    //       .PushBack(m_fixtureDef.restitution, alloc);
+    //}
+
+    //// Body
+    //{
+    //    val.AddMember(rj::StringRef("body"), rj::kArrayType, alloc)["body"]
+    //       .PushBack(m_body->GetAngle(), alloc)
+    //       .PushBack(m_body->GetAngularDamping(), alloc)
+    //       .PushBack(m_body->GetAngularVelocity(), alloc)
+    //       .PushBack(m_body->GetGravityScale(), alloc)
+    //       .PushBack(m_body->GetLinearDamping(), alloc)
+    //       .PushBack(m_body->GetLinearVelocity().x, alloc)
+    //       .PushBack(m_body->GetLinearVelocity().y, alloc)
+    //       .PushBack(m_body->GetPosition().x, alloc)
+    //       .PushBack(m_body->GetPosition().y, alloc)
+    //       .PushBack(m_body->IsActive(), alloc)
+    //       .PushBack(m_body->IsBullet(), alloc)
+    //       .PushBack(m_body->IsFixedRotation(), alloc)
+    //       .PushBack(m_body->IsSleepingAllowed(), alloc)
+    //       .PushBack(m_body->GetType() == b2_kinematicBody, alloc);
+    //}
 
     return val;
 }
@@ -301,41 +303,43 @@ bool Rigidbody::load(const rapidjson::Value& doc)
     if (!Component::load(doc))
         return false;
 
-    init();
+    WriteError("Rigidbody loading is not currently supported.");
 
-    // Fixture
-    {
-        const rj::Value& fix = doc["fixture"];
+    //init();
 
-        const rj::Value& filter = fix["filterData"];
-        SetPhysicsCategory(static_cast<Physics::Category>(filter[0u].GetUint()));
-        SetPhysicsGroup(filter[1].GetUint());
-        SetPhysicsMask(filter[2].GetUint());
+    //// Fixture
+    //{
+    //    const rj::Value& fix = doc["fixture"];
 
-        const rj::Value& props = fix["properties"];
-        SetDensity(props[0u].GetDouble());
-        SetFriction(props[1].GetDouble());
-        SetTrigger(props[2].GetBool());
-        SetRestitution(props[3].GetDouble());
-    }
+    //    const rj::Value& filter = fix["filterData"];
+    //    SetPhysicsCategory(static_cast<Physics::Category>(filter[0u].GetUint()));
+    //    SetPhysicsGroup(filter[1].GetUint());
+    //    SetPhysicsMask(filter[2].GetUint());
 
-    // Body
-    {
-        const rj::Value& body = doc["body"];
-        //SetAngle(body[0u].GetDouble());
-        //SetPosition(pmath::Vec2(body[7].GetDouble(), body[8].GetDouble()));
-        m_body->SetTransform(b2Vec2(body[7].GetDouble(), body[8].GetDouble()), body[0u].GetDouble());
-        m_body->SetAngularDamping(body[1].GetDouble());
-        //SetAngularVelocity(body[2].GetDouble());
-        m_body->SetGravityScale(body[3].GetDouble());
-        m_body->SetLinearDamping(body[4].GetDouble());
-        //SetVelocity(pmath::Vec2(body[5].GetDouble(), body[6].GetDouble()));
-        SetActive(body[9].GetBool());
-        SetBullet(body[10].GetBool());
-        SetFixedRotation(body[11].GetBool());
-        m_body->SetSleepingAllowed(body[12].GetBool());
-        SetKinematic(body[13].GetBool());
-    }
+    //    const rj::Value& props = fix["properties"];
+    //    SetDensity(props[0u].GetDouble());
+    //    SetFriction(props[1].GetDouble());
+    //    SetTrigger(props[2].GetBool());
+    //    SetRestitution(props[3].GetDouble());
+    //}
+
+    //// Body
+    //{
+    //    const rj::Value& body = doc["body"];
+    //    //SetAngle(body[0u].GetDouble());
+    //    //SetPosition(pmath::Vec2(body[7].GetDouble(), body[8].GetDouble()));
+    //    m_body->SetTransform(b2Vec2(body[7].GetDouble(), body[8].GetDouble()), body[0u].GetDouble());
+    //    m_body->SetAngularDamping(body[1].GetDouble());
+    //    //SetAngularVelocity(body[2].GetDouble());
+    //    m_body->SetGravityScale(body[3].GetDouble());
+    //    m_body->SetLinearDamping(body[4].GetDouble());
+    //    //SetVelocity(pmath::Vec2(body[5].GetDouble(), body[6].GetDouble()));
+    //    SetActive(body[9].GetBool());
+    //    SetBullet(body[10].GetBool());
+    //    SetFixedRotation(body[11].GetBool());
+    //    m_body->SetSleepingAllowed(body[12].GetBool());
+    //    SetKinematic(body[13].GetBool());
+    //}
 
     return true;
 }
