@@ -63,7 +63,6 @@ namespace uth
 	}
 	SceneManager::~SceneManager()
 	{
-		
 	}
 	
 	void SceneManager::GoToScene(int SceneID, bool /*disposeCurrent*/)
@@ -166,7 +165,7 @@ namespace uth
 	{
 		if (!curScene->DeInit())
 			WriteError("Scene %d DeInit() func returns false",m_sceneID);
-		delete curScene;
+		curScene.reset();
 	}
 	void SceneManager::startScene()
 	{
@@ -186,9 +185,9 @@ namespace uth
 			endScene();
 		Scene* newScene = makeActiveScene(m_nextScene);
 		if (newScene)
-			curScene = newScene;
+			curScene = std::shared_ptr<Scene>(newScene);
 		else
-			curScene = new uth::DefaultScene();
+			curScene = std::make_shared<DefaultScene>();
 		startScene();
 		m_pendingSceneSwitch = false;
 	}

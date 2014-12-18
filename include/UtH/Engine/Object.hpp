@@ -16,7 +16,7 @@ namespace uth
 {
 	class RenderTarget;
 
-	class Object : public Saveable
+	class Object : public std::enable_shared_from_this<Object> , public Saveable
 	{
 		Object(const Object&) = delete;
 	public:

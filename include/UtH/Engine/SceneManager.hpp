@@ -69,7 +69,7 @@ namespace uth
 		void startScene();
 		void m_switchScene();
 		Scene* (*makeActiveScene)(int SceneID);
-		Scene* curScene;
+		std::shared_ptr<Scene> curScene;
 
 		int m_sceneID;
 		int m_nextScene;
