@@ -178,7 +178,7 @@ const std::wstring& Text::GetText() const
 void uth::Text::SetColor(const pmath::Vec4 color)
 {
     m_color = color;
-    std::wstring tempStr(m_text);
+    const std::wstring tempStr(m_text);
     SetText(tempStr, color);
 }
 const pmath::Vec4 uth::Text::GetDefaultColor()
